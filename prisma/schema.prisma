@@ -1,0 +1,68 @@
+generator client {
+  provider     = "prisma-client"
+  output       = "../src/generated/prisma"
+  runtime      = "nodejs"
+  moduleFormat = "cjs"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Institucion {
+  id          Int       @id @default(autoincrement())
+  nombre      String
+  codigo      String    @unique
+  nit         String    @unique
+  correo      String 
+  telefono    String
+  direccion   String
+  ciudad      String
+  departamento String
+  sitioWeb    String?
+  logo        String
+  estado      Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  usuarios    Usuario[]
+
+  @@map("instituciones")
+}
+
+model Rol {
+  id          Int       @id @default(autoincrement())
+  nombre      String    @unique
+  descripcion String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  usuarios    Usuario[]
+
+  @@map("roles")
+}
+
+model Usuario {
+  id              Int         @id @default(autoincrement())
+  nombres         String
+  apellidos       String
+  correo          String      @unique
+  tipoDocumento   String
+  documento       String      @unique
+  fechaNacimiento DateTime    @db.Date
+  genero          String
+  foto            String
+  contrasena      String
+  activo          Boolean     @default(true)
+  ultimoAcceso    DateTime?
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  institucionId   Int
+  rolId           Int
+
+  institucion     Institucion @relation(fields: [institucionId], references: [id])
+  rol             Rol         @relation(fields: [rolId], references: [id])
+
+  @@map("usuarios")
+}
