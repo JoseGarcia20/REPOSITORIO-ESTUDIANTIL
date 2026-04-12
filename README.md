@@ -1,3 +1,5 @@
+Plataforma web inteligente para la administración de recursos educativos de colegios de secundaria de la ciudad de Bucaramanga, Santander. Repositorio impulsado con agentes de IA, para la consulta, filtrado, clasificación, búsqueda y selección de contenido e información para el aprendizaje adaptativo de estudiantes y demás actividades académicas. 
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
 </p>
