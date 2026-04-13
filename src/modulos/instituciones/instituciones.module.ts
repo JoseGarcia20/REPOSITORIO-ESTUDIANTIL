@@ -1,7 +1,9 @@
 import { Module } from '@nestjs/common';
-import { InstitucionesService } from './servicios/instituciones/instituciones.service';
+import { InstitucionesController } from './controladores/instituciones.controller';
+import { InstitucionesService } from './servicios/instituciones.service';
 
 @Module({
-  providers: [InstitucionesService]
+  controllers: [InstitucionesController],
+  providers: [InstitucionesService],
 })
 export class InstitucionesModule {}
