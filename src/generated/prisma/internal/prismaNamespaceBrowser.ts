@@ -53,7 +53,19 @@ export const AnyNull = runtime.AnyNull
 export const ModelName = {
   Institucion: 'Institucion',
   Rol: 'Rol',
-  Usuario: 'Usuario'
+  Usuario: 'Usuario',
+  Categoria: 'Categoria',
+  Foro: 'Foro',
+  RespuestaForo: 'RespuestaForo',
+  TipoRecurso: 'TipoRecurso',
+  Recurso: 'Recurso',
+  CalificacionRecurso: 'CalificacionRecurso',
+  TipoAprendizaje: 'TipoAprendizaje',
+  RutaAprendizaje: 'RutaAprendizaje',
+  DetalleRutaAprendizaje: 'DetalleRutaAprendizaje',
+  AsignacionRutaAprendizaje: 'AsignacionRutaAprendizaje',
+  DiagnosticoAprendizaje: 'DiagnosticoAprendizaje',
+  DetalleDiagnosticoAprendizaje: 'DetalleDiagnosticoAprendizaje'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -96,6 +108,7 @@ export const RolScalarFieldEnum = {
   id: 'id',
   nombre: 'nombre',
   descripcion: 'descripcion',
+  estado: 'estado',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -123,6 +136,184 @@ export const UsuarioScalarFieldEnum = {
 } as const
 
 export type UsuarioScalarFieldEnum = (typeof UsuarioScalarFieldEnum)[keyof typeof UsuarioScalarFieldEnum]
+
+
+export const CategoriaScalarFieldEnum = {
+  id: 'id',
+  nombre: 'nombre',
+  descripcion: 'descripcion',
+  color: 'color',
+  estado: 'estado',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  institucionId: 'institucionId'
+} as const
+
+export type CategoriaScalarFieldEnum = (typeof CategoriaScalarFieldEnum)[keyof typeof CategoriaScalarFieldEnum]
+
+
+export const ForoScalarFieldEnum = {
+  id: 'id',
+  titulo: 'titulo',
+  descripcion: 'descripcion',
+  estado: 'estado',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  institucionId: 'institucionId',
+  categoriaId: 'categoriaId',
+  usuarioId: 'usuarioId'
+} as const
+
+export type ForoScalarFieldEnum = (typeof ForoScalarFieldEnum)[keyof typeof ForoScalarFieldEnum]
+
+
+export const RespuestaForoScalarFieldEnum = {
+  id: 'id',
+  contenido: 'contenido',
+  estado: 'estado',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  foroId: 'foroId',
+  usuarioId: 'usuarioId'
+} as const
+
+export type RespuestaForoScalarFieldEnum = (typeof RespuestaForoScalarFieldEnum)[keyof typeof RespuestaForoScalarFieldEnum]
+
+
+export const TipoRecursoScalarFieldEnum = {
+  id: 'id',
+  nombre: 'nombre',
+  descripcion: 'descripcion',
+  icono: 'icono',
+  estado: 'estado',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TipoRecursoScalarFieldEnum = (typeof TipoRecursoScalarFieldEnum)[keyof typeof TipoRecursoScalarFieldEnum]
+
+
+export const RecursoScalarFieldEnum = {
+  id: 'id',
+  titulo: 'titulo',
+  palabrasClave: 'palabrasClave',
+  contenidoResumen: 'contenidoResumen',
+  rutaRecurso: 'rutaRecurso',
+  urlRecurso: 'urlRecurso',
+  fuente: 'fuente',
+  autorNombre: 'autorNombre',
+  nivelAcademico: 'nivelAcademico',
+  estado: 'estado',
+  publicado: 'publicado',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  institucionId: 'institucionId',
+  categoriaId: 'categoriaId',
+  tipoRecursoId: 'tipoRecursoId',
+  usuarioCreadorId: 'usuarioCreadorId'
+} as const
+
+export type RecursoScalarFieldEnum = (typeof RecursoScalarFieldEnum)[keyof typeof RecursoScalarFieldEnum]
+
+
+export const CalificacionRecursoScalarFieldEnum = {
+  id: 'id',
+  calificacion: 'calificacion',
+  comentario: 'comentario',
+  estado: 'estado',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  usuarioId: 'usuarioId',
+  recursoId: 'recursoId'
+} as const
+
+export type CalificacionRecursoScalarFieldEnum = (typeof CalificacionRecursoScalarFieldEnum)[keyof typeof CalificacionRecursoScalarFieldEnum]
+
+
+export const TipoAprendizajeScalarFieldEnum = {
+  id: 'id',
+  nombre: 'nombre',
+  descripcion: 'descripcion',
+  estado: 'estado',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TipoAprendizajeScalarFieldEnum = (typeof TipoAprendizajeScalarFieldEnum)[keyof typeof TipoAprendizajeScalarFieldEnum]
+
+
+export const RutaAprendizajeScalarFieldEnum = {
+  id: 'id',
+  titulo: 'titulo',
+  descripcion: 'descripcion',
+  temaObjetivo: 'temaObjetivo',
+  nivelDificultad: 'nivelDificultad',
+  duracionEstimada: 'duracionEstimada',
+  estado: 'estado',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  tipoAprendizajeId: 'tipoAprendizajeId'
+} as const
+
+export type RutaAprendizajeScalarFieldEnum = (typeof RutaAprendizajeScalarFieldEnum)[keyof typeof RutaAprendizajeScalarFieldEnum]
+
+
+export const DetalleRutaAprendizajeScalarFieldEnum = {
+  id: 'id',
+  orden: 'orden',
+  tituloPaso: 'tituloPaso',
+  tipoPaso: 'tipoPaso',
+  descripcion: 'descripcion',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  rutaAprendizajeId: 'rutaAprendizajeId',
+  recursoId: 'recursoId'
+} as const
+
+export type DetalleRutaAprendizajeScalarFieldEnum = (typeof DetalleRutaAprendizajeScalarFieldEnum)[keyof typeof DetalleRutaAprendizajeScalarFieldEnum]
+
+
+export const AsignacionRutaAprendizajeScalarFieldEnum = {
+  id: 'id',
+  fechaAsignacion: 'fechaAsignacion',
+  estado: 'estado',
+  porcentajeAvance: 'porcentajeAvance',
+  fechaInicio: 'fechaInicio',
+  fechaFinalizacion: 'fechaFinalizacion',
+  calificacionObtenida: 'calificacionObtenida',
+  temaSolicitado: 'temaSolicitado',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  usuarioId: 'usuarioId',
+  rutaAprendizajeId: 'rutaAprendizajeId'
+} as const
+
+export type AsignacionRutaAprendizajeScalarFieldEnum = (typeof AsignacionRutaAprendizajeScalarFieldEnum)[keyof typeof AsignacionRutaAprendizajeScalarFieldEnum]
+
+
+export const DiagnosticoAprendizajeScalarFieldEnum = {
+  id: 'id',
+  puntajeFinal: 'puntajeFinal',
+  resultadoFinal: 'resultadoFinal',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  usuarioId: 'usuarioId',
+  tipoAprendizajeId: 'tipoAprendizajeId'
+} as const
+
+export type DiagnosticoAprendizajeScalarFieldEnum = (typeof DiagnosticoAprendizajeScalarFieldEnum)[keyof typeof DiagnosticoAprendizajeScalarFieldEnum]
+
+
+export const DetalleDiagnosticoAprendizajeScalarFieldEnum = {
+  id: 'id',
+  puntaje: 'puntaje',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  diagnosticoAprendizajeId: 'diagnosticoAprendizajeId',
+  tipoAprendizajeId: 'tipoAprendizajeId'
+} as const
+
+export type DetalleDiagnosticoAprendizajeScalarFieldEnum = (typeof DetalleDiagnosticoAprendizajeScalarFieldEnum)[keyof typeof DetalleDiagnosticoAprendizajeScalarFieldEnum]
 
 
 export const SortOrder = {

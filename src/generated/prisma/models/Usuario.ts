@@ -262,7 +262,7 @@ export type UsuarioGroupByOutputType = {
   documento: string
   fechaNacimiento: Date
   genero: string
-  foto: string
+  foto: string | null
   contrasena: string
   activo: boolean
   ultimoAcceso: Date | null
@@ -304,7 +304,7 @@ export type UsuarioWhereInput = {
   documento?: Prisma.StringFilter<"Usuario"> | string
   fechaNacimiento?: Prisma.DateTimeFilter<"Usuario"> | Date | string
   genero?: Prisma.StringFilter<"Usuario"> | string
-  foto?: Prisma.StringFilter<"Usuario"> | string
+  foto?: Prisma.StringNullableFilter<"Usuario"> | string | null
   contrasena?: Prisma.StringFilter<"Usuario"> | string
   activo?: Prisma.BoolFilter<"Usuario"> | boolean
   ultimoAcceso?: Prisma.DateTimeNullableFilter<"Usuario"> | Date | string | null
@@ -314,6 +314,12 @@ export type UsuarioWhereInput = {
   rolId?: Prisma.IntFilter<"Usuario"> | number
   institucion?: Prisma.XOR<Prisma.InstitucionScalarRelationFilter, Prisma.InstitucionWhereInput>
   rol?: Prisma.XOR<Prisma.RolScalarRelationFilter, Prisma.RolWhereInput>
+  foros?: Prisma.ForoListRelationFilter
+  respuestasForo?: Prisma.RespuestaForoListRelationFilter
+  recursos?: Prisma.RecursoListRelationFilter
+  calificacionesRecurso?: Prisma.CalificacionRecursoListRelationFilter
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeListRelationFilter
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeListRelationFilter
 }
 
 export type UsuarioOrderByWithRelationInput = {
@@ -325,7 +331,7 @@ export type UsuarioOrderByWithRelationInput = {
   documento?: Prisma.SortOrder
   fechaNacimiento?: Prisma.SortOrder
   genero?: Prisma.SortOrder
-  foto?: Prisma.SortOrder
+  foto?: Prisma.SortOrderInput | Prisma.SortOrder
   contrasena?: Prisma.SortOrder
   activo?: Prisma.SortOrder
   ultimoAcceso?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -335,6 +341,12 @@ export type UsuarioOrderByWithRelationInput = {
   rolId?: Prisma.SortOrder
   institucion?: Prisma.InstitucionOrderByWithRelationInput
   rol?: Prisma.RolOrderByWithRelationInput
+  foros?: Prisma.ForoOrderByRelationAggregateInput
+  respuestasForo?: Prisma.RespuestaForoOrderByRelationAggregateInput
+  recursos?: Prisma.RecursoOrderByRelationAggregateInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoOrderByRelationAggregateInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeOrderByRelationAggregateInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeOrderByRelationAggregateInput
 }
 
 export type UsuarioWhereUniqueInput = Prisma.AtLeast<{
@@ -349,7 +361,7 @@ export type UsuarioWhereUniqueInput = Prisma.AtLeast<{
   tipoDocumento?: Prisma.StringFilter<"Usuario"> | string
   fechaNacimiento?: Prisma.DateTimeFilter<"Usuario"> | Date | string
   genero?: Prisma.StringFilter<"Usuario"> | string
-  foto?: Prisma.StringFilter<"Usuario"> | string
+  foto?: Prisma.StringNullableFilter<"Usuario"> | string | null
   contrasena?: Prisma.StringFilter<"Usuario"> | string
   activo?: Prisma.BoolFilter<"Usuario"> | boolean
   ultimoAcceso?: Prisma.DateTimeNullableFilter<"Usuario"> | Date | string | null
@@ -359,6 +371,12 @@ export type UsuarioWhereUniqueInput = Prisma.AtLeast<{
   rolId?: Prisma.IntFilter<"Usuario"> | number
   institucion?: Prisma.XOR<Prisma.InstitucionScalarRelationFilter, Prisma.InstitucionWhereInput>
   rol?: Prisma.XOR<Prisma.RolScalarRelationFilter, Prisma.RolWhereInput>
+  foros?: Prisma.ForoListRelationFilter
+  respuestasForo?: Prisma.RespuestaForoListRelationFilter
+  recursos?: Prisma.RecursoListRelationFilter
+  calificacionesRecurso?: Prisma.CalificacionRecursoListRelationFilter
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeListRelationFilter
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeListRelationFilter
 }, "id" | "correo" | "documento">
 
 export type UsuarioOrderByWithAggregationInput = {
@@ -370,7 +388,7 @@ export type UsuarioOrderByWithAggregationInput = {
   documento?: Prisma.SortOrder
   fechaNacimiento?: Prisma.SortOrder
   genero?: Prisma.SortOrder
-  foto?: Prisma.SortOrder
+  foto?: Prisma.SortOrderInput | Prisma.SortOrder
   contrasena?: Prisma.SortOrder
   activo?: Prisma.SortOrder
   ultimoAcceso?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -397,7 +415,7 @@ export type UsuarioScalarWhereWithAggregatesInput = {
   documento?: Prisma.StringWithAggregatesFilter<"Usuario"> | string
   fechaNacimiento?: Prisma.DateTimeWithAggregatesFilter<"Usuario"> | Date | string
   genero?: Prisma.StringWithAggregatesFilter<"Usuario"> | string
-  foto?: Prisma.StringWithAggregatesFilter<"Usuario"> | string
+  foto?: Prisma.StringNullableWithAggregatesFilter<"Usuario"> | string | null
   contrasena?: Prisma.StringWithAggregatesFilter<"Usuario"> | string
   activo?: Prisma.BoolWithAggregatesFilter<"Usuario"> | boolean
   ultimoAcceso?: Prisma.DateTimeNullableWithAggregatesFilter<"Usuario"> | Date | string | null
@@ -415,7 +433,7 @@ export type UsuarioCreateInput = {
   documento: string
   fechaNacimiento: Date | string
   genero: string
-  foto: string
+  foto?: string | null
   contrasena: string
   activo?: boolean
   ultimoAcceso?: Date | string | null
@@ -423,6 +441,12 @@ export type UsuarioCreateInput = {
   updatedAt?: Date | string
   institucion: Prisma.InstitucionCreateNestedOneWithoutUsuariosInput
   rol: Prisma.RolCreateNestedOneWithoutUsuariosInput
+  foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
+  respuestasForo?: Prisma.RespuestaForoCreateNestedManyWithoutUsuarioInput
+  recursos?: Prisma.RecursoCreateNestedManyWithoutUsuarioCreadorInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeCreateNestedManyWithoutUsuarioInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioUncheckedCreateInput = {
@@ -434,7 +458,7 @@ export type UsuarioUncheckedCreateInput = {
   documento: string
   fechaNacimiento: Date | string
   genero: string
-  foto: string
+  foto?: string | null
   contrasena: string
   activo?: boolean
   ultimoAcceso?: Date | string | null
@@ -442,6 +466,12 @@ export type UsuarioUncheckedCreateInput = {
   updatedAt?: Date | string
   institucionId: number
   rolId: number
+  foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
+  respuestasForo?: Prisma.RespuestaForoUncheckedCreateNestedManyWithoutUsuarioInput
+  recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutUsuarioCreadorInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioUpdateInput = {
@@ -452,7 +482,7 @@ export type UsuarioUpdateInput = {
   documento?: Prisma.StringFieldUpdateOperationsInput | string
   fechaNacimiento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   genero?: Prisma.StringFieldUpdateOperationsInput | string
-  foto?: Prisma.StringFieldUpdateOperationsInput | string
+  foto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contrasena?: Prisma.StringFieldUpdateOperationsInput | string
   activo?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ultimoAcceso?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -460,6 +490,12 @@ export type UsuarioUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   institucion?: Prisma.InstitucionUpdateOneRequiredWithoutUsuariosNestedInput
   rol?: Prisma.RolUpdateOneRequiredWithoutUsuariosNestedInput
+  foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
+  respuestasForo?: Prisma.RespuestaForoUpdateManyWithoutUsuarioNestedInput
+  recursos?: Prisma.RecursoUpdateManyWithoutUsuarioCreadorNestedInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUpdateManyWithoutUsuarioNestedInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioUncheckedUpdateInput = {
@@ -471,7 +507,7 @@ export type UsuarioUncheckedUpdateInput = {
   documento?: Prisma.StringFieldUpdateOperationsInput | string
   fechaNacimiento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   genero?: Prisma.StringFieldUpdateOperationsInput | string
-  foto?: Prisma.StringFieldUpdateOperationsInput | string
+  foto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contrasena?: Prisma.StringFieldUpdateOperationsInput | string
   activo?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ultimoAcceso?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -479,6 +515,12 @@ export type UsuarioUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   institucionId?: Prisma.IntFieldUpdateOperationsInput | number
   rolId?: Prisma.IntFieldUpdateOperationsInput | number
+  foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  respuestasForo?: Prisma.RespuestaForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  recursos?: Prisma.RecursoUncheckedUpdateManyWithoutUsuarioCreadorNestedInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioCreateManyInput = {
@@ -490,7 +532,7 @@ export type UsuarioCreateManyInput = {
   documento: string
   fechaNacimiento: Date | string
   genero: string
-  foto: string
+  foto?: string | null
   contrasena: string
   activo?: boolean
   ultimoAcceso?: Date | string | null
@@ -508,7 +550,7 @@ export type UsuarioUpdateManyMutationInput = {
   documento?: Prisma.StringFieldUpdateOperationsInput | string
   fechaNacimiento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   genero?: Prisma.StringFieldUpdateOperationsInput | string
-  foto?: Prisma.StringFieldUpdateOperationsInput | string
+  foto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contrasena?: Prisma.StringFieldUpdateOperationsInput | string
   activo?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ultimoAcceso?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -525,7 +567,7 @@ export type UsuarioUncheckedUpdateManyInput = {
   documento?: Prisma.StringFieldUpdateOperationsInput | string
   fechaNacimiento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   genero?: Prisma.StringFieldUpdateOperationsInput | string
-  foto?: Prisma.StringFieldUpdateOperationsInput | string
+  foto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contrasena?: Prisma.StringFieldUpdateOperationsInput | string
   activo?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ultimoAcceso?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -612,6 +654,11 @@ export type UsuarioSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   institucionId?: Prisma.SortOrder
   rolId?: Prisma.SortOrder
+}
+
+export type UsuarioScalarRelationFilter = {
+  is?: Prisma.UsuarioWhereInput
+  isNot?: Prisma.UsuarioWhereInput
 }
 
 export type UsuarioCreateNestedManyWithoutInstitucionInput = {
@@ -702,6 +749,90 @@ export type NullableDateTimeFieldUpdateOperationsInput = {
   set?: Date | string | null
 }
 
+export type UsuarioCreateNestedOneWithoutForosInput = {
+  create?: Prisma.XOR<Prisma.UsuarioCreateWithoutForosInput, Prisma.UsuarioUncheckedCreateWithoutForosInput>
+  connectOrCreate?: Prisma.UsuarioCreateOrConnectWithoutForosInput
+  connect?: Prisma.UsuarioWhereUniqueInput
+}
+
+export type UsuarioUpdateOneRequiredWithoutForosNestedInput = {
+  create?: Prisma.XOR<Prisma.UsuarioCreateWithoutForosInput, Prisma.UsuarioUncheckedCreateWithoutForosInput>
+  connectOrCreate?: Prisma.UsuarioCreateOrConnectWithoutForosInput
+  upsert?: Prisma.UsuarioUpsertWithoutForosInput
+  connect?: Prisma.UsuarioWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UsuarioUpdateToOneWithWhereWithoutForosInput, Prisma.UsuarioUpdateWithoutForosInput>, Prisma.UsuarioUncheckedUpdateWithoutForosInput>
+}
+
+export type UsuarioCreateNestedOneWithoutRespuestasForoInput = {
+  create?: Prisma.XOR<Prisma.UsuarioCreateWithoutRespuestasForoInput, Prisma.UsuarioUncheckedCreateWithoutRespuestasForoInput>
+  connectOrCreate?: Prisma.UsuarioCreateOrConnectWithoutRespuestasForoInput
+  connect?: Prisma.UsuarioWhereUniqueInput
+}
+
+export type UsuarioUpdateOneRequiredWithoutRespuestasForoNestedInput = {
+  create?: Prisma.XOR<Prisma.UsuarioCreateWithoutRespuestasForoInput, Prisma.UsuarioUncheckedCreateWithoutRespuestasForoInput>
+  connectOrCreate?: Prisma.UsuarioCreateOrConnectWithoutRespuestasForoInput
+  upsert?: Prisma.UsuarioUpsertWithoutRespuestasForoInput
+  connect?: Prisma.UsuarioWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UsuarioUpdateToOneWithWhereWithoutRespuestasForoInput, Prisma.UsuarioUpdateWithoutRespuestasForoInput>, Prisma.UsuarioUncheckedUpdateWithoutRespuestasForoInput>
+}
+
+export type UsuarioCreateNestedOneWithoutRecursosInput = {
+  create?: Prisma.XOR<Prisma.UsuarioCreateWithoutRecursosInput, Prisma.UsuarioUncheckedCreateWithoutRecursosInput>
+  connectOrCreate?: Prisma.UsuarioCreateOrConnectWithoutRecursosInput
+  connect?: Prisma.UsuarioWhereUniqueInput
+}
+
+export type UsuarioUpdateOneRequiredWithoutRecursosNestedInput = {
+  create?: Prisma.XOR<Prisma.UsuarioCreateWithoutRecursosInput, Prisma.UsuarioUncheckedCreateWithoutRecursosInput>
+  connectOrCreate?: Prisma.UsuarioCreateOrConnectWithoutRecursosInput
+  upsert?: Prisma.UsuarioUpsertWithoutRecursosInput
+  connect?: Prisma.UsuarioWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UsuarioUpdateToOneWithWhereWithoutRecursosInput, Prisma.UsuarioUpdateWithoutRecursosInput>, Prisma.UsuarioUncheckedUpdateWithoutRecursosInput>
+}
+
+export type UsuarioCreateNestedOneWithoutCalificacionesRecursoInput = {
+  create?: Prisma.XOR<Prisma.UsuarioCreateWithoutCalificacionesRecursoInput, Prisma.UsuarioUncheckedCreateWithoutCalificacionesRecursoInput>
+  connectOrCreate?: Prisma.UsuarioCreateOrConnectWithoutCalificacionesRecursoInput
+  connect?: Prisma.UsuarioWhereUniqueInput
+}
+
+export type UsuarioUpdateOneRequiredWithoutCalificacionesRecursoNestedInput = {
+  create?: Prisma.XOR<Prisma.UsuarioCreateWithoutCalificacionesRecursoInput, Prisma.UsuarioUncheckedCreateWithoutCalificacionesRecursoInput>
+  connectOrCreate?: Prisma.UsuarioCreateOrConnectWithoutCalificacionesRecursoInput
+  upsert?: Prisma.UsuarioUpsertWithoutCalificacionesRecursoInput
+  connect?: Prisma.UsuarioWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UsuarioUpdateToOneWithWhereWithoutCalificacionesRecursoInput, Prisma.UsuarioUpdateWithoutCalificacionesRecursoInput>, Prisma.UsuarioUncheckedUpdateWithoutCalificacionesRecursoInput>
+}
+
+export type UsuarioCreateNestedOneWithoutAsignacionesRutaAprendizajeInput = {
+  create?: Prisma.XOR<Prisma.UsuarioCreateWithoutAsignacionesRutaAprendizajeInput, Prisma.UsuarioUncheckedCreateWithoutAsignacionesRutaAprendizajeInput>
+  connectOrCreate?: Prisma.UsuarioCreateOrConnectWithoutAsignacionesRutaAprendizajeInput
+  connect?: Prisma.UsuarioWhereUniqueInput
+}
+
+export type UsuarioUpdateOneRequiredWithoutAsignacionesRutaAprendizajeNestedInput = {
+  create?: Prisma.XOR<Prisma.UsuarioCreateWithoutAsignacionesRutaAprendizajeInput, Prisma.UsuarioUncheckedCreateWithoutAsignacionesRutaAprendizajeInput>
+  connectOrCreate?: Prisma.UsuarioCreateOrConnectWithoutAsignacionesRutaAprendizajeInput
+  upsert?: Prisma.UsuarioUpsertWithoutAsignacionesRutaAprendizajeInput
+  connect?: Prisma.UsuarioWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UsuarioUpdateToOneWithWhereWithoutAsignacionesRutaAprendizajeInput, Prisma.UsuarioUpdateWithoutAsignacionesRutaAprendizajeInput>, Prisma.UsuarioUncheckedUpdateWithoutAsignacionesRutaAprendizajeInput>
+}
+
+export type UsuarioCreateNestedOneWithoutDiagnosticosAprendizajeInput = {
+  create?: Prisma.XOR<Prisma.UsuarioCreateWithoutDiagnosticosAprendizajeInput, Prisma.UsuarioUncheckedCreateWithoutDiagnosticosAprendizajeInput>
+  connectOrCreate?: Prisma.UsuarioCreateOrConnectWithoutDiagnosticosAprendizajeInput
+  connect?: Prisma.UsuarioWhereUniqueInput
+}
+
+export type UsuarioUpdateOneRequiredWithoutDiagnosticosAprendizajeNestedInput = {
+  create?: Prisma.XOR<Prisma.UsuarioCreateWithoutDiagnosticosAprendizajeInput, Prisma.UsuarioUncheckedCreateWithoutDiagnosticosAprendizajeInput>
+  connectOrCreate?: Prisma.UsuarioCreateOrConnectWithoutDiagnosticosAprendizajeInput
+  upsert?: Prisma.UsuarioUpsertWithoutDiagnosticosAprendizajeInput
+  connect?: Prisma.UsuarioWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UsuarioUpdateToOneWithWhereWithoutDiagnosticosAprendizajeInput, Prisma.UsuarioUpdateWithoutDiagnosticosAprendizajeInput>, Prisma.UsuarioUncheckedUpdateWithoutDiagnosticosAprendizajeInput>
+}
+
 export type UsuarioCreateWithoutInstitucionInput = {
   nombres: string
   apellidos: string
@@ -710,13 +841,19 @@ export type UsuarioCreateWithoutInstitucionInput = {
   documento: string
   fechaNacimiento: Date | string
   genero: string
-  foto: string
+  foto?: string | null
   contrasena: string
   activo?: boolean
   ultimoAcceso?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   rol: Prisma.RolCreateNestedOneWithoutUsuariosInput
+  foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
+  respuestasForo?: Prisma.RespuestaForoCreateNestedManyWithoutUsuarioInput
+  recursos?: Prisma.RecursoCreateNestedManyWithoutUsuarioCreadorInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeCreateNestedManyWithoutUsuarioInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioUncheckedCreateWithoutInstitucionInput = {
@@ -728,13 +865,19 @@ export type UsuarioUncheckedCreateWithoutInstitucionInput = {
   documento: string
   fechaNacimiento: Date | string
   genero: string
-  foto: string
+  foto?: string | null
   contrasena: string
   activo?: boolean
   ultimoAcceso?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   rolId: number
+  foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
+  respuestasForo?: Prisma.RespuestaForoUncheckedCreateNestedManyWithoutUsuarioInput
+  recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutUsuarioCreadorInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioCreateOrConnectWithoutInstitucionInput = {
@@ -775,7 +918,7 @@ export type UsuarioScalarWhereInput = {
   documento?: Prisma.StringFilter<"Usuario"> | string
   fechaNacimiento?: Prisma.DateTimeFilter<"Usuario"> | Date | string
   genero?: Prisma.StringFilter<"Usuario"> | string
-  foto?: Prisma.StringFilter<"Usuario"> | string
+  foto?: Prisma.StringNullableFilter<"Usuario"> | string | null
   contrasena?: Prisma.StringFilter<"Usuario"> | string
   activo?: Prisma.BoolFilter<"Usuario"> | boolean
   ultimoAcceso?: Prisma.DateTimeNullableFilter<"Usuario"> | Date | string | null
@@ -793,13 +936,19 @@ export type UsuarioCreateWithoutRolInput = {
   documento: string
   fechaNacimiento: Date | string
   genero: string
-  foto: string
+  foto?: string | null
   contrasena: string
   activo?: boolean
   ultimoAcceso?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   institucion: Prisma.InstitucionCreateNestedOneWithoutUsuariosInput
+  foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
+  respuestasForo?: Prisma.RespuestaForoCreateNestedManyWithoutUsuarioInput
+  recursos?: Prisma.RecursoCreateNestedManyWithoutUsuarioCreadorInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeCreateNestedManyWithoutUsuarioInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioUncheckedCreateWithoutRolInput = {
@@ -811,13 +960,19 @@ export type UsuarioUncheckedCreateWithoutRolInput = {
   documento: string
   fechaNacimiento: Date | string
   genero: string
-  foto: string
+  foto?: string | null
   contrasena: string
   activo?: boolean
   ultimoAcceso?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   institucionId: number
+  foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
+  respuestasForo?: Prisma.RespuestaForoUncheckedCreateNestedManyWithoutUsuarioInput
+  recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutUsuarioCreadorInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioCreateOrConnectWithoutRolInput = {
@@ -846,6 +1001,666 @@ export type UsuarioUpdateManyWithWhereWithoutRolInput = {
   data: Prisma.XOR<Prisma.UsuarioUpdateManyMutationInput, Prisma.UsuarioUncheckedUpdateManyWithoutRolInput>
 }
 
+export type UsuarioCreateWithoutForosInput = {
+  nombres: string
+  apellidos: string
+  correo: string
+  tipoDocumento: string
+  documento: string
+  fechaNacimiento: Date | string
+  genero: string
+  foto?: string | null
+  contrasena: string
+  activo?: boolean
+  ultimoAcceso?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  institucion: Prisma.InstitucionCreateNestedOneWithoutUsuariosInput
+  rol: Prisma.RolCreateNestedOneWithoutUsuariosInput
+  respuestasForo?: Prisma.RespuestaForoCreateNestedManyWithoutUsuarioInput
+  recursos?: Prisma.RecursoCreateNestedManyWithoutUsuarioCreadorInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeCreateNestedManyWithoutUsuarioInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
+}
+
+export type UsuarioUncheckedCreateWithoutForosInput = {
+  id?: number
+  nombres: string
+  apellidos: string
+  correo: string
+  tipoDocumento: string
+  documento: string
+  fechaNacimiento: Date | string
+  genero: string
+  foto?: string | null
+  contrasena: string
+  activo?: boolean
+  ultimoAcceso?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  institucionId: number
+  rolId: number
+  respuestasForo?: Prisma.RespuestaForoUncheckedCreateNestedManyWithoutUsuarioInput
+  recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutUsuarioCreadorInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
+}
+
+export type UsuarioCreateOrConnectWithoutForosInput = {
+  where: Prisma.UsuarioWhereUniqueInput
+  create: Prisma.XOR<Prisma.UsuarioCreateWithoutForosInput, Prisma.UsuarioUncheckedCreateWithoutForosInput>
+}
+
+export type UsuarioUpsertWithoutForosInput = {
+  update: Prisma.XOR<Prisma.UsuarioUpdateWithoutForosInput, Prisma.UsuarioUncheckedUpdateWithoutForosInput>
+  create: Prisma.XOR<Prisma.UsuarioCreateWithoutForosInput, Prisma.UsuarioUncheckedCreateWithoutForosInput>
+  where?: Prisma.UsuarioWhereInput
+}
+
+export type UsuarioUpdateToOneWithWhereWithoutForosInput = {
+  where?: Prisma.UsuarioWhereInput
+  data: Prisma.XOR<Prisma.UsuarioUpdateWithoutForosInput, Prisma.UsuarioUncheckedUpdateWithoutForosInput>
+}
+
+export type UsuarioUpdateWithoutForosInput = {
+  nombres?: Prisma.StringFieldUpdateOperationsInput | string
+  apellidos?: Prisma.StringFieldUpdateOperationsInput | string
+  correo?: Prisma.StringFieldUpdateOperationsInput | string
+  tipoDocumento?: Prisma.StringFieldUpdateOperationsInput | string
+  documento?: Prisma.StringFieldUpdateOperationsInput | string
+  fechaNacimiento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  genero?: Prisma.StringFieldUpdateOperationsInput | string
+  foto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contrasena?: Prisma.StringFieldUpdateOperationsInput | string
+  activo?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ultimoAcceso?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutUsuariosNestedInput
+  rol?: Prisma.RolUpdateOneRequiredWithoutUsuariosNestedInput
+  respuestasForo?: Prisma.RespuestaForoUpdateManyWithoutUsuarioNestedInput
+  recursos?: Prisma.RecursoUpdateManyWithoutUsuarioCreadorNestedInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUpdateManyWithoutUsuarioNestedInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
+}
+
+export type UsuarioUncheckedUpdateWithoutForosInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  nombres?: Prisma.StringFieldUpdateOperationsInput | string
+  apellidos?: Prisma.StringFieldUpdateOperationsInput | string
+  correo?: Prisma.StringFieldUpdateOperationsInput | string
+  tipoDocumento?: Prisma.StringFieldUpdateOperationsInput | string
+  documento?: Prisma.StringFieldUpdateOperationsInput | string
+  fechaNacimiento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  genero?: Prisma.StringFieldUpdateOperationsInput | string
+  foto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contrasena?: Prisma.StringFieldUpdateOperationsInput | string
+  activo?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ultimoAcceso?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  institucionId?: Prisma.IntFieldUpdateOperationsInput | number
+  rolId?: Prisma.IntFieldUpdateOperationsInput | number
+  respuestasForo?: Prisma.RespuestaForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  recursos?: Prisma.RecursoUncheckedUpdateManyWithoutUsuarioCreadorNestedInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
+}
+
+export type UsuarioCreateWithoutRespuestasForoInput = {
+  nombres: string
+  apellidos: string
+  correo: string
+  tipoDocumento: string
+  documento: string
+  fechaNacimiento: Date | string
+  genero: string
+  foto?: string | null
+  contrasena: string
+  activo?: boolean
+  ultimoAcceso?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  institucion: Prisma.InstitucionCreateNestedOneWithoutUsuariosInput
+  rol: Prisma.RolCreateNestedOneWithoutUsuariosInput
+  foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
+  recursos?: Prisma.RecursoCreateNestedManyWithoutUsuarioCreadorInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeCreateNestedManyWithoutUsuarioInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
+}
+
+export type UsuarioUncheckedCreateWithoutRespuestasForoInput = {
+  id?: number
+  nombres: string
+  apellidos: string
+  correo: string
+  tipoDocumento: string
+  documento: string
+  fechaNacimiento: Date | string
+  genero: string
+  foto?: string | null
+  contrasena: string
+  activo?: boolean
+  ultimoAcceso?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  institucionId: number
+  rolId: number
+  foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
+  recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutUsuarioCreadorInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
+}
+
+export type UsuarioCreateOrConnectWithoutRespuestasForoInput = {
+  where: Prisma.UsuarioWhereUniqueInput
+  create: Prisma.XOR<Prisma.UsuarioCreateWithoutRespuestasForoInput, Prisma.UsuarioUncheckedCreateWithoutRespuestasForoInput>
+}
+
+export type UsuarioUpsertWithoutRespuestasForoInput = {
+  update: Prisma.XOR<Prisma.UsuarioUpdateWithoutRespuestasForoInput, Prisma.UsuarioUncheckedUpdateWithoutRespuestasForoInput>
+  create: Prisma.XOR<Prisma.UsuarioCreateWithoutRespuestasForoInput, Prisma.UsuarioUncheckedCreateWithoutRespuestasForoInput>
+  where?: Prisma.UsuarioWhereInput
+}
+
+export type UsuarioUpdateToOneWithWhereWithoutRespuestasForoInput = {
+  where?: Prisma.UsuarioWhereInput
+  data: Prisma.XOR<Prisma.UsuarioUpdateWithoutRespuestasForoInput, Prisma.UsuarioUncheckedUpdateWithoutRespuestasForoInput>
+}
+
+export type UsuarioUpdateWithoutRespuestasForoInput = {
+  nombres?: Prisma.StringFieldUpdateOperationsInput | string
+  apellidos?: Prisma.StringFieldUpdateOperationsInput | string
+  correo?: Prisma.StringFieldUpdateOperationsInput | string
+  tipoDocumento?: Prisma.StringFieldUpdateOperationsInput | string
+  documento?: Prisma.StringFieldUpdateOperationsInput | string
+  fechaNacimiento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  genero?: Prisma.StringFieldUpdateOperationsInput | string
+  foto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contrasena?: Prisma.StringFieldUpdateOperationsInput | string
+  activo?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ultimoAcceso?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutUsuariosNestedInput
+  rol?: Prisma.RolUpdateOneRequiredWithoutUsuariosNestedInput
+  foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
+  recursos?: Prisma.RecursoUpdateManyWithoutUsuarioCreadorNestedInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUpdateManyWithoutUsuarioNestedInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
+}
+
+export type UsuarioUncheckedUpdateWithoutRespuestasForoInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  nombres?: Prisma.StringFieldUpdateOperationsInput | string
+  apellidos?: Prisma.StringFieldUpdateOperationsInput | string
+  correo?: Prisma.StringFieldUpdateOperationsInput | string
+  tipoDocumento?: Prisma.StringFieldUpdateOperationsInput | string
+  documento?: Prisma.StringFieldUpdateOperationsInput | string
+  fechaNacimiento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  genero?: Prisma.StringFieldUpdateOperationsInput | string
+  foto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contrasena?: Prisma.StringFieldUpdateOperationsInput | string
+  activo?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ultimoAcceso?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  institucionId?: Prisma.IntFieldUpdateOperationsInput | number
+  rolId?: Prisma.IntFieldUpdateOperationsInput | number
+  foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  recursos?: Prisma.RecursoUncheckedUpdateManyWithoutUsuarioCreadorNestedInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
+}
+
+export type UsuarioCreateWithoutRecursosInput = {
+  nombres: string
+  apellidos: string
+  correo: string
+  tipoDocumento: string
+  documento: string
+  fechaNacimiento: Date | string
+  genero: string
+  foto?: string | null
+  contrasena: string
+  activo?: boolean
+  ultimoAcceso?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  institucion: Prisma.InstitucionCreateNestedOneWithoutUsuariosInput
+  rol: Prisma.RolCreateNestedOneWithoutUsuariosInput
+  foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
+  respuestasForo?: Prisma.RespuestaForoCreateNestedManyWithoutUsuarioInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeCreateNestedManyWithoutUsuarioInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
+}
+
+export type UsuarioUncheckedCreateWithoutRecursosInput = {
+  id?: number
+  nombres: string
+  apellidos: string
+  correo: string
+  tipoDocumento: string
+  documento: string
+  fechaNacimiento: Date | string
+  genero: string
+  foto?: string | null
+  contrasena: string
+  activo?: boolean
+  ultimoAcceso?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  institucionId: number
+  rolId: number
+  foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
+  respuestasForo?: Prisma.RespuestaForoUncheckedCreateNestedManyWithoutUsuarioInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
+}
+
+export type UsuarioCreateOrConnectWithoutRecursosInput = {
+  where: Prisma.UsuarioWhereUniqueInput
+  create: Prisma.XOR<Prisma.UsuarioCreateWithoutRecursosInput, Prisma.UsuarioUncheckedCreateWithoutRecursosInput>
+}
+
+export type UsuarioUpsertWithoutRecursosInput = {
+  update: Prisma.XOR<Prisma.UsuarioUpdateWithoutRecursosInput, Prisma.UsuarioUncheckedUpdateWithoutRecursosInput>
+  create: Prisma.XOR<Prisma.UsuarioCreateWithoutRecursosInput, Prisma.UsuarioUncheckedCreateWithoutRecursosInput>
+  where?: Prisma.UsuarioWhereInput
+}
+
+export type UsuarioUpdateToOneWithWhereWithoutRecursosInput = {
+  where?: Prisma.UsuarioWhereInput
+  data: Prisma.XOR<Prisma.UsuarioUpdateWithoutRecursosInput, Prisma.UsuarioUncheckedUpdateWithoutRecursosInput>
+}
+
+export type UsuarioUpdateWithoutRecursosInput = {
+  nombres?: Prisma.StringFieldUpdateOperationsInput | string
+  apellidos?: Prisma.StringFieldUpdateOperationsInput | string
+  correo?: Prisma.StringFieldUpdateOperationsInput | string
+  tipoDocumento?: Prisma.StringFieldUpdateOperationsInput | string
+  documento?: Prisma.StringFieldUpdateOperationsInput | string
+  fechaNacimiento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  genero?: Prisma.StringFieldUpdateOperationsInput | string
+  foto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contrasena?: Prisma.StringFieldUpdateOperationsInput | string
+  activo?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ultimoAcceso?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutUsuariosNestedInput
+  rol?: Prisma.RolUpdateOneRequiredWithoutUsuariosNestedInput
+  foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
+  respuestasForo?: Prisma.RespuestaForoUpdateManyWithoutUsuarioNestedInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUpdateManyWithoutUsuarioNestedInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
+}
+
+export type UsuarioUncheckedUpdateWithoutRecursosInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  nombres?: Prisma.StringFieldUpdateOperationsInput | string
+  apellidos?: Prisma.StringFieldUpdateOperationsInput | string
+  correo?: Prisma.StringFieldUpdateOperationsInput | string
+  tipoDocumento?: Prisma.StringFieldUpdateOperationsInput | string
+  documento?: Prisma.StringFieldUpdateOperationsInput | string
+  fechaNacimiento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  genero?: Prisma.StringFieldUpdateOperationsInput | string
+  foto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contrasena?: Prisma.StringFieldUpdateOperationsInput | string
+  activo?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ultimoAcceso?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  institucionId?: Prisma.IntFieldUpdateOperationsInput | number
+  rolId?: Prisma.IntFieldUpdateOperationsInput | number
+  foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  respuestasForo?: Prisma.RespuestaForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
+}
+
+export type UsuarioCreateWithoutCalificacionesRecursoInput = {
+  nombres: string
+  apellidos: string
+  correo: string
+  tipoDocumento: string
+  documento: string
+  fechaNacimiento: Date | string
+  genero: string
+  foto?: string | null
+  contrasena: string
+  activo?: boolean
+  ultimoAcceso?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  institucion: Prisma.InstitucionCreateNestedOneWithoutUsuariosInput
+  rol: Prisma.RolCreateNestedOneWithoutUsuariosInput
+  foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
+  respuestasForo?: Prisma.RespuestaForoCreateNestedManyWithoutUsuarioInput
+  recursos?: Prisma.RecursoCreateNestedManyWithoutUsuarioCreadorInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeCreateNestedManyWithoutUsuarioInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
+}
+
+export type UsuarioUncheckedCreateWithoutCalificacionesRecursoInput = {
+  id?: number
+  nombres: string
+  apellidos: string
+  correo: string
+  tipoDocumento: string
+  documento: string
+  fechaNacimiento: Date | string
+  genero: string
+  foto?: string | null
+  contrasena: string
+  activo?: boolean
+  ultimoAcceso?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  institucionId: number
+  rolId: number
+  foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
+  respuestasForo?: Prisma.RespuestaForoUncheckedCreateNestedManyWithoutUsuarioInput
+  recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutUsuarioCreadorInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
+}
+
+export type UsuarioCreateOrConnectWithoutCalificacionesRecursoInput = {
+  where: Prisma.UsuarioWhereUniqueInput
+  create: Prisma.XOR<Prisma.UsuarioCreateWithoutCalificacionesRecursoInput, Prisma.UsuarioUncheckedCreateWithoutCalificacionesRecursoInput>
+}
+
+export type UsuarioUpsertWithoutCalificacionesRecursoInput = {
+  update: Prisma.XOR<Prisma.UsuarioUpdateWithoutCalificacionesRecursoInput, Prisma.UsuarioUncheckedUpdateWithoutCalificacionesRecursoInput>
+  create: Prisma.XOR<Prisma.UsuarioCreateWithoutCalificacionesRecursoInput, Prisma.UsuarioUncheckedCreateWithoutCalificacionesRecursoInput>
+  where?: Prisma.UsuarioWhereInput
+}
+
+export type UsuarioUpdateToOneWithWhereWithoutCalificacionesRecursoInput = {
+  where?: Prisma.UsuarioWhereInput
+  data: Prisma.XOR<Prisma.UsuarioUpdateWithoutCalificacionesRecursoInput, Prisma.UsuarioUncheckedUpdateWithoutCalificacionesRecursoInput>
+}
+
+export type UsuarioUpdateWithoutCalificacionesRecursoInput = {
+  nombres?: Prisma.StringFieldUpdateOperationsInput | string
+  apellidos?: Prisma.StringFieldUpdateOperationsInput | string
+  correo?: Prisma.StringFieldUpdateOperationsInput | string
+  tipoDocumento?: Prisma.StringFieldUpdateOperationsInput | string
+  documento?: Prisma.StringFieldUpdateOperationsInput | string
+  fechaNacimiento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  genero?: Prisma.StringFieldUpdateOperationsInput | string
+  foto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contrasena?: Prisma.StringFieldUpdateOperationsInput | string
+  activo?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ultimoAcceso?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutUsuariosNestedInput
+  rol?: Prisma.RolUpdateOneRequiredWithoutUsuariosNestedInput
+  foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
+  respuestasForo?: Prisma.RespuestaForoUpdateManyWithoutUsuarioNestedInput
+  recursos?: Prisma.RecursoUpdateManyWithoutUsuarioCreadorNestedInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUpdateManyWithoutUsuarioNestedInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
+}
+
+export type UsuarioUncheckedUpdateWithoutCalificacionesRecursoInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  nombres?: Prisma.StringFieldUpdateOperationsInput | string
+  apellidos?: Prisma.StringFieldUpdateOperationsInput | string
+  correo?: Prisma.StringFieldUpdateOperationsInput | string
+  tipoDocumento?: Prisma.StringFieldUpdateOperationsInput | string
+  documento?: Prisma.StringFieldUpdateOperationsInput | string
+  fechaNacimiento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  genero?: Prisma.StringFieldUpdateOperationsInput | string
+  foto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contrasena?: Prisma.StringFieldUpdateOperationsInput | string
+  activo?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ultimoAcceso?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  institucionId?: Prisma.IntFieldUpdateOperationsInput | number
+  rolId?: Prisma.IntFieldUpdateOperationsInput | number
+  foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  respuestasForo?: Prisma.RespuestaForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  recursos?: Prisma.RecursoUncheckedUpdateManyWithoutUsuarioCreadorNestedInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
+}
+
+export type UsuarioCreateWithoutAsignacionesRutaAprendizajeInput = {
+  nombres: string
+  apellidos: string
+  correo: string
+  tipoDocumento: string
+  documento: string
+  fechaNacimiento: Date | string
+  genero: string
+  foto?: string | null
+  contrasena: string
+  activo?: boolean
+  ultimoAcceso?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  institucion: Prisma.InstitucionCreateNestedOneWithoutUsuariosInput
+  rol: Prisma.RolCreateNestedOneWithoutUsuariosInput
+  foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
+  respuestasForo?: Prisma.RespuestaForoCreateNestedManyWithoutUsuarioInput
+  recursos?: Prisma.RecursoCreateNestedManyWithoutUsuarioCreadorInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
+}
+
+export type UsuarioUncheckedCreateWithoutAsignacionesRutaAprendizajeInput = {
+  id?: number
+  nombres: string
+  apellidos: string
+  correo: string
+  tipoDocumento: string
+  documento: string
+  fechaNacimiento: Date | string
+  genero: string
+  foto?: string | null
+  contrasena: string
+  activo?: boolean
+  ultimoAcceso?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  institucionId: number
+  rolId: number
+  foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
+  respuestasForo?: Prisma.RespuestaForoUncheckedCreateNestedManyWithoutUsuarioInput
+  recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutUsuarioCreadorInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
+}
+
+export type UsuarioCreateOrConnectWithoutAsignacionesRutaAprendizajeInput = {
+  where: Prisma.UsuarioWhereUniqueInput
+  create: Prisma.XOR<Prisma.UsuarioCreateWithoutAsignacionesRutaAprendizajeInput, Prisma.UsuarioUncheckedCreateWithoutAsignacionesRutaAprendizajeInput>
+}
+
+export type UsuarioUpsertWithoutAsignacionesRutaAprendizajeInput = {
+  update: Prisma.XOR<Prisma.UsuarioUpdateWithoutAsignacionesRutaAprendizajeInput, Prisma.UsuarioUncheckedUpdateWithoutAsignacionesRutaAprendizajeInput>
+  create: Prisma.XOR<Prisma.UsuarioCreateWithoutAsignacionesRutaAprendizajeInput, Prisma.UsuarioUncheckedCreateWithoutAsignacionesRutaAprendizajeInput>
+  where?: Prisma.UsuarioWhereInput
+}
+
+export type UsuarioUpdateToOneWithWhereWithoutAsignacionesRutaAprendizajeInput = {
+  where?: Prisma.UsuarioWhereInput
+  data: Prisma.XOR<Prisma.UsuarioUpdateWithoutAsignacionesRutaAprendizajeInput, Prisma.UsuarioUncheckedUpdateWithoutAsignacionesRutaAprendizajeInput>
+}
+
+export type UsuarioUpdateWithoutAsignacionesRutaAprendizajeInput = {
+  nombres?: Prisma.StringFieldUpdateOperationsInput | string
+  apellidos?: Prisma.StringFieldUpdateOperationsInput | string
+  correo?: Prisma.StringFieldUpdateOperationsInput | string
+  tipoDocumento?: Prisma.StringFieldUpdateOperationsInput | string
+  documento?: Prisma.StringFieldUpdateOperationsInput | string
+  fechaNacimiento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  genero?: Prisma.StringFieldUpdateOperationsInput | string
+  foto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contrasena?: Prisma.StringFieldUpdateOperationsInput | string
+  activo?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ultimoAcceso?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutUsuariosNestedInput
+  rol?: Prisma.RolUpdateOneRequiredWithoutUsuariosNestedInput
+  foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
+  respuestasForo?: Prisma.RespuestaForoUpdateManyWithoutUsuarioNestedInput
+  recursos?: Prisma.RecursoUpdateManyWithoutUsuarioCreadorNestedInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
+}
+
+export type UsuarioUncheckedUpdateWithoutAsignacionesRutaAprendizajeInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  nombres?: Prisma.StringFieldUpdateOperationsInput | string
+  apellidos?: Prisma.StringFieldUpdateOperationsInput | string
+  correo?: Prisma.StringFieldUpdateOperationsInput | string
+  tipoDocumento?: Prisma.StringFieldUpdateOperationsInput | string
+  documento?: Prisma.StringFieldUpdateOperationsInput | string
+  fechaNacimiento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  genero?: Prisma.StringFieldUpdateOperationsInput | string
+  foto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contrasena?: Prisma.StringFieldUpdateOperationsInput | string
+  activo?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ultimoAcceso?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  institucionId?: Prisma.IntFieldUpdateOperationsInput | number
+  rolId?: Prisma.IntFieldUpdateOperationsInput | number
+  foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  respuestasForo?: Prisma.RespuestaForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  recursos?: Prisma.RecursoUncheckedUpdateManyWithoutUsuarioCreadorNestedInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
+}
+
+export type UsuarioCreateWithoutDiagnosticosAprendizajeInput = {
+  nombres: string
+  apellidos: string
+  correo: string
+  tipoDocumento: string
+  documento: string
+  fechaNacimiento: Date | string
+  genero: string
+  foto?: string | null
+  contrasena: string
+  activo?: boolean
+  ultimoAcceso?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  institucion: Prisma.InstitucionCreateNestedOneWithoutUsuariosInput
+  rol: Prisma.RolCreateNestedOneWithoutUsuariosInput
+  foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
+  respuestasForo?: Prisma.RespuestaForoCreateNestedManyWithoutUsuarioInput
+  recursos?: Prisma.RecursoCreateNestedManyWithoutUsuarioCreadorInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeCreateNestedManyWithoutUsuarioInput
+}
+
+export type UsuarioUncheckedCreateWithoutDiagnosticosAprendizajeInput = {
+  id?: number
+  nombres: string
+  apellidos: string
+  correo: string
+  tipoDocumento: string
+  documento: string
+  fechaNacimiento: Date | string
+  genero: string
+  foto?: string | null
+  contrasena: string
+  activo?: boolean
+  ultimoAcceso?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  institucionId: number
+  rolId: number
+  foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
+  respuestasForo?: Prisma.RespuestaForoUncheckedCreateNestedManyWithoutUsuarioInput
+  recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutUsuarioCreadorInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
+}
+
+export type UsuarioCreateOrConnectWithoutDiagnosticosAprendizajeInput = {
+  where: Prisma.UsuarioWhereUniqueInput
+  create: Prisma.XOR<Prisma.UsuarioCreateWithoutDiagnosticosAprendizajeInput, Prisma.UsuarioUncheckedCreateWithoutDiagnosticosAprendizajeInput>
+}
+
+export type UsuarioUpsertWithoutDiagnosticosAprendizajeInput = {
+  update: Prisma.XOR<Prisma.UsuarioUpdateWithoutDiagnosticosAprendizajeInput, Prisma.UsuarioUncheckedUpdateWithoutDiagnosticosAprendizajeInput>
+  create: Prisma.XOR<Prisma.UsuarioCreateWithoutDiagnosticosAprendizajeInput, Prisma.UsuarioUncheckedCreateWithoutDiagnosticosAprendizajeInput>
+  where?: Prisma.UsuarioWhereInput
+}
+
+export type UsuarioUpdateToOneWithWhereWithoutDiagnosticosAprendizajeInput = {
+  where?: Prisma.UsuarioWhereInput
+  data: Prisma.XOR<Prisma.UsuarioUpdateWithoutDiagnosticosAprendizajeInput, Prisma.UsuarioUncheckedUpdateWithoutDiagnosticosAprendizajeInput>
+}
+
+export type UsuarioUpdateWithoutDiagnosticosAprendizajeInput = {
+  nombres?: Prisma.StringFieldUpdateOperationsInput | string
+  apellidos?: Prisma.StringFieldUpdateOperationsInput | string
+  correo?: Prisma.StringFieldUpdateOperationsInput | string
+  tipoDocumento?: Prisma.StringFieldUpdateOperationsInput | string
+  documento?: Prisma.StringFieldUpdateOperationsInput | string
+  fechaNacimiento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  genero?: Prisma.StringFieldUpdateOperationsInput | string
+  foto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contrasena?: Prisma.StringFieldUpdateOperationsInput | string
+  activo?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ultimoAcceso?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutUsuariosNestedInput
+  rol?: Prisma.RolUpdateOneRequiredWithoutUsuariosNestedInput
+  foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
+  respuestasForo?: Prisma.RespuestaForoUpdateManyWithoutUsuarioNestedInput
+  recursos?: Prisma.RecursoUpdateManyWithoutUsuarioCreadorNestedInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUpdateManyWithoutUsuarioNestedInput
+}
+
+export type UsuarioUncheckedUpdateWithoutDiagnosticosAprendizajeInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  nombres?: Prisma.StringFieldUpdateOperationsInput | string
+  apellidos?: Prisma.StringFieldUpdateOperationsInput | string
+  correo?: Prisma.StringFieldUpdateOperationsInput | string
+  tipoDocumento?: Prisma.StringFieldUpdateOperationsInput | string
+  documento?: Prisma.StringFieldUpdateOperationsInput | string
+  fechaNacimiento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  genero?: Prisma.StringFieldUpdateOperationsInput | string
+  foto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contrasena?: Prisma.StringFieldUpdateOperationsInput | string
+  activo?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ultimoAcceso?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  institucionId?: Prisma.IntFieldUpdateOperationsInput | number
+  rolId?: Prisma.IntFieldUpdateOperationsInput | number
+  foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  respuestasForo?: Prisma.RespuestaForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  recursos?: Prisma.RecursoUncheckedUpdateManyWithoutUsuarioCreadorNestedInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
+}
+
 export type UsuarioCreateManyInstitucionInput = {
   id?: number
   nombres: string
@@ -855,7 +1670,7 @@ export type UsuarioCreateManyInstitucionInput = {
   documento: string
   fechaNacimiento: Date | string
   genero: string
-  foto: string
+  foto?: string | null
   contrasena: string
   activo?: boolean
   ultimoAcceso?: Date | string | null
@@ -872,13 +1687,19 @@ export type UsuarioUpdateWithoutInstitucionInput = {
   documento?: Prisma.StringFieldUpdateOperationsInput | string
   fechaNacimiento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   genero?: Prisma.StringFieldUpdateOperationsInput | string
-  foto?: Prisma.StringFieldUpdateOperationsInput | string
+  foto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contrasena?: Prisma.StringFieldUpdateOperationsInput | string
   activo?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ultimoAcceso?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   rol?: Prisma.RolUpdateOneRequiredWithoutUsuariosNestedInput
+  foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
+  respuestasForo?: Prisma.RespuestaForoUpdateManyWithoutUsuarioNestedInput
+  recursos?: Prisma.RecursoUpdateManyWithoutUsuarioCreadorNestedInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUpdateManyWithoutUsuarioNestedInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioUncheckedUpdateWithoutInstitucionInput = {
@@ -890,13 +1711,19 @@ export type UsuarioUncheckedUpdateWithoutInstitucionInput = {
   documento?: Prisma.StringFieldUpdateOperationsInput | string
   fechaNacimiento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   genero?: Prisma.StringFieldUpdateOperationsInput | string
-  foto?: Prisma.StringFieldUpdateOperationsInput | string
+  foto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contrasena?: Prisma.StringFieldUpdateOperationsInput | string
   activo?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ultimoAcceso?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   rolId?: Prisma.IntFieldUpdateOperationsInput | number
+  foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  respuestasForo?: Prisma.RespuestaForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  recursos?: Prisma.RecursoUncheckedUpdateManyWithoutUsuarioCreadorNestedInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioUncheckedUpdateManyWithoutInstitucionInput = {
@@ -908,7 +1735,7 @@ export type UsuarioUncheckedUpdateManyWithoutInstitucionInput = {
   documento?: Prisma.StringFieldUpdateOperationsInput | string
   fechaNacimiento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   genero?: Prisma.StringFieldUpdateOperationsInput | string
-  foto?: Prisma.StringFieldUpdateOperationsInput | string
+  foto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contrasena?: Prisma.StringFieldUpdateOperationsInput | string
   activo?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ultimoAcceso?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -926,7 +1753,7 @@ export type UsuarioCreateManyRolInput = {
   documento: string
   fechaNacimiento: Date | string
   genero: string
-  foto: string
+  foto?: string | null
   contrasena: string
   activo?: boolean
   ultimoAcceso?: Date | string | null
@@ -943,13 +1770,19 @@ export type UsuarioUpdateWithoutRolInput = {
   documento?: Prisma.StringFieldUpdateOperationsInput | string
   fechaNacimiento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   genero?: Prisma.StringFieldUpdateOperationsInput | string
-  foto?: Prisma.StringFieldUpdateOperationsInput | string
+  foto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contrasena?: Prisma.StringFieldUpdateOperationsInput | string
   activo?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ultimoAcceso?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   institucion?: Prisma.InstitucionUpdateOneRequiredWithoutUsuariosNestedInput
+  foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
+  respuestasForo?: Prisma.RespuestaForoUpdateManyWithoutUsuarioNestedInput
+  recursos?: Prisma.RecursoUpdateManyWithoutUsuarioCreadorNestedInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUpdateManyWithoutUsuarioNestedInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioUncheckedUpdateWithoutRolInput = {
@@ -961,13 +1794,19 @@ export type UsuarioUncheckedUpdateWithoutRolInput = {
   documento?: Prisma.StringFieldUpdateOperationsInput | string
   fechaNacimiento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   genero?: Prisma.StringFieldUpdateOperationsInput | string
-  foto?: Prisma.StringFieldUpdateOperationsInput | string
+  foto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contrasena?: Prisma.StringFieldUpdateOperationsInput | string
   activo?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ultimoAcceso?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   institucionId?: Prisma.IntFieldUpdateOperationsInput | number
+  foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  respuestasForo?: Prisma.RespuestaForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  recursos?: Prisma.RecursoUncheckedUpdateManyWithoutUsuarioCreadorNestedInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioUncheckedUpdateManyWithoutRolInput = {
@@ -979,7 +1818,7 @@ export type UsuarioUncheckedUpdateManyWithoutRolInput = {
   documento?: Prisma.StringFieldUpdateOperationsInput | string
   fechaNacimiento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   genero?: Prisma.StringFieldUpdateOperationsInput | string
-  foto?: Prisma.StringFieldUpdateOperationsInput | string
+  foto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contrasena?: Prisma.StringFieldUpdateOperationsInput | string
   activo?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ultimoAcceso?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -988,6 +1827,80 @@ export type UsuarioUncheckedUpdateManyWithoutRolInput = {
   institucionId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
+
+/**
+ * Count Type UsuarioCountOutputType
+ */
+
+export type UsuarioCountOutputType = {
+  foros: number
+  respuestasForo: number
+  recursos: number
+  calificacionesRecurso: number
+  asignacionesRutaAprendizaje: number
+  diagnosticosAprendizaje: number
+}
+
+export type UsuarioCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  foros?: boolean | UsuarioCountOutputTypeCountForosArgs
+  respuestasForo?: boolean | UsuarioCountOutputTypeCountRespuestasForoArgs
+  recursos?: boolean | UsuarioCountOutputTypeCountRecursosArgs
+  calificacionesRecurso?: boolean | UsuarioCountOutputTypeCountCalificacionesRecursoArgs
+  asignacionesRutaAprendizaje?: boolean | UsuarioCountOutputTypeCountAsignacionesRutaAprendizajeArgs
+  diagnosticosAprendizaje?: boolean | UsuarioCountOutputTypeCountDiagnosticosAprendizajeArgs
+}
+
+/**
+ * UsuarioCountOutputType without action
+ */
+export type UsuarioCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UsuarioCountOutputType
+   */
+  select?: Prisma.UsuarioCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * UsuarioCountOutputType without action
+ */
+export type UsuarioCountOutputTypeCountForosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ForoWhereInput
+}
+
+/**
+ * UsuarioCountOutputType without action
+ */
+export type UsuarioCountOutputTypeCountRespuestasForoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RespuestaForoWhereInput
+}
+
+/**
+ * UsuarioCountOutputType without action
+ */
+export type UsuarioCountOutputTypeCountRecursosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RecursoWhereInput
+}
+
+/**
+ * UsuarioCountOutputType without action
+ */
+export type UsuarioCountOutputTypeCountCalificacionesRecursoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CalificacionRecursoWhereInput
+}
+
+/**
+ * UsuarioCountOutputType without action
+ */
+export type UsuarioCountOutputTypeCountAsignacionesRutaAprendizajeArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AsignacionRutaAprendizajeWhereInput
+}
+
+/**
+ * UsuarioCountOutputType without action
+ */
+export type UsuarioCountOutputTypeCountDiagnosticosAprendizajeArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DiagnosticoAprendizajeWhereInput
+}
 
 
 export type UsuarioSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1009,6 +1922,13 @@ export type UsuarioSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   rolId?: boolean
   institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
   rol?: boolean | Prisma.RolDefaultArgs<ExtArgs>
+  foros?: boolean | Prisma.Usuario$forosArgs<ExtArgs>
+  respuestasForo?: boolean | Prisma.Usuario$respuestasForoArgs<ExtArgs>
+  recursos?: boolean | Prisma.Usuario$recursosArgs<ExtArgs>
+  calificacionesRecurso?: boolean | Prisma.Usuario$calificacionesRecursoArgs<ExtArgs>
+  asignacionesRutaAprendizaje?: boolean | Prisma.Usuario$asignacionesRutaAprendizajeArgs<ExtArgs>
+  diagnosticosAprendizaje?: boolean | Prisma.Usuario$diagnosticosAprendizajeArgs<ExtArgs>
+  _count?: boolean | Prisma.UsuarioCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["usuario"]>
 
 export type UsuarioSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1076,6 +1996,13 @@ export type UsuarioOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
 export type UsuarioInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
   rol?: boolean | Prisma.RolDefaultArgs<ExtArgs>
+  foros?: boolean | Prisma.Usuario$forosArgs<ExtArgs>
+  respuestasForo?: boolean | Prisma.Usuario$respuestasForoArgs<ExtArgs>
+  recursos?: boolean | Prisma.Usuario$recursosArgs<ExtArgs>
+  calificacionesRecurso?: boolean | Prisma.Usuario$calificacionesRecursoArgs<ExtArgs>
+  asignacionesRutaAprendizaje?: boolean | Prisma.Usuario$asignacionesRutaAprendizajeArgs<ExtArgs>
+  diagnosticosAprendizaje?: boolean | Prisma.Usuario$diagnosticosAprendizajeArgs<ExtArgs>
+  _count?: boolean | Prisma.UsuarioCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UsuarioIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
@@ -1091,6 +2018,12 @@ export type $UsuarioPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
   objects: {
     institucion: Prisma.$InstitucionPayload<ExtArgs>
     rol: Prisma.$RolPayload<ExtArgs>
+    foros: Prisma.$ForoPayload<ExtArgs>[]
+    respuestasForo: Prisma.$RespuestaForoPayload<ExtArgs>[]
+    recursos: Prisma.$RecursoPayload<ExtArgs>[]
+    calificacionesRecurso: Prisma.$CalificacionRecursoPayload<ExtArgs>[]
+    asignacionesRutaAprendizaje: Prisma.$AsignacionRutaAprendizajePayload<ExtArgs>[]
+    diagnosticosAprendizaje: Prisma.$DiagnosticoAprendizajePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1101,7 +2034,7 @@ export type $UsuarioPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     documento: string
     fechaNacimiento: Date
     genero: string
-    foto: string
+    foto: string | null
     contrasena: string
     activo: boolean
     ultimoAcceso: Date | null
@@ -1505,6 +2438,12 @@ export interface Prisma__UsuarioClient<T, Null = never, ExtArgs extends runtime.
   readonly [Symbol.toStringTag]: "PrismaPromise"
   institucion<T extends Prisma.InstitucionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.InstitucionDefaultArgs<ExtArgs>>): Prisma.Prisma__InstitucionClient<runtime.Types.Result.GetResult<Prisma.$InstitucionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   rol<T extends Prisma.RolDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RolDefaultArgs<ExtArgs>>): Prisma.Prisma__RolClient<runtime.Types.Result.GetResult<Prisma.$RolPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  foros<T extends Prisma.Usuario$forosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$forosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ForoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  respuestasForo<T extends Prisma.Usuario$respuestasForoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$respuestasForoArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RespuestaForoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  recursos<T extends Prisma.Usuario$recursosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$recursosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RecursoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  calificacionesRecurso<T extends Prisma.Usuario$calificacionesRecursoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$calificacionesRecursoArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CalificacionRecursoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  asignacionesRutaAprendizaje<T extends Prisma.Usuario$asignacionesRutaAprendizajeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$asignacionesRutaAprendizajeArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AsignacionRutaAprendizajePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  diagnosticosAprendizaje<T extends Prisma.Usuario$diagnosticosAprendizajeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$diagnosticosAprendizajeArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DiagnosticoAprendizajePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1948,6 +2887,150 @@ export type UsuarioDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Limit how many Usuarios to delete.
    */
   limit?: number
+}
+
+/**
+ * Usuario.foros
+ */
+export type Usuario$forosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Foro
+   */
+  select?: Prisma.ForoSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Foro
+   */
+  omit?: Prisma.ForoOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ForoInclude<ExtArgs> | null
+  where?: Prisma.ForoWhereInput
+  orderBy?: Prisma.ForoOrderByWithRelationInput | Prisma.ForoOrderByWithRelationInput[]
+  cursor?: Prisma.ForoWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ForoScalarFieldEnum | Prisma.ForoScalarFieldEnum[]
+}
+
+/**
+ * Usuario.respuestasForo
+ */
+export type Usuario$respuestasForoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the RespuestaForo
+   */
+  select?: Prisma.RespuestaForoSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the RespuestaForo
+   */
+  omit?: Prisma.RespuestaForoOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RespuestaForoInclude<ExtArgs> | null
+  where?: Prisma.RespuestaForoWhereInput
+  orderBy?: Prisma.RespuestaForoOrderByWithRelationInput | Prisma.RespuestaForoOrderByWithRelationInput[]
+  cursor?: Prisma.RespuestaForoWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.RespuestaForoScalarFieldEnum | Prisma.RespuestaForoScalarFieldEnum[]
+}
+
+/**
+ * Usuario.recursos
+ */
+export type Usuario$recursosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Recurso
+   */
+  select?: Prisma.RecursoSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Recurso
+   */
+  omit?: Prisma.RecursoOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RecursoInclude<ExtArgs> | null
+  where?: Prisma.RecursoWhereInput
+  orderBy?: Prisma.RecursoOrderByWithRelationInput | Prisma.RecursoOrderByWithRelationInput[]
+  cursor?: Prisma.RecursoWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.RecursoScalarFieldEnum | Prisma.RecursoScalarFieldEnum[]
+}
+
+/**
+ * Usuario.calificacionesRecurso
+ */
+export type Usuario$calificacionesRecursoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CalificacionRecurso
+   */
+  select?: Prisma.CalificacionRecursoSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CalificacionRecurso
+   */
+  omit?: Prisma.CalificacionRecursoOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CalificacionRecursoInclude<ExtArgs> | null
+  where?: Prisma.CalificacionRecursoWhereInput
+  orderBy?: Prisma.CalificacionRecursoOrderByWithRelationInput | Prisma.CalificacionRecursoOrderByWithRelationInput[]
+  cursor?: Prisma.CalificacionRecursoWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CalificacionRecursoScalarFieldEnum | Prisma.CalificacionRecursoScalarFieldEnum[]
+}
+
+/**
+ * Usuario.asignacionesRutaAprendizaje
+ */
+export type Usuario$asignacionesRutaAprendizajeArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AsignacionRutaAprendizaje
+   */
+  select?: Prisma.AsignacionRutaAprendizajeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AsignacionRutaAprendizaje
+   */
+  omit?: Prisma.AsignacionRutaAprendizajeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AsignacionRutaAprendizajeInclude<ExtArgs> | null
+  where?: Prisma.AsignacionRutaAprendizajeWhereInput
+  orderBy?: Prisma.AsignacionRutaAprendizajeOrderByWithRelationInput | Prisma.AsignacionRutaAprendizajeOrderByWithRelationInput[]
+  cursor?: Prisma.AsignacionRutaAprendizajeWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AsignacionRutaAprendizajeScalarFieldEnum | Prisma.AsignacionRutaAprendizajeScalarFieldEnum[]
+}
+
+/**
+ * Usuario.diagnosticosAprendizaje
+ */
+export type Usuario$diagnosticosAprendizajeArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the DiagnosticoAprendizaje
+   */
+  select?: Prisma.DiagnosticoAprendizajeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the DiagnosticoAprendizaje
+   */
+  omit?: Prisma.DiagnosticoAprendizajeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DiagnosticoAprendizajeInclude<ExtArgs> | null
+  where?: Prisma.DiagnosticoAprendizajeWhereInput
+  orderBy?: Prisma.DiagnosticoAprendizajeOrderByWithRelationInput | Prisma.DiagnosticoAprendizajeOrderByWithRelationInput[]
+  cursor?: Prisma.DiagnosticoAprendizajeWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DiagnosticoAprendizajeScalarFieldEnum | Prisma.DiagnosticoAprendizajeScalarFieldEnum[]
 }
 
 /**

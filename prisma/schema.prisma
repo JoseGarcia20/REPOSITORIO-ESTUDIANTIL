@@ -10,59 +10,298 @@ datasource db {
 }
 
 model Institucion {
-  id          Int       @id @default(autoincrement())
-  nombre      String
-  codigo      String    @unique
-  nit         String    @unique
-  correo      String 
-  telefono    String
-  direccion   String
-  ciudad      String
+  id           Int      @id @default(autoincrement())
+  nombre       String
+  codigo       String   @unique
+  nit          String   @unique
+  correo       String
+  telefono     String
+  direccion    String
+  ciudad       String
   departamento String
-  sitioWeb    String?
-  logo        String
-  estado      Boolean   @default(true)
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  sitioWeb     String?
+  logo         String?
+  estado       Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 
-  usuarios    Usuario[]
+  usuarios   Usuario[]
+  categorias Categoria[]
+  foros      Foro[]
+  recursos   Recurso[]
 
   @@map("instituciones")
 }
 
 model Rol {
-  id          Int       @id @default(autoincrement())
-  nombre      String    @unique
+  id          Int      @id @default(autoincrement())
+  nombre      String   @unique
   descripcion String?
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  estado      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
-  usuarios    Usuario[]
+  usuarios Usuario[]
 
   @@map("roles")
 }
 
 model Usuario {
-  id              Int         @id @default(autoincrement())
+  id              Int       @id @default(autoincrement())
   nombres         String
   apellidos       String
-  correo          String      @unique
+  correo          String    @unique
   tipoDocumento   String
-  documento       String      @unique
-  fechaNacimiento DateTime    @db.Date
+  documento       String    @unique
+  fechaNacimiento DateTime  @db.Date
   genero          String
-  foto            String
+  foto            String?
   contrasena      String
-  activo          Boolean     @default(true)
+  activo          Boolean   @default(true)
   ultimoAcceso    DateTime?
-  createdAt       DateTime    @default(now())
-  updatedAt       DateTime    @updatedAt
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
 
-  institucionId   Int
-  rolId           Int
+  institucionId Int
+  rolId         Int
 
-  institucion     Institucion @relation(fields: [institucionId], references: [id])
-  rol             Rol         @relation(fields: [rolId], references: [id])
+  institucion Institucion @relation(fields: [institucionId], references: [id])
+  rol         Rol         @relation(fields: [rolId], references: [id])
+
+  foros                       Foro[]
+  respuestasForo              RespuestaForo[]
+  recursos                    Recurso[]
+  calificacionesRecurso       CalificacionRecurso[]
+  asignacionesRutaAprendizaje AsignacionRutaAprendizaje[]
+  diagnosticosAprendizaje     DiagnosticoAprendizaje[]
 
   @@map("usuarios")
+}
+
+model Categoria {
+  id          Int      @id @default(autoincrement())
+  nombre      String
+  descripcion String
+  color       String?
+  estado      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  institucionId Int
+
+  institucion Institucion @relation(fields: [institucionId], references: [id])
+
+  foros    Foro[]
+  recursos Recurso[]
+
+  @@map("categorias")
+}
+
+model Foro {
+  id          Int      @id @default(autoincrement())
+  titulo      String
+  descripcion String
+  estado      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  institucionId Int
+  categoriaId   Int
+  usuarioId     Int
+
+  institucion Institucion @relation(fields: [institucionId], references: [id])
+  categoria   Categoria   @relation(fields: [categoriaId], references: [id])
+  usuario     Usuario     @relation(fields: [usuarioId], references: [id])
+
+  respuestas RespuestaForo[]
+
+  @@map("foros")
+}
+
+model RespuestaForo {
+  id        Int      @id @default(autoincrement())
+  contenido String
+  estado    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  foroId    Int
+  usuarioId Int
+
+  foro    Foro    @relation(fields: [foroId], references: [id])
+  usuario Usuario @relation(fields: [usuarioId], references: [id])
+
+  @@map("respuestas_foro")
+}
+
+model TipoRecurso {
+  id          Int      @id @default(autoincrement())
+  nombre      String
+  descripcion String?
+  icono       String?
+  estado      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  recursos Recurso[]
+
+  @@map("tipos_recurso")
+}
+
+model Recurso {
+  id               Int      @id @default(autoincrement())
+  titulo           String
+  palabrasClave    String?
+  contenidoResumen String?
+  rutaRecurso      String?
+  urlRecurso       String?
+  fuente           String?
+  autorNombre      String?
+  nivelAcademico   String?
+  estado           Boolean  @default(true)
+  publicado        Boolean  @default(false)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  institucionId    Int
+  categoriaId      Int
+  tipoRecursoId    Int
+  usuarioCreadorId Int
+
+  institucion    Institucion @relation(fields: [institucionId], references: [id])
+  categoria      Categoria   @relation(fields: [categoriaId], references: [id])
+  tipoRecurso    TipoRecurso @relation(fields: [tipoRecursoId], references: [id])
+  usuarioCreador Usuario     @relation(fields: [usuarioCreadorId], references: [id])
+
+  calificaciones          CalificacionRecurso[]
+  detallesRutaAprendizaje DetalleRutaAprendizaje[]
+
+  @@map("recursos")
+}
+
+model CalificacionRecurso {
+  id           Int      @id @default(autoincrement())
+  calificacion Float
+  comentario   String?
+  estado       Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  usuarioId Int
+  recursoId Int
+
+  usuario Usuario @relation(fields: [usuarioId], references: [id])
+  recurso Recurso @relation(fields: [recursoId], references: [id])
+
+  @@unique([usuarioId, recursoId])
+  @@map("calificaciones_recurso")
+}
+
+model TipoAprendizaje {
+  id          Int      @id @default(autoincrement())
+  nombre      String
+  descripcion String?
+  estado      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  rutasAprendizaje               RutaAprendizaje[]
+  diagnosticosAprendizaje        DiagnosticoAprendizaje[]
+  detallesDiagnosticoAprendizaje DetalleDiagnosticoAprendizaje[]
+
+  @@map("tipos_aprendizaje")
+}
+
+model RutaAprendizaje {
+  id               Int      @id @default(autoincrement())
+  titulo           String
+  descripcion      String
+  temaObjetivo     String
+  nivelDificultad  String
+  duracionEstimada String
+  estado           Boolean  @default(true)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  tipoAprendizajeId Int
+
+  tipoAprendizaje TipoAprendizaje @relation(fields: [tipoAprendizajeId], references: [id])
+
+  detallesRutaAprendizaje     DetalleRutaAprendizaje[]
+  asignacionesRutaAprendizaje AsignacionRutaAprendizaje[]
+
+  @@map("rutas_aprendizaje")
+}
+
+model DetalleRutaAprendizaje {
+  id          Int      @id @default(autoincrement())
+  orden       Int
+  tituloPaso  String
+  tipoPaso    String
+  descripcion String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  rutaAprendizajeId Int
+  recursoId         Int?
+
+  rutaAprendizaje RutaAprendizaje @relation(fields: [rutaAprendizajeId], references: [id])
+  recurso         Recurso?        @relation(fields: [recursoId], references: [id])
+
+  @@map("detalles_ruta_aprendizaje")
+}
+
+model AsignacionRutaAprendizaje {
+  id                   Int       @id @default(autoincrement())
+  fechaAsignacion      DateTime  @default(now())
+  estado               String
+  porcentajeAvance     Float     @default(0)
+  fechaInicio          DateTime?
+  fechaFinalizacion    DateTime?
+  calificacionObtenida Float?
+  temaSolicitado       String?
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
+
+  usuarioId         Int
+  rutaAprendizajeId Int
+
+  usuario         Usuario         @relation(fields: [usuarioId], references: [id])
+  rutaAprendizaje RutaAprendizaje @relation(fields: [rutaAprendizajeId], references: [id])
+
+  @@map("asignaciones_ruta_aprendizaje")
+}
+
+model DiagnosticoAprendizaje {
+  id             Int      @id @default(autoincrement())
+  puntajeFinal   Float
+  resultadoFinal String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  usuarioId         Int
+  tipoAprendizajeId Int
+
+  usuario         Usuario         @relation(fields: [usuarioId], references: [id])
+  tipoAprendizaje TipoAprendizaje @relation(fields: [tipoAprendizajeId], references: [id])
+
+  detallesDiagnosticoAprendizaje DetalleDiagnosticoAprendizaje[]
+
+  @@map("diagnosticos_aprendizaje")
+}
+
+model DetalleDiagnosticoAprendizaje {
+  id        Int      @id @default(autoincrement())
+  puntaje   Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  diagnosticoAprendizajeId Int
+  tipoAprendizajeId        Int
+
+  diagnosticoAprendizaje DiagnosticoAprendizaje @relation(fields: [diagnosticoAprendizajeId], references: [id])
+  tipoAprendizaje        TipoAprendizaje        @relation(fields: [tipoAprendizajeId], references: [id])
+
+  @@unique([diagnosticoAprendizajeId, tipoAprendizajeId])
+  @@map("detalles_diagnostico_aprendizaje")
 }

@@ -244,7 +244,7 @@ export type InstitucionGroupByOutputType = {
   ciudad: string
   departamento: string
   sitioWeb: string | null
-  logo: string
+  logo: string | null
   estado: boolean
   createdAt: Date
   updatedAt: Date
@@ -284,11 +284,14 @@ export type InstitucionWhereInput = {
   ciudad?: Prisma.StringFilter<"Institucion"> | string
   departamento?: Prisma.StringFilter<"Institucion"> | string
   sitioWeb?: Prisma.StringNullableFilter<"Institucion"> | string | null
-  logo?: Prisma.StringFilter<"Institucion"> | string
+  logo?: Prisma.StringNullableFilter<"Institucion"> | string | null
   estado?: Prisma.BoolFilter<"Institucion"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Institucion"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Institucion"> | Date | string
   usuarios?: Prisma.UsuarioListRelationFilter
+  categorias?: Prisma.CategoriaListRelationFilter
+  foros?: Prisma.ForoListRelationFilter
+  recursos?: Prisma.RecursoListRelationFilter
 }
 
 export type InstitucionOrderByWithRelationInput = {
@@ -302,11 +305,14 @@ export type InstitucionOrderByWithRelationInput = {
   ciudad?: Prisma.SortOrder
   departamento?: Prisma.SortOrder
   sitioWeb?: Prisma.SortOrderInput | Prisma.SortOrder
-  logo?: Prisma.SortOrder
+  logo?: Prisma.SortOrderInput | Prisma.SortOrder
   estado?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   usuarios?: Prisma.UsuarioOrderByRelationAggregateInput
+  categorias?: Prisma.CategoriaOrderByRelationAggregateInput
+  foros?: Prisma.ForoOrderByRelationAggregateInput
+  recursos?: Prisma.RecursoOrderByRelationAggregateInput
 }
 
 export type InstitucionWhereUniqueInput = Prisma.AtLeast<{
@@ -323,11 +329,14 @@ export type InstitucionWhereUniqueInput = Prisma.AtLeast<{
   ciudad?: Prisma.StringFilter<"Institucion"> | string
   departamento?: Prisma.StringFilter<"Institucion"> | string
   sitioWeb?: Prisma.StringNullableFilter<"Institucion"> | string | null
-  logo?: Prisma.StringFilter<"Institucion"> | string
+  logo?: Prisma.StringNullableFilter<"Institucion"> | string | null
   estado?: Prisma.BoolFilter<"Institucion"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Institucion"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Institucion"> | Date | string
   usuarios?: Prisma.UsuarioListRelationFilter
+  categorias?: Prisma.CategoriaListRelationFilter
+  foros?: Prisma.ForoListRelationFilter
+  recursos?: Prisma.RecursoListRelationFilter
 }, "id" | "codigo" | "nit">
 
 export type InstitucionOrderByWithAggregationInput = {
@@ -341,7 +350,7 @@ export type InstitucionOrderByWithAggregationInput = {
   ciudad?: Prisma.SortOrder
   departamento?: Prisma.SortOrder
   sitioWeb?: Prisma.SortOrderInput | Prisma.SortOrder
-  logo?: Prisma.SortOrder
+  logo?: Prisma.SortOrderInput | Prisma.SortOrder
   estado?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -366,7 +375,7 @@ export type InstitucionScalarWhereWithAggregatesInput = {
   ciudad?: Prisma.StringWithAggregatesFilter<"Institucion"> | string
   departamento?: Prisma.StringWithAggregatesFilter<"Institucion"> | string
   sitioWeb?: Prisma.StringNullableWithAggregatesFilter<"Institucion"> | string | null
-  logo?: Prisma.StringWithAggregatesFilter<"Institucion"> | string
+  logo?: Prisma.StringNullableWithAggregatesFilter<"Institucion"> | string | null
   estado?: Prisma.BoolWithAggregatesFilter<"Institucion"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Institucion"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Institucion"> | Date | string
@@ -382,11 +391,14 @@ export type InstitucionCreateInput = {
   ciudad: string
   departamento: string
   sitioWeb?: string | null
-  logo: string
+  logo?: string | null
   estado?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   usuarios?: Prisma.UsuarioCreateNestedManyWithoutInstitucionInput
+  categorias?: Prisma.CategoriaCreateNestedManyWithoutInstitucionInput
+  foros?: Prisma.ForoCreateNestedManyWithoutInstitucionInput
+  recursos?: Prisma.RecursoCreateNestedManyWithoutInstitucionInput
 }
 
 export type InstitucionUncheckedCreateInput = {
@@ -400,11 +412,14 @@ export type InstitucionUncheckedCreateInput = {
   ciudad: string
   departamento: string
   sitioWeb?: string | null
-  logo: string
+  logo?: string | null
   estado?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   usuarios?: Prisma.UsuarioUncheckedCreateNestedManyWithoutInstitucionInput
+  categorias?: Prisma.CategoriaUncheckedCreateNestedManyWithoutInstitucionInput
+  foros?: Prisma.ForoUncheckedCreateNestedManyWithoutInstitucionInput
+  recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutInstitucionInput
 }
 
 export type InstitucionUpdateInput = {
@@ -417,11 +432,14 @@ export type InstitucionUpdateInput = {
   ciudad?: Prisma.StringFieldUpdateOperationsInput | string
   departamento?: Prisma.StringFieldUpdateOperationsInput | string
   sitioWeb?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  logo?: Prisma.StringFieldUpdateOperationsInput | string
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   usuarios?: Prisma.UsuarioUpdateManyWithoutInstitucionNestedInput
+  categorias?: Prisma.CategoriaUpdateManyWithoutInstitucionNestedInput
+  foros?: Prisma.ForoUpdateManyWithoutInstitucionNestedInput
+  recursos?: Prisma.RecursoUpdateManyWithoutInstitucionNestedInput
 }
 
 export type InstitucionUncheckedUpdateInput = {
@@ -435,11 +453,14 @@ export type InstitucionUncheckedUpdateInput = {
   ciudad?: Prisma.StringFieldUpdateOperationsInput | string
   departamento?: Prisma.StringFieldUpdateOperationsInput | string
   sitioWeb?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  logo?: Prisma.StringFieldUpdateOperationsInput | string
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   usuarios?: Prisma.UsuarioUncheckedUpdateManyWithoutInstitucionNestedInput
+  categorias?: Prisma.CategoriaUncheckedUpdateManyWithoutInstitucionNestedInput
+  foros?: Prisma.ForoUncheckedUpdateManyWithoutInstitucionNestedInput
+  recursos?: Prisma.RecursoUncheckedUpdateManyWithoutInstitucionNestedInput
 }
 
 export type InstitucionCreateManyInput = {
@@ -453,7 +474,7 @@ export type InstitucionCreateManyInput = {
   ciudad: string
   departamento: string
   sitioWeb?: string | null
-  logo: string
+  logo?: string | null
   estado?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -469,7 +490,7 @@ export type InstitucionUpdateManyMutationInput = {
   ciudad?: Prisma.StringFieldUpdateOperationsInput | string
   departamento?: Prisma.StringFieldUpdateOperationsInput | string
   sitioWeb?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  logo?: Prisma.StringFieldUpdateOperationsInput | string
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -486,7 +507,7 @@ export type InstitucionUncheckedUpdateManyInput = {
   ciudad?: Prisma.StringFieldUpdateOperationsInput | string
   departamento?: Prisma.StringFieldUpdateOperationsInput | string
   sitioWeb?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  logo?: Prisma.StringFieldUpdateOperationsInput | string
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -594,6 +615,48 @@ export type InstitucionUpdateOneRequiredWithoutUsuariosNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.InstitucionUpdateToOneWithWhereWithoutUsuariosInput, Prisma.InstitucionUpdateWithoutUsuariosInput>, Prisma.InstitucionUncheckedUpdateWithoutUsuariosInput>
 }
 
+export type InstitucionCreateNestedOneWithoutCategoriasInput = {
+  create?: Prisma.XOR<Prisma.InstitucionCreateWithoutCategoriasInput, Prisma.InstitucionUncheckedCreateWithoutCategoriasInput>
+  connectOrCreate?: Prisma.InstitucionCreateOrConnectWithoutCategoriasInput
+  connect?: Prisma.InstitucionWhereUniqueInput
+}
+
+export type InstitucionUpdateOneRequiredWithoutCategoriasNestedInput = {
+  create?: Prisma.XOR<Prisma.InstitucionCreateWithoutCategoriasInput, Prisma.InstitucionUncheckedCreateWithoutCategoriasInput>
+  connectOrCreate?: Prisma.InstitucionCreateOrConnectWithoutCategoriasInput
+  upsert?: Prisma.InstitucionUpsertWithoutCategoriasInput
+  connect?: Prisma.InstitucionWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.InstitucionUpdateToOneWithWhereWithoutCategoriasInput, Prisma.InstitucionUpdateWithoutCategoriasInput>, Prisma.InstitucionUncheckedUpdateWithoutCategoriasInput>
+}
+
+export type InstitucionCreateNestedOneWithoutForosInput = {
+  create?: Prisma.XOR<Prisma.InstitucionCreateWithoutForosInput, Prisma.InstitucionUncheckedCreateWithoutForosInput>
+  connectOrCreate?: Prisma.InstitucionCreateOrConnectWithoutForosInput
+  connect?: Prisma.InstitucionWhereUniqueInput
+}
+
+export type InstitucionUpdateOneRequiredWithoutForosNestedInput = {
+  create?: Prisma.XOR<Prisma.InstitucionCreateWithoutForosInput, Prisma.InstitucionUncheckedCreateWithoutForosInput>
+  connectOrCreate?: Prisma.InstitucionCreateOrConnectWithoutForosInput
+  upsert?: Prisma.InstitucionUpsertWithoutForosInput
+  connect?: Prisma.InstitucionWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.InstitucionUpdateToOneWithWhereWithoutForosInput, Prisma.InstitucionUpdateWithoutForosInput>, Prisma.InstitucionUncheckedUpdateWithoutForosInput>
+}
+
+export type InstitucionCreateNestedOneWithoutRecursosInput = {
+  create?: Prisma.XOR<Prisma.InstitucionCreateWithoutRecursosInput, Prisma.InstitucionUncheckedCreateWithoutRecursosInput>
+  connectOrCreate?: Prisma.InstitucionCreateOrConnectWithoutRecursosInput
+  connect?: Prisma.InstitucionWhereUniqueInput
+}
+
+export type InstitucionUpdateOneRequiredWithoutRecursosNestedInput = {
+  create?: Prisma.XOR<Prisma.InstitucionCreateWithoutRecursosInput, Prisma.InstitucionUncheckedCreateWithoutRecursosInput>
+  connectOrCreate?: Prisma.InstitucionCreateOrConnectWithoutRecursosInput
+  upsert?: Prisma.InstitucionUpsertWithoutRecursosInput
+  connect?: Prisma.InstitucionWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.InstitucionUpdateToOneWithWhereWithoutRecursosInput, Prisma.InstitucionUpdateWithoutRecursosInput>, Prisma.InstitucionUncheckedUpdateWithoutRecursosInput>
+}
+
 export type InstitucionCreateWithoutUsuariosInput = {
   nombre: string
   codigo: string
@@ -604,10 +667,13 @@ export type InstitucionCreateWithoutUsuariosInput = {
   ciudad: string
   departamento: string
   sitioWeb?: string | null
-  logo: string
+  logo?: string | null
   estado?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  categorias?: Prisma.CategoriaCreateNestedManyWithoutInstitucionInput
+  foros?: Prisma.ForoCreateNestedManyWithoutInstitucionInput
+  recursos?: Prisma.RecursoCreateNestedManyWithoutInstitucionInput
 }
 
 export type InstitucionUncheckedCreateWithoutUsuariosInput = {
@@ -621,10 +687,13 @@ export type InstitucionUncheckedCreateWithoutUsuariosInput = {
   ciudad: string
   departamento: string
   sitioWeb?: string | null
-  logo: string
+  logo?: string | null
   estado?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  categorias?: Prisma.CategoriaUncheckedCreateNestedManyWithoutInstitucionInput
+  foros?: Prisma.ForoUncheckedCreateNestedManyWithoutInstitucionInput
+  recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutInstitucionInput
 }
 
 export type InstitucionCreateOrConnectWithoutUsuariosInput = {
@@ -653,10 +722,13 @@ export type InstitucionUpdateWithoutUsuariosInput = {
   ciudad?: Prisma.StringFieldUpdateOperationsInput | string
   departamento?: Prisma.StringFieldUpdateOperationsInput | string
   sitioWeb?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  logo?: Prisma.StringFieldUpdateOperationsInput | string
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  categorias?: Prisma.CategoriaUpdateManyWithoutInstitucionNestedInput
+  foros?: Prisma.ForoUpdateManyWithoutInstitucionNestedInput
+  recursos?: Prisma.RecursoUpdateManyWithoutInstitucionNestedInput
 }
 
 export type InstitucionUncheckedUpdateWithoutUsuariosInput = {
@@ -670,10 +742,295 @@ export type InstitucionUncheckedUpdateWithoutUsuariosInput = {
   ciudad?: Prisma.StringFieldUpdateOperationsInput | string
   departamento?: Prisma.StringFieldUpdateOperationsInput | string
   sitioWeb?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  logo?: Prisma.StringFieldUpdateOperationsInput | string
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  categorias?: Prisma.CategoriaUncheckedUpdateManyWithoutInstitucionNestedInput
+  foros?: Prisma.ForoUncheckedUpdateManyWithoutInstitucionNestedInput
+  recursos?: Prisma.RecursoUncheckedUpdateManyWithoutInstitucionNestedInput
+}
+
+export type InstitucionCreateWithoutCategoriasInput = {
+  nombre: string
+  codigo: string
+  nit: string
+  correo: string
+  telefono: string
+  direccion: string
+  ciudad: string
+  departamento: string
+  sitioWeb?: string | null
+  logo?: string | null
+  estado?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  usuarios?: Prisma.UsuarioCreateNestedManyWithoutInstitucionInput
+  foros?: Prisma.ForoCreateNestedManyWithoutInstitucionInput
+  recursos?: Prisma.RecursoCreateNestedManyWithoutInstitucionInput
+}
+
+export type InstitucionUncheckedCreateWithoutCategoriasInput = {
+  id?: number
+  nombre: string
+  codigo: string
+  nit: string
+  correo: string
+  telefono: string
+  direccion: string
+  ciudad: string
+  departamento: string
+  sitioWeb?: string | null
+  logo?: string | null
+  estado?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  usuarios?: Prisma.UsuarioUncheckedCreateNestedManyWithoutInstitucionInput
+  foros?: Prisma.ForoUncheckedCreateNestedManyWithoutInstitucionInput
+  recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutInstitucionInput
+}
+
+export type InstitucionCreateOrConnectWithoutCategoriasInput = {
+  where: Prisma.InstitucionWhereUniqueInput
+  create: Prisma.XOR<Prisma.InstitucionCreateWithoutCategoriasInput, Prisma.InstitucionUncheckedCreateWithoutCategoriasInput>
+}
+
+export type InstitucionUpsertWithoutCategoriasInput = {
+  update: Prisma.XOR<Prisma.InstitucionUpdateWithoutCategoriasInput, Prisma.InstitucionUncheckedUpdateWithoutCategoriasInput>
+  create: Prisma.XOR<Prisma.InstitucionCreateWithoutCategoriasInput, Prisma.InstitucionUncheckedCreateWithoutCategoriasInput>
+  where?: Prisma.InstitucionWhereInput
+}
+
+export type InstitucionUpdateToOneWithWhereWithoutCategoriasInput = {
+  where?: Prisma.InstitucionWhereInput
+  data: Prisma.XOR<Prisma.InstitucionUpdateWithoutCategoriasInput, Prisma.InstitucionUncheckedUpdateWithoutCategoriasInput>
+}
+
+export type InstitucionUpdateWithoutCategoriasInput = {
+  nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  codigo?: Prisma.StringFieldUpdateOperationsInput | string
+  nit?: Prisma.StringFieldUpdateOperationsInput | string
+  correo?: Prisma.StringFieldUpdateOperationsInput | string
+  telefono?: Prisma.StringFieldUpdateOperationsInput | string
+  direccion?: Prisma.StringFieldUpdateOperationsInput | string
+  ciudad?: Prisma.StringFieldUpdateOperationsInput | string
+  departamento?: Prisma.StringFieldUpdateOperationsInput | string
+  sitioWeb?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  usuarios?: Prisma.UsuarioUpdateManyWithoutInstitucionNestedInput
+  foros?: Prisma.ForoUpdateManyWithoutInstitucionNestedInput
+  recursos?: Prisma.RecursoUpdateManyWithoutInstitucionNestedInput
+}
+
+export type InstitucionUncheckedUpdateWithoutCategoriasInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  codigo?: Prisma.StringFieldUpdateOperationsInput | string
+  nit?: Prisma.StringFieldUpdateOperationsInput | string
+  correo?: Prisma.StringFieldUpdateOperationsInput | string
+  telefono?: Prisma.StringFieldUpdateOperationsInput | string
+  direccion?: Prisma.StringFieldUpdateOperationsInput | string
+  ciudad?: Prisma.StringFieldUpdateOperationsInput | string
+  departamento?: Prisma.StringFieldUpdateOperationsInput | string
+  sitioWeb?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  usuarios?: Prisma.UsuarioUncheckedUpdateManyWithoutInstitucionNestedInput
+  foros?: Prisma.ForoUncheckedUpdateManyWithoutInstitucionNestedInput
+  recursos?: Prisma.RecursoUncheckedUpdateManyWithoutInstitucionNestedInput
+}
+
+export type InstitucionCreateWithoutForosInput = {
+  nombre: string
+  codigo: string
+  nit: string
+  correo: string
+  telefono: string
+  direccion: string
+  ciudad: string
+  departamento: string
+  sitioWeb?: string | null
+  logo?: string | null
+  estado?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  usuarios?: Prisma.UsuarioCreateNestedManyWithoutInstitucionInput
+  categorias?: Prisma.CategoriaCreateNestedManyWithoutInstitucionInput
+  recursos?: Prisma.RecursoCreateNestedManyWithoutInstitucionInput
+}
+
+export type InstitucionUncheckedCreateWithoutForosInput = {
+  id?: number
+  nombre: string
+  codigo: string
+  nit: string
+  correo: string
+  telefono: string
+  direccion: string
+  ciudad: string
+  departamento: string
+  sitioWeb?: string | null
+  logo?: string | null
+  estado?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  usuarios?: Prisma.UsuarioUncheckedCreateNestedManyWithoutInstitucionInput
+  categorias?: Prisma.CategoriaUncheckedCreateNestedManyWithoutInstitucionInput
+  recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutInstitucionInput
+}
+
+export type InstitucionCreateOrConnectWithoutForosInput = {
+  where: Prisma.InstitucionWhereUniqueInput
+  create: Prisma.XOR<Prisma.InstitucionCreateWithoutForosInput, Prisma.InstitucionUncheckedCreateWithoutForosInput>
+}
+
+export type InstitucionUpsertWithoutForosInput = {
+  update: Prisma.XOR<Prisma.InstitucionUpdateWithoutForosInput, Prisma.InstitucionUncheckedUpdateWithoutForosInput>
+  create: Prisma.XOR<Prisma.InstitucionCreateWithoutForosInput, Prisma.InstitucionUncheckedCreateWithoutForosInput>
+  where?: Prisma.InstitucionWhereInput
+}
+
+export type InstitucionUpdateToOneWithWhereWithoutForosInput = {
+  where?: Prisma.InstitucionWhereInput
+  data: Prisma.XOR<Prisma.InstitucionUpdateWithoutForosInput, Prisma.InstitucionUncheckedUpdateWithoutForosInput>
+}
+
+export type InstitucionUpdateWithoutForosInput = {
+  nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  codigo?: Prisma.StringFieldUpdateOperationsInput | string
+  nit?: Prisma.StringFieldUpdateOperationsInput | string
+  correo?: Prisma.StringFieldUpdateOperationsInput | string
+  telefono?: Prisma.StringFieldUpdateOperationsInput | string
+  direccion?: Prisma.StringFieldUpdateOperationsInput | string
+  ciudad?: Prisma.StringFieldUpdateOperationsInput | string
+  departamento?: Prisma.StringFieldUpdateOperationsInput | string
+  sitioWeb?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  usuarios?: Prisma.UsuarioUpdateManyWithoutInstitucionNestedInput
+  categorias?: Prisma.CategoriaUpdateManyWithoutInstitucionNestedInput
+  recursos?: Prisma.RecursoUpdateManyWithoutInstitucionNestedInput
+}
+
+export type InstitucionUncheckedUpdateWithoutForosInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  codigo?: Prisma.StringFieldUpdateOperationsInput | string
+  nit?: Prisma.StringFieldUpdateOperationsInput | string
+  correo?: Prisma.StringFieldUpdateOperationsInput | string
+  telefono?: Prisma.StringFieldUpdateOperationsInput | string
+  direccion?: Prisma.StringFieldUpdateOperationsInput | string
+  ciudad?: Prisma.StringFieldUpdateOperationsInput | string
+  departamento?: Prisma.StringFieldUpdateOperationsInput | string
+  sitioWeb?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  usuarios?: Prisma.UsuarioUncheckedUpdateManyWithoutInstitucionNestedInput
+  categorias?: Prisma.CategoriaUncheckedUpdateManyWithoutInstitucionNestedInput
+  recursos?: Prisma.RecursoUncheckedUpdateManyWithoutInstitucionNestedInput
+}
+
+export type InstitucionCreateWithoutRecursosInput = {
+  nombre: string
+  codigo: string
+  nit: string
+  correo: string
+  telefono: string
+  direccion: string
+  ciudad: string
+  departamento: string
+  sitioWeb?: string | null
+  logo?: string | null
+  estado?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  usuarios?: Prisma.UsuarioCreateNestedManyWithoutInstitucionInput
+  categorias?: Prisma.CategoriaCreateNestedManyWithoutInstitucionInput
+  foros?: Prisma.ForoCreateNestedManyWithoutInstitucionInput
+}
+
+export type InstitucionUncheckedCreateWithoutRecursosInput = {
+  id?: number
+  nombre: string
+  codigo: string
+  nit: string
+  correo: string
+  telefono: string
+  direccion: string
+  ciudad: string
+  departamento: string
+  sitioWeb?: string | null
+  logo?: string | null
+  estado?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  usuarios?: Prisma.UsuarioUncheckedCreateNestedManyWithoutInstitucionInput
+  categorias?: Prisma.CategoriaUncheckedCreateNestedManyWithoutInstitucionInput
+  foros?: Prisma.ForoUncheckedCreateNestedManyWithoutInstitucionInput
+}
+
+export type InstitucionCreateOrConnectWithoutRecursosInput = {
+  where: Prisma.InstitucionWhereUniqueInput
+  create: Prisma.XOR<Prisma.InstitucionCreateWithoutRecursosInput, Prisma.InstitucionUncheckedCreateWithoutRecursosInput>
+}
+
+export type InstitucionUpsertWithoutRecursosInput = {
+  update: Prisma.XOR<Prisma.InstitucionUpdateWithoutRecursosInput, Prisma.InstitucionUncheckedUpdateWithoutRecursosInput>
+  create: Prisma.XOR<Prisma.InstitucionCreateWithoutRecursosInput, Prisma.InstitucionUncheckedCreateWithoutRecursosInput>
+  where?: Prisma.InstitucionWhereInput
+}
+
+export type InstitucionUpdateToOneWithWhereWithoutRecursosInput = {
+  where?: Prisma.InstitucionWhereInput
+  data: Prisma.XOR<Prisma.InstitucionUpdateWithoutRecursosInput, Prisma.InstitucionUncheckedUpdateWithoutRecursosInput>
+}
+
+export type InstitucionUpdateWithoutRecursosInput = {
+  nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  codigo?: Prisma.StringFieldUpdateOperationsInput | string
+  nit?: Prisma.StringFieldUpdateOperationsInput | string
+  correo?: Prisma.StringFieldUpdateOperationsInput | string
+  telefono?: Prisma.StringFieldUpdateOperationsInput | string
+  direccion?: Prisma.StringFieldUpdateOperationsInput | string
+  ciudad?: Prisma.StringFieldUpdateOperationsInput | string
+  departamento?: Prisma.StringFieldUpdateOperationsInput | string
+  sitioWeb?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  usuarios?: Prisma.UsuarioUpdateManyWithoutInstitucionNestedInput
+  categorias?: Prisma.CategoriaUpdateManyWithoutInstitucionNestedInput
+  foros?: Prisma.ForoUpdateManyWithoutInstitucionNestedInput
+}
+
+export type InstitucionUncheckedUpdateWithoutRecursosInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  codigo?: Prisma.StringFieldUpdateOperationsInput | string
+  nit?: Prisma.StringFieldUpdateOperationsInput | string
+  correo?: Prisma.StringFieldUpdateOperationsInput | string
+  telefono?: Prisma.StringFieldUpdateOperationsInput | string
+  direccion?: Prisma.StringFieldUpdateOperationsInput | string
+  ciudad?: Prisma.StringFieldUpdateOperationsInput | string
+  departamento?: Prisma.StringFieldUpdateOperationsInput | string
+  sitioWeb?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  usuarios?: Prisma.UsuarioUncheckedUpdateManyWithoutInstitucionNestedInput
+  categorias?: Prisma.CategoriaUncheckedUpdateManyWithoutInstitucionNestedInput
+  foros?: Prisma.ForoUncheckedUpdateManyWithoutInstitucionNestedInput
 }
 
 
@@ -683,10 +1040,16 @@ export type InstitucionUncheckedUpdateWithoutUsuariosInput = {
 
 export type InstitucionCountOutputType = {
   usuarios: number
+  categorias: number
+  foros: number
+  recursos: number
 }
 
 export type InstitucionCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   usuarios?: boolean | InstitucionCountOutputTypeCountUsuariosArgs
+  categorias?: boolean | InstitucionCountOutputTypeCountCategoriasArgs
+  foros?: boolean | InstitucionCountOutputTypeCountForosArgs
+  recursos?: boolean | InstitucionCountOutputTypeCountRecursosArgs
 }
 
 /**
@@ -706,6 +1069,27 @@ export type InstitucionCountOutputTypeCountUsuariosArgs<ExtArgs extends runtime.
   where?: Prisma.UsuarioWhereInput
 }
 
+/**
+ * InstitucionCountOutputType without action
+ */
+export type InstitucionCountOutputTypeCountCategoriasArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CategoriaWhereInput
+}
+
+/**
+ * InstitucionCountOutputType without action
+ */
+export type InstitucionCountOutputTypeCountForosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ForoWhereInput
+}
+
+/**
+ * InstitucionCountOutputType without action
+ */
+export type InstitucionCountOutputTypeCountRecursosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RecursoWhereInput
+}
+
 
 export type InstitucionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -723,6 +1107,9 @@ export type InstitucionSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   createdAt?: boolean
   updatedAt?: boolean
   usuarios?: boolean | Prisma.Institucion$usuariosArgs<ExtArgs>
+  categorias?: boolean | Prisma.Institucion$categoriasArgs<ExtArgs>
+  foros?: boolean | Prisma.Institucion$forosArgs<ExtArgs>
+  recursos?: boolean | Prisma.Institucion$recursosArgs<ExtArgs>
   _count?: boolean | Prisma.InstitucionCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["institucion"]>
 
@@ -780,6 +1167,9 @@ export type InstitucionSelectScalar = {
 export type InstitucionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nombre" | "codigo" | "nit" | "correo" | "telefono" | "direccion" | "ciudad" | "departamento" | "sitioWeb" | "logo" | "estado" | "createdAt" | "updatedAt", ExtArgs["result"]["institucion"]>
 export type InstitucionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   usuarios?: boolean | Prisma.Institucion$usuariosArgs<ExtArgs>
+  categorias?: boolean | Prisma.Institucion$categoriasArgs<ExtArgs>
+  foros?: boolean | Prisma.Institucion$forosArgs<ExtArgs>
+  recursos?: boolean | Prisma.Institucion$recursosArgs<ExtArgs>
   _count?: boolean | Prisma.InstitucionCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type InstitucionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -789,6 +1179,9 @@ export type $InstitucionPayload<ExtArgs extends runtime.Types.Extensions.Interna
   name: "Institucion"
   objects: {
     usuarios: Prisma.$UsuarioPayload<ExtArgs>[]
+    categorias: Prisma.$CategoriaPayload<ExtArgs>[]
+    foros: Prisma.$ForoPayload<ExtArgs>[]
+    recursos: Prisma.$RecursoPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -801,7 +1194,7 @@ export type $InstitucionPayload<ExtArgs extends runtime.Types.Extensions.Interna
     ciudad: string
     departamento: string
     sitioWeb: string | null
-    logo: string
+    logo: string | null
     estado: boolean
     createdAt: Date
     updatedAt: Date
@@ -1200,6 +1593,9 @@ readonly fields: InstitucionFieldRefs;
 export interface Prisma__InstitucionClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   usuarios<T extends Prisma.Institucion$usuariosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Institucion$usuariosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  categorias<T extends Prisma.Institucion$categoriasArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Institucion$categoriasArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CategoriaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  foros<T extends Prisma.Institucion$forosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Institucion$forosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ForoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  recursos<T extends Prisma.Institucion$recursosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Institucion$recursosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RecursoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1657,6 +2053,78 @@ export type Institucion$usuariosArgs<ExtArgs extends runtime.Types.Extensions.In
   take?: number
   skip?: number
   distinct?: Prisma.UsuarioScalarFieldEnum | Prisma.UsuarioScalarFieldEnum[]
+}
+
+/**
+ * Institucion.categorias
+ */
+export type Institucion$categoriasArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Categoria
+   */
+  select?: Prisma.CategoriaSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Categoria
+   */
+  omit?: Prisma.CategoriaOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CategoriaInclude<ExtArgs> | null
+  where?: Prisma.CategoriaWhereInput
+  orderBy?: Prisma.CategoriaOrderByWithRelationInput | Prisma.CategoriaOrderByWithRelationInput[]
+  cursor?: Prisma.CategoriaWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CategoriaScalarFieldEnum | Prisma.CategoriaScalarFieldEnum[]
+}
+
+/**
+ * Institucion.foros
+ */
+export type Institucion$forosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Foro
+   */
+  select?: Prisma.ForoSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Foro
+   */
+  omit?: Prisma.ForoOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ForoInclude<ExtArgs> | null
+  where?: Prisma.ForoWhereInput
+  orderBy?: Prisma.ForoOrderByWithRelationInput | Prisma.ForoOrderByWithRelationInput[]
+  cursor?: Prisma.ForoWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ForoScalarFieldEnum | Prisma.ForoScalarFieldEnum[]
+}
+
+/**
+ * Institucion.recursos
+ */
+export type Institucion$recursosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Recurso
+   */
+  select?: Prisma.RecursoSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Recurso
+   */
+  omit?: Prisma.RecursoOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RecursoInclude<ExtArgs> | null
+  where?: Prisma.RecursoWhereInput
+  orderBy?: Prisma.RecursoOrderByWithRelationInput | Prisma.RecursoOrderByWithRelationInput[]
+  cursor?: Prisma.RecursoWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.RecursoScalarFieldEnum | Prisma.RecursoScalarFieldEnum[]
 }
 
 /**

@@ -54,3 +54,63 @@ export type Rol = Prisma.RolModel
  * 
  */
 export type Usuario = Prisma.UsuarioModel
+/**
+ * Model Categoria
+ * 
+ */
+export type Categoria = Prisma.CategoriaModel
+/**
+ * Model Foro
+ * 
+ */
+export type Foro = Prisma.ForoModel
+/**
+ * Model RespuestaForo
+ * 
+ */
+export type RespuestaForo = Prisma.RespuestaForoModel
+/**
+ * Model TipoRecurso
+ * 
+ */
+export type TipoRecurso = Prisma.TipoRecursoModel
+/**
+ * Model Recurso
+ * 
+ */
+export type Recurso = Prisma.RecursoModel
+/**
+ * Model CalificacionRecurso
+ * 
+ */
+export type CalificacionRecurso = Prisma.CalificacionRecursoModel
+/**
+ * Model TipoAprendizaje
+ * 
+ */
+export type TipoAprendizaje = Prisma.TipoAprendizajeModel
+/**
+ * Model RutaAprendizaje
+ * 
+ */
+export type RutaAprendizaje = Prisma.RutaAprendizajeModel
+/**
+ * Model DetalleRutaAprendizaje
+ * 
+ */
+export type DetalleRutaAprendizaje = Prisma.DetalleRutaAprendizajeModel
+/**
+ * Model AsignacionRutaAprendizaje
+ * 
+ */
+export type AsignacionRutaAprendizaje = Prisma.AsignacionRutaAprendizajeModel
+/**
+ * Model DiagnosticoAprendizaje
+ * 
+ */
+export type DiagnosticoAprendizaje = Prisma.DiagnosticoAprendizajeModel
+/**
+ * Model DetalleDiagnosticoAprendizaje
+ * 
+ */
+export type DetalleDiagnosticoAprendizaje = Prisma.DetalleDiagnosticoAprendizajeModel
