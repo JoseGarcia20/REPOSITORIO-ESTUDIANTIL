@@ -1,0 +1,27 @@
+import { IsBoolean, IsInt, IsOptional, IsString } from 'class-validator';
+
+export class ActualizarForoDto {
+  @IsOptional()
+  @IsString()
+  titulo?: string;
+
+  @IsOptional()
+  @IsString()
+  descripcion?: string;
+
+  @IsOptional()
+  @IsBoolean()
+  estado?: boolean;
+
+  @IsOptional()
+  @IsInt()
+  institucionId?: number;
+
+  @IsOptional()
+  @IsInt()
+  categoriaId?: number;
+
+  @IsOptional()
+  @IsInt()
+  usuarioId?: number;
+}
