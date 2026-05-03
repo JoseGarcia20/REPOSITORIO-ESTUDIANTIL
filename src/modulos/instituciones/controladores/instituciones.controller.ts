@@ -2,6 +2,10 @@ import { Body, Controller, Get, Param, ParseIntPipe, Patch, Post, Put } from '@n
 import { InstitucionesService } from '../servicios/instituciones.service';
 import { CrearInstitucionDto } from '../dto/crear-institucion.dto';
 import { ActualizarInstitucionDto } from '../dto/actualizar-institucion.dto';
+import { UploadedFile, UseInterceptors, BadRequestException } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
+import { extname } from 'path';
 
 @Controller('instituciones')
 export class InstitucionesController {
@@ -51,6 +55,43 @@ export class InstitucionesController {
   @Patch(':id/reactivar')
   async reactivar(@Param('id', ParseIntPipe) id: string) {
     return await this.institucionesService.reactivar(Number(id));
+  }
+
+  @Post('subir-logo')
+  @UseInterceptors(
+    FileInterceptor('logo', {
+      storage: diskStorage({
+        destination: './uploads/instituciones',
+        filename: (_req, file, callback) => {
+          const nombre = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
+          callback(null, `${nombre}${extname(file.originalname)}`);
+        },
+      }),
+
+      fileFilter: (_req, file, callback) => {
+        const permitidos = [
+          'image/png',
+          'image/jpeg',
+          'image/webp',
+        ];
+
+        if (!permitidos.includes(file.mimetype)) {
+          return callback(
+            new BadRequestException(
+              'Solo se permiten imágenes PNG, JPG, JPEG o WEBP',
+            ),
+            false,
+          );
+        }
+
+        callback(null, true);
+      },
+    }),
+  )
+  subirLogo(@UploadedFile() file: Express.Multer.File) {
+    return {
+      ruta: `/uploads/instituciones/${file.filename}`,
+    };
   }
 
 }

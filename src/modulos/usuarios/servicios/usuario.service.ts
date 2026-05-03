@@ -3,6 +3,7 @@ import { PrismaService } from '../../../baseDatos/prisma/prisma.service';
 import { Prisma } from '../../../generated/prisma/client';
 import { CrearUsuarioDto } from '../dto/crear-usuario.dto';
 import { ActualizarUsuarioDto } from '../dto/actualizar-usuario.dto';
+import * as bcrypt from 'bcryptjs';
 
 @Injectable()
 export class UsuarioService {
@@ -12,9 +13,18 @@ export class UsuarioService {
   //Funcion para la creacion de un nuevo usuario
   async crear(data: CrearUsuarioDto) {
     try {
+
+      //Encriptar la contraseña antes de guardarla en la base de datos
+      const contrasenaEncriptada = await bcrypt.hash(data.contrasena, 10);
+
       return await this.prisma.usuario.create({
-        data,
+        data: {
+          ...data,
+          fechaNacimiento: new Date(data.fechaNacimiento),
+          contrasena: contrasenaEncriptada,
+        },
       });
+
     } catch (error) {
       if (
         error instanceof Prisma.PrismaClientKnownRequestError &&

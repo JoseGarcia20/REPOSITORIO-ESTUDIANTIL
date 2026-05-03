@@ -14,12 +14,23 @@ import { RespuestaForoModule } from './modulos/respuestaForo/respuestaForo.modul
 import { CalificacionRecursoModule } from './modulos/calificacionRecurso/calificacionRecurso.module';
 import { DetalleRutaAprendizajeModule } from './modulos/detalleRutaAprendizaje/detalleRutaAprendizaje.module';
 import { DetalleDiagnosticoAprendizajeModule } from './modulos/detalleDiagnosticoAprendizaje/detalleDiagnosticoAprendizaje.module';
+import { AuthModule } from './modulos/auth/auth.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
+
+    ServeStaticModule.forRoot({
+      rootPath: join(process.cwd(), 'uploads'),
+      serveRoot: '/uploads',
+    }),
+
     PrismaModule,
     InstitucionesModule,
-    UsuarioModule,RolesModule,
+    AuthModule,
+    UsuarioModule,
+    RolesModule,
     CategoriasModule,
     TiposAprendizajeModule,
     TiposRecursosModule,
