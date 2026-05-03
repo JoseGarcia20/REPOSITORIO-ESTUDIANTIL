@@ -3,7 +3,9 @@ import './dashboard.css';
 import { Instituciones } from '../instituciones/instituciones';
 
 export function Dashboard() {
-  const [menuAbierto, setMenuAbierto] = useState(true);
+  const [menuAbierto, setMenuAbierto] = useState(
+    window.innerWidth > 900,
+  );
   const [mostrarBotonAbrir, setMostrarBotonAbrir] = useState(false);
   const [moduloActivo, setModuloActivo] = useState< 'inicio' | 'dashboard' | 'instituciones'>('dashboard');
 
@@ -135,7 +137,7 @@ export function Dashboard() {
           <Instituciones />
         )}
       </section>
-      
+
     </main>
   );
 }

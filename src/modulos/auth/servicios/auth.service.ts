@@ -59,7 +59,10 @@ export class AuthService {
         apellidos: usuario.apellidos,
         correo: usuario.correo,
         documento: usuario.documento,
-        rol: usuario.rol.nombre,
+        rol: {
+          id: usuario.rol.id,
+          nombre: usuario.rol.nombre,
+        },
         institucion: {
           id: usuario.institucion.id,
           nombre: usuario.institucion.nombre,

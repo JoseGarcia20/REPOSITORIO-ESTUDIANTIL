@@ -1,10 +1,7 @@
-import { Login } from './paginas/login/login';
-import { Dashboard } from './paginas/dashboard/dashboard';
+import { AppRoutes } from './rutas/appRoutes';
 
 function App() {
-  const token = localStorage.getItem('token');
-
-  return token ? <Dashboard /> : <Login />;
+  return <AppRoutes />;
 }
 
 export default App;
