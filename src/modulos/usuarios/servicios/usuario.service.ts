@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException, ConflictException } from '@nestjs/common';
+import { Injectable, NotFoundException, ConflictException, ForbiddenException } from '@nestjs/common';
 import { PrismaService } from '../../../baseDatos/prisma/prisma.service';
 import { Prisma } from '../../../generated/prisma/client';
 import { CrearUsuarioDto } from '../dto/crear-usuario.dto';
@@ -10,135 +10,78 @@ export class UsuarioService {
 
   constructor(private readonly prisma: PrismaService) {}
 
-  //Funcion para la creacion de un nuevo usuario
-  async crear(data: CrearUsuarioDto) {
+  //Funcion para validar acceso administrativo
+  private async validarAdministrador(usuarioAuth: any) {
+    const rol = await this.prisma.rol.findUnique({ where: { id: Number(usuarioAuth?.rolId) } });
+    if (!rol) throw new ForbiddenException('Rol no válido');
+
+    const nombreRol = rol.nombre.toLowerCase();
+    if (nombreRol !== 'superadministrador' && nombreRol !== 'administrador institucional') {
+      throw new ForbiddenException('No tiene permisos para administrar usuarios');
+    }
+
+    return { esSuper: nombreRol === 'superadministrador' };
+  }
+
+  async crear(data: CrearUsuarioDto, usuarioAuth: any) {
+    const { esSuper } = await this.validarAdministrador(usuarioAuth);
     try {
-
-      //Encriptar la contraseña antes de guardarla en la base de datos
       const contrasenaEncriptada = await bcrypt.hash(data.contrasena, 10);
-
       return await this.prisma.usuario.create({
         data: {
           ...data,
+          institucionId: esSuper ? data.institucionId : Number(usuarioAuth?.institucionId),
           fechaNacimiento: new Date(data.fechaNacimiento),
           contrasena: contrasenaEncriptada,
         },
       });
-
     } catch (error) {
-      if (
-        error instanceof Prisma.PrismaClientKnownRequestError &&
-        error.code === 'P2002'
-      ) {
-        const campo = Array.isArray(error.meta?.target)
-          ? error.meta.target[0]
-          : 'campo único';
-
-        if (campo === 'identificacion') {
-          throw new ConflictException('Ya existe un usuario con esa identificación');
-        }
-
-        if (campo === 'correo') {
-          throw new ConflictException('Ya existe un usuario con ese correo');
-        }
-
-        throw new ConflictException(`Ya existe un registro con el campo único: ${campo}`);
+      if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2002') {
+        throw new ConflictException('Ya existe un usuario con ese dato único');
       }
-
       throw error;
     }
   }
 
-  //Funcion para listar todas los usuarios activos, ordenados por id de forma descendente para mostrar los usuarios mas recientes primero
-  async listar() {
+  async listar(usuarioAuth: any) {
+    const { esSuper } = await this.validarAdministrador(usuarioAuth);
     return await this.prisma.usuario.findMany({
-      where: {
-        activo: true, //Solo se listan los usuarios activos
-      },
-      orderBy: {
-        id: 'desc', //Ordena por id de forma descendente para mostrar los usuarios mas recientes primero
-      },
+      where: { activo: true, ...(esSuper ? {} : { institucionId: Number(usuarioAuth?.institucionId) }) },
+      orderBy: { id: 'desc' },
     });
   }
 
-  //Funcion para listar todas los usuarios, incluyendo los inactivos
-  async listarTodos() {
+  async listarTodos(usuarioAuth: any) {
+    const { esSuper } = await this.validarAdministrador(usuarioAuth);
     return await this.prisma.usuario.findMany({
-      orderBy: {
-        id: 'desc', //Ordena por id de forma descendente para mostrar los usuarios mas recientes primero
-      },
+      where: esSuper ? {} : { institucionId: Number(usuarioAuth?.institucionId) },
+      orderBy: { id: 'desc' },
     });
   }
 
-  //Funcion para obtener un usuario por su id
-  async obtenerPorId(id: number) {
-    const usuario = await this.prisma.usuario.findUnique({
-      where: { id },
-    });
-
-    if (!usuario) {
-      throw new NotFoundException(`Usuario con id ${id} no encontrado`);
+  async obtenerPorId(id: number, usuarioAuth: any) {
+    await this.validarAdministrador(usuarioAuth);
+    const usuario = await this.prisma.usuario.findUnique({ where: { id } });
+    if (!usuario) throw new NotFoundException(`Usuario con id ${id} no encontrado`);
+    if (Number(usuarioAuth?.institucionId) !== usuario.institucionId) {
+      const { esSuper } = await this.validarAdministrador(usuarioAuth);
+      if (!esSuper) throw new ForbiddenException('No puede consultar usuarios de otra institución');
     }
-
     return usuario;
-
   }
 
-  //Funcion para actualizar un usuario por su id
-  async actualizar(id: number, data: ActualizarUsuarioDto) {
-    await this.obtenerPorId(id);
-
-    try {
-      return await this.prisma.usuario.update({
-        where: { id },
-        data,
-      });
-    } catch (error) {
-      if (
-        error instanceof Prisma.PrismaClientKnownRequestError &&
-        error.code === 'P2002'
-      ) {
-        const campo = Array.isArray(error.meta?.target)
-          ? error.meta.target[0]
-          : 'campo único';
-
-        if (campo === 'identificacion') {
-          throw new ConflictException('Ya existe un usuario con esa identificación');
-        }
-
-        if (campo === 'correo') {
-          throw new ConflictException('Ya existe un usuario con ese correo');
-        }
-
-        throw new ConflictException(`Ya existe un registro con el campo único: ${campo}`);
-      }
-
-      throw error;
-    }
+  async actualizar(id: number, data: ActualizarUsuarioDto, usuarioAuth: any) {
+    await this.obtenerPorId(id, usuarioAuth);
+    return await this.prisma.usuario.update({ where: { id }, data });
   }
 
-  //Funcion para inactivar un usuario por su id
-  async inactivar(id: number) {
-    await this.obtenerPorId(id);
-
-    return await this.prisma.usuario.update({
-      where: { id },
-      data: {
-        activo: false,
-      },
-    });
+  async inactivar(id: number, usuarioAuth: any) {
+    await this.obtenerPorId(id, usuarioAuth);
+    return await this.prisma.usuario.update({ where: { id }, data: { activo: false } });
   }
 
-  //Funcion para reactivar un usuario por su id
-  async reactivar(id: number) {
-    await this.obtenerPorId(id);
-
-    return await this.prisma.usuario.update({
-      where: { id },
-      data: {
-        activo: true,
-      },
-    });
+  async reactivar(id: number, usuarioAuth: any) {
+    await this.obtenerPorId(id, usuarioAuth);
+    return await this.prisma.usuario.update({ where: { id }, data: { activo: true } });
   }
-
 }
