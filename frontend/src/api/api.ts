@@ -1,5 +1,20 @@
 const API_URL = 'http://localhost:3000';
 
+//Funcion para obtener el token guardado en localStorage
+function obtenerToken(): string {
+  return localStorage.getItem('token') || '';
+}
+
+//Funcion para construir headers con autorización JWT cuando sea necesario
+function construirHeadersAutorizados(incluirJson = true): HeadersInit {
+  const token = obtenerToken();
+
+  return {
+    ...(incluirJson ? { 'Content-Type': 'application/json' } : {}),
+    ...(token ? { Authorization: `Bearer ${token}` } : {}),
+  };
+}
+
 export async function obtenerInstituciones() {
   const respuesta = await fetch(`${API_URL}/instituciones`);
 
@@ -11,7 +26,10 @@ export async function obtenerInstituciones() {
 }
 
 export async function obtenerTodasInstituciones() {
-  const respuesta = await fetch(`${API_URL}/instituciones/todas`);
+  const respuesta = await fetch(`${API_URL}/instituciones/todas`, {
+    //Se envía el token para pasar el guard JWT del backend
+    headers: construirHeadersAutorizados(false),
+  });
 
   if (!respuesta.ok) {
     throw new Error('Error al obtener todas las instituciones');
@@ -34,9 +52,8 @@ export async function crearInstitucion(data: {
 }) {
   const respuesta = await fetch(`${API_URL}/instituciones`, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    //Se envía token porque este endpoint está protegido
+    headers: construirHeadersAutorizados(),
     body: JSON.stringify(data),
   });
 
@@ -85,9 +102,8 @@ export async function actualizarInstitucion(
 ) {
   const respuesta = await fetch(`${API_URL}/instituciones/${id}`, {
     method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    //Se envía token porque este endpoint está protegido
+    headers: construirHeadersAutorizados(),
     body: JSON.stringify(data),
   });
 
@@ -103,6 +119,8 @@ export async function inactivarInstitucion(id: number) {
     `${API_URL}/instituciones/${id}/inactivar`,
     {
       method: 'PATCH',
+      //Se envía token porque este endpoint está protegido
+      headers: construirHeadersAutorizados(false),
     },
   );
 
@@ -118,6 +136,8 @@ export async function reactivarInstitucion(id: number) {
     `${API_URL}/instituciones/${id}/reactivar`,
     {
       method: 'PATCH',
+      //Se envía token porque este endpoint está protegido
+      headers: construirHeadersAutorizados(false),
     },
   );
 
@@ -138,6 +158,8 @@ export async function subirLogoInstitucion(
     `${API_URL}/instituciones/subir-logo`,
     {
       method: 'POST',
+      //Se envía token sin content-type manual porque FormData lo gestiona automáticamente
+      headers: construirHeadersAutorizados(false),
       body: formData,
     },
   );
