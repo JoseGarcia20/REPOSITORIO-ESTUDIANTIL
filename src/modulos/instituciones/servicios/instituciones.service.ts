@@ -1,3 +1,4 @@
+import { Injectable, NotFoundException, ForbiddenException } from '@nestjs/common';
 import { Injectable, NotFoundException, ConflictException, ForbiddenException } from '@nestjs/common';
 import { PrismaService } from '../../../baseDatos/prisma/prisma.service';
 import { CrearInstitucionDto } from '../dto/crear-institucion.dto';
@@ -65,6 +66,12 @@ export class InstitucionesService {
     return await this.prisma.institucion.findMany({ where: { estado: true }, orderBy: { id: 'desc' } });
   }
 
+
+  //Funcion para listar todas las instituciones activas
+  async listar() {
+    return await this.prisma.institucion.findMany({ where: { estado: true }, orderBy: { id: 'desc' } });
+  }
+
   //Funcion para listar instituciones según rol autenticado obtenido desde base de datos
   async listarTodas(usuarioAuth: any) {
     const rolUsuario = await this.obtenerRolUsuarioDesdeBD(usuarioAuth);
@@ -78,6 +85,48 @@ export class InstitucionesService {
     if (rolUsuario.id === rolAdministradorInstitucionalId || !!rolUsuario.id) {
       return await this.prisma.institucion.findMany({ where: { id: Number(usuarioAuth?.institucionId) } });
     }
+
+    return [];
+  }
+
+  //Funcion para obtener una institucion por su id con filtro por institución
+  async obtenerPorId(id: number, usuarioAuth: any) {
+    const rolUsuario = await this.obtenerRolUsuarioDesdeBD(usuarioAuth);
+    const { rolSuperadministradorId } = await this.obtenerRolesAdministrativosDesdeBD();
+
+    if (rolUsuario.id !== rolSuperadministradorId && Number(usuarioAuth?.institucionId) !== id) {
+      throw new ForbiddenException('No tiene permisos para consultar esta institución');
+    }
+
+    const institucion = await this.prisma.institucion.findUnique({ where: { id } });
+    if (!institucion) throw new NotFoundException(`Institucion con id ${id} no encontrada`);
+    return institucion;
+  }
+
+  //Funcion para actualizar una institucion por su id
+  async actualizar(id: number, data: ActualizarInstitucionDto, usuarioAuth: any) {
+    await this.validarSuperadministrador(usuarioAuth);
+    await this.obtenerPorId(id, usuarioAuth);
+    return await this.prisma.institucion.update({ where: { id }, data });
+  }
+
+  //Funcion para inactivar una institucion por su id
+  async inactivar(id: number, usuarioAuth: any) {
+    await this.validarSuperadministrador(usuarioAuth);
+    await this.obtenerPorId(id, usuarioAuth);
+    return await this.prisma.institucion.update({ where: { id }, data: { estado: false } });
+  }
+
+  //Funcion para reactivar una institucion por su id
+  async reactivar(id: number, usuarioAuth: any) {
+    await this.validarSuperadministrador(usuarioAuth);
+    await this.obtenerPorId(id, usuarioAuth);
+    return await this.prisma.institucion.update({ where: { id }, data: { estado: true } });
+  }
+
+  //Funcion para validar subida de logo
+  async validarSubidaLogo(usuarioAuth: any, file: Express.Multer.File) {
+    await this.validarSuperadministrador(usuarioAuth);
 
     return [];
   }

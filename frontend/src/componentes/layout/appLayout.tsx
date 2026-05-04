@@ -71,7 +71,10 @@ export function AppLayout() {
             ? [{ titulo: 'Instituciones', ruta: '/admin/instituciones' }]
             : []),
           { titulo: 'Usuarios', ruta: '/admin/usuarios' },
+          { titulo: 'Categorías', ruta: '/admin/categorias' },
+          { titulo: 'Tipos de recursos', ruta: '/admin/tipos-recursos' },
           { titulo: 'Recursos', ruta: '/admin/recursos' },
+          ...(rol === 'superadministrador' ? [{ titulo: 'Roles', ruta: '/admin/roles' }] : []),
           { titulo: 'Foros', ruta: '/admin/foros' },
         ],
       },

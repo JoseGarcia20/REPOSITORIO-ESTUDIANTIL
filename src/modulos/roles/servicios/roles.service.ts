@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException, ConflictException } from '@nestjs/common';
+import { Injectable, NotFoundException, ConflictException, ForbiddenException } from '@nestjs/common';
 import { PrismaService } from '../../../baseDatos/prisma/prisma.service';
 import { Prisma } from '../../../generated/prisma/client';
 import { CrearRolesDto } from '../dto/crear-roles.dto';
@@ -6,123 +6,18 @@ import { ActualizarRolesDto } from '../dto/actualizar-roles.dto';
 
 @Injectable()
 export class RolesService {
-
   constructor(private readonly prisma: PrismaService) {}
-
-  //Funcion para la creacion de un nuevo rol
-  async crear(data: CrearRolesDto) {
-    try {
-      return await this.prisma.rol.create({
-        data: {
-          nombre: data.nombre,
-          descripcion: data.descripcion,
-        },
-      });
-    } catch (error) {
-      if (
-        error instanceof Prisma.PrismaClientKnownRequestError &&
-        error.code === 'P2002'
-      ) {
-        const campo = Array.isArray(error.meta?.target)
-          ? error.meta.target[0]
-          : 'campo único';
-
-        if (campo === 'nombre') {
-          throw new ConflictException('Ya existe un rol con ese nombre');
-        }
-
-        throw new ConflictException(`Ya existe un registro con el campo único: ${campo}`);
-      }
-
-      throw error;
-    }
+  private async validarAdministrador(usuarioAuth: any) {
+    const rol = await this.prisma.rol.findUnique({ where: { id: Number(usuarioAuth?.rolId) } });
+    if (!rol) throw new ForbiddenException('Rol no válido');
+    const nombreRol = rol.nombre.toLowerCase();
+    if (nombreRol !== 'superadministrador' && nombreRol !== 'administrador institucional') throw new ForbiddenException('No tiene permisos para administrar roles');
   }
-
-  //Funcion para listar todos los roles
-  async listar() {
-    return await this.prisma.rol.findMany({
-      where: {
-        estado: true, //Solo se listan los roles activos
-      },
-      orderBy: {
-        id: 'desc', //Ordena por id de forma descendente para mostrar los roles mas recientes primero
-      },
-    });
-  }
-
-  //Funcion para listar todos los roles, incluyendo los inactivos
-  async listarTodos() {
-    return await this.prisma.rol.findMany({
-      orderBy: {
-        id: 'desc', //Ordena por id de forma descendente para mostrar los roles mas recientes primero
-      },
-    });
-  }
-
-  //Funcion para obtener un rol por su id
-  async obtenerPorId(id: number) {
-    const rol = await this.prisma.rol.findUnique({
-      where: { id },
-    });
-
-    if (!rol) {
-      throw new NotFoundException(`Rol con id ${id} no encontrado`);
-    }
-
-    return rol;
-  }
-
-  //Funcion para actualizar un rol por su id
-  async actualizar(id: number, data: ActualizarRolesDto) {
-    await this.obtenerPorId(id);
-
-    try {
-      return await this.prisma.rol.update({
-        where: { id },
-        data,
-      });
-    } catch (error) {
-      if (
-        error instanceof Prisma.PrismaClientKnownRequestError &&
-        error.code === 'P2002'
-      ) {
-        const campo = Array.isArray(error.meta?.target)
-          ? error.meta.target[0]
-          : 'campo único';
-
-        if (campo === 'nombre') {
-          throw new ConflictException('Ya existe un rol con ese nombre');
-        }
-
-        throw new ConflictException(`Ya existe un registro con el campo único: ${campo}`);
-      }
-
-      throw error;
-    }
-  }
-
-  //Funcion para inactivar un rol por su id
-  async inactivar(id: number) {
-    await this.obtenerPorId(id);
-
-    return await this.prisma.rol.update({
-      where: { id },
-      data: {
-        estado: false,
-      },
-    });
-  }
-
-  //Funcion para reactivar un rol por su id
-  async reactivar(id: number) {
-    await this.obtenerPorId(id);
-
-    return await this.prisma.rol.update({
-      where: { id },
-      data: {
-        estado: true,
-      },
-    });
-  }
-
+  async crear(data: CrearRolesDto, usuarioAuth: any) { await this.validarAdministrador(usuarioAuth); try { return await this.prisma.rol.create({ data: { nombre: data.nombre, descripcion: data.descripcion } }); } catch (error) { if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2002') throw new ConflictException('Ya existe un rol con ese nombre'); throw error; } }
+  async listar(usuarioAuth: any) { await this.validarAdministrador(usuarioAuth); return await this.prisma.rol.findMany({ where: { estado: true }, orderBy: { id: 'desc' } }); }
+  async listarTodos(usuarioAuth: any) { await this.validarAdministrador(usuarioAuth); return await this.prisma.rol.findMany({ orderBy: { id: 'desc' } }); }
+  async obtenerPorId(id: number, usuarioAuth: any) { await this.validarAdministrador(usuarioAuth); const rol = await this.prisma.rol.findUnique({ where: { id } }); if (!rol) throw new NotFoundException(`Rol con id ${id} no encontrado`); return rol; }
+  async actualizar(id: number, data: ActualizarRolesDto, usuarioAuth: any) { await this.validarAdministrador(usuarioAuth); await this.obtenerPorId(id, usuarioAuth); return await this.prisma.rol.update({ where: { id }, data }); }
+  async inactivar(id: number, usuarioAuth: any) { await this.validarAdministrador(usuarioAuth); await this.obtenerPorId(id, usuarioAuth); return await this.prisma.rol.update({ where: { id }, data: { estado: false } }); }
+  async reactivar(id: number, usuarioAuth: any) { await this.validarAdministrador(usuarioAuth); await this.obtenerPorId(id, usuarioAuth); return await this.prisma.rol.update({ where: { id }, data: { estado: true } }); }
 }
