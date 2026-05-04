@@ -11,23 +11,6 @@ function RutaProtegidaPorRol({ permitido, rol, children }: { permitido: string[]
   return children;
 }
 
-//Funcion para validar acceso a rutas según el rol autenticado
-function RutaProtegidaPorRol({
-  permitido,
-  rol,
-  children,
-}: {
-  permitido: string[];
-  rol: string;
-  children: ReactElement;
-}) {
-  if (!permitido.includes(rol)) {
-    return <Navigate to="/inicio" replace />;
-  }
-
-  return children;
-}
-
 export function AppRoutes() {
   const token = localStorage.getItem('token');
   const usuarioGuardado = localStorage.getItem('usuario');
@@ -49,15 +32,6 @@ export function AppRoutes() {
           <Route path="/admin/tipos-recursos" element={<RutaProtegidaPorRol permitido={rolesAdmin} rol={rol}><CrudAdmin titulo="Tipos de recursos" endpoint="/tipos-recursos" campos={[{name:'nombre',label:'Nombre'},{name:'descripcion',label:'Descripción'},{name:'icono',label:'Icono'}]} /></RutaProtegidaPorRol>} />
           <Route path="/admin/recursos" element={<RutaProtegidaPorRol permitido={rolesAdmin} rol={rol}><CrudAdmin titulo="Recursos" endpoint="/recursos" campos={[{name:'titulo',label:'Título'},{name:'palabrasClave',label:'Palabras clave'},{name:'categoriaId',label:'Categoría ID',type:'number'},{name:'tipoRecursoId',label:'Tipo Recurso ID',type:'number'},{name:'institucionId',label:'Institución ID',type:'number'},{name:'usuarioCreadorId',label:'Usuario Creador ID',type:'number'}]} /></RutaProtegidaPorRol>} />
           <Route path="/admin/roles" element={<RutaProtegidaPorRol permitido={['superadministrador']} rol={rol}><CrudAdmin titulo="Roles" endpoint="/roles" campos={[{name:'nombre',label:'Nombre'},{name:'descripcion',label:'Descripción'}]} /></RutaProtegidaPorRol>} />
-
-          <Route
-            path="/admin/instituciones"
-            element={
-              <RutaProtegidaPorRol permitido={['superadministrador']} rol={rol}>
-                <Instituciones />
-              </RutaProtegidaPorRol>
-            }
-          />
         </Route>
       </Routes>
     </BrowserRouter>
