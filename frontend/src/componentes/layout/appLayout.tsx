@@ -20,7 +20,8 @@ export function AppLayout() {
   const [menuAbierto, setMenuAbierto] = useState(window.innerWidth > 900);
   const [mostrarBotonAbrir, setMostrarBotonAbrir] = useState(window.innerWidth <= 900);
 
-  const rol = usuario?.rol?.nombre?.toLowerCase() || 'administrador';
+  //Rol normalizado para construir menú por jerarquía
+  const rol = usuario?.rol?.nombre?.toLowerCase() || 'estudiante';
 
   function cerrarMenu() {
     setMenuAbierto(false);
@@ -66,7 +67,9 @@ export function AppLayout() {
       {
         titulo: 'Administración',
         hijos: [
-          { titulo: 'Instituciones', ruta: '/admin/instituciones' },
+          ...(rol === 'superadministrador'
+            ? [{ titulo: 'Instituciones', ruta: '/admin/instituciones' }]
+            : []),
           { titulo: 'Usuarios', ruta: '/admin/usuarios' },
           { titulo: 'Recursos', ruta: '/admin/recursos' },
           { titulo: 'Foros', ruta: '/admin/foros' },
