@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { crudCreate, crudFetch, crudToggle, crudUpdate } from '../../api/adminApi';
 import '../instituciones/instituciones.css';
 
@@ -11,13 +11,24 @@ export function CrudAdmin({ titulo, endpoint, campos }: { titulo: string; endpoi
   const [modalAbierto, setModalAbierto] = useState(false);
   const [modoEdicion, setModoEdicion] = useState(false);
   const [idEditando, setIdEditando] = useState<number | null>(null);
-  const inicial = campos.reduce((acc, c) => ({ ...acc, [c.name]: '' }), {} as any);
+  const inicial = useMemo(
+    () => campos.reduce((acc, c) => ({ ...acc, [c.name]: '' }), {} as any),
+    [campos],
+  );
   const [form, setForm] = useState<any>(inicial);
 
   async function cargar() {
     try { setCargando(true); setItems(await crudFetch(`${endpoint}/todos`)); } catch { setError('No se pudieron cargar los datos'); } finally { setCargando(false); }
   }
-  useEffect(() => { cargar(); }, []);
+  useEffect(() => {
+    setItems([]);
+    setError('');
+    setModalAbierto(false);
+    setModoEdicion(false);
+    setIdEditando(null);
+    setForm(inicial);
+    cargar();
+  }, [endpoint, inicial]);
 
   async function guardar(e: any) {
     e.preventDefault();
