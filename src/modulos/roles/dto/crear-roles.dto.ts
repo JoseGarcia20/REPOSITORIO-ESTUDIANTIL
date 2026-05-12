@@ -12,6 +12,6 @@ export class CrearRolesDto {
   
   @IsOptional()
   @IsBoolean()
-  estado?: string;
+  estado?: boolean;
   
 }

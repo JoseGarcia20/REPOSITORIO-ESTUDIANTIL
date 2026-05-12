@@ -1,4 +1,4 @@
-import { IsOptional, IsString, IsBoolean, IsNotEmpty } from 'class-validator';
+import { IsBoolean, IsInt, IsOptional, IsString } from 'class-validator';
 
 export class ActualizarCategoriasDto {
 
@@ -10,9 +10,13 @@ export class ActualizarCategoriasDto {
   @IsString()
   descripcion?: string;
 
+  @IsOptional()
   @IsString()
-  @IsNotEmpty()
   color?: string;
+
+  @IsOptional()
+  @IsInt()
+  institucionId?: number;
 
   @IsOptional()
   @IsBoolean()

@@ -10,6 +10,8 @@
  */
 export type * from './models/Institucion'
 export type * from './models/Rol'
+export type * from './models/Permiso'
+export type * from './models/RolPermiso'
 export type * from './models/Usuario'
 export type * from './models/Categoria'
 export type * from './models/Foro'

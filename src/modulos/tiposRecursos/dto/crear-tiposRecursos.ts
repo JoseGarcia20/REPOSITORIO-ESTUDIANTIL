@@ -17,6 +17,6 @@ export class CrearTiposRecursosDto {
   
   @IsOptional()
   @IsBoolean()
-  estado?: string;
+  estado?: boolean;
   
 }

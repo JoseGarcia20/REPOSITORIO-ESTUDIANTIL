@@ -1,0 +1,10 @@
+@import '../instituciones/instituciones.css';
+
+.reports-placeholder {
+  background: #ffffff;
+  border: 1px solid #e5eaf5;
+  border-radius: 22px;
+  box-shadow: 0 20px 50px rgba(38, 50, 77, 0.08);
+  padding: 28px;
+  color: #33405f;
+}

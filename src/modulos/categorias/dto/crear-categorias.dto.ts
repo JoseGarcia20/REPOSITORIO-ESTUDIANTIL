@@ -1,4 +1,4 @@
-import {IsString, IsNotEmpty, IsInt, IsBoolean} from 'class-validator';
+import { IsBoolean, IsInt, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 export class CrearCategoriasDto {
 
@@ -14,10 +14,12 @@ export class CrearCategoriasDto {
   @IsNotEmpty()
   color!: string;
 
+  @IsOptional()
   @IsBoolean()
-  estado!: boolean;
+  estado?: boolean;
 
+  @IsOptional()
   @IsInt()
-  institucionId!: number;
+  institucionId?: number;
 
 }

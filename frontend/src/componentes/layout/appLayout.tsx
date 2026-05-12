@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
+import { PERMISOS, usuarioTienePermiso } from '../../api/adminApi';
 import './appLayout.css';
 
 type MenuItem = {
@@ -20,9 +21,6 @@ export function AppLayout() {
   const [menuAbierto, setMenuAbierto] = useState(window.innerWidth > 900);
   const [mostrarBotonAbrir, setMostrarBotonAbrir] = useState(window.innerWidth <= 900);
 
-  //Rol normalizado para construir menú por jerarquía
-  const rol = usuario?.rol?.nombre?.toLowerCase() || 'estudiante';
-
   function cerrarMenu() {
     setMenuAbierto(false);
     setTimeout(() => {
@@ -36,56 +34,49 @@ export function AppLayout() {
   }
 
   const menu = useMemo<MenuItem[]>(() => {
-    if (rol === 'estudiante') {
-      return [
-        { titulo: 'Inicio', ruta: '/inicio' },
-        {
-          titulo: 'Estudiantes',
-          hijos: [
-            { titulo: 'Foro académico', ruta: '/estudiantes/foros' },
-            { titulo: 'Aprendizaje adaptativo', ruta: '/estudiantes/aprendizaje' },
-          ],
-        },
-      ];
+    const items: MenuItem[] = [{ titulo: 'Inicio', ruta: '/inicio' }];
+    const administracion: { titulo: string; ruta: string }[] = [];
+
+    if (usuarioTienePermiso(PERMISOS.INSTITUCIONES_CREAR)) {
+      administracion.push({ titulo: 'Instituciones', ruta: '/admin/instituciones' });
     }
 
-    if (rol === 'docente') {
-      return [
-        { titulo: 'Inicio', ruta: '/inicio' },
-        {
-          titulo: 'Docentes',
-          hijos: [
-            { titulo: 'Seguimiento', ruta: '/docentes/seguimiento' },
-            { titulo: 'Recursos', ruta: '/docentes/recursos' },
-          ],
-        },
-      ];
+    if (usuarioTienePermiso(PERMISOS.USUARIOS_VER)) {
+      administracion.push({ titulo: 'Usuarios', ruta: '/admin/usuarios' });
     }
 
-    return [
-      { titulo: 'Inicio', ruta: '/inicio' },
-      {
+    if (usuarioTienePermiso(PERMISOS.CATEGORIAS_VER)) {
+      administracion.push({ titulo: 'Categorías', ruta: '/admin/categorias' });
+    }
+
+    if (usuarioTienePermiso(PERMISOS.TIPOS_RECURSOS_VER)) {
+      administracion.push({ titulo: 'Tipos de recursos', ruta: '/admin/tipos-recursos' });
+    }
+
+    if (usuarioTienePermiso(PERMISOS.RECURSOS_CREAR)) {
+      administracion.push({ titulo: 'Recursos', ruta: '/admin/recursos' });
+    }
+
+    if (usuarioTienePermiso(PERMISOS.ROLES_VER)) {
+      administracion.push({ titulo: 'Roles', ruta: '/admin/roles' });
+    }
+
+    if (administracion.length > 0) {
+      items.push({
         titulo: 'Administración',
-        hijos: [
-          ...(rol === 'superadministrador'
-            ? [{ titulo: 'Instituciones', ruta: '/admin/instituciones' }]
-            : []),
-          { titulo: 'Usuarios', ruta: '/admin/usuarios' },
-          { titulo: 'Categorías', ruta: '/admin/categorias' },
-          { titulo: 'Tipos de recursos', ruta: '/admin/tipos-recursos' },
-          { titulo: 'Recursos', ruta: '/admin/recursos' },
-          ...(rol === 'superadministrador' ? [{ titulo: 'Roles', ruta: '/admin/roles' }] : []),
-          { titulo: 'Foros', ruta: '/admin/foros' },
-        ],
-      },
-      {
+        hijos: administracion,
+      });
+    }
+
+    if (usuarioTienePermiso(PERMISOS.REPORTES_VER)) {
+      items.push({
         titulo: 'Reportes',
-        hijos: [
-          { titulo: 'Reportes generales', ruta: '/reportes' },
-        ],
-      },
-    ];
-  }, [rol]);
+        hijos: [{ titulo: 'Reportes generales', ruta: '/reportes' }],
+      });
+    }
+
+    return items;
+  }, [usuarioGuardado]);
 
   const [submenuAbierto, setSubmenuAbierto] = useState<string | null>(null);
 

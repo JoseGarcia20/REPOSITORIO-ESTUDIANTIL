@@ -1,0 +1,63 @@
+@import '../instituciones/instituciones.css';
+
+.form-group textarea {
+  width: 100%;
+  min-height: 104px;
+  border: 1px solid #e1e6f0;
+  background: #f8faff;
+  padding: 14px 15px;
+  border-radius: 12px;
+  font-size: 15px;
+  outline: none;
+  color: #26324d;
+  resize: vertical;
+}
+
+.form-group textarea:focus {
+  border-color: #5277f4;
+  background: #ffffff;
+  box-shadow: 0 0 0 4px rgba(82, 119, 244, 0.12);
+}
+
+.checkbox-field {
+  min-height: 49px;
+  border: 1px solid #e1e6f0;
+  background: #f8faff;
+  border-radius: 12px;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #3d4864;
+  font-weight: 700;
+}
+
+.checkbox-field input {
+  width: 18px;
+  height: 18px;
+}
+
+.file-state,
+.file-link {
+  color: #5277f4;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.file-link {
+  text-decoration: none;
+}
+
+.file-link:hover {
+  text-decoration: underline;
+}
+
+.resource-source {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.resource-source small {
+  color: #7b8499;
+}

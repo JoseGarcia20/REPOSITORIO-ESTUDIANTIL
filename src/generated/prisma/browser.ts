@@ -28,6 +28,16 @@ export type Institucion = Prisma.InstitucionModel
  */
 export type Rol = Prisma.RolModel
 /**
+ * Model Permiso
+ * 
+ */
+export type Permiso = Prisma.PermisoModel
+/**
+ * Model RolPermiso
+ * 
+ */
+export type RolPermiso = Prisma.RolPermisoModel
+/**
  * Model Usuario
  * 
  */

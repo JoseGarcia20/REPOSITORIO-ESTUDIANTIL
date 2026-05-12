@@ -1,0 +1,16 @@
+@import '../instituciones/instituciones.css';
+
+.readonly-note {
+  color: #7b8499;
+  font-size: 13px;
+}
+
+.user-name-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.user-name-cell small {
+  color: #7b8499;
+}

@@ -10,7 +10,7 @@ export function ModuloAdmin({ titulo }: { titulo: string }) {
   return (
     <section>
       <h1>{titulo}</h1>
-      <p>Módulo habilitado para superadministrador y administrador institucional.</p>
+      <p>Módulo habilitado según permisos asignados al rol del usuario.</p>
       <p>Institución actual: {usuario?.institucion?.nombre || 'No disponible'}</p>
     </section>
   );

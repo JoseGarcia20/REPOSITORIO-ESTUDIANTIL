@@ -1,9 +1,13 @@
 import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { PrismaService } from '../../../baseDatos/prisma/prisma.service';
 
 @Injectable()
 export class JwtAuthGuard implements CanActivate {
-  constructor(private readonly jwtService: JwtService) {}
+  constructor(
+    private readonly jwtService: JwtService,
+    private readonly prisma: PrismaService,
+  ) {}
 
   //Guard para validar el token JWT en endpoints protegidos
   async canActivate(context: ExecutionContext): Promise<boolean> {
@@ -18,9 +22,32 @@ export class JwtAuthGuard implements CanActivate {
 
     try {
       const payload = await this.jwtService.verifyAsync(token);
-      request.usuarioAuth = payload;
+      const rol = await this.prisma.rol.findUnique({
+        where: { id: Number(payload?.rolId) },
+        include: {
+          permisos: {
+            include: {
+              permiso: true,
+            },
+          },
+        },
+      });
+
+      if (!rol || !rol.estado) {
+        throw new UnauthorizedException('Rol no válido o inactivo');
+      }
+
+      request.usuarioAuth = {
+        ...payload,
+        rol: rol.nombre,
+        permisos: rol.permisos.map((item) => item.permiso.codigo),
+      };
       return true;
-    } catch {
+    } catch (error) {
+      if (error instanceof UnauthorizedException) {
+        throw error;
+      }
+
       throw new UnauthorizedException('Token inválido o expirado');
     }
   }

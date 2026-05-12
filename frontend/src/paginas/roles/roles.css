@@ -1,0 +1,20 @@
+@import '../instituciones/instituciones.css';
+
+.form-group textarea {
+  width: 100%;
+  min-height: 96px;
+  border: 1px solid #e1e6f0;
+  background: #f8faff;
+  padding: 14px 15px;
+  border-radius: 12px;
+  font-size: 15px;
+  outline: none;
+  color: #26324d;
+  resize: vertical;
+}
+
+.form-group textarea:focus {
+  border-color: #5277f4;
+  background: #ffffff;
+  box-shadow: 0 0 0 4px rgba(82, 119, 244, 0.12);
+}

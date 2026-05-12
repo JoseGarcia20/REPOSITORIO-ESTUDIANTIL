@@ -22,7 +22,15 @@ export class AuthService {
         ],
       },
       include: {
-        rol: true,
+        rol: {
+          include: {
+            permisos: {
+              include: {
+                permiso: true,
+              },
+            },
+          },
+        },
         institucion: true,
       },
     });
@@ -40,6 +48,8 @@ export class AuthService {
       throw new UnauthorizedException('Credenciales incorrectas');
     }
 
+    const permisos = usuario.rol.permisos.map((item) => item.permiso.codigo);
+
     const payload = {
       sub: usuario.id,
       correo: usuario.correo,
@@ -47,6 +57,7 @@ export class AuthService {
       rolId: usuario.rolId,
       rol: usuario.rol.nombre,
       institucionId: usuario.institucionId,
+      permisos,
     };
 
     const token = await this.jwtService.signAsync(payload);
@@ -63,6 +74,7 @@ export class AuthService {
           id: usuario.rol.id,
           nombre: usuario.rol.nombre,
         },
+        permisos,
         institucion: {
           id: usuario.institucion.id,
           nombre: usuario.institucion.nombre,
