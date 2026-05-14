@@ -10,7 +10,6 @@ import { RecursoModule } from './modulos/recursos/recurso.module';
 import { ForoModule } from './modulos/foro/foro.module';
 import { DiagnosticoAprendizajeModule } from './modulos/diagnosticoAprendizaje/diagnosticoAprendizaje.module'; 
 import { RutaAprendizajeModule } from './modulos/rutaAprendizaje/rutaAprendizaje.module';
-import { RespuestaForoModule } from './modulos/respuestaForo/respuestaForo.module';
 import { CalificacionRecursoModule } from './modulos/calificacionRecurso/calificacionRecurso.module';
 import { DetalleRutaAprendizajeModule } from './modulos/detalleRutaAprendizaje/detalleRutaAprendizaje.module';
 import { DetalleDiagnosticoAprendizajeModule } from './modulos/detalleDiagnosticoAprendizaje/detalleDiagnosticoAprendizaje.module';
@@ -38,7 +37,6 @@ import { join } from 'path';
     ForoModule,
     DiagnosticoAprendizajeModule,
     RutaAprendizajeModule,
-    RespuestaForoModule,
     CalificacionRecursoModule,
     DetalleRutaAprendizajeModule,
     DetalleDiagnosticoAprendizajeModule],

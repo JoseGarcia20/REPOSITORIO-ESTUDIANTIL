@@ -61,6 +61,23 @@ export type Recurso = {
   categoriaId: number;
   tipoRecursoId: number;
   usuarioCreadorId: number;
+  institucion?: {
+    id: number;
+    nombre: string;
+  };
+  categoria?: {
+    id: number;
+    nombre: string;
+  };
+  tipoRecurso?: {
+    id: number;
+    nombre: string;
+  };
+  usuarioCreador?: {
+    id: number;
+    nombres: string;
+    apellidos: string;
+  };
 };
 
 export type UsuarioSesion = {
@@ -133,18 +150,126 @@ export type RecursoPayload = {
   usuarioCreadorId: number;
 };
 
+export type ComentarioForo = {
+  id: number;
+  contenido: string;
+  estado: boolean;
+  createdAt: string;
+  usuario: {
+    id: number;
+    nombres: string;
+    apellidos: string;
+    rol?: {
+      nombre: string;
+    };
+    institucion?: {
+      id: number;
+      nombre: string;
+    };
+  };
+};
+
+export type ForoAcademico = {
+  id: number;
+  titulo: string;
+  descripcion: string;
+  estado: boolean;
+  publico: boolean;
+  cerrado: boolean;
+  fechaCierre?: string;
+  createdAt: string;
+  institucionId: number;
+  categoriaId: number;
+  usuarioId: number;
+  institucion?: {
+    id: number;
+    nombre: string;
+  };
+  categoria?: {
+    id: number;
+    nombre: string;
+    color?: string;
+  };
+  usuario?: {
+    id: number;
+    nombres: string;
+    apellidos: string;
+    rol?: {
+      nombre: string;
+    };
+    institucion?: {
+      id: number;
+      nombre: string;
+    };
+  };
+  comentarios: ComentarioForo[];
+};
+
+export type CrearForoPayload = {
+  titulo: string;
+  descripcion: string;
+  publico?: boolean;
+  institucionId?: number;
+  categoriaId: number;
+};
+
 type RutaEstado = 'inactivar' | 'reactivar';
+
+export type ConsultaPaginada = {
+  pagina?: number;
+  limite?: number;
+  busqueda?: string;
+  estado?: string;
+  institucionId?: number | string;
+  rolId?: number | string;
+  categoriaId?: number | string;
+  tipoRecursoId?: number | string;
+  publicado?: string;
+  publico?: string;
+  cerrado?: string;
+};
+
+export type RespuestaPaginada<T> = {
+  data: T[];
+  total: number;
+  pagina: number;
+  limite: number;
+  totalPaginas: number;
+};
 
 export const PERMISOS = {
   SISTEMA_TOTAL: 'sistema.total',
   INSTITUCIONES_VER: 'instituciones.ver',
   INSTITUCIONES_CREAR: 'instituciones.crear',
+  INSTITUCIONES_EDITAR: 'instituciones.editar',
+  INSTITUCIONES_CAMBIAR_ESTADO: 'instituciones.cambiar_estado',
   ROLES_VER: 'roles.ver',
+  ROLES_CREAR: 'roles.crear',
+  ROLES_EDITAR: 'roles.editar',
+  ROLES_CAMBIAR_ESTADO: 'roles.cambiar_estado',
   USUARIOS_VER: 'usuarios.ver',
+  USUARIOS_CREAR: 'usuarios.crear',
+  USUARIOS_EDITAR: 'usuarios.editar',
+  USUARIOS_CAMBIAR_ESTADO: 'usuarios.cambiar_estado',
+  ESTUDIANTES_VER: 'estudiantes.ver',
   CATEGORIAS_VER: 'categorias.ver',
+  CATEGORIAS_CREAR: 'categorias.crear',
+  CATEGORIAS_EDITAR: 'categorias.editar',
+  CATEGORIAS_CAMBIAR_ESTADO: 'categorias.cambiar_estado',
   TIPOS_RECURSOS_VER: 'tipos_recursos.ver',
+  TIPOS_RECURSOS_CREAR: 'tipos_recursos.crear',
+  TIPOS_RECURSOS_EDITAR: 'tipos_recursos.editar',
+  TIPOS_RECURSOS_CAMBIAR_ESTADO: 'tipos_recursos.cambiar_estado',
   RECURSOS_VER: 'recursos.ver',
   RECURSOS_CREAR: 'recursos.crear',
+  RECURSOS_EDITAR: 'recursos.editar',
+  RECURSOS_CAMBIAR_ESTADO: 'recursos.cambiar_estado',
+  RECURSOS_SUBIR_ARCHIVO: 'recursos.subir_archivo',
+  FOROS_VER: 'foros.ver',
+  FOROS_CREAR: 'foros.crear',
+  FOROS_CREAR_PUBLICO: 'foros.crear_publico',
+  FOROS_COMENTAR: 'foros.comentar',
+  FOROS_CERRAR: 'foros.cerrar',
   REPORTES_VER: 'reportes.ver',
 } as const;
 
@@ -229,6 +354,25 @@ function cambiarEstado<T>(
     `${path}/${id}/${accion}`,
     'Error al cambiar el estado del registro',
   );
+}
+
+function construirQueryString(query: ConsultaPaginada = {}) {
+  const params = new URLSearchParams();
+
+  Object.entries(query).forEach(([clave, valor]) => {
+    if (valor === undefined || valor === null || valor === '') {
+      return;
+    }
+
+    params.set(clave, String(valor));
+  });
+
+  const queryString = params.toString();
+  return queryString ? `?${queryString}` : '';
+}
+
+function conQuery(path: string, query?: ConsultaPaginada) {
+  return `${path}${construirQueryString(query)}`;
 }
 
 export function obtenerUsuarioAutenticado(): UsuarioSesion | null {
@@ -344,8 +488,11 @@ export function reactivarTipoRecurso(id: number) {
   return cambiarEstado<TipoRecurso>('/tipos-recursos', id, 'reactivar');
 }
 
-export function obtenerUsuariosAdmin() {
-  return get<UsuarioAdmin[]>('/usuarios/todos', 'Error al obtener usuarios');
+export function obtenerUsuariosAdmin(query?: ConsultaPaginada) {
+  return get<RespuestaPaginada<UsuarioAdmin>>(
+    conQuery('/usuarios/todos', query),
+    'Error al obtener usuarios',
+  );
 }
 
 export function crearUsuarioAdmin(data: CrearUsuarioPayload) {
@@ -371,8 +518,11 @@ export function reactivarUsuarioAdmin(id: number) {
   return cambiarEstado<UsuarioAdmin>('/usuarios', id, 'reactivar');
 }
 
-export function obtenerRecursosAdmin() {
-  return get<Recurso[]>('/recursos/todos', 'Error al obtener recursos');
+export function obtenerRecursosAdmin(query?: ConsultaPaginada) {
+  return get<RespuestaPaginada<Recurso>>(
+    conQuery('/recursos/todos', query),
+    'Error al obtener recursos',
+  );
 }
 
 export function crearRecurso(data: RecursoPayload) {
@@ -389,6 +539,33 @@ export function inactivarRecurso(id: number) {
 
 export function reactivarRecurso(id: number) {
   return cambiarEstado<Recurso>('/recursos', id, 'reactivar');
+}
+
+export function obtenerForosAcademicos(query?: ConsultaPaginada) {
+  return get<RespuestaPaginada<ForoAcademico>>(
+    conQuery('/foros', query),
+    'Error al obtener foros',
+  );
+}
+
+export function obtenerCategoriasForo() {
+  return get<Categoria[]>('/foros/categorias', 'Error al obtener categorías');
+}
+
+export function crearForoAcademico(data: CrearForoPayload) {
+  return post<ForoAcademico>('/foros', data, 'Error al crear foro');
+}
+
+export function cerrarForoAcademico(id: number) {
+  return patch<ForoAcademico>(`/foros/${id}/cerrar`, 'Error al cerrar foro');
+}
+
+export function comentarForoAcademico(id: number, contenido: string) {
+  return post<ComentarioForo>(
+    `/foros/${id}/comentarios`,
+    { contenido },
+    'Error al comentar foro',
+  );
 }
 
 export async function subirArchivoRecurso(archivo: File) {

@@ -11,6 +11,7 @@ import { Recursos } from '../paginas/recursos/recursos';
 import { RolesAdmin } from '../paginas/roles/roles';
 import { PERMISOS, usuarioTienePermiso } from '../api/adminApi';
 import { Reportes } from '../paginas/reportes/reportes';
+import { Foros } from '../paginas/foros/foros';
 
 function RutaProtegidaPorPermiso({
   permiso,
@@ -76,7 +77,7 @@ export function AppRoutes() {
           <Route
             path="/admin/recursos"
             element={
-              <RutaProtegidaPorPermiso permiso={PERMISOS.RECURSOS_CREAR}>
+              <RutaProtegidaPorPermiso permiso={PERMISOS.RECURSOS_VER}>
                 <Recursos />
               </RutaProtegidaPorPermiso>
             }
@@ -94,6 +95,14 @@ export function AppRoutes() {
             element={
               <RutaProtegidaPorPermiso permiso={PERMISOS.REPORTES_VER}>
                 <Reportes />
+              </RutaProtegidaPorPermiso>
+            }
+          />
+          <Route
+            path="/foros"
+            element={
+              <RutaProtegidaPorPermiso permiso={PERMISOS.FOROS_VER}>
+                <Foros />
               </RutaProtegidaPorPermiso>
             }
           />

@@ -10,11 +10,72 @@ import {
   validarAlcanceInstitucional,
   validarPermiso,
 } from '../../auth/utils/roles.util';
+import {
+  ConsultaPaginada,
+  obtenerPaginacion,
+  respuestaPaginada,
+  valorBooleano,
+} from '../../../comun/paginacion';
 
 @Injectable()
 export class UsuarioService {
 
   constructor(private readonly prisma: PrismaService) {}
+
+  private readonly usuarioSelect = {
+    id: true,
+    nombres: true,
+    apellidos: true,
+    correo: true,
+    tipoDocumento: true,
+    documento: true,
+    fechaNacimiento: true,
+    genero: true,
+    foto: true,
+    activo: true,
+    ultimoAcceso: true,
+    createdAt: true,
+    updatedAt: true,
+    institucionId: true,
+    rolId: true,
+  } satisfies Prisma.UsuarioSelect;
+
+  private construirFiltroUsuarios(
+    usuarioAuth: any,
+    query: ConsultaPaginada,
+    soloActivos: boolean,
+    busqueda?: string,
+  ): Prisma.UsuarioWhereInput {
+    const esGlobal = tieneAccesoTotal(usuarioAuth);
+    const where: Prisma.UsuarioWhereInput = {
+      ...(soloActivos ? { activo: true } : {}),
+      ...(esGlobal ? {} : { institucionId: Number(usuarioAuth?.institucionId) }),
+    };
+
+    const estado = valorBooleano(query.estado);
+    if (!soloActivos && estado !== undefined) {
+      where.activo = estado;
+    }
+
+    if (esGlobal && query.institucionId) {
+      where.institucionId = Number(query.institucionId);
+    }
+
+    if (query.rolId) {
+      where.rolId = Number(query.rolId);
+    }
+
+    if (busqueda) {
+      where.OR = [
+        { nombres: { contains: busqueda, mode: 'insensitive' } },
+        { apellidos: { contains: busqueda, mode: 'insensitive' } },
+        { correo: { contains: busqueda, mode: 'insensitive' } },
+        { documento: { contains: busqueda, mode: 'insensitive' } },
+      ];
+    }
+
+    return where;
+  }
 
   private async validarRolAsignable(rolId: number, usuarioAuth: any) {
     if (tieneAccesoTotal(usuarioAuth)) {
@@ -58,6 +119,7 @@ export class UsuarioService {
           fechaNacimiento: new Date(data.fechaNacimiento),
           contrasena: contrasenaEncriptada,
         },
+        select: this.usuarioSelect,
       });
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2002') {
@@ -67,27 +129,60 @@ export class UsuarioService {
     }
   }
 
-  async listar(usuarioAuth: any) {
+  async listar(usuarioAuth: any, query: ConsultaPaginada = {}) {
     validarPermiso(usuarioAuth, PERMISOS.USUARIOS_VER);
-    const esGlobal = tieneAccesoTotal(usuarioAuth);
-    return await this.prisma.usuario.findMany({
-      where: { activo: true, ...(esGlobal ? {} : { institucionId: Number(usuarioAuth?.institucionId) }) },
-      orderBy: { id: 'desc' },
-    });
+    const { pagina, limite, skip, busqueda } = obtenerPaginacion(query);
+    const where = this.construirFiltroUsuarios(
+      usuarioAuth,
+      query,
+      true,
+      busqueda,
+    );
+
+    const [data, total] = await Promise.all([
+      this.prisma.usuario.findMany({
+        where,
+        select: this.usuarioSelect,
+        orderBy: { id: 'desc' },
+        skip,
+        take: limite,
+      }),
+      this.prisma.usuario.count({ where }),
+    ]);
+
+    return respuestaPaginada(data, total, pagina, limite);
   }
 
-  async listarTodos(usuarioAuth: any) {
+  async listarTodos(usuarioAuth: any, query: ConsultaPaginada = {}) {
     validarPermiso(usuarioAuth, PERMISOS.USUARIOS_VER);
-    const esGlobal = tieneAccesoTotal(usuarioAuth);
-    return await this.prisma.usuario.findMany({
-      where: esGlobal ? {} : { institucionId: Number(usuarioAuth?.institucionId) },
-      orderBy: { id: 'desc' },
-    });
+    const { pagina, limite, skip, busqueda } = obtenerPaginacion(query);
+    const where = this.construirFiltroUsuarios(
+      usuarioAuth,
+      query,
+      false,
+      busqueda,
+    );
+
+    const [data, total] = await Promise.all([
+      this.prisma.usuario.findMany({
+        where,
+        select: this.usuarioSelect,
+        orderBy: { id: 'desc' },
+        skip,
+        take: limite,
+      }),
+      this.prisma.usuario.count({ where }),
+    ]);
+
+    return respuestaPaginada(data, total, pagina, limite);
   }
 
   async obtenerPorId(id: number, usuarioAuth: any) {
     validarPermiso(usuarioAuth, PERMISOS.USUARIOS_VER);
-    const usuario = await this.prisma.usuario.findUnique({ where: { id } });
+    const usuario = await this.prisma.usuario.findUnique({
+      where: { id },
+      select: this.usuarioSelect,
+    });
     if (!usuario) throw new NotFoundException(`Usuario con id ${id} no encontrado`);
     validarAlcanceInstitucional(usuarioAuth, usuario.institucionId);
     return usuario;
@@ -111,18 +206,30 @@ export class UsuarioService {
         : undefined,
     };
 
-    return await this.prisma.usuario.update({ where: { id }, data: payload });
+    return await this.prisma.usuario.update({
+      where: { id },
+      data: payload,
+      select: this.usuarioSelect,
+    });
   }
 
   async inactivar(id: number, usuarioAuth: any) {
     validarPermiso(usuarioAuth, PERMISOS.USUARIOS_CAMBIAR_ESTADO);
     await this.obtenerPorId(id, usuarioAuth);
-    return await this.prisma.usuario.update({ where: { id }, data: { activo: false } });
+    return await this.prisma.usuario.update({
+      where: { id },
+      data: { activo: false },
+      select: this.usuarioSelect,
+    });
   }
 
   async reactivar(id: number, usuarioAuth: any) {
     validarPermiso(usuarioAuth, PERMISOS.USUARIOS_CAMBIAR_ESTADO);
     await this.obtenerPorId(id, usuarioAuth);
-    return await this.prisma.usuario.update({ where: { id }, data: { activo: true } });
+    return await this.prisma.usuario.update({
+      where: { id },
+      data: { activo: true },
+      select: this.usuarioSelect,
+    });
   }
 }

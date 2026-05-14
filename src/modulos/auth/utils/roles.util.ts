@@ -35,6 +35,12 @@ export const PERMISOS = {
   RECURSOS_CAMBIAR_ESTADO: 'recursos.cambiar_estado',
   RECURSOS_SUBIR_ARCHIVO: 'recursos.subir_archivo',
 
+  FOROS_VER: 'foros.ver',
+  FOROS_CREAR: 'foros.crear',
+  FOROS_CREAR_PUBLICO: 'foros.crear_publico',
+  FOROS_COMENTAR: 'foros.comentar',
+  FOROS_CERRAR: 'foros.cerrar',
+
   REPORTES_VER: 'reportes.ver',
 } as const;
 

@@ -1,4 +1,4 @@
-import { IsInt, IsNotEmpty, IsString } from 'class-validator';
+import { IsBoolean, IsInt, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 export class CrearForoDto {
   @IsString()
@@ -9,12 +9,14 @@ export class CrearForoDto {
   @IsNotEmpty()
   descripcion!: string;
 
+  @IsOptional()
+  @IsBoolean()
+  publico?: boolean;
+
+  @IsOptional()
   @IsInt()
-  institucionId!: number;
+  institucionId?: number;
 
   @IsInt()
   categoriaId!: number;
-
-  @IsInt()
-  usuarioId!: number;
 }

@@ -14,6 +14,14 @@ export class ActualizarForoDto {
   estado?: boolean;
 
   @IsOptional()
+  @IsBoolean()
+  publico?: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  cerrado?: boolean;
+
+  @IsOptional()
   @IsInt()
   institucionId?: number;
 
@@ -21,7 +29,4 @@ export class ActualizarForoDto {
   @IsInt()
   categoriaId?: number;
 
-  @IsOptional()
-  @IsInt()
-  usuarioId?: number;
 }

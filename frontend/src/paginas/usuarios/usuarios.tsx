@@ -9,7 +9,9 @@ import {
   obtenerRolesAsignablesAdmin,
   obtenerUsuarioAutenticado,
   obtenerUsuariosAdmin,
+  PERMISOS,
   reactivarUsuarioAdmin,
+  usuarioTienePermiso,
 } from '../../api/adminApi';
 import type {
   InstitucionCatalogo,
@@ -57,12 +59,28 @@ export function Usuarios() {
   const usuarioSesion = obtenerUsuarioAutenticado();
   const esSuper = esSuperadministrador();
   const institucionSesionId = usuarioSesion?.institucion?.id;
+  const puedeCrear = usuarioTienePermiso(PERMISOS.USUARIOS_CREAR);
+  const puedeEditar = usuarioTienePermiso(PERMISOS.USUARIOS_EDITAR);
+  const puedeCambiarEstado = usuarioTienePermiso(
+    PERMISOS.USUARIOS_CAMBIAR_ESTADO,
+  );
+  const tieneAcciones = puedeEditar || puedeCambiarEstado;
 
   const [usuarios, setUsuarios] = useState<UsuarioAdmin[]>([]);
   const [roles, setRoles] = useState<Rol[]>([]);
   const [instituciones, setInstituciones] = useState<InstitucionCatalogo[]>([]);
   const [cargando, setCargando] = useState(true);
+  const [cargandoCatalogos, setCargandoCatalogos] = useState(true);
   const [error, setError] = useState('');
+  const [pagina, setPagina] = useState(1);
+  const [total, setTotal] = useState(0);
+  const [totalPaginas, setTotalPaginas] = useState(1);
+  const [filtros, setFiltros] = useState({
+    busqueda: '',
+    estado: '',
+    rolId: '',
+    institucionId: '',
+  });
   const [modalAbierto, setModalAbierto] = useState(false);
   const [guardando, setGuardando] = useState(false);
   const [modoEdicion, setModoEdicion] = useState(false);
@@ -85,23 +103,53 @@ export function Usuarios() {
   );
 
   useEffect(() => {
-    cargarUsuarios();
+    cargarCatalogos();
   }, []);
+
+  useEffect(() => {
+    cargarUsuarios();
+  }, [
+    pagina,
+    filtros.busqueda,
+    filtros.estado,
+    filtros.rolId,
+    filtros.institucionId,
+  ]);
+
+  async function cargarCatalogos() {
+    try {
+      setCargandoCatalogos(true);
+      const [rolesData, institucionesData] = await Promise.all([
+        obtenerRolesAsignablesAdmin(),
+        obtenerInstitucionesAdmin(),
+      ]);
+
+      setRoles(rolesData);
+      setInstituciones(institucionesData);
+    } catch {
+      setError('No se pudieron cargar los catálogos de usuarios');
+    } finally {
+      setCargandoCatalogos(false);
+    }
+  }
 
   async function cargarUsuarios() {
     try {
       setCargando(true);
       setError('');
 
-      const [usuariosData, rolesData, institucionesData] = await Promise.all([
-        obtenerUsuariosAdmin(),
-        obtenerRolesAsignablesAdmin(),
-        obtenerInstitucionesAdmin(),
-      ]);
+      const usuariosData = await obtenerUsuariosAdmin({
+        pagina,
+        limite: 10,
+        busqueda: filtros.busqueda,
+        estado: filtros.estado,
+        rolId: filtros.rolId,
+        institucionId: esSuper ? filtros.institucionId : undefined,
+      });
 
-      setUsuarios(usuariosData);
-      setRoles(rolesData);
-      setInstituciones(institucionesData);
+      setUsuarios(usuariosData.data);
+      setTotal(usuariosData.total);
+      setTotalPaginas(usuariosData.totalPaginas);
     } catch {
       setError('No se pudieron cargar los usuarios');
     } finally {
@@ -114,6 +162,24 @@ export function Usuarios() {
     setUsuarioEditandoId(null);
     setFormulario(crearFormularioInicial(esSuper, institucionSesionId));
     setModalAbierto(true);
+  }
+
+  function manejarFiltro(
+    event: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) {
+    const { name, value } = event.target;
+    setFiltros((prev) => ({ ...prev, [name]: value }));
+    setPagina(1);
+  }
+
+  function limpiarFiltros() {
+    setFiltros({
+      busqueda: '',
+      estado: '',
+      rolId: '',
+      institucionId: '',
+    });
+    setPagina(1);
   }
 
   function cerrarModal() {
@@ -178,6 +244,7 @@ export function Usuarios() {
         });
       }
 
+      setPagina(1);
       await cargarUsuarios();
       setModalAbierto(false);
     } catch {
@@ -224,16 +291,63 @@ export function Usuarios() {
           <p>Gestiona las cuentas vinculadas a las instituciones educativas.</p>
         </div>
 
-        <button className="primary-button" onClick={abrirModal}>
-          + Nuevo usuario
-        </button>
+        {puedeCrear && (
+          <button className="primary-button" onClick={abrirModal}>
+            + Nuevo usuario
+          </button>
+        )}
       </div>
 
       <div className="instituciones-card">
-        {cargando && <p className="state-message">Cargando usuarios...</p>}
+        <div className="table-tools">
+          <input
+            name="busqueda"
+            value={filtros.busqueda}
+            onChange={manejarFiltro}
+            placeholder="Buscar por nombre, correo o documento"
+          />
+
+          <select name="estado" value={filtros.estado} onChange={manejarFiltro}>
+            <option value="">Todos los estados</option>
+            <option value="true">Activos</option>
+            <option value="false">Inactivos</option>
+          </select>
+
+          <select name="rolId" value={filtros.rolId} onChange={manejarFiltro}>
+            <option value="">Todos los roles</option>
+            {roles.map((rol) => (
+              <option key={rol.id} value={rol.id}>
+                {rol.nombre}
+              </option>
+            ))}
+          </select>
+
+          {esSuper && (
+            <select
+              name="institucionId"
+              value={filtros.institucionId}
+              onChange={manejarFiltro}
+            >
+              <option value="">Todas las instituciones</option>
+              {instituciones.map((institucion) => (
+                <option key={institucion.id} value={institucion.id}>
+                  {institucion.nombre}
+                </option>
+              ))}
+            </select>
+          )}
+
+          <button className="secondary-button" onClick={limpiarFiltros}>
+            Limpiar
+          </button>
+        </div>
+
+        {(cargando || cargandoCatalogos) && (
+          <p className="state-message">Cargando usuarios...</p>
+        )}
         {error && <p className="state-message error">{error}</p>}
 
-        {!cargando && !error && (
+        {!cargando && !cargandoCatalogos && !error && (
           <div className="table-responsive">
             <table className="data-table">
               <thead>
@@ -243,7 +357,7 @@ export function Usuarios() {
                   <th>Rol</th>
                   <th>Institución</th>
                   <th>Estado</th>
-                  <th>Acciones</th>
+                  {tieneAcciones && <th>Acciones</th>}
                 </tr>
               </thead>
 
@@ -278,38 +392,73 @@ export function Usuarios() {
                         {usuario.activo ? '✓' : '×'}
                       </span>
                     </td>
-                    <td data-label="Acciones">
-                      <div className="actions">
-                        <button
-                          title="Editar"
-                          aria-label="Editar"
-                          onClick={() => editarUsuario(usuario)}
-                        >
-                          ✎
-                        </button>
+                    {tieneAcciones && (
+                      <td data-label="Acciones">
+                        <div className="actions">
+                          {puedeEditar && (
+                            <button
+                              title="Editar"
+                              aria-label="Editar"
+                              onClick={() => editarUsuario(usuario)}
+                            >
+                              ✎
+                            </button>
+                          )}
 
-                        <button
-                          className={usuario.activo ? 'danger' : 'success'}
-                          title={usuario.activo ? 'Inactivar' : 'Reactivar'}
-                          aria-label={usuario.activo ? 'Inactivar' : 'Reactivar'}
-                          onClick={() => cambiarEstadoUsuario(usuario)}
-                        >
-                          {usuario.activo ? '⊘' : '↻'}
-                        </button>
-                      </div>
-                    </td>
+                          {puedeCambiarEstado && (
+                            <button
+                              className={usuario.activo ? 'danger' : 'success'}
+                              title={usuario.activo ? 'Inactivar' : 'Reactivar'}
+                              aria-label={
+                                usuario.activo ? 'Inactivar' : 'Reactivar'
+                              }
+                              onClick={() => cambiarEstadoUsuario(usuario)}
+                            >
+                              {usuario.activo ? '⊘' : '↻'}
+                            </button>
+                          )}
+                        </div>
+                      </td>
+                    )}
                   </tr>
                 ))}
 
                 {usuarios.length === 0 && (
                   <tr>
-                    <td colSpan={6} className="empty-table">
+                    <td
+                      colSpan={tieneAcciones ? 6 : 5}
+                      className="empty-table"
+                    >
                       No hay usuarios registrados.
                     </td>
                   </tr>
                 )}
               </tbody>
             </table>
+
+            <div className="pagination-bar">
+              <span>
+                {total} usuarios · Página {pagina} de {totalPaginas}
+              </span>
+              <div>
+                <button
+                  className="secondary-button"
+                  onClick={() => setPagina((prev) => Math.max(prev - 1, 1))}
+                  disabled={pagina <= 1}
+                >
+                  Anterior
+                </button>
+                <button
+                  className="secondary-button"
+                  onClick={() =>
+                    setPagina((prev) => Math.min(prev + 1, totalPaginas))
+                  }
+                  disabled={pagina >= totalPaginas}
+                >
+                  Siguiente
+                </button>
+              </div>
+            </div>
           </div>
         )}
       </div>

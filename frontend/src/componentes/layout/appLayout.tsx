@@ -53,7 +53,7 @@ export function AppLayout() {
       administracion.push({ titulo: 'Tipos de recursos', ruta: '/admin/tipos-recursos' });
     }
 
-    if (usuarioTienePermiso(PERMISOS.RECURSOS_CREAR)) {
+    if (usuarioTienePermiso(PERMISOS.RECURSOS_VER)) {
       administracion.push({ titulo: 'Recursos', ruta: '/admin/recursos' });
     }
 
@@ -65,6 +65,13 @@ export function AppLayout() {
       items.push({
         titulo: 'Administración',
         hijos: administracion,
+      });
+    }
+
+    if (usuarioTienePermiso(PERMISOS.FOROS_VER)) {
+      items.push({
+        titulo: 'Comunidad',
+        hijos: [{ titulo: 'Foros académicos', ruta: '/foros' }],
       });
     }
 

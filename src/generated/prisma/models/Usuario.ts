@@ -315,7 +315,7 @@ export type UsuarioWhereInput = {
   institucion?: Prisma.XOR<Prisma.InstitucionScalarRelationFilter, Prisma.InstitucionWhereInput>
   rol?: Prisma.XOR<Prisma.RolScalarRelationFilter, Prisma.RolWhereInput>
   foros?: Prisma.ForoListRelationFilter
-  respuestasForo?: Prisma.RespuestaForoListRelationFilter
+  comentariosForo?: Prisma.ComentarioForoListRelationFilter
   recursos?: Prisma.RecursoListRelationFilter
   calificacionesRecurso?: Prisma.CalificacionRecursoListRelationFilter
   asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeListRelationFilter
@@ -342,7 +342,7 @@ export type UsuarioOrderByWithRelationInput = {
   institucion?: Prisma.InstitucionOrderByWithRelationInput
   rol?: Prisma.RolOrderByWithRelationInput
   foros?: Prisma.ForoOrderByRelationAggregateInput
-  respuestasForo?: Prisma.RespuestaForoOrderByRelationAggregateInput
+  comentariosForo?: Prisma.ComentarioForoOrderByRelationAggregateInput
   recursos?: Prisma.RecursoOrderByRelationAggregateInput
   calificacionesRecurso?: Prisma.CalificacionRecursoOrderByRelationAggregateInput
   asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeOrderByRelationAggregateInput
@@ -372,7 +372,7 @@ export type UsuarioWhereUniqueInput = Prisma.AtLeast<{
   institucion?: Prisma.XOR<Prisma.InstitucionScalarRelationFilter, Prisma.InstitucionWhereInput>
   rol?: Prisma.XOR<Prisma.RolScalarRelationFilter, Prisma.RolWhereInput>
   foros?: Prisma.ForoListRelationFilter
-  respuestasForo?: Prisma.RespuestaForoListRelationFilter
+  comentariosForo?: Prisma.ComentarioForoListRelationFilter
   recursos?: Prisma.RecursoListRelationFilter
   calificacionesRecurso?: Prisma.CalificacionRecursoListRelationFilter
   asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeListRelationFilter
@@ -442,7 +442,7 @@ export type UsuarioCreateInput = {
   institucion: Prisma.InstitucionCreateNestedOneWithoutUsuariosInput
   rol: Prisma.RolCreateNestedOneWithoutUsuariosInput
   foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
-  respuestasForo?: Prisma.RespuestaForoCreateNestedManyWithoutUsuarioInput
+  comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
   recursos?: Prisma.RecursoCreateNestedManyWithoutUsuarioCreadorInput
   calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
   asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeCreateNestedManyWithoutUsuarioInput
@@ -467,7 +467,7 @@ export type UsuarioUncheckedCreateInput = {
   institucionId: number
   rolId: number
   foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
-  respuestasForo?: Prisma.RespuestaForoUncheckedCreateNestedManyWithoutUsuarioInput
+  comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
   recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutUsuarioCreadorInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
   asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
@@ -491,7 +491,7 @@ export type UsuarioUpdateInput = {
   institucion?: Prisma.InstitucionUpdateOneRequiredWithoutUsuariosNestedInput
   rol?: Prisma.RolUpdateOneRequiredWithoutUsuariosNestedInput
   foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
-  respuestasForo?: Prisma.RespuestaForoUpdateManyWithoutUsuarioNestedInput
+  comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
   recursos?: Prisma.RecursoUpdateManyWithoutUsuarioCreadorNestedInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
   asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUpdateManyWithoutUsuarioNestedInput
@@ -516,7 +516,7 @@ export type UsuarioUncheckedUpdateInput = {
   institucionId?: Prisma.IntFieldUpdateOperationsInput | number
   rolId?: Prisma.IntFieldUpdateOperationsInput | number
   foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
-  respuestasForo?: Prisma.RespuestaForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
   recursos?: Prisma.RecursoUncheckedUpdateManyWithoutUsuarioCreadorNestedInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
   asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
@@ -763,18 +763,18 @@ export type UsuarioUpdateOneRequiredWithoutForosNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UsuarioUpdateToOneWithWhereWithoutForosInput, Prisma.UsuarioUpdateWithoutForosInput>, Prisma.UsuarioUncheckedUpdateWithoutForosInput>
 }
 
-export type UsuarioCreateNestedOneWithoutRespuestasForoInput = {
-  create?: Prisma.XOR<Prisma.UsuarioCreateWithoutRespuestasForoInput, Prisma.UsuarioUncheckedCreateWithoutRespuestasForoInput>
-  connectOrCreate?: Prisma.UsuarioCreateOrConnectWithoutRespuestasForoInput
+export type UsuarioCreateNestedOneWithoutComentariosForoInput = {
+  create?: Prisma.XOR<Prisma.UsuarioCreateWithoutComentariosForoInput, Prisma.UsuarioUncheckedCreateWithoutComentariosForoInput>
+  connectOrCreate?: Prisma.UsuarioCreateOrConnectWithoutComentariosForoInput
   connect?: Prisma.UsuarioWhereUniqueInput
 }
 
-export type UsuarioUpdateOneRequiredWithoutRespuestasForoNestedInput = {
-  create?: Prisma.XOR<Prisma.UsuarioCreateWithoutRespuestasForoInput, Prisma.UsuarioUncheckedCreateWithoutRespuestasForoInput>
-  connectOrCreate?: Prisma.UsuarioCreateOrConnectWithoutRespuestasForoInput
-  upsert?: Prisma.UsuarioUpsertWithoutRespuestasForoInput
+export type UsuarioUpdateOneRequiredWithoutComentariosForoNestedInput = {
+  create?: Prisma.XOR<Prisma.UsuarioCreateWithoutComentariosForoInput, Prisma.UsuarioUncheckedCreateWithoutComentariosForoInput>
+  connectOrCreate?: Prisma.UsuarioCreateOrConnectWithoutComentariosForoInput
+  upsert?: Prisma.UsuarioUpsertWithoutComentariosForoInput
   connect?: Prisma.UsuarioWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UsuarioUpdateToOneWithWhereWithoutRespuestasForoInput, Prisma.UsuarioUpdateWithoutRespuestasForoInput>, Prisma.UsuarioUncheckedUpdateWithoutRespuestasForoInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UsuarioUpdateToOneWithWhereWithoutComentariosForoInput, Prisma.UsuarioUpdateWithoutComentariosForoInput>, Prisma.UsuarioUncheckedUpdateWithoutComentariosForoInput>
 }
 
 export type UsuarioCreateNestedOneWithoutRecursosInput = {
@@ -849,7 +849,7 @@ export type UsuarioCreateWithoutInstitucionInput = {
   updatedAt?: Date | string
   rol: Prisma.RolCreateNestedOneWithoutUsuariosInput
   foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
-  respuestasForo?: Prisma.RespuestaForoCreateNestedManyWithoutUsuarioInput
+  comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
   recursos?: Prisma.RecursoCreateNestedManyWithoutUsuarioCreadorInput
   calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
   asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeCreateNestedManyWithoutUsuarioInput
@@ -873,7 +873,7 @@ export type UsuarioUncheckedCreateWithoutInstitucionInput = {
   updatedAt?: Date | string
   rolId: number
   foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
-  respuestasForo?: Prisma.RespuestaForoUncheckedCreateNestedManyWithoutUsuarioInput
+  comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
   recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutUsuarioCreadorInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
   asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
@@ -944,7 +944,7 @@ export type UsuarioCreateWithoutRolInput = {
   updatedAt?: Date | string
   institucion: Prisma.InstitucionCreateNestedOneWithoutUsuariosInput
   foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
-  respuestasForo?: Prisma.RespuestaForoCreateNestedManyWithoutUsuarioInput
+  comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
   recursos?: Prisma.RecursoCreateNestedManyWithoutUsuarioCreadorInput
   calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
   asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeCreateNestedManyWithoutUsuarioInput
@@ -968,7 +968,7 @@ export type UsuarioUncheckedCreateWithoutRolInput = {
   updatedAt?: Date | string
   institucionId: number
   foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
-  respuestasForo?: Prisma.RespuestaForoUncheckedCreateNestedManyWithoutUsuarioInput
+  comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
   recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutUsuarioCreadorInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
   asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
@@ -1017,7 +1017,7 @@ export type UsuarioCreateWithoutForosInput = {
   updatedAt?: Date | string
   institucion: Prisma.InstitucionCreateNestedOneWithoutUsuariosInput
   rol: Prisma.RolCreateNestedOneWithoutUsuariosInput
-  respuestasForo?: Prisma.RespuestaForoCreateNestedManyWithoutUsuarioInput
+  comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
   recursos?: Prisma.RecursoCreateNestedManyWithoutUsuarioCreadorInput
   calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
   asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeCreateNestedManyWithoutUsuarioInput
@@ -1041,7 +1041,7 @@ export type UsuarioUncheckedCreateWithoutForosInput = {
   updatedAt?: Date | string
   institucionId: number
   rolId: number
-  respuestasForo?: Prisma.RespuestaForoUncheckedCreateNestedManyWithoutUsuarioInput
+  comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
   recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutUsuarioCreadorInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
   asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
@@ -1080,7 +1080,7 @@ export type UsuarioUpdateWithoutForosInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   institucion?: Prisma.InstitucionUpdateOneRequiredWithoutUsuariosNestedInput
   rol?: Prisma.RolUpdateOneRequiredWithoutUsuariosNestedInput
-  respuestasForo?: Prisma.RespuestaForoUpdateManyWithoutUsuarioNestedInput
+  comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
   recursos?: Prisma.RecursoUpdateManyWithoutUsuarioCreadorNestedInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
   asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUpdateManyWithoutUsuarioNestedInput
@@ -1104,14 +1104,14 @@ export type UsuarioUncheckedUpdateWithoutForosInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   institucionId?: Prisma.IntFieldUpdateOperationsInput | number
   rolId?: Prisma.IntFieldUpdateOperationsInput | number
-  respuestasForo?: Prisma.RespuestaForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
   recursos?: Prisma.RecursoUncheckedUpdateManyWithoutUsuarioCreadorNestedInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
   asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
 }
 
-export type UsuarioCreateWithoutRespuestasForoInput = {
+export type UsuarioCreateWithoutComentariosForoInput = {
   nombres: string
   apellidos: string
   correo: string
@@ -1134,7 +1134,7 @@ export type UsuarioCreateWithoutRespuestasForoInput = {
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
 }
 
-export type UsuarioUncheckedCreateWithoutRespuestasForoInput = {
+export type UsuarioUncheckedCreateWithoutComentariosForoInput = {
   id?: number
   nombres: string
   apellidos: string
@@ -1158,23 +1158,23 @@ export type UsuarioUncheckedCreateWithoutRespuestasForoInput = {
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
 }
 
-export type UsuarioCreateOrConnectWithoutRespuestasForoInput = {
+export type UsuarioCreateOrConnectWithoutComentariosForoInput = {
   where: Prisma.UsuarioWhereUniqueInput
-  create: Prisma.XOR<Prisma.UsuarioCreateWithoutRespuestasForoInput, Prisma.UsuarioUncheckedCreateWithoutRespuestasForoInput>
+  create: Prisma.XOR<Prisma.UsuarioCreateWithoutComentariosForoInput, Prisma.UsuarioUncheckedCreateWithoutComentariosForoInput>
 }
 
-export type UsuarioUpsertWithoutRespuestasForoInput = {
-  update: Prisma.XOR<Prisma.UsuarioUpdateWithoutRespuestasForoInput, Prisma.UsuarioUncheckedUpdateWithoutRespuestasForoInput>
-  create: Prisma.XOR<Prisma.UsuarioCreateWithoutRespuestasForoInput, Prisma.UsuarioUncheckedCreateWithoutRespuestasForoInput>
+export type UsuarioUpsertWithoutComentariosForoInput = {
+  update: Prisma.XOR<Prisma.UsuarioUpdateWithoutComentariosForoInput, Prisma.UsuarioUncheckedUpdateWithoutComentariosForoInput>
+  create: Prisma.XOR<Prisma.UsuarioCreateWithoutComentariosForoInput, Prisma.UsuarioUncheckedCreateWithoutComentariosForoInput>
   where?: Prisma.UsuarioWhereInput
 }
 
-export type UsuarioUpdateToOneWithWhereWithoutRespuestasForoInput = {
+export type UsuarioUpdateToOneWithWhereWithoutComentariosForoInput = {
   where?: Prisma.UsuarioWhereInput
-  data: Prisma.XOR<Prisma.UsuarioUpdateWithoutRespuestasForoInput, Prisma.UsuarioUncheckedUpdateWithoutRespuestasForoInput>
+  data: Prisma.XOR<Prisma.UsuarioUpdateWithoutComentariosForoInput, Prisma.UsuarioUncheckedUpdateWithoutComentariosForoInput>
 }
 
-export type UsuarioUpdateWithoutRespuestasForoInput = {
+export type UsuarioUpdateWithoutComentariosForoInput = {
   nombres?: Prisma.StringFieldUpdateOperationsInput | string
   apellidos?: Prisma.StringFieldUpdateOperationsInput | string
   correo?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1197,7 +1197,7 @@ export type UsuarioUpdateWithoutRespuestasForoInput = {
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
 }
 
-export type UsuarioUncheckedUpdateWithoutRespuestasForoInput = {
+export type UsuarioUncheckedUpdateWithoutComentariosForoInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   nombres?: Prisma.StringFieldUpdateOperationsInput | string
   apellidos?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1238,7 +1238,7 @@ export type UsuarioCreateWithoutRecursosInput = {
   institucion: Prisma.InstitucionCreateNestedOneWithoutUsuariosInput
   rol: Prisma.RolCreateNestedOneWithoutUsuariosInput
   foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
-  respuestasForo?: Prisma.RespuestaForoCreateNestedManyWithoutUsuarioInput
+  comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
   calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
   asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeCreateNestedManyWithoutUsuarioInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
@@ -1262,7 +1262,7 @@ export type UsuarioUncheckedCreateWithoutRecursosInput = {
   institucionId: number
   rolId: number
   foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
-  respuestasForo?: Prisma.RespuestaForoUncheckedCreateNestedManyWithoutUsuarioInput
+  comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
   asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
@@ -1301,7 +1301,7 @@ export type UsuarioUpdateWithoutRecursosInput = {
   institucion?: Prisma.InstitucionUpdateOneRequiredWithoutUsuariosNestedInput
   rol?: Prisma.RolUpdateOneRequiredWithoutUsuariosNestedInput
   foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
-  respuestasForo?: Prisma.RespuestaForoUpdateManyWithoutUsuarioNestedInput
+  comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
   asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUpdateManyWithoutUsuarioNestedInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
@@ -1325,7 +1325,7 @@ export type UsuarioUncheckedUpdateWithoutRecursosInput = {
   institucionId?: Prisma.IntFieldUpdateOperationsInput | number
   rolId?: Prisma.IntFieldUpdateOperationsInput | number
   foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
-  respuestasForo?: Prisma.RespuestaForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
   asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
@@ -1348,7 +1348,7 @@ export type UsuarioCreateWithoutCalificacionesRecursoInput = {
   institucion: Prisma.InstitucionCreateNestedOneWithoutUsuariosInput
   rol: Prisma.RolCreateNestedOneWithoutUsuariosInput
   foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
-  respuestasForo?: Prisma.RespuestaForoCreateNestedManyWithoutUsuarioInput
+  comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
   recursos?: Prisma.RecursoCreateNestedManyWithoutUsuarioCreadorInput
   asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeCreateNestedManyWithoutUsuarioInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
@@ -1372,7 +1372,7 @@ export type UsuarioUncheckedCreateWithoutCalificacionesRecursoInput = {
   institucionId: number
   rolId: number
   foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
-  respuestasForo?: Prisma.RespuestaForoUncheckedCreateNestedManyWithoutUsuarioInput
+  comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
   recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutUsuarioCreadorInput
   asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
@@ -1411,7 +1411,7 @@ export type UsuarioUpdateWithoutCalificacionesRecursoInput = {
   institucion?: Prisma.InstitucionUpdateOneRequiredWithoutUsuariosNestedInput
   rol?: Prisma.RolUpdateOneRequiredWithoutUsuariosNestedInput
   foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
-  respuestasForo?: Prisma.RespuestaForoUpdateManyWithoutUsuarioNestedInput
+  comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
   recursos?: Prisma.RecursoUpdateManyWithoutUsuarioCreadorNestedInput
   asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUpdateManyWithoutUsuarioNestedInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
@@ -1435,7 +1435,7 @@ export type UsuarioUncheckedUpdateWithoutCalificacionesRecursoInput = {
   institucionId?: Prisma.IntFieldUpdateOperationsInput | number
   rolId?: Prisma.IntFieldUpdateOperationsInput | number
   foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
-  respuestasForo?: Prisma.RespuestaForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
   recursos?: Prisma.RecursoUncheckedUpdateManyWithoutUsuarioCreadorNestedInput
   asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
@@ -1458,7 +1458,7 @@ export type UsuarioCreateWithoutAsignacionesRutaAprendizajeInput = {
   institucion: Prisma.InstitucionCreateNestedOneWithoutUsuariosInput
   rol: Prisma.RolCreateNestedOneWithoutUsuariosInput
   foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
-  respuestasForo?: Prisma.RespuestaForoCreateNestedManyWithoutUsuarioInput
+  comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
   recursos?: Prisma.RecursoCreateNestedManyWithoutUsuarioCreadorInput
   calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
@@ -1482,7 +1482,7 @@ export type UsuarioUncheckedCreateWithoutAsignacionesRutaAprendizajeInput = {
   institucionId: number
   rolId: number
   foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
-  respuestasForo?: Prisma.RespuestaForoUncheckedCreateNestedManyWithoutUsuarioInput
+  comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
   recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutUsuarioCreadorInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
@@ -1521,7 +1521,7 @@ export type UsuarioUpdateWithoutAsignacionesRutaAprendizajeInput = {
   institucion?: Prisma.InstitucionUpdateOneRequiredWithoutUsuariosNestedInput
   rol?: Prisma.RolUpdateOneRequiredWithoutUsuariosNestedInput
   foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
-  respuestasForo?: Prisma.RespuestaForoUpdateManyWithoutUsuarioNestedInput
+  comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
   recursos?: Prisma.RecursoUpdateManyWithoutUsuarioCreadorNestedInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
@@ -1545,7 +1545,7 @@ export type UsuarioUncheckedUpdateWithoutAsignacionesRutaAprendizajeInput = {
   institucionId?: Prisma.IntFieldUpdateOperationsInput | number
   rolId?: Prisma.IntFieldUpdateOperationsInput | number
   foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
-  respuestasForo?: Prisma.RespuestaForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
   recursos?: Prisma.RecursoUncheckedUpdateManyWithoutUsuarioCreadorNestedInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
@@ -1568,7 +1568,7 @@ export type UsuarioCreateWithoutDiagnosticosAprendizajeInput = {
   institucion: Prisma.InstitucionCreateNestedOneWithoutUsuariosInput
   rol: Prisma.RolCreateNestedOneWithoutUsuariosInput
   foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
-  respuestasForo?: Prisma.RespuestaForoCreateNestedManyWithoutUsuarioInput
+  comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
   recursos?: Prisma.RecursoCreateNestedManyWithoutUsuarioCreadorInput
   calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
   asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeCreateNestedManyWithoutUsuarioInput
@@ -1592,7 +1592,7 @@ export type UsuarioUncheckedCreateWithoutDiagnosticosAprendizajeInput = {
   institucionId: number
   rolId: number
   foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
-  respuestasForo?: Prisma.RespuestaForoUncheckedCreateNestedManyWithoutUsuarioInput
+  comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
   recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutUsuarioCreadorInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
   asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
@@ -1631,7 +1631,7 @@ export type UsuarioUpdateWithoutDiagnosticosAprendizajeInput = {
   institucion?: Prisma.InstitucionUpdateOneRequiredWithoutUsuariosNestedInput
   rol?: Prisma.RolUpdateOneRequiredWithoutUsuariosNestedInput
   foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
-  respuestasForo?: Prisma.RespuestaForoUpdateManyWithoutUsuarioNestedInput
+  comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
   recursos?: Prisma.RecursoUpdateManyWithoutUsuarioCreadorNestedInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
   asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUpdateManyWithoutUsuarioNestedInput
@@ -1655,7 +1655,7 @@ export type UsuarioUncheckedUpdateWithoutDiagnosticosAprendizajeInput = {
   institucionId?: Prisma.IntFieldUpdateOperationsInput | number
   rolId?: Prisma.IntFieldUpdateOperationsInput | number
   foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
-  respuestasForo?: Prisma.RespuestaForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
   recursos?: Prisma.RecursoUncheckedUpdateManyWithoutUsuarioCreadorNestedInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
   asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
@@ -1695,7 +1695,7 @@ export type UsuarioUpdateWithoutInstitucionInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   rol?: Prisma.RolUpdateOneRequiredWithoutUsuariosNestedInput
   foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
-  respuestasForo?: Prisma.RespuestaForoUpdateManyWithoutUsuarioNestedInput
+  comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
   recursos?: Prisma.RecursoUpdateManyWithoutUsuarioCreadorNestedInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
   asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUpdateManyWithoutUsuarioNestedInput
@@ -1719,7 +1719,7 @@ export type UsuarioUncheckedUpdateWithoutInstitucionInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   rolId?: Prisma.IntFieldUpdateOperationsInput | number
   foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
-  respuestasForo?: Prisma.RespuestaForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
   recursos?: Prisma.RecursoUncheckedUpdateManyWithoutUsuarioCreadorNestedInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
   asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
@@ -1778,7 +1778,7 @@ export type UsuarioUpdateWithoutRolInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   institucion?: Prisma.InstitucionUpdateOneRequiredWithoutUsuariosNestedInput
   foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
-  respuestasForo?: Prisma.RespuestaForoUpdateManyWithoutUsuarioNestedInput
+  comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
   recursos?: Prisma.RecursoUpdateManyWithoutUsuarioCreadorNestedInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
   asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUpdateManyWithoutUsuarioNestedInput
@@ -1802,7 +1802,7 @@ export type UsuarioUncheckedUpdateWithoutRolInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   institucionId?: Prisma.IntFieldUpdateOperationsInput | number
   foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
-  respuestasForo?: Prisma.RespuestaForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
   recursos?: Prisma.RecursoUncheckedUpdateManyWithoutUsuarioCreadorNestedInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
   asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
@@ -1834,7 +1834,7 @@ export type UsuarioUncheckedUpdateManyWithoutRolInput = {
 
 export type UsuarioCountOutputType = {
   foros: number
-  respuestasForo: number
+  comentariosForo: number
   recursos: number
   calificacionesRecurso: number
   asignacionesRutaAprendizaje: number
@@ -1843,7 +1843,7 @@ export type UsuarioCountOutputType = {
 
 export type UsuarioCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   foros?: boolean | UsuarioCountOutputTypeCountForosArgs
-  respuestasForo?: boolean | UsuarioCountOutputTypeCountRespuestasForoArgs
+  comentariosForo?: boolean | UsuarioCountOutputTypeCountComentariosForoArgs
   recursos?: boolean | UsuarioCountOutputTypeCountRecursosArgs
   calificacionesRecurso?: boolean | UsuarioCountOutputTypeCountCalificacionesRecursoArgs
   asignacionesRutaAprendizaje?: boolean | UsuarioCountOutputTypeCountAsignacionesRutaAprendizajeArgs
@@ -1870,8 +1870,8 @@ export type UsuarioCountOutputTypeCountForosArgs<ExtArgs extends runtime.Types.E
 /**
  * UsuarioCountOutputType without action
  */
-export type UsuarioCountOutputTypeCountRespuestasForoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.RespuestaForoWhereInput
+export type UsuarioCountOutputTypeCountComentariosForoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ComentarioForoWhereInput
 }
 
 /**
@@ -1923,7 +1923,7 @@ export type UsuarioSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
   rol?: boolean | Prisma.RolDefaultArgs<ExtArgs>
   foros?: boolean | Prisma.Usuario$forosArgs<ExtArgs>
-  respuestasForo?: boolean | Prisma.Usuario$respuestasForoArgs<ExtArgs>
+  comentariosForo?: boolean | Prisma.Usuario$comentariosForoArgs<ExtArgs>
   recursos?: boolean | Prisma.Usuario$recursosArgs<ExtArgs>
   calificacionesRecurso?: boolean | Prisma.Usuario$calificacionesRecursoArgs<ExtArgs>
   asignacionesRutaAprendizaje?: boolean | Prisma.Usuario$asignacionesRutaAprendizajeArgs<ExtArgs>
@@ -1997,7 +1997,7 @@ export type UsuarioInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
   rol?: boolean | Prisma.RolDefaultArgs<ExtArgs>
   foros?: boolean | Prisma.Usuario$forosArgs<ExtArgs>
-  respuestasForo?: boolean | Prisma.Usuario$respuestasForoArgs<ExtArgs>
+  comentariosForo?: boolean | Prisma.Usuario$comentariosForoArgs<ExtArgs>
   recursos?: boolean | Prisma.Usuario$recursosArgs<ExtArgs>
   calificacionesRecurso?: boolean | Prisma.Usuario$calificacionesRecursoArgs<ExtArgs>
   asignacionesRutaAprendizaje?: boolean | Prisma.Usuario$asignacionesRutaAprendizajeArgs<ExtArgs>
@@ -2019,7 +2019,7 @@ export type $UsuarioPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     institucion: Prisma.$InstitucionPayload<ExtArgs>
     rol: Prisma.$RolPayload<ExtArgs>
     foros: Prisma.$ForoPayload<ExtArgs>[]
-    respuestasForo: Prisma.$RespuestaForoPayload<ExtArgs>[]
+    comentariosForo: Prisma.$ComentarioForoPayload<ExtArgs>[]
     recursos: Prisma.$RecursoPayload<ExtArgs>[]
     calificacionesRecurso: Prisma.$CalificacionRecursoPayload<ExtArgs>[]
     asignacionesRutaAprendizaje: Prisma.$AsignacionRutaAprendizajePayload<ExtArgs>[]
@@ -2439,7 +2439,7 @@ export interface Prisma__UsuarioClient<T, Null = never, ExtArgs extends runtime.
   institucion<T extends Prisma.InstitucionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.InstitucionDefaultArgs<ExtArgs>>): Prisma.Prisma__InstitucionClient<runtime.Types.Result.GetResult<Prisma.$InstitucionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   rol<T extends Prisma.RolDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RolDefaultArgs<ExtArgs>>): Prisma.Prisma__RolClient<runtime.Types.Result.GetResult<Prisma.$RolPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   foros<T extends Prisma.Usuario$forosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$forosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ForoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  respuestasForo<T extends Prisma.Usuario$respuestasForoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$respuestasForoArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RespuestaForoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  comentariosForo<T extends Prisma.Usuario$comentariosForoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$comentariosForoArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ComentarioForoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   recursos<T extends Prisma.Usuario$recursosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$recursosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RecursoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   calificacionesRecurso<T extends Prisma.Usuario$calificacionesRecursoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$calificacionesRecursoArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CalificacionRecursoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   asignacionesRutaAprendizaje<T extends Prisma.Usuario$asignacionesRutaAprendizajeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$asignacionesRutaAprendizajeArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AsignacionRutaAprendizajePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -2914,27 +2914,27 @@ export type Usuario$forosArgs<ExtArgs extends runtime.Types.Extensions.InternalA
 }
 
 /**
- * Usuario.respuestasForo
+ * Usuario.comentariosForo
  */
-export type Usuario$respuestasForoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Usuario$comentariosForoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the RespuestaForo
+   * Select specific fields to fetch from the ComentarioForo
    */
-  select?: Prisma.RespuestaForoSelect<ExtArgs> | null
+  select?: Prisma.ComentarioForoSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the RespuestaForo
+   * Omit specific fields from the ComentarioForo
    */
-  omit?: Prisma.RespuestaForoOmit<ExtArgs> | null
+  omit?: Prisma.ComentarioForoOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.RespuestaForoInclude<ExtArgs> | null
-  where?: Prisma.RespuestaForoWhereInput
-  orderBy?: Prisma.RespuestaForoOrderByWithRelationInput | Prisma.RespuestaForoOrderByWithRelationInput[]
-  cursor?: Prisma.RespuestaForoWhereUniqueInput
+  include?: Prisma.ComentarioForoInclude<ExtArgs> | null
+  where?: Prisma.ComentarioForoWhereInput
+  orderBy?: Prisma.ComentarioForoOrderByWithRelationInput | Prisma.ComentarioForoOrderByWithRelationInput[]
+  cursor?: Prisma.ComentarioForoWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.RespuestaForoScalarFieldEnum | Prisma.RespuestaForoScalarFieldEnum[]
+  distinct?: Prisma.ComentarioForoScalarFieldEnum | Prisma.ComentarioForoScalarFieldEnum[]
 }
 
 /**

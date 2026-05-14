@@ -1,0 +1,149 @@
+.inicio-page {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.inicio-hero {
+  background: #ffffff;
+  border: 1px solid #e5eaf5;
+  border-radius: 24px;
+  box-shadow: 0 20px 50px rgba(38, 50, 77, 0.08);
+  padding: 28px;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) minmax(220px, 0.28fr);
+  gap: 22px;
+  align-items: center;
+}
+
+.inicio-logo {
+  width: 112px;
+  height: 112px;
+  border-radius: 24px;
+  background: #f8faff;
+  border: 1px solid #e5eaf5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.inicio-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 14px;
+}
+
+.inicio-logo span {
+  color: #5277f4;
+  font-size: 42px;
+  font-weight: 900;
+}
+
+.inicio-heading h1 {
+  margin: 6px 0 10px;
+  color: #1f2a44;
+  font-size: 36px;
+  line-height: 1.08;
+}
+
+.inicio-heading p {
+  margin: 0;
+  color: #6c7892;
+  font-size: 16px;
+}
+
+.inicio-role-card {
+  background: #f8faff;
+  border: 1px solid #e5eaf5;
+  border-radius: 18px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.inicio-role-card span,
+.inicio-role-card small,
+.inicio-module span {
+  color: #7b8499;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.inicio-role-card strong {
+  color: #273653;
+  font-size: 20px;
+  text-transform: capitalize;
+}
+
+.inicio-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.inicio-module {
+  min-height: 176px;
+  background: #ffffff;
+  border: 1px solid #e5eaf5;
+  border-radius: 18px;
+  box-shadow: 0 14px 34px rgba(38, 50, 77, 0.07);
+  padding: 20px;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition:
+    transform 0.18s ease,
+    border-color 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.inicio-module:hover {
+  transform: translateY(-2px);
+  border-color: #bdcafe;
+  box-shadow: 0 18px 42px rgba(38, 50, 77, 0.1);
+}
+
+.inicio-module h2 {
+  margin: 12px 0 8px;
+  color: #273653;
+  font-size: 20px;
+}
+
+.inicio-module p {
+  margin: 0;
+  color: #6c7892;
+  line-height: 1.45;
+  font-size: 14px;
+}
+
+@media (max-width: 1100px) {
+  .inicio-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .inicio-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .inicio-logo {
+    width: 96px;
+    height: 96px;
+  }
+
+  .inicio-heading h1 {
+    font-size: 29px;
+  }
+
+  .inicio-grid {
+    grid-template-columns: 1fr;
+  }
+}

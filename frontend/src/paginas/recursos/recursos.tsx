@@ -12,8 +12,10 @@ import {
   obtenerTiposRecursosAdmin,
   obtenerUsuarioAutenticado,
   obtenerUsuariosAdmin,
+  PERMISOS,
   reactivarRecurso,
   subirArchivoRecurso,
+  usuarioTienePermiso,
 } from '../../api/adminApi';
 import type {
   Categoria,
@@ -80,6 +82,16 @@ export function Recursos() {
   const usuarioSesion = obtenerUsuarioAutenticado();
   const esSuper = esSuperadministrador();
   const institucionSesionId = usuarioSesion?.institucion?.id;
+  const puedeCrear = usuarioTienePermiso(PERMISOS.RECURSOS_CREAR);
+  const puedeEditar = usuarioTienePermiso(PERMISOS.RECURSOS_EDITAR);
+  const puedeCambiarEstado = usuarioTienePermiso(
+    PERMISOS.RECURSOS_CAMBIAR_ESTADO,
+  );
+  const puedeVerCategorias = usuarioTienePermiso(PERMISOS.CATEGORIAS_VER);
+  const puedeVerTipos = usuarioTienePermiso(PERMISOS.TIPOS_RECURSOS_VER);
+  const puedeVerInstituciones = usuarioTienePermiso(PERMISOS.INSTITUCIONES_VER);
+  const puedeVerUsuarios = usuarioTienePermiso(PERMISOS.USUARIOS_VER);
+  const tieneAcciones = puedeEditar || puedeCambiarEstado;
 
   const [recursos, setRecursos] = useState<Recurso[]>([]);
   const [categorias, setCategorias] = useState<Categoria[]>([]);
@@ -87,7 +99,19 @@ export function Recursos() {
   const [instituciones, setInstituciones] = useState<InstitucionCatalogo[]>([]);
   const [usuarios, setUsuarios] = useState<UsuarioAdmin[]>([]);
   const [cargando, setCargando] = useState(true);
+  const [cargandoCatalogos, setCargandoCatalogos] = useState(true);
   const [error, setError] = useState('');
+  const [pagina, setPagina] = useState(1);
+  const [total, setTotal] = useState(0);
+  const [totalPaginas, setTotalPaginas] = useState(1);
+  const [filtros, setFiltros] = useState({
+    busqueda: '',
+    estado: '',
+    publicado: '',
+    categoriaId: '',
+    tipoRecursoId: '',
+    institucionId: '',
+  });
   const [modalAbierto, setModalAbierto] = useState(false);
   const [guardando, setGuardando] = useState(false);
   const [subiendoArchivo, setSubiendoArchivo] = useState(false);
@@ -140,33 +164,71 @@ export function Recursos() {
   }, [formulario.institucionId, usuarios]);
 
   useEffect(() => {
-    cargarRecursos();
+    cargarCatalogos();
   }, []);
+
+  useEffect(() => {
+    cargarRecursos();
+  }, [
+    pagina,
+    filtros.busqueda,
+    filtros.estado,
+    filtros.publicado,
+    filtros.categoriaId,
+    filtros.tipoRecursoId,
+    filtros.institucionId,
+  ]);
+
+  async function cargarCatalogos() {
+    try {
+      setCargandoCatalogos(true);
+      const [
+        categoriasData,
+        tiposRecursosData,
+        institucionesData,
+        usuariosData,
+      ] = await Promise.all([
+        puedeVerCategorias ? obtenerCategoriasAdmin() : Promise.resolve([]),
+        puedeVerTipos ? obtenerTiposRecursosAdmin() : Promise.resolve([]),
+        puedeVerInstituciones ? obtenerInstitucionesAdmin() : Promise.resolve([]),
+        puedeVerUsuarios
+          ? obtenerUsuariosAdmin({
+              limite: 100,
+              institucionId: esSuper ? filtros.institucionId : undefined,
+            })
+          : Promise.resolve(null),
+      ]);
+
+      setCategorias(categoriasData);
+      setTiposRecursos(tiposRecursosData);
+      setInstituciones(institucionesData);
+      setUsuarios(usuariosData?.data || []);
+    } catch {
+      setError('No se pudieron cargar los catálogos de recursos');
+    } finally {
+      setCargandoCatalogos(false);
+    }
+  }
 
   async function cargarRecursos() {
     try {
       setCargando(true);
       setError('');
 
-      const [
-        recursosData,
-        categoriasData,
-        tiposRecursosData,
-        institucionesData,
-        usuariosData,
-      ] = await Promise.all([
-        obtenerRecursosAdmin(),
-        obtenerCategoriasAdmin(),
-        obtenerTiposRecursosAdmin(),
-        obtenerInstitucionesAdmin(),
-        obtenerUsuariosAdmin(),
-      ]);
+      const recursosData = await obtenerRecursosAdmin({
+        pagina,
+        limite: 10,
+        busqueda: filtros.busqueda,
+        estado: filtros.estado,
+        publicado: filtros.publicado,
+        categoriaId: filtros.categoriaId,
+        tipoRecursoId: filtros.tipoRecursoId,
+        institucionId: esSuper ? filtros.institucionId : undefined,
+      });
 
-      setRecursos(recursosData);
-      setCategorias(categoriasData);
-      setTiposRecursos(tiposRecursosData);
-      setInstituciones(institucionesData);
-      setUsuarios(usuariosData);
+      setRecursos(recursosData.data);
+      setTotal(recursosData.total);
+      setTotalPaginas(recursosData.totalPaginas);
     } catch {
       setError('No se pudieron cargar los recursos');
     } finally {
@@ -187,6 +249,26 @@ export function Recursos() {
     if (!guardando && !subiendoArchivo) {
       setModalAbierto(false);
     }
+  }
+
+  function manejarFiltro(
+    event: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) {
+    const { name, value } = event.target;
+    setFiltros((prev) => ({ ...prev, [name]: value }));
+    setPagina(1);
+  }
+
+  function limpiarFiltros() {
+    setFiltros({
+      busqueda: '',
+      estado: '',
+      publicado: '',
+      categoriaId: '',
+      tipoRecursoId: '',
+      institucionId: '',
+    });
+    setPagina(1);
   }
 
   function editarRecurso(recurso: Recurso) {
@@ -344,16 +426,94 @@ export function Recursos() {
           <p>Gestiona materiales académicos internos y enlaces externos.</p>
         </div>
 
-        <button className="primary-button" onClick={abrirModal}>
-          + Nuevo recurso
-        </button>
+        {puedeCrear && (
+          <button className="primary-button" onClick={abrirModal}>
+            + Nuevo recurso
+          </button>
+        )}
       </div>
 
       <div className="instituciones-card">
-        {cargando && <p className="state-message">Cargando recursos...</p>}
+        <div className="table-tools">
+          <input
+            name="busqueda"
+            value={filtros.busqueda}
+            onChange={manejarFiltro}
+            placeholder="Buscar por título, palabra clave o autor"
+          />
+
+          <select name="estado" value={filtros.estado} onChange={manejarFiltro}>
+            <option value="">Todos los estados</option>
+            <option value="true">Activos</option>
+            <option value="false">Inactivos</option>
+          </select>
+
+          <select
+            name="publicado"
+            value={filtros.publicado}
+            onChange={manejarFiltro}
+          >
+            <option value="">Publicados y borradores</option>
+            <option value="true">Publicados</option>
+            <option value="false">Borradores</option>
+          </select>
+
+          {categorias.length > 0 && (
+            <select
+              name="categoriaId"
+              value={filtros.categoriaId}
+              onChange={manejarFiltro}
+            >
+              <option value="">Todas las categorías</option>
+              {categorias.map((categoria) => (
+                <option key={categoria.id} value={categoria.id}>
+                  {categoria.nombre}
+                </option>
+              ))}
+            </select>
+          )}
+
+          {tiposRecursos.length > 0 && (
+            <select
+              name="tipoRecursoId"
+              value={filtros.tipoRecursoId}
+              onChange={manejarFiltro}
+            >
+              <option value="">Todos los tipos</option>
+              {tiposRecursos.map((tipo) => (
+                <option key={tipo.id} value={tipo.id}>
+                  {tipo.nombre}
+                </option>
+              ))}
+            </select>
+          )}
+
+          {esSuper && instituciones.length > 0 && (
+            <select
+              name="institucionId"
+              value={filtros.institucionId}
+              onChange={manejarFiltro}
+            >
+              <option value="">Todas las instituciones</option>
+              {instituciones.map((institucion) => (
+                <option key={institucion.id} value={institucion.id}>
+                  {institucion.nombre}
+                </option>
+              ))}
+            </select>
+          )}
+
+          <button className="secondary-button" onClick={limpiarFiltros}>
+            Limpiar
+          </button>
+        </div>
+
+        {(cargando || cargandoCatalogos) && (
+          <p className="state-message">Cargando recursos...</p>
+        )}
         {error && <p className="state-message error">{error}</p>}
 
-        {!cargando && !error && (
+        {!cargando && !cargandoCatalogos && !error && (
           <div className="table-responsive">
             <table className="data-table">
               <thead>
@@ -364,7 +524,7 @@ export function Recursos() {
                   <th>Institución</th>
                   <th>Publicado</th>
                   <th>Estado</th>
-                  <th>Acciones</th>
+                  {tieneAcciones && <th>Acciones</th>}
                 </tr>
               </thead>
 
@@ -378,15 +538,18 @@ export function Recursos() {
                       </span>
                     </td>
                     <td data-label="Categoría">
-                      {categoriasPorId.get(recurso.categoriaId) ||
+                      {recurso.categoria?.nombre ||
+                        categoriasPorId.get(recurso.categoriaId) ||
                         `ID ${recurso.categoriaId}`}
                     </td>
                     <td data-label="Tipo">
-                      {tiposPorId.get(recurso.tipoRecursoId) ||
+                      {recurso.tipoRecurso?.nombre ||
+                        tiposPorId.get(recurso.tipoRecursoId) ||
                         `ID ${recurso.tipoRecursoId}`}
                     </td>
                     <td data-label="Institución">
-                      {institucionesPorId.get(recurso.institucionId) ||
+                      {recurso.institucion?.nombre ||
+                        institucionesPorId.get(recurso.institucionId) ||
                         `ID ${recurso.institucionId}`}
                     </td>
                     <td data-label="Publicado">{recurso.publicado ? 'Sí' : 'No'}</td>
@@ -400,38 +563,73 @@ export function Recursos() {
                         {recurso.estado ? '✓' : '×'}
                       </span>
                     </td>
-                    <td data-label="Acciones">
-                      <div className="actions">
-                        <button
-                          title="Editar"
-                          aria-label="Editar"
-                          onClick={() => editarRecurso(recurso)}
-                        >
-                          ✎
-                        </button>
+                    {tieneAcciones && (
+                      <td data-label="Acciones">
+                        <div className="actions">
+                          {puedeEditar && (
+                            <button
+                              title="Editar"
+                              aria-label="Editar"
+                              onClick={() => editarRecurso(recurso)}
+                            >
+                              ✎
+                            </button>
+                          )}
 
-                        <button
-                          className={recurso.estado ? 'danger' : 'success'}
-                          title={recurso.estado ? 'Inactivar' : 'Reactivar'}
-                          aria-label={recurso.estado ? 'Inactivar' : 'Reactivar'}
-                          onClick={() => cambiarEstadoRecurso(recurso)}
-                        >
-                          {recurso.estado ? '⊘' : '↻'}
-                        </button>
-                      </div>
-                    </td>
+                          {puedeCambiarEstado && (
+                            <button
+                              className={recurso.estado ? 'danger' : 'success'}
+                              title={recurso.estado ? 'Inactivar' : 'Reactivar'}
+                              aria-label={
+                                recurso.estado ? 'Inactivar' : 'Reactivar'
+                              }
+                              onClick={() => cambiarEstadoRecurso(recurso)}
+                            >
+                              {recurso.estado ? '⊘' : '↻'}
+                            </button>
+                          )}
+                        </div>
+                      </td>
+                    )}
                   </tr>
                 ))}
 
                 {recursos.length === 0 && (
                   <tr>
-                    <td colSpan={7} className="empty-table">
+                    <td
+                      colSpan={tieneAcciones ? 7 : 6}
+                      className="empty-table"
+                    >
                       No hay recursos registrados.
                     </td>
                   </tr>
                 )}
               </tbody>
             </table>
+
+            <div className="pagination-bar">
+              <span>
+                {total} recursos · Página {pagina} de {totalPaginas}
+              </span>
+              <div>
+                <button
+                  className="secondary-button"
+                  onClick={() => setPagina((prev) => Math.max(prev - 1, 1))}
+                  disabled={pagina <= 1}
+                >
+                  Anterior
+                </button>
+                <button
+                  className="secondary-button"
+                  onClick={() =>
+                    setPagina((prev) => Math.min(prev + 1, totalPaginas))
+                  }
+                  disabled={pagina >= totalPaginas}
+                >
+                  Siguiente
+                </button>
+              </div>
+            </div>
           </div>
         )}
       </div>

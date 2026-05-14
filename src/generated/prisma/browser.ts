@@ -53,10 +53,10 @@ export type Categoria = Prisma.CategoriaModel
  */
 export type Foro = Prisma.ForoModel
 /**
- * Model RespuestaForo
+ * Model ComentarioForo
  * 
  */
-export type RespuestaForo = Prisma.RespuestaForoModel
+export type ComentarioForo = Prisma.ComentarioForoModel
 /**
  * Model TipoRecurso
  * 

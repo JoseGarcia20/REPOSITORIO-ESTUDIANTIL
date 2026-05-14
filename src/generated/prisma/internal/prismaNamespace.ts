@@ -391,7 +391,7 @@ export const ModelName = {
   Usuario: 'Usuario',
   Categoria: 'Categoria',
   Foro: 'Foro',
-  RespuestaForo: 'RespuestaForo',
+  ComentarioForo: 'ComentarioForo',
   TipoRecurso: 'TipoRecurso',
   Recurso: 'Recurso',
   CalificacionRecurso: 'CalificacionRecurso',
@@ -416,7 +416,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "institucion" | "rol" | "permiso" | "rolPermiso" | "usuario" | "categoria" | "foro" | "respuestaForo" | "tipoRecurso" | "recurso" | "calificacionRecurso" | "tipoAprendizaje" | "rutaAprendizaje" | "detalleRutaAprendizaje" | "asignacionRutaAprendizaje" | "diagnosticoAprendizaje" | "detalleDiagnosticoAprendizaje"
+    modelProps: "institucion" | "rol" | "permiso" | "rolPermiso" | "usuario" | "categoria" | "foro" | "comentarioForo" | "tipoRecurso" | "recurso" | "calificacionRecurso" | "tipoAprendizaje" | "rutaAprendizaje" | "detalleRutaAprendizaje" | "asignacionRutaAprendizaje" | "diagnosticoAprendizaje" | "detalleDiagnosticoAprendizaje"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -938,77 +938,77 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    RespuestaForo: {
-      payload: Prisma.$RespuestaForoPayload<ExtArgs>
-      fields: Prisma.RespuestaForoFieldRefs
+    ComentarioForo: {
+      payload: Prisma.$ComentarioForoPayload<ExtArgs>
+      fields: Prisma.ComentarioForoFieldRefs
       operations: {
         findUnique: {
-          args: Prisma.RespuestaForoFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RespuestaForoPayload> | null
+          args: Prisma.ComentarioForoFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ComentarioForoPayload> | null
         }
         findUniqueOrThrow: {
-          args: Prisma.RespuestaForoFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RespuestaForoPayload>
+          args: Prisma.ComentarioForoFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ComentarioForoPayload>
         }
         findFirst: {
-          args: Prisma.RespuestaForoFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RespuestaForoPayload> | null
+          args: Prisma.ComentarioForoFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ComentarioForoPayload> | null
         }
         findFirstOrThrow: {
-          args: Prisma.RespuestaForoFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RespuestaForoPayload>
+          args: Prisma.ComentarioForoFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ComentarioForoPayload>
         }
         findMany: {
-          args: Prisma.RespuestaForoFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RespuestaForoPayload>[]
+          args: Prisma.ComentarioForoFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ComentarioForoPayload>[]
         }
         create: {
-          args: Prisma.RespuestaForoCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RespuestaForoPayload>
+          args: Prisma.ComentarioForoCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ComentarioForoPayload>
         }
         createMany: {
-          args: Prisma.RespuestaForoCreateManyArgs<ExtArgs>
+          args: Prisma.ComentarioForoCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
         createManyAndReturn: {
-          args: Prisma.RespuestaForoCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RespuestaForoPayload>[]
+          args: Prisma.ComentarioForoCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ComentarioForoPayload>[]
         }
         delete: {
-          args: Prisma.RespuestaForoDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RespuestaForoPayload>
+          args: Prisma.ComentarioForoDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ComentarioForoPayload>
         }
         update: {
-          args: Prisma.RespuestaForoUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RespuestaForoPayload>
+          args: Prisma.ComentarioForoUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ComentarioForoPayload>
         }
         deleteMany: {
-          args: Prisma.RespuestaForoDeleteManyArgs<ExtArgs>
+          args: Prisma.ComentarioForoDeleteManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateMany: {
-          args: Prisma.RespuestaForoUpdateManyArgs<ExtArgs>
+          args: Prisma.ComentarioForoUpdateManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateManyAndReturn: {
-          args: Prisma.RespuestaForoUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RespuestaForoPayload>[]
+          args: Prisma.ComentarioForoUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ComentarioForoPayload>[]
         }
         upsert: {
-          args: Prisma.RespuestaForoUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RespuestaForoPayload>
+          args: Prisma.ComentarioForoUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ComentarioForoPayload>
         }
         aggregate: {
-          args: Prisma.RespuestaForoAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateRespuestaForo>
+          args: Prisma.ComentarioForoAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateComentarioForo>
         }
         groupBy: {
-          args: Prisma.RespuestaForoGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.RespuestaForoGroupByOutputType>[]
+          args: Prisma.ComentarioForoGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ComentarioForoGroupByOutputType>[]
         }
         count: {
-          args: Prisma.RespuestaForoCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.RespuestaForoCountAggregateOutputType> | number
+          args: Prisma.ComentarioForoCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ComentarioForoCountAggregateOutputType> | number
         }
       }
     }
@@ -1810,6 +1810,9 @@ export const ForoScalarFieldEnum = {
   titulo: 'titulo',
   descripcion: 'descripcion',
   estado: 'estado',
+  publico: 'publico',
+  cerrado: 'cerrado',
+  fechaCierre: 'fechaCierre',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   institucionId: 'institucionId',
@@ -1820,7 +1823,7 @@ export const ForoScalarFieldEnum = {
 export type ForoScalarFieldEnum = (typeof ForoScalarFieldEnum)[keyof typeof ForoScalarFieldEnum]
 
 
-export const RespuestaForoScalarFieldEnum = {
+export const ComentarioForoScalarFieldEnum = {
   id: 'id',
   contenido: 'contenido',
   estado: 'estado',
@@ -1830,7 +1833,7 @@ export const RespuestaForoScalarFieldEnum = {
   usuarioId: 'usuarioId'
 } as const
 
-export type RespuestaForoScalarFieldEnum = (typeof RespuestaForoScalarFieldEnum)[keyof typeof RespuestaForoScalarFieldEnum]
+export type ComentarioForoScalarFieldEnum = (typeof ComentarioForoScalarFieldEnum)[keyof typeof ComentarioForoScalarFieldEnum]
 
 
 export const TipoRecursoScalarFieldEnum = {
@@ -2163,7 +2166,7 @@ export type GlobalOmitConfig = {
   usuario?: Prisma.UsuarioOmit
   categoria?: Prisma.CategoriaOmit
   foro?: Prisma.ForoOmit
-  respuestaForo?: Prisma.RespuestaForoOmit
+  comentarioForo?: Prisma.ComentarioForoOmit
   tipoRecurso?: Prisma.TipoRecursoOmit
   recurso?: Prisma.RecursoOmit
   calificacionRecurso?: Prisma.CalificacionRecursoOmit

@@ -94,7 +94,7 @@ model Usuario {
   rol         Rol         @relation(fields: [rolId], references: [id])
 
   foros                       Foro[]
-  respuestasForo              RespuestaForo[]
+  comentariosForo             ComentarioForo[]
   recursos                    Recurso[]
   calificacionesRecurso       CalificacionRecurso[]
   asignacionesRutaAprendizaje AsignacionRutaAprendizaje[]
@@ -127,6 +127,9 @@ model Foro {
   titulo      String
   descripcion String
   estado      Boolean  @default(true)
+  publico     Boolean  @default(false)
+  cerrado     Boolean  @default(false)
+  fechaCierre DateTime?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
@@ -138,12 +141,12 @@ model Foro {
   categoria   Categoria   @relation(fields: [categoriaId], references: [id])
   usuario     Usuario     @relation(fields: [usuarioId], references: [id])
 
-  respuestas RespuestaForo[]
+  comentarios ComentarioForo[]
 
   @@map("foros")
 }
 
-model RespuestaForo {
+model ComentarioForo {
   id        Int      @id @default(autoincrement())
   contenido String
   estado    Boolean  @default(true)
@@ -153,10 +156,10 @@ model RespuestaForo {
   foroId    Int
   usuarioId Int
 
-  foro    Foro    @relation(fields: [foroId], references: [id])
+  foro    Foro    @relation(fields: [foroId], references: [id], onDelete: Cascade)
   usuario Usuario @relation(fields: [usuarioId], references: [id])
 
-  @@map("respuestas_foro")
+  @@map("comentarios_foro")
 }
 
 model TipoRecurso {

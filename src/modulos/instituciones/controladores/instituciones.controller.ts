@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, ParseIntPipe, Patch, Post, Put, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, ParseIntPipe, Patch, Post, Put, Req } from '@nestjs/common';
 import { InstitucionesService } from '../servicios/instituciones.service';
 import { CrearInstitucionDto } from '../dto/crear-institucion.dto';
 import { ActualizarInstitucionDto } from '../dto/actualizar-institucion.dto';
@@ -6,7 +6,8 @@ import { UploadedFile, UseInterceptors, BadRequestException } from '@nestjs/comm
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
-import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
+import { RequierePermisos } from '../../auth/decoradores/requiere-permisos.decorator';
+import { PERMISOS } from '../../auth/utils/roles.util';
 
 @Controller('instituciones')
 export class InstitucionesController {
@@ -14,8 +15,8 @@ export class InstitucionesController {
   constructor(private readonly institucionesService: InstitucionesService) {}
 
   //Endpoint para la creacion de una nueva institucion (solo superadministrador)
-  @UseGuards(JwtAuthGuard)
   @Post()
+  @RequierePermisos(PERMISOS.INSTITUCIONES_CREAR)
   async crear(@Body() body: CrearInstitucionDto, @Req() req: any) {
     return await this.institucionesService.crear(body, req.usuarioAuth);
   }
@@ -27,22 +28,22 @@ export class InstitucionesController {
   }
 
   //Endpoint para listar instituciones según rol autenticado
-  @UseGuards(JwtAuthGuard)
   @Get('todas')
+  @RequierePermisos(PERMISOS.INSTITUCIONES_VER)
   async listarTodas(@Req() req: any) {
     return await this.institucionesService.listarTodas(req.usuarioAuth);
   }
 
   //Endpoint para obtener una institucion por su id
-  @UseGuards(JwtAuthGuard)
   @Get(':id')
+  @RequierePermisos(PERMISOS.INSTITUCIONES_VER)
   async obtenerPorId(@Param('id', ParseIntPipe) id: string, @Req() req: any) {
     return await this.institucionesService.obtenerPorId(Number(id), req.usuarioAuth);
   }
 
   //Endpoint para actualizar una institucion por su id
-  @UseGuards(JwtAuthGuard)
   @Put(':id')
+  @RequierePermisos(PERMISOS.INSTITUCIONES_EDITAR)
   async actualizar(
     @Param('id', ParseIntPipe) id: string,
     @Body() body: ActualizarInstitucionDto,
@@ -52,22 +53,22 @@ export class InstitucionesController {
   }
 
   //Endpoint para inactivar una institucion por su id
-  @UseGuards(JwtAuthGuard)
   @Patch(':id/inactivar')
+  @RequierePermisos(PERMISOS.INSTITUCIONES_CAMBIAR_ESTADO)
   async inactivar(@Param('id', ParseIntPipe) id: string, @Req() req: any) {
     return await this.institucionesService.inactivar(Number(id), req.usuarioAuth);
   }
 
   //Endpoint para reactivar una institucion por su id
-  @UseGuards(JwtAuthGuard)
   @Patch(':id/reactivar')
+  @RequierePermisos(PERMISOS.INSTITUCIONES_CAMBIAR_ESTADO)
   async reactivar(@Param('id', ParseIntPipe) id: string, @Req() req: any) {
     return await this.institucionesService.reactivar(Number(id), req.usuarioAuth);
   }
 
   //Endpoint para subir logo de institución (solo superadministrador)
-  @UseGuards(JwtAuthGuard)
   @Post('subir-logo')
+  @RequierePermisos(PERMISOS.INSTITUCIONES_CREAR, PERMISOS.INSTITUCIONES_EDITAR)
   @UseInterceptors(
     FileInterceptor('logo', {
       storage: diskStorage({

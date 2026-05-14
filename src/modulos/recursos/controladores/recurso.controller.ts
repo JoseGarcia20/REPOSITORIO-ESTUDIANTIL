@@ -8,9 +8,9 @@ import {
   Patch,
   Post,
   Put,
+  Query,
   Req,
   UploadedFile,
-  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
@@ -19,16 +19,26 @@ import { extname } from 'path';
 import { RecursoService } from '../servicios/recurso.service';
 import { CrearRecursoDto } from '../dto/crear-recurso.dto';
 import { ActualizarRecursoDto } from '../dto/actualizar-recurso.dto';
-import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
+import { RequierePermisos } from '../../auth/decoradores/requiere-permisos.decorator';
+import { PERMISOS } from '../../auth/utils/roles.util';
 
-@UseGuards(JwtAuthGuard)
 @Controller('recursos')
 export class RecursoController {
   constructor(private readonly recursoService: RecursoService) {}
-  @Post() async crear(@Body() body: CrearRecursoDto, @Req() req: any) { return await this.recursoService.crear(body, req.usuarioAuth); }
-  @Get() async listar(@Req() req: any) { return await this.recursoService.listar(req.usuarioAuth); }
-  @Get('todos') async listarTodos(@Req() req: any) { return await this.recursoService.listarTodos(req.usuarioAuth); }
+  @Post()
+  @RequierePermisos(PERMISOS.RECURSOS_CREAR)
+  async crear(@Body() body: CrearRecursoDto, @Req() req: any) { return await this.recursoService.crear(body, req.usuarioAuth); }
+
+  @Get()
+  @RequierePermisos(PERMISOS.RECURSOS_VER)
+  async listar(@Req() req: any, @Query() query: any) { return await this.recursoService.listar(req.usuarioAuth, query); }
+
+  @Get('todos')
+  @RequierePermisos(PERMISOS.RECURSOS_VER)
+  async listarTodos(@Req() req: any, @Query() query: any) { return await this.recursoService.listarTodos(req.usuarioAuth, query); }
+
   @Post('subir-archivo')
+  @RequierePermisos(PERMISOS.RECURSOS_SUBIR_ARCHIVO)
   @UseInterceptors(
     FileInterceptor('archivo', {
       storage: diskStorage({
@@ -69,8 +79,20 @@ export class RecursoController {
   subirArchivo(@UploadedFile() file: Express.Multer.File, @Req() req: any) {
     return this.recursoService.validarSubidaArchivo(req.usuarioAuth, file);
   }
-  @Get(':id') async obtenerPorId(@Param('id', ParseIntPipe) id: number, @Req() req: any) { return await this.recursoService.obtenerPorId(Number(id), req.usuarioAuth); }
-  @Put(':id') async actualizar(@Param('id', ParseIntPipe) id: number, @Body() body: ActualizarRecursoDto, @Req() req: any) { return await this.recursoService.actualizar(id, body, req.usuarioAuth); }
-  @Patch(':id/inactivar') async inactivar(@Param('id', ParseIntPipe) id: number, @Req() req: any) { return await this.recursoService.inactivar(id, req.usuarioAuth); }
-  @Patch(':id/reactivar') async reactivar(@Param('id', ParseIntPipe) id: number, @Req() req: any) { return await this.recursoService.reactivar(id, req.usuarioAuth); }
+
+  @Get(':id')
+  @RequierePermisos(PERMISOS.RECURSOS_VER)
+  async obtenerPorId(@Param('id', ParseIntPipe) id: number, @Req() req: any) { return await this.recursoService.obtenerPorId(Number(id), req.usuarioAuth); }
+
+  @Put(':id')
+  @RequierePermisos(PERMISOS.RECURSOS_EDITAR)
+  async actualizar(@Param('id', ParseIntPipe) id: number, @Body() body: ActualizarRecursoDto, @Req() req: any) { return await this.recursoService.actualizar(id, body, req.usuarioAuth); }
+
+  @Patch(':id/inactivar')
+  @RequierePermisos(PERMISOS.RECURSOS_CAMBIAR_ESTADO)
+  async inactivar(@Param('id', ParseIntPipe) id: number, @Req() req: any) { return await this.recursoService.inactivar(id, req.usuarioAuth); }
+
+  @Patch(':id/reactivar')
+  @RequierePermisos(PERMISOS.RECURSOS_CAMBIAR_ESTADO)
+  async reactivar(@Param('id', ParseIntPipe) id: number, @Req() req: any) { return await this.recursoService.reactivar(id, req.usuarioAuth); }
 }
