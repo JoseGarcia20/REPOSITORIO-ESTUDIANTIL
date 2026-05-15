@@ -37,6 +37,13 @@ export function AppLayout() {
     const items: MenuItem[] = [{ titulo: 'Inicio', ruta: '/inicio' }];
     const administracion: { titulo: string; ruta: string }[] = [];
 
+    if (usuarioTienePermiso(PERMISOS.RECURSOS_VER)) {
+      items.push({
+        titulo: 'Repositorio',
+        hijos: [{ titulo: 'Gestor de recursos', ruta: '/repositorio/recursos' }],
+      });
+    }
+
     if (usuarioTienePermiso(PERMISOS.INSTITUCIONES_CREAR)) {
       administracion.push({ titulo: 'Instituciones', ruta: '/admin/instituciones' });
     }
@@ -53,7 +60,7 @@ export function AppLayout() {
       administracion.push({ titulo: 'Tipos de recursos', ruta: '/admin/tipos-recursos' });
     }
 
-    if (usuarioTienePermiso(PERMISOS.RECURSOS_VER)) {
+    if (usuarioTienePermiso(PERMISOS.RECURSOS_CREAR)) {
       administracion.push({ titulo: 'Recursos', ruta: '/admin/recursos' });
     }
 

@@ -43,6 +43,11 @@ export type RolPermiso = Prisma.RolPermisoModel
  */
 export type Usuario = Prisma.UsuarioModel
 /**
+ * Model GradoEscolar
+ * 
+ */
+export type GradoEscolar = Prisma.GradoEscolarModel
+/**
  * Model Categoria
  * 
  */

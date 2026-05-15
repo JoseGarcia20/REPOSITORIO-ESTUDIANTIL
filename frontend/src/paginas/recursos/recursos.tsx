@@ -7,6 +7,7 @@ import {
   esSuperadministrador,
   inactivarRecurso,
   obtenerCategoriasAdmin,
+  obtenerGradosEscolares,
   obtenerInstitucionesAdmin,
   obtenerRecursosAdmin,
   obtenerTiposRecursosAdmin,
@@ -19,6 +20,7 @@ import {
 } from '../../api/adminApi';
 import type {
   Categoria,
+  GradoEscolar,
   InstitucionCatalogo,
   Recurso,
   TipoRecurso,
@@ -35,6 +37,7 @@ type FormularioRecurso = {
   fuente: string;
   autorNombre: string;
   nivelAcademico: string;
+  gradoEscolarId: string;
   publicado: boolean;
   institucionId: string;
   categoriaId: string;
@@ -52,6 +55,8 @@ const extensionesPermitidas = [
   'jpg',
   'jpeg',
   'webp',
+  'mp4',
+  'webm',
 ];
 
 const limiteArchivoBytes = 20 * 1024 * 1024;
@@ -70,6 +75,7 @@ function crearFormularioInicial(
     fuente: '',
     autorNombre: '',
     nivelAcademico: '',
+    gradoEscolarId: '',
     publicado: false,
     institucionId: esSuper ? '' : String(institucionSesionId || ''),
     categoriaId: '',
@@ -96,6 +102,7 @@ export function Recursos() {
   const [recursos, setRecursos] = useState<Recurso[]>([]);
   const [categorias, setCategorias] = useState<Categoria[]>([]);
   const [tiposRecursos, setTiposRecursos] = useState<TipoRecurso[]>([]);
+  const [gradosEscolares, setGradosEscolares] = useState<GradoEscolar[]>([]);
   const [instituciones, setInstituciones] = useState<InstitucionCatalogo[]>([]);
   const [usuarios, setUsuarios] = useState<UsuarioAdmin[]>([]);
   const [cargando, setCargando] = useState(true);
@@ -110,6 +117,7 @@ export function Recursos() {
     publicado: '',
     categoriaId: '',
     tipoRecursoId: '',
+    gradoEscolarId: '',
     institucionId: '',
   });
   const [modalAbierto, setModalAbierto] = useState(false);
@@ -139,6 +147,12 @@ export function Recursos() {
         instituciones.map((institucion) => [institucion.id, institucion.nombre]),
       ),
     [instituciones],
+  );
+
+  const gradosPorId = useMemo(
+    () =>
+      new Map(gradosEscolares.map((grado) => [grado.id, grado.nombre])),
+    [gradosEscolares],
   );
 
   const categoriasDisponibles = useMemo(() => {
@@ -185,11 +199,13 @@ export function Recursos() {
       const [
         categoriasData,
         tiposRecursosData,
+        gradosData,
         institucionesData,
         usuariosData,
       ] = await Promise.all([
         puedeVerCategorias ? obtenerCategoriasAdmin() : Promise.resolve([]),
         puedeVerTipos ? obtenerTiposRecursosAdmin() : Promise.resolve([]),
+        obtenerGradosEscolares(),
         puedeVerInstituciones ? obtenerInstitucionesAdmin() : Promise.resolve([]),
         puedeVerUsuarios
           ? obtenerUsuariosAdmin({
@@ -201,6 +217,7 @@ export function Recursos() {
 
       setCategorias(categoriasData);
       setTiposRecursos(tiposRecursosData);
+      setGradosEscolares(gradosData);
       setInstituciones(institucionesData);
       setUsuarios(usuariosData?.data || []);
     } catch {
@@ -223,6 +240,7 @@ export function Recursos() {
         publicado: filtros.publicado,
         categoriaId: filtros.categoriaId,
         tipoRecursoId: filtros.tipoRecursoId,
+        gradoEscolarId: filtros.gradoEscolarId,
         institucionId: esSuper ? filtros.institucionId : undefined,
       });
 
@@ -266,6 +284,7 @@ export function Recursos() {
       publicado: '',
       categoriaId: '',
       tipoRecursoId: '',
+      gradoEscolarId: '',
       institucionId: '',
     });
     setPagina(1);
@@ -283,6 +302,7 @@ export function Recursos() {
       fuente: recurso.fuente || '',
       autorNombre: recurso.autorNombre || '',
       nivelAcademico: recurso.nivelAcademico || '',
+      gradoEscolarId: recurso.gradoEscolarId ? String(recurso.gradoEscolarId) : '',
       publicado: recurso.publicado,
       institucionId: String(recurso.institucionId),
       categoriaId: String(recurso.categoriaId),
@@ -325,7 +345,7 @@ export function Recursos() {
     const extension = archivo.name.toLowerCase().split('.').pop() || '';
 
     if (!extensionesPermitidas.includes(extension)) {
-      alert('Solo se permiten PDF, Word, PowerPoint e imágenes.');
+      alert('Solo se permiten PDF, Word, PowerPoint, imágenes y videos.');
       return;
     }
 
@@ -366,7 +386,11 @@ export function Recursos() {
         urlRecurso: formulario.urlRecurso || undefined,
         fuente: formulario.fuente || undefined,
         autorNombre: formulario.autorNombre || undefined,
-        nivelAcademico: formulario.nivelAcademico || undefined,
+        nivelAcademico:
+          gradosPorId.get(Number(formulario.gradoEscolarId)) ||
+          formulario.nivelAcademico ||
+          undefined,
+        gradoEscolarId: Number(formulario.gradoEscolarId),
         publicado: formulario.publicado,
         institucionId,
         categoriaId: Number(formulario.categoriaId),
@@ -488,6 +512,21 @@ export function Recursos() {
             </select>
           )}
 
+          {gradosEscolares.length > 0 && (
+            <select
+              name="gradoEscolarId"
+              value={filtros.gradoEscolarId}
+              onChange={manejarFiltro}
+            >
+              <option value="">Todos los grados</option>
+              {gradosEscolares.map((grado) => (
+                <option key={grado.id} value={grado.id}>
+                  {grado.nombre}
+                </option>
+              ))}
+            </select>
+          )}
+
           {esSuper && instituciones.length > 0 && (
             <select
               name="institucionId"
@@ -521,6 +560,7 @@ export function Recursos() {
                   <th>Título</th>
                   <th>Categoría</th>
                   <th>Tipo</th>
+                  <th>Grado</th>
                   <th>Institución</th>
                   <th>Publicado</th>
                   <th>Estado</th>
@@ -546,6 +586,13 @@ export function Recursos() {
                       {recurso.tipoRecurso?.nombre ||
                         tiposPorId.get(recurso.tipoRecursoId) ||
                         `ID ${recurso.tipoRecursoId}`}
+                    </td>
+                    <td data-label="Grado">
+                      {recurso.gradoEscolar?.nombre ||
+                        (recurso.gradoEscolarId
+                          ? gradosPorId.get(recurso.gradoEscolarId) ||
+                            `ID ${recurso.gradoEscolarId}`
+                          : 'Sin grado')}
                     </td>
                     <td data-label="Institución">
                       {recurso.institucion?.nombre ||
@@ -597,7 +644,7 @@ export function Recursos() {
                 {recursos.length === 0 && (
                   <tr>
                     <td
-                      colSpan={tieneAcciones ? 7 : 6}
+                      colSpan={tieneAcciones ? 8 : 7}
                       className="empty-table"
                     >
                       No hay recursos registrados.
@@ -741,13 +788,20 @@ export function Recursos() {
                 </div>
 
                 <div className="form-group">
-                  <label>Nivel académico</label>
-                  <input
-                    name="nivelAcademico"
-                    value={formulario.nivelAcademico}
+                  <label>Grado escolar</label>
+                  <select
+                    name="gradoEscolarId"
+                    value={formulario.gradoEscolarId}
                     onChange={manejarCambio}
-                    placeholder="Ej: Sexto, Séptimo, Media"
-                  />
+                    required
+                  >
+                    <option value="">Selecciona un grado</option>
+                    {gradosEscolares.map((grado) => (
+                      <option key={grado.id} value={grado.id}>
+                        {grado.nombre}
+                      </option>
+                    ))}
+                  </select>
                 </div>
 
                 <div className="form-group">
@@ -782,7 +836,7 @@ export function Recursos() {
                   <label>Archivo</label>
                   <input
                     type="file"
-                    accept=".pdf,.doc,.docx,.ppt,.pptx,.png,.jpg,.jpeg,.webp"
+                    accept=".pdf,.doc,.docx,.ppt,.pptx,.png,.jpg,.jpeg,.webp,.mp4,.webm"
                     onChange={manejarArchivo}
                   />
                   {subiendoArchivo && (

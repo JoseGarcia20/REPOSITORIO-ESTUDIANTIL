@@ -550,14 +550,6 @@ export type DetalleRutaAprendizajeUncheckedUpdateManyWithoutRutaAprendizajeNeste
   deleteMany?: Prisma.DetalleRutaAprendizajeScalarWhereInput | Prisma.DetalleRutaAprendizajeScalarWhereInput[]
 }
 
-export type NullableIntFieldUpdateOperationsInput = {
-  set?: number | null
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
 export type DetalleRutaAprendizajeCreateWithoutRecursoInput = {
   orden: number
   tituloPaso: string

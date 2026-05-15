@@ -32,6 +32,7 @@ export type RecursoAvgAggregateOutputType = {
   categoriaId: number | null
   tipoRecursoId: number | null
   usuarioCreadorId: number | null
+  gradoEscolarId: number | null
 }
 
 export type RecursoSumAggregateOutputType = {
@@ -40,6 +41,7 @@ export type RecursoSumAggregateOutputType = {
   categoriaId: number | null
   tipoRecursoId: number | null
   usuarioCreadorId: number | null
+  gradoEscolarId: number | null
 }
 
 export type RecursoMinAggregateOutputType = {
@@ -60,6 +62,7 @@ export type RecursoMinAggregateOutputType = {
   categoriaId: number | null
   tipoRecursoId: number | null
   usuarioCreadorId: number | null
+  gradoEscolarId: number | null
 }
 
 export type RecursoMaxAggregateOutputType = {
@@ -80,6 +83,7 @@ export type RecursoMaxAggregateOutputType = {
   categoriaId: number | null
   tipoRecursoId: number | null
   usuarioCreadorId: number | null
+  gradoEscolarId: number | null
 }
 
 export type RecursoCountAggregateOutputType = {
@@ -100,6 +104,7 @@ export type RecursoCountAggregateOutputType = {
   categoriaId: number
   tipoRecursoId: number
   usuarioCreadorId: number
+  gradoEscolarId: number
   _all: number
 }
 
@@ -110,6 +115,7 @@ export type RecursoAvgAggregateInputType = {
   categoriaId?: true
   tipoRecursoId?: true
   usuarioCreadorId?: true
+  gradoEscolarId?: true
 }
 
 export type RecursoSumAggregateInputType = {
@@ -118,6 +124,7 @@ export type RecursoSumAggregateInputType = {
   categoriaId?: true
   tipoRecursoId?: true
   usuarioCreadorId?: true
+  gradoEscolarId?: true
 }
 
 export type RecursoMinAggregateInputType = {
@@ -138,6 +145,7 @@ export type RecursoMinAggregateInputType = {
   categoriaId?: true
   tipoRecursoId?: true
   usuarioCreadorId?: true
+  gradoEscolarId?: true
 }
 
 export type RecursoMaxAggregateInputType = {
@@ -158,6 +166,7 @@ export type RecursoMaxAggregateInputType = {
   categoriaId?: true
   tipoRecursoId?: true
   usuarioCreadorId?: true
+  gradoEscolarId?: true
 }
 
 export type RecursoCountAggregateInputType = {
@@ -178,6 +187,7 @@ export type RecursoCountAggregateInputType = {
   categoriaId?: true
   tipoRecursoId?: true
   usuarioCreadorId?: true
+  gradoEscolarId?: true
   _all?: true
 }
 
@@ -285,6 +295,7 @@ export type RecursoGroupByOutputType = {
   categoriaId: number
   tipoRecursoId: number
   usuarioCreadorId: number
+  gradoEscolarId: number | null
   _count: RecursoCountAggregateOutputType | null
   _avg: RecursoAvgAggregateOutputType | null
   _sum: RecursoSumAggregateOutputType | null
@@ -328,10 +339,12 @@ export type RecursoWhereInput = {
   categoriaId?: Prisma.IntFilter<"Recurso"> | number
   tipoRecursoId?: Prisma.IntFilter<"Recurso"> | number
   usuarioCreadorId?: Prisma.IntFilter<"Recurso"> | number
+  gradoEscolarId?: Prisma.IntNullableFilter<"Recurso"> | number | null
   institucion?: Prisma.XOR<Prisma.InstitucionScalarRelationFilter, Prisma.InstitucionWhereInput>
   categoria?: Prisma.XOR<Prisma.CategoriaScalarRelationFilter, Prisma.CategoriaWhereInput>
   tipoRecurso?: Prisma.XOR<Prisma.TipoRecursoScalarRelationFilter, Prisma.TipoRecursoWhereInput>
   usuarioCreador?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
+  gradoEscolar?: Prisma.XOR<Prisma.GradoEscolarNullableScalarRelationFilter, Prisma.GradoEscolarWhereInput> | null
   calificaciones?: Prisma.CalificacionRecursoListRelationFilter
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeListRelationFilter
 }
@@ -354,10 +367,12 @@ export type RecursoOrderByWithRelationInput = {
   categoriaId?: Prisma.SortOrder
   tipoRecursoId?: Prisma.SortOrder
   usuarioCreadorId?: Prisma.SortOrder
+  gradoEscolarId?: Prisma.SortOrderInput | Prisma.SortOrder
   institucion?: Prisma.InstitucionOrderByWithRelationInput
   categoria?: Prisma.CategoriaOrderByWithRelationInput
   tipoRecurso?: Prisma.TipoRecursoOrderByWithRelationInput
   usuarioCreador?: Prisma.UsuarioOrderByWithRelationInput
+  gradoEscolar?: Prisma.GradoEscolarOrderByWithRelationInput
   calificaciones?: Prisma.CalificacionRecursoOrderByRelationAggregateInput
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeOrderByRelationAggregateInput
 }
@@ -383,10 +398,12 @@ export type RecursoWhereUniqueInput = Prisma.AtLeast<{
   categoriaId?: Prisma.IntFilter<"Recurso"> | number
   tipoRecursoId?: Prisma.IntFilter<"Recurso"> | number
   usuarioCreadorId?: Prisma.IntFilter<"Recurso"> | number
+  gradoEscolarId?: Prisma.IntNullableFilter<"Recurso"> | number | null
   institucion?: Prisma.XOR<Prisma.InstitucionScalarRelationFilter, Prisma.InstitucionWhereInput>
   categoria?: Prisma.XOR<Prisma.CategoriaScalarRelationFilter, Prisma.CategoriaWhereInput>
   tipoRecurso?: Prisma.XOR<Prisma.TipoRecursoScalarRelationFilter, Prisma.TipoRecursoWhereInput>
   usuarioCreador?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
+  gradoEscolar?: Prisma.XOR<Prisma.GradoEscolarNullableScalarRelationFilter, Prisma.GradoEscolarWhereInput> | null
   calificaciones?: Prisma.CalificacionRecursoListRelationFilter
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeListRelationFilter
 }, "id">
@@ -409,6 +426,7 @@ export type RecursoOrderByWithAggregationInput = {
   categoriaId?: Prisma.SortOrder
   tipoRecursoId?: Prisma.SortOrder
   usuarioCreadorId?: Prisma.SortOrder
+  gradoEscolarId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.RecursoCountOrderByAggregateInput
   _avg?: Prisma.RecursoAvgOrderByAggregateInput
   _max?: Prisma.RecursoMaxOrderByAggregateInput
@@ -437,6 +455,7 @@ export type RecursoScalarWhereWithAggregatesInput = {
   categoriaId?: Prisma.IntWithAggregatesFilter<"Recurso"> | number
   tipoRecursoId?: Prisma.IntWithAggregatesFilter<"Recurso"> | number
   usuarioCreadorId?: Prisma.IntWithAggregatesFilter<"Recurso"> | number
+  gradoEscolarId?: Prisma.IntNullableWithAggregatesFilter<"Recurso"> | number | null
 }
 
 export type RecursoCreateInput = {
@@ -456,6 +475,7 @@ export type RecursoCreateInput = {
   categoria: Prisma.CategoriaCreateNestedOneWithoutRecursosInput
   tipoRecurso: Prisma.TipoRecursoCreateNestedOneWithoutRecursosInput
   usuarioCreador: Prisma.UsuarioCreateNestedOneWithoutRecursosInput
+  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutRecursosInput
   calificaciones?: Prisma.CalificacionRecursoCreateNestedManyWithoutRecursoInput
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeCreateNestedManyWithoutRecursoInput
 }
@@ -478,6 +498,7 @@ export type RecursoUncheckedCreateInput = {
   categoriaId: number
   tipoRecursoId: number
   usuarioCreadorId: number
+  gradoEscolarId?: number | null
   calificaciones?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutRecursoInput
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUncheckedCreateNestedManyWithoutRecursoInput
 }
@@ -499,6 +520,7 @@ export type RecursoUpdateInput = {
   categoria?: Prisma.CategoriaUpdateOneRequiredWithoutRecursosNestedInput
   tipoRecurso?: Prisma.TipoRecursoUpdateOneRequiredWithoutRecursosNestedInput
   usuarioCreador?: Prisma.UsuarioUpdateOneRequiredWithoutRecursosNestedInput
+  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutRecursosNestedInput
   calificaciones?: Prisma.CalificacionRecursoUpdateManyWithoutRecursoNestedInput
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUpdateManyWithoutRecursoNestedInput
 }
@@ -521,6 +543,7 @@ export type RecursoUncheckedUpdateInput = {
   categoriaId?: Prisma.IntFieldUpdateOperationsInput | number
   tipoRecursoId?: Prisma.IntFieldUpdateOperationsInput | number
   usuarioCreadorId?: Prisma.IntFieldUpdateOperationsInput | number
+  gradoEscolarId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   calificaciones?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutRecursoNestedInput
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUncheckedUpdateManyWithoutRecursoNestedInput
 }
@@ -543,6 +566,7 @@ export type RecursoCreateManyInput = {
   categoriaId: number
   tipoRecursoId: number
   usuarioCreadorId: number
+  gradoEscolarId?: number | null
 }
 
 export type RecursoUpdateManyMutationInput = {
@@ -578,6 +602,7 @@ export type RecursoUncheckedUpdateManyInput = {
   categoriaId?: Prisma.IntFieldUpdateOperationsInput | number
   tipoRecursoId?: Prisma.IntFieldUpdateOperationsInput | number
   usuarioCreadorId?: Prisma.IntFieldUpdateOperationsInput | number
+  gradoEscolarId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type RecursoListRelationFilter = {
@@ -608,6 +633,7 @@ export type RecursoCountOrderByAggregateInput = {
   categoriaId?: Prisma.SortOrder
   tipoRecursoId?: Prisma.SortOrder
   usuarioCreadorId?: Prisma.SortOrder
+  gradoEscolarId?: Prisma.SortOrder
 }
 
 export type RecursoAvgOrderByAggregateInput = {
@@ -616,6 +642,7 @@ export type RecursoAvgOrderByAggregateInput = {
   categoriaId?: Prisma.SortOrder
   tipoRecursoId?: Prisma.SortOrder
   usuarioCreadorId?: Prisma.SortOrder
+  gradoEscolarId?: Prisma.SortOrder
 }
 
 export type RecursoMaxOrderByAggregateInput = {
@@ -636,6 +663,7 @@ export type RecursoMaxOrderByAggregateInput = {
   categoriaId?: Prisma.SortOrder
   tipoRecursoId?: Prisma.SortOrder
   usuarioCreadorId?: Prisma.SortOrder
+  gradoEscolarId?: Prisma.SortOrder
 }
 
 export type RecursoMinOrderByAggregateInput = {
@@ -656,6 +684,7 @@ export type RecursoMinOrderByAggregateInput = {
   categoriaId?: Prisma.SortOrder
   tipoRecursoId?: Prisma.SortOrder
   usuarioCreadorId?: Prisma.SortOrder
+  gradoEscolarId?: Prisma.SortOrder
 }
 
 export type RecursoSumOrderByAggregateInput = {
@@ -664,6 +693,7 @@ export type RecursoSumOrderByAggregateInput = {
   categoriaId?: Prisma.SortOrder
   tipoRecursoId?: Prisma.SortOrder
   usuarioCreadorId?: Prisma.SortOrder
+  gradoEscolarId?: Prisma.SortOrder
 }
 
 export type RecursoScalarRelationFilter = {
@@ -757,6 +787,48 @@ export type RecursoUncheckedUpdateManyWithoutUsuarioCreadorNestedInput = {
   connect?: Prisma.RecursoWhereUniqueInput | Prisma.RecursoWhereUniqueInput[]
   update?: Prisma.RecursoUpdateWithWhereUniqueWithoutUsuarioCreadorInput | Prisma.RecursoUpdateWithWhereUniqueWithoutUsuarioCreadorInput[]
   updateMany?: Prisma.RecursoUpdateManyWithWhereWithoutUsuarioCreadorInput | Prisma.RecursoUpdateManyWithWhereWithoutUsuarioCreadorInput[]
+  deleteMany?: Prisma.RecursoScalarWhereInput | Prisma.RecursoScalarWhereInput[]
+}
+
+export type RecursoCreateNestedManyWithoutGradoEscolarInput = {
+  create?: Prisma.XOR<Prisma.RecursoCreateWithoutGradoEscolarInput, Prisma.RecursoUncheckedCreateWithoutGradoEscolarInput> | Prisma.RecursoCreateWithoutGradoEscolarInput[] | Prisma.RecursoUncheckedCreateWithoutGradoEscolarInput[]
+  connectOrCreate?: Prisma.RecursoCreateOrConnectWithoutGradoEscolarInput | Prisma.RecursoCreateOrConnectWithoutGradoEscolarInput[]
+  createMany?: Prisma.RecursoCreateManyGradoEscolarInputEnvelope
+  connect?: Prisma.RecursoWhereUniqueInput | Prisma.RecursoWhereUniqueInput[]
+}
+
+export type RecursoUncheckedCreateNestedManyWithoutGradoEscolarInput = {
+  create?: Prisma.XOR<Prisma.RecursoCreateWithoutGradoEscolarInput, Prisma.RecursoUncheckedCreateWithoutGradoEscolarInput> | Prisma.RecursoCreateWithoutGradoEscolarInput[] | Prisma.RecursoUncheckedCreateWithoutGradoEscolarInput[]
+  connectOrCreate?: Prisma.RecursoCreateOrConnectWithoutGradoEscolarInput | Prisma.RecursoCreateOrConnectWithoutGradoEscolarInput[]
+  createMany?: Prisma.RecursoCreateManyGradoEscolarInputEnvelope
+  connect?: Prisma.RecursoWhereUniqueInput | Prisma.RecursoWhereUniqueInput[]
+}
+
+export type RecursoUpdateManyWithoutGradoEscolarNestedInput = {
+  create?: Prisma.XOR<Prisma.RecursoCreateWithoutGradoEscolarInput, Prisma.RecursoUncheckedCreateWithoutGradoEscolarInput> | Prisma.RecursoCreateWithoutGradoEscolarInput[] | Prisma.RecursoUncheckedCreateWithoutGradoEscolarInput[]
+  connectOrCreate?: Prisma.RecursoCreateOrConnectWithoutGradoEscolarInput | Prisma.RecursoCreateOrConnectWithoutGradoEscolarInput[]
+  upsert?: Prisma.RecursoUpsertWithWhereUniqueWithoutGradoEscolarInput | Prisma.RecursoUpsertWithWhereUniqueWithoutGradoEscolarInput[]
+  createMany?: Prisma.RecursoCreateManyGradoEscolarInputEnvelope
+  set?: Prisma.RecursoWhereUniqueInput | Prisma.RecursoWhereUniqueInput[]
+  disconnect?: Prisma.RecursoWhereUniqueInput | Prisma.RecursoWhereUniqueInput[]
+  delete?: Prisma.RecursoWhereUniqueInput | Prisma.RecursoWhereUniqueInput[]
+  connect?: Prisma.RecursoWhereUniqueInput | Prisma.RecursoWhereUniqueInput[]
+  update?: Prisma.RecursoUpdateWithWhereUniqueWithoutGradoEscolarInput | Prisma.RecursoUpdateWithWhereUniqueWithoutGradoEscolarInput[]
+  updateMany?: Prisma.RecursoUpdateManyWithWhereWithoutGradoEscolarInput | Prisma.RecursoUpdateManyWithWhereWithoutGradoEscolarInput[]
+  deleteMany?: Prisma.RecursoScalarWhereInput | Prisma.RecursoScalarWhereInput[]
+}
+
+export type RecursoUncheckedUpdateManyWithoutGradoEscolarNestedInput = {
+  create?: Prisma.XOR<Prisma.RecursoCreateWithoutGradoEscolarInput, Prisma.RecursoUncheckedCreateWithoutGradoEscolarInput> | Prisma.RecursoCreateWithoutGradoEscolarInput[] | Prisma.RecursoUncheckedCreateWithoutGradoEscolarInput[]
+  connectOrCreate?: Prisma.RecursoCreateOrConnectWithoutGradoEscolarInput | Prisma.RecursoCreateOrConnectWithoutGradoEscolarInput[]
+  upsert?: Prisma.RecursoUpsertWithWhereUniqueWithoutGradoEscolarInput | Prisma.RecursoUpsertWithWhereUniqueWithoutGradoEscolarInput[]
+  createMany?: Prisma.RecursoCreateManyGradoEscolarInputEnvelope
+  set?: Prisma.RecursoWhereUniqueInput | Prisma.RecursoWhereUniqueInput[]
+  disconnect?: Prisma.RecursoWhereUniqueInput | Prisma.RecursoWhereUniqueInput[]
+  delete?: Prisma.RecursoWhereUniqueInput | Prisma.RecursoWhereUniqueInput[]
+  connect?: Prisma.RecursoWhereUniqueInput | Prisma.RecursoWhereUniqueInput[]
+  update?: Prisma.RecursoUpdateWithWhereUniqueWithoutGradoEscolarInput | Prisma.RecursoUpdateWithWhereUniqueWithoutGradoEscolarInput[]
+  updateMany?: Prisma.RecursoUpdateManyWithWhereWithoutGradoEscolarInput | Prisma.RecursoUpdateManyWithWhereWithoutGradoEscolarInput[]
   deleteMany?: Prisma.RecursoScalarWhereInput | Prisma.RecursoScalarWhereInput[]
 }
 
@@ -890,6 +962,7 @@ export type RecursoCreateWithoutInstitucionInput = {
   categoria: Prisma.CategoriaCreateNestedOneWithoutRecursosInput
   tipoRecurso: Prisma.TipoRecursoCreateNestedOneWithoutRecursosInput
   usuarioCreador: Prisma.UsuarioCreateNestedOneWithoutRecursosInput
+  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutRecursosInput
   calificaciones?: Prisma.CalificacionRecursoCreateNestedManyWithoutRecursoInput
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeCreateNestedManyWithoutRecursoInput
 }
@@ -911,6 +984,7 @@ export type RecursoUncheckedCreateWithoutInstitucionInput = {
   categoriaId: number
   tipoRecursoId: number
   usuarioCreadorId: number
+  gradoEscolarId?: number | null
   calificaciones?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutRecursoInput
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUncheckedCreateNestedManyWithoutRecursoInput
 }
@@ -962,6 +1036,7 @@ export type RecursoScalarWhereInput = {
   categoriaId?: Prisma.IntFilter<"Recurso"> | number
   tipoRecursoId?: Prisma.IntFilter<"Recurso"> | number
   usuarioCreadorId?: Prisma.IntFilter<"Recurso"> | number
+  gradoEscolarId?: Prisma.IntNullableFilter<"Recurso"> | number | null
 }
 
 export type RecursoCreateWithoutUsuarioCreadorInput = {
@@ -980,6 +1055,7 @@ export type RecursoCreateWithoutUsuarioCreadorInput = {
   institucion: Prisma.InstitucionCreateNestedOneWithoutRecursosInput
   categoria: Prisma.CategoriaCreateNestedOneWithoutRecursosInput
   tipoRecurso: Prisma.TipoRecursoCreateNestedOneWithoutRecursosInput
+  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutRecursosInput
   calificaciones?: Prisma.CalificacionRecursoCreateNestedManyWithoutRecursoInput
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeCreateNestedManyWithoutRecursoInput
 }
@@ -1001,6 +1077,7 @@ export type RecursoUncheckedCreateWithoutUsuarioCreadorInput = {
   institucionId: number
   categoriaId: number
   tipoRecursoId: number
+  gradoEscolarId?: number | null
   calificaciones?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutRecursoInput
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUncheckedCreateNestedManyWithoutRecursoInput
 }
@@ -1031,6 +1108,75 @@ export type RecursoUpdateManyWithWhereWithoutUsuarioCreadorInput = {
   data: Prisma.XOR<Prisma.RecursoUpdateManyMutationInput, Prisma.RecursoUncheckedUpdateManyWithoutUsuarioCreadorInput>
 }
 
+export type RecursoCreateWithoutGradoEscolarInput = {
+  titulo: string
+  palabrasClave?: string | null
+  contenidoResumen?: string | null
+  rutaRecurso?: string | null
+  urlRecurso?: string | null
+  fuente?: string | null
+  autorNombre?: string | null
+  nivelAcademico?: string | null
+  estado?: boolean
+  publicado?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  institucion: Prisma.InstitucionCreateNestedOneWithoutRecursosInput
+  categoria: Prisma.CategoriaCreateNestedOneWithoutRecursosInput
+  tipoRecurso: Prisma.TipoRecursoCreateNestedOneWithoutRecursosInput
+  usuarioCreador: Prisma.UsuarioCreateNestedOneWithoutRecursosInput
+  calificaciones?: Prisma.CalificacionRecursoCreateNestedManyWithoutRecursoInput
+  detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeCreateNestedManyWithoutRecursoInput
+}
+
+export type RecursoUncheckedCreateWithoutGradoEscolarInput = {
+  id?: number
+  titulo: string
+  palabrasClave?: string | null
+  contenidoResumen?: string | null
+  rutaRecurso?: string | null
+  urlRecurso?: string | null
+  fuente?: string | null
+  autorNombre?: string | null
+  nivelAcademico?: string | null
+  estado?: boolean
+  publicado?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  institucionId: number
+  categoriaId: number
+  tipoRecursoId: number
+  usuarioCreadorId: number
+  calificaciones?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutRecursoInput
+  detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUncheckedCreateNestedManyWithoutRecursoInput
+}
+
+export type RecursoCreateOrConnectWithoutGradoEscolarInput = {
+  where: Prisma.RecursoWhereUniqueInput
+  create: Prisma.XOR<Prisma.RecursoCreateWithoutGradoEscolarInput, Prisma.RecursoUncheckedCreateWithoutGradoEscolarInput>
+}
+
+export type RecursoCreateManyGradoEscolarInputEnvelope = {
+  data: Prisma.RecursoCreateManyGradoEscolarInput | Prisma.RecursoCreateManyGradoEscolarInput[]
+  skipDuplicates?: boolean
+}
+
+export type RecursoUpsertWithWhereUniqueWithoutGradoEscolarInput = {
+  where: Prisma.RecursoWhereUniqueInput
+  update: Prisma.XOR<Prisma.RecursoUpdateWithoutGradoEscolarInput, Prisma.RecursoUncheckedUpdateWithoutGradoEscolarInput>
+  create: Prisma.XOR<Prisma.RecursoCreateWithoutGradoEscolarInput, Prisma.RecursoUncheckedCreateWithoutGradoEscolarInput>
+}
+
+export type RecursoUpdateWithWhereUniqueWithoutGradoEscolarInput = {
+  where: Prisma.RecursoWhereUniqueInput
+  data: Prisma.XOR<Prisma.RecursoUpdateWithoutGradoEscolarInput, Prisma.RecursoUncheckedUpdateWithoutGradoEscolarInput>
+}
+
+export type RecursoUpdateManyWithWhereWithoutGradoEscolarInput = {
+  where: Prisma.RecursoScalarWhereInput
+  data: Prisma.XOR<Prisma.RecursoUpdateManyMutationInput, Prisma.RecursoUncheckedUpdateManyWithoutGradoEscolarInput>
+}
+
 export type RecursoCreateWithoutCategoriaInput = {
   titulo: string
   palabrasClave?: string | null
@@ -1047,6 +1193,7 @@ export type RecursoCreateWithoutCategoriaInput = {
   institucion: Prisma.InstitucionCreateNestedOneWithoutRecursosInput
   tipoRecurso: Prisma.TipoRecursoCreateNestedOneWithoutRecursosInput
   usuarioCreador: Prisma.UsuarioCreateNestedOneWithoutRecursosInput
+  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutRecursosInput
   calificaciones?: Prisma.CalificacionRecursoCreateNestedManyWithoutRecursoInput
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeCreateNestedManyWithoutRecursoInput
 }
@@ -1068,6 +1215,7 @@ export type RecursoUncheckedCreateWithoutCategoriaInput = {
   institucionId: number
   tipoRecursoId: number
   usuarioCreadorId: number
+  gradoEscolarId?: number | null
   calificaciones?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutRecursoInput
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUncheckedCreateNestedManyWithoutRecursoInput
 }
@@ -1114,6 +1262,7 @@ export type RecursoCreateWithoutTipoRecursoInput = {
   institucion: Prisma.InstitucionCreateNestedOneWithoutRecursosInput
   categoria: Prisma.CategoriaCreateNestedOneWithoutRecursosInput
   usuarioCreador: Prisma.UsuarioCreateNestedOneWithoutRecursosInput
+  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutRecursosInput
   calificaciones?: Prisma.CalificacionRecursoCreateNestedManyWithoutRecursoInput
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeCreateNestedManyWithoutRecursoInput
 }
@@ -1135,6 +1284,7 @@ export type RecursoUncheckedCreateWithoutTipoRecursoInput = {
   institucionId: number
   categoriaId: number
   usuarioCreadorId: number
+  gradoEscolarId?: number | null
   calificaciones?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutRecursoInput
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUncheckedCreateNestedManyWithoutRecursoInput
 }
@@ -1182,6 +1332,7 @@ export type RecursoCreateWithoutCalificacionesInput = {
   categoria: Prisma.CategoriaCreateNestedOneWithoutRecursosInput
   tipoRecurso: Prisma.TipoRecursoCreateNestedOneWithoutRecursosInput
   usuarioCreador: Prisma.UsuarioCreateNestedOneWithoutRecursosInput
+  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutRecursosInput
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeCreateNestedManyWithoutRecursoInput
 }
 
@@ -1203,6 +1354,7 @@ export type RecursoUncheckedCreateWithoutCalificacionesInput = {
   categoriaId: number
   tipoRecursoId: number
   usuarioCreadorId: number
+  gradoEscolarId?: number | null
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUncheckedCreateNestedManyWithoutRecursoInput
 }
 
@@ -1239,6 +1391,7 @@ export type RecursoUpdateWithoutCalificacionesInput = {
   categoria?: Prisma.CategoriaUpdateOneRequiredWithoutRecursosNestedInput
   tipoRecurso?: Prisma.TipoRecursoUpdateOneRequiredWithoutRecursosNestedInput
   usuarioCreador?: Prisma.UsuarioUpdateOneRequiredWithoutRecursosNestedInput
+  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutRecursosNestedInput
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUpdateManyWithoutRecursoNestedInput
 }
 
@@ -1260,6 +1413,7 @@ export type RecursoUncheckedUpdateWithoutCalificacionesInput = {
   categoriaId?: Prisma.IntFieldUpdateOperationsInput | number
   tipoRecursoId?: Prisma.IntFieldUpdateOperationsInput | number
   usuarioCreadorId?: Prisma.IntFieldUpdateOperationsInput | number
+  gradoEscolarId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUncheckedUpdateManyWithoutRecursoNestedInput
 }
 
@@ -1280,6 +1434,7 @@ export type RecursoCreateWithoutDetallesRutaAprendizajeInput = {
   categoria: Prisma.CategoriaCreateNestedOneWithoutRecursosInput
   tipoRecurso: Prisma.TipoRecursoCreateNestedOneWithoutRecursosInput
   usuarioCreador: Prisma.UsuarioCreateNestedOneWithoutRecursosInput
+  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutRecursosInput
   calificaciones?: Prisma.CalificacionRecursoCreateNestedManyWithoutRecursoInput
 }
 
@@ -1301,6 +1456,7 @@ export type RecursoUncheckedCreateWithoutDetallesRutaAprendizajeInput = {
   categoriaId: number
   tipoRecursoId: number
   usuarioCreadorId: number
+  gradoEscolarId?: number | null
   calificaciones?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutRecursoInput
 }
 
@@ -1337,6 +1493,7 @@ export type RecursoUpdateWithoutDetallesRutaAprendizajeInput = {
   categoria?: Prisma.CategoriaUpdateOneRequiredWithoutRecursosNestedInput
   tipoRecurso?: Prisma.TipoRecursoUpdateOneRequiredWithoutRecursosNestedInput
   usuarioCreador?: Prisma.UsuarioUpdateOneRequiredWithoutRecursosNestedInput
+  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutRecursosNestedInput
   calificaciones?: Prisma.CalificacionRecursoUpdateManyWithoutRecursoNestedInput
 }
 
@@ -1358,6 +1515,7 @@ export type RecursoUncheckedUpdateWithoutDetallesRutaAprendizajeInput = {
   categoriaId?: Prisma.IntFieldUpdateOperationsInput | number
   tipoRecursoId?: Prisma.IntFieldUpdateOperationsInput | number
   usuarioCreadorId?: Prisma.IntFieldUpdateOperationsInput | number
+  gradoEscolarId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   calificaciones?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutRecursoNestedInput
 }
 
@@ -1378,6 +1536,7 @@ export type RecursoCreateManyInstitucionInput = {
   categoriaId: number
   tipoRecursoId: number
   usuarioCreadorId: number
+  gradoEscolarId?: number | null
 }
 
 export type RecursoUpdateWithoutInstitucionInput = {
@@ -1396,6 +1555,7 @@ export type RecursoUpdateWithoutInstitucionInput = {
   categoria?: Prisma.CategoriaUpdateOneRequiredWithoutRecursosNestedInput
   tipoRecurso?: Prisma.TipoRecursoUpdateOneRequiredWithoutRecursosNestedInput
   usuarioCreador?: Prisma.UsuarioUpdateOneRequiredWithoutRecursosNestedInput
+  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutRecursosNestedInput
   calificaciones?: Prisma.CalificacionRecursoUpdateManyWithoutRecursoNestedInput
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUpdateManyWithoutRecursoNestedInput
 }
@@ -1417,6 +1577,7 @@ export type RecursoUncheckedUpdateWithoutInstitucionInput = {
   categoriaId?: Prisma.IntFieldUpdateOperationsInput | number
   tipoRecursoId?: Prisma.IntFieldUpdateOperationsInput | number
   usuarioCreadorId?: Prisma.IntFieldUpdateOperationsInput | number
+  gradoEscolarId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   calificaciones?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutRecursoNestedInput
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUncheckedUpdateManyWithoutRecursoNestedInput
 }
@@ -1438,6 +1599,7 @@ export type RecursoUncheckedUpdateManyWithoutInstitucionInput = {
   categoriaId?: Prisma.IntFieldUpdateOperationsInput | number
   tipoRecursoId?: Prisma.IntFieldUpdateOperationsInput | number
   usuarioCreadorId?: Prisma.IntFieldUpdateOperationsInput | number
+  gradoEscolarId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type RecursoCreateManyUsuarioCreadorInput = {
@@ -1457,6 +1619,7 @@ export type RecursoCreateManyUsuarioCreadorInput = {
   institucionId: number
   categoriaId: number
   tipoRecursoId: number
+  gradoEscolarId?: number | null
 }
 
 export type RecursoUpdateWithoutUsuarioCreadorInput = {
@@ -1475,6 +1638,7 @@ export type RecursoUpdateWithoutUsuarioCreadorInput = {
   institucion?: Prisma.InstitucionUpdateOneRequiredWithoutRecursosNestedInput
   categoria?: Prisma.CategoriaUpdateOneRequiredWithoutRecursosNestedInput
   tipoRecurso?: Prisma.TipoRecursoUpdateOneRequiredWithoutRecursosNestedInput
+  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutRecursosNestedInput
   calificaciones?: Prisma.CalificacionRecursoUpdateManyWithoutRecursoNestedInput
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUpdateManyWithoutRecursoNestedInput
 }
@@ -1496,6 +1660,7 @@ export type RecursoUncheckedUpdateWithoutUsuarioCreadorInput = {
   institucionId?: Prisma.IntFieldUpdateOperationsInput | number
   categoriaId?: Prisma.IntFieldUpdateOperationsInput | number
   tipoRecursoId?: Prisma.IntFieldUpdateOperationsInput | number
+  gradoEscolarId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   calificaciones?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutRecursoNestedInput
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUncheckedUpdateManyWithoutRecursoNestedInput
 }
@@ -1517,6 +1682,90 @@ export type RecursoUncheckedUpdateManyWithoutUsuarioCreadorInput = {
   institucionId?: Prisma.IntFieldUpdateOperationsInput | number
   categoriaId?: Prisma.IntFieldUpdateOperationsInput | number
   tipoRecursoId?: Prisma.IntFieldUpdateOperationsInput | number
+  gradoEscolarId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+}
+
+export type RecursoCreateManyGradoEscolarInput = {
+  id?: number
+  titulo: string
+  palabrasClave?: string | null
+  contenidoResumen?: string | null
+  rutaRecurso?: string | null
+  urlRecurso?: string | null
+  fuente?: string | null
+  autorNombre?: string | null
+  nivelAcademico?: string | null
+  estado?: boolean
+  publicado?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  institucionId: number
+  categoriaId: number
+  tipoRecursoId: number
+  usuarioCreadorId: number
+}
+
+export type RecursoUpdateWithoutGradoEscolarInput = {
+  titulo?: Prisma.StringFieldUpdateOperationsInput | string
+  palabrasClave?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contenidoResumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rutaRecurso?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  urlRecurso?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fuente?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  autorNombre?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nivelAcademico?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  publicado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutRecursosNestedInput
+  categoria?: Prisma.CategoriaUpdateOneRequiredWithoutRecursosNestedInput
+  tipoRecurso?: Prisma.TipoRecursoUpdateOneRequiredWithoutRecursosNestedInput
+  usuarioCreador?: Prisma.UsuarioUpdateOneRequiredWithoutRecursosNestedInput
+  calificaciones?: Prisma.CalificacionRecursoUpdateManyWithoutRecursoNestedInput
+  detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUpdateManyWithoutRecursoNestedInput
+}
+
+export type RecursoUncheckedUpdateWithoutGradoEscolarInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  titulo?: Prisma.StringFieldUpdateOperationsInput | string
+  palabrasClave?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contenidoResumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rutaRecurso?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  urlRecurso?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fuente?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  autorNombre?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nivelAcademico?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  publicado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  institucionId?: Prisma.IntFieldUpdateOperationsInput | number
+  categoriaId?: Prisma.IntFieldUpdateOperationsInput | number
+  tipoRecursoId?: Prisma.IntFieldUpdateOperationsInput | number
+  usuarioCreadorId?: Prisma.IntFieldUpdateOperationsInput | number
+  calificaciones?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutRecursoNestedInput
+  detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUncheckedUpdateManyWithoutRecursoNestedInput
+}
+
+export type RecursoUncheckedUpdateManyWithoutGradoEscolarInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  titulo?: Prisma.StringFieldUpdateOperationsInput | string
+  palabrasClave?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contenidoResumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rutaRecurso?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  urlRecurso?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fuente?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  autorNombre?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nivelAcademico?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  publicado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  institucionId?: Prisma.IntFieldUpdateOperationsInput | number
+  categoriaId?: Prisma.IntFieldUpdateOperationsInput | number
+  tipoRecursoId?: Prisma.IntFieldUpdateOperationsInput | number
+  usuarioCreadorId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type RecursoCreateManyCategoriaInput = {
@@ -1536,6 +1785,7 @@ export type RecursoCreateManyCategoriaInput = {
   institucionId: number
   tipoRecursoId: number
   usuarioCreadorId: number
+  gradoEscolarId?: number | null
 }
 
 export type RecursoUpdateWithoutCategoriaInput = {
@@ -1554,6 +1804,7 @@ export type RecursoUpdateWithoutCategoriaInput = {
   institucion?: Prisma.InstitucionUpdateOneRequiredWithoutRecursosNestedInput
   tipoRecurso?: Prisma.TipoRecursoUpdateOneRequiredWithoutRecursosNestedInput
   usuarioCreador?: Prisma.UsuarioUpdateOneRequiredWithoutRecursosNestedInput
+  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutRecursosNestedInput
   calificaciones?: Prisma.CalificacionRecursoUpdateManyWithoutRecursoNestedInput
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUpdateManyWithoutRecursoNestedInput
 }
@@ -1575,6 +1826,7 @@ export type RecursoUncheckedUpdateWithoutCategoriaInput = {
   institucionId?: Prisma.IntFieldUpdateOperationsInput | number
   tipoRecursoId?: Prisma.IntFieldUpdateOperationsInput | number
   usuarioCreadorId?: Prisma.IntFieldUpdateOperationsInput | number
+  gradoEscolarId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   calificaciones?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutRecursoNestedInput
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUncheckedUpdateManyWithoutRecursoNestedInput
 }
@@ -1596,6 +1848,7 @@ export type RecursoUncheckedUpdateManyWithoutCategoriaInput = {
   institucionId?: Prisma.IntFieldUpdateOperationsInput | number
   tipoRecursoId?: Prisma.IntFieldUpdateOperationsInput | number
   usuarioCreadorId?: Prisma.IntFieldUpdateOperationsInput | number
+  gradoEscolarId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type RecursoCreateManyTipoRecursoInput = {
@@ -1615,6 +1868,7 @@ export type RecursoCreateManyTipoRecursoInput = {
   institucionId: number
   categoriaId: number
   usuarioCreadorId: number
+  gradoEscolarId?: number | null
 }
 
 export type RecursoUpdateWithoutTipoRecursoInput = {
@@ -1633,6 +1887,7 @@ export type RecursoUpdateWithoutTipoRecursoInput = {
   institucion?: Prisma.InstitucionUpdateOneRequiredWithoutRecursosNestedInput
   categoria?: Prisma.CategoriaUpdateOneRequiredWithoutRecursosNestedInput
   usuarioCreador?: Prisma.UsuarioUpdateOneRequiredWithoutRecursosNestedInput
+  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutRecursosNestedInput
   calificaciones?: Prisma.CalificacionRecursoUpdateManyWithoutRecursoNestedInput
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUpdateManyWithoutRecursoNestedInput
 }
@@ -1654,6 +1909,7 @@ export type RecursoUncheckedUpdateWithoutTipoRecursoInput = {
   institucionId?: Prisma.IntFieldUpdateOperationsInput | number
   categoriaId?: Prisma.IntFieldUpdateOperationsInput | number
   usuarioCreadorId?: Prisma.IntFieldUpdateOperationsInput | number
+  gradoEscolarId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   calificaciones?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutRecursoNestedInput
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUncheckedUpdateManyWithoutRecursoNestedInput
 }
@@ -1675,6 +1931,7 @@ export type RecursoUncheckedUpdateManyWithoutTipoRecursoInput = {
   institucionId?: Prisma.IntFieldUpdateOperationsInput | number
   categoriaId?: Prisma.IntFieldUpdateOperationsInput | number
   usuarioCreadorId?: Prisma.IntFieldUpdateOperationsInput | number
+  gradoEscolarId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 
@@ -1735,10 +1992,12 @@ export type RecursoSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   categoriaId?: boolean
   tipoRecursoId?: boolean
   usuarioCreadorId?: boolean
+  gradoEscolarId?: boolean
   institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
   categoria?: boolean | Prisma.CategoriaDefaultArgs<ExtArgs>
   tipoRecurso?: boolean | Prisma.TipoRecursoDefaultArgs<ExtArgs>
   usuarioCreador?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
+  gradoEscolar?: boolean | Prisma.Recurso$gradoEscolarArgs<ExtArgs>
   calificaciones?: boolean | Prisma.Recurso$calificacionesArgs<ExtArgs>
   detallesRutaAprendizaje?: boolean | Prisma.Recurso$detallesRutaAprendizajeArgs<ExtArgs>
   _count?: boolean | Prisma.RecursoCountOutputTypeDefaultArgs<ExtArgs>
@@ -1762,10 +2021,12 @@ export type RecursoSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   categoriaId?: boolean
   tipoRecursoId?: boolean
   usuarioCreadorId?: boolean
+  gradoEscolarId?: boolean
   institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
   categoria?: boolean | Prisma.CategoriaDefaultArgs<ExtArgs>
   tipoRecurso?: boolean | Prisma.TipoRecursoDefaultArgs<ExtArgs>
   usuarioCreador?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
+  gradoEscolar?: boolean | Prisma.Recurso$gradoEscolarArgs<ExtArgs>
 }, ExtArgs["result"]["recurso"]>
 
 export type RecursoSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1786,10 +2047,12 @@ export type RecursoSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   categoriaId?: boolean
   tipoRecursoId?: boolean
   usuarioCreadorId?: boolean
+  gradoEscolarId?: boolean
   institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
   categoria?: boolean | Prisma.CategoriaDefaultArgs<ExtArgs>
   tipoRecurso?: boolean | Prisma.TipoRecursoDefaultArgs<ExtArgs>
   usuarioCreador?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
+  gradoEscolar?: boolean | Prisma.Recurso$gradoEscolarArgs<ExtArgs>
 }, ExtArgs["result"]["recurso"]>
 
 export type RecursoSelectScalar = {
@@ -1810,14 +2073,16 @@ export type RecursoSelectScalar = {
   categoriaId?: boolean
   tipoRecursoId?: boolean
   usuarioCreadorId?: boolean
+  gradoEscolarId?: boolean
 }
 
-export type RecursoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "titulo" | "palabrasClave" | "contenidoResumen" | "rutaRecurso" | "urlRecurso" | "fuente" | "autorNombre" | "nivelAcademico" | "estado" | "publicado" | "createdAt" | "updatedAt" | "institucionId" | "categoriaId" | "tipoRecursoId" | "usuarioCreadorId", ExtArgs["result"]["recurso"]>
+export type RecursoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "titulo" | "palabrasClave" | "contenidoResumen" | "rutaRecurso" | "urlRecurso" | "fuente" | "autorNombre" | "nivelAcademico" | "estado" | "publicado" | "createdAt" | "updatedAt" | "institucionId" | "categoriaId" | "tipoRecursoId" | "usuarioCreadorId" | "gradoEscolarId", ExtArgs["result"]["recurso"]>
 export type RecursoInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
   categoria?: boolean | Prisma.CategoriaDefaultArgs<ExtArgs>
   tipoRecurso?: boolean | Prisma.TipoRecursoDefaultArgs<ExtArgs>
   usuarioCreador?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
+  gradoEscolar?: boolean | Prisma.Recurso$gradoEscolarArgs<ExtArgs>
   calificaciones?: boolean | Prisma.Recurso$calificacionesArgs<ExtArgs>
   detallesRutaAprendizaje?: boolean | Prisma.Recurso$detallesRutaAprendizajeArgs<ExtArgs>
   _count?: boolean | Prisma.RecursoCountOutputTypeDefaultArgs<ExtArgs>
@@ -1827,12 +2092,14 @@ export type RecursoIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   categoria?: boolean | Prisma.CategoriaDefaultArgs<ExtArgs>
   tipoRecurso?: boolean | Prisma.TipoRecursoDefaultArgs<ExtArgs>
   usuarioCreador?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
+  gradoEscolar?: boolean | Prisma.Recurso$gradoEscolarArgs<ExtArgs>
 }
 export type RecursoIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
   categoria?: boolean | Prisma.CategoriaDefaultArgs<ExtArgs>
   tipoRecurso?: boolean | Prisma.TipoRecursoDefaultArgs<ExtArgs>
   usuarioCreador?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
+  gradoEscolar?: boolean | Prisma.Recurso$gradoEscolarArgs<ExtArgs>
 }
 
 export type $RecursoPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1842,6 +2109,7 @@ export type $RecursoPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     categoria: Prisma.$CategoriaPayload<ExtArgs>
     tipoRecurso: Prisma.$TipoRecursoPayload<ExtArgs>
     usuarioCreador: Prisma.$UsuarioPayload<ExtArgs>
+    gradoEscolar: Prisma.$GradoEscolarPayload<ExtArgs> | null
     calificaciones: Prisma.$CalificacionRecursoPayload<ExtArgs>[]
     detallesRutaAprendizaje: Prisma.$DetalleRutaAprendizajePayload<ExtArgs>[]
   }
@@ -1863,6 +2131,7 @@ export type $RecursoPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     categoriaId: number
     tipoRecursoId: number
     usuarioCreadorId: number
+    gradoEscolarId: number | null
   }, ExtArgs["result"]["recurso"]>
   composites: {}
 }
@@ -2261,6 +2530,7 @@ export interface Prisma__RecursoClient<T, Null = never, ExtArgs extends runtime.
   categoria<T extends Prisma.CategoriaDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CategoriaDefaultArgs<ExtArgs>>): Prisma.Prisma__CategoriaClient<runtime.Types.Result.GetResult<Prisma.$CategoriaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   tipoRecurso<T extends Prisma.TipoRecursoDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TipoRecursoDefaultArgs<ExtArgs>>): Prisma.Prisma__TipoRecursoClient<runtime.Types.Result.GetResult<Prisma.$TipoRecursoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   usuarioCreador<T extends Prisma.UsuarioDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UsuarioDefaultArgs<ExtArgs>>): Prisma.Prisma__UsuarioClient<runtime.Types.Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  gradoEscolar<T extends Prisma.Recurso$gradoEscolarArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Recurso$gradoEscolarArgs<ExtArgs>>): Prisma.Prisma__GradoEscolarClient<runtime.Types.Result.GetResult<Prisma.$GradoEscolarPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   calificaciones<T extends Prisma.Recurso$calificacionesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Recurso$calificacionesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CalificacionRecursoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   detallesRutaAprendizaje<T extends Prisma.Recurso$detallesRutaAprendizajeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Recurso$detallesRutaAprendizajeArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DetalleRutaAprendizajePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
@@ -2309,6 +2579,7 @@ export interface RecursoFieldRefs {
   readonly categoriaId: Prisma.FieldRef<"Recurso", 'Int'>
   readonly tipoRecursoId: Prisma.FieldRef<"Recurso", 'Int'>
   readonly usuarioCreadorId: Prisma.FieldRef<"Recurso", 'Int'>
+  readonly gradoEscolarId: Prisma.FieldRef<"Recurso", 'Int'>
 }
     
 
@@ -2707,6 +2978,25 @@ export type RecursoDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Limit how many Recursos to delete.
    */
   limit?: number
+}
+
+/**
+ * Recurso.gradoEscolar
+ */
+export type Recurso$gradoEscolarArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the GradoEscolar
+   */
+  select?: Prisma.GradoEscolarSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the GradoEscolar
+   */
+  omit?: Prisma.GradoEscolarOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GradoEscolarInclude<ExtArgs> | null
+  where?: Prisma.GradoEscolarWhereInput
 }
 
 /**

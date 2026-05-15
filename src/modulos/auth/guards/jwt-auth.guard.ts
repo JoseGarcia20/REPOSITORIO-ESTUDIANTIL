@@ -22,25 +22,42 @@ export class JwtAuthGuard implements CanActivate {
 
     try {
       const payload = await this.jwtService.verifyAsync(token);
-      const rol = await this.prisma.rol.findUnique({
-        where: { id: Number(payload?.rolId) },
-        include: {
-          permisos: {
+      const usuario = await this.prisma.usuario.findUnique({
+        where: { id: Number(payload?.sub) },
+        select: {
+          id: true,
+          correo: true,
+          documento: true,
+          activo: true,
+          institucionId: true,
+          rolId: true,
+          gradoEscolarId: true,
+          rol: {
             include: {
-              permiso: true,
+              permisos: {
+                include: {
+                  permiso: true,
+                },
+              },
             },
           },
         },
       });
 
-      if (!rol || !rol.estado) {
+      if (!usuario || !usuario.activo || !usuario.rol.estado) {
         throw new UnauthorizedException('Rol no válido o inactivo');
       }
 
       request.usuarioAuth = {
         ...payload,
-        rol: rol.nombre,
-        permisos: rol.permisos.map((item) => item.permiso.codigo),
+        sub: usuario.id,
+        correo: usuario.correo,
+        documento: usuario.documento,
+        rolId: usuario.rolId,
+        rol: usuario.rol.nombre,
+        institucionId: usuario.institucionId,
+        gradoEscolarId: usuario.gradoEscolarId,
+        permisos: usuario.rol.permisos.map((item) => item.permiso.codigo),
       };
       return true;
     } catch (error) {

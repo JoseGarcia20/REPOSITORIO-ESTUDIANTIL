@@ -11,6 +11,7 @@ import { ActualizarRecursoDto } from '../dto/actualizar-recurso.dto';
 import {
   PERMISOS,
   tieneAccesoTotal,
+  tienePermiso,
   validarAlcanceInstitucional,
   validarPermiso,
 } from '../../auth/utils/roles.util';
@@ -51,6 +52,14 @@ export class RecursoService {
         apellidos: true,
       },
     },
+    gradoEscolar: {
+      select: {
+        id: true,
+        nombre: true,
+        codigo: true,
+        orden: true,
+      },
+    },
   };
 
   private construirFiltroRecursos(
@@ -60,10 +69,19 @@ export class RecursoService {
     busqueda?: string,
   ): Prisma.RecursoWhereInput {
     const esGlobal = tieneAccesoTotal(usuarioAuth);
+    const condicionesAnd: Prisma.RecursoWhereInput[] = [];
     const where: Prisma.RecursoWhereInput = {
       ...(soloActivos ? { estado: true } : {}),
       ...(esGlobal ? {} : { institucionId: Number(usuarioAuth?.institucionId) }),
     };
+    const puedeVerTodosLosGrados = tienePermiso(
+      usuarioAuth,
+      PERMISOS.RECURSOS_VER_TODOS_GRADOS,
+    );
+
+    if (!puedeVerTodosLosGrados) {
+      where.gradoEscolarId = Number(usuarioAuth?.gradoEscolarId || -1);
+    }
 
     const estado = valorBooleano(query.estado);
     if (!soloActivos && estado !== undefined) {
@@ -87,15 +105,79 @@ export class RecursoService {
       where.tipoRecursoId = Number(query.tipoRecursoId);
     }
 
+    if (query.gradoEscolarId && puedeVerTodosLosGrados) {
+      where.gradoEscolarId = Number(query.gradoEscolarId);
+    }
+
+    if (query.tipoArchivo) {
+      const filtrosArchivo: Record<string, Prisma.RecursoWhereInput[]> = {
+        pdf: [
+          { rutaRecurso: { endsWith: '.pdf', mode: 'insensitive' } },
+          { urlRecurso: { endsWith: '.pdf', mode: 'insensitive' } },
+        ],
+        word: [
+          { rutaRecurso: { endsWith: '.doc', mode: 'insensitive' } },
+          { rutaRecurso: { endsWith: '.docx', mode: 'insensitive' } },
+          { urlRecurso: { endsWith: '.doc', mode: 'insensitive' } },
+          { urlRecurso: { endsWith: '.docx', mode: 'insensitive' } },
+        ],
+        slide: [
+          { rutaRecurso: { endsWith: '.ppt', mode: 'insensitive' } },
+          { rutaRecurso: { endsWith: '.pptx', mode: 'insensitive' } },
+          { urlRecurso: { endsWith: '.ppt', mode: 'insensitive' } },
+          { urlRecurso: { endsWith: '.pptx', mode: 'insensitive' } },
+        ],
+        image: [
+          { rutaRecurso: { endsWith: '.png', mode: 'insensitive' } },
+          { rutaRecurso: { endsWith: '.jpg', mode: 'insensitive' } },
+          { rutaRecurso: { endsWith: '.jpeg', mode: 'insensitive' } },
+          { rutaRecurso: { endsWith: '.webp', mode: 'insensitive' } },
+          { urlRecurso: { endsWith: '.png', mode: 'insensitive' } },
+          { urlRecurso: { endsWith: '.jpg', mode: 'insensitive' } },
+          { urlRecurso: { endsWith: '.jpeg', mode: 'insensitive' } },
+          { urlRecurso: { endsWith: '.webp', mode: 'insensitive' } },
+        ],
+        video: [
+          { rutaRecurso: { endsWith: '.mp4', mode: 'insensitive' } },
+          { rutaRecurso: { endsWith: '.webm', mode: 'insensitive' } },
+          { urlRecurso: { endsWith: '.mp4', mode: 'insensitive' } },
+          { urlRecurso: { endsWith: '.webm', mode: 'insensitive' } },
+        ],
+        link: [
+          {
+            urlRecurso: {
+              not: null,
+            },
+          },
+        ],
+      };
+
+      const filtros = filtrosArchivo[query.tipoArchivo];
+      if (filtros) {
+        condicionesAnd.push({ OR: filtros });
+      }
+    }
+
     if (busqueda) {
-      where.OR = [
-        { titulo: { contains: busqueda, mode: 'insensitive' } },
-        { palabrasClave: { contains: busqueda, mode: 'insensitive' } },
-        { contenidoResumen: { contains: busqueda, mode: 'insensitive' } },
-        { fuente: { contains: busqueda, mode: 'insensitive' } },
-        { autorNombre: { contains: busqueda, mode: 'insensitive' } },
-        { nivelAcademico: { contains: busqueda, mode: 'insensitive' } },
-      ];
+      condicionesAnd.push({
+        OR: [
+          { titulo: { contains: busqueda, mode: 'insensitive' } },
+          { palabrasClave: { contains: busqueda, mode: 'insensitive' } },
+          { contenidoResumen: { contains: busqueda, mode: 'insensitive' } },
+          { fuente: { contains: busqueda, mode: 'insensitive' } },
+          { autorNombre: { contains: busqueda, mode: 'insensitive' } },
+          { nivelAcademico: { contains: busqueda, mode: 'insensitive' } },
+          {
+            gradoEscolar: {
+              nombre: { contains: busqueda, mode: 'insensitive' },
+            },
+          },
+        ],
+      });
+    }
+
+    if (condicionesAnd.length > 0) {
+      where.AND = condicionesAnd;
     }
 
     return where;

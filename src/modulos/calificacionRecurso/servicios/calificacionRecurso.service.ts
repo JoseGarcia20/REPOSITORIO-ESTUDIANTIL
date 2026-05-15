@@ -1,118 +1,117 @@
-import { Injectable, NotFoundException, ConflictException } from '@nestjs/common';
+import {
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { PrismaService } from '../../../baseDatos/prisma/prisma.service';
-import { Prisma } from '../../../generated/prisma/client';
-import { CrearCalificacionRecursoDto } from '../dto/crear-calificacionRecurso.dto';
-import { ActualizarCalificacionRecursoDto } from '../dto/actualizar-calificacionRecurso.dto';
+import {
+  PERMISOS,
+  tieneAccesoTotal,
+  tienePermiso,
+  validarPermiso,
+} from '../../auth/utils/roles.util';
+import { CalificarRecursoDto } from '../dto/calificar-recurso.dto';
 
 @Injectable()
 export class CalificacionRecursoService {
-
   constructor(private readonly prisma: PrismaService) {}
 
-  //Funcion para la creacion de un nuevo CR
-  async crear(data: CrearCalificacionRecursoDto) {
-    try {
-      return await this.prisma.calificacionRecurso.create({
-        data,
-      });
-    } catch (error) {
-      if (
-        error instanceof Prisma.PrismaClientKnownRequestError &&
-        error.code === 'P2002'
-      ) {
-        const campo = Array.isArray(error.meta?.target)
-          ? error.meta.target[0]
-          : 'campo único';
+  private async validarAccesoRecurso(recursoId: number, usuarioAuth: any) {
+    validarPermiso(usuarioAuth, PERMISOS.RECURSOS_VER);
 
-        throw new ConflictException(`Ya existe un registro con el campo único: ${campo}`);
+    const recurso = await this.prisma.recurso.findUnique({
+      where: { id: recursoId },
+      select: {
+        id: true,
+        estado: true,
+        publicado: true,
+        institucionId: true,
+        gradoEscolarId: true,
+      },
+    });
+
+    if (!recurso || !recurso.estado || !recurso.publicado) {
+      throw new NotFoundException(`Recurso con id ${recursoId} no encontrado`);
+    }
+
+    if (!tieneAccesoTotal(usuarioAuth)) {
+      if (recurso.institucionId !== Number(usuarioAuth?.institucionId)) {
+        throw new ForbiddenException(
+          'No tiene permisos para calificar recursos de otra institución',
+        );
       }
 
-      throw error;
+      if (
+        !tienePermiso(usuarioAuth, PERMISOS.RECURSOS_VER_TODOS_GRADOS) &&
+        recurso.gradoEscolarId !== Number(usuarioAuth?.gradoEscolarId)
+      ) {
+        throw new ForbiddenException(
+          'No tiene permisos para calificar recursos de otro grado escolar',
+        );
+      }
     }
+
+    return recurso;
   }
 
-  //Funcion para listar todas los CR activos, ordenados por id de forma descendente para mostrar los usuarios mas recientes primero
-  async listar() {
-    return await this.prisma.calificacionRecurso.findMany({
+  async calificar(recursoId: number, data: CalificarRecursoDto, usuarioAuth: any) {
+    await this.validarAccesoRecurso(recursoId, usuarioAuth);
+    const usuarioId = Number(usuarioAuth?.sub);
+
+    return await this.prisma.calificacionRecurso.upsert({
       where: {
-        estado: true, //Solo se listan los CR activos
+        usuarioId_recursoId: {
+          usuarioId,
+          recursoId,
+        },
       },
-      orderBy: {
-        id: 'desc', //Ordena por id de forma descendente para mostrar los CR mas recientes primero
-      },
-    });
-  }
-
-  //Funcion para listar todas los CR, incluyendo los inactivos
-  async listarTodos() {
-    return await this.prisma.calificacionRecurso.findMany({
-      orderBy: {
-        id: 'desc', //Ordena por id de forma descendente para mostrar los CR mas recientes primero
-      },
-    });
-  }
-
-  //Funcion para obtener un CR por su id
-  async obtenerPorId(id: number) {
-    const calificacionRecurso = await this.prisma.calificacionRecurso.findUnique({
-      where: { id },
-    });
-
-    if (!calificacionRecurso) {
-      throw new NotFoundException(`CR con id ${id} no encontrado`);
-    }
-
-    return calificacionRecurso;
-
-  }
-
-  //Funcion para actualizar un foro por su id
-  async actualizar(id: number, data: ActualizarCalificacionRecursoDto) {
-    await this.obtenerPorId(id);
-
-    try {
-      return await this.prisma.calificacionRecurso.update({
-        where: { id },
-        data,
-      });
-    } catch (error) {
-      if (
-        error instanceof Prisma.PrismaClientKnownRequestError &&
-        error.code === 'P2002'
-      ) {
-        const campo = Array.isArray(error.meta?.target)
-          ? error.meta.target[0]
-          : 'campo único';
-
-        throw new ConflictException(`Ya existe un registro con el campo único: ${campo}`);
-      }
-
-      throw error;
-    }
-  }
-
-  //Funcion para inactivar un CR por su id
-  async inactivar(id: number) {
-    await this.obtenerPorId(id);
-
-    return await this.prisma.calificacionRecurso.update({
-      where: { id },
-      data: {
-        estado: false,
-      },
-    });
-  }
-
-  //Funcion para reactivar un CA por su id
-  async reactivar(id: number) {
-    await this.obtenerPorId(id);
-
-    return await this.prisma.calificacionRecurso.update({
-      where: { id },
-      data: {
+      update: {
+        calificacion: data.calificacion,
+        comentario: data.comentario,
         estado: true,
       },
+      create: {
+        calificacion: data.calificacion,
+        comentario: data.comentario,
+        usuarioId,
+        recursoId,
+      },
     });
   }
 
+  async obtenerResumen(recursoId: number, usuarioAuth: any) {
+    await this.validarAccesoRecurso(recursoId, usuarioAuth);
+    const usuarioId = Number(usuarioAuth?.sub);
+
+    const [agregado, miCalificacion] = await Promise.all([
+      this.prisma.calificacionRecurso.aggregate({
+        where: {
+          recursoId,
+          estado: true,
+        },
+        _avg: {
+          calificacion: true,
+        },
+        _count: {
+          calificacion: true,
+        },
+      }),
+      this.prisma.calificacionRecurso.findUnique({
+        where: {
+          usuarioId_recursoId: {
+            usuarioId,
+            recursoId,
+          },
+        },
+      }),
+    ]);
+
+    return {
+      promedio: agregado._avg.calificacion || 0,
+      total: agregado._count.calificacion,
+      miCalificacion: miCalificacion?.estado
+        ? miCalificacion.calificacion
+        : null,
+    };
+  }
 }

@@ -33,6 +33,7 @@ const permisos = {
   TIPOS_RECURSOS_EDITAR: 'tipos_recursos.editar',
   TIPOS_RECURSOS_CAMBIAR_ESTADO: 'tipos_recursos.cambiar_estado',
   RECURSOS_VER: 'recursos.ver',
+  RECURSOS_VER_TODOS_GRADOS: 'recursos.ver_todos_grados',
   RECURSOS_CREAR: 'recursos.crear',
   RECURSOS_EDITAR: 'recursos.editar',
   RECURSOS_CAMBIAR_ESTADO: 'recursos.cambiar_estado',
@@ -70,6 +71,8 @@ const descripcionesPermisos: Record<string, string> = {
   [permisos.TIPOS_RECURSOS_CAMBIAR_ESTADO]:
     'Inactivar o reactivar tipos de recursos',
   [permisos.RECURSOS_VER]: 'Ver recursos',
+  [permisos.RECURSOS_VER_TODOS_GRADOS]:
+    'Ver recursos publicados de todos los grados escolares',
   [permisos.RECURSOS_CREAR]: 'Crear recursos',
   [permisos.RECURSOS_EDITAR]: 'Editar recursos',
   [permisos.RECURSOS_CAMBIAR_ESTADO]: 'Inactivar o reactivar recursos',
@@ -108,6 +111,7 @@ const rolesBase = [
       permisos.TIPOS_RECURSOS_EDITAR,
       permisos.TIPOS_RECURSOS_CAMBIAR_ESTADO,
       permisos.RECURSOS_VER,
+      permisos.RECURSOS_VER_TODOS_GRADOS,
       permisos.RECURSOS_CREAR,
       permisos.RECURSOS_EDITAR,
       permisos.RECURSOS_CAMBIAR_ESTADO,
@@ -127,6 +131,7 @@ const rolesBase = [
       permisos.USUARIOS_VER,
       permisos.ESTUDIANTES_VER,
       permisos.RECURSOS_VER,
+      permisos.RECURSOS_VER_TODOS_GRADOS,
       permisos.FOROS_VER,
       permisos.FOROS_CREAR,
       permisos.FOROS_CREAR_PUBLICO,
@@ -150,12 +155,25 @@ const rolesBase = [
     permisos: [
       permisos.FOROS_VER,
       permisos.FOROS_COMENTAR,
+      permisos.RECURSOS_VER_TODOS_GRADOS,
       permisos.REPORTES_VER,
     ],
   },
 ];
 
 async function main() {
+  await prisma.gradoEscolar.createMany({
+    data: [
+      { nombre: 'Sexto', codigo: 'SEXTO', orden: 6 },
+      { nombre: 'Séptimo', codigo: 'SEPTIMO', orden: 7 },
+      { nombre: 'Octavo', codigo: 'OCTAVO', orden: 8 },
+      { nombre: 'Noveno', codigo: 'NOVENO', orden: 9 },
+      { nombre: 'Décimo', codigo: 'DECIMO', orden: 10 },
+      { nombre: 'Once', codigo: 'ONCE', orden: 11 },
+    ],
+    skipDuplicates: true,
+  });
+
   const institucion = await prisma.institucion.upsert({
     where: { codigo: 'GLOBAL' },
     update: {

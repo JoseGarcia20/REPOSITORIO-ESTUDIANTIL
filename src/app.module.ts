@@ -8,6 +8,7 @@ import { TiposAprendizajeModule } from './modulos/tiposAprendizaje/tiposAprendiz
 import { TiposRecursosModule } from './modulos/tiposRecursos/tiposRecursos.module';
 import { RecursoModule } from './modulos/recursos/recurso.module';
 import { ForoModule } from './modulos/foro/foro.module';
+import { GradosEscolaresModule } from './modulos/gradosEscolares/gradosEscolares.module';
 import { DiagnosticoAprendizajeModule } from './modulos/diagnosticoAprendizaje/diagnosticoAprendizaje.module'; 
 import { RutaAprendizajeModule } from './modulos/rutaAprendizaje/rutaAprendizaje.module';
 import { CalificacionRecursoModule } from './modulos/calificacionRecurso/calificacionRecurso.module';
@@ -35,6 +36,7 @@ import { join } from 'path';
     TiposRecursosModule,
     RecursoModule,
     ForoModule,
+    GradosEscolaresModule,
     DiagnosticoAprendizajeModule,
     RutaAprendizajeModule,
     CalificacionRecursoModule,

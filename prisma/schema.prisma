@@ -89,9 +89,11 @@ model Usuario {
 
   institucionId Int
   rolId         Int
+  gradoEscolarId Int?
 
   institucion Institucion @relation(fields: [institucionId], references: [id])
   rol         Rol         @relation(fields: [rolId], references: [id])
+  gradoEscolar GradoEscolar? @relation(fields: [gradoEscolarId], references: [id])
 
   foros                       Foro[]
   comentariosForo             ComentarioForo[]
@@ -101,6 +103,21 @@ model Usuario {
   diagnosticosAprendizaje     DiagnosticoAprendizaje[]
 
   @@map("usuarios")
+}
+
+model GradoEscolar {
+  id        Int      @id @default(autoincrement())
+  nombre    String   @unique
+  codigo    String   @unique
+  orden     Int      @unique
+  estado    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  usuarios Usuario[]
+  recursos Recurso[]
+
+  @@map("grados_escolares")
 }
 
 model Categoria {
@@ -195,11 +212,13 @@ model Recurso {
   categoriaId      Int
   tipoRecursoId    Int
   usuarioCreadorId Int
+  gradoEscolarId   Int?
 
   institucion    Institucion @relation(fields: [institucionId], references: [id])
   categoria      Categoria   @relation(fields: [categoriaId], references: [id])
   tipoRecurso    TipoRecurso @relation(fields: [tipoRecursoId], references: [id])
   usuarioCreador Usuario     @relation(fields: [usuarioCreadorId], references: [id])
+  gradoEscolar   GradoEscolar? @relation(fields: [gradoEscolarId], references: [id])
 
   calificaciones          CalificacionRecurso[]
   detallesRutaAprendizaje DetalleRutaAprendizaje[]

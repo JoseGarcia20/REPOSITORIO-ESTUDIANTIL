@@ -1,56 +1,38 @@
-import { Body, Controller, Get, Param, ParseIntPipe, Patch, Post, Put } from '@nestjs/common';
+import { Body, Controller, Get, Param, ParseIntPipe, Post, Req } from '@nestjs/common';
+import { RequierePermisos } from '../../auth/decoradores/requiere-permisos.decorator';
+import { PERMISOS } from '../../auth/utils/roles.util';
 import { CalificacionRecursoService } from '../servicios/calificacionRecurso.service';
-import { CrearCalificacionRecursoDto } from '../dto/crear-calificacionRecurso.dto';
-import { ActualizarCalificacionRecursoDto } from '../dto/actualizar-calificacionRecurso.dto';
+import { CalificarRecursoDto } from '../dto/calificar-recurso.dto';
 
 @Controller('calificacion-recurso')
 export class CalificacionRecursoController {
+  constructor(
+    private readonly calificacionRecursoService: CalificacionRecursoService,
+  ) {}
 
-  constructor(private readonly calificacionRecursoService: CalificacionRecursoService) {}
-
-  //Endpoint para la creacion de un nuevo CR
-  @Post()
-  async crear(@Body() body: CrearCalificacionRecursoDto) {
-    return await this.calificacionRecursoService.crear(body);
-  }
-
-  //Endpoint para listar todos los CR activos
-  @Get()
-  async listar() {
-    return await this.calificacionRecursoService.listar();
-  }
-
-  //Endpoint para listar todos los CR, incluyendo los inactivos
-  @Get('todas')
-  async listarTodas() {
-    return await this.calificacionRecursoService.listarTodos();
-  }
-
-  //Endpoint para obtener un CR por su id
-  @Get(':id')
-  async obtenerPorId(@Param('id', ParseIntPipe) id: number) {
-    return await this.calificacionRecursoService.obtenerPorId(Number(id));
-  }
-
-  //Endpoint para actualizar un CR por su id
-  @Put(':id')
-  async actualizar(
-    @Param('id', ParseIntPipe) id: number,
-    @Body() body: ActualizarCalificacionRecursoDto,
+  @Get('recurso/:recursoId/resumen')
+  @RequierePermisos(PERMISOS.RECURSOS_VER)
+  async obtenerResumen(
+    @Param('recursoId', ParseIntPipe) recursoId: number,
+    @Req() req: any,
   ) {
-    return await this.calificacionRecursoService.actualizar(id, body);
+    return await this.calificacionRecursoService.obtenerResumen(
+      recursoId,
+      req.usuarioAuth,
+    );
   }
 
-  //Endpoint para inactivar un CR por su id
-  @Patch(':id/inactivar')
-  async inactivar(@Param('id', ParseIntPipe) id: number) {
-    return await this.calificacionRecursoService.inactivar(id);
+  @Post('recurso/:recursoId')
+  @RequierePermisos(PERMISOS.RECURSOS_VER)
+  async calificar(
+    @Param('recursoId', ParseIntPipe) recursoId: number,
+    @Body() body: CalificarRecursoDto,
+    @Req() req: any,
+  ) {
+    return await this.calificacionRecursoService.calificar(
+      recursoId,
+      body,
+      req.usuarioAuth,
+    );
   }
-
-  //Endpoint para reactivar un CR por su id
-  @Patch(':id/reactivar')
-  async reactivar(@Param('id', ParseIntPipe) id: number) {
-    return await this.calificacionRecursoService.reactivar(id);
-  }
-
 }

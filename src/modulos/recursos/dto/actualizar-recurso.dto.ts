@@ -39,6 +39,10 @@ export class ActualizarRecursoDto {
   nivelAcademico?: string;
 
   @IsOptional()
+  @IsInt()
+  gradoEscolarId?: number;
+
+  @IsOptional()
   @IsBoolean()
   estado?: boolean;
 

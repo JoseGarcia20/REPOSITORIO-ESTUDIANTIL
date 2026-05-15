@@ -30,6 +30,7 @@ export const PERMISOS = {
   TIPOS_RECURSOS_CAMBIAR_ESTADO: 'tipos_recursos.cambiar_estado',
 
   RECURSOS_VER: 'recursos.ver',
+  RECURSOS_VER_TODOS_GRADOS: 'recursos.ver_todos_grados',
   RECURSOS_CREAR: 'recursos.crear',
   RECURSOS_EDITAR: 'recursos.editar',
   RECURSOS_CAMBIAR_ESTADO: 'recursos.cambiar_estado',
@@ -51,6 +52,7 @@ export type UsuarioAuthConPermisos = {
   rolId?: number;
   rol?: string;
   institucionId?: number;
+  gradoEscolarId?: number | null;
   permisos?: string[];
 };
 

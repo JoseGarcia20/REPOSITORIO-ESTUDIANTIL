@@ -31,11 +31,18 @@ const accesos: AccesoDashboard[] = [
     etiqueta: 'Comunidad',
   },
   {
-    titulo: 'Recursos',
-    descripcion: 'Biblioteca académica, archivos, enlaces y materiales.',
-    ruta: '/admin/recursos',
+    titulo: 'Gestor de recursos',
+    descripcion: 'Repositorio visual de archivos, enlaces y materiales educativos.',
+    ruta: '/repositorio/recursos',
     permiso: PERMISOS.RECURSOS_VER,
     etiqueta: 'Aprendizaje',
+  },
+  {
+    titulo: 'Maestro de recursos',
+    descripcion: 'Administración de recursos, archivos y publicación de materiales.',
+    ruta: '/admin/recursos',
+    permiso: PERMISOS.RECURSOS_CREAR,
+    etiqueta: 'Administración',
   },
   {
     titulo: 'Foros académicos',

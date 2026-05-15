@@ -39,6 +39,9 @@ export class CrearRecursoDto {
   @IsString()
   nivelAcademico?: string;
 
+  @IsInt()
+  gradoEscolarId!: number;
+
   @IsOptional()
   @IsBoolean()
   publicado?: boolean;

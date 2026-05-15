@@ -389,6 +389,7 @@ export const ModelName = {
   Permiso: 'Permiso',
   RolPermiso: 'RolPermiso',
   Usuario: 'Usuario',
+  GradoEscolar: 'GradoEscolar',
   Categoria: 'Categoria',
   Foro: 'Foro',
   ComentarioForo: 'ComentarioForo',
@@ -416,7 +417,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "institucion" | "rol" | "permiso" | "rolPermiso" | "usuario" | "categoria" | "foro" | "comentarioForo" | "tipoRecurso" | "recurso" | "calificacionRecurso" | "tipoAprendizaje" | "rutaAprendizaje" | "detalleRutaAprendizaje" | "asignacionRutaAprendizaje" | "diagnosticoAprendizaje" | "detalleDiagnosticoAprendizaje"
+    modelProps: "institucion" | "rol" | "permiso" | "rolPermiso" | "usuario" | "gradoEscolar" | "categoria" | "foro" | "comentarioForo" | "tipoRecurso" | "recurso" | "calificacionRecurso" | "tipoAprendizaje" | "rutaAprendizaje" | "detalleRutaAprendizaje" | "asignacionRutaAprendizaje" | "diagnosticoAprendizaje" | "detalleDiagnosticoAprendizaje"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -787,6 +788,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.UsuarioCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.UsuarioCountAggregateOutputType> | number
+        }
+      }
+    }
+    GradoEscolar: {
+      payload: Prisma.$GradoEscolarPayload<ExtArgs>
+      fields: Prisma.GradoEscolarFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.GradoEscolarFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GradoEscolarPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.GradoEscolarFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GradoEscolarPayload>
+        }
+        findFirst: {
+          args: Prisma.GradoEscolarFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GradoEscolarPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.GradoEscolarFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GradoEscolarPayload>
+        }
+        findMany: {
+          args: Prisma.GradoEscolarFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GradoEscolarPayload>[]
+        }
+        create: {
+          args: Prisma.GradoEscolarCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GradoEscolarPayload>
+        }
+        createMany: {
+          args: Prisma.GradoEscolarCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.GradoEscolarCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GradoEscolarPayload>[]
+        }
+        delete: {
+          args: Prisma.GradoEscolarDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GradoEscolarPayload>
+        }
+        update: {
+          args: Prisma.GradoEscolarUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GradoEscolarPayload>
+        }
+        deleteMany: {
+          args: Prisma.GradoEscolarDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.GradoEscolarUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.GradoEscolarUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GradoEscolarPayload>[]
+        }
+        upsert: {
+          args: Prisma.GradoEscolarUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GradoEscolarPayload>
+        }
+        aggregate: {
+          args: Prisma.GradoEscolarAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateGradoEscolar>
+        }
+        groupBy: {
+          args: Prisma.GradoEscolarGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.GradoEscolarGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.GradoEscolarCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.GradoEscolarCountAggregateOutputType> | number
         }
       }
     }
@@ -1785,10 +1860,24 @@ export const UsuarioScalarFieldEnum = {
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   institucionId: 'institucionId',
-  rolId: 'rolId'
+  rolId: 'rolId',
+  gradoEscolarId: 'gradoEscolarId'
 } as const
 
 export type UsuarioScalarFieldEnum = (typeof UsuarioScalarFieldEnum)[keyof typeof UsuarioScalarFieldEnum]
+
+
+export const GradoEscolarScalarFieldEnum = {
+  id: 'id',
+  nombre: 'nombre',
+  codigo: 'codigo',
+  orden: 'orden',
+  estado: 'estado',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type GradoEscolarScalarFieldEnum = (typeof GradoEscolarScalarFieldEnum)[keyof typeof GradoEscolarScalarFieldEnum]
 
 
 export const CategoriaScalarFieldEnum = {
@@ -1866,7 +1955,8 @@ export const RecursoScalarFieldEnum = {
   institucionId: 'institucionId',
   categoriaId: 'categoriaId',
   tipoRecursoId: 'tipoRecursoId',
-  usuarioCreadorId: 'usuarioCreadorId'
+  usuarioCreadorId: 'usuarioCreadorId',
+  gradoEscolarId: 'gradoEscolarId'
 } as const
 
 export type RecursoScalarFieldEnum = (typeof RecursoScalarFieldEnum)[keyof typeof RecursoScalarFieldEnum]
@@ -2164,6 +2254,7 @@ export type GlobalOmitConfig = {
   permiso?: Prisma.PermisoOmit
   rolPermiso?: Prisma.RolPermisoOmit
   usuario?: Prisma.UsuarioOmit
+  gradoEscolar?: Prisma.GradoEscolarOmit
   categoria?: Prisma.CategoriaOmit
   foro?: Prisma.ForoOmit
   comentarioForo?: Prisma.ComentarioForoOmit

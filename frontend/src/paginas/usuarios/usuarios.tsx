@@ -5,6 +5,7 @@ import {
   crearUsuarioAdmin,
   esSuperadministrador,
   inactivarUsuarioAdmin,
+  obtenerGradosEscolares,
   obtenerInstitucionesAdmin,
   obtenerRolesAsignablesAdmin,
   obtenerUsuarioAutenticado,
@@ -15,6 +16,7 @@ import {
 } from '../../api/adminApi';
 import type {
   InstitucionCatalogo,
+  GradoEscolar,
   Rol,
   UsuarioAdmin,
 } from '../../api/adminApi';
@@ -31,6 +33,7 @@ type FormularioUsuario = {
   contrasena: string;
   institucionId: string;
   rolId: string;
+  gradoEscolarId: string;
 };
 
 function normalizarFecha(valor?: string): string {
@@ -52,6 +55,7 @@ function crearFormularioInicial(
     contrasena: '',
     institucionId: esSuper ? '' : String(institucionSesionId || ''),
     rolId: '',
+    gradoEscolarId: '',
   };
 }
 
@@ -68,6 +72,7 @@ export function Usuarios() {
 
   const [usuarios, setUsuarios] = useState<UsuarioAdmin[]>([]);
   const [roles, setRoles] = useState<Rol[]>([]);
+  const [gradosEscolares, setGradosEscolares] = useState<GradoEscolar[]>([]);
   const [instituciones, setInstituciones] = useState<InstitucionCatalogo[]>([]);
   const [cargando, setCargando] = useState(true);
   const [cargandoCatalogos, setCargandoCatalogos] = useState(true);
@@ -79,6 +84,7 @@ export function Usuarios() {
     busqueda: '',
     estado: '',
     rolId: '',
+    gradoEscolarId: '',
     institucionId: '',
   });
   const [modalAbierto, setModalAbierto] = useState(false);
@@ -102,6 +108,12 @@ export function Usuarios() {
     [instituciones],
   );
 
+  const gradosPorId = useMemo(
+    () =>
+      new Map(gradosEscolares.map((grado) => [grado.id, grado.nombre])),
+    [gradosEscolares],
+  );
+
   useEffect(() => {
     cargarCatalogos();
   }, []);
@@ -119,13 +131,15 @@ export function Usuarios() {
   async function cargarCatalogos() {
     try {
       setCargandoCatalogos(true);
-      const [rolesData, institucionesData] = await Promise.all([
+      const [rolesData, institucionesData, gradosData] = await Promise.all([
         obtenerRolesAsignablesAdmin(),
         obtenerInstitucionesAdmin(),
+        obtenerGradosEscolares(),
       ]);
 
       setRoles(rolesData);
       setInstituciones(institucionesData);
+      setGradosEscolares(gradosData);
     } catch {
       setError('No se pudieron cargar los catálogos de usuarios');
     } finally {
@@ -144,6 +158,7 @@ export function Usuarios() {
         busqueda: filtros.busqueda,
         estado: filtros.estado,
         rolId: filtros.rolId,
+        gradoEscolarId: filtros.gradoEscolarId,
         institucionId: esSuper ? filtros.institucionId : undefined,
       });
 
@@ -177,6 +192,7 @@ export function Usuarios() {
       busqueda: '',
       estado: '',
       rolId: '',
+      gradoEscolarId: '',
       institucionId: '',
     });
     setPagina(1);
@@ -202,6 +218,7 @@ export function Usuarios() {
       contrasena: '',
       institucionId: String(usuario.institucionId),
       rolId: String(usuario.rolId),
+      gradoEscolarId: usuario.gradoEscolarId ? String(usuario.gradoEscolarId) : '',
     });
     setModalAbierto(true);
   }
@@ -233,6 +250,9 @@ export function Usuarios() {
         genero: formulario.genero,
         institucionId,
         rolId: Number(formulario.rolId),
+        gradoEscolarId: formulario.gradoEscolarId
+          ? Number(formulario.gradoEscolarId)
+          : undefined,
       };
 
       if (modoEdicion && usuarioEditandoId) {
@@ -322,6 +342,19 @@ export function Usuarios() {
             ))}
           </select>
 
+          <select
+            name="gradoEscolarId"
+            value={filtros.gradoEscolarId}
+            onChange={manejarFiltro}
+          >
+            <option value="">Todos los grados</option>
+            {gradosEscolares.map((grado) => (
+              <option key={grado.id} value={grado.id}>
+                {grado.nombre}
+              </option>
+            ))}
+          </select>
+
           {esSuper && (
             <select
               name="institucionId"
@@ -355,6 +388,7 @@ export function Usuarios() {
                   <th>Nombre</th>
                   <th>Documento</th>
                   <th>Rol</th>
+                  <th>Grado</th>
                   <th>Institución</th>
                   <th>Estado</th>
                   {tieneAcciones && <th>Acciones</th>}
@@ -377,6 +411,13 @@ export function Usuarios() {
                     </td>
                     <td data-label="Rol">
                       {rolesPorId.get(usuario.rolId) || `ID ${usuario.rolId}`}
+                    </td>
+                    <td data-label="Grado">
+                      {usuario.gradoEscolar?.nombre ||
+                        (usuario.gradoEscolarId
+                          ? gradosPorId.get(usuario.gradoEscolarId) ||
+                            `ID ${usuario.gradoEscolarId}`
+                          : 'Sin grado')}
                     </td>
                     <td data-label="Institución">
                       {institucionesPorId.get(usuario.institucionId) ||
@@ -426,7 +467,7 @@ export function Usuarios() {
                 {usuarios.length === 0 && (
                   <tr>
                     <td
-                      colSpan={tieneAcciones ? 6 : 5}
+                      colSpan={tieneAcciones ? 7 : 6}
                       className="empty-table"
                     >
                       No hay usuarios registrados.
@@ -576,6 +617,22 @@ export function Usuarios() {
                     {roles.map((rol) => (
                       <option key={rol.id} value={rol.id}>
                         {rol.nombre}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="form-group">
+                  <label>Grado escolar</label>
+                  <select
+                    name="gradoEscolarId"
+                    value={formulario.gradoEscolarId}
+                    onChange={manejarCambio}
+                  >
+                    <option value="">Sin grado asignado</option>
+                    {gradosEscolares.map((grado) => (
+                      <option key={grado.id} value={grado.id}>
+                        {grado.nombre}
                       </option>
                     ))}
                   </select>

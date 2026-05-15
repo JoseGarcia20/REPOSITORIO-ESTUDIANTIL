@@ -61,12 +61,14 @@ export class RecursoController {
           'image/png',
           'image/jpeg',
           'image/webp',
+          'video/mp4',
+          'video/webm',
         ];
 
         if (!permitidos.includes(file.mimetype)) {
           return callback(
             new BadRequestException(
-              'Solo se permiten PDF, Word, PowerPoint e imágenes',
+              'Solo se permiten PDF, Word, PowerPoint, imágenes y videos',
             ),
             false,
           );

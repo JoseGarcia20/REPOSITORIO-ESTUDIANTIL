@@ -38,6 +38,15 @@ export class UsuarioService {
     updatedAt: true,
     institucionId: true,
     rolId: true,
+    gradoEscolarId: true,
+    gradoEscolar: {
+      select: {
+        id: true,
+        nombre: true,
+        codigo: true,
+        orden: true,
+      },
+    },
   } satisfies Prisma.UsuarioSelect;
 
   private construirFiltroUsuarios(
@@ -63,6 +72,10 @@ export class UsuarioService {
 
     if (query.rolId) {
       where.rolId = Number(query.rolId);
+    }
+
+    if (query.gradoEscolarId) {
+      where.gradoEscolarId = Number(query.gradoEscolarId);
     }
 
     if (busqueda) {

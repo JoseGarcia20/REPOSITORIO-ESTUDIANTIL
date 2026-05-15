@@ -46,4 +46,8 @@ export class ActualizarUsuarioDto {
   @IsInt()
   rolId?: number;
 
+  @IsOptional()
+  @IsInt()
+  gradoEscolarId?: number;
+
 }

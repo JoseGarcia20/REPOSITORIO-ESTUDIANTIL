@@ -1,0 +1,583 @@
+import { useEffect, useState } from 'react';
+import type { ChangeEvent } from 'react';
+import {
+  API_URL,
+  calificarRecurso,
+  obtenerGradosEscolares,
+  obtenerRecursosRepositorio,
+  obtenerResumenCalificacionRecurso,
+  PERMISOS,
+  usuarioTienePermiso,
+} from '../../api/adminApi';
+import type {
+  GradoEscolar,
+  Recurso,
+  ResumenCalificacionRecurso,
+} from '../../api/adminApi';
+import './gestorRecursos.css';
+
+type VistaRepositorio = 'tarjetas' | 'lista';
+
+type FiltrosRepositorio = {
+  busqueda: string;
+  tipoArchivo: string;
+  gradoEscolarId: string;
+};
+
+function obtenerUrlRecurso(recurso: Recurso) {
+  if (recurso.rutaRecurso) {
+    return `${API_URL}${recurso.rutaRecurso}`;
+  }
+
+  return recurso.urlRecurso || '';
+}
+
+function obtenerExtension(recurso: Recurso) {
+  const ruta = recurso.rutaRecurso || recurso.urlRecurso || '';
+  const limpia = ruta.split('?')[0];
+  return limpia.includes('.') ? limpia.split('.').pop()?.toLowerCase() || '' : '';
+}
+
+function describirTipoArchivo(recurso: Recurso) {
+  const extension = obtenerExtension(recurso);
+
+  if (!extension && recurso.urlRecurso) {
+    return 'Enlace';
+  }
+
+  if (extension === 'pdf') {
+    return 'PDF';
+  }
+
+  if (['doc', 'docx'].includes(extension)) {
+    return 'Word';
+  }
+
+  if (['ppt', 'pptx'].includes(extension)) {
+    return 'PowerPoint';
+  }
+
+  if (['png', 'jpg', 'jpeg', 'webp'].includes(extension)) {
+    return 'Imagen';
+  }
+
+  if (['mp4', 'webm'].includes(extension)) {
+    return 'Video';
+  }
+
+  return extension ? extension.toUpperCase() : 'Recurso';
+}
+
+function obtenerClaseArchivo(recurso: Recurso) {
+  const extension = obtenerExtension(recurso);
+
+  if (extension === 'pdf') return 'pdf';
+  if (['doc', 'docx'].includes(extension)) return 'word';
+  if (['ppt', 'pptx'].includes(extension)) return 'slide';
+  if (['png', 'jpg', 'jpeg', 'webp'].includes(extension)) return 'image';
+  if (['mp4', 'webm'].includes(extension)) return 'video';
+  if (recurso.urlRecurso) return 'link';
+  return 'file';
+}
+
+function puedePrevisualizarComoImagen(recurso: Recurso) {
+  return ['png', 'jpg', 'jpeg', 'webp'].includes(obtenerExtension(recurso));
+}
+
+function puedePrevisualizarComoPdf(recurso: Recurso) {
+  return obtenerExtension(recurso) === 'pdf';
+}
+
+function puedePrevisualizarComoVideo(recurso: Recurso) {
+  return ['mp4', 'webm'].includes(obtenerExtension(recurso));
+}
+
+function puedePrevisualizarComoOffice(recurso: Recurso) {
+  return ['doc', 'docx', 'ppt', 'pptx'].includes(obtenerExtension(recurso));
+}
+
+function crearUrlOfficeViewer(url: string) {
+  return `https://view.officeapps.live.com/op/embed.aspx?src=${encodeURIComponent(url)}`;
+}
+
+function separarPalabrasClave(valor?: string) {
+  if (!valor) return [];
+  return valor
+    .split(',')
+    .map((item) => item.trim())
+    .filter(Boolean)
+    .slice(0, 5);
+}
+
+function nombreCreador(recurso: Recurso) {
+  if (!recurso.usuarioCreador) return 'Sin responsable';
+  return `${recurso.usuarioCreador.nombres} ${recurso.usuarioCreador.apellidos}`;
+}
+
+export function GestorRecursos() {
+  const puedeVerTodosLosGrados = usuarioTienePermiso(
+    PERMISOS.RECURSOS_VER_TODOS_GRADOS,
+  );
+  const [recursos, setRecursos] = useState<Recurso[]>([]);
+  const [gradosEscolares, setGradosEscolares] = useState<GradoEscolar[]>([]);
+  const [recursoSeleccionado, setRecursoSeleccionado] =
+    useState<Recurso | null>(null);
+  const [resumenCalificacion, setResumenCalificacion] =
+    useState<ResumenCalificacionRecurso | null>(null);
+  const [guardandoCalificacion, setGuardandoCalificacion] = useState(false);
+  const [vista, setVista] = useState<VistaRepositorio>('tarjetas');
+  const [filtros, setFiltros] = useState<FiltrosRepositorio>({
+    busqueda: '',
+    tipoArchivo: '',
+    gradoEscolarId: '',
+  });
+  const [pagina, setPagina] = useState(1);
+  const [total, setTotal] = useState(0);
+  const [totalPaginas, setTotalPaginas] = useState(1);
+  const [cargando, setCargando] = useState(true);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    cargarRecursos();
+  }, [pagina, filtros.busqueda, filtros.tipoArchivo, filtros.gradoEscolarId]);
+
+  useEffect(() => {
+    cargarGradosEscolares();
+  }, []);
+
+  useEffect(() => {
+    if (recursoSeleccionado) {
+      cargarResumenCalificacion(recursoSeleccionado.id);
+    } else {
+      setResumenCalificacion(null);
+    }
+  }, [recursoSeleccionado?.id]);
+
+  async function cargarGradosEscolares() {
+    try {
+      const grados = await obtenerGradosEscolares();
+      setGradosEscolares(grados);
+    } catch {
+      setGradosEscolares([]);
+    }
+  }
+
+  async function cargarRecursos() {
+    try {
+      setCargando(true);
+      setError('');
+
+      const respuesta = await obtenerRecursosRepositorio({
+        pagina,
+        limite: 12,
+        busqueda: filtros.busqueda,
+        tipoArchivo: filtros.tipoArchivo,
+        gradoEscolarId: puedeVerTodosLosGrados
+          ? filtros.gradoEscolarId
+          : undefined,
+      });
+
+      setRecursos(respuesta.data);
+      setTotal(respuesta.total);
+      setTotalPaginas(respuesta.totalPaginas);
+    } catch {
+      setError('No se pudieron cargar los recursos del repositorio');
+    } finally {
+      setCargando(false);
+    }
+  }
+
+  function manejarFiltro(event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
+    const { name, value } = event.target;
+    setFiltros((prev) => ({ ...prev, [name]: value }));
+
+    setPagina(1);
+  }
+
+  function limpiarFiltros() {
+    setFiltros({
+      busqueda: '',
+      tipoArchivo: '',
+      gradoEscolarId: '',
+    });
+    setPagina(1);
+  }
+
+  async function cargarResumenCalificacion(recursoId: number) {
+    try {
+      const resumen = await obtenerResumenCalificacionRecurso(recursoId);
+      setResumenCalificacion(resumen);
+    } catch {
+      setResumenCalificacion(null);
+    }
+  }
+
+  async function manejarCalificacion(valor: number) {
+    if (!recursoSeleccionado || guardandoCalificacion) {
+      return;
+    }
+
+    try {
+      setGuardandoCalificacion(true);
+      await calificarRecurso(recursoSeleccionado.id, valor);
+      await cargarResumenCalificacion(recursoSeleccionado.id);
+    } catch {
+      alert('No se pudo guardar la calificación.');
+    } finally {
+      setGuardandoCalificacion(false);
+    }
+  }
+
+  function renderVistaPrevia(recurso: Recurso) {
+    const url = obtenerUrlRecurso(recurso);
+
+    if (!url) {
+      return (
+        <div className="resource-preview-empty">
+          <span>Sin archivo</span>
+          <p>Este recurso no tiene archivo o enlace asociado.</p>
+        </div>
+      );
+    }
+
+    if (puedePrevisualizarComoImagen(recurso)) {
+      return <img src={url} alt={recurso.titulo} />;
+    }
+
+    if (puedePrevisualizarComoPdf(recurso)) {
+      return <iframe src={url} title={recurso.titulo} />;
+    }
+
+    if (puedePrevisualizarComoVideo(recurso)) {
+      return (
+        <video controls>
+          <source src={url} />
+        </video>
+      );
+    }
+
+    if (puedePrevisualizarComoOffice(recurso)) {
+      return <iframe src={crearUrlOfficeViewer(url)} title={recurso.titulo} />;
+    }
+
+    return (
+      <div className="resource-preview-empty">
+        <span>{describirTipoArchivo(recurso)}</span>
+        <p>Abre el recurso en una nueva pestaña para visualizar su contenido.</p>
+        <a href={url} target="_blank" rel="noreferrer">
+          Abrir recurso
+        </a>
+      </div>
+    );
+  }
+
+  function renderTarjeta(recurso: Recurso) {
+    const palabrasClave = separarPalabrasClave(recurso.palabrasClave);
+
+    return (
+      <article
+        className="resource-card"
+        key={recurso.id}
+        onClick={() => setRecursoSeleccionado(recurso)}
+      >
+        <div className={`resource-file-icon ${obtenerClaseArchivo(recurso)}`}>
+          {describirTipoArchivo(recurso)}
+        </div>
+
+        <div className="resource-card-body">
+          <span className="resource-category">
+            {recurso.categoria?.nombre || 'Sin categoría'}
+          </span>
+          <h2>{recurso.titulo}</h2>
+          <p>{recurso.contenidoResumen || 'Sin resumen registrado.'}</p>
+        </div>
+
+        <div className="resource-tags">
+          {palabrasClave.length > 0 ? (
+            palabrasClave.map((palabra) => <span key={palabra}>{palabra}</span>)
+          ) : (
+            <span>Sin palabras clave</span>
+          )}
+        </div>
+
+        <div className="resource-card-footer">
+          <small>{recurso.tipoRecurso?.nombre || describirTipoArchivo(recurso)}</small>
+          <button type="button">Ver detalle</button>
+        </div>
+      </article>
+    );
+  }
+
+  function renderFila(recurso: Recurso) {
+    return (
+      <button
+        className="resource-row"
+        key={recurso.id}
+        onClick={() => setRecursoSeleccionado(recurso)}
+      >
+        <span className="resource-row-main">
+          <span className={`resource-row-icon ${obtenerClaseArchivo(recurso)}`}>
+            {describirTipoArchivo(recurso)}
+          </span>
+          <span>
+            <strong>{recurso.titulo}</strong>
+            <small>{recurso.contenidoResumen || 'Sin resumen registrado.'}</small>
+          </span>
+        </span>
+
+        <span>{recurso.categoria?.nombre || 'Sin categoría'}</span>
+        <span>
+          {recurso.gradoEscolar?.nombre || recurso.nivelAcademico || 'Sin grado'}
+        </span>
+      </button>
+    );
+  }
+
+  return (
+    <section className="repositorio-page">
+      <div className="repositorio-header">
+        <div>
+          <span className="section-label">Repositorio académico</span>
+          <h1>Gestor de recursos</h1>
+          <p>Consulta materiales educativos publicados para tu institución.</p>
+        </div>
+
+        <div className="repo-view-toggle" aria-label="Cambiar vista">
+          <button
+            className={vista === 'tarjetas' ? 'active' : ''}
+            onClick={() => setVista('tarjetas')}
+          >
+            Tarjetas
+          </button>
+          <button
+            className={vista === 'lista' ? 'active' : ''}
+            onClick={() => setVista('lista')}
+          >
+            Lista
+          </button>
+        </div>
+      </div>
+
+      <div className="repo-toolbar">
+        <input
+          name="busqueda"
+          value={filtros.busqueda}
+          onChange={manejarFiltro}
+          placeholder="Buscar recursos por título, autor, palabras clave o nivel"
+        />
+
+        <select
+          name="tipoArchivo"
+          value={filtros.tipoArchivo}
+          onChange={manejarFiltro}
+        >
+          <option value="">Todos los formatos</option>
+          <option value="pdf">PDF</option>
+          <option value="word">Word</option>
+          <option value="slide">PowerPoint</option>
+          <option value="image">Imagen</option>
+          <option value="video">Video</option>
+          <option value="link">Enlace</option>
+        </select>
+
+        {puedeVerTodosLosGrados && (
+          <select
+            name="gradoEscolarId"
+            value={filtros.gradoEscolarId}
+            onChange={manejarFiltro}
+          >
+            <option value="">Todos los grados</option>
+            {gradosEscolares.map((grado) => (
+              <option key={grado.id} value={grado.id}>
+                {grado.nombre}
+              </option>
+            ))}
+          </select>
+        )}
+
+        <button className="secondary-button" onClick={limpiarFiltros}>
+          Limpiar
+        </button>
+      </div>
+
+      {cargando && <p className="state-message">Cargando recursos...</p>}
+      {error && <p className="state-message error">{error}</p>}
+
+      {!cargando && !error && recursos.length === 0 && (
+        <div className="repo-empty">
+          <span>Repositorio vacío</span>
+          <p>No hay recursos publicados que coincidan con la búsqueda actual.</p>
+        </div>
+      )}
+
+      {!cargando && !error && recursos.length > 0 && (
+        <>
+          {vista === 'tarjetas' ? (
+            <div className="resource-grid">
+              {recursos.map((recurso) => renderTarjeta(recurso))}
+            </div>
+          ) : (
+            <div className="resource-list">
+              <div className="resource-list-head">
+                <span>Recurso</span>
+                <span>Categoría</span>
+                <span>Grado</span>
+              </div>
+              {recursos.map((recurso) => renderFila(recurso))}
+            </div>
+          )}
+
+          <div className="pagination-bar repo-pagination">
+            <span>
+              {total} recursos publicados · Página {pagina} de {totalPaginas}
+            </span>
+            <div>
+              <button
+                className="secondary-button"
+                onClick={() => setPagina((prev) => Math.max(prev - 1, 1))}
+                disabled={pagina <= 1}
+              >
+                Anterior
+              </button>
+              <button
+                className="secondary-button"
+                onClick={() =>
+                  setPagina((prev) => Math.min(prev + 1, totalPaginas))
+                }
+                disabled={pagina >= totalPaginas}
+              >
+                Siguiente
+              </button>
+            </div>
+          </div>
+        </>
+      )}
+
+      {recursoSeleccionado && (
+        <div className="resource-modal-overlay">
+          <div className="resource-modal">
+            <div className="resource-modal-header">
+              <div>
+                <span className="section-label">Detalle del recurso</span>
+                <h2>{recursoSeleccionado.titulo}</h2>
+                <p>
+                  {recursoSeleccionado.categoria?.nombre || 'Sin categoría'} ·{' '}
+                  {describirTipoArchivo(recursoSeleccionado)}
+                </p>
+              </div>
+
+              <button
+                className="modal-close"
+                onClick={() => setRecursoSeleccionado(null)}
+                aria-label="Cerrar"
+              >
+                ×
+              </button>
+            </div>
+
+            <div className="resource-modal-content">
+              <div className="resource-preview">
+                {renderVistaPrevia(recursoSeleccionado)}
+              </div>
+
+              <aside className="resource-detail-panel">
+                <div className="resource-rating-box">
+                  <span>Calificación</span>
+                  <strong>
+                    {resumenCalificacion?.promedio
+                      ? resumenCalificacion.promedio.toFixed(1)
+                      : '0.0'}
+                  </strong>
+                  <small>
+                    {resumenCalificacion?.total || 0} valoraciones
+                  </small>
+                  <div className="resource-stars">
+                    {[1, 2, 3, 4, 5].map((valor) => (
+                      <button
+                        key={valor}
+                        className={
+                          valor <= (resumenCalificacion?.miCalificacion || 0)
+                            ? 'active'
+                            : ''
+                        }
+                        onClick={() => manejarCalificacion(valor)}
+                        disabled={guardandoCalificacion}
+                        aria-label={`Calificar con ${valor} estrellas`}
+                      >
+                        ★
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <span>Resumen</span>
+                  <p>
+                    {recursoSeleccionado.contenidoResumen ||
+                      'Este recurso no tiene resumen registrado.'}
+                  </p>
+                </div>
+
+                <dl>
+                  <div>
+                    <dt>Tipo</dt>
+                    <dd>
+                      {recursoSeleccionado.tipoRecurso?.nombre ||
+                        describirTipoArchivo(recursoSeleccionado)}
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>Grado escolar</dt>
+                    <dd>
+                      {recursoSeleccionado.gradoEscolar?.nombre ||
+                        recursoSeleccionado.nivelAcademico ||
+                        'Sin grado'}
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>Autor</dt>
+                    <dd>{recursoSeleccionado.autorNombre || 'Sin autor'}</dd>
+                  </div>
+                  <div>
+                    <dt>Fuente</dt>
+                    <dd>{recursoSeleccionado.fuente || 'Sin fuente'}</dd>
+                  </div>
+                  <div>
+                    <dt>Institución</dt>
+                    <dd>
+                      {recursoSeleccionado.institucion?.nombre ||
+                        'Sin institución'}
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>Responsable</dt>
+                    <dd>{nombreCreador(recursoSeleccionado)}</dd>
+                  </div>
+                </dl>
+
+                <div className="resource-detail-tags">
+                  {separarPalabrasClave(recursoSeleccionado.palabrasClave).map(
+                    (palabra) => (
+                      <span key={palabra}>{palabra}</span>
+                    ),
+                  )}
+                </div>
+
+                {obtenerUrlRecurso(recursoSeleccionado) && (
+                  <a
+                    className="resource-open-link"
+                    href={obtenerUrlRecurso(recursoSeleccionado)}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Abrir en nueva pestaña
+                  </a>
+                )}
+              </aside>
+            </div>
+          </div>
+        </div>
+      )}
+    </section>
+  );
+}

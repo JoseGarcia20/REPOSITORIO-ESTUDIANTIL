@@ -7,6 +7,8 @@ export type ConsultaPaginada = {
   rolId?: string;
   categoriaId?: string;
   tipoRecursoId?: string;
+  tipoArchivo?: string;
+  gradoEscolarId?: string;
   publicado?: string;
   publico?: string;
   cerrado?: string;

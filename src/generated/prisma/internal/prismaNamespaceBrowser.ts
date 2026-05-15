@@ -56,6 +56,7 @@ export const ModelName = {
   Permiso: 'Permiso',
   RolPermiso: 'RolPermiso',
   Usuario: 'Usuario',
+  GradoEscolar: 'GradoEscolar',
   Categoria: 'Categoria',
   Foro: 'Foro',
   ComentarioForo: 'ComentarioForo',
@@ -154,10 +155,24 @@ export const UsuarioScalarFieldEnum = {
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   institucionId: 'institucionId',
-  rolId: 'rolId'
+  rolId: 'rolId',
+  gradoEscolarId: 'gradoEscolarId'
 } as const
 
 export type UsuarioScalarFieldEnum = (typeof UsuarioScalarFieldEnum)[keyof typeof UsuarioScalarFieldEnum]
+
+
+export const GradoEscolarScalarFieldEnum = {
+  id: 'id',
+  nombre: 'nombre',
+  codigo: 'codigo',
+  orden: 'orden',
+  estado: 'estado',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type GradoEscolarScalarFieldEnum = (typeof GradoEscolarScalarFieldEnum)[keyof typeof GradoEscolarScalarFieldEnum]
 
 
 export const CategoriaScalarFieldEnum = {
@@ -235,7 +250,8 @@ export const RecursoScalarFieldEnum = {
   institucionId: 'institucionId',
   categoriaId: 'categoriaId',
   tipoRecursoId: 'tipoRecursoId',
-  usuarioCreadorId: 'usuarioCreadorId'
+  usuarioCreadorId: 'usuarioCreadorId',
+  gradoEscolarId: 'gradoEscolarId'
 } as const
 
 export type RecursoScalarFieldEnum = (typeof RecursoScalarFieldEnum)[keyof typeof RecursoScalarFieldEnum]

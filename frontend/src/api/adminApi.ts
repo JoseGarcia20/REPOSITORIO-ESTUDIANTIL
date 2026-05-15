@@ -30,6 +30,14 @@ export type TipoRecurso = {
   estado: boolean;
 };
 
+export type GradoEscolar = {
+  id: number;
+  nombre: string;
+  codigo: string;
+  orden: number;
+  estado: boolean;
+};
+
 export type UsuarioAdmin = {
   id: number;
   nombres: string;
@@ -43,6 +51,8 @@ export type UsuarioAdmin = {
   activo: boolean;
   institucionId: number;
   rolId: number;
+  gradoEscolarId?: number;
+  gradoEscolar?: GradoEscolar | null;
 };
 
 export type Recurso = {
@@ -55,6 +65,7 @@ export type Recurso = {
   fuente?: string;
   autorNombre?: string;
   nivelAcademico?: string;
+  gradoEscolarId?: number;
   estado: boolean;
   publicado: boolean;
   institucionId: number;
@@ -78,6 +89,7 @@ export type Recurso = {
     nombres: string;
     apellidos: string;
   };
+  gradoEscolar?: GradoEscolar | null;
 };
 
 export type UsuarioSesion = {
@@ -96,6 +108,7 @@ export type UsuarioSesion = {
     nombre: string;
     logo?: string;
   };
+  gradoEscolar?: GradoEscolar | null;
 };
 
 export type CrearUsuarioPayload = {
@@ -109,6 +122,7 @@ export type CrearUsuarioPayload = {
   contrasena: string;
   institucionId: number;
   rolId: number;
+  gradoEscolarId?: number;
 };
 
 export type ActualizarUsuarioPayload = Omit<
@@ -143,6 +157,7 @@ export type RecursoPayload = {
   fuente?: string;
   autorNombre?: string;
   nivelAcademico?: string;
+  gradoEscolarId: number;
   publicado?: boolean;
   institucionId?: number;
   categoriaId: number;
@@ -224,6 +239,8 @@ export type ConsultaPaginada = {
   rolId?: number | string;
   categoriaId?: number | string;
   tipoRecursoId?: number | string;
+  tipoArchivo?: string;
+  gradoEscolarId?: number | string;
   publicado?: string;
   publico?: string;
   cerrado?: string;
@@ -261,6 +278,7 @@ export const PERMISOS = {
   TIPOS_RECURSOS_EDITAR: 'tipos_recursos.editar',
   TIPOS_RECURSOS_CAMBIAR_ESTADO: 'tipos_recursos.cambiar_estado',
   RECURSOS_VER: 'recursos.ver',
+  RECURSOS_VER_TODOS_GRADOS: 'recursos.ver_todos_grados',
   RECURSOS_CREAR: 'recursos.crear',
   RECURSOS_EDITAR: 'recursos.editar',
   RECURSOS_CAMBIAR_ESTADO: 'recursos.cambiar_estado',
@@ -488,6 +506,13 @@ export function reactivarTipoRecurso(id: number) {
   return cambiarEstado<TipoRecurso>('/tipos-recursos', id, 'reactivar');
 }
 
+export function obtenerGradosEscolares() {
+  return get<GradoEscolar[]>(
+    '/grados-escolares',
+    'Error al obtener grados escolares',
+  );
+}
+
 export function obtenerUsuariosAdmin(query?: ConsultaPaginada) {
   return get<RespuestaPaginada<UsuarioAdmin>>(
     conQuery('/usuarios/todos', query),
@@ -525,6 +550,16 @@ export function obtenerRecursosAdmin(query?: ConsultaPaginada) {
   );
 }
 
+export function obtenerRecursosRepositorio(query?: ConsultaPaginada) {
+  return get<RespuestaPaginada<Recurso>>(
+    conQuery('/recursos', {
+      ...query,
+      publicado: 'true',
+    }),
+    'Error al obtener recursos del repositorio',
+  );
+}
+
 export function crearRecurso(data: RecursoPayload) {
   return post<Recurso>('/recursos', data, 'Error al crear recurso');
 }
@@ -539,6 +574,31 @@ export function inactivarRecurso(id: number) {
 
 export function reactivarRecurso(id: number) {
   return cambiarEstado<Recurso>('/recursos', id, 'reactivar');
+}
+
+export type ResumenCalificacionRecurso = {
+  promedio: number;
+  total: number;
+  miCalificacion: number | null;
+};
+
+export function obtenerResumenCalificacionRecurso(recursoId: number) {
+  return get<ResumenCalificacionRecurso>(
+    `/calificacion-recurso/recurso/${recursoId}/resumen`,
+    'Error al obtener calificación del recurso',
+  );
+}
+
+export function calificarRecurso(
+  recursoId: number,
+  calificacion: number,
+  comentario?: string,
+) {
+  return post(
+    `/calificacion-recurso/recurso/${recursoId}`,
+    { calificacion, comentario },
+    'Error al calificar recurso',
+  );
 }
 
 export function obtenerForosAcademicos(query?: ConsultaPaginada) {

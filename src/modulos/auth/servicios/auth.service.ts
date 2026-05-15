@@ -32,6 +32,7 @@ export class AuthService {
           },
         },
         institucion: true,
+        gradoEscolar: true,
       },
     });
 
@@ -57,6 +58,7 @@ export class AuthService {
       rolId: usuario.rolId,
       rol: usuario.rol.nombre,
       institucionId: usuario.institucionId,
+      gradoEscolarId: usuario.gradoEscolarId,
       permisos,
     };
 
@@ -80,6 +82,14 @@ export class AuthService {
           nombre: usuario.institucion.nombre,
           logo: usuario.institucion.logo,
         },
+        gradoEscolar: usuario.gradoEscolar
+          ? {
+              id: usuario.gradoEscolar.id,
+              nombre: usuario.gradoEscolar.nombre,
+              codigo: usuario.gradoEscolar.codigo,
+              orden: usuario.gradoEscolar.orden,
+            }
+          : null,
       },
     };
   }

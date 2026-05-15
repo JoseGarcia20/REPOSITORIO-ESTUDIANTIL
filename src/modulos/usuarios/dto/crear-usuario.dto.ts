@@ -1,4 +1,4 @@
-import {IsString, IsEmail, IsNotEmpty, IsDateString, IsInt, MinLength,} from 'class-validator';
+import {IsString, IsEmail, IsNotEmpty, IsDateString, IsInt, MinLength, IsOptional,} from 'class-validator';
 
 export class CrearUsuarioDto {
 
@@ -37,5 +37,9 @@ export class CrearUsuarioDto {
 
   @IsInt()
   rolId!: number;
+
+  @IsOptional()
+  @IsInt()
+  gradoEscolarId?: number;
 
 }
