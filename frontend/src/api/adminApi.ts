@@ -254,6 +254,23 @@ export type RespuestaPaginada<T> = {
   totalPaginas: number;
 };
 
+export type RecursoAsistente = {
+  id: number;
+  titulo: string;
+  resumen?: string;
+  palabrasClave?: string;
+  categoria?: string;
+  tipoRecurso?: string;
+  gradoEscolar?: string;
+  rutaRepositorio: string;
+};
+
+export type RespuestaAsistente = {
+  mensaje: string;
+  busquedaSugerida: string;
+  recursos: RecursoAsistente[];
+};
+
 export const PERMISOS = {
   SISTEMA_TOTAL: 'sistema.total',
   INSTITUCIONES_VER: 'instituciones.ver',
@@ -598,6 +615,14 @@ export function calificarRecurso(
     `/calificacion-recurso/recurso/${recursoId}`,
     { calificacion, comentario },
     'Error al calificar recurso',
+  );
+}
+
+export function consultarAsistente(pregunta: string) {
+  return post<RespuestaAsistente>(
+    '/asistente/chat',
+    { pregunta },
+    'Error al consultar el asistente',
   );
 }
 

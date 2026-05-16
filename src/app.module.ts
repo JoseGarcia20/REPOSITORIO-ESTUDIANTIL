@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { AsistenteModule } from './modulos/asistente/asistente.module';
 import { PrismaModule } from './baseDatos/prisma/prisma.module';
 import { InstitucionesModule } from './modulos/instituciones/instituciones.module';
 import { UsuarioModule } from './modulos/usuarios/usuario.module';
@@ -26,6 +27,7 @@ import { join } from 'path';
       serveRoot: '/uploads',
     }),
 
+    AsistenteModule,
     PrismaModule,
     InstitucionesModule,
     AuthModule,

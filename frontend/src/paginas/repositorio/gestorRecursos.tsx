@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import type { ChangeEvent } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import {
   API_URL,
   calificarRecurso,
@@ -115,6 +116,8 @@ function nombreCreador(recurso: Recurso) {
 }
 
 export function GestorRecursos() {
+  const [searchParams] = useSearchParams();
+  const busquedaUrl = searchParams.get('busqueda') || '';
   const puedeVerTodosLosGrados = usuarioTienePermiso(
     PERMISOS.RECURSOS_VER_TODOS_GRADOS,
   );
@@ -140,6 +143,13 @@ export function GestorRecursos() {
   useEffect(() => {
     cargarRecursos();
   }, [pagina, filtros.busqueda, filtros.tipoArchivo, filtros.gradoEscolarId]);
+
+  useEffect(() => {
+    if (busquedaUrl && busquedaUrl !== filtros.busqueda) {
+      setFiltros((prev) => ({ ...prev, busqueda: busquedaUrl }));
+      setPagina(1);
+    }
+  }, [busquedaUrl, filtros.busqueda]);
 
   useEffect(() => {
     cargarGradosEscolares();

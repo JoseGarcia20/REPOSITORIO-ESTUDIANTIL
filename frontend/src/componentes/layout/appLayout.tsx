@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import { PERMISOS, usuarioTienePermiso } from '../../api/adminApi';
+import { ChatbotWidget } from '../chatbot/chatbotWidget';
 import './appLayout.css';
 
 type MenuItem = {
@@ -202,6 +203,8 @@ export function AppLayout() {
       <section className="dashboard-content">
         <Outlet />
       </section>
+
+      <ChatbotWidget />
     </main>
   );
 }
