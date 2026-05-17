@@ -59,6 +59,7 @@ export const ModelName = {
   GradoEscolar: 'GradoEscolar',
   Categoria: 'Categoria',
   Foro: 'Foro',
+  ForoCategoria: 'ForoCategoria',
   ComentarioForo: 'ComentarioForo',
   TipoRecurso: 'TipoRecurso',
   Recurso: 'Recurso',
@@ -207,6 +208,15 @@ export const ForoScalarFieldEnum = {
 export type ForoScalarFieldEnum = (typeof ForoScalarFieldEnum)[keyof typeof ForoScalarFieldEnum]
 
 
+export const ForoCategoriaScalarFieldEnum = {
+  foroId: 'foroId',
+  categoriaId: 'categoriaId',
+  createdAt: 'createdAt'
+} as const
+
+export type ForoCategoriaScalarFieldEnum = (typeof ForoCategoriaScalarFieldEnum)[keyof typeof ForoCategoriaScalarFieldEnum]
+
+
 export const ComentarioForoScalarFieldEnum = {
   id: 'id',
   contenido: 'contenido',
@@ -251,7 +261,9 @@ export const RecursoScalarFieldEnum = {
   categoriaId: 'categoriaId',
   tipoRecursoId: 'tipoRecursoId',
   usuarioCreadorId: 'usuarioCreadorId',
-  gradoEscolarId: 'gradoEscolarId'
+  gradoEscolarId: 'gradoEscolarId',
+  foroOrigenId: 'foroOrigenId',
+  comentarioForoId: 'comentarioForoId'
 } as const
 
 export type RecursoScalarFieldEnum = (typeof RecursoScalarFieldEnum)[keyof typeof RecursoScalarFieldEnum]

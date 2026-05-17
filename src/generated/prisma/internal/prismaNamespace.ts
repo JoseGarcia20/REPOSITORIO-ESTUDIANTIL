@@ -392,6 +392,7 @@ export const ModelName = {
   GradoEscolar: 'GradoEscolar',
   Categoria: 'Categoria',
   Foro: 'Foro',
+  ForoCategoria: 'ForoCategoria',
   ComentarioForo: 'ComentarioForo',
   TipoRecurso: 'TipoRecurso',
   Recurso: 'Recurso',
@@ -417,7 +418,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "institucion" | "rol" | "permiso" | "rolPermiso" | "usuario" | "gradoEscolar" | "categoria" | "foro" | "comentarioForo" | "tipoRecurso" | "recurso" | "calificacionRecurso" | "tipoAprendizaje" | "rutaAprendizaje" | "detalleRutaAprendizaje" | "asignacionRutaAprendizaje" | "diagnosticoAprendizaje" | "detalleDiagnosticoAprendizaje"
+    modelProps: "institucion" | "rol" | "permiso" | "rolPermiso" | "usuario" | "gradoEscolar" | "categoria" | "foro" | "foroCategoria" | "comentarioForo" | "tipoRecurso" | "recurso" | "calificacionRecurso" | "tipoAprendizaje" | "rutaAprendizaje" | "detalleRutaAprendizaje" | "asignacionRutaAprendizaje" | "diagnosticoAprendizaje" | "detalleDiagnosticoAprendizaje"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1010,6 +1011,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.ForoCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.ForoCountAggregateOutputType> | number
+        }
+      }
+    }
+    ForoCategoria: {
+      payload: Prisma.$ForoCategoriaPayload<ExtArgs>
+      fields: Prisma.ForoCategoriaFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ForoCategoriaFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ForoCategoriaPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ForoCategoriaFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ForoCategoriaPayload>
+        }
+        findFirst: {
+          args: Prisma.ForoCategoriaFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ForoCategoriaPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ForoCategoriaFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ForoCategoriaPayload>
+        }
+        findMany: {
+          args: Prisma.ForoCategoriaFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ForoCategoriaPayload>[]
+        }
+        create: {
+          args: Prisma.ForoCategoriaCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ForoCategoriaPayload>
+        }
+        createMany: {
+          args: Prisma.ForoCategoriaCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ForoCategoriaCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ForoCategoriaPayload>[]
+        }
+        delete: {
+          args: Prisma.ForoCategoriaDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ForoCategoriaPayload>
+        }
+        update: {
+          args: Prisma.ForoCategoriaUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ForoCategoriaPayload>
+        }
+        deleteMany: {
+          args: Prisma.ForoCategoriaDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ForoCategoriaUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ForoCategoriaUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ForoCategoriaPayload>[]
+        }
+        upsert: {
+          args: Prisma.ForoCategoriaUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ForoCategoriaPayload>
+        }
+        aggregate: {
+          args: Prisma.ForoCategoriaAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateForoCategoria>
+        }
+        groupBy: {
+          args: Prisma.ForoCategoriaGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ForoCategoriaGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ForoCategoriaCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ForoCategoriaCountAggregateOutputType> | number
         }
       }
     }
@@ -1912,6 +1987,15 @@ export const ForoScalarFieldEnum = {
 export type ForoScalarFieldEnum = (typeof ForoScalarFieldEnum)[keyof typeof ForoScalarFieldEnum]
 
 
+export const ForoCategoriaScalarFieldEnum = {
+  foroId: 'foroId',
+  categoriaId: 'categoriaId',
+  createdAt: 'createdAt'
+} as const
+
+export type ForoCategoriaScalarFieldEnum = (typeof ForoCategoriaScalarFieldEnum)[keyof typeof ForoCategoriaScalarFieldEnum]
+
+
 export const ComentarioForoScalarFieldEnum = {
   id: 'id',
   contenido: 'contenido',
@@ -1956,7 +2040,9 @@ export const RecursoScalarFieldEnum = {
   categoriaId: 'categoriaId',
   tipoRecursoId: 'tipoRecursoId',
   usuarioCreadorId: 'usuarioCreadorId',
-  gradoEscolarId: 'gradoEscolarId'
+  gradoEscolarId: 'gradoEscolarId',
+  foroOrigenId: 'foroOrigenId',
+  comentarioForoId: 'comentarioForoId'
 } as const
 
 export type RecursoScalarFieldEnum = (typeof RecursoScalarFieldEnum)[keyof typeof RecursoScalarFieldEnum]
@@ -2257,6 +2343,7 @@ export type GlobalOmitConfig = {
   gradoEscolar?: Prisma.GradoEscolarOmit
   categoria?: Prisma.CategoriaOmit
   foro?: Prisma.ForoOmit
+  foroCategoria?: Prisma.ForoCategoriaOmit
   comentarioForo?: Prisma.ComentarioForoOmit
   tipoRecurso?: Prisma.TipoRecursoOmit
   recurso?: Prisma.RecursoOmit

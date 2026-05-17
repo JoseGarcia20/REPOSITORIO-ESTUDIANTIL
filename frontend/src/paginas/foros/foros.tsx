@@ -1,12 +1,15 @@
 import { useEffect, useMemo, useState } from 'react';
 import type { ChangeEvent, FormEvent } from 'react';
 import {
+  API_URL,
   cerrarForoAcademico,
   comentarForoAcademico,
+  comentarForoConRecurso,
   crearForoAcademico,
   esSuperadministrador,
   obtenerCategoriasForo,
   obtenerForosAcademicos,
+  obtenerGradosEscolares,
   obtenerInstitucionesAdmin,
   obtenerUsuarioAutenticado,
   PERMISOS,
@@ -14,7 +17,9 @@ import {
 } from '../../api/adminApi';
 import type {
   Categoria,
+  ComentarioForo,
   ForoAcademico,
+  GradoEscolar,
   InstitucionCatalogo,
 } from '../../api/adminApi';
 import './foros.css';
@@ -22,17 +27,33 @@ import './foros.css';
 type FormularioForo = {
   titulo: string;
   descripcion: string;
-  categoriaId: string;
+  categoriaIds: string[];
   institucionId: string;
   publico: boolean;
+};
+
+type FormularioComentarioForo = {
+  contenido: string;
+  adjuntar: boolean;
+  tituloRecurso: string;
+  gradoEscolarId: string;
+  archivo: File | null;
 };
 
 const formularioInicial: FormularioForo = {
   titulo: '',
   descripcion: '',
-  categoriaId: '',
+  categoriaIds: [],
   institucionId: '',
   publico: false,
+};
+
+const formularioComentarioInicial: FormularioComentarioForo = {
+  contenido: '',
+  adjuntar: false,
+  tituloRecurso: '',
+  gradoEscolarId: '',
+  archivo: null,
 };
 
 function iniciales(nombre?: string, apellido?: string) {
@@ -46,12 +67,18 @@ function formatearFecha(valor: string) {
   }).format(new Date(valor));
 }
 
-function describirAutor(
-  rol?: string,
-  institucion?: string,
-  fecha?: string,
-) {
+function describirAutor(rol?: string, institucion?: string, fecha?: string) {
   return [rol || 'Usuario', institucion, fecha].filter(Boolean).join(' · ');
+}
+
+function construirUrlRecurso(ruta?: string, url?: string) {
+  const valor = ruta || url || '';
+
+  if (!valor) {
+    return '';
+  }
+
+  return valor.startsWith('http') ? valor : `${API_URL}${valor}`;
 }
 
 export function Foros() {
@@ -60,11 +87,15 @@ export function Foros() {
   const puedeCrear = usuarioTienePermiso(PERMISOS.FOROS_CREAR);
   const puedeCrearPublico = usuarioTienePermiso(PERMISOS.FOROS_CREAR_PUBLICO);
   const puedeComentar = usuarioTienePermiso(PERMISOS.FOROS_COMENTAR);
+  const puedeSubirRecurso = usuarioTienePermiso(PERMISOS.FOROS_SUBIR_RECURSO);
 
   const [foros, setForos] = useState<ForoAcademico[]>([]);
   const [categorias, setCategorias] = useState<Categoria[]>([]);
   const [instituciones, setInstituciones] = useState<InstitucionCatalogo[]>([]);
-  const [comentarios, setComentarios] = useState<Record<number, string>>({});
+  const [gradosEscolares, setGradosEscolares] = useState<GradoEscolar[]>([]);
+  const [formulariosComentario, setFormulariosComentario] = useState<
+    Record<number, FormularioComentarioForo>
+  >({});
   const [cargando, setCargando] = useState(true);
   const [cargandoCatalogos, setCargandoCatalogos] = useState(true);
   const [error, setError] = useState('');
@@ -79,6 +110,9 @@ export function Foros() {
   const [modalAbierto, setModalAbierto] = useState(false);
   const [guardando, setGuardando] = useState(false);
   const [comentandoId, setComentandoId] = useState<number | null>(null);
+  const [foroConversacionId, setForoConversacionId] = useState<number | null>(
+    null,
+  );
   const [formulario, setFormulario] = useState<FormularioForo>({
     ...formularioInicial,
     institucionId: esSuper ? '' : String(usuario?.institucion?.id || ''),
@@ -87,14 +121,23 @@ export function Foros() {
   const categoriasDisponibles = useMemo(() => {
     const institucionId = Number(formulario.institucionId);
 
-    if (!institucionId || !esSuper) {
+    if (!esSuper) {
       return categorias;
+    }
+
+    if (!institucionId) {
+      return [];
     }
 
     return categorias.filter(
       (categoria) => categoria.institucionId === institucionId,
     );
   }, [categorias, esSuper, formulario.institucionId]);
+
+  const foroConversacion = useMemo(
+    () => foros.find((foro) => foro.id === foroConversacionId) || null,
+    [foros, foroConversacionId],
+  );
 
   useEffect(() => {
     cargarCatalogos();
@@ -108,17 +151,16 @@ export function Foros() {
     try {
       setCargandoCatalogos(true);
 
-      const promesas: [
-        Promise<Categoria[] | null>,
-        Promise<InstitucionCatalogo[] | null>,
-      ] = [
-        puedeCrear ? obtenerCategoriasForo() : Promise.resolve(null),
-        esSuper ? obtenerInstitucionesAdmin() : Promise.resolve(null),
-      ];
-
-      const [categoriasData, institucionesData] = await Promise.all(promesas);
+      const [categoriasData, institucionesData, gradosData] = await Promise.all(
+        [
+          puedeCrear ? obtenerCategoriasForo() : Promise.resolve(null),
+          esSuper ? obtenerInstitucionesAdmin() : Promise.resolve(null),
+          puedeSubirRecurso ? obtenerGradosEscolares() : Promise.resolve(null),
+        ] as const,
+      );
       setCategorias(categoriasData || []);
       setInstituciones(institucionesData || []);
+      setGradosEscolares(gradosData || []);
     } catch {
       setError('No se pudieron cargar los catálogos de foros');
     } finally {
@@ -181,7 +223,9 @@ export function Foros() {
   }
 
   function manejarCambio(
-    event: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
+    event: ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >,
   ) {
     const { name, value } = event.target;
 
@@ -189,7 +233,7 @@ export function Foros() {
       setFormulario((prev) => ({
         ...prev,
         institucionId: value,
-        categoriaId: '',
+        categoriaIds: [],
       }));
       return;
     }
@@ -204,8 +248,23 @@ export function Foros() {
     }));
   }
 
+  function alternarCategoriaForo(categoriaId: number, seleccionado: boolean) {
+    const valor = String(categoriaId);
+    setFormulario((prev) => ({
+      ...prev,
+      categoriaIds: seleccionado
+        ? Array.from(new Set([...prev.categoriaIds, valor]))
+        : prev.categoriaIds.filter((id) => id !== valor),
+    }));
+  }
+
   async function guardarForo(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+
+    if (formulario.categoriaIds.length === 0) {
+      alert('Debes seleccionar al menos una categoría.');
+      return;
+    }
 
     try {
       setGuardando(true);
@@ -213,7 +272,9 @@ export function Foros() {
       await crearForoAcademico({
         titulo: formulario.titulo,
         descripcion: formulario.descripcion,
-        categoriaId: Number(formulario.categoriaId),
+        categoriaIds: formulario.categoriaIds.map((categoriaId) =>
+          Number(categoriaId),
+        ),
         publico: formulario.publico,
         ...(esSuper ? { institucionId: Number(formulario.institucionId) } : {}),
       });
@@ -229,7 +290,9 @@ export function Foros() {
   }
 
   async function enviarComentario(foroId: number) {
-    const contenido = comentarios[foroId]?.trim();
+    const formularioComentario =
+      formulariosComentario[foroId] || formularioComentarioInicial;
+    const contenido = formularioComentario.contenido.trim();
 
     if (!contenido) {
       return;
@@ -237,14 +300,63 @@ export function Foros() {
 
     try {
       setComentandoId(foroId);
-      await comentarForoAcademico(foroId, contenido);
-      setComentarios((prev) => ({ ...prev, [foroId]: '' }));
+
+      if (formularioComentario.archivo && puedeSubirRecurso) {
+        await comentarForoConRecurso(foroId, {
+          contenido,
+          archivo: formularioComentario.archivo,
+          titulo: formularioComentario.tituloRecurso.trim() || undefined,
+          gradoEscolarId: formularioComentario.gradoEscolarId || undefined,
+        });
+      } else {
+        await comentarForoAcademico(foroId, contenido);
+      }
+
+      setFormulariosComentario((prev) => ({
+        ...prev,
+        [foroId]: formularioComentarioInicial,
+      }));
       await cargarForos();
     } catch {
       alert('No se pudo publicar el comentario.');
     } finally {
       setComentandoId(null);
     }
+  }
+
+  function obtenerFormularioComentario(foroId: number) {
+    return formulariosComentario[foroId] || formularioComentarioInicial;
+  }
+
+  function actualizarFormularioComentario(
+    foroId: number,
+    cambios: Partial<FormularioComentarioForo>,
+  ) {
+    setFormulariosComentario((prev) => ({
+      ...prev,
+      [foroId]: {
+        ...formularioComentarioInicial,
+        ...prev[foroId],
+        ...cambios,
+      },
+    }));
+  }
+
+  function alternarAdjuntoComentario(foroId: number) {
+    const formularioActual = obtenerFormularioComentario(foroId);
+    actualizarFormularioComentario(foroId, {
+      adjuntar: !formularioActual.adjuntar,
+      archivo: formularioActual.adjuntar ? null : formularioActual.archivo,
+    });
+  }
+
+  function seleccionarArchivoComentario(
+    foroId: number,
+    event: ChangeEvent<HTMLInputElement>,
+  ) {
+    actualizarFormularioComentario(foroId, {
+      archivo: event.target.files?.[0] || null,
+    });
   }
 
   async function cerrarForo(foro: ForoAcademico) {
@@ -269,6 +381,184 @@ export function Foros() {
       !foro.cerrado &&
       usuarioTienePermiso(PERMISOS.FOROS_CERRAR) &&
       (esSuper || foro.usuarioId === usuario?.id)
+    );
+  }
+
+  function obtenerCategoriasVisibles(foro: ForoAcademico) {
+    const categoriasForo = foro.categorias
+      ?.map((item) => item.categoria)
+      .filter(Boolean);
+
+    return categoriasForo?.length
+      ? categoriasForo
+      : foro.categoria
+        ? [foro.categoria]
+        : [];
+  }
+
+  function renderRecursosComentario(comentario: ComentarioForo) {
+    const recursos = comentario.recursos || [];
+
+    if (recursos.length === 0) {
+      return null;
+    }
+
+    return (
+      <div className="forum-comment-resources">
+        {recursos.map((recurso) => {
+          const urlRecurso = construirUrlRecurso(
+            recurso.rutaRecurso,
+            recurso.urlRecurso,
+          );
+
+          return (
+            <a
+              className="forum-comment-resource"
+              href={urlRecurso}
+              key={recurso.id}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <span>{recurso.tipoRecurso?.nombre || 'Archivo'}</span>
+              <strong>{recurso.titulo}</strong>
+            </a>
+          );
+        })}
+      </div>
+    );
+  }
+
+  function renderComentario(
+    comentario: ComentarioForo,
+    opciones: { compacto?: boolean } = {},
+  ) {
+    return (
+      <div
+        className={`forum-comment ${opciones.compacto ? 'compact' : ''}`}
+        key={comentario.id}
+      >
+        <span className="forum-avatar">
+          {iniciales(
+            comentario.usuario?.nombres,
+            comentario.usuario?.apellidos,
+          )}
+        </span>
+        <div className="forum-comment-content">
+          <strong>
+            {comentario.usuario?.nombres} {comentario.usuario?.apellidos}
+          </strong>
+          <span className="forum-comment-meta">
+            {describirAutor(
+              comentario.usuario?.rol?.nombre,
+              comentario.usuario?.institucion?.nombre,
+            )}
+          </span>
+          <p>{comentario.contenido}</p>
+          {renderRecursosComentario(comentario)}
+        </div>
+      </div>
+    );
+  }
+
+  function renderFormularioComentario(
+    foro: ForoAcademico,
+    opciones: { compacto?: boolean } = {},
+  ) {
+    const formularioComentario = obtenerFormularioComentario(foro.id);
+
+    if (!puedeComentar || foro.cerrado) {
+      return null;
+    }
+
+    return (
+      <form
+        className={`comment-form ${opciones.compacto ? 'compact' : ''}`}
+        onSubmit={(event) => {
+          event.preventDefault();
+          enviarComentario(foro.id);
+        }}
+      >
+        <div className="comment-form-main">
+          <textarea
+            value={formularioComentario.contenido}
+            onChange={(event) =>
+              actualizarFormularioComentario(foro.id, {
+                contenido: event.target.value,
+              })
+            }
+            placeholder="Escribe un aporte académico..."
+            required
+          />
+
+          {puedeSubirRecurso && formularioComentario.adjuntar && (
+            <div className="comment-attachment-panel">
+              <label>
+                Archivo de soporte
+                <input
+                  type="file"
+                  accept=".pdf,.doc,.docx,.ppt,.pptx,.png,.jpg,.jpeg,.webp,.mp4,.webm"
+                  onChange={(event) =>
+                    seleccionarArchivoComentario(foro.id, event)
+                  }
+                  required={formularioComentario.adjuntar}
+                />
+              </label>
+
+              <label>
+                Título del recurso
+                <input
+                  value={formularioComentario.tituloRecurso}
+                  onChange={(event) =>
+                    actualizarFormularioComentario(foro.id, {
+                      tituloRecurso: event.target.value,
+                    })
+                  }
+                  placeholder="Opcional"
+                />
+              </label>
+
+              <label>
+                Grado escolar
+                <select
+                  value={formularioComentario.gradoEscolarId}
+                  onChange={(event) =>
+                    actualizarFormularioComentario(foro.id, {
+                      gradoEscolarId: event.target.value,
+                    })
+                  }
+                >
+                  <option value="">Clasificar por contexto</option>
+                  {gradosEscolares.map((grado) => (
+                    <option key={grado.id} value={grado.id}>
+                      {grado.nombre}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            </div>
+          )}
+        </div>
+
+        <div className="comment-form-actions">
+          {puedeSubirRecurso && (
+            <button
+              className="secondary-button"
+              type="button"
+              onClick={() => alternarAdjuntoComentario(foro.id)}
+            >
+              {formularioComentario.adjuntar ? 'Quitar archivo' : 'Adjuntar'}
+            </button>
+          )}
+
+          <button
+            className="primary-button"
+            type="submit"
+            disabled={comentandoId === foro.id}
+          >
+            {comentandoId === foro.id ? 'Publicando...' : 'Comentar'}
+          </button>
+        </div>
+      </form>
     );
   }
 
@@ -297,13 +587,21 @@ export function Foros() {
             placeholder="Buscar foros por título o contenido"
           />
 
-          <select name="publico" value={filtros.publico} onChange={manejarFiltro}>
+          <select
+            name="publico"
+            value={filtros.publico}
+            onChange={manejarFiltro}
+          >
             <option value="">Todos los alcances</option>
             <option value="true">Públicos</option>
             <option value="false">Institucionales</option>
           </select>
 
-          <select name="cerrado" value={filtros.cerrado} onChange={manejarFiltro}>
+          <select
+            name="cerrado"
+            value={filtros.cerrado}
+            onChange={manejarFiltro}
+          >
             <option value="">Abiertos y cerrados</option>
             <option value="false">Abiertos</option>
             <option value="true">Cerrados</option>
@@ -326,127 +624,167 @@ export function Foros() {
         {!cargando && !cargandoCatalogos && !error && foros.length > 0 && (
           <>
             <div className="forum-feed">
-              {foros.map((foro) => (
-                <article className="forum-post" key={foro.id}>
-                <div className="forum-post-header">
-                  <div className="forum-author">
-                    <span className="forum-avatar">
-                      {iniciales(foro.usuario?.nombres, foro.usuario?.apellidos)}
-                    </span>
-                    <div>
-                      <h3>
-                        {foro.usuario?.nombres} {foro.usuario?.apellidos}
-                      </h3>
-                      <p>
-                        {describirAutor(
-                          foro.usuario?.rol?.nombre,
-                          foro.usuario?.institucion?.nombre ||
-                            foro.institucion?.nombre,
-                          formatearFecha(foro.createdAt),
-                        )}
-                      </p>
-                    </div>
-                  </div>
+              {foros.map((foro) => {
+                const recursosForo = foro.recursos || [];
+                const comentariosRecientes = foro.comentarios.slice(-3);
+                const categoriasForo = obtenerCategoriasVisibles(foro);
 
-                  <span className="forum-meta">
-                    {foro.institucion?.nombre || 'Institución'}
-                  </span>
-                </div>
-
-                <div className="forum-post-body">
-                  <h2>{foro.titulo}</h2>
-                  <p>{foro.descripcion}</p>
-                </div>
-
-                <div className="forum-badges">
-                  <span className="forum-badge">
-                    {foro.categoria?.nombre || 'Sin categoría'}
-                  </span>
-                  <span className={`forum-badge ${foro.publico ? 'public' : ''}`}>
-                    {foro.publico ? 'Público' : 'Institucional'}
-                  </span>
-                  {foro.cerrado && (
-                    <span className="forum-badge closed">Cerrado</span>
-                  )}
-                </div>
-
-                <div className="forum-actions-row">
-                  <span className="forum-meta">
-                    {foro.comentarios.length} comentarios
-                  </span>
-
-                  {puedeCerrarForo(foro) && (
-                    <button
-                      className="secondary-button"
-                      onClick={() => cerrarForo(foro)}
-                    >
-                      Cerrar foro
-                    </button>
-                  )}
-                </div>
-
-                <div className="forum-comments">
-                  {foro.comentarios.map((comentario) => (
-                    <div className="forum-comment" key={comentario.id}>
-                      <span className="forum-avatar">
-                        {iniciales(
-                          comentario.usuario?.nombres,
-                          comentario.usuario?.apellidos,
-                        )}
-                      </span>
-                      <div className="forum-comment-content">
-                        <strong>
-                          {comentario.usuario?.nombres}{' '}
-                          {comentario.usuario?.apellidos}
-                        </strong>
-                        <span className="forum-comment-meta">
-                          {describirAutor(
-                            comentario.usuario?.rol?.nombre,
-                            comentario.usuario?.institucion?.nombre,
+                return (
+                  <article className="forum-post" key={foro.id}>
+                    <div className="forum-post-header">
+                      <div className="forum-author">
+                        <span className="forum-avatar">
+                          {iniciales(
+                            foro.usuario?.nombres,
+                            foro.usuario?.apellidos,
                           )}
                         </span>
-                        <p>{comentario.contenido}</p>
+                        <div>
+                          <h3>
+                            {foro.usuario?.nombres} {foro.usuario?.apellidos}
+                          </h3>
+                          <p>
+                            {describirAutor(
+                              foro.usuario?.rol?.nombre,
+                              foro.usuario?.institucion?.nombre ||
+                                foro.institucion?.nombre,
+                              formatearFecha(foro.createdAt),
+                            )}
+                          </p>
+                        </div>
+                      </div>
+
+                      <span className="forum-meta">
+                        {foro.institucion?.nombre || 'Institución'}
+                      </span>
+                    </div>
+
+                    <div className="forum-post-body">
+                      <h2>{foro.titulo}</h2>
+                      <p>{foro.descripcion}</p>
+                    </div>
+
+                    <div className="forum-badges">
+                      {categoriasForo.length > 0 ? (
+                        categoriasForo.map((categoria) => (
+                          <span className="forum-badge" key={categoria.id}>
+                            {categoria.nombre}
+                          </span>
+                        ))
+                      ) : (
+                        <span className="forum-badge">Sin categoría</span>
+                      )}
+                      <span
+                        className={`forum-badge ${foro.publico ? 'public' : ''}`}
+                      >
+                        {foro.publico ? 'Público' : 'Institucional'}
+                      </span>
+                      {foro.cerrado && (
+                        <span className="forum-badge closed">Cerrado</span>
+                      )}
+                    </div>
+
+                    {recursosForo.length > 0 && (
+                      <div className="forum-resources">
+                        <div className="forum-resources-title">
+                          <strong>Recursos aportados</strong>
+                          <span>
+                            {recursosForo.length} archivos clasificados
+                          </span>
+                        </div>
+
+                        <div className="forum-resource-list">
+                          {recursosForo.map((recurso) => {
+                            const urlRecurso = construirUrlRecurso(
+                              recurso.rutaRecurso,
+                              recurso.urlRecurso,
+                            );
+
+                            return (
+                              <div
+                                className="forum-resource-item"
+                                key={recurso.id}
+                              >
+                                <div>
+                                  <strong>{recurso.titulo}</strong>
+                                  <p>
+                                    {[
+                                      recurso.tipoRecurso?.nombre,
+                                      recurso.categoria?.nombre,
+                                      recurso.gradoEscolar?.nombre,
+                                    ]
+                                      .filter(Boolean)
+                                      .join(' · ')}
+                                  </p>
+                                </div>
+
+                                {urlRecurso && (
+                                  <a
+                                    className="secondary-button compact-button"
+                                    href={urlRecurso}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                  >
+                                    Abrir
+                                  </a>
+                                )}
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    )}
+
+                    <div className="forum-actions-row">
+                      <span className="forum-meta">
+                        {foro.comentarios.length} comentarios ·{' '}
+                        {recursosForo.length} recursos
+                      </span>
+
+                      <div className="forum-actions-buttons">
+                        <button
+                          className="secondary-button"
+                          onClick={() => setForoConversacionId(foro.id)}
+                        >
+                          Ver conversación
+                        </button>
+
+                        {puedeCerrarForo(foro) && (
+                          <button
+                            className="secondary-button"
+                            onClick={() => cerrarForo(foro)}
+                          >
+                            Cerrar foro
+                          </button>
+                        )}
                       </div>
                     </div>
-                  ))}
 
-                  {puedeComentar && !foro.cerrado && (
-                    <form
-                      className="comment-form"
-                      onSubmit={(event) => {
-                        event.preventDefault();
-                        enviarComentario(foro.id);
-                      }}
-                    >
-                      <textarea
-                        value={comentarios[foro.id] || ''}
-                        onChange={(event) =>
-                          setComentarios((prev) => ({
-                            ...prev,
-                            [foro.id]: event.target.value,
-                          }))
-                        }
-                        placeholder="Escribe un aporte académico..."
-                        required
-                      />
-                      <button
-                        className="primary-button"
-                        type="submit"
-                        disabled={comentandoId === foro.id}
-                      >
-                        {comentandoId === foro.id ? 'Publicando...' : 'Comentar'}
-                      </button>
-                    </form>
-                  )}
+                    <div className="forum-comments compact">
+                      {comentariosRecientes.map((comentario) =>
+                        renderComentario(comentario, { compacto: true }),
+                      )}
 
-                  {foro.cerrado && (
-                    <span className="forum-meta">
-                      Este foro está cerrado para nuevos comentarios.
-                    </span>
-                  )}
-                </div>
-                </article>
-              ))}
+                      {foro.comentarios.length > 3 && (
+                        <button
+                          className="forum-view-all"
+                          onClick={() => setForoConversacionId(foro.id)}
+                        >
+                          Ver todos los comentarios
+                        </button>
+                      )}
+
+                      {renderFormularioComentario(foro, { compacto: true })}
+
+                      {foro.cerrado && (
+                        <span className="forum-meta">
+                          Este foro está cerrado para nuevos comentarios.
+                        </span>
+                      )}
+                    </div>
+                  </article>
+                );
+              })}
             </div>
 
             <div className="pagination-bar forum-pagination">
@@ -475,6 +813,63 @@ export function Foros() {
           </>
         )}
       </div>
+
+      {foroConversacion && (
+        <div className="modal-overlay">
+          <div className="modal-container forum-thread-modal">
+            <div className="modal-header">
+              <div>
+                <span className="section-label">Conversación académica</span>
+                <h2>{foroConversacion.titulo}</h2>
+                <p>{foroConversacion.descripcion}</p>
+              </div>
+
+              <button
+                className="modal-close"
+                onClick={() => setForoConversacionId(null)}
+              >
+                ×
+              </button>
+            </div>
+
+            <div className="forum-badges thread-badges">
+              {obtenerCategoriasVisibles(foroConversacion).map((categoria) => (
+                <span className="forum-badge" key={categoria.id}>
+                  {categoria.nombre}
+                </span>
+              ))}
+              <span
+                className={`forum-badge ${
+                  foroConversacion.publico ? 'public' : ''
+                }`}
+              >
+                {foroConversacion.publico ? 'Público' : 'Institucional'}
+              </span>
+              {foroConversacion.cerrado && (
+                <span className="forum-badge closed">Cerrado</span>
+              )}
+            </div>
+
+            <div className="forum-thread-comments">
+              {foroConversacion.comentarios.length > 0 ? (
+                foroConversacion.comentarios.map((comentario) =>
+                  renderComentario(comentario),
+                )
+              ) : (
+                <p className="forum-meta">Aún no hay comentarios.</p>
+              )}
+            </div>
+
+            {renderFormularioComentario(foroConversacion)}
+
+            {foroConversacion.cerrado && (
+              <span className="forum-meta thread-closed">
+                Este foro está cerrado para nuevos comentarios.
+              </span>
+            )}
+          </div>
+        </div>
+      )}
 
       {modalAbierto && (
         <div className="modal-overlay">
@@ -523,20 +918,26 @@ export function Foros() {
                 )}
 
                 <div className="form-group">
-                  <label>Categoría</label>
-                  <select
-                    name="categoriaId"
-                    value={formulario.categoriaId}
-                    onChange={manejarCambio}
-                    required
-                  >
-                    <option value="">Selecciona una categoría</option>
+                  <label>Categorías</label>
+                  <div className="forum-category-picker">
                     {categoriasDisponibles.map((categoria) => (
-                      <option key={categoria.id} value={categoria.id}>
+                      <label key={categoria.id}>
+                        <input
+                          type="checkbox"
+                          checked={formulario.categoriaIds.includes(
+                            String(categoria.id),
+                          )}
+                          onChange={(event) =>
+                            alternarCategoriaForo(
+                              categoria.id,
+                              event.target.checked,
+                            )
+                          }
+                        />
                         {categoria.nombre}
-                      </option>
+                      </label>
                     ))}
-                  </select>
+                  </div>
                 </div>
 
                 {puedeCrearPublico && (

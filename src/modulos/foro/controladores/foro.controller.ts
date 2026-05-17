@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Body,
   Controller,
   Get,
@@ -9,13 +10,58 @@ import {
   Put,
   Query,
   Req,
+  UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
+import { extname } from 'path';
 import { ForoService } from '../servicios/foro.service';
 import { CrearForoDto } from '../dto/crear-foro.dto';
 import { ActualizarForoDto } from '../dto/actualizar-foro.dto';
 import { CrearComentarioForoDto } from '../dto/crear-comentario-foro.dto';
+import { SubirRecursoForoDto } from '../dto/subir-recurso-foro.dto';
+import { ComentarRecursoForoDto } from '../dto/comentar-recurso-foro.dto';
 import { RequierePermisos } from '../../auth/decoradores/requiere-permisos.decorator';
 import { PERMISOS } from '../../auth/utils/roles.util';
+
+const opcionesArchivoRecursoForo = {
+  storage: diskStorage({
+    destination: './uploads/recursos',
+    filename: (_req, file, callback) => {
+      const nombre = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
+      callback(null, `${nombre}${extname(file.originalname)}`);
+    },
+  }),
+  limits: {
+    fileSize: 20 * 1024 * 1024,
+  },
+  fileFilter: (_req, file, callback) => {
+    const permitidos = [
+      'application/pdf',
+      'application/msword',
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+      'application/vnd.ms-powerpoint',
+      'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+      'image/png',
+      'image/jpeg',
+      'image/webp',
+      'video/mp4',
+      'video/webm',
+    ];
+
+    if (!permitidos.includes(file.mimetype)) {
+      return callback(
+        new BadRequestException(
+          'Solo se permiten PDF, Word, PowerPoint, imágenes y videos',
+        ),
+        false,
+      );
+    }
+
+    callback(null, true);
+  },
+};
 
 @Controller('foros')
 export class ForoController {
@@ -43,6 +89,40 @@ export class ForoController {
   @RequierePermisos(PERMISOS.FOROS_CREAR)
   async listarCategoriasParaForo(@Req() req: any) {
     return await this.foroService.listarCategoriasParaForo(req.usuarioAuth);
+  }
+
+  @Post(':id/recursos')
+  @RequierePermisos(PERMISOS.FOROS_SUBIR_RECURSO)
+  @UseInterceptors(FileInterceptor('archivo', opcionesArchivoRecursoForo))
+  async subirRecurso(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() body: SubirRecursoForoDto,
+    @UploadedFile() file: Express.Multer.File,
+    @Req() req: any,
+  ) {
+    return await this.foroService.subirRecursoDesdeForo(
+      id,
+      body,
+      file,
+      req.usuarioAuth,
+    );
+  }
+
+  @Post(':id/comentarios/recurso')
+  @RequierePermisos(PERMISOS.FOROS_COMENTAR, PERMISOS.FOROS_SUBIR_RECURSO)
+  @UseInterceptors(FileInterceptor('archivo', opcionesArchivoRecursoForo))
+  async comentarConRecurso(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() body: ComentarRecursoForoDto,
+    @UploadedFile() file: Express.Multer.File,
+    @Req() req: any,
+  ) {
+    return await this.foroService.comentarConRecurso(
+      id,
+      body,
+      file,
+      req.usuarioAuth,
+    );
   }
 
   @Get(':id')

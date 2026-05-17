@@ -41,6 +41,7 @@ export const PERMISOS = {
   FOROS_CREAR_PUBLICO: 'foros.crear_publico',
   FOROS_COMENTAR: 'foros.comentar',
   FOROS_CERRAR: 'foros.cerrar',
+  FOROS_SUBIR_RECURSO: 'foros.subir_recurso',
 
   REPORTES_VER: 'reportes.ver',
 } as const;
@@ -61,7 +62,9 @@ export function tienePermiso(
   permiso: CodigoPermiso,
 ): boolean {
   const permisos = usuarioAuth?.permisos || [];
-  return permisos.includes(PERMISOS.SISTEMA_TOTAL) || permisos.includes(permiso);
+  return (
+    permisos.includes(PERMISOS.SISTEMA_TOTAL) || permisos.includes(permiso)
+  );
 }
 
 export function validarPermiso(

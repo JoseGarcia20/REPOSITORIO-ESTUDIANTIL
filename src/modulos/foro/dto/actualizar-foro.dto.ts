@@ -1,4 +1,11 @@
-import { IsBoolean, IsInt, IsOptional, IsString } from 'class-validator';
+import {
+  ArrayMinSize,
+  IsArray,
+  IsBoolean,
+  IsInt,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 
 export class ActualizarForoDto {
   @IsOptional()
@@ -29,4 +36,9 @@ export class ActualizarForoDto {
   @IsInt()
   categoriaId?: number;
 
+  @IsOptional()
+  @IsArray()
+  @ArrayMinSize(1)
+  @IsInt({ each: true })
+  categoriaIds?: number[];
 }

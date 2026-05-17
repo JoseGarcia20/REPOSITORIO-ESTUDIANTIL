@@ -87,12 +87,12 @@ model Usuario {
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
 
-  institucionId Int
-  rolId         Int
+  institucionId  Int
+  rolId          Int
   gradoEscolarId Int?
 
-  institucion Institucion @relation(fields: [institucionId], references: [id])
-  rol         Rol         @relation(fields: [rolId], references: [id])
+  institucion  Institucion   @relation(fields: [institucionId], references: [id])
+  rol          Rol           @relation(fields: [rolId], references: [id])
   gradoEscolar GradoEscolar? @relation(fields: [gradoEscolarId], references: [id])
 
   foros                       Foro[]
@@ -133,22 +133,23 @@ model Categoria {
 
   institucion Institucion @relation(fields: [institucionId], references: [id])
 
-  foros    Foro[]
-  recursos Recurso[]
+  foros           Foro[]
+  forosCategorias ForoCategoria[]
+  recursos        Recurso[]
 
   @@map("categorias")
 }
 
 model Foro {
-  id          Int      @id @default(autoincrement())
+  id          Int       @id @default(autoincrement())
   titulo      String
   descripcion String
-  estado      Boolean  @default(true)
-  publico     Boolean  @default(false)
-  cerrado     Boolean  @default(false)
+  estado      Boolean   @default(true)
+  publico     Boolean   @default(false)
+  cerrado     Boolean   @default(false)
   fechaCierre DateTime?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 
   institucionId Int
   categoriaId   Int
@@ -159,8 +160,22 @@ model Foro {
   usuario     Usuario     @relation(fields: [usuarioId], references: [id])
 
   comentarios ComentarioForo[]
+  categorias  ForoCategoria[]
+  recursos    Recurso[]
 
   @@map("foros")
+}
+
+model ForoCategoria {
+  foroId      Int
+  categoriaId Int
+  createdAt   DateTime @default(now())
+
+  foro      Foro      @relation(fields: [foroId], references: [id], onDelete: Cascade)
+  categoria Categoria @relation(fields: [categoriaId], references: [id], onDelete: Cascade)
+
+  @@id([foroId, categoriaId])
+  @@map("foro_categorias")
 }
 
 model ComentarioForo {
@@ -175,6 +190,8 @@ model ComentarioForo {
 
   foro    Foro    @relation(fields: [foroId], references: [id], onDelete: Cascade)
   usuario Usuario @relation(fields: [usuarioId], references: [id])
+
+  recursos Recurso[]
 
   @@map("comentarios_foro")
 }
@@ -213,12 +230,16 @@ model Recurso {
   tipoRecursoId    Int
   usuarioCreadorId Int
   gradoEscolarId   Int?
+  foroOrigenId     Int?
+  comentarioForoId Int?
 
-  institucion    Institucion @relation(fields: [institucionId], references: [id])
-  categoria      Categoria   @relation(fields: [categoriaId], references: [id])
-  tipoRecurso    TipoRecurso @relation(fields: [tipoRecursoId], references: [id])
-  usuarioCreador Usuario     @relation(fields: [usuarioCreadorId], references: [id])
-  gradoEscolar   GradoEscolar? @relation(fields: [gradoEscolarId], references: [id])
+  institucion    Institucion     @relation(fields: [institucionId], references: [id])
+  categoria      Categoria       @relation(fields: [categoriaId], references: [id])
+  tipoRecurso    TipoRecurso     @relation(fields: [tipoRecursoId], references: [id])
+  usuarioCreador Usuario         @relation(fields: [usuarioCreadorId], references: [id])
+  gradoEscolar   GradoEscolar?   @relation(fields: [gradoEscolarId], references: [id])
+  foroOrigen     Foro?           @relation(fields: [foroOrigenId], references: [id], onDelete: SetNull)
+  comentarioForo ComentarioForo? @relation(fields: [comentarioForoId], references: [id], onDelete: SetNull)
 
   calificaciones          CalificacionRecurso[]
   detallesRutaAprendizaje DetalleRutaAprendizaje[]

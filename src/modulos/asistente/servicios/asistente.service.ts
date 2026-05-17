@@ -178,7 +178,7 @@ export class AsistenteService {
         categoria: recurso.categoria?.nombre,
         tipoRecurso: recurso.tipoRecurso?.nombre,
         gradoEscolar: recurso.gradoEscolar?.nombre,
-        rutaRepositorio: `/repositorio/recursos?busqueda=${encodeURIComponent(
+        rutaRepositorio: `/repositorio/recursos?recursoId=${recurso.id}&busqueda=${encodeURIComponent(
           recurso.titulo,
         )}`,
       })),

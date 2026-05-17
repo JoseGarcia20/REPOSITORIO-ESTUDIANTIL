@@ -1,4 +1,12 @@
-import { IsBoolean, IsInt, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import {
+  ArrayMinSize,
+  IsArray,
+  IsBoolean,
+  IsInt,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 
 export class CrearForoDto {
   @IsString()
@@ -18,5 +26,11 @@ export class CrearForoDto {
   institucionId?: number;
 
   @IsInt()
-  categoriaId!: number;
+  categoriaId?: number;
+
+  @IsOptional()
+  @IsArray()
+  @ArrayMinSize(1)
+  @IsInt({ each: true })
+  categoriaIds?: number[];
 }

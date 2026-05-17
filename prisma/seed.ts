@@ -43,6 +43,7 @@ const permisos = {
   FOROS_CREAR_PUBLICO: 'foros.crear_publico',
   FOROS_COMENTAR: 'foros.comentar',
   FOROS_CERRAR: 'foros.cerrar',
+  FOROS_SUBIR_RECURSO: 'foros.subir_recurso',
   REPORTES_VER: 'reportes.ver',
 } as const;
 
@@ -51,7 +52,8 @@ const descripcionesPermisos: Record<string, string> = {
   [permisos.INSTITUCIONES_VER]: 'Ver instituciones permitidas',
   [permisos.INSTITUCIONES_CREAR]: 'Crear instituciones',
   [permisos.INSTITUCIONES_EDITAR]: 'Editar instituciones',
-  [permisos.INSTITUCIONES_CAMBIAR_ESTADO]: 'Inactivar o reactivar instituciones',
+  [permisos.INSTITUCIONES_CAMBIAR_ESTADO]:
+    'Inactivar o reactivar instituciones',
   [permisos.ROLES_VER]: 'Ver roles',
   [permisos.ROLES_CREAR]: 'Crear roles',
   [permisos.ROLES_EDITAR]: 'Editar roles',
@@ -83,6 +85,8 @@ const descripcionesPermisos: Record<string, string> = {
     'Crear foros visibles para todas las instituciones',
   [permisos.FOROS_COMENTAR]: 'Comentar foros académicos publicados',
   [permisos.FOROS_CERRAR]: 'Cerrar foros para impedir nuevos comentarios',
+  [permisos.FOROS_SUBIR_RECURSO]:
+    'Subir archivos desde foros y convertirlos en recursos',
   [permisos.REPORTES_VER]: 'Ver reportes',
 };
 
@@ -121,6 +125,7 @@ const rolesBase = [
       permisos.FOROS_CREAR_PUBLICO,
       permisos.FOROS_COMENTAR,
       permisos.FOROS_CERRAR,
+      permisos.FOROS_SUBIR_RECURSO,
       permisos.REPORTES_VER,
     ],
   },
@@ -137,6 +142,7 @@ const rolesBase = [
       permisos.FOROS_CREAR_PUBLICO,
       permisos.FOROS_COMENTAR,
       permisos.FOROS_CERRAR,
+      permisos.FOROS_SUBIR_RECURSO,
     ],
   },
   {
@@ -155,6 +161,7 @@ const rolesBase = [
     permisos: [
       permisos.FOROS_VER,
       permisos.FOROS_COMENTAR,
+      permisos.FOROS_SUBIR_RECURSO,
       permisos.RECURSOS_VER_TODOS_GRADOS,
       permisos.REPORTES_VER,
     ],
@@ -244,10 +251,10 @@ async function main() {
     where: { nombre: 'superadministrador' },
   });
 
-  const correo = process.env.SEED_SUPERADMIN_EMAIL || 'superadmin@plataforma.edu.co';
+  const correo =
+    process.env.SEED_SUPERADMIN_EMAIL || 'superadmin@plataforma.edu.co';
   const documento = process.env.SEED_SUPERADMIN_DOCUMENTO || '0000000001';
-  const contrasena =
-    process.env.SEED_SUPERADMIN_PASSWORD || 'Admin123456';
+  const contrasena = process.env.SEED_SUPERADMIN_PASSWORD || 'Admin123456';
 
   await prisma.usuario.upsert({
     where: { correo },

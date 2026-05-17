@@ -60,6 +60,19 @@ export class RecursoService {
         orden: true,
       },
     },
+    foroOrigen: {
+      select: {
+        id: true,
+        titulo: true,
+        publico: true,
+      },
+    },
+    comentarioForo: {
+      select: {
+        id: true,
+        contenido: true,
+      },
+    },
   };
 
   private construirFiltroRecursos(
@@ -72,7 +85,9 @@ export class RecursoService {
     const condicionesAnd: Prisma.RecursoWhereInput[] = [];
     const where: Prisma.RecursoWhereInput = {
       ...(soloActivos ? { estado: true } : {}),
-      ...(esGlobal ? {} : { institucionId: Number(usuarioAuth?.institucionId) }),
+      ...(esGlobal
+        ? {}
+        : { institucionId: Number(usuarioAuth?.institucionId) }),
     };
     const puedeVerTodosLosGrados = tienePermiso(
       usuarioAuth,
@@ -107,6 +122,10 @@ export class RecursoService {
 
     if (query.gradoEscolarId && puedeVerTodosLosGrados) {
       where.gradoEscolarId = Number(query.gradoEscolarId);
+    }
+
+    if (query.recursoId) {
+      where.id = Number(query.recursoId);
     }
 
     if (query.tipoArchivo) {

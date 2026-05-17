@@ -66,6 +66,8 @@ export type Recurso = {
   autorNombre?: string;
   nivelAcademico?: string;
   gradoEscolarId?: number;
+  foroOrigenId?: number;
+  comentarioForoId?: number;
   estado: boolean;
   publicado: boolean;
   institucionId: number;
@@ -90,6 +92,15 @@ export type Recurso = {
     apellidos: string;
   };
   gradoEscolar?: GradoEscolar | null;
+  foroOrigen?: {
+    id: number;
+    titulo: string;
+    publico: boolean;
+  } | null;
+  comentarioForo?: {
+    id: number;
+    contenido: string;
+  } | null;
 };
 
 export type UsuarioSesion = {
@@ -125,10 +136,7 @@ export type CrearUsuarioPayload = {
   gradoEscolarId?: number;
 };
 
-export type ActualizarUsuarioPayload = Omit<
-  CrearUsuarioPayload,
-  'contrasena'
->;
+export type ActualizarUsuarioPayload = Omit<CrearUsuarioPayload, 'contrasena'>;
 
 export type CategoriaPayload = {
   nombre: string;
@@ -182,6 +190,16 @@ export type ComentarioForo = {
       nombre: string;
     };
   };
+  recursos?: Recurso[];
+};
+
+export type ForoCategoria = {
+  categoriaId: number;
+  categoria: {
+    id: number;
+    nombre: string;
+    color?: string;
+  };
 };
 
 export type ForoAcademico = {
@@ -217,7 +235,9 @@ export type ForoAcademico = {
       nombre: string;
     };
   };
+  categorias?: ForoCategoria[];
   comentarios: ComentarioForo[];
+  recursos?: Recurso[];
 };
 
 export type CrearForoPayload = {
@@ -225,7 +245,23 @@ export type CrearForoPayload = {
   descripcion: string;
   publico?: boolean;
   institucionId?: number;
-  categoriaId: number;
+  categoriaId?: number;
+  categoriaIds?: number[];
+};
+
+export type SubirRecursoForoPayload = {
+  archivo: File;
+  contexto: string;
+  titulo?: string;
+  gradoEscolarId?: string;
+  publicado?: boolean;
+};
+
+export type ComentarForoConRecursoPayload = {
+  contenido: string;
+  archivo: File;
+  titulo?: string;
+  gradoEscolarId?: string;
 };
 
 type RutaEstado = 'inactivar' | 'reactivar';
@@ -241,6 +277,7 @@ export type ConsultaPaginada = {
   tipoRecursoId?: number | string;
   tipoArchivo?: string;
   gradoEscolarId?: number | string;
+  recursoId?: number | string;
   publicado?: string;
   publico?: string;
   cerrado?: string;
@@ -305,6 +342,7 @@ export const PERMISOS = {
   FOROS_CREAR_PUBLICO: 'foros.crear_publico',
   FOROS_COMENTAR: 'foros.comentar',
   FOROS_CERRAR: 'foros.cerrar',
+  FOROS_SUBIR_RECURSO: 'foros.subir_recurso',
   REPORTES_VER: 'reportes.ver',
 } as const;
 
@@ -368,10 +406,7 @@ async function put<T>(
   return procesarRespuesta<T>(respuesta, mensajeError);
 }
 
-async function patch<T>(
-  path: string,
-  mensajeError: string,
-): Promise<T> {
+async function patch<T>(path: string, mensajeError: string): Promise<T> {
   const respuesta = await fetch(`${API_URL}${path}`, {
     method: 'PATCH',
     headers: construirHeadersAutorizados(false),
@@ -431,7 +466,9 @@ export function esSuperadministrador(): boolean {
 export function usuarioTienePermiso(permiso: string): boolean {
   const usuario = obtenerUsuarioAutenticado();
   const permisos = usuario?.permisos || [];
-  return permisos.includes(PERMISOS.SISTEMA_TOTAL) || permisos.includes(permiso);
+  return (
+    permisos.includes(PERMISOS.SISTEMA_TOTAL) || permisos.includes(permiso)
+  );
 }
 
 export function obtenerInstitucionesAdmin() {
@@ -504,10 +541,7 @@ export function crearTipoRecurso(data: TipoRecursoPayload) {
   );
 }
 
-export function actualizarTipoRecurso(
-  id: number,
-  data: TipoRecursoPayload,
-) {
+export function actualizarTipoRecurso(id: number, data: TipoRecursoPayload) {
   return put<TipoRecurso>(
     `/tipos-recursos/${id}`,
     data,
@@ -650,6 +684,69 @@ export function comentarForoAcademico(id: number, contenido: string) {
     `/foros/${id}/comentarios`,
     { contenido },
     'Error al comentar foro',
+  );
+}
+
+export async function comentarForoConRecurso(
+  foroId: number,
+  payload: ComentarForoConRecursoPayload,
+) {
+  const formData = new FormData();
+  formData.append('contenido', payload.contenido);
+  formData.append('archivo', payload.archivo);
+
+  if (payload.titulo) {
+    formData.append('titulo', payload.titulo);
+  }
+
+  if (payload.gradoEscolarId) {
+    formData.append('gradoEscolarId', payload.gradoEscolarId);
+  }
+
+  const respuesta = await fetch(
+    `${API_URL}/foros/${foroId}/comentarios/recurso`,
+    {
+      method: 'POST',
+      headers: construirHeadersAutorizados(false),
+      body: formData,
+    },
+  );
+
+  return procesarRespuesta<ComentarioForo>(
+    respuesta,
+    'Error al comentar foro con recurso',
+  );
+}
+
+export async function subirRecursoForo(
+  foroId: number,
+  payload: SubirRecursoForoPayload,
+) {
+  const formData = new FormData();
+  formData.append('archivo', payload.archivo);
+  formData.append('contexto', payload.contexto);
+
+  if (payload.titulo) {
+    formData.append('titulo', payload.titulo);
+  }
+
+  if (payload.gradoEscolarId) {
+    formData.append('gradoEscolarId', payload.gradoEscolarId);
+  }
+
+  if (payload.publicado !== undefined) {
+    formData.append('publicado', String(payload.publicado));
+  }
+
+  const respuesta = await fetch(`${API_URL}/foros/${foroId}/recursos`, {
+    method: 'POST',
+    headers: construirHeadersAutorizados(false),
+    body: formData,
+  });
+
+  return procesarRespuesta<{ mensaje: string; recurso: Recurso }>(
+    respuesta,
+    'Error al subir recurso desde foro',
   );
 }
 

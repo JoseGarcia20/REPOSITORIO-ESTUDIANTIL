@@ -242,6 +242,7 @@ export type ComentarioForoWhereInput = {
   usuarioId?: Prisma.IntFilter<"ComentarioForo"> | number
   foro?: Prisma.XOR<Prisma.ForoScalarRelationFilter, Prisma.ForoWhereInput>
   usuario?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
+  recursos?: Prisma.RecursoListRelationFilter
 }
 
 export type ComentarioForoOrderByWithRelationInput = {
@@ -254,6 +255,7 @@ export type ComentarioForoOrderByWithRelationInput = {
   usuarioId?: Prisma.SortOrder
   foro?: Prisma.ForoOrderByWithRelationInput
   usuario?: Prisma.UsuarioOrderByWithRelationInput
+  recursos?: Prisma.RecursoOrderByRelationAggregateInput
 }
 
 export type ComentarioForoWhereUniqueInput = Prisma.AtLeast<{
@@ -269,6 +271,7 @@ export type ComentarioForoWhereUniqueInput = Prisma.AtLeast<{
   usuarioId?: Prisma.IntFilter<"ComentarioForo"> | number
   foro?: Prisma.XOR<Prisma.ForoScalarRelationFilter, Prisma.ForoWhereInput>
   usuario?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
+  recursos?: Prisma.RecursoListRelationFilter
 }, "id">
 
 export type ComentarioForoOrderByWithAggregationInput = {
@@ -306,6 +309,7 @@ export type ComentarioForoCreateInput = {
   updatedAt?: Date | string
   foro: Prisma.ForoCreateNestedOneWithoutComentariosInput
   usuario: Prisma.UsuarioCreateNestedOneWithoutComentariosForoInput
+  recursos?: Prisma.RecursoCreateNestedManyWithoutComentarioForoInput
 }
 
 export type ComentarioForoUncheckedCreateInput = {
@@ -316,6 +320,7 @@ export type ComentarioForoUncheckedCreateInput = {
   updatedAt?: Date | string
   foroId: number
   usuarioId: number
+  recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutComentarioForoInput
 }
 
 export type ComentarioForoUpdateInput = {
@@ -325,6 +330,7 @@ export type ComentarioForoUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   foro?: Prisma.ForoUpdateOneRequiredWithoutComentariosNestedInput
   usuario?: Prisma.UsuarioUpdateOneRequiredWithoutComentariosForoNestedInput
+  recursos?: Prisma.RecursoUpdateManyWithoutComentarioForoNestedInput
 }
 
 export type ComentarioForoUncheckedUpdateInput = {
@@ -335,6 +341,7 @@ export type ComentarioForoUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   foroId?: Prisma.IntFieldUpdateOperationsInput | number
   usuarioId?: Prisma.IntFieldUpdateOperationsInput | number
+  recursos?: Prisma.RecursoUncheckedUpdateManyWithoutComentarioForoNestedInput
 }
 
 export type ComentarioForoCreateManyInput = {
@@ -414,6 +421,11 @@ export type ComentarioForoSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   foroId?: Prisma.SortOrder
   usuarioId?: Prisma.SortOrder
+}
+
+export type ComentarioForoNullableScalarRelationFilter = {
+  is?: Prisma.ComentarioForoWhereInput | null
+  isNot?: Prisma.ComentarioForoWhereInput | null
 }
 
 export type ComentarioForoCreateNestedManyWithoutUsuarioInput = {
@@ -500,12 +512,29 @@ export type ComentarioForoUncheckedUpdateManyWithoutForoNestedInput = {
   deleteMany?: Prisma.ComentarioForoScalarWhereInput | Prisma.ComentarioForoScalarWhereInput[]
 }
 
+export type ComentarioForoCreateNestedOneWithoutRecursosInput = {
+  create?: Prisma.XOR<Prisma.ComentarioForoCreateWithoutRecursosInput, Prisma.ComentarioForoUncheckedCreateWithoutRecursosInput>
+  connectOrCreate?: Prisma.ComentarioForoCreateOrConnectWithoutRecursosInput
+  connect?: Prisma.ComentarioForoWhereUniqueInput
+}
+
+export type ComentarioForoUpdateOneWithoutRecursosNestedInput = {
+  create?: Prisma.XOR<Prisma.ComentarioForoCreateWithoutRecursosInput, Prisma.ComentarioForoUncheckedCreateWithoutRecursosInput>
+  connectOrCreate?: Prisma.ComentarioForoCreateOrConnectWithoutRecursosInput
+  upsert?: Prisma.ComentarioForoUpsertWithoutRecursosInput
+  disconnect?: Prisma.ComentarioForoWhereInput | boolean
+  delete?: Prisma.ComentarioForoWhereInput | boolean
+  connect?: Prisma.ComentarioForoWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ComentarioForoUpdateToOneWithWhereWithoutRecursosInput, Prisma.ComentarioForoUpdateWithoutRecursosInput>, Prisma.ComentarioForoUncheckedUpdateWithoutRecursosInput>
+}
+
 export type ComentarioForoCreateWithoutUsuarioInput = {
   contenido: string
   estado?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   foro: Prisma.ForoCreateNestedOneWithoutComentariosInput
+  recursos?: Prisma.RecursoCreateNestedManyWithoutComentarioForoInput
 }
 
 export type ComentarioForoUncheckedCreateWithoutUsuarioInput = {
@@ -515,6 +544,7 @@ export type ComentarioForoUncheckedCreateWithoutUsuarioInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   foroId: number
+  recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutComentarioForoInput
 }
 
 export type ComentarioForoCreateOrConnectWithoutUsuarioInput = {
@@ -562,6 +592,7 @@ export type ComentarioForoCreateWithoutForoInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   usuario: Prisma.UsuarioCreateNestedOneWithoutComentariosForoInput
+  recursos?: Prisma.RecursoCreateNestedManyWithoutComentarioForoInput
 }
 
 export type ComentarioForoUncheckedCreateWithoutForoInput = {
@@ -571,6 +602,7 @@ export type ComentarioForoUncheckedCreateWithoutForoInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   usuarioId: number
+  recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutComentarioForoInput
 }
 
 export type ComentarioForoCreateOrConnectWithoutForoInput = {
@@ -599,6 +631,60 @@ export type ComentarioForoUpdateManyWithWhereWithoutForoInput = {
   data: Prisma.XOR<Prisma.ComentarioForoUpdateManyMutationInput, Prisma.ComentarioForoUncheckedUpdateManyWithoutForoInput>
 }
 
+export type ComentarioForoCreateWithoutRecursosInput = {
+  contenido: string
+  estado?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  foro: Prisma.ForoCreateNestedOneWithoutComentariosInput
+  usuario: Prisma.UsuarioCreateNestedOneWithoutComentariosForoInput
+}
+
+export type ComentarioForoUncheckedCreateWithoutRecursosInput = {
+  id?: number
+  contenido: string
+  estado?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  foroId: number
+  usuarioId: number
+}
+
+export type ComentarioForoCreateOrConnectWithoutRecursosInput = {
+  where: Prisma.ComentarioForoWhereUniqueInput
+  create: Prisma.XOR<Prisma.ComentarioForoCreateWithoutRecursosInput, Prisma.ComentarioForoUncheckedCreateWithoutRecursosInput>
+}
+
+export type ComentarioForoUpsertWithoutRecursosInput = {
+  update: Prisma.XOR<Prisma.ComentarioForoUpdateWithoutRecursosInput, Prisma.ComentarioForoUncheckedUpdateWithoutRecursosInput>
+  create: Prisma.XOR<Prisma.ComentarioForoCreateWithoutRecursosInput, Prisma.ComentarioForoUncheckedCreateWithoutRecursosInput>
+  where?: Prisma.ComentarioForoWhereInput
+}
+
+export type ComentarioForoUpdateToOneWithWhereWithoutRecursosInput = {
+  where?: Prisma.ComentarioForoWhereInput
+  data: Prisma.XOR<Prisma.ComentarioForoUpdateWithoutRecursosInput, Prisma.ComentarioForoUncheckedUpdateWithoutRecursosInput>
+}
+
+export type ComentarioForoUpdateWithoutRecursosInput = {
+  contenido?: Prisma.StringFieldUpdateOperationsInput | string
+  estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  foro?: Prisma.ForoUpdateOneRequiredWithoutComentariosNestedInput
+  usuario?: Prisma.UsuarioUpdateOneRequiredWithoutComentariosForoNestedInput
+}
+
+export type ComentarioForoUncheckedUpdateWithoutRecursosInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  contenido?: Prisma.StringFieldUpdateOperationsInput | string
+  estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  foroId?: Prisma.IntFieldUpdateOperationsInput | number
+  usuarioId?: Prisma.IntFieldUpdateOperationsInput | number
+}
+
 export type ComentarioForoCreateManyUsuarioInput = {
   id?: number
   contenido: string
@@ -614,6 +700,7 @@ export type ComentarioForoUpdateWithoutUsuarioInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   foro?: Prisma.ForoUpdateOneRequiredWithoutComentariosNestedInput
+  recursos?: Prisma.RecursoUpdateManyWithoutComentarioForoNestedInput
 }
 
 export type ComentarioForoUncheckedUpdateWithoutUsuarioInput = {
@@ -623,6 +710,7 @@ export type ComentarioForoUncheckedUpdateWithoutUsuarioInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   foroId?: Prisma.IntFieldUpdateOperationsInput | number
+  recursos?: Prisma.RecursoUncheckedUpdateManyWithoutComentarioForoNestedInput
 }
 
 export type ComentarioForoUncheckedUpdateManyWithoutUsuarioInput = {
@@ -649,6 +737,7 @@ export type ComentarioForoUpdateWithoutForoInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   usuario?: Prisma.UsuarioUpdateOneRequiredWithoutComentariosForoNestedInput
+  recursos?: Prisma.RecursoUpdateManyWithoutComentarioForoNestedInput
 }
 
 export type ComentarioForoUncheckedUpdateWithoutForoInput = {
@@ -658,6 +747,7 @@ export type ComentarioForoUncheckedUpdateWithoutForoInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   usuarioId?: Prisma.IntFieldUpdateOperationsInput | number
+  recursos?: Prisma.RecursoUncheckedUpdateManyWithoutComentarioForoNestedInput
 }
 
 export type ComentarioForoUncheckedUpdateManyWithoutForoInput = {
@@ -670,6 +760,35 @@ export type ComentarioForoUncheckedUpdateManyWithoutForoInput = {
 }
 
 
+/**
+ * Count Type ComentarioForoCountOutputType
+ */
+
+export type ComentarioForoCountOutputType = {
+  recursos: number
+}
+
+export type ComentarioForoCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  recursos?: boolean | ComentarioForoCountOutputTypeCountRecursosArgs
+}
+
+/**
+ * ComentarioForoCountOutputType without action
+ */
+export type ComentarioForoCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ComentarioForoCountOutputType
+   */
+  select?: Prisma.ComentarioForoCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * ComentarioForoCountOutputType without action
+ */
+export type ComentarioForoCountOutputTypeCountRecursosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RecursoWhereInput
+}
+
 
 export type ComentarioForoSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -681,6 +800,8 @@ export type ComentarioForoSelect<ExtArgs extends runtime.Types.Extensions.Intern
   usuarioId?: boolean
   foro?: boolean | Prisma.ForoDefaultArgs<ExtArgs>
   usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
+  recursos?: boolean | Prisma.ComentarioForo$recursosArgs<ExtArgs>
+  _count?: boolean | Prisma.ComentarioForoCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["comentarioForo"]>
 
 export type ComentarioForoSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -721,6 +842,8 @@ export type ComentarioForoOmit<ExtArgs extends runtime.Types.Extensions.Internal
 export type ComentarioForoInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   foro?: boolean | Prisma.ForoDefaultArgs<ExtArgs>
   usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
+  recursos?: boolean | Prisma.ComentarioForo$recursosArgs<ExtArgs>
+  _count?: boolean | Prisma.ComentarioForoCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ComentarioForoIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   foro?: boolean | Prisma.ForoDefaultArgs<ExtArgs>
@@ -736,6 +859,7 @@ export type $ComentarioForoPayload<ExtArgs extends runtime.Types.Extensions.Inte
   objects: {
     foro: Prisma.$ForoPayload<ExtArgs>
     usuario: Prisma.$UsuarioPayload<ExtArgs>
+    recursos: Prisma.$RecursoPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1141,6 +1265,7 @@ export interface Prisma__ComentarioForoClient<T, Null = never, ExtArgs extends r
   readonly [Symbol.toStringTag]: "PrismaPromise"
   foro<T extends Prisma.ForoDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ForoDefaultArgs<ExtArgs>>): Prisma.Prisma__ForoClient<runtime.Types.Result.GetResult<Prisma.$ForoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   usuario<T extends Prisma.UsuarioDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UsuarioDefaultArgs<ExtArgs>>): Prisma.Prisma__UsuarioClient<runtime.Types.Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  recursos<T extends Prisma.ComentarioForo$recursosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ComentarioForo$recursosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RecursoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1575,6 +1700,30 @@ export type ComentarioForoDeleteManyArgs<ExtArgs extends runtime.Types.Extension
    * Limit how many ComentarioForos to delete.
    */
   limit?: number
+}
+
+/**
+ * ComentarioForo.recursos
+ */
+export type ComentarioForo$recursosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Recurso
+   */
+  select?: Prisma.RecursoSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Recurso
+   */
+  omit?: Prisma.RecursoOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RecursoInclude<ExtArgs> | null
+  where?: Prisma.RecursoWhereInput
+  orderBy?: Prisma.RecursoOrderByWithRelationInput | Prisma.RecursoOrderByWithRelationInput[]
+  cursor?: Prisma.RecursoWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.RecursoScalarFieldEnum | Prisma.RecursoScalarFieldEnum[]
 }
 
 /**

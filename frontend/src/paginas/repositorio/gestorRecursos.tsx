@@ -23,6 +23,7 @@ type FiltrosRepositorio = {
   busqueda: string;
   tipoArchivo: string;
   gradoEscolarId: string;
+  recursoId: string;
 };
 
 function obtenerUrlRecurso(recurso: Recurso) {
@@ -36,7 +37,9 @@ function obtenerUrlRecurso(recurso: Recurso) {
 function obtenerExtension(recurso: Recurso) {
   const ruta = recurso.rutaRecurso || recurso.urlRecurso || '';
   const limpia = ruta.split('?')[0];
-  return limpia.includes('.') ? limpia.split('.').pop()?.toLowerCase() || '' : '';
+  return limpia.includes('.')
+    ? limpia.split('.').pop()?.toLowerCase() || ''
+    : '';
 }
 
 function describirTipoArchivo(recurso: Recurso) {
@@ -116,8 +119,9 @@ function nombreCreador(recurso: Recurso) {
 }
 
 export function GestorRecursos() {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const busquedaUrl = searchParams.get('busqueda') || '';
+  const recursoIdUrl = searchParams.get('recursoId') || '';
   const puedeVerTodosLosGrados = usuarioTienePermiso(
     PERMISOS.RECURSOS_VER_TODOS_GRADOS,
   );
@@ -130,9 +134,10 @@ export function GestorRecursos() {
   const [guardandoCalificacion, setGuardandoCalificacion] = useState(false);
   const [vista, setVista] = useState<VistaRepositorio>('tarjetas');
   const [filtros, setFiltros] = useState<FiltrosRepositorio>({
-    busqueda: '',
+    busqueda: busquedaUrl,
     tipoArchivo: '',
     gradoEscolarId: '',
+    recursoId: recursoIdUrl,
   });
   const [pagina, setPagina] = useState(1);
   const [total, setTotal] = useState(0);
@@ -142,14 +147,27 @@ export function GestorRecursos() {
 
   useEffect(() => {
     cargarRecursos();
-  }, [pagina, filtros.busqueda, filtros.tipoArchivo, filtros.gradoEscolarId]);
+  }, [
+    pagina,
+    filtros.busqueda,
+    filtros.tipoArchivo,
+    filtros.gradoEscolarId,
+    filtros.recursoId,
+  ]);
 
   useEffect(() => {
-    if (busquedaUrl && busquedaUrl !== filtros.busqueda) {
-      setFiltros((prev) => ({ ...prev, busqueda: busquedaUrl }));
+    if (
+      busquedaUrl !== filtros.busqueda ||
+      recursoIdUrl !== filtros.recursoId
+    ) {
+      setFiltros((prev) => ({
+        ...prev,
+        busqueda: busquedaUrl,
+        recursoId: recursoIdUrl,
+      }));
       setPagina(1);
     }
-  }, [busquedaUrl, filtros.busqueda]);
+  }, [busquedaUrl, recursoIdUrl, filtros.busqueda, filtros.recursoId]);
 
   useEffect(() => {
     cargarGradosEscolares();
@@ -185,6 +203,7 @@ export function GestorRecursos() {
         gradoEscolarId: puedeVerTodosLosGrados
           ? filtros.gradoEscolarId
           : undefined,
+        recursoId: filtros.recursoId,
       });
 
       setRecursos(respuesta.data);
@@ -197,18 +216,31 @@ export function GestorRecursos() {
     }
   }
 
-  function manejarFiltro(event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
+  function manejarFiltro(
+    event: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) {
     const { name, value } = event.target;
-    setFiltros((prev) => ({ ...prev, [name]: value }));
+    if (filtros.recursoId || busquedaUrl || recursoIdUrl) {
+      setSearchParams({}, { replace: true });
+    }
+    setFiltros((prev) => ({
+      ...prev,
+      [name]: value,
+      ...(name === 'busqueda' ? { recursoId: '' } : {}),
+    }));
 
     setPagina(1);
   }
 
   function limpiarFiltros() {
+    if (busquedaUrl || recursoIdUrl) {
+      setSearchParams({}, { replace: true });
+    }
     setFiltros({
       busqueda: '',
       tipoArchivo: '',
       gradoEscolarId: '',
+      recursoId: '',
     });
     setPagina(1);
   }
@@ -273,7 +305,9 @@ export function GestorRecursos() {
     return (
       <div className="resource-preview-empty">
         <span>{describirTipoArchivo(recurso)}</span>
-        <p>Abre el recurso en una nueva pestaña para visualizar su contenido.</p>
+        <p>
+          Abre el recurso en una nueva pestaña para visualizar su contenido.
+        </p>
         <a href={url} target="_blank" rel="noreferrer">
           Abrir recurso
         </a>
@@ -311,7 +345,9 @@ export function GestorRecursos() {
         </div>
 
         <div className="resource-card-footer">
-          <small>{recurso.tipoRecurso?.nombre || describirTipoArchivo(recurso)}</small>
+          <small>
+            {recurso.tipoRecurso?.nombre || describirTipoArchivo(recurso)}
+          </small>
           <button type="button">Ver detalle</button>
         </div>
       </article>
@@ -331,13 +367,17 @@ export function GestorRecursos() {
           </span>
           <span>
             <strong>{recurso.titulo}</strong>
-            <small>{recurso.contenidoResumen || 'Sin resumen registrado.'}</small>
+            <small>
+              {recurso.contenidoResumen || 'Sin resumen registrado.'}
+            </small>
           </span>
         </span>
 
         <span>{recurso.categoria?.nombre || 'Sin categoría'}</span>
         <span>
-          {recurso.gradoEscolar?.nombre || recurso.nivelAcademico || 'Sin grado'}
+          {recurso.gradoEscolar?.nombre ||
+            recurso.nivelAcademico ||
+            'Sin grado'}
         </span>
       </button>
     );
@@ -416,7 +456,9 @@ export function GestorRecursos() {
       {!cargando && !error && recursos.length === 0 && (
         <div className="repo-empty">
           <span>Repositorio vacío</span>
-          <p>No hay recursos publicados que coincidan con la búsqueda actual.</p>
+          <p>
+            No hay recursos publicados que coincidan con la búsqueda actual.
+          </p>
         </div>
       )}
 
@@ -498,9 +540,7 @@ export function GestorRecursos() {
                       ? resumenCalificacion.promedio.toFixed(1)
                       : '0.0'}
                   </strong>
-                  <small>
-                    {resumenCalificacion?.total || 0} valoraciones
-                  </small>
+                  <small>{resumenCalificacion?.total || 0} valoraciones</small>
                   <div className="resource-stars">
                     {[1, 2, 3, 4, 5].map((valor) => (
                       <button

@@ -9,6 +9,7 @@ export type ConsultaPaginada = {
   tipoRecursoId?: string;
   tipoArchivo?: string;
   gradoEscolarId?: string;
+  recursoId?: string;
   publicado?: string;
   publico?: string;
   cerrado?: string;
@@ -21,7 +22,9 @@ export type DatosPaginacion = {
   busqueda?: string;
 };
 
-export function obtenerPaginacion(query: ConsultaPaginada = {}): DatosPaginacion {
+export function obtenerPaginacion(
+  query: ConsultaPaginada = {},
+): DatosPaginacion {
   const pagina = Math.max(Number(query.pagina) || 1, 1);
   const limiteSolicitado = Math.max(Number(query.limite) || 10, 1);
   const limite = Math.min(limiteSolicitado, 100);
