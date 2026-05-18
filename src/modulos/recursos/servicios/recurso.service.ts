@@ -613,9 +613,7 @@ export class RecursoService {
     return where;
   }
 
-  async crear(data: CrearRecursoDto, usuarioAuth: any) {
-    validarPermiso(usuarioAuth, PERMISOS.RECURSOS_CREAR);
-
+  private async crearClasificado(data: CrearRecursoDto, usuarioAuth: any) {
     try {
       const institucionId = tieneAccesoTotal(usuarioAuth)
         ? Number(data.institucionId)
@@ -649,6 +647,15 @@ export class RecursoService {
 
       throw error;
     }
+  }
+
+  async crear(data: CrearRecursoDto, usuarioAuth: any) {
+    validarPermiso(usuarioAuth, PERMISOS.RECURSOS_CREAR);
+    return await this.crearClasificado(data, usuarioAuth);
+  }
+
+  async crearDesdeAulaColaborativa(data: CrearRecursoDto, usuarioAuth: any) {
+    return await this.crearClasificado(data, usuarioAuth);
   }
 
   async listar(usuarioAuth: any, query: ConsultaPaginada = {}) {

@@ -396,6 +396,11 @@ export const ModelName = {
   ComentarioForo: 'ComentarioForo',
   TipoRecurso: 'TipoRecurso',
   Recurso: 'Recurso',
+  ProyectoColaborativo: 'ProyectoColaborativo',
+  ProyectoColaborativoIntegrante: 'ProyectoColaborativoIntegrante',
+  ProyectoColaborativoActividad: 'ProyectoColaborativoActividad',
+  ProyectoColaborativoEvidencia: 'ProyectoColaborativoEvidencia',
+  ProyectoColaborativoEntrega: 'ProyectoColaborativoEntrega',
   CalificacionRecurso: 'CalificacionRecurso',
   TipoAprendizaje: 'TipoAprendizaje',
   RutaAprendizaje: 'RutaAprendizaje',
@@ -418,7 +423,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "institucion" | "rol" | "permiso" | "rolPermiso" | "usuario" | "gradoEscolar" | "categoria" | "foro" | "foroCategoria" | "comentarioForo" | "tipoRecurso" | "recurso" | "calificacionRecurso" | "tipoAprendizaje" | "rutaAprendizaje" | "detalleRutaAprendizaje" | "asignacionRutaAprendizaje" | "diagnosticoAprendizaje" | "detalleDiagnosticoAprendizaje"
+    modelProps: "institucion" | "rol" | "permiso" | "rolPermiso" | "usuario" | "gradoEscolar" | "categoria" | "foro" | "foroCategoria" | "comentarioForo" | "tipoRecurso" | "recurso" | "proyectoColaborativo" | "proyectoColaborativoIntegrante" | "proyectoColaborativoActividad" | "proyectoColaborativoEvidencia" | "proyectoColaborativoEntrega" | "calificacionRecurso" | "tipoAprendizaje" | "rutaAprendizaje" | "detalleRutaAprendizaje" | "asignacionRutaAprendizaje" | "diagnosticoAprendizaje" | "detalleDiagnosticoAprendizaje"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1310,6 +1315,376 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    ProyectoColaborativo: {
+      payload: Prisma.$ProyectoColaborativoPayload<ExtArgs>
+      fields: Prisma.ProyectoColaborativoFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ProyectoColaborativoFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProyectoColaborativoPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ProyectoColaborativoFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProyectoColaborativoPayload>
+        }
+        findFirst: {
+          args: Prisma.ProyectoColaborativoFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProyectoColaborativoPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ProyectoColaborativoFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProyectoColaborativoPayload>
+        }
+        findMany: {
+          args: Prisma.ProyectoColaborativoFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProyectoColaborativoPayload>[]
+        }
+        create: {
+          args: Prisma.ProyectoColaborativoCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProyectoColaborativoPayload>
+        }
+        createMany: {
+          args: Prisma.ProyectoColaborativoCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ProyectoColaborativoCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProyectoColaborativoPayload>[]
+        }
+        delete: {
+          args: Prisma.ProyectoColaborativoDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProyectoColaborativoPayload>
+        }
+        update: {
+          args: Prisma.ProyectoColaborativoUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProyectoColaborativoPayload>
+        }
+        deleteMany: {
+          args: Prisma.ProyectoColaborativoDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ProyectoColaborativoUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ProyectoColaborativoUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProyectoColaborativoPayload>[]
+        }
+        upsert: {
+          args: Prisma.ProyectoColaborativoUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProyectoColaborativoPayload>
+        }
+        aggregate: {
+          args: Prisma.ProyectoColaborativoAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateProyectoColaborativo>
+        }
+        groupBy: {
+          args: Prisma.ProyectoColaborativoGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ProyectoColaborativoGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ProyectoColaborativoCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ProyectoColaborativoCountAggregateOutputType> | number
+        }
+      }
+    }
+    ProyectoColaborativoIntegrante: {
+      payload: Prisma.$ProyectoColaborativoIntegrantePayload<ExtArgs>
+      fields: Prisma.ProyectoColaborativoIntegranteFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ProyectoColaborativoIntegranteFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProyectoColaborativoIntegrantePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ProyectoColaborativoIntegranteFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProyectoColaborativoIntegrantePayload>
+        }
+        findFirst: {
+          args: Prisma.ProyectoColaborativoIntegranteFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProyectoColaborativoIntegrantePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ProyectoColaborativoIntegranteFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProyectoColaborativoIntegrantePayload>
+        }
+        findMany: {
+          args: Prisma.ProyectoColaborativoIntegranteFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProyectoColaborativoIntegrantePayload>[]
+        }
+        create: {
+          args: Prisma.ProyectoColaborativoIntegranteCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProyectoColaborativoIntegrantePayload>
+        }
+        createMany: {
+          args: Prisma.ProyectoColaborativoIntegranteCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ProyectoColaborativoIntegranteCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProyectoColaborativoIntegrantePayload>[]
+        }
+        delete: {
+          args: Prisma.ProyectoColaborativoIntegranteDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProyectoColaborativoIntegrantePayload>
+        }
+        update: {
+          args: Prisma.ProyectoColaborativoIntegranteUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProyectoColaborativoIntegrantePayload>
+        }
+        deleteMany: {
+          args: Prisma.ProyectoColaborativoIntegranteDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ProyectoColaborativoIntegranteUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ProyectoColaborativoIntegranteUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProyectoColaborativoIntegrantePayload>[]
+        }
+        upsert: {
+          args: Prisma.ProyectoColaborativoIntegranteUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProyectoColaborativoIntegrantePayload>
+        }
+        aggregate: {
+          args: Prisma.ProyectoColaborativoIntegranteAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateProyectoColaborativoIntegrante>
+        }
+        groupBy: {
+          args: Prisma.ProyectoColaborativoIntegranteGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ProyectoColaborativoIntegranteGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ProyectoColaborativoIntegranteCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ProyectoColaborativoIntegranteCountAggregateOutputType> | number
+        }
+      }
+    }
+    ProyectoColaborativoActividad: {
+      payload: Prisma.$ProyectoColaborativoActividadPayload<ExtArgs>
+      fields: Prisma.ProyectoColaborativoActividadFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ProyectoColaborativoActividadFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProyectoColaborativoActividadPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ProyectoColaborativoActividadFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProyectoColaborativoActividadPayload>
+        }
+        findFirst: {
+          args: Prisma.ProyectoColaborativoActividadFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProyectoColaborativoActividadPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ProyectoColaborativoActividadFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProyectoColaborativoActividadPayload>
+        }
+        findMany: {
+          args: Prisma.ProyectoColaborativoActividadFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProyectoColaborativoActividadPayload>[]
+        }
+        create: {
+          args: Prisma.ProyectoColaborativoActividadCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProyectoColaborativoActividadPayload>
+        }
+        createMany: {
+          args: Prisma.ProyectoColaborativoActividadCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ProyectoColaborativoActividadCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProyectoColaborativoActividadPayload>[]
+        }
+        delete: {
+          args: Prisma.ProyectoColaborativoActividadDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProyectoColaborativoActividadPayload>
+        }
+        update: {
+          args: Prisma.ProyectoColaborativoActividadUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProyectoColaborativoActividadPayload>
+        }
+        deleteMany: {
+          args: Prisma.ProyectoColaborativoActividadDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ProyectoColaborativoActividadUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ProyectoColaborativoActividadUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProyectoColaborativoActividadPayload>[]
+        }
+        upsert: {
+          args: Prisma.ProyectoColaborativoActividadUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProyectoColaborativoActividadPayload>
+        }
+        aggregate: {
+          args: Prisma.ProyectoColaborativoActividadAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateProyectoColaborativoActividad>
+        }
+        groupBy: {
+          args: Prisma.ProyectoColaborativoActividadGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ProyectoColaborativoActividadGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ProyectoColaborativoActividadCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ProyectoColaborativoActividadCountAggregateOutputType> | number
+        }
+      }
+    }
+    ProyectoColaborativoEvidencia: {
+      payload: Prisma.$ProyectoColaborativoEvidenciaPayload<ExtArgs>
+      fields: Prisma.ProyectoColaborativoEvidenciaFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ProyectoColaborativoEvidenciaFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProyectoColaborativoEvidenciaPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ProyectoColaborativoEvidenciaFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProyectoColaborativoEvidenciaPayload>
+        }
+        findFirst: {
+          args: Prisma.ProyectoColaborativoEvidenciaFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProyectoColaborativoEvidenciaPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ProyectoColaborativoEvidenciaFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProyectoColaborativoEvidenciaPayload>
+        }
+        findMany: {
+          args: Prisma.ProyectoColaborativoEvidenciaFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProyectoColaborativoEvidenciaPayload>[]
+        }
+        create: {
+          args: Prisma.ProyectoColaborativoEvidenciaCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProyectoColaborativoEvidenciaPayload>
+        }
+        createMany: {
+          args: Prisma.ProyectoColaborativoEvidenciaCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ProyectoColaborativoEvidenciaCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProyectoColaborativoEvidenciaPayload>[]
+        }
+        delete: {
+          args: Prisma.ProyectoColaborativoEvidenciaDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProyectoColaborativoEvidenciaPayload>
+        }
+        update: {
+          args: Prisma.ProyectoColaborativoEvidenciaUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProyectoColaborativoEvidenciaPayload>
+        }
+        deleteMany: {
+          args: Prisma.ProyectoColaborativoEvidenciaDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ProyectoColaborativoEvidenciaUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ProyectoColaborativoEvidenciaUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProyectoColaborativoEvidenciaPayload>[]
+        }
+        upsert: {
+          args: Prisma.ProyectoColaborativoEvidenciaUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProyectoColaborativoEvidenciaPayload>
+        }
+        aggregate: {
+          args: Prisma.ProyectoColaborativoEvidenciaAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateProyectoColaborativoEvidencia>
+        }
+        groupBy: {
+          args: Prisma.ProyectoColaborativoEvidenciaGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ProyectoColaborativoEvidenciaGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ProyectoColaborativoEvidenciaCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ProyectoColaborativoEvidenciaCountAggregateOutputType> | number
+        }
+      }
+    }
+    ProyectoColaborativoEntrega: {
+      payload: Prisma.$ProyectoColaborativoEntregaPayload<ExtArgs>
+      fields: Prisma.ProyectoColaborativoEntregaFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ProyectoColaborativoEntregaFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProyectoColaborativoEntregaPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ProyectoColaborativoEntregaFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProyectoColaborativoEntregaPayload>
+        }
+        findFirst: {
+          args: Prisma.ProyectoColaborativoEntregaFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProyectoColaborativoEntregaPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ProyectoColaborativoEntregaFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProyectoColaborativoEntregaPayload>
+        }
+        findMany: {
+          args: Prisma.ProyectoColaborativoEntregaFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProyectoColaborativoEntregaPayload>[]
+        }
+        create: {
+          args: Prisma.ProyectoColaborativoEntregaCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProyectoColaborativoEntregaPayload>
+        }
+        createMany: {
+          args: Prisma.ProyectoColaborativoEntregaCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ProyectoColaborativoEntregaCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProyectoColaborativoEntregaPayload>[]
+        }
+        delete: {
+          args: Prisma.ProyectoColaborativoEntregaDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProyectoColaborativoEntregaPayload>
+        }
+        update: {
+          args: Prisma.ProyectoColaborativoEntregaUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProyectoColaborativoEntregaPayload>
+        }
+        deleteMany: {
+          args: Prisma.ProyectoColaborativoEntregaDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ProyectoColaborativoEntregaUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ProyectoColaborativoEntregaUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProyectoColaborativoEntregaPayload>[]
+        }
+        upsert: {
+          args: Prisma.ProyectoColaborativoEntregaUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProyectoColaborativoEntregaPayload>
+        }
+        aggregate: {
+          args: Prisma.ProyectoColaborativoEntregaAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateProyectoColaborativoEntrega>
+        }
+        groupBy: {
+          args: Prisma.ProyectoColaborativoEntregaGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ProyectoColaborativoEntregaGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ProyectoColaborativoEntregaCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ProyectoColaborativoEntregaCountAggregateOutputType> | number
+        }
+      }
+    }
     CalificacionRecurso: {
       payload: Prisma.$CalificacionRecursoPayload<ExtArgs>
       fields: Prisma.CalificacionRecursoFieldRefs
@@ -2048,6 +2423,94 @@ export const RecursoScalarFieldEnum = {
 export type RecursoScalarFieldEnum = (typeof RecursoScalarFieldEnum)[keyof typeof RecursoScalarFieldEnum]
 
 
+export const ProyectoColaborativoScalarFieldEnum = {
+  id: 'id',
+  titulo: 'titulo',
+  descripcion: 'descripcion',
+  objetivo: 'objetivo',
+  curso: 'curso',
+  instrucciones: 'instrucciones',
+  fechaLimite: 'fechaLimite',
+  estado: 'estado',
+  comentariosCierre: 'comentariosCierre',
+  calificacion: 'calificacion',
+  fechaCierre: 'fechaCierre',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  institucionId: 'institucionId',
+  docenteId: 'docenteId',
+  gradoEscolarId: 'gradoEscolarId',
+  categoriaId: 'categoriaId'
+} as const
+
+export type ProyectoColaborativoScalarFieldEnum = (typeof ProyectoColaborativoScalarFieldEnum)[keyof typeof ProyectoColaborativoScalarFieldEnum]
+
+
+export const ProyectoColaborativoIntegranteScalarFieldEnum = {
+  id: 'id',
+  rolProyecto: 'rolProyecto',
+  estado: 'estado',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  proyectoId: 'proyectoId',
+  usuarioId: 'usuarioId'
+} as const
+
+export type ProyectoColaborativoIntegranteScalarFieldEnum = (typeof ProyectoColaborativoIntegranteScalarFieldEnum)[keyof typeof ProyectoColaborativoIntegranteScalarFieldEnum]
+
+
+export const ProyectoColaborativoActividadScalarFieldEnum = {
+  id: 'id',
+  titulo: 'titulo',
+  descripcion: 'descripcion',
+  estado: 'estado',
+  fechaLimite: 'fechaLimite',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  proyectoId: 'proyectoId',
+  responsableId: 'responsableId',
+  creadorId: 'creadorId'
+} as const
+
+export type ProyectoColaborativoActividadScalarFieldEnum = (typeof ProyectoColaborativoActividadScalarFieldEnum)[keyof typeof ProyectoColaborativoActividadScalarFieldEnum]
+
+
+export const ProyectoColaborativoEvidenciaScalarFieldEnum = {
+  id: 'id',
+  comentario: 'comentario',
+  rutaArchivo: 'rutaArchivo',
+  nombreArchivo: 'nombreArchivo',
+  mimeType: 'mimeType',
+  estado: 'estado',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  actividadId: 'actividadId',
+  usuarioId: 'usuarioId'
+} as const
+
+export type ProyectoColaborativoEvidenciaScalarFieldEnum = (typeof ProyectoColaborativoEvidenciaScalarFieldEnum)[keyof typeof ProyectoColaborativoEvidenciaScalarFieldEnum]
+
+
+export const ProyectoColaborativoEntregaScalarFieldEnum = {
+  id: 'id',
+  comentario: 'comentario',
+  rutaArchivo: 'rutaArchivo',
+  nombreArchivo: 'nombreArchivo',
+  mimeType: 'mimeType',
+  estado: 'estado',
+  calificacion: 'calificacion',
+  comentariosDocente: 'comentariosDocente',
+  fechaRevision: 'fechaRevision',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  proyectoId: 'proyectoId',
+  usuarioId: 'usuarioId',
+  recursoId: 'recursoId'
+} as const
+
+export type ProyectoColaborativoEntregaScalarFieldEnum = (typeof ProyectoColaborativoEntregaScalarFieldEnum)[keyof typeof ProyectoColaborativoEntregaScalarFieldEnum]
+
+
 export const CalificacionRecursoScalarFieldEnum = {
   id: 'id',
   calificacion: 'calificacion',
@@ -2347,6 +2810,11 @@ export type GlobalOmitConfig = {
   comentarioForo?: Prisma.ComentarioForoOmit
   tipoRecurso?: Prisma.TipoRecursoOmit
   recurso?: Prisma.RecursoOmit
+  proyectoColaborativo?: Prisma.ProyectoColaborativoOmit
+  proyectoColaborativoIntegrante?: Prisma.ProyectoColaborativoIntegranteOmit
+  proyectoColaborativoActividad?: Prisma.ProyectoColaborativoActividadOmit
+  proyectoColaborativoEvidencia?: Prisma.ProyectoColaborativoEvidenciaOmit
+  proyectoColaborativoEntrega?: Prisma.ProyectoColaborativoEntregaOmit
   calificacionRecurso?: Prisma.CalificacionRecursoOmit
   tipoAprendizaje?: Prisma.TipoAprendizajeOmit
   rutaAprendizaje?: Prisma.RutaAprendizajeOmit

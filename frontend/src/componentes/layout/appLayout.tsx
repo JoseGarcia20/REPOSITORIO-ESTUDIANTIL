@@ -20,7 +20,9 @@ export function AppLayout() {
   const usuario = usuarioGuardado ? JSON.parse(usuarioGuardado) : null;
 
   const [menuAbierto, setMenuAbierto] = useState(window.innerWidth > 900);
-  const [mostrarBotonAbrir, setMostrarBotonAbrir] = useState(window.innerWidth <= 900);
+  const [mostrarBotonAbrir, setMostrarBotonAbrir] = useState(
+    window.innerWidth <= 900,
+  );
 
   function cerrarMenu() {
     setMenuAbierto(false);
@@ -41,12 +43,17 @@ export function AppLayout() {
     if (usuarioTienePermiso(PERMISOS.RECURSOS_VER)) {
       items.push({
         titulo: 'Repositorio',
-        hijos: [{ titulo: 'Gestor de recursos', ruta: '/repositorio/recursos' }],
+        hijos: [
+          { titulo: 'Gestor de recursos', ruta: '/repositorio/recursos' },
+        ],
       });
     }
 
     if (usuarioTienePermiso(PERMISOS.INSTITUCIONES_CREAR)) {
-      administracion.push({ titulo: 'Instituciones', ruta: '/admin/instituciones' });
+      administracion.push({
+        titulo: 'Instituciones',
+        ruta: '/admin/instituciones',
+      });
     }
 
     if (usuarioTienePermiso(PERMISOS.USUARIOS_VER)) {
@@ -58,7 +65,10 @@ export function AppLayout() {
     }
 
     if (usuarioTienePermiso(PERMISOS.TIPOS_RECURSOS_VER)) {
-      administracion.push({ titulo: 'Tipos de recursos', ruta: '/admin/tipos-recursos' });
+      administracion.push({
+        titulo: 'Tipos de recursos',
+        ruta: '/admin/tipos-recursos',
+      });
     }
 
     if (usuarioTienePermiso(PERMISOS.RECURSOS_CREAR)) {
@@ -76,10 +86,26 @@ export function AppLayout() {
       });
     }
 
-    if (usuarioTienePermiso(PERMISOS.FOROS_VER)) {
+    if (
+      usuarioTienePermiso(PERMISOS.FOROS_VER) ||
+      usuarioTienePermiso(PERMISOS.AULA_COLABORATIVA_VER)
+    ) {
+      const comunidad: { titulo: string; ruta: string }[] = [];
+
+      if (usuarioTienePermiso(PERMISOS.FOROS_VER)) {
+        comunidad.push({ titulo: 'Foros académicos', ruta: '/foros' });
+      }
+
+      if (usuarioTienePermiso(PERMISOS.AULA_COLABORATIVA_VER)) {
+        comunidad.push({
+          titulo: 'Aula Colaborativa',
+          ruta: '/aula-colaborativa',
+        });
+      }
+
       items.push({
         titulo: 'Comunidad',
-        hijos: [{ titulo: 'Foros académicos', ruta: '/foros' }],
+        hijos: comunidad,
       });
     }
 
@@ -132,12 +158,7 @@ export function AppLayout() {
         </button>
       )}
 
-      {menuAbierto && (
-        <div
-          className="sidebar-overlay"
-          onClick={cerrarMenu}
-        />
-      )}
+      {menuAbierto && <div className="sidebar-overlay" onClick={cerrarMenu} />}
 
       <aside className={`sidebar ${menuAbierto ? 'sidebar-open' : ''}`}>
         <div className="sidebar-header">
@@ -178,7 +199,9 @@ export function AppLayout() {
                   onClick={() => alternarSubmenu(item.titulo)}
                 >
                   {item.titulo}
-                  <span className={`submenu-arrow ${abierto ? 'submenu-arrow-open' : ''}`}>
+                  <span
+                    className={`submenu-arrow ${abierto ? 'submenu-arrow-open' : ''}`}
+                  >
                     ▾
                   </span>
                 </button>

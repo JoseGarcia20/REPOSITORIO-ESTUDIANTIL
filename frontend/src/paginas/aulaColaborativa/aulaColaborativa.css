@@ -1,0 +1,644 @@
+@import '../instituciones/instituciones.css';
+
+.aula-page {
+  display: grid;
+  gap: 18px;
+}
+
+.aula-header,
+.aula-filters,
+.aula-project-list,
+.aula-detail,
+.aula-delivery,
+.aula-reviews {
+  background: #ffffff;
+  border: 1px solid #e5eaf5;
+  border-radius: 18px;
+  box-shadow: 0 18px 44px rgba(38, 50, 77, 0.08);
+}
+
+.aula-header {
+  padding: 24px;
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: flex-start;
+}
+
+.aula-header h1 {
+  margin: 6px 0 8px;
+  color: #1f2a44;
+}
+
+.aula-header p,
+.aula-detail-header p,
+.aula-section-title p,
+.aula-delivery p {
+  margin: 0;
+  color: #7b8499;
+  line-height: 1.5;
+}
+
+.aula-filters {
+  padding: 16px;
+  display: grid;
+  grid-template-columns: minmax(230px, 1fr) repeat(3, minmax(150px, 0.45fr));
+  gap: 12px;
+}
+
+.aula-filters input,
+.aula-filters select,
+.aula-task select,
+.aula-evidence-form input,
+.aula-delivery textarea,
+.aula-delivery input,
+.aula-review-form input,
+.aula-review-form select,
+.aula-review-form textarea {
+  width: 100%;
+  border: 1px solid #e1e6f0;
+  background: #f8faff;
+  color: #26324d;
+  border-radius: 12px;
+  padding: 11px 12px;
+  font-size: 14px;
+  outline: none;
+}
+
+.aula-shell {
+  display: block;
+}
+
+.aula-project-list {
+  padding: 16px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 14px;
+}
+
+.aula-project-card {
+  text-align: left;
+  border: 1px solid #e5eaf5;
+  background: #f8faff;
+  border-radius: 16px;
+  padding: 16px;
+  display: grid;
+  gap: 10px;
+}
+
+.aula-project-card.active {
+  background: #eef3ff;
+  border-color: #5277f4;
+}
+
+.aula-project-card span,
+.aula-status,
+.aula-review-card span {
+  width: fit-content;
+  border-radius: 999px;
+  background: #eef3ff;
+  color: #5277f4;
+  padding: 5px 9px;
+  font-size: 11px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.aula-project-card h2 {
+  margin: 0;
+  color: #273653;
+  font-size: 17px;
+}
+
+.aula-project-card p {
+  margin: 0;
+  color: #56627a;
+  line-height: 1.4;
+}
+
+.aula-project-card small,
+.aula-task small,
+.aula-review-card small {
+  color: #7b8499;
+  font-size: 12px;
+}
+
+.aula-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.aula-pagination {
+  padding: 0;
+  box-shadow: none;
+  border: 0;
+  grid-column: 1 / -1;
+}
+
+.aula-detail {
+  display: none;
+}
+
+.aula-detail-header,
+.aula-section-title {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: flex-start;
+}
+
+.aula-detail-header h2,
+.aula-detail-header h3,
+.aula-section-title h3,
+.aula-delivery h3,
+.aula-reviews h3 {
+  margin: 8px 0 8px;
+  color: #1f2a44;
+}
+
+.aula-detail-header.compact {
+  align-items: stretch;
+}
+
+.aula-deadline {
+  border: 1px solid #e5eaf5;
+  background: #f8faff;
+  border-radius: 14px;
+  padding: 12px;
+  min-width: 150px;
+  display: grid;
+  gap: 4px;
+}
+
+.aula-deadline span,
+.aula-summary-grid span {
+  color: #7b8499;
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.aula-deadline strong,
+.aula-summary-grid p {
+  color: #273653;
+}
+
+.aula-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.aula-summary-grid div {
+  border: 1px solid #e5eaf5;
+  background: #fbfcff;
+  border-radius: 14px;
+  padding: 12px;
+}
+
+.aula-summary-grid p {
+  margin: 6px 0 0;
+  line-height: 1.4;
+}
+
+.aula-members {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.aula-members span {
+  border: 1px solid #dbe4f6;
+  background: #f8faff;
+  border-radius: 999px;
+  padding: 8px 11px;
+  color: #56627a;
+  display: inline-flex;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.aula-members strong {
+  color: #273653;
+}
+
+.aula-board {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(250px, 1fr));
+  gap: 16px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.aula-column {
+  background: #f8faff;
+  border: 1px solid #e5eaf5;
+  border-radius: 16px;
+  padding: 12px;
+  min-height: 260px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+}
+
+.aula-column h4 {
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  color: #273653;
+}
+
+.aula-column h4 span {
+  background: #ffffff;
+  border: 1px solid #e5eaf5;
+  border-radius: 999px;
+  min-width: 24px;
+  text-align: center;
+}
+
+.aula-task {
+  background: #ffffff;
+  border: 1px solid #e5eaf5;
+  border-radius: 14px;
+  padding: 12px;
+  display: grid;
+  gap: 9px;
+  min-width: 0;
+}
+
+.aula-task h5 {
+  margin: 0;
+  color: #273653;
+  font-size: 15px;
+  overflow-wrap: anywhere;
+}
+
+.aula-task p {
+  margin: 0;
+  color: #56627a;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.aula-evidence-list {
+  display: grid;
+  gap: 5px;
+  min-width: 0;
+}
+
+.aula-evidence-list a,
+.aula-review-card a {
+  color: #5277f4;
+  font-size: 13px;
+  font-weight: 800;
+  text-decoration: none;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.aula-evidence-list span {
+  color: #7b8499;
+  font-size: 12px;
+}
+
+.aula-evidence-form,
+.aula-review-form {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+
+.aula-evidence-form input[type='file'],
+.aula-delivery input[type='file'] {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.compact-button {
+  width: auto;
+}
+
+.aula-view-modal {
+  max-height: 92vh;
+  max-width: 1120px;
+  overflow: auto;
+}
+
+.aula-view-modal-informacion,
+.aula-view-modal-calificacion {
+  max-width: 980px;
+}
+
+.aula-info-view,
+.aula-work-view,
+.aula-grade-view {
+  display: grid;
+  gap: 18px;
+}
+
+.aula-info-block {
+  border: 1px solid #e5eaf5;
+  background: #fbfcff;
+  border-radius: 14px;
+  padding: 14px;
+  display: grid;
+  gap: 8px;
+}
+
+.aula-info-block h3 {
+  margin: 0;
+  color: #1f2a44;
+}
+
+.aula-info-block p {
+  margin: 0;
+  color: #56627a;
+  line-height: 1.55;
+  white-space: pre-wrap;
+}
+
+.aula-column-empty {
+  border: 1px dashed #dbe4f6;
+  border-radius: 12px;
+  color: #7b8499;
+  margin: 0;
+  padding: 14px;
+  text-align: center;
+}
+
+.aula-board-rule {
+  border: 1px solid #dbe4f6;
+  background: #f8faff;
+  border-radius: 12px;
+  color: #56627a;
+  font-size: 13px;
+  line-height: 1.45;
+  margin: 0;
+  padding: 11px 12px;
+}
+
+.aula-lock-notice,
+.aula-return-notice,
+.aula-delivery-state,
+.aula-confirm-body {
+  border: 1px solid #dbe4f6;
+  background: #f8faff;
+  border-radius: 14px;
+  padding: 14px;
+  display: grid;
+  gap: 7px;
+}
+
+.aula-lock-notice {
+  border-color: #f1d7a2;
+  background: #fff9ec;
+}
+
+.aula-return-notice,
+.aula-delivery-state.returned {
+  border-color: #cfe4ff;
+  background: #f3f8ff;
+}
+
+.aula-delivery-state.pending {
+  border-color: #f1d7a2;
+  background: #fff9ec;
+}
+
+.aula-lock-notice strong,
+.aula-return-notice strong,
+.aula-delivery-state strong,
+.aula-confirm-body strong {
+  color: #273653;
+  overflow-wrap: anywhere;
+}
+
+.aula-lock-notice p,
+.aula-return-notice p,
+.aula-delivery-state span,
+.aula-confirm-body p {
+  margin: 0;
+  color: #56627a;
+  line-height: 1.45;
+}
+
+.aula-lock-notice a {
+  color: #5277f4;
+  font-weight: 800;
+  overflow-wrap: anywhere;
+  text-decoration: none;
+}
+
+.aula-delivery-grid {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.42fr) minmax(0, 1fr);
+  gap: 16px;
+}
+
+.aula-delivery,
+.aula-reviews {
+  box-shadow: none;
+  padding: 16px;
+  display: grid;
+  gap: 12px;
+}
+
+.aula-delivery form {
+  display: grid;
+  gap: 10px;
+}
+
+.aula-delivery-list {
+  display: grid;
+  gap: 8px;
+}
+
+.aula-delivery-list h4 {
+  color: #1f2a44;
+  margin: 4px 0;
+}
+
+.aula-delivery-list a {
+  align-items: flex-start;
+  background: #ffffff;
+  border: 1px solid #e5eaf5;
+  border-radius: 12px;
+  color: #273653;
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  padding: 10px 12px;
+  text-decoration: none;
+  min-width: 0;
+}
+
+.aula-delivery-item.current {
+  border-color: #5277f4;
+  background: #f3f6ff;
+}
+
+.aula-delivery-list a div {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.aula-delivery-list strong,
+.aula-review-card strong {
+  overflow-wrap: anywhere;
+}
+
+.aula-delivery-list small,
+.aula-delivery-list em {
+  color: #7b8499;
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.aula-delivery-list em {
+  font-style: normal;
+  overflow-wrap: anywhere;
+}
+
+.aula-delivery-list span {
+  color: #5277f4;
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.aula-delivery textarea,
+.aula-review-form textarea {
+  min-height: 86px;
+  resize: vertical;
+}
+
+.aula-reviews-wide {
+  border: 0;
+  padding: 0;
+}
+
+.aula-review-card {
+  border: 1px solid #e5eaf5;
+  background: #f8faff;
+  border-radius: 14px;
+  padding: 12px;
+  display: grid;
+  grid-template-columns: minmax(0, 0.42fr) minmax(0, 1fr);
+  gap: 14px;
+  min-width: 0;
+}
+
+.aula-review-card > div:first-child {
+  display: grid;
+  gap: 7px;
+}
+
+.aula-review-card strong {
+  color: #273653;
+}
+
+.aula-confirm-modal {
+  max-width: 560px;
+}
+
+.aula-empty {
+  border: 1px dashed #dbe4f6;
+  border-radius: 16px;
+  padding: 20px;
+  color: #7b8499;
+  background: #f8faff;
+}
+
+.aula-empty.detail {
+  min-height: 360px;
+  display: grid;
+  place-items: center;
+}
+
+.aula-modal {
+  max-width: 920px;
+}
+
+.aula-student-picker {
+  border: 1px solid #e1e6f0;
+  background: #f8faff;
+  border-radius: 14px;
+  padding: 10px;
+  display: grid;
+  gap: 8px;
+  max-height: 280px;
+  overflow: auto;
+}
+
+.aula-student-picker p {
+  margin: 0;
+  color: #7b8499;
+}
+
+.aula-student-row {
+  background: #ffffff;
+  border: 1px solid #e5eaf5;
+  border-radius: 12px;
+  padding: 10px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(140px, 0.35fr);
+  gap: 12px;
+  align-items: center;
+}
+
+.aula-student-row label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #273653;
+  font-weight: 800;
+}
+
+.aula-student-row span {
+  display: grid;
+  gap: 2px;
+}
+
+.aula-student-row small {
+  color: #7b8499;
+  font-weight: 700;
+}
+
+.aula-student-row select {
+  border: 1px solid #e1e6f0;
+  border-radius: 10px;
+  padding: 10px;
+  color: #26324d;
+  background: #f8faff;
+}
+
+@media (max-width: 1100px) {
+  .aula-shell,
+  .aula-delivery-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .aula-summary-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .aula-header,
+  .aula-detail-header,
+  .aula-section-title,
+  .aula-review-card,
+  .aula-student-row {
+    grid-template-columns: 1fr;
+    flex-direction: column;
+  }
+
+  .aula-filters,
+  .aula-summary-grid {
+    grid-template-columns: 1fr;
+  }
+}

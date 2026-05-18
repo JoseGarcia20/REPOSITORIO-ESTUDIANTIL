@@ -9,8 +9,9 @@ import { TiposAprendizajeModule } from './modulos/tiposAprendizaje/tiposAprendiz
 import { TiposRecursosModule } from './modulos/tiposRecursos/tiposRecursos.module';
 import { RecursoModule } from './modulos/recursos/recurso.module';
 import { ForoModule } from './modulos/foro/foro.module';
+import { AulaColaborativaModule } from './modulos/aulaColaborativa/aulaColaborativa.module';
 import { GradosEscolaresModule } from './modulos/gradosEscolares/gradosEscolares.module';
-import { DiagnosticoAprendizajeModule } from './modulos/diagnosticoAprendizaje/diagnosticoAprendizaje.module'; 
+import { DiagnosticoAprendizajeModule } from './modulos/diagnosticoAprendizaje/diagnosticoAprendizaje.module';
 import { RutaAprendizajeModule } from './modulos/rutaAprendizaje/rutaAprendizaje.module';
 import { CalificacionRecursoModule } from './modulos/calificacionRecurso/calificacionRecurso.module';
 import { DetalleRutaAprendizajeModule } from './modulos/detalleRutaAprendizaje/detalleRutaAprendizaje.module';
@@ -21,7 +22,6 @@ import { join } from 'path';
 
 @Module({
   imports: [
-
     ServeStaticModule.forRoot({
       rootPath: join(process.cwd(), 'uploads'),
       serveRoot: '/uploads',
@@ -38,15 +38,16 @@ import { join } from 'path';
     TiposRecursosModule,
     RecursoModule,
     ForoModule,
+    AulaColaborativaModule,
     GradosEscolaresModule,
     DiagnosticoAprendizajeModule,
     RutaAprendizajeModule,
     CalificacionRecursoModule,
     DetalleRutaAprendizajeModule,
-    DetalleDiagnosticoAprendizajeModule],
-    
+    DetalleDiagnosticoAprendizajeModule,
+  ],
+
   controllers: [],
   providers: [],
 })
-
 export class AppModule {}

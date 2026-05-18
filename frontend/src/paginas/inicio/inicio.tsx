@@ -32,14 +32,16 @@ const accesos: AccesoDashboard[] = [
   },
   {
     titulo: 'Gestor de recursos',
-    descripcion: 'Repositorio visual de archivos, enlaces y materiales educativos.',
+    descripcion:
+      'Repositorio visual de archivos, enlaces y materiales educativos.',
     ruta: '/repositorio/recursos',
     permiso: PERMISOS.RECURSOS_VER,
     etiqueta: 'Aprendizaje',
   },
   {
     titulo: 'Maestro de recursos',
-    descripcion: 'Administración de recursos, archivos y publicación de materiales.',
+    descripcion:
+      'Administración de recursos, archivos y publicación de materiales.',
     ruta: '/admin/recursos',
     permiso: PERMISOS.RECURSOS_CREAR,
     etiqueta: 'Administración',
@@ -50,6 +52,14 @@ const accesos: AccesoDashboard[] = [
     ruta: '/foros',
     permiso: PERMISOS.FOROS_VER,
     etiqueta: 'Participación',
+  },
+  {
+    titulo: 'Aula Colaborativa',
+    descripcion:
+      'Proyectos grupales con tablero, evidencias y entregas publicables.',
+    ruta: '/aula-colaborativa',
+    permiso: PERMISOS.AULA_COLABORATIVA_VER,
+    etiqueta: 'Comunidad',
   },
   {
     titulo: 'Categorías',

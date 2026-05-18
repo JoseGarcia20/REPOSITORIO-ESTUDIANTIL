@@ -43,6 +43,12 @@ export const PERMISOS = {
   FOROS_CERRAR: 'foros.cerrar',
   FOROS_SUBIR_RECURSO: 'foros.subir_recurso',
 
+  AULA_COLABORATIVA_VER: 'aula_colaborativa.ver',
+  AULA_COLABORATIVA_CREAR: 'aula_colaborativa.crear',
+  AULA_COLABORATIVA_GESTIONAR: 'aula_colaborativa.gestionar',
+  AULA_COLABORATIVA_PARTICIPAR: 'aula_colaborativa.participar',
+  AULA_COLABORATIVA_REVISAR: 'aula_colaborativa.revisar',
+
   REPORTES_VER: 'reportes.ver',
 } as const;
 

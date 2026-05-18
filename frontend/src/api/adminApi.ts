@@ -103,6 +103,17 @@ export type Recurso = {
   } | null;
 };
 
+export type EstudianteAula = {
+  id: number;
+  nombres: string;
+  apellidos: string;
+  correo: string;
+  institucionId: number;
+  rolId: number;
+  gradoEscolarId?: number;
+  gradoEscolar?: GradoEscolar | null;
+};
+
 export type UsuarioSesion = {
   id: number;
   nombres: string;
@@ -264,6 +275,150 @@ export type ComentarForoConRecursoPayload = {
   gradoEscolarId?: string;
 };
 
+export type RolProyectoAula = 'lider' | 'investigador' | 'expositor';
+
+export type IntegranteProyectoAula = {
+  id: number;
+  rolProyecto: RolProyectoAula | string;
+  estado: boolean;
+  usuarioId: number;
+  usuario: EstudianteAula & {
+    rol?: {
+      nombre: string;
+    };
+  };
+};
+
+export type EvidenciaAula = {
+  id: number;
+  comentario?: string;
+  rutaArchivo: string;
+  nombreArchivo: string;
+  mimeType?: string;
+  estado: boolean;
+  createdAt: string;
+  usuario: {
+    id: number;
+    nombres: string;
+    apellidos: string;
+  };
+};
+
+export type ActividadAula = {
+  id: number;
+  titulo: string;
+  descripcion?: string;
+  estado: string;
+  fechaLimite?: string;
+  createdAt: string;
+  responsableId?: number;
+  responsable?: {
+    id: number;
+    nombres: string;
+    apellidos: string;
+  } | null;
+  creador?: {
+    id: number;
+    nombres: string;
+    apellidos: string;
+  };
+  evidencias: EvidenciaAula[];
+};
+
+export type EntregaAula = {
+  id: number;
+  comentario?: string;
+  rutaArchivo: string;
+  nombreArchivo: string;
+  mimeType?: string;
+  estado: string;
+  calificacion?: number;
+  comentariosDocente?: string;
+  fechaRevision?: string;
+  createdAt: string;
+  recursoId?: number;
+  usuario: {
+    id: number;
+    nombres: string;
+    apellidos: string;
+  };
+  recurso?: {
+    id: number;
+    titulo: string;
+    palabrasClave?: string;
+  } | null;
+};
+
+export type ProyectoAula = {
+  id: number;
+  titulo: string;
+  descripcion: string;
+  objetivo: string;
+  curso?: string;
+  instrucciones?: string;
+  fechaLimite: string;
+  estado: string;
+  comentariosCierre?: string;
+  calificacion?: number;
+  fechaCierre?: string;
+  createdAt: string;
+  institucionId: number;
+  docenteId: number;
+  gradoEscolarId?: number;
+  categoriaId?: number;
+  institucion?: {
+    id: number;
+    nombre: string;
+  };
+  docente?: {
+    id: number;
+    nombres: string;
+    apellidos: string;
+    rol?: {
+      nombre: string;
+    };
+  };
+  gradoEscolar?: GradoEscolar | null;
+  categoria?: {
+    id: number;
+    nombre: string;
+    color?: string;
+  } | null;
+  integrantes: IntegranteProyectoAula[];
+  actividades: ActividadAula[];
+  entregas: EntregaAula[];
+};
+
+export type CatalogosAula = {
+  instituciones: InstitucionCatalogo[];
+  categorias: Categoria[];
+  gradosEscolares: GradoEscolar[];
+  estudiantes: EstudianteAula[];
+};
+
+export type CrearProyectoAulaPayload = {
+  titulo: string;
+  descripcion: string;
+  objetivo: string;
+  curso?: string;
+  instrucciones?: string;
+  fechaLimite: string;
+  institucionId?: number;
+  gradoEscolarId?: number;
+  categoriaId?: number;
+  integrantes: Array<{
+    usuarioId: number;
+    rolProyecto: RolProyectoAula | string;
+  }>;
+};
+
+export type CrearActividadAulaPayload = {
+  titulo: string;
+  descripcion?: string;
+  fechaLimite?: string;
+  responsableId?: number;
+};
+
 type RutaEstado = 'inactivar' | 'reactivar';
 
 export type ConsultaPaginada = {
@@ -343,6 +498,11 @@ export const PERMISOS = {
   FOROS_COMENTAR: 'foros.comentar',
   FOROS_CERRAR: 'foros.cerrar',
   FOROS_SUBIR_RECURSO: 'foros.subir_recurso',
+  AULA_COLABORATIVA_VER: 'aula_colaborativa.ver',
+  AULA_COLABORATIVA_CREAR: 'aula_colaborativa.crear',
+  AULA_COLABORATIVA_GESTIONAR: 'aula_colaborativa.gestionar',
+  AULA_COLABORATIVA_PARTICIPAR: 'aula_colaborativa.participar',
+  AULA_COLABORATIVA_REVISAR: 'aula_colaborativa.revisar',
   REPORTES_VER: 'reportes.ver',
 } as const;
 
@@ -423,6 +583,20 @@ async function patch<T>(path: string, mensajeError: string): Promise<T> {
   const respuesta = await fetch(`${API_URL}${path}`, {
     method: 'PATCH',
     headers: construirHeadersAutorizados(false),
+  });
+
+  return procesarRespuesta<T>(respuesta, mensajeError);
+}
+
+async function patchJson<T>(
+  path: string,
+  data: unknown,
+  mensajeError: string,
+): Promise<T> {
+  const respuesta = await fetch(`${API_URL}${path}`, {
+    method: 'PATCH',
+    headers: construirHeadersAutorizados(),
+    body: JSON.stringify(data),
   });
 
   return procesarRespuesta<T>(respuesta, mensajeError);
@@ -776,6 +950,129 @@ export async function subirArchivoRecurso(archivo: File) {
   return procesarRespuesta<{ ruta: string }>(
     respuesta,
     'Error al subir archivo de recurso',
+  );
+}
+
+export function obtenerCatalogosAulaColaborativa(query?: ConsultaPaginada) {
+  return get<CatalogosAula>(
+    conQuery('/aula-colaborativa/catalogos', query),
+    'Error al obtener catálogos del aula colaborativa',
+  );
+}
+
+export function obtenerProyectosAulaColaborativa(query?: ConsultaPaginada) {
+  return get<RespuestaPaginada<ProyectoAula>>(
+    conQuery('/aula-colaborativa', query),
+    'Error al obtener proyectos del aula colaborativa',
+  );
+}
+
+export function obtenerProyectoAulaColaborativa(id: number) {
+  return get<ProyectoAula>(
+    `/aula-colaborativa/${id}`,
+    'Error al obtener proyecto colaborativo',
+  );
+}
+
+export function crearProyectoAulaColaborativa(data: CrearProyectoAulaPayload) {
+  return post<ProyectoAula>(
+    '/aula-colaborativa',
+    data,
+    'Error al crear proyecto colaborativo',
+  );
+}
+
+export function crearActividadAulaColaborativa(
+  proyectoId: number,
+  data: CrearActividadAulaPayload,
+) {
+  return post<ProyectoAula>(
+    `/aula-colaborativa/${proyectoId}/actividades`,
+    data,
+    'Error al crear actividad colaborativa',
+  );
+}
+
+export function actualizarEstadoActividadAula(
+  proyectoId: number,
+  actividadId: number,
+  estado: string,
+) {
+  return patchJson<ProyectoAula>(
+    `/aula-colaborativa/${proyectoId}/actividades/${actividadId}/estado`,
+    { estado },
+    'Error al actualizar actividad colaborativa',
+  );
+}
+
+export async function subirEvidenciaAulaColaborativa(
+  proyectoId: number,
+  actividadId: number,
+  archivo: File,
+  comentario?: string,
+) {
+  const formData = new FormData();
+  formData.append('archivo', archivo);
+
+  if (comentario) {
+    formData.append('comentario', comentario);
+  }
+
+  const respuesta = await fetch(
+    `${API_URL}/aula-colaborativa/${proyectoId}/actividades/${actividadId}/evidencias`,
+    {
+      method: 'POST',
+      headers: construirHeadersAutorizados(false),
+      body: formData,
+    },
+  );
+
+  return procesarRespuesta<ProyectoAula>(
+    respuesta,
+    'Error al subir evidencia colaborativa',
+  );
+}
+
+export async function crearEntregaAulaColaborativa(
+  proyectoId: number,
+  archivo: File,
+  comentario?: string,
+) {
+  const formData = new FormData();
+  formData.append('archivo', archivo);
+
+  if (comentario) {
+    formData.append('comentario', comentario);
+  }
+
+  const respuesta = await fetch(
+    `${API_URL}/aula-colaborativa/${proyectoId}/entregas`,
+    {
+      method: 'POST',
+      headers: construirHeadersAutorizados(false),
+      body: formData,
+    },
+  );
+
+  return procesarRespuesta<ProyectoAula>(
+    respuesta,
+    'Error al registrar entrega colaborativa',
+  );
+}
+
+export function revisarEntregaAulaColaborativa(
+  proyectoId: number,
+  entregaId: number,
+  data: {
+    estado: string;
+    calificacion?: number;
+    comentariosDocente?: string;
+  },
+) {
+  return patchJson<ProyectoAula>(
+    `/aula-colaborativa/${proyectoId}/entregas/${entregaId}/revisar`,
+    data,
+    'Error al revisar entrega colaborativa',
   );
 }
 

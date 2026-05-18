@@ -7,5 +7,6 @@ import { RecursoService } from './servicios/recurso.service';
   imports: [AuthModule],
   controllers: [RecursoController],
   providers: [RecursoService],
+  exports: [RecursoService],
 })
 export class RecursoModule {}

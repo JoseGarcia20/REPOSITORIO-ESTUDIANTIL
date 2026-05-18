@@ -63,6 +63,11 @@ export const ModelName = {
   ComentarioForo: 'ComentarioForo',
   TipoRecurso: 'TipoRecurso',
   Recurso: 'Recurso',
+  ProyectoColaborativo: 'ProyectoColaborativo',
+  ProyectoColaborativoIntegrante: 'ProyectoColaborativoIntegrante',
+  ProyectoColaborativoActividad: 'ProyectoColaborativoActividad',
+  ProyectoColaborativoEvidencia: 'ProyectoColaborativoEvidencia',
+  ProyectoColaborativoEntrega: 'ProyectoColaborativoEntrega',
   CalificacionRecurso: 'CalificacionRecurso',
   TipoAprendizaje: 'TipoAprendizaje',
   RutaAprendizaje: 'RutaAprendizaje',
@@ -267,6 +272,94 @@ export const RecursoScalarFieldEnum = {
 } as const
 
 export type RecursoScalarFieldEnum = (typeof RecursoScalarFieldEnum)[keyof typeof RecursoScalarFieldEnum]
+
+
+export const ProyectoColaborativoScalarFieldEnum = {
+  id: 'id',
+  titulo: 'titulo',
+  descripcion: 'descripcion',
+  objetivo: 'objetivo',
+  curso: 'curso',
+  instrucciones: 'instrucciones',
+  fechaLimite: 'fechaLimite',
+  estado: 'estado',
+  comentariosCierre: 'comentariosCierre',
+  calificacion: 'calificacion',
+  fechaCierre: 'fechaCierre',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  institucionId: 'institucionId',
+  docenteId: 'docenteId',
+  gradoEscolarId: 'gradoEscolarId',
+  categoriaId: 'categoriaId'
+} as const
+
+export type ProyectoColaborativoScalarFieldEnum = (typeof ProyectoColaborativoScalarFieldEnum)[keyof typeof ProyectoColaborativoScalarFieldEnum]
+
+
+export const ProyectoColaborativoIntegranteScalarFieldEnum = {
+  id: 'id',
+  rolProyecto: 'rolProyecto',
+  estado: 'estado',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  proyectoId: 'proyectoId',
+  usuarioId: 'usuarioId'
+} as const
+
+export type ProyectoColaborativoIntegranteScalarFieldEnum = (typeof ProyectoColaborativoIntegranteScalarFieldEnum)[keyof typeof ProyectoColaborativoIntegranteScalarFieldEnum]
+
+
+export const ProyectoColaborativoActividadScalarFieldEnum = {
+  id: 'id',
+  titulo: 'titulo',
+  descripcion: 'descripcion',
+  estado: 'estado',
+  fechaLimite: 'fechaLimite',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  proyectoId: 'proyectoId',
+  responsableId: 'responsableId',
+  creadorId: 'creadorId'
+} as const
+
+export type ProyectoColaborativoActividadScalarFieldEnum = (typeof ProyectoColaborativoActividadScalarFieldEnum)[keyof typeof ProyectoColaborativoActividadScalarFieldEnum]
+
+
+export const ProyectoColaborativoEvidenciaScalarFieldEnum = {
+  id: 'id',
+  comentario: 'comentario',
+  rutaArchivo: 'rutaArchivo',
+  nombreArchivo: 'nombreArchivo',
+  mimeType: 'mimeType',
+  estado: 'estado',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  actividadId: 'actividadId',
+  usuarioId: 'usuarioId'
+} as const
+
+export type ProyectoColaborativoEvidenciaScalarFieldEnum = (typeof ProyectoColaborativoEvidenciaScalarFieldEnum)[keyof typeof ProyectoColaborativoEvidenciaScalarFieldEnum]
+
+
+export const ProyectoColaborativoEntregaScalarFieldEnum = {
+  id: 'id',
+  comentario: 'comentario',
+  rutaArchivo: 'rutaArchivo',
+  nombreArchivo: 'nombreArchivo',
+  mimeType: 'mimeType',
+  estado: 'estado',
+  calificacion: 'calificacion',
+  comentariosDocente: 'comentariosDocente',
+  fechaRevision: 'fechaRevision',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  proyectoId: 'proyectoId',
+  usuarioId: 'usuarioId',
+  recursoId: 'recursoId'
+} as const
+
+export type ProyectoColaborativoEntregaScalarFieldEnum = (typeof ProyectoColaborativoEntregaScalarFieldEnum)[keyof typeof ProyectoColaborativoEntregaScalarFieldEnum]
 
 
 export const CalificacionRecursoScalarFieldEnum = {

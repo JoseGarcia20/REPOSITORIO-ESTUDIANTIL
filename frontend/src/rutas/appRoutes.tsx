@@ -13,6 +13,7 @@ import { PERMISOS, usuarioTienePermiso } from '../api/adminApi';
 import { Reportes } from '../paginas/reportes/reportes';
 import { Foros } from '../paginas/foros/foros';
 import { GestorRecursos } from '../paginas/repositorio/gestorRecursos';
+import { AulaColaborativa } from '../paginas/aulaColaborativa/aulaColaborativa';
 
 function RutaProtegidaPorPermiso({
   permiso,
@@ -28,13 +29,14 @@ function RutaProtegidaPorPermiso({
 export function AppRoutes() {
   const token = localStorage.getItem('token');
 
-  if (!token) return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="*" element={<Login />} />
-      </Routes>
-    </BrowserRouter>
-  );
+  if (!token)
+    return (
+      <BrowserRouter>
+        <Routes>
+          <Route path="*" element={<Login />} />
+        </Routes>
+      </BrowserRouter>
+    );
 
   return (
     <BrowserRouter>
@@ -104,6 +106,14 @@ export function AppRoutes() {
             element={
               <RutaProtegidaPorPermiso permiso={PERMISOS.FOROS_VER}>
                 <Foros />
+              </RutaProtegidaPorPermiso>
+            }
+          />
+          <Route
+            path="/aula-colaborativa"
+            element={
+              <RutaProtegidaPorPermiso permiso={PERMISOS.AULA_COLABORATIVA_VER}>
+                <AulaColaborativa />
               </RutaProtegidaPorPermiso>
             }
           />

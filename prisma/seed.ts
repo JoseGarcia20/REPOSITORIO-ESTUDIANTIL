@@ -44,6 +44,11 @@ const permisos = {
   FOROS_COMENTAR: 'foros.comentar',
   FOROS_CERRAR: 'foros.cerrar',
   FOROS_SUBIR_RECURSO: 'foros.subir_recurso',
+  AULA_COLABORATIVA_VER: 'aula_colaborativa.ver',
+  AULA_COLABORATIVA_CREAR: 'aula_colaborativa.crear',
+  AULA_COLABORATIVA_GESTIONAR: 'aula_colaborativa.gestionar',
+  AULA_COLABORATIVA_PARTICIPAR: 'aula_colaborativa.participar',
+  AULA_COLABORATIVA_REVISAR: 'aula_colaborativa.revisar',
   REPORTES_VER: 'reportes.ver',
 } as const;
 
@@ -87,6 +92,14 @@ const descripcionesPermisos: Record<string, string> = {
   [permisos.FOROS_CERRAR]: 'Cerrar foros para impedir nuevos comentarios',
   [permisos.FOROS_SUBIR_RECURSO]:
     'Subir archivos desde foros y convertirlos en recursos',
+  [permisos.AULA_COLABORATIVA_VER]: 'Ver proyectos del aula colaborativa',
+  [permisos.AULA_COLABORATIVA_CREAR]: 'Crear proyectos en aula colaborativa',
+  [permisos.AULA_COLABORATIVA_GESTIONAR]:
+    'Gestionar integrantes, roles y actividades del aula colaborativa',
+  [permisos.AULA_COLABORATIVA_PARTICIPAR]:
+    'Participar en proyectos y cargar evidencias',
+  [permisos.AULA_COLABORATIVA_REVISAR]:
+    'Revisar entregas finales y publicar recursos aprobados',
   [permisos.REPORTES_VER]: 'Ver reportes',
 };
 
@@ -126,6 +139,11 @@ const rolesBase = [
       permisos.FOROS_COMENTAR,
       permisos.FOROS_CERRAR,
       permisos.FOROS_SUBIR_RECURSO,
+      permisos.AULA_COLABORATIVA_VER,
+      permisos.AULA_COLABORATIVA_CREAR,
+      permisos.AULA_COLABORATIVA_GESTIONAR,
+      permisos.AULA_COLABORATIVA_PARTICIPAR,
+      permisos.AULA_COLABORATIVA_REVISAR,
       permisos.REPORTES_VER,
     ],
   },
@@ -143,6 +161,11 @@ const rolesBase = [
       permisos.FOROS_COMENTAR,
       permisos.FOROS_CERRAR,
       permisos.FOROS_SUBIR_RECURSO,
+      permisos.AULA_COLABORATIVA_VER,
+      permisos.AULA_COLABORATIVA_CREAR,
+      permisos.AULA_COLABORATIVA_GESTIONAR,
+      permisos.AULA_COLABORATIVA_PARTICIPAR,
+      permisos.AULA_COLABORATIVA_REVISAR,
     ],
   },
   {
@@ -153,6 +176,8 @@ const rolesBase = [
       permisos.FOROS_VER,
       permisos.FOROS_CREAR,
       permisos.FOROS_COMENTAR,
+      permisos.AULA_COLABORATIVA_VER,
+      permisos.AULA_COLABORATIVA_PARTICIPAR,
     ],
   },
   {

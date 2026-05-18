@@ -77,6 +77,35 @@ export type TipoRecurso = Prisma.TipoRecursoModel;
  */
 export type Recurso = Prisma.RecursoModel;
 /**
+ * Model ProyectoColaborativo
+ *
+ */
+export type ProyectoColaborativo = Prisma.ProyectoColaborativoModel;
+/**
+ * Model ProyectoColaborativoIntegrante
+ *
+ */
+export type ProyectoColaborativoIntegrante =
+  Prisma.ProyectoColaborativoIntegranteModel;
+/**
+ * Model ProyectoColaborativoActividad
+ *
+ */
+export type ProyectoColaborativoActividad =
+  Prisma.ProyectoColaborativoActividadModel;
+/**
+ * Model ProyectoColaborativoEvidencia
+ *
+ */
+export type ProyectoColaborativoEvidencia =
+  Prisma.ProyectoColaborativoEvidenciaModel;
+/**
+ * Model ProyectoColaborativoEntrega
+ *
+ */
+export type ProyectoColaborativoEntrega =
+  Prisma.ProyectoColaborativoEntregaModel;
+/**
  * Model CalificacionRecurso
  *
  */

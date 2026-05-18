@@ -25,10 +25,11 @@ model Institucion {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
-  usuarios   Usuario[]
-  categorias Categoria[]
-  foros      Foro[]
-  recursos   Recurso[]
+  usuarios               Usuario[]
+  categorias             Categoria[]
+  foros                  Foro[]
+  recursos               Recurso[]
+  proyectosColaborativos ProyectoColaborativo[]
 
   @@map("instituciones")
 }
@@ -99,6 +100,12 @@ model Usuario {
   comentariosForo             ComentarioForo[]
   recursos                    Recurso[]
   calificacionesRecurso       CalificacionRecurso[]
+  proyectosDocente            ProyectoColaborativo[]           @relation("ProyectoDocente")
+  proyectosIntegrante         ProyectoColaborativoIntegrante[] @relation("ProyectoIntegranteUsuario")
+  actividadesResponsable      ProyectoColaborativoActividad[]  @relation("ProyectoActividadResponsable")
+  actividadesCreadas          ProyectoColaborativoActividad[]  @relation("ProyectoActividadCreador")
+  evidenciasAula              ProyectoColaborativoEvidencia[]  @relation("ProyectoEvidenciaUsuario")
+  entregasAula                ProyectoColaborativoEntrega[]    @relation("ProyectoEntregaUsuario")
   asignacionesRutaAprendizaje AsignacionRutaAprendizaje[]
   diagnosticosAprendizaje     DiagnosticoAprendizaje[]
 
@@ -114,8 +121,9 @@ model GradoEscolar {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  usuarios Usuario[]
-  recursos Recurso[]
+  usuarios               Usuario[]
+  recursos               Recurso[]
+  proyectosColaborativos ProyectoColaborativo[]
 
   @@map("grados_escolares")
 }
@@ -133,9 +141,10 @@ model Categoria {
 
   institucion Institucion @relation(fields: [institucionId], references: [id])
 
-  foros           Foro[]
-  forosCategorias ForoCategoria[]
-  recursos        Recurso[]
+  foros                  Foro[]
+  forosCategorias        ForoCategoria[]
+  recursos               Recurso[]
+  proyectosColaborativos ProyectoColaborativo[]
 
   @@map("categorias")
 }
@@ -243,8 +252,122 @@ model Recurso {
 
   calificaciones          CalificacionRecurso[]
   detallesRutaAprendizaje DetalleRutaAprendizaje[]
+  entregaAulaColaborativa ProyectoColaborativoEntrega? @relation("EntregaRecursoPublicado")
 
   @@map("recursos")
+}
+
+model ProyectoColaborativo {
+  id                Int       @id @default(autoincrement())
+  titulo            String
+  descripcion       String
+  objetivo          String
+  curso             String?
+  instrucciones     String?
+  fechaLimite       DateTime
+  estado            String    @default("activo")
+  comentariosCierre String?
+  calificacion      Float?
+  fechaCierre       DateTime?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  institucionId  Int
+  docenteId      Int
+  gradoEscolarId Int?
+  categoriaId    Int?
+
+  institucion  Institucion   @relation(fields: [institucionId], references: [id])
+  docente      Usuario       @relation("ProyectoDocente", fields: [docenteId], references: [id])
+  gradoEscolar GradoEscolar? @relation(fields: [gradoEscolarId], references: [id])
+  categoria    Categoria?    @relation(fields: [categoriaId], references: [id])
+
+  integrantes ProyectoColaborativoIntegrante[]
+  actividades ProyectoColaborativoActividad[]
+  entregas    ProyectoColaborativoEntrega[]
+
+  @@map("proyectos_colaborativos")
+}
+
+model ProyectoColaborativoIntegrante {
+  id          Int      @id @default(autoincrement())
+  rolProyecto String
+  estado      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  proyectoId Int
+  usuarioId  Int
+
+  proyecto ProyectoColaborativo @relation(fields: [proyectoId], references: [id], onDelete: Cascade)
+  usuario  Usuario              @relation("ProyectoIntegranteUsuario", fields: [usuarioId], references: [id])
+
+  @@unique([proyectoId, usuarioId])
+  @@map("proyecto_colaborativo_integrantes")
+}
+
+model ProyectoColaborativoActividad {
+  id          Int       @id @default(autoincrement())
+  titulo      String
+  descripcion String?
+  estado      String    @default("pendiente")
+  fechaLimite DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  proyectoId    Int
+  responsableId Int?
+  creadorId     Int
+
+  proyecto    ProyectoColaborativo            @relation(fields: [proyectoId], references: [id], onDelete: Cascade)
+  responsable Usuario?                        @relation("ProyectoActividadResponsable", fields: [responsableId], references: [id])
+  creador     Usuario                         @relation("ProyectoActividadCreador", fields: [creadorId], references: [id])
+  evidencias  ProyectoColaborativoEvidencia[]
+
+  @@map("proyecto_colaborativo_actividades")
+}
+
+model ProyectoColaborativoEvidencia {
+  id            Int      @id @default(autoincrement())
+  comentario    String?
+  rutaArchivo   String
+  nombreArchivo String
+  mimeType      String?
+  estado        Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  actividadId Int
+  usuarioId   Int
+
+  actividad ProyectoColaborativoActividad @relation(fields: [actividadId], references: [id], onDelete: Cascade)
+  usuario   Usuario                       @relation("ProyectoEvidenciaUsuario", fields: [usuarioId], references: [id])
+
+  @@map("proyecto_colaborativo_evidencias")
+}
+
+model ProyectoColaborativoEntrega {
+  id                 Int       @id @default(autoincrement())
+  comentario         String?
+  rutaArchivo        String
+  nombreArchivo      String
+  mimeType           String?
+  estado             String    @default("entregada")
+  calificacion       Float?
+  comentariosDocente String?
+  fechaRevision      DateTime?
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+
+  proyectoId Int
+  usuarioId  Int
+  recursoId  Int? @unique
+
+  proyecto ProyectoColaborativo @relation(fields: [proyectoId], references: [id], onDelete: Cascade)
+  usuario  Usuario              @relation("ProyectoEntregaUsuario", fields: [usuarioId], references: [id])
+  recurso  Recurso?             @relation("EntregaRecursoPublicado", fields: [recursoId], references: [id], onDelete: SetNull)
+
+  @@map("proyecto_colaborativo_entregas")
 }
 
 model CalificacionRecurso {
