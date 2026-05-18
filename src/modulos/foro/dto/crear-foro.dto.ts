@@ -25,6 +25,7 @@ export class CrearForoDto {
   @IsInt()
   institucionId?: number;
 
+  @IsOptional()
   @IsInt()
   categoriaId?: number;
 

@@ -113,6 +113,7 @@ export function Foros() {
   const [foroConversacionId, setForoConversacionId] = useState<number | null>(
     null,
   );
+  const [foroAdjuntosId, setForoAdjuntosId] = useState<number | null>(null);
   const [formulario, setFormulario] = useState<FormularioForo>({
     ...formularioInicial,
     institucionId: esSuper ? '' : String(usuario?.institucion?.id || ''),
@@ -137,6 +138,10 @@ export function Foros() {
   const foroConversacion = useMemo(
     () => foros.find((foro) => foro.id === foroConversacionId) || null,
     [foros, foroConversacionId],
+  );
+  const foroAdjuntos = useMemo(
+    () => foros.find((foro) => foro.id === foroAdjuntosId) || null,
+    [foros, foroAdjuntosId],
   );
 
   useEffect(() => {
@@ -261,6 +266,11 @@ export function Foros() {
   async function guardarForo(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
+    if (esSuper && !formulario.institucionId) {
+      alert('Debes seleccionar una institución para cargar sus categorías.');
+      return;
+    }
+
     if (formulario.categoriaIds.length === 0) {
       alert('Debes seleccionar al menos una categoría.');
       return;
@@ -282,8 +292,10 @@ export function Foros() {
       setPagina(1);
       await cargarForos();
       setModalAbierto(false);
-    } catch {
-      alert('No se pudo crear el foro.');
+    } catch (error) {
+      alert(
+        error instanceof Error ? error.message : 'No se pudo crear el foro.',
+      );
     } finally {
       setGuardando(false);
     }
@@ -684,57 +696,6 @@ export function Foros() {
                       )}
                     </div>
 
-                    {recursosForo.length > 0 && (
-                      <div className="forum-resources">
-                        <div className="forum-resources-title">
-                          <strong>Recursos aportados</strong>
-                          <span>
-                            {recursosForo.length} archivos clasificados
-                          </span>
-                        </div>
-
-                        <div className="forum-resource-list">
-                          {recursosForo.map((recurso) => {
-                            const urlRecurso = construirUrlRecurso(
-                              recurso.rutaRecurso,
-                              recurso.urlRecurso,
-                            );
-
-                            return (
-                              <div
-                                className="forum-resource-item"
-                                key={recurso.id}
-                              >
-                                <div>
-                                  <strong>{recurso.titulo}</strong>
-                                  <p>
-                                    {[
-                                      recurso.tipoRecurso?.nombre,
-                                      recurso.categoria?.nombre,
-                                      recurso.gradoEscolar?.nombre,
-                                    ]
-                                      .filter(Boolean)
-                                      .join(' · ')}
-                                  </p>
-                                </div>
-
-                                {urlRecurso && (
-                                  <a
-                                    className="secondary-button compact-button"
-                                    href={urlRecurso}
-                                    target="_blank"
-                                    rel="noreferrer"
-                                  >
-                                    Abrir
-                                  </a>
-                                )}
-                              </div>
-                            );
-                          })}
-                        </div>
-                      </div>
-                    )}
-
                     <div className="forum-actions-row">
                       <span className="forum-meta">
                         {foro.comentarios.length} comentarios ·{' '}
@@ -742,6 +703,18 @@ export function Foros() {
                       </span>
 
                       <div className="forum-actions-buttons">
+                        {recursosForo.length > 0 && (
+                          <button
+                            className="forum-attachments-button"
+                            onClick={() => setForoAdjuntosId(foro.id)}
+                            type="button"
+                          >
+                            <span className="attachment-glyph" />
+                            Adjuntos
+                            <strong>{recursosForo.length}</strong>
+                          </button>
+                        )}
+
                         <button
                           className="secondary-button"
                           onClick={() => setForoConversacionId(foro.id)}
@@ -871,6 +844,72 @@ export function Foros() {
         </div>
       )}
 
+      {foroAdjuntos && (
+        <div className="modal-overlay">
+          <div className="modal-container forum-attachments-modal">
+            <div className="modal-header">
+              <div>
+                <span className="section-label">Archivos adjuntos</span>
+                <h2>{foroAdjuntos.titulo}</h2>
+                <p>
+                  Recursos clasificados automáticamente desde los aportes del
+                  foro.
+                </p>
+              </div>
+
+              <button
+                className="modal-close"
+                onClick={() => setForoAdjuntosId(null)}
+              >
+                ×
+              </button>
+            </div>
+
+            <div className="forum-attachments-list">
+              {(foroAdjuntos.recursos || []).map((recurso) => {
+                const urlRecurso = construirUrlRecurso(
+                  recurso.rutaRecurso,
+                  recurso.urlRecurso,
+                );
+
+                return (
+                  <article className="forum-attachment-card" key={recurso.id}>
+                    <span className="attachment-glyph large" />
+
+                    <div>
+                      <h3>{recurso.titulo}</h3>
+                      <p>
+                        {[
+                          recurso.tipoRecurso?.nombre,
+                          recurso.categoria?.nombre,
+                          recurso.gradoEscolar?.nombre,
+                        ]
+                          .filter(Boolean)
+                          .join(' · ') || 'Recurso académico'}
+                      </p>
+                      {recurso.comentarioForo?.contenido && (
+                        <small>{recurso.comentarioForo.contenido}</small>
+                      )}
+                    </div>
+
+                    {urlRecurso && (
+                      <a
+                        className="secondary-button compact-button"
+                        href={urlRecurso}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        Abrir
+                      </a>
+                    )}
+                  </article>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      )}
+
       {modalAbierto && (
         <div className="modal-overlay">
           <div className="modal-container">
@@ -920,23 +959,46 @@ export function Foros() {
                 <div className="form-group">
                   <label>Categorías</label>
                   <div className="forum-category-picker">
-                    {categoriasDisponibles.map((categoria) => (
-                      <label key={categoria.id}>
-                        <input
-                          type="checkbox"
-                          checked={formulario.categoriaIds.includes(
-                            String(categoria.id),
-                          )}
-                          onChange={(event) =>
-                            alternarCategoriaForo(
-                              categoria.id,
-                              event.target.checked,
-                            )
-                          }
-                        />
-                        {categoria.nombre}
-                      </label>
-                    ))}
+                    {cargandoCatalogos && (
+                      <p className="forum-category-helper">
+                        Cargando categorías...
+                      </p>
+                    )}
+
+                    {!cargandoCatalogos &&
+                      esSuper &&
+                      !formulario.institucionId && (
+                        <p className="forum-category-helper">
+                          Selecciona primero una institución.
+                        </p>
+                      )}
+
+                    {!cargandoCatalogos &&
+                      (!esSuper || formulario.institucionId) &&
+                      categoriasDisponibles.length === 0 && (
+                        <p className="forum-category-helper">
+                          No hay categorías activas para esta institución.
+                        </p>
+                      )}
+
+                    {!cargandoCatalogos &&
+                      categoriasDisponibles.map((categoria) => (
+                        <label key={categoria.id}>
+                          <input
+                            type="checkbox"
+                            checked={formulario.categoriaIds.includes(
+                              String(categoria.id),
+                            )}
+                            onChange={(event) =>
+                              alternarCategoriaForo(
+                                categoria.id,
+                                event.target.checked,
+                              )
+                            }
+                          />
+                          {categoria.nombre}
+                        </label>
+                      ))}
                   </div>
                 </div>
 

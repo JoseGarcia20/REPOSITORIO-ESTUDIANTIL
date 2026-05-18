@@ -38,10 +38,16 @@
 }
 
 .file-state,
-.file-link {
+.file-link,
+.form-helper {
   color: #5277f4;
   font-size: 13px;
   font-weight: 700;
+}
+
+.form-helper {
+  color: #7b8499;
+  line-height: 1.4;
 }
 
 .file-link {

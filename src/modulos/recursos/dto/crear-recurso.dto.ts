@@ -39,8 +39,9 @@ export class CrearRecursoDto {
   @IsString()
   nivelAcademico?: string;
 
+  @IsOptional()
   @IsInt()
-  gradoEscolarId!: number;
+  gradoEscolarId?: number;
 
   @IsOptional()
   @IsBoolean()
@@ -49,12 +50,15 @@ export class CrearRecursoDto {
   @IsInt()
   institucionId!: number;
 
+  @IsOptional()
   @IsInt()
-  categoriaId!: number;
+  categoriaId?: number;
 
+  @IsOptional()
   @IsInt()
-  tipoRecursoId!: number;
+  tipoRecursoId?: number;
 
+  @IsOptional()
   @IsInt()
-  usuarioCreadorId!: number;
+  usuarioCreadorId?: number;
 }

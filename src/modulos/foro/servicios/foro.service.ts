@@ -29,6 +29,8 @@ import {
 export class ForoService {
   constructor(private readonly prisma: PrismaService) {}
 
+  private readonly limitePalabrasClave = 6;
+
   private readonly includeRecursoForo = {
     categoria: {
       select: {
@@ -55,6 +57,12 @@ export class ForoService {
         nombre: true,
         codigo: true,
         orden: true,
+      },
+    },
+    comentarioForo: {
+      select: {
+        id: true,
+        contenido: true,
       },
     },
   };
@@ -136,6 +144,15 @@ export class ForoService {
               },
             },
           },
+        },
+        recursos: {
+          where: {
+            estado: true,
+          },
+          orderBy: {
+            createdAt: 'asc' as const,
+          },
+          include: this.includeRecursoForo,
         },
       },
     },
@@ -229,7 +246,7 @@ export class ForoService {
 
     return Array.from(contador.entries())
       .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
-      .slice(0, 12)
+      .slice(0, this.limitePalabrasClave)
       .map(([palabra]) => palabra);
   }
 

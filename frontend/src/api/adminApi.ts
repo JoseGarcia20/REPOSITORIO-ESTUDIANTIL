@@ -165,12 +165,12 @@ export type RecursoPayload = {
   fuente?: string;
   autorNombre?: string;
   nivelAcademico?: string;
-  gradoEscolarId: number;
+  gradoEscolarId?: number;
   publicado?: boolean;
   institucionId?: number;
-  categoriaId: number;
-  tipoRecursoId: number;
-  usuarioCreadorId: number;
+  categoriaId?: number;
+  tipoRecursoId?: number;
+  usuarioCreadorId?: number;
 };
 
 export type ComentarioForo = {
@@ -364,7 +364,20 @@ async function procesarRespuesta<T>(
   mensajeError: string,
 ): Promise<T> {
   if (!respuesta.ok) {
-    throw new Error(mensajeError);
+    let mensajeDetalle = '';
+
+    try {
+      const detalle = await respuesta.json();
+      mensajeDetalle = Array.isArray(detalle?.message)
+        ? detalle.message.join(', ')
+        : detalle?.message || detalle?.error;
+    } catch {
+      mensajeDetalle = '';
+    }
+
+    throw new Error(
+      mensajeDetalle ? `${mensajeError}: ${mensajeDetalle}` : mensajeError,
+    );
   }
 
   return respuesta.json() as Promise<T>;

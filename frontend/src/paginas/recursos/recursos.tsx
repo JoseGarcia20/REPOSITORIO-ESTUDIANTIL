@@ -61,6 +61,11 @@ const extensionesPermitidas = [
 
 const limiteArchivoBytes = 20 * 1024 * 1024;
 
+function numeroFormulario(valor: string) {
+  const numero = Number(valor);
+  return Number.isInteger(numero) && numero > 0 ? numero : undefined;
+}
+
 function crearFormularioInicial(
   esSuper: boolean,
   institucionSesionId?: number,
@@ -132,7 +137,8 @@ export function Recursos() {
   );
 
   const categoriasPorId = useMemo(
-    () => new Map(categorias.map((categoria) => [categoria.id, categoria.nombre])),
+    () =>
+      new Map(categorias.map((categoria) => [categoria.id, categoria.nombre])),
     [categorias],
   );
 
@@ -144,14 +150,16 @@ export function Recursos() {
   const institucionesPorId = useMemo(
     () =>
       new Map(
-        instituciones.map((institucion) => [institucion.id, institucion.nombre]),
+        instituciones.map((institucion) => [
+          institucion.id,
+          institucion.nombre,
+        ]),
       ),
     [instituciones],
   );
 
   const gradosPorId = useMemo(
-    () =>
-      new Map(gradosEscolares.map((grado) => [grado.id, grado.nombre])),
+    () => new Map(gradosEscolares.map((grado) => [grado.id, grado.nombre])),
     [gradosEscolares],
   );
 
@@ -174,7 +182,9 @@ export function Recursos() {
       return usuarios;
     }
 
-    return usuarios.filter((usuario) => usuario.institucionId === institucionId);
+    return usuarios.filter(
+      (usuario) => usuario.institucionId === institucionId,
+    );
   }, [formulario.institucionId, usuarios]);
 
   useEffect(() => {
@@ -206,7 +216,9 @@ export function Recursos() {
         puedeVerCategorias ? obtenerCategoriasAdmin() : Promise.resolve([]),
         puedeVerTipos ? obtenerTiposRecursosAdmin() : Promise.resolve([]),
         obtenerGradosEscolares(),
-        puedeVerInstituciones ? obtenerInstitucionesAdmin() : Promise.resolve([]),
+        puedeVerInstituciones
+          ? obtenerInstitucionesAdmin()
+          : Promise.resolve([]),
         puedeVerUsuarios
           ? obtenerUsuariosAdmin({
               limite: 100,
@@ -302,7 +314,9 @@ export function Recursos() {
       fuente: recurso.fuente || '',
       autorNombre: recurso.autorNombre || '',
       nivelAcademico: recurso.nivelAcademico || '',
-      gradoEscolarId: recurso.gradoEscolarId ? String(recurso.gradoEscolarId) : '',
+      gradoEscolarId: recurso.gradoEscolarId
+        ? String(recurso.gradoEscolarId)
+        : '',
       publicado: recurso.publicado,
       institucionId: String(recurso.institucionId),
       categoriaId: String(recurso.categoriaId),
@@ -313,7 +327,9 @@ export function Recursos() {
   }
 
   function manejarCambio(
-    event: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
+    event: ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >,
   ) {
     const { name, value } = event.target;
 
@@ -393,9 +409,9 @@ export function Recursos() {
         gradoEscolarId: Number(formulario.gradoEscolarId),
         publicado: formulario.publicado,
         institucionId,
-        categoriaId: Number(formulario.categoriaId),
-        tipoRecursoId: Number(formulario.tipoRecursoId),
-        usuarioCreadorId: Number(formulario.usuarioCreadorId),
+        categoriaId: numeroFormulario(formulario.categoriaId),
+        tipoRecursoId: numeroFormulario(formulario.tipoRecursoId),
+        usuarioCreadorId: numeroFormulario(formulario.usuarioCreadorId),
       };
 
       if (modoEdicion && recursoEditandoId) {
@@ -406,11 +422,13 @@ export function Recursos() {
 
       await cargarRecursos();
       setModalAbierto(false);
-    } catch {
+    } catch (error) {
       alert(
-        modoEdicion
-          ? 'No se pudo actualizar el recurso.'
-          : 'No se pudo crear el recurso.',
+        error instanceof Error
+          ? error.message
+          : modoEdicion
+            ? 'No se pudo actualizar el recurso.'
+            : 'No se pudo crear el recurso.',
       );
     } finally {
       setGuardando(false);
@@ -573,8 +591,12 @@ export function Recursos() {
                   <tr key={recurso.id}>
                     <td data-label="Título">
                       <span className="resource-source">
-                        <span className="institution-name">{recurso.titulo}</span>
-                        <small>{recurso.palabrasClave || 'Sin palabras clave'}</small>
+                        <span className="institution-name">
+                          {recurso.titulo}
+                        </span>
+                        <small>
+                          {recurso.palabrasClave || 'Sin palabras clave'}
+                        </small>
                       </span>
                     </td>
                     <td data-label="Categoría">
@@ -599,7 +621,9 @@ export function Recursos() {
                         institucionesPorId.get(recurso.institucionId) ||
                         `ID ${recurso.institucionId}`}
                     </td>
-                    <td data-label="Publicado">{recurso.publicado ? 'Sí' : 'No'}</td>
+                    <td data-label="Publicado">
+                      {recurso.publicado ? 'Sí' : 'No'}
+                    </td>
                     <td data-label="Estado">
                       <span
                         className={`status-icon ${
@@ -643,10 +667,7 @@ export function Recursos() {
 
                 {recursos.length === 0 && (
                   <tr>
-                    <td
-                      colSpan={tieneAcciones ? 8 : 7}
-                      className="empty-table"
-                    >
+                    <td colSpan={tieneAcciones ? 8 : 7} className="empty-table">
                       No hay recursos registrados.
                     </td>
                   </tr>
@@ -708,15 +729,6 @@ export function Recursos() {
                   />
                 </div>
 
-                <div className="form-group">
-                  <label>Palabras clave</label>
-                  <input
-                    name="palabrasClave"
-                    value={formulario.palabrasClave}
-                    onChange={manejarCambio}
-                  />
-                </div>
-
                 {esSuper && (
                   <div className="form-group">
                     <label>Institución</label>
@@ -735,40 +747,6 @@ export function Recursos() {
                     </select>
                   </div>
                 )}
-
-                <div className="form-group">
-                  <label>Categoría</label>
-                  <select
-                    name="categoriaId"
-                    value={formulario.categoriaId}
-                    onChange={manejarCambio}
-                    required
-                  >
-                    <option value="">Selecciona una categoría</option>
-                    {categoriasDisponibles.map((categoria) => (
-                      <option key={categoria.id} value={categoria.id}>
-                        {categoria.nombre}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                <div className="form-group">
-                  <label>Tipo de recurso</label>
-                  <select
-                    name="tipoRecursoId"
-                    value={formulario.tipoRecursoId}
-                    onChange={manejarCambio}
-                    required
-                  >
-                    <option value="">Selecciona un tipo</option>
-                    {tiposRecursos.map((tipoRecurso) => (
-                      <option key={tipoRecurso.id} value={tipoRecurso.id}>
-                        {tipoRecurso.nombre}
-                      </option>
-                    ))}
-                  </select>
-                </div>
 
                 <div className="form-group">
                   <label>Usuario creador</label>
@@ -873,6 +851,56 @@ export function Recursos() {
                     value={formulario.contenidoResumen}
                     onChange={manejarCambio}
                   />
+                  <small className="form-helper">
+                    Este contexto se usa para clasificar el recurso y generar
+                    palabras clave.
+                  </small>
+                </div>
+
+                <div className="form-group">
+                  <label>Categoría opcional</label>
+                  <select
+                    name="categoriaId"
+                    value={formulario.categoriaId}
+                    onChange={manejarCambio}
+                  >
+                    <option value="">Clasificar automáticamente</option>
+                    {categoriasDisponibles.map((categoria) => (
+                      <option key={categoria.id} value={categoria.id}>
+                        {categoria.nombre}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="form-group">
+                  <label>Tipo de recurso opcional</label>
+                  <select
+                    name="tipoRecursoId"
+                    value={formulario.tipoRecursoId}
+                    onChange={manejarCambio}
+                  >
+                    <option value="">Clasificar automáticamente</option>
+                    {tiposRecursos.map((tipoRecurso) => (
+                      <option key={tipoRecurso.id} value={tipoRecurso.id}>
+                        {tipoRecurso.nombre}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="form-group form-group-full">
+                  <label>Palabras clave opcionales</label>
+                  <input
+                    name="palabrasClave"
+                    value={formulario.palabrasClave}
+                    onChange={manejarCambio}
+                    placeholder="El sistema las genera si dejas este campo vacío"
+                  />
+                  <small className="form-helper">
+                    El registro inicial guarda máximo 6. Si escribes algunas, el
+                    sistema las conserva y completa el resto automáticamente.
+                  </small>
                 </div>
               </div>
 
