@@ -275,6 +275,11 @@ export type ComentarForoConRecursoPayload = {
   gradoEscolarId?: string;
 };
 
+export type ComentarForoConRecursoExistentePayload = {
+  contenido: string;
+  recursoId: number;
+};
+
 export type RolProyectoAula = 'lider' | 'investigador' | 'expositor';
 
 export type IntegranteProyectoAula = {
@@ -423,19 +428,22 @@ type RutaEstado = 'inactivar' | 'reactivar';
 
 export type ConsultaPaginada = {
   pagina?: number;
-  limite?: number;
+  limite?: number | string;
   busqueda?: string;
   estado?: string;
   institucionId?: number | string;
   rolId?: number | string;
   categoriaId?: number | string;
+  categoriaIds?: number | string;
   tipoRecursoId?: number | string;
   tipoArchivo?: string;
   gradoEscolarId?: number | string;
   recursoId?: number | string;
+  excluirRecursoId?: number | string;
   publicado?: string;
   publico?: string;
   cerrado?: string;
+  tema?: string;
 };
 
 export type RespuestaPaginada<T> = {
@@ -454,12 +462,22 @@ export type RecursoAsistente = {
   categoria?: string;
   tipoRecurso?: string;
   gradoEscolar?: string;
+  puntaje?: number;
+  motivos?: string[];
+  promedioCalificacion?: number;
+  totalCalificaciones?: number;
   rutaRepositorio: string;
 };
 
 export type RespuestaAsistente = {
   mensaje: string;
   busquedaSugerida: string;
+  recursos: RecursoAsistente[];
+};
+
+export type RespuestaRecomendacionesRecursos = {
+  tema: string;
+  terminos: string[];
   recursos: RecursoAsistente[];
 };
 
@@ -847,6 +865,13 @@ export function consultarAsistente(pregunta: string) {
   );
 }
 
+export function obtenerRecomendacionesRecursos(query?: ConsultaPaginada) {
+  return get<RespuestaRecomendacionesRecursos>(
+    conQuery('/recomendaciones/recursos', query),
+    'Error al obtener recomendaciones de recursos',
+  );
+}
+
 export function obtenerForosAcademicos(query?: ConsultaPaginada) {
   return get<RespuestaPaginada<ForoAcademico>>(
     conQuery('/foros', query),
@@ -902,6 +927,17 @@ export async function comentarForoConRecurso(
   return procesarRespuesta<ComentarioForo>(
     respuesta,
     'Error al comentar foro con recurso',
+  );
+}
+
+export function comentarForoConRecursoExistente(
+  foroId: number,
+  payload: ComentarForoConRecursoExistentePayload,
+) {
+  return post<ComentarioForo>(
+    `/foros/${foroId}/comentarios/recurso-existente`,
+    payload,
+    'Error al comentar foro con recurso existente',
   );
 }
 

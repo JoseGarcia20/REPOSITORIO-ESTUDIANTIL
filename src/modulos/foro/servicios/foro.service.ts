@@ -11,6 +11,7 @@ import { ActualizarForoDto } from '../dto/actualizar-foro.dto';
 import { CrearComentarioForoDto } from '../dto/crear-comentario-foro.dto';
 import { SubirRecursoForoDto } from '../dto/subir-recurso-foro.dto';
 import { ComentarRecursoForoDto } from '../dto/comentar-recurso-foro.dto';
+import { ComentarRecursoExistenteForoDto } from '../dto/comentar-recurso-existente-foro.dto';
 import {
   PERMISOS,
   tieneAccesoTotal,
@@ -154,6 +155,16 @@ export class ForoService {
           },
           include: this.includeRecursoForo,
         },
+        recursosCompartidos: {
+          orderBy: {
+            createdAt: 'asc' as const,
+          },
+          include: {
+            recurso: {
+              include: this.includeRecursoForo,
+            },
+          },
+        },
       },
     },
     recursos: {
@@ -195,7 +206,75 @@ export class ForoService {
       },
       include: this.includeRecursoForo,
     },
+    recursosCompartidos: {
+      orderBy: {
+        createdAt: 'asc' as const,
+      },
+      include: {
+        recurso: {
+          include: this.includeRecursoForo,
+        },
+      },
+    },
   };
+
+  private combinarRecursosComentario(comentario: any) {
+    const recursosDirectos = comentario?.recursos || [];
+    const recursosCompartidos = (comentario?.recursosCompartidos || [])
+      .map((item: any) => item.recurso)
+      .filter(Boolean);
+    const recursosPorId = new Map<number, any>();
+
+    [...recursosDirectos, ...recursosCompartidos].forEach((recurso) => {
+      if (recurso?.id && recurso.estado !== false) {
+        recursosPorId.set(recurso.id, recurso);
+      }
+    });
+
+    return {
+      ...comentario,
+      recursos: Array.from(recursosPorId.values()),
+    };
+  }
+
+  private normalizarComentarioRespuesta(comentario: any) {
+    return this.combinarRecursosComentario(comentario);
+  }
+
+  private normalizarForoRespuesta(foro: any) {
+    if (!foro) {
+      return foro;
+    }
+
+    const comentarios = (foro.comentarios || []).map((comentario: any) =>
+      this.combinarRecursosComentario(comentario),
+    );
+    const recursosPorId = new Map<number, any>();
+
+    (foro.recursos || []).forEach((recurso: any) => {
+      if (recurso?.id && recurso.estado !== false) {
+        recursosPorId.set(recurso.id, recurso);
+      }
+    });
+
+    comentarios.forEach((comentario: any) => {
+      (comentario.recursos || []).forEach((recurso: any) => {
+        if (recurso?.id && recurso.estado !== false) {
+          recursosPorId.set(recurso.id, recurso);
+        }
+      });
+    });
+
+    return {
+      ...foro,
+      comentarios,
+      recursos: Array.from(recursosPorId.values()).sort(
+        (a, b) =>
+          new Date(b.createdAt || 0).getTime() -
+          new Date(a.createdAt || 0).getTime(),
+      ),
+    };
+  }
 
   private normalizarTexto(valor?: string | null) {
     return (valor || '')
@@ -619,7 +698,7 @@ export class ForoService {
     );
     const categoriaPrincipal = categorias[0];
 
-    return await this.prisma.foro.create({
+    const foro = await this.prisma.foro.create({
       data: {
         titulo: data.titulo,
         descripcion: data.descripcion,
@@ -635,6 +714,8 @@ export class ForoService {
       },
       include: this.includeForoDetalle,
     });
+
+    return this.normalizarForoRespuesta(foro);
   }
 
   async listar(usuarioAuth: any, query: ConsultaPaginada = {}) {
@@ -655,7 +736,12 @@ export class ForoService {
       this.prisma.foro.count({ where }),
     ]);
 
-    return respuestaPaginada(data, total, pagina, limite);
+    return respuestaPaginada(
+      data.map((foro) => this.normalizarForoRespuesta(foro)),
+      total,
+      pagina,
+      limite,
+    );
   }
 
   async listarTodos(usuarioAuth: any, query: ConsultaPaginada = {}) {
@@ -681,7 +767,12 @@ export class ForoService {
       this.prisma.foro.count({ where }),
     ]);
 
-    return respuestaPaginada(data, total, pagina, limite);
+    return respuestaPaginada(
+      data.map((foro) => this.normalizarForoRespuesta(foro)),
+      total,
+      pagina,
+      limite,
+    );
   }
 
   async listarCategoriasParaForo(usuarioAuth: any) {
@@ -716,7 +807,7 @@ export class ForoService {
       validarAlcanceInstitucional(usuarioAuth, foro.institucionId);
     }
 
-    return foro;
+    return this.normalizarForoRespuesta(foro);
   }
 
   async actualizar(id: number, data: ActualizarForoDto, usuarioAuth: any) {
@@ -785,12 +876,14 @@ export class ForoService {
         });
       }
 
-      return await tx.foro.findUniqueOrThrow({
+      const foroActualizadoCompleto = await tx.foro.findUniqueOrThrow({
         where: {
           id: foroActualizado.id,
         },
         include: this.includeForoDetalle,
       });
+
+      return this.normalizarForoRespuesta(foroActualizadoCompleto);
     });
   }
 
@@ -805,7 +898,7 @@ export class ForoService {
       throw new ForbiddenException('Solo el creador puede cerrar este foro');
     }
 
-    return await this.prisma.foro.update({
+    const foroCerrado = await this.prisma.foro.update({
       where: { id },
       data: {
         cerrado: true,
@@ -813,6 +906,8 @@ export class ForoService {
       },
       include: this.includeForoDetalle,
     });
+
+    return this.normalizarForoRespuesta(foroCerrado);
   }
 
   async inactivar(id: number, usuarioAuth: any) {
@@ -825,13 +920,15 @@ export class ForoService {
       throw new ForbiddenException('Solo el creador puede inactivar este foro');
     }
 
-    return await this.prisma.foro.update({
+    const foroInactivo = await this.prisma.foro.update({
       where: { id },
       data: {
         estado: false,
       },
       include: this.includeForoDetalle,
     });
+
+    return this.normalizarForoRespuesta(foroInactivo);
   }
 
   async reactivar(id: number, usuarioAuth: any) {
@@ -844,13 +941,15 @@ export class ForoService {
       throw new ForbiddenException('Solo el creador puede reactivar este foro');
     }
 
-    return await this.prisma.foro.update({
+    const foroReactivo = await this.prisma.foro.update({
       where: { id },
       data: {
         estado: true,
       },
       include: this.includeForoDetalle,
     });
+
+    return this.normalizarForoRespuesta(foroReactivo);
   }
 
   private async construirDatosRecursoDesdeForo(
@@ -931,6 +1030,47 @@ export class ForoService {
     if (foro.cerrado) {
       throw new BadRequestException(mensajeCerrado);
     }
+  }
+
+  private async obtenerRecursoDisponibleParaForo(
+    recursoId: number,
+    usuarioAuth: any,
+  ) {
+    validarPermiso(usuarioAuth, PERMISOS.RECURSOS_VER);
+
+    const recurso = await this.prisma.recurso.findFirst({
+      where: {
+        id: recursoId,
+        estado: true,
+        publicado: true,
+      },
+      include: this.includeRecursoForo,
+    });
+
+    if (!recurso) {
+      throw new NotFoundException(`Recurso con id ${recursoId} no encontrado`);
+    }
+
+    if (
+      !tieneAccesoTotal(usuarioAuth) &&
+      recurso.institucionId !== Number(usuarioAuth?.institucionId)
+    ) {
+      throw new ForbiddenException(
+        'No puede usar recursos de otra institución como soporte',
+      );
+    }
+
+    if (
+      !tienePermiso(usuarioAuth, PERMISOS.RECURSOS_VER_TODOS_GRADOS) &&
+      recurso.gradoEscolarId &&
+      recurso.gradoEscolarId !== Number(usuarioAuth?.gradoEscolarId)
+    ) {
+      throw new ForbiddenException(
+        'No puede usar recursos de otro grado escolar como soporte',
+      );
+    }
+
+    return recurso;
   }
 
   async subirRecursoDesdeForo(
@@ -1049,12 +1189,65 @@ export class ForoService {
         },
       });
 
-      return await tx.comentarioForo.findUniqueOrThrow({
+      const comentarioCompleto = await tx.comentarioForo.findUniqueOrThrow({
         where: {
           id: comentario.id,
         },
         include: this.includeComentarioForoDetalle,
       });
+
+      return this.normalizarComentarioRespuesta(comentarioCompleto);
+    });
+  }
+
+  async comentarConRecursoExistente(
+    foroId: number,
+    data: ComentarRecursoExistenteForoDto,
+    usuarioAuth: any,
+  ) {
+    validarPermiso(usuarioAuth, PERMISOS.FOROS_COMENTAR);
+
+    const contenido = data.contenido?.trim();
+
+    if (!contenido) {
+      throw new BadRequestException('Debe escribir el comentario del foro');
+    }
+
+    const foro = await this.obtenerPorId(foroId, usuarioAuth);
+    this.validarForoAbiertoParaAportes(
+      foro,
+      'Este foro ya está cerrado para nuevos comentarios',
+    );
+
+    const recurso = await this.obtenerRecursoDisponibleParaForo(
+      Number(data.recursoId),
+      usuarioAuth,
+    );
+
+    return await this.prisma.$transaction(async (tx) => {
+      const comentario = await tx.comentarioForo.create({
+        data: {
+          contenido,
+          foroId,
+          usuarioId: Number(usuarioAuth?.sub),
+        },
+      });
+
+      await tx.comentarioForoRecurso.create({
+        data: {
+          comentarioForoId: comentario.id,
+          recursoId: recurso.id,
+        },
+      });
+
+      const comentarioCompleto = await tx.comentarioForo.findUniqueOrThrow({
+        where: {
+          id: comentario.id,
+        },
+        include: this.includeComentarioForoDetalle,
+      });
+
+      return this.normalizarComentarioRespuesta(comentarioCompleto);
     });
   }
 
@@ -1076,7 +1269,7 @@ export class ForoService {
       );
     }
 
-    return await this.prisma.comentarioForo.create({
+    const comentario = await this.prisma.comentarioForo.create({
       data: {
         contenido: data.contenido,
         foroId,
@@ -1084,5 +1277,7 @@ export class ForoService {
       },
       include: this.includeComentarioForoDetalle,
     });
+
+    return this.normalizarComentarioRespuesta(comentario);
   }
 }

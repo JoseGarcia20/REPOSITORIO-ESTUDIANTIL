@@ -17,6 +17,7 @@ import { CalificacionRecursoModule } from './modulos/calificacionRecurso/calific
 import { DetalleRutaAprendizajeModule } from './modulos/detalleRutaAprendizaje/detalleRutaAprendizaje.module';
 import { DetalleDiagnosticoAprendizajeModule } from './modulos/detalleDiagnosticoAprendizaje/detalleDiagnosticoAprendizaje.module';
 import { AuthModule } from './modulos/auth/auth.module';
+import { RecomendacionesModule } from './modulos/recomendaciones/recomendaciones.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 
@@ -43,6 +44,7 @@ import { join } from 'path';
     DiagnosticoAprendizajeModule,
     RutaAprendizajeModule,
     CalificacionRecursoModule,
+    RecomendacionesModule,
     DetalleRutaAprendizajeModule,
     DetalleDiagnosticoAprendizajeModule,
   ],

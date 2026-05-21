@@ -5,6 +5,7 @@ import {
   cerrarForoAcademico,
   comentarForoAcademico,
   comentarForoConRecurso,
+  comentarForoConRecursoExistente,
   crearForoAcademico,
   esSuperadministrador,
   obtenerCategoriasForo,
@@ -21,7 +22,9 @@ import type {
   ForoAcademico,
   GradoEscolar,
   InstitucionCatalogo,
+  RecursoAsistente,
 } from '../../api/adminApi';
+import { RecursosRecomendados } from '../../componentes/recomendaciones/recursosRecomendados';
 import './foros.css';
 
 type FormularioForo = {
@@ -38,6 +41,15 @@ type FormularioComentarioForo = {
   tituloRecurso: string;
   gradoEscolarId: string;
   archivo: File | null;
+};
+
+type ContextoRecomendacionForo = {
+  titulo: string;
+  descripcion: string;
+  tema: string;
+  categoriaId?: number | string;
+  categoriaIds?: number | string;
+  foroId?: number;
 };
 
 const formularioInicial: FormularioForo = {
@@ -107,6 +119,7 @@ export function Foros() {
     publico: '',
     cerrado: '',
   });
+  const [busquedaTexto, setBusquedaTexto] = useState('');
   const [modalAbierto, setModalAbierto] = useState(false);
   const [guardando, setGuardando] = useState(false);
   const [comentandoId, setComentandoId] = useState<number | null>(null);
@@ -114,6 +127,8 @@ export function Foros() {
     null,
   );
   const [foroAdjuntosId, setForoAdjuntosId] = useState<number | null>(null);
+  const [contextoRecomendacion, setContextoRecomendacion] =
+    useState<ContextoRecomendacionForo | null>(null);
   const [formulario, setFormulario] = useState<FormularioForo>({
     ...formularioInicial,
     institucionId: esSuper ? '' : String(usuario?.institucion?.id || ''),
@@ -151,6 +166,23 @@ export function Foros() {
   useEffect(() => {
     cargarForos();
   }, [pagina, filtros.busqueda, filtros.publico, filtros.cerrado]);
+
+  useEffect(() => {
+    const temporizador = window.setTimeout(() => {
+      const busqueda = busquedaTexto.trim();
+
+      setFiltros((prev) => {
+        if (prev.busqueda === busqueda) {
+          return prev;
+        }
+
+        setPagina(1);
+        return { ...prev, busqueda };
+      });
+    }, 350);
+
+    return () => window.clearTimeout(temporizador);
+  }, [busquedaTexto]);
 
   async function cargarCatalogos() {
     try {
@@ -208,11 +240,18 @@ export function Foros() {
     event: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) {
     const { name, value } = event.target;
+
+    if (name === 'busqueda') {
+      setBusquedaTexto(value);
+      return;
+    }
+
     setFiltros((prev) => ({ ...prev, [name]: value }));
     setPagina(1);
   }
 
   function limpiarFiltros() {
+    setBusquedaTexto('');
     setFiltros({
       busqueda: '',
       publico: '',
@@ -408,6 +447,100 @@ export function Foros() {
         : [];
   }
 
+  function abrirRecomendacionesCrearForo() {
+    const categoriasSeleccionadas = categoriasDisponibles.filter((categoria) =>
+      formulario.categoriaIds.includes(String(categoria.id)),
+    );
+    const nombresCategorias = categoriasSeleccionadas
+      .map((categoria) => categoria.nombre)
+      .join(' ');
+
+    setContextoRecomendacion({
+      titulo: 'Recursos recomendados para el foro',
+      descripcion:
+        'Sugerencias del repositorio según el título, contenido y categoría seleccionada.',
+      tema:
+        `${formulario.titulo} ${formulario.descripcion} ${nombresCategorias}`.trim() ||
+        'discusión académica investigación',
+      categoriaIds: formulario.categoriaIds.join(','),
+    });
+  }
+
+  function abrirRecomendacionesComentario(foro: ForoAcademico) {
+    const formularioComentario = obtenerFormularioComentario(foro.id);
+    const categoriasForo = obtenerCategoriasVisibles(foro);
+    const nombresCategorias = categoriasForo
+      .map((categoria) => categoria.nombre)
+      .join(' ');
+
+    setContextoRecomendacion({
+      titulo: 'Recursos para responder este foro',
+      descripcion:
+        'Materiales que pueden ayudarte a preparar una respuesta académica.',
+      tema: `${foro.titulo} ${foro.descripcion} ${nombresCategorias} ${formularioComentario.contenido}`,
+      categoriaIds: categoriasForo.map((categoria) => categoria.id).join(','),
+      foroId: foro.id,
+    });
+  }
+
+  async function usarRecursoRecomendadoEnComentario(recurso: RecursoAsistente) {
+    if (!contextoRecomendacion?.foroId) {
+      return;
+    }
+
+    const foroId = contextoRecomendacion.foroId;
+    const formularioComentario = obtenerFormularioComentario(foroId);
+    const contenido = formularioComentario.contenido.trim();
+
+    if (!contenido) {
+      alert(
+        'Escribe primero el comentario que dará contexto al recurso recomendado.',
+      );
+      return;
+    }
+
+    try {
+      setComentandoId(foroId);
+      await comentarForoConRecursoExistente(foroId, {
+        contenido,
+        recursoId: recurso.id,
+      });
+      setFormulariosComentario((prev) => ({
+        ...prev,
+        [foroId]: formularioComentarioInicial,
+      }));
+      setContextoRecomendacion(null);
+      await cargarForos();
+    } catch (error) {
+      alert(
+        error instanceof Error
+          ? error.message
+          : 'No se pudo usar el recurso recomendado.',
+      );
+    } finally {
+      setComentandoId(null);
+    }
+  }
+
+  function obtenerRecursosForo(foro: ForoAcademico) {
+    const recursosPorId = new Map<
+      number,
+      NonNullable<ForoAcademico['recursos']>[number]
+    >();
+
+    (foro.recursos || []).forEach((recurso) => {
+      recursosPorId.set(recurso.id, recurso);
+    });
+
+    foro.comentarios.forEach((comentario) => {
+      (comentario.recursos || []).forEach((recurso) => {
+        recursosPorId.set(recurso.id, recurso);
+      });
+    });
+
+    return Array.from(recursosPorId.values());
+  }
+
   function renderRecursosComentario(comentario: ComentarioForo) {
     const recursos = comentario.recursos || [];
 
@@ -552,6 +685,15 @@ export function Foros() {
         </div>
 
         <div className="comment-form-actions">
+          <button
+            className="forum-recommend-button"
+            type="button"
+            onClick={() => abrirRecomendacionesComentario(foro)}
+            title="Ver recursos recomendados"
+          >
+            ★ Recursos
+          </button>
+
           {puedeSubirRecurso && (
             <button
               className="secondary-button"
@@ -594,7 +736,7 @@ export function Foros() {
         <div className="forum-filters">
           <input
             name="busqueda"
-            value={filtros.busqueda}
+            value={busquedaTexto}
             onChange={manejarFiltro}
             placeholder="Buscar foros por título o contenido"
           />
@@ -637,7 +779,7 @@ export function Foros() {
           <>
             <div className="forum-feed">
               {foros.map((foro) => {
-                const recursosForo = foro.recursos || [];
+                const recursosForo = obtenerRecursosForo(foro);
                 const comentariosRecientes = foro.comentarios.slice(-3);
                 const categoriasForo = obtenerCategoriasVisibles(foro);
 
@@ -1024,6 +1166,13 @@ export function Foros() {
                     onChange={manejarCambio}
                     required
                   />
+                  <button
+                    className="forum-recommend-button inline"
+                    type="button"
+                    onClick={abrirRecomendacionesCrearForo}
+                  >
+                    ★ Ver recursos recomendados
+                  </button>
                 </div>
               </div>
 
@@ -1045,6 +1194,41 @@ export function Foros() {
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {contextoRecomendacion && (
+        <div className="modal-overlay forum-recommend-overlay">
+          <div className="modal-container forum-recommend-modal">
+            <div className="modal-header">
+              <div>
+                <span className="section-label">Recomendador académico</span>
+                <h2>{contextoRecomendacion.titulo}</h2>
+                <p>{contextoRecomendacion.descripcion}</p>
+              </div>
+
+              <button
+                className="modal-close"
+                onClick={() => setContextoRecomendacion(null)}
+              >
+                ×
+              </button>
+            </div>
+
+            <RecursosRecomendados
+              tema={contextoRecomendacion.tema}
+              categoriaId={contextoRecomendacion.categoriaId}
+              categoriaIds={contextoRecomendacion.categoriaIds}
+              limite={5}
+              compacto
+              etiquetaSeleccion="Usar en comentario"
+              onSeleccionarRecurso={
+                contextoRecomendacion.foroId
+                  ? usarRecursoRecomendadoEnComentario
+                  : undefined
+              }
+            />
           </div>
         </div>
       )}

@@ -18,6 +18,7 @@ export function AppLayout() {
 
   const usuarioGuardado = localStorage.getItem('usuario');
   const usuario = usuarioGuardado ? JSON.parse(usuarioGuardado) : null;
+  const esDocente = usuario?.rol?.nombre?.toLowerCase() === 'docente';
 
   const [menuAbierto, setMenuAbierto] = useState(window.innerWidth > 900);
   const [mostrarBotonAbrir, setMostrarBotonAbrir] = useState(
@@ -56,7 +57,7 @@ export function AppLayout() {
       });
     }
 
-    if (usuarioTienePermiso(PERMISOS.USUARIOS_VER)) {
+    if (usuarioTienePermiso(PERMISOS.USUARIOS_VER) && !esDocente) {
       administracion.push({ titulo: 'Usuarios', ruta: '/admin/usuarios' });
     }
 
@@ -117,7 +118,7 @@ export function AppLayout() {
     }
 
     return items;
-  }, [usuarioGuardado]);
+  }, [usuarioGuardado, esDocente]);
 
   const [submenuAbierto, setSubmenuAbierto] = useState<string | null>(null);
 

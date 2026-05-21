@@ -200,7 +200,8 @@ model ComentarioForo {
   foro    Foro    @relation(fields: [foroId], references: [id], onDelete: Cascade)
   usuario Usuario @relation(fields: [usuarioId], references: [id])
 
-  recursos Recurso[]
+  recursos            Recurso[]
+  recursosCompartidos ComentarioForoRecurso[]
 
   @@map("comentarios_foro")
 }
@@ -253,8 +254,21 @@ model Recurso {
   calificaciones          CalificacionRecurso[]
   detallesRutaAprendizaje DetalleRutaAprendizaje[]
   entregaAulaColaborativa ProyectoColaborativoEntrega? @relation("EntregaRecursoPublicado")
+  comentariosCompartidos  ComentarioForoRecurso[]
 
   @@map("recursos")
+}
+
+model ComentarioForoRecurso {
+  comentarioForoId Int
+  recursoId        Int
+  createdAt        DateTime @default(now())
+
+  comentarioForo ComentarioForo @relation(fields: [comentarioForoId], references: [id], onDelete: Cascade)
+  recurso        Recurso        @relation(fields: [recursoId], references: [id], onDelete: Cascade)
+
+  @@id([comentarioForoId, recursoId])
+  @@map("comentarios_foro_recursos")
 }
 
 model ProyectoColaborativo {

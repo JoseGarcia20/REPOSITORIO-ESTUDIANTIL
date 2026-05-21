@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import type { ChangeEvent } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import {
   API_URL,
   calificarRecurso,
   obtenerGradosEscolares,
+  obtenerRecomendacionesRecursos,
   obtenerRecursosRepositorio,
   obtenerResumenCalificacionRecurso,
   PERMISOS,
@@ -13,6 +14,7 @@ import {
 import type {
   GradoEscolar,
   Recurso,
+  RecursoAsistente,
   ResumenCalificacionRecurso,
 } from '../../api/adminApi';
 import './gestorRecursos.css';
@@ -126,6 +128,9 @@ export function GestorRecursos() {
     PERMISOS.RECURSOS_VER_TODOS_GRADOS,
   );
   const [recursos, setRecursos] = useState<Recurso[]>([]);
+  const [recomendaciones, setRecomendaciones] = useState<RecursoAsistente[]>(
+    [],
+  );
   const [gradosEscolares, setGradosEscolares] = useState<GradoEscolar[]>([]);
   const [recursoSeleccionado, setRecursoSeleccionado] =
     useState<Recurso | null>(null);
@@ -145,6 +150,43 @@ export function GestorRecursos() {
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState('');
 
+  const recomendacionesPorId = useMemo(
+    () =>
+      new Map(
+        recomendaciones.map((recomendacion, indice) => [
+          recomendacion.id,
+          {
+            ...recomendacion,
+            prioridad: indice,
+          },
+        ]),
+      ),
+    [recomendaciones],
+  );
+
+  const recursosOrdenados = useMemo(
+    () =>
+      [...recursos].sort((a, b) => {
+        const recomendacionA = recomendacionesPorId.get(a.id);
+        const recomendacionB = recomendacionesPorId.get(b.id);
+
+        if (recomendacionA && recomendacionB) {
+          return recomendacionA.prioridad - recomendacionB.prioridad;
+        }
+
+        if (recomendacionA) {
+          return -1;
+        }
+
+        if (recomendacionB) {
+          return 1;
+        }
+
+        return 0;
+      }),
+    [recursos, recomendacionesPorId],
+  );
+
   useEffect(() => {
     cargarRecursos();
   }, [
@@ -154,6 +196,10 @@ export function GestorRecursos() {
     filtros.gradoEscolarId,
     filtros.recursoId,
   ]);
+
+  useEffect(() => {
+    cargarRecomendaciones();
+  }, [filtros.busqueda, filtros.gradoEscolarId]);
 
   useEffect(() => {
     if (
@@ -213,6 +259,21 @@ export function GestorRecursos() {
       setError('No se pudieron cargar los recursos del repositorio');
     } finally {
       setCargando(false);
+    }
+  }
+
+  async function cargarRecomendaciones() {
+    try {
+      const respuesta = await obtenerRecomendacionesRecursos({
+        tema: filtros.busqueda,
+        gradoEscolarId: puedeVerTodosLosGrados
+          ? filtros.gradoEscolarId
+          : undefined,
+        limite: 4,
+      });
+      setRecomendaciones(respuesta.recursos);
+    } catch {
+      setRecomendaciones([]);
     }
   }
 
@@ -317,13 +378,23 @@ export function GestorRecursos() {
 
   function renderTarjeta(recurso: Recurso) {
     const palabrasClave = separarPalabrasClave(recurso.palabrasClave);
+    const recomendado = recomendacionesPorId.get(recurso.id);
 
     return (
       <article
-        className="resource-card"
+        className={`resource-card ${recomendado ? 'recommended' : ''}`}
         key={recurso.id}
         onClick={() => setRecursoSeleccionado(recurso)}
       >
+        {recomendado && (
+          <span
+            className="resource-recommended-star"
+            title={recomendado.motivos?.[0] || 'Recurso recomendado'}
+          >
+            ★
+          </span>
+        )}
+
         <div className={`resource-file-icon ${obtenerClaseArchivo(recurso)}`}>
           {describirTipoArchivo(recurso)}
         </div>
@@ -355,13 +426,23 @@ export function GestorRecursos() {
   }
 
   function renderFila(recurso: Recurso) {
+    const recomendado = recomendacionesPorId.get(recurso.id);
+
     return (
       <button
-        className="resource-row"
+        className={`resource-row ${recomendado ? 'recommended' : ''}`}
         key={recurso.id}
         onClick={() => setRecursoSeleccionado(recurso)}
       >
         <span className="resource-row-main">
+          {recomendado && (
+            <span
+              className="resource-recommended-star row"
+              title={recomendado.motivos?.[0] || 'Recurso recomendado'}
+            >
+              ★
+            </span>
+          )}
           <span className={`resource-row-icon ${obtenerClaseArchivo(recurso)}`}>
             {describirTipoArchivo(recurso)}
           </span>
@@ -466,7 +547,7 @@ export function GestorRecursos() {
         <>
           {vista === 'tarjetas' ? (
             <div className="resource-grid">
-              {recursos.map((recurso) => renderTarjeta(recurso))}
+              {recursosOrdenados.map((recurso) => renderTarjeta(recurso))}
             </div>
           ) : (
             <div className="resource-list">
@@ -475,7 +556,7 @@ export function GestorRecursos() {
                 <span>Categoría</span>
                 <span>Grado</span>
               </div>
-              {recursos.map((recurso) => renderFila(recurso))}
+              {recursosOrdenados.map((recurso) => renderFila(recurso))}
             </div>
           )}
 

@@ -118,8 +118,11 @@ export function Inicio() {
     ? `${API_URL}${usuario.institucion.logo}`
     : null;
 
-  const accesosVisibles = accesos.filter((acceso) =>
-    usuarioTienePermiso(acceso.permiso),
+  const esDocente = usuario?.rol?.nombre?.toLowerCase() === 'docente';
+  const accesosVisibles = accesos.filter(
+    (acceso) =>
+      usuarioTienePermiso(acceso.permiso) &&
+      !(esDocente && acceso.ruta === '/admin/usuarios'),
   );
 
   return (

@@ -1,0 +1,129 @@
+.recommended-resources {
+  background: #ffffff;
+  border: 1px solid #e5eaf5;
+  border-radius: 18px;
+  box-shadow: 0 16px 38px rgba(38, 50, 77, 0.08);
+  display: grid;
+  gap: 14px;
+  padding: 18px;
+}
+
+.recommended-resources.compact {
+  box-shadow: none;
+  padding: 14px;
+}
+
+.recommended-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.recommended-header h2 {
+  color: #1f2a44;
+  font-size: 22px;
+  line-height: 1.15;
+  margin: 6px 0 6px;
+}
+
+.recommended-header p,
+.recommended-state {
+  color: #7b8499;
+  line-height: 1.45;
+  margin: 0;
+}
+
+.recommended-state.error {
+  color: #c24141;
+}
+
+.recommended-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 10px;
+}
+
+.recommended-card {
+  background: #f8faff;
+  border: 1px solid #e5eaf5;
+  border-radius: 14px;
+  color: #273653;
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+  padding: 12px;
+  text-align: left;
+}
+
+.recommended-card:hover {
+  background: #eef3ff;
+  border-color: #bdcafe;
+}
+
+.recommended-card span {
+  color: #5277f4;
+  font-size: 11px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.recommended-card strong {
+  font-size: 15px;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+
+.recommended-card small,
+.recommended-card em {
+  color: #7b8499;
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.recommended-card em {
+  color: #56627a;
+  font-style: normal;
+  font-weight: 800;
+}
+
+.recommended-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.recommended-actions button {
+  border: 1px solid #dbe4f6;
+  background: #ffffff;
+  border-radius: 10px;
+  color: #33405f;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 900;
+  min-height: 34px;
+  padding: 7px 10px;
+}
+
+.recommended-actions button:hover {
+  background: #eef3ff;
+  border-color: #bdcafe;
+}
+
+.recommended-actions .recommended-primary-action {
+  background: #5277f4;
+  border-color: #5277f4;
+  color: #ffffff;
+}
+
+.recommended-actions .recommended-primary-action:hover {
+  background: #3d63dd;
+  border-color: #3d63dd;
+}
+
+@media (max-width: 720px) {
+  .recommended-list {
+    grid-template-columns: 1fr;
+  }
+}

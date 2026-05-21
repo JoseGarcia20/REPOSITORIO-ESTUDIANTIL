@@ -63,6 +63,7 @@ export const ModelName = {
   ComentarioForo: 'ComentarioForo',
   TipoRecurso: 'TipoRecurso',
   Recurso: 'Recurso',
+  ComentarioForoRecurso: 'ComentarioForoRecurso',
   ProyectoColaborativo: 'ProyectoColaborativo',
   ProyectoColaborativoIntegrante: 'ProyectoColaborativoIntegrante',
   ProyectoColaborativoActividad: 'ProyectoColaborativoActividad',
@@ -272,6 +273,15 @@ export const RecursoScalarFieldEnum = {
 } as const
 
 export type RecursoScalarFieldEnum = (typeof RecursoScalarFieldEnum)[keyof typeof RecursoScalarFieldEnum]
+
+
+export const ComentarioForoRecursoScalarFieldEnum = {
+  comentarioForoId: 'comentarioForoId',
+  recursoId: 'recursoId',
+  createdAt: 'createdAt'
+} as const
+
+export type ComentarioForoRecursoScalarFieldEnum = (typeof ComentarioForoRecursoScalarFieldEnum)[keyof typeof ComentarioForoRecursoScalarFieldEnum]
 
 
 export const ProyectoColaborativoScalarFieldEnum = {

@@ -151,10 +151,11 @@ const rolesBase = [
     nombre: 'docente',
     descripcion: 'Docente de una institución',
     permisos: [
-      permisos.USUARIOS_VER,
       permisos.ESTUDIANTES_VER,
       permisos.RECURSOS_VER,
       permisos.RECURSOS_VER_TODOS_GRADOS,
+      permisos.RECURSOS_CREAR,
+      permisos.RECURSOS_SUBIR_ARCHIVO,
       permisos.FOROS_VER,
       permisos.FOROS_CREAR,
       permisos.FOROS_CREAR_PUBLICO,
@@ -259,6 +260,17 @@ async function main() {
       where: {
         codigo: {
           in: rolBase.permisos,
+        },
+      },
+    });
+
+    await prisma.rolPermiso.deleteMany({
+      where: {
+        rolId: rol.id,
+        permiso: {
+          codigo: {
+            notIn: rolBase.permisos,
+          },
         },
       },
     });

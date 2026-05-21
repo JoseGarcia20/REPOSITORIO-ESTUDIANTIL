@@ -23,6 +23,7 @@ import type {
   ProyectoAula,
   RolProyectoAula,
 } from '../../api/adminApi';
+import { RecursosRecomendados } from '../../componentes/recomendaciones/recursosRecomendados';
 import './aulaColaborativa.css';
 
 type FormularioProyecto = {
@@ -217,6 +218,7 @@ export function AulaColaborativa() {
   const puedeEnviarEntrega =
     puedeParticipar && !proyectoCerrado && !entregaPendienteRevision;
   const esDocente = usuario?.rol?.nombre?.toLowerCase() === 'docente';
+  const esEstudiante = usuario?.rol?.nombre?.toLowerCase() === 'estudiante';
 
   useEffect(() => {
     cargarCatalogos();
@@ -1327,6 +1329,21 @@ export function AulaColaborativa() {
                             'Revisa los ajustes indicados y envía una nueva versión.'}
                         </p>
                       </div>
+                    )}
+
+                    {esEstudiante && (
+                      <RecursosRecomendados
+                        titulo="Apoyo recomendado"
+                        descripcion="Recursos relacionados con el objetivo y las actividades del proyecto."
+                        tema={`${proyectoSeleccionado.titulo} ${proyectoSeleccionado.objetivo} ${proyectoSeleccionado.descripcion} ${
+                          proyectoSeleccionado.instrucciones || ''
+                        }`}
+                        categoriaId={proyectoSeleccionado.categoriaId}
+                        gradoEscolarId={proyectoSeleccionado.gradoEscolarId}
+                        limite={3}
+                        compacto
+                        ocultarSiVacio
+                      />
                     )}
 
                     <p className="aula-board-rule">

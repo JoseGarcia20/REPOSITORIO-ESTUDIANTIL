@@ -61,6 +61,30 @@ const extensionesPermitidas = [
 
 const limiteArchivoBytes = 20 * 1024 * 1024;
 
+function mapearUsuarioSesion(
+  usuarioSesion: ReturnType<typeof obtenerUsuarioAutenticado>,
+) {
+  if (!usuarioSesion) {
+    return null;
+  }
+
+  return {
+    id: usuarioSesion.id,
+    nombres: usuarioSesion.nombres,
+    apellidos: usuarioSesion.apellidos,
+    correo: usuarioSesion.correo,
+    tipoDocumento: '',
+    documento: usuarioSesion.documento,
+    fechaNacimiento: '',
+    genero: '',
+    activo: true,
+    institucionId: usuarioSesion.institucion.id,
+    rolId: usuarioSesion.rol.id,
+    gradoEscolarId: usuarioSesion.gradoEscolar?.id,
+    gradoEscolar: usuarioSesion.gradoEscolar,
+  };
+}
+
 function numeroFormulario(valor: string) {
   const numero = Number(valor);
   return Number.isInteger(numero) && numero > 0 ? numero : undefined;
@@ -200,6 +224,7 @@ export function Recursos() {
     filtros.publicado,
     filtros.categoriaId,
     filtros.tipoRecursoId,
+    filtros.gradoEscolarId,
     filtros.institucionId,
   ]);
 
@@ -231,7 +256,14 @@ export function Recursos() {
       setTiposRecursos(tiposRecursosData);
       setGradosEscolares(gradosData);
       setInstituciones(institucionesData);
-      setUsuarios(usuariosData?.data || []);
+      const usuarioSesionActual = mapearUsuarioSesion(usuarioSesion);
+      setUsuarios(
+        usuariosData?.data?.length
+          ? usuariosData.data
+          : usuarioSesionActual
+            ? [usuarioSesionActual]
+            : [],
+      );
     } catch {
       setError('No se pudieron cargar los catálogos de recursos');
     } finally {
@@ -750,19 +782,28 @@ export function Recursos() {
 
                 <div className="form-group">
                   <label>Usuario creador</label>
-                  <select
-                    name="usuarioCreadorId"
-                    value={formulario.usuarioCreadorId}
-                    onChange={manejarCambio}
-                    required
-                  >
-                    <option value="">Selecciona un usuario</option>
-                    {usuariosDisponibles.map((usuario) => (
-                      <option key={usuario.id} value={usuario.id}>
-                        {usuario.nombres} {usuario.apellidos}
-                      </option>
-                    ))}
-                  </select>
+                  {puedeVerUsuarios ? (
+                    <select
+                      name="usuarioCreadorId"
+                      value={formulario.usuarioCreadorId}
+                      onChange={manejarCambio}
+                      required
+                    >
+                      <option value="">Selecciona un usuario</option>
+                      {usuariosDisponibles.map((usuario) => (
+                        <option key={usuario.id} value={usuario.id}>
+                          {usuario.nombres} {usuario.apellidos}
+                        </option>
+                      ))}
+                    </select>
+                  ) : (
+                    <input
+                      value={`${usuarioSesion?.nombres || ''} ${
+                        usuarioSesion?.apellidos || ''
+                      }`.trim()}
+                      readOnly
+                    />
+                  )}
                 </div>
 
                 <div className="form-group">

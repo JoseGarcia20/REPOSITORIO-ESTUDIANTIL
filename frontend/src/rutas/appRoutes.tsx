@@ -9,7 +9,11 @@ import { Categorias } from '../paginas/categorias/categorias';
 import { TiposRecursos } from '../paginas/tiposRecursos/tiposRecursos';
 import { Recursos } from '../paginas/recursos/recursos';
 import { RolesAdmin } from '../paginas/roles/roles';
-import { PERMISOS, usuarioTienePermiso } from '../api/adminApi';
+import {
+  obtenerUsuarioAutenticado,
+  PERMISOS,
+  usuarioTienePermiso,
+} from '../api/adminApi';
 import { Reportes } from '../paginas/reportes/reportes';
 import { Foros } from '../paginas/foros/foros';
 import { GestorRecursos } from '../paginas/repositorio/gestorRecursos';
@@ -17,11 +21,18 @@ import { AulaColaborativa } from '../paginas/aulaColaborativa/aulaColaborativa';
 
 function RutaProtegidaPorPermiso({
   permiso,
+  rolesBloqueados = [],
   children,
 }: {
   permiso: string;
+  rolesBloqueados?: string[];
   children: ReactElement;
 }) {
+  const usuario = obtenerUsuarioAutenticado();
+  const rol = usuario?.rol?.nombre?.toLowerCase();
+  if (rol && rolesBloqueados.includes(rol)) {
+    return <Navigate to="/inicio" replace />;
+  }
   if (!usuarioTienePermiso(permiso)) return <Navigate to="/inicio" replace />;
   return children;
 }
@@ -56,7 +67,10 @@ export function AppRoutes() {
           <Route
             path="/admin/usuarios"
             element={
-              <RutaProtegidaPorPermiso permiso={PERMISOS.USUARIOS_VER}>
+              <RutaProtegidaPorPermiso
+                permiso={PERMISOS.USUARIOS_VER}
+                rolesBloqueados={['docente']}
+              >
                 <Usuarios />
               </RutaProtegidaPorPermiso>
             }

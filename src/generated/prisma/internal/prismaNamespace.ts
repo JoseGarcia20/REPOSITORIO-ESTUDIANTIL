@@ -396,6 +396,7 @@ export const ModelName = {
   ComentarioForo: 'ComentarioForo',
   TipoRecurso: 'TipoRecurso',
   Recurso: 'Recurso',
+  ComentarioForoRecurso: 'ComentarioForoRecurso',
   ProyectoColaborativo: 'ProyectoColaborativo',
   ProyectoColaborativoIntegrante: 'ProyectoColaborativoIntegrante',
   ProyectoColaborativoActividad: 'ProyectoColaborativoActividad',
@@ -423,7 +424,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "institucion" | "rol" | "permiso" | "rolPermiso" | "usuario" | "gradoEscolar" | "categoria" | "foro" | "foroCategoria" | "comentarioForo" | "tipoRecurso" | "recurso" | "proyectoColaborativo" | "proyectoColaborativoIntegrante" | "proyectoColaborativoActividad" | "proyectoColaborativoEvidencia" | "proyectoColaborativoEntrega" | "calificacionRecurso" | "tipoAprendizaje" | "rutaAprendizaje" | "detalleRutaAprendizaje" | "asignacionRutaAprendizaje" | "diagnosticoAprendizaje" | "detalleDiagnosticoAprendizaje"
+    modelProps: "institucion" | "rol" | "permiso" | "rolPermiso" | "usuario" | "gradoEscolar" | "categoria" | "foro" | "foroCategoria" | "comentarioForo" | "tipoRecurso" | "recurso" | "comentarioForoRecurso" | "proyectoColaborativo" | "proyectoColaborativoIntegrante" | "proyectoColaborativoActividad" | "proyectoColaborativoEvidencia" | "proyectoColaborativoEntrega" | "calificacionRecurso" | "tipoAprendizaje" | "rutaAprendizaje" | "detalleRutaAprendizaje" | "asignacionRutaAprendizaje" | "diagnosticoAprendizaje" | "detalleDiagnosticoAprendizaje"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1312,6 +1313,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.RecursoCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.RecursoCountAggregateOutputType> | number
+        }
+      }
+    }
+    ComentarioForoRecurso: {
+      payload: Prisma.$ComentarioForoRecursoPayload<ExtArgs>
+      fields: Prisma.ComentarioForoRecursoFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ComentarioForoRecursoFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ComentarioForoRecursoPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ComentarioForoRecursoFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ComentarioForoRecursoPayload>
+        }
+        findFirst: {
+          args: Prisma.ComentarioForoRecursoFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ComentarioForoRecursoPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ComentarioForoRecursoFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ComentarioForoRecursoPayload>
+        }
+        findMany: {
+          args: Prisma.ComentarioForoRecursoFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ComentarioForoRecursoPayload>[]
+        }
+        create: {
+          args: Prisma.ComentarioForoRecursoCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ComentarioForoRecursoPayload>
+        }
+        createMany: {
+          args: Prisma.ComentarioForoRecursoCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ComentarioForoRecursoCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ComentarioForoRecursoPayload>[]
+        }
+        delete: {
+          args: Prisma.ComentarioForoRecursoDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ComentarioForoRecursoPayload>
+        }
+        update: {
+          args: Prisma.ComentarioForoRecursoUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ComentarioForoRecursoPayload>
+        }
+        deleteMany: {
+          args: Prisma.ComentarioForoRecursoDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ComentarioForoRecursoUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ComentarioForoRecursoUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ComentarioForoRecursoPayload>[]
+        }
+        upsert: {
+          args: Prisma.ComentarioForoRecursoUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ComentarioForoRecursoPayload>
+        }
+        aggregate: {
+          args: Prisma.ComentarioForoRecursoAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateComentarioForoRecurso>
+        }
+        groupBy: {
+          args: Prisma.ComentarioForoRecursoGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ComentarioForoRecursoGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ComentarioForoRecursoCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ComentarioForoRecursoCountAggregateOutputType> | number
         }
       }
     }
@@ -2423,6 +2498,15 @@ export const RecursoScalarFieldEnum = {
 export type RecursoScalarFieldEnum = (typeof RecursoScalarFieldEnum)[keyof typeof RecursoScalarFieldEnum]
 
 
+export const ComentarioForoRecursoScalarFieldEnum = {
+  comentarioForoId: 'comentarioForoId',
+  recursoId: 'recursoId',
+  createdAt: 'createdAt'
+} as const
+
+export type ComentarioForoRecursoScalarFieldEnum = (typeof ComentarioForoRecursoScalarFieldEnum)[keyof typeof ComentarioForoRecursoScalarFieldEnum]
+
+
 export const ProyectoColaborativoScalarFieldEnum = {
   id: 'id',
   titulo: 'titulo',
@@ -2810,6 +2894,7 @@ export type GlobalOmitConfig = {
   comentarioForo?: Prisma.ComentarioForoOmit
   tipoRecurso?: Prisma.TipoRecursoOmit
   recurso?: Prisma.RecursoOmit
+  comentarioForoRecurso?: Prisma.ComentarioForoRecursoOmit
   proyectoColaborativo?: Prisma.ProyectoColaborativoOmit
   proyectoColaborativoIntegrante?: Prisma.ProyectoColaborativoIntegranteOmit
   proyectoColaborativoActividad?: Prisma.ProyectoColaborativoActividadOmit

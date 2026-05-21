@@ -22,6 +22,7 @@ import { ActualizarForoDto } from '../dto/actualizar-foro.dto';
 import { CrearComentarioForoDto } from '../dto/crear-comentario-foro.dto';
 import { SubirRecursoForoDto } from '../dto/subir-recurso-foro.dto';
 import { ComentarRecursoForoDto } from '../dto/comentar-recurso-foro.dto';
+import { ComentarRecursoExistenteForoDto } from '../dto/comentar-recurso-existente-foro.dto';
 import { RequierePermisos } from '../../auth/decoradores/requiere-permisos.decorator';
 import { PERMISOS } from '../../auth/utils/roles.util';
 
@@ -121,6 +122,20 @@ export class ForoController {
       id,
       body,
       file,
+      req.usuarioAuth,
+    );
+  }
+
+  @Post(':id/comentarios/recurso-existente')
+  @RequierePermisos(PERMISOS.FOROS_COMENTAR, PERMISOS.RECURSOS_VER)
+  async comentarConRecursoExistente(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() body: ComentarRecursoExistenteForoDto,
+    @Req() req: any,
+  ) {
+    return await this.foroService.comentarConRecursoExistente(
+      id,
+      body,
       req.usuarioAuth,
     );
   }

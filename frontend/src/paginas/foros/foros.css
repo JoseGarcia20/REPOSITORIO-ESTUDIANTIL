@@ -178,6 +178,41 @@
   font-size: 12px;
 }
 
+.forum-recommend-button {
+  border: 1px solid #f5d36f;
+  background: #fff9df;
+  color: #8a6100;
+  border-radius: 12px;
+  min-height: 40px;
+  padding: 9px 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-weight: 900;
+  cursor: pointer;
+  width: auto;
+}
+
+.forum-recommend-button:hover {
+  background: #fff4c2;
+}
+
+.forum-recommend-button.inline {
+  justify-self: flex-start;
+  margin-top: 4px;
+}
+
+.modal-overlay.forum-recommend-overlay {
+  z-index: 1000;
+}
+
+.forum-recommend-modal {
+  position: relative;
+  z-index: 1001;
+  max-width: 820px;
+}
+
 .attachment-glyph {
   width: 18px;
   height: 22px;
