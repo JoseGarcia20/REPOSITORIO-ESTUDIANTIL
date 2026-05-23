@@ -49,6 +49,9 @@ const extensionesPermitidas = [
   'pdf',
   'doc',
   'docx',
+  'xls',
+  'xlsx',
+  'csv',
   'ppt',
   'pptx',
   'png',
@@ -393,7 +396,9 @@ export function Recursos() {
     const extension = archivo.name.toLowerCase().split('.').pop() || '';
 
     if (!extensionesPermitidas.includes(extension)) {
-      alert('Solo se permiten PDF, Word, PowerPoint, imágenes y videos.');
+      alert(
+        'Solo se permiten PDF, Word, Excel, PowerPoint, imágenes y videos.',
+      );
       return;
     }
 
@@ -855,7 +860,7 @@ export function Recursos() {
                   <label>Archivo</label>
                   <input
                     type="file"
-                    accept=".pdf,.doc,.docx,.ppt,.pptx,.png,.jpg,.jpeg,.webp,.mp4,.webm"
+                    accept=".pdf,.doc,.docx,.xls,.xlsx,.csv,.ppt,.pptx,.png,.jpg,.jpeg,.webp,.mp4,.webm"
                     onChange={manejarArchivo}
                   />
                   {subiendoArchivo && (

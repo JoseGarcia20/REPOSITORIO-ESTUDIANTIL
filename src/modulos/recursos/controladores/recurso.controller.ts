@@ -19,6 +19,7 @@ import { extname } from 'path';
 import { RecursoService } from '../servicios/recurso.service';
 import { CrearRecursoDto } from '../dto/crear-recurso.dto';
 import { ActualizarRecursoDto } from '../dto/actualizar-recurso.dto';
+import { GenerarResumenIaRecursoDto } from '../dto/generar-resumen-ia-recurso.dto';
 import { RequierePermisos } from '../../auth/decoradores/requiere-permisos.decorator';
 import { PERMISOS } from '../../auth/utils/roles.util';
 
@@ -27,15 +28,21 @@ export class RecursoController {
   constructor(private readonly recursoService: RecursoService) {}
   @Post()
   @RequierePermisos(PERMISOS.RECURSOS_CREAR)
-  async crear(@Body() body: CrearRecursoDto, @Req() req: any) { return await this.recursoService.crear(body, req.usuarioAuth); }
+  async crear(@Body() body: CrearRecursoDto, @Req() req: any) {
+    return await this.recursoService.crear(body, req.usuarioAuth);
+  }
 
   @Get()
   @RequierePermisos(PERMISOS.RECURSOS_VER)
-  async listar(@Req() req: any, @Query() query: any) { return await this.recursoService.listar(req.usuarioAuth, query); }
+  async listar(@Req() req: any, @Query() query: any) {
+    return await this.recursoService.listar(req.usuarioAuth, query);
+  }
 
   @Get('todos')
   @RequierePermisos(PERMISOS.RECURSOS_VER)
-  async listarTodos(@Req() req: any, @Query() query: any) { return await this.recursoService.listarTodos(req.usuarioAuth, query); }
+  async listarTodos(@Req() req: any, @Query() query: any) {
+    return await this.recursoService.listarTodos(req.usuarioAuth, query);
+  }
 
   @Post('subir-archivo')
   @RequierePermisos(PERMISOS.RECURSOS_SUBIR_ARCHIVO)
@@ -58,6 +65,9 @@ export class RecursoController {
           'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
           'application/vnd.ms-powerpoint',
           'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+          'application/vnd.ms-excel',
+          'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+          'text/csv',
           'image/png',
           'image/jpeg',
           'image/webp',
@@ -68,7 +78,7 @@ export class RecursoController {
         if (!permitidos.includes(file.mimetype)) {
           return callback(
             new BadRequestException(
-              'Solo se permiten PDF, Word, PowerPoint, imágenes y videos',
+              'Solo se permiten PDF, Word, Excel, PowerPoint, imágenes y videos',
             ),
             false,
           );
@@ -84,17 +94,43 @@ export class RecursoController {
 
   @Get(':id')
   @RequierePermisos(PERMISOS.RECURSOS_VER)
-  async obtenerPorId(@Param('id', ParseIntPipe) id: number, @Req() req: any) { return await this.recursoService.obtenerPorId(Number(id), req.usuarioAuth); }
+  async obtenerPorId(@Param('id', ParseIntPipe) id: number, @Req() req: any) {
+    return await this.recursoService.obtenerPorId(Number(id), req.usuarioAuth);
+  }
+
+  @Post(':id/resumen-ia')
+  @RequierePermisos(PERMISOS.RECURSOS_VER)
+  async generarResumenIa(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() body: GenerarResumenIaRecursoDto,
+    @Req() req: any,
+  ) {
+    return await this.recursoService.generarResumenIa(
+      id,
+      body,
+      req.usuarioAuth,
+    );
+  }
 
   @Put(':id')
   @RequierePermisos(PERMISOS.RECURSOS_EDITAR)
-  async actualizar(@Param('id', ParseIntPipe) id: number, @Body() body: ActualizarRecursoDto, @Req() req: any) { return await this.recursoService.actualizar(id, body, req.usuarioAuth); }
+  async actualizar(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() body: ActualizarRecursoDto,
+    @Req() req: any,
+  ) {
+    return await this.recursoService.actualizar(id, body, req.usuarioAuth);
+  }
 
   @Patch(':id/inactivar')
   @RequierePermisos(PERMISOS.RECURSOS_CAMBIAR_ESTADO)
-  async inactivar(@Param('id', ParseIntPipe) id: number, @Req() req: any) { return await this.recursoService.inactivar(id, req.usuarioAuth); }
+  async inactivar(@Param('id', ParseIntPipe) id: number, @Req() req: any) {
+    return await this.recursoService.inactivar(id, req.usuarioAuth);
+  }
 
   @Patch(':id/reactivar')
   @RequierePermisos(PERMISOS.RECURSOS_CAMBIAR_ESTADO)
-  async reactivar(@Param('id', ParseIntPipe) id: number, @Req() req: any) { return await this.recursoService.reactivar(id, req.usuarioAuth); }
+  async reactivar(@Param('id', ParseIntPipe) id: number, @Req() req: any) {
+    return await this.recursoService.reactivar(id, req.usuarioAuth);
+  }
 }

@@ -78,6 +78,11 @@ export type TipoRecurso = Prisma.TipoRecursoModel
  */
 export type Recurso = Prisma.RecursoModel
 /**
+ * Model ResumenIaRecurso
+ * 
+ */
+export type ResumenIaRecurso = Prisma.ResumenIaRecursoModel
+/**
  * Model ComentarioForoRecurso
  * 
  */

@@ -63,6 +63,7 @@ export const ModelName = {
   ComentarioForo: 'ComentarioForo',
   TipoRecurso: 'TipoRecurso',
   Recurso: 'Recurso',
+  ResumenIaRecurso: 'ResumenIaRecurso',
   ComentarioForoRecurso: 'ComentarioForoRecurso',
   ProyectoColaborativo: 'ProyectoColaborativo',
   ProyectoColaborativoIntegrante: 'ProyectoColaborativoIntegrante',
@@ -273,6 +274,21 @@ export const RecursoScalarFieldEnum = {
 } as const
 
 export type RecursoScalarFieldEnum = (typeof RecursoScalarFieldEnum)[keyof typeof RecursoScalarFieldEnum]
+
+
+export const ResumenIaRecursoScalarFieldEnum = {
+  recursoId: 'recursoId',
+  resumen: 'resumen',
+  proveedor: 'proveedor',
+  modelo: 'modelo',
+  extension: 'extension',
+  caracteresAnalizados: 'caracteresAnalizados',
+  advertencia: 'advertencia',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ResumenIaRecursoScalarFieldEnum = (typeof ResumenIaRecursoScalarFieldEnum)[keyof typeof ResumenIaRecursoScalarFieldEnum]
 
 
 export const ComentarioForoRecursoScalarFieldEnum = {

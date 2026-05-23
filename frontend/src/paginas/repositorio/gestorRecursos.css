@@ -60,10 +60,9 @@
   box-shadow: 0 14px 34px rgba(38, 50, 77, 0.07);
   padding: 16px;
   display: grid;
-  grid-template-columns: minmax(260px, 1fr) minmax(180px, 0.25fr) minmax(
-      180px,
-      0.25fr
-    ) auto;
+  grid-template-columns:
+    minmax(260px, 1fr) minmax(180px, 0.25fr) minmax(180px, 0.25fr)
+    auto;
   gap: 12px;
   margin-bottom: 20px;
 }
@@ -140,10 +139,51 @@
   width: 30px;
 }
 
+.resource-card-actions {
+  position: absolute;
+  right: 16px;
+  top: 14px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  z-index: 2;
+}
+
+.resource-card-actions .resource-recommended-star {
+  position: static;
+}
+
 .resource-recommended-star.row {
   position: static;
   height: 26px;
   width: 26px;
+}
+
+.resource-ai-button {
+  align-items: center;
+  background: #eef3ff;
+  border: 1px solid #bdcafe;
+  border-radius: 999px;
+  color: #5277f4;
+  cursor: pointer;
+  display: inline-flex;
+  font-size: 12px;
+  font-weight: 900;
+  height: 30px;
+  justify-content: center;
+  padding: 0;
+  width: 34px;
+}
+
+.resource-ai-button:hover {
+  background: #5277f4;
+  border-color: #5277f4;
+  color: #ffffff;
+}
+
+.resource-ai-button:disabled {
+  cursor: wait;
+  opacity: 0.7;
 }
 
 .resource-file-icon,
@@ -172,6 +212,12 @@
 .resource-row-icon.word {
   background: #eef3ff;
   color: #5277f4;
+}
+
+.resource-file-icon.excel,
+.resource-row-icon.excel {
+  background: #e9f8f1;
+  color: #168a55;
 }
 
 .resource-file-icon.slide,
@@ -493,6 +539,58 @@
   border-radius: 16px;
   padding: 14px;
   margin-bottom: 16px;
+}
+
+.resource-ai-summary {
+  background: #fbfcff;
+  border: 1px solid #e5eaf5;
+  border-radius: 16px;
+  margin-bottom: 16px;
+  padding: 14px;
+}
+
+.resource-ai-summary-head {
+  align-items: center;
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+}
+
+.resource-ai-summary-head span {
+  color: #5277f4;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.resource-ai-summary-head button {
+  background: #5277f4;
+  border: none;
+  border-radius: 12px;
+  color: #ffffff;
+  cursor: pointer;
+  font-weight: 800;
+  padding: 8px 11px;
+}
+
+.resource-ai-summary-head button:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+.resource-ai-text {
+  white-space: pre-line;
+}
+
+.resource-ai-summary small {
+  color: #7b8499;
+  display: block;
+  font-weight: 800;
+  margin-top: 8px;
+}
+
+.resource-ai-error,
+.resource-ai-warning {
+  color: #b42318;
 }
 
 .resource-rating-box span {

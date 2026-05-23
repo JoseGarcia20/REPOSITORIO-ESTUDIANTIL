@@ -838,6 +838,18 @@ export type ResumenCalificacionRecurso = {
   miCalificacion: number | null;
 };
 
+export type ResumenIaRecurso = {
+  recursoId: number;
+  resumen: string;
+  proveedor: string;
+  modelo: string;
+  generadoEn: string;
+  desdeCache: boolean;
+  caracteresAnalizados: number;
+  extension: string;
+  advertencia?: string;
+};
+
 export function obtenerResumenCalificacionRecurso(recursoId: number) {
   return get<ResumenCalificacionRecurso>(
     `/calificacion-recurso/recurso/${recursoId}/resumen`,
@@ -854,6 +866,14 @@ export function calificarRecurso(
     `/calificacion-recurso/recurso/${recursoId}`,
     { calificacion, comentario },
     'Error al calificar recurso',
+  );
+}
+
+export function generarResumenIaRecurso(recursoId: number, forzar = false) {
+  return post<ResumenIaRecurso>(
+    `/recursos/${recursoId}/resumen-ia`,
+    { forzar },
+    'Error al generar resumen AI',
   );
 }
 

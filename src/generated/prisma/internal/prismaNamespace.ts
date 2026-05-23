@@ -80,12 +80,12 @@ export type PrismaVersion = {
 }
 
 /**
- * Prisma Client JS version: 7.7.0
- * Query Engine version: 75cbdc1eb7150937890ad5465d861175c6624711
+ * Prisma Client JS version: 7.8.0
+ * Query Engine version: 3c6e192761c0362d496ed980de936e2f3cebcd3a
  */
 export const prismaVersion: PrismaVersion = {
-  client: "7.7.0",
-  engine: "75cbdc1eb7150937890ad5465d861175c6624711"
+  client: "7.8.0",
+  engine: "3c6e192761c0362d496ed980de936e2f3cebcd3a"
 }
 
 /**
@@ -396,6 +396,7 @@ export const ModelName = {
   ComentarioForo: 'ComentarioForo',
   TipoRecurso: 'TipoRecurso',
   Recurso: 'Recurso',
+  ResumenIaRecurso: 'ResumenIaRecurso',
   ComentarioForoRecurso: 'ComentarioForoRecurso',
   ProyectoColaborativo: 'ProyectoColaborativo',
   ProyectoColaborativoIntegrante: 'ProyectoColaborativoIntegrante',
@@ -424,7 +425,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "institucion" | "rol" | "permiso" | "rolPermiso" | "usuario" | "gradoEscolar" | "categoria" | "foro" | "foroCategoria" | "comentarioForo" | "tipoRecurso" | "recurso" | "comentarioForoRecurso" | "proyectoColaborativo" | "proyectoColaborativoIntegrante" | "proyectoColaborativoActividad" | "proyectoColaborativoEvidencia" | "proyectoColaborativoEntrega" | "calificacionRecurso" | "tipoAprendizaje" | "rutaAprendizaje" | "detalleRutaAprendizaje" | "asignacionRutaAprendizaje" | "diagnosticoAprendizaje" | "detalleDiagnosticoAprendizaje"
+    modelProps: "institucion" | "rol" | "permiso" | "rolPermiso" | "usuario" | "gradoEscolar" | "categoria" | "foro" | "foroCategoria" | "comentarioForo" | "tipoRecurso" | "recurso" | "resumenIaRecurso" | "comentarioForoRecurso" | "proyectoColaborativo" | "proyectoColaborativoIntegrante" | "proyectoColaborativoActividad" | "proyectoColaborativoEvidencia" | "proyectoColaborativoEntrega" | "calificacionRecurso" | "tipoAprendizaje" | "rutaAprendizaje" | "detalleRutaAprendizaje" | "asignacionRutaAprendizaje" | "diagnosticoAprendizaje" | "detalleDiagnosticoAprendizaje"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1313,6 +1314,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.RecursoCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.RecursoCountAggregateOutputType> | number
+        }
+      }
+    }
+    ResumenIaRecurso: {
+      payload: Prisma.$ResumenIaRecursoPayload<ExtArgs>
+      fields: Prisma.ResumenIaRecursoFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ResumenIaRecursoFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ResumenIaRecursoPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ResumenIaRecursoFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ResumenIaRecursoPayload>
+        }
+        findFirst: {
+          args: Prisma.ResumenIaRecursoFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ResumenIaRecursoPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ResumenIaRecursoFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ResumenIaRecursoPayload>
+        }
+        findMany: {
+          args: Prisma.ResumenIaRecursoFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ResumenIaRecursoPayload>[]
+        }
+        create: {
+          args: Prisma.ResumenIaRecursoCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ResumenIaRecursoPayload>
+        }
+        createMany: {
+          args: Prisma.ResumenIaRecursoCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ResumenIaRecursoCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ResumenIaRecursoPayload>[]
+        }
+        delete: {
+          args: Prisma.ResumenIaRecursoDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ResumenIaRecursoPayload>
+        }
+        update: {
+          args: Prisma.ResumenIaRecursoUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ResumenIaRecursoPayload>
+        }
+        deleteMany: {
+          args: Prisma.ResumenIaRecursoDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ResumenIaRecursoUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ResumenIaRecursoUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ResumenIaRecursoPayload>[]
+        }
+        upsert: {
+          args: Prisma.ResumenIaRecursoUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ResumenIaRecursoPayload>
+        }
+        aggregate: {
+          args: Prisma.ResumenIaRecursoAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateResumenIaRecurso>
+        }
+        groupBy: {
+          args: Prisma.ResumenIaRecursoGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ResumenIaRecursoGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ResumenIaRecursoCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ResumenIaRecursoCountAggregateOutputType> | number
         }
       }
     }
@@ -2498,6 +2573,21 @@ export const RecursoScalarFieldEnum = {
 export type RecursoScalarFieldEnum = (typeof RecursoScalarFieldEnum)[keyof typeof RecursoScalarFieldEnum]
 
 
+export const ResumenIaRecursoScalarFieldEnum = {
+  recursoId: 'recursoId',
+  resumen: 'resumen',
+  proveedor: 'proveedor',
+  modelo: 'modelo',
+  extension: 'extension',
+  caracteresAnalizados: 'caracteresAnalizados',
+  advertencia: 'advertencia',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ResumenIaRecursoScalarFieldEnum = (typeof ResumenIaRecursoScalarFieldEnum)[keyof typeof ResumenIaRecursoScalarFieldEnum]
+
+
 export const ComentarioForoRecursoScalarFieldEnum = {
   comentarioForoId: 'comentarioForoId',
   recursoId: 'recursoId',
@@ -2880,6 +2970,21 @@ export type PrismaClientOptions = ({
    * ```
    */
   comments?: runtime.SqlCommenterPlugin[]
+  /**
+   * Optional maximum size for the query plan cache. If not provided, a default size will be used.
+   * A value of `0` can be used to disable the cache entirely. A higher cache size can improve
+   * performance for applications that execute a large number of unique queries, while a smaller
+   * cache size can reduce memory usage.
+   * 
+   * @example
+   * ```
+   * const prisma = new PrismaClient({
+   *   adapter,
+   *   queryPlanCacheMaxSize: 100,
+   * })
+   * ```
+   */
+  queryPlanCacheMaxSize?: number
 }
 export type GlobalOmitConfig = {
   institucion?: Prisma.InstitucionOmit
@@ -2894,6 +2999,7 @@ export type GlobalOmitConfig = {
   comentarioForo?: Prisma.ComentarioForoOmit
   tipoRecurso?: Prisma.TipoRecursoOmit
   recurso?: Prisma.RecursoOmit
+  resumenIaRecurso?: Prisma.ResumenIaRecursoOmit
   comentarioForoRecurso?: Prisma.ComentarioForoRecursoOmit
   proyectoColaborativo?: Prisma.ProyectoColaborativoOmit
   proyectoColaborativoIntegrante?: Prisma.ProyectoColaborativoIntegranteOmit

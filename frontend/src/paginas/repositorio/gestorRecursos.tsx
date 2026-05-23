@@ -1,9 +1,10 @@
 import { useEffect, useMemo, useState } from 'react';
-import type { ChangeEvent } from 'react';
+import type { ChangeEvent, MouseEvent } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import {
   API_URL,
   calificarRecurso,
+  generarResumenIaRecurso,
   obtenerGradosEscolares,
   obtenerRecomendacionesRecursos,
   obtenerRecursosRepositorio,
@@ -16,6 +17,7 @@ import type {
   Recurso,
   RecursoAsistente,
   ResumenCalificacionRecurso,
+  ResumenIaRecurso,
 } from '../../api/adminApi';
 import './gestorRecursos.css';
 
@@ -59,6 +61,10 @@ function describirTipoArchivo(recurso: Recurso) {
     return 'Word';
   }
 
+  if (['xls', 'xlsx', 'csv'].includes(extension)) {
+    return 'Excel';
+  }
+
   if (['ppt', 'pptx'].includes(extension)) {
     return 'PowerPoint';
   }
@@ -79,6 +85,7 @@ function obtenerClaseArchivo(recurso: Recurso) {
 
   if (extension === 'pdf') return 'pdf';
   if (['doc', 'docx'].includes(extension)) return 'word';
+  if (['xls', 'xlsx', 'csv'].includes(extension)) return 'excel';
   if (['ppt', 'pptx'].includes(extension)) return 'slide';
   if (['png', 'jpg', 'jpeg', 'webp'].includes(extension)) return 'image';
   if (['mp4', 'webm'].includes(extension)) return 'video';
@@ -100,6 +107,10 @@ function puedePrevisualizarComoVideo(recurso: Recurso) {
 
 function puedePrevisualizarComoOffice(recurso: Recurso) {
   return ['doc', 'docx', 'ppt', 'pptx'].includes(obtenerExtension(recurso));
+}
+
+function puedeGenerarResumenIa(recurso: Recurso) {
+  return ['pdf', 'docx', 'xlsx', 'csv'].includes(obtenerExtension(recurso));
 }
 
 function crearUrlOfficeViewer(url: string) {
@@ -136,6 +147,11 @@ export function GestorRecursos() {
     useState<Recurso | null>(null);
   const [resumenCalificacion, setResumenCalificacion] =
     useState<ResumenCalificacionRecurso | null>(null);
+  const [resumenesIa, setResumenesIa] = useState<
+    Record<number, ResumenIaRecurso>
+  >({});
+  const [resumiendoId, setResumiendoId] = useState<number | null>(null);
+  const [errorResumenIa, setErrorResumenIa] = useState('');
   const [guardandoCalificacion, setGuardandoCalificacion] = useState(false);
   const [vista, setVista] = useState<VistaRepositorio>('tarjetas');
   const [filtros, setFiltros] = useState<FiltrosRepositorio>({
@@ -222,8 +238,10 @@ export function GestorRecursos() {
   useEffect(() => {
     if (recursoSeleccionado) {
       cargarResumenCalificacion(recursoSeleccionado.id);
+      setErrorResumenIa('');
     } else {
       setResumenCalificacion(null);
+      setErrorResumenIa('');
     }
   }, [recursoSeleccionado?.id]);
 
@@ -331,6 +349,39 @@ export function GestorRecursos() {
     }
   }
 
+  async function manejarResumenIa(recurso: Recurso, forzar = false) {
+    if (!puedeGenerarResumenIa(recurso) || resumiendoId) {
+      return;
+    }
+
+    try {
+      setRecursoSeleccionado(recurso);
+      setErrorResumenIa('');
+      setResumiendoId(recurso.id);
+      const resumen = await generarResumenIaRecurso(recurso.id, forzar);
+      setResumenesIa((prev) => ({
+        ...prev,
+        [recurso.id]: resumen,
+      }));
+    } catch (error) {
+      setErrorResumenIa(
+        error instanceof Error
+          ? error.message
+          : 'No se pudo generar el resumen AI.',
+      );
+    } finally {
+      setResumiendoId(null);
+    }
+  }
+
+  function manejarClickResumenIa(
+    event: MouseEvent<HTMLButtonElement>,
+    recurso: Recurso,
+  ) {
+    event.stopPropagation();
+    manejarResumenIa(recurso);
+  }
+
   function renderVistaPrevia(recurso: Recurso) {
     const url = obtenerUrlRecurso(recurso);
 
@@ -379,6 +430,7 @@ export function GestorRecursos() {
   function renderTarjeta(recurso: Recurso) {
     const palabrasClave = separarPalabrasClave(recurso.palabrasClave);
     const recomendado = recomendacionesPorId.get(recurso.id);
+    const resumenDisponible = puedeGenerarResumenIa(recurso);
 
     return (
       <article
@@ -386,13 +438,29 @@ export function GestorRecursos() {
         key={recurso.id}
         onClick={() => setRecursoSeleccionado(recurso)}
       >
-        {recomendado && (
-          <span
-            className="resource-recommended-star"
-            title={recomendado.motivos?.[0] || 'Recurso recomendado'}
-          >
-            ★
-          </span>
+        {(recomendado || resumenDisponible) && (
+          <div className="resource-card-actions">
+            {recomendado && (
+              <span
+                className="resource-recommended-star"
+                title={recomendado.motivos?.[0] || 'Recurso recomendado'}
+              >
+                ★
+              </span>
+            )}
+
+            {resumenDisponible && (
+              <button
+                className="resource-ai-button"
+                type="button"
+                title="Generar resumen AI"
+                onClick={(event) => manejarClickResumenIa(event, recurso)}
+                disabled={resumiendoId === recurso.id}
+              >
+                {resumiendoId === recurso.id ? '...' : 'AI'}
+              </button>
+            )}
+          </div>
         )}
 
         <div className={`resource-file-icon ${obtenerClaseArchivo(recurso)}`}>
@@ -505,6 +573,7 @@ export function GestorRecursos() {
           <option value="">Todos los formatos</option>
           <option value="pdf">PDF</option>
           <option value="word">Word</option>
+          <option value="excel">Excel</option>
           <option value="slide">PowerPoint</option>
           <option value="image">Imagen</option>
           <option value="video">Video</option>
@@ -614,6 +683,57 @@ export function GestorRecursos() {
               </div>
 
               <aside className="resource-detail-panel">
+                <div className="resource-ai-summary">
+                  <div className="resource-ai-summary-head">
+                    <span>Resumen AI</span>
+                    {puedeGenerarResumenIa(recursoSeleccionado) && (
+                      <button
+                        type="button"
+                        onClick={() =>
+                          manejarResumenIa(
+                            recursoSeleccionado,
+                            Boolean(resumenesIa[recursoSeleccionado.id]),
+                          )
+                        }
+                        disabled={resumiendoId === recursoSeleccionado.id}
+                      >
+                        {resumenesIa[recursoSeleccionado.id]
+                          ? 'Regenerar'
+                          : 'Generar'}
+                      </button>
+                    )}
+                  </div>
+
+                  {!puedeGenerarResumenIa(recursoSeleccionado) && (
+                    <p>No disponible para este formato.</p>
+                  )}
+
+                  {resumiendoId === recursoSeleccionado.id && (
+                    <p>Generando resumen...</p>
+                  )}
+
+                  {errorResumenIa && (
+                    <p className="resource-ai-error">{errorResumenIa}</p>
+                  )}
+
+                  {resumenesIa[recursoSeleccionado.id] && (
+                    <>
+                      <p className="resource-ai-text">
+                        {resumenesIa[recursoSeleccionado.id].resumen}
+                      </p>
+                      <small>
+                        {resumenesIa[recursoSeleccionado.id].proveedor} ·{' '}
+                        {resumenesIa[recursoSeleccionado.id].modelo}
+                      </small>
+                      {resumenesIa[recursoSeleccionado.id].advertencia && (
+                        <small className="resource-ai-warning">
+                          {resumenesIa[recursoSeleccionado.id].advertencia}
+                        </small>
+                      )}
+                    </>
+                  )}
+                </div>
+
                 <div className="resource-rating-box">
                   <span>Calificación</span>
                   <strong>

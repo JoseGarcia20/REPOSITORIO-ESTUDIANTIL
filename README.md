@@ -23,6 +23,7 @@ La base funcional del software ya incluye:
 - Aula colaborativa con proyectos, integrantes, tablero de actividades, evidencias, entregas y revisión docente.
 - Calificación de recursos por estrellas.
 - Chatbot académico inicial para consultar recursos del repositorio.
+- Resumen AI de recursos PDF, Word DOCX y Excel desde el gestor de recursos, usando Ollama o resumen local extractivo como respaldo.
 
 ## Estructura General
 
@@ -56,26 +57,26 @@ El backend está en `src/` y usa NestJS con módulos por dominio. La base de dat
 
 ### Módulos Backend Principales
 
-| Módulo | Ruta base | Responsabilidad |
-| --- | --- | --- |
-| `auth` | `/auth` | Login, generación de JWT y carga de permisos del usuario. |
-| `instituciones` | `/instituciones` | CRUD de instituciones, logo y alcance institucional. |
-| `usuarios` | `/usuarios` | CRUD de usuarios, roles, institución, grado escolar y estado. |
-| `roles` | `/roles` | CRUD de roles y consulta de roles asignables. |
-| `categorias` | `/categorias` | Categorías académicas por institución. |
-| `tiposRecursos` | `/tipos-recursos` | Tipos de recurso educativo. |
-| `recursos` | `/recursos` | Maestro de recursos, carga de archivos, clasificación y repositorio. |
-| `gradosEscolares` | `/grados-escolares` | Catálogo de grados sexto a once. |
-| `calificacionRecurso` | `/calificacion-recurso` | Calificación y resumen de estrellas por recurso. |
-| `recomendaciones` | `/recomendaciones` | Recomendador académico de recursos. |
-| `asistente` | `/asistente` | Chatbot inicial conectado al recomendador. |
-| `foro` | `/foros` | Foros académicos, comentarios, adjuntos y recursos vinculados. |
-| `aulaColaborativa` | `/aula-colaborativa` | Proyectos colaborativos, tablero, evidencias, entregas y revisión. |
-| `tiposAprendizaje` | `/tipos-aprendizaje` | Maestro académico para rutas/diagnósticos. |
-| `rutaAprendizaje` | `/ruta-aprendizaje` | Rutas de aprendizaje. |
-| `detalleRutaAprendizaje` | `/detalle-ruta-aprendizaje` | Detalles de rutas de aprendizaje. |
-| `diagnosticoAprendizaje` | `/diagnostico-aprendizaje` | Diagnósticos de aprendizaje. |
-| `detalleDiagnosticoAprendizaje` | `/detalle-diagnostico-aprendizaje` | Detalles de diagnósticos. |
+| Módulo                          | Ruta base                          | Responsabilidad                                                      |
+| ------------------------------- | ---------------------------------- | -------------------------------------------------------------------- |
+| `auth`                          | `/auth`                            | Login, generación de JWT y carga de permisos del usuario.            |
+| `instituciones`                 | `/instituciones`                   | CRUD de instituciones, logo y alcance institucional.                 |
+| `usuarios`                      | `/usuarios`                        | CRUD de usuarios, roles, institución, grado escolar y estado.        |
+| `roles`                         | `/roles`                           | CRUD de roles y consulta de roles asignables.                        |
+| `categorias`                    | `/categorias`                      | Categorías académicas por institución.                               |
+| `tiposRecursos`                 | `/tipos-recursos`                  | Tipos de recurso educativo.                                          |
+| `recursos`                      | `/recursos`                        | Maestro de recursos, carga de archivos, clasificación y repositorio. |
+| `gradosEscolares`               | `/grados-escolares`                | Catálogo de grados sexto a once.                                     |
+| `calificacionRecurso`           | `/calificacion-recurso`            | Calificación y resumen de estrellas por recurso.                     |
+| `recomendaciones`               | `/recomendaciones`                 | Recomendador académico de recursos.                                  |
+| `asistente`                     | `/asistente`                       | Chatbot inicial conectado al recomendador.                           |
+| `foro`                          | `/foros`                           | Foros académicos, comentarios, adjuntos y recursos vinculados.       |
+| `aulaColaborativa`              | `/aula-colaborativa`               | Proyectos colaborativos, tablero, evidencias, entregas y revisión.   |
+| `tiposAprendizaje`              | `/tipos-aprendizaje`               | Maestro académico para rutas/diagnósticos.                           |
+| `rutaAprendizaje`               | `/ruta-aprendizaje`                | Rutas de aprendizaje.                                                |
+| `detalleRutaAprendizaje`        | `/detalle-ruta-aprendizaje`        | Detalles de rutas de aprendizaje.                                    |
+| `diagnosticoAprendizaje`        | `/diagnostico-aprendizaje`         | Diagnósticos de aprendizaje.                                         |
+| `detalleDiagnosticoAprendizaje` | `/detalle-diagnostico-aprendizaje` | Detalles de diagnósticos.                                            |
 
 ### Seguridad
 
@@ -95,13 +96,13 @@ Los roles se leen desde la base de datos. No se debe depender del nombre del rol
 
 Roles base cargados por `prisma/seed.ts`:
 
-| Rol | Alcance actual |
-| --- | --- |
-| `superadministrador` | Acceso total al sistema mediante `sistema.total`. |
-| `administrador` | Administración completa de una institución: usuarios, estudiantes, categorías, recursos, foros, aula colaborativa y reportes. |
-| `docente` | Puede ver estudiantes de su institución, crear/subir recursos, participar en foros, crear foros públicos/institucionales, cerrar sus foros y gestionar aula colaborativa. No administra usuarios. |
-| `estudiante` | Puede ver recursos de su grado e institución, participar en foros y trabajar en aula colaborativa. |
-| `usuario administrativo` | Perfil orientado a reportes y participación limitada en comunidad académica. |
+| Rol                      | Alcance actual                                                                                                                                                                                    |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `superadministrador`     | Acceso total al sistema mediante `sistema.total`.                                                                                                                                                 |
+| `administrador`          | Administración completa de una institución: usuarios, estudiantes, categorías, recursos, foros, aula colaborativa y reportes.                                                                     |
+| `docente`                | Puede ver estudiantes de su institución, crear/subir recursos, participar en foros, crear foros públicos/institucionales, cerrar sus foros y gestionar aula colaborativa. No administra usuarios. |
+| `estudiante`             | Puede ver recursos de su grado e institución, participar en foros y trabajar en aula colaborativa.                                                                                                |
+| `usuario administrativo` | Perfil orientado a reportes y participación limitada en comunidad académica.                                                                                                                      |
 
 ### Permisos Relevantes
 
@@ -140,19 +141,19 @@ El frontend está en `frontend/` y usa React con Vite.
 
 ### Rutas Frontend
 
-| Ruta | Página | Permiso |
-| --- | --- | --- |
-| `/inicio` | Dashboard/inicio por rol | Sesión activa |
-| `/admin/instituciones` | CRUD instituciones | `instituciones.crear` |
-| `/admin/usuarios` | CRUD usuarios | `usuarios.ver` y no docente |
-| `/admin/categorias` | CRUD categorías | `categorias.ver` |
-| `/admin/tipos-recursos` | CRUD tipos de recursos | `tipos_recursos.ver` |
-| `/admin/recursos` | Administración/maestro de recursos | `recursos.crear` |
-| `/admin/roles` | CRUD roles | `roles.ver` |
-| `/repositorio/recursos` | Gestor/repositorio de recursos | `recursos.ver` |
-| `/foros` | Foros académicos | `foros.ver` |
-| `/aula-colaborativa` | Aula colaborativa | `aula_colaborativa.ver` |
-| `/reportes` | Reportes | `reportes.ver` |
+| Ruta                    | Página                             | Permiso                     |
+| ----------------------- | ---------------------------------- | --------------------------- |
+| `/inicio`               | Dashboard/inicio por rol           | Sesión activa               |
+| `/admin/instituciones`  | CRUD instituciones                 | `instituciones.crear`       |
+| `/admin/usuarios`       | CRUD usuarios                      | `usuarios.ver` y no docente |
+| `/admin/categorias`     | CRUD categorías                    | `categorias.ver`            |
+| `/admin/tipos-recursos` | CRUD tipos de recursos             | `tipos_recursos.ver`        |
+| `/admin/recursos`       | Administración/maestro de recursos | `recursos.crear`            |
+| `/admin/roles`          | CRUD roles                         | `roles.ver`                 |
+| `/repositorio/recursos` | Gestor/repositorio de recursos     | `recursos.ver`              |
+| `/foros`                | Foros académicos                   | `foros.ver`                 |
+| `/aula-colaborativa`    | Aula colaborativa                  | `aula_colaborativa.ver`     |
+| `/reportes`             | Reportes                           | `reportes.ver`              |
 
 ### Componentes Frontend Relevantes
 
@@ -164,7 +165,7 @@ El frontend está en `frontend/` y usa React con Vite.
 La URL del backend está definida actualmente en:
 
 ```ts
-frontend/src/api/adminApi.ts
+frontend / src / api / adminApi.ts;
 ```
 
 Valor actual:
@@ -271,6 +272,7 @@ Archivos permitidos:
 
 - PDF.
 - Word: `.doc`, `.docx`.
+- Excel: `.xls`, `.xlsx`, `.csv`.
 - PowerPoint: `.ppt`, `.pptx`.
 - Imágenes: `.png`, `.jpg`, `.jpeg`, `.webp`.
 - Videos: `.mp4`, `.webm`.
@@ -300,6 +302,7 @@ Permite:
 - Calificar recursos con estrellas.
 - Ver promedio y total de calificaciones.
 - Priorizar hasta 4 recursos recomendados con una estrella dentro de la lista.
+- Generar resumen AI desde las tarjetas o el detalle para PDF, Word DOCX, Excel XLSX y CSV.
 
 Reglas de visibilidad:
 
@@ -345,7 +348,47 @@ Objetivo actual:
 - Consultar el recomendador de recursos.
 - Mostrar recursos relacionados y enlaces al repositorio.
 
-No resume PDFs ni interpreta documentos todavía. Está preparado como base para integrar en el futuro una API LLM más robusta.
+El chatbot todavía no resume documentos completos desde la conversación. El resumen AI de archivos está integrado en el gestor de recursos mediante el botón `AI` de cada tarjeta compatible.
+
+### Resumen AI de Recursos
+
+Endpoint:
+
+```text
+POST /recursos/:id/resumen-ia
+```
+
+Soporta archivos cargados localmente en:
+
+- PDF con texto seleccionable.
+- Word `.docx`.
+- Excel `.xlsx` y `.csv`.
+
+El backend extrae texto limpio del archivo, lo envía a Ollama y guarda el resultado en el recurso para reutilizarlo. Si Ollama no está disponible, por defecto genera un resumen local extractivo para no bloquear la experiencia.
+
+Variables opcionales:
+
+```env
+AI_RESUMEN_PROVIDER="ollama"
+OLLAMA_URL="http://localhost:11434"
+OLLAMA_MODEL="qwen2.5:7b"
+AI_RESUMEN_MAX_CHARS="14000"
+AI_RESUMEN_TIMEOUT_MS="120000"
+AI_RESUMEN_FALLBACK_EXTRACTIVO="true"
+```
+
+Para usar Ollama local:
+
+```bash
+ollama pull qwen2.5:7b
+ollama serve
+```
+
+También se puede usar:
+
+```bash
+OLLAMA_MODEL="llama3:8b"
+```
 
 ### Foros Académicos
 
@@ -794,7 +837,7 @@ Verificar que el archivo tenga tipo permitido y no supere el límite.
 Revisar:
 
 ```ts
-frontend/src/api/adminApi.ts
+frontend / src / api / adminApi.ts;
 ```
 
 Debe apuntar al backend correcto:
@@ -822,7 +865,6 @@ El visor usa Office Viewer para documentos Office. Para que funcione, la URL del
 
 - Reportes reales por institución, recurso, foro, calificación y aula colaborativa.
 - Integración con un LLM externo para:
-  - resumen de PDFs
   - explicación de documentos
   - preguntas sobre contenido
   - clasificación semántica avanzada

@@ -44,6 +44,9 @@ const opcionesArchivoRecursoForo = {
       'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
       'application/vnd.ms-powerpoint',
       'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+      'application/vnd.ms-excel',
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      'text/csv',
       'image/png',
       'image/jpeg',
       'image/webp',
@@ -54,7 +57,7 @@ const opcionesArchivoRecursoForo = {
     if (!permitidos.includes(file.mimetype)) {
       return callback(
         new BadRequestException(
-          'Solo se permiten PDF, Word, PowerPoint, imágenes y videos',
+          'Solo se permiten PDF, Word, Excel, PowerPoint, imágenes y videos',
         ),
         false,
       );

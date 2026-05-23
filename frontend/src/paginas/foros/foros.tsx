@@ -641,7 +641,7 @@ export function Foros() {
                 Archivo de soporte
                 <input
                   type="file"
-                  accept=".pdf,.doc,.docx,.ppt,.pptx,.png,.jpg,.jpeg,.webp,.mp4,.webm"
+                  accept=".pdf,.doc,.docx,.xls,.xlsx,.csv,.ppt,.pptx,.png,.jpg,.jpeg,.webp,.mp4,.webm"
                   onChange={(event) =>
                     seleccionarArchivoComentario(foro.id, event)
                   }

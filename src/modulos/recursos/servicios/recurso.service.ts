@@ -1,6 +1,7 @@
 import {
   BadRequestException,
   ConflictException,
+  ForbiddenException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
@@ -8,6 +9,8 @@ import { PrismaService } from '../../../baseDatos/prisma/prisma.service';
 import { Prisma } from '../../../generated/prisma/client';
 import { CrearRecursoDto } from '../dto/crear-recurso.dto';
 import { ActualizarRecursoDto } from '../dto/actualizar-recurso.dto';
+import { GenerarResumenIaRecursoDto } from '../dto/generar-resumen-ia-recurso.dto';
+import { ResumenIaRecursoService } from './resumen-ia-recurso.service';
 import {
   PERMISOS,
   tieneAccesoTotal,
@@ -24,7 +27,10 @@ import {
 
 @Injectable()
 export class RecursoService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly resumenIaRecursoService: ResumenIaRecursoService,
+  ) {}
 
   private readonly limitePalabrasClave = 6;
 
@@ -87,6 +93,31 @@ export class RecursoService {
   private numeroPositivo(valor: string | number | undefined | null) {
     const numero = Number(valor);
     return Number.isInteger(numero) && numero > 0 ? numero : null;
+  }
+
+  private validarAccesoRecursoPublicado(usuarioAuth: any, recurso: any) {
+    if (!recurso.estado || !recurso.publicado) {
+      throw new NotFoundException(`Recurso con id ${recurso.id} no encontrado`);
+    }
+
+    if (tieneAccesoTotal(usuarioAuth)) {
+      return;
+    }
+
+    if (recurso.institucionId !== Number(usuarioAuth?.institucionId)) {
+      throw new ForbiddenException(
+        'No tiene permisos para consultar recursos de otra institución',
+      );
+    }
+
+    if (
+      !tienePermiso(usuarioAuth, PERMISOS.RECURSOS_VER_TODOS_GRADOS) &&
+      recurso.gradoEscolarId !== Number(usuarioAuth?.gradoEscolarId)
+    ) {
+      throw new ForbiddenException(
+        'No tiene permisos para consultar recursos de otro grado escolar',
+      );
+    }
   }
 
   private obtenerExtension(data: CrearRecursoDto | ActualizarRecursoDto) {
@@ -338,6 +369,9 @@ export class RecursoService {
       pdf: ['pdf', 'documento', 'lectura', 'guia', 'guía'],
       doc: ['word', 'documento', 'texto', 'guia', 'guía'],
       docx: ['word', 'documento', 'texto', 'guia', 'guía'],
+      xls: ['excel', 'hoja', 'calculo', 'tabla', 'datos'],
+      xlsx: ['excel', 'hoja', 'calculo', 'tabla', 'datos'],
+      csv: ['excel', 'hoja', 'calculo', 'tabla', 'datos'],
       ppt: ['powerpoint', 'presentacion', 'diapositiva', 'slide'],
       pptx: ['powerpoint', 'presentacion', 'diapositiva', 'slide'],
       png: ['imagen', 'infografia', 'grafico', 'visual'],
@@ -551,6 +585,14 @@ export class RecursoService {
           { urlRecurso: { endsWith: '.doc', mode: 'insensitive' } },
           { urlRecurso: { endsWith: '.docx', mode: 'insensitive' } },
         ],
+        excel: [
+          { rutaRecurso: { endsWith: '.xls', mode: 'insensitive' } },
+          { rutaRecurso: { endsWith: '.xlsx', mode: 'insensitive' } },
+          { rutaRecurso: { endsWith: '.csv', mode: 'insensitive' } },
+          { urlRecurso: { endsWith: '.xls', mode: 'insensitive' } },
+          { urlRecurso: { endsWith: '.xlsx', mode: 'insensitive' } },
+          { urlRecurso: { endsWith: '.csv', mode: 'insensitive' } },
+        ],
         slide: [
           { rutaRecurso: { endsWith: '.ppt', mode: 'insensitive' } },
           { rutaRecurso: { endsWith: '.pptx', mode: 'insensitive' } },
@@ -728,12 +770,48 @@ export class RecursoService {
     const payload = tieneAccesoTotal(usuarioAuth)
       ? data
       : { ...data, institucionId: undefined };
+    const debeInvalidarResumenIa = [
+      'titulo',
+      'contenidoResumen',
+      'rutaRecurso',
+      'urlRecurso',
+    ].some((campo) => Object.prototype.hasOwnProperty.call(data, campo));
 
-    return await this.prisma.recurso.update({
+    const recursoActualizado = await this.prisma.recurso.update({
       where: { id },
       data: payload,
       include: this.includeRecursoDetalle,
     });
+
+    if (debeInvalidarResumenIa) {
+      await this.prisma.resumenIaRecurso.deleteMany({
+        where: { recursoId: id },
+      });
+    }
+
+    return recursoActualizado;
+  }
+
+  async generarResumenIa(
+    id: number,
+    data: GenerarResumenIaRecursoDto,
+    usuarioAuth: any,
+  ) {
+    validarPermiso(usuarioAuth, PERMISOS.RECURSOS_VER);
+    const recurso = await this.prisma.recurso.findUnique({
+      where: { id },
+      include: this.includeRecursoDetalle,
+    });
+
+    if (!recurso) {
+      throw new NotFoundException(`Recurso con id ${id} no encontrado`);
+    }
+
+    this.validarAccesoRecursoPublicado(usuarioAuth, recurso);
+    return await this.resumenIaRecursoService.generar(
+      recurso,
+      data?.forzar === true,
+    );
   }
 
   async inactivar(id: number, usuarioAuth: any) {

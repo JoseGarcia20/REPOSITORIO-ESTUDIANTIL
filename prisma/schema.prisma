@@ -259,6 +259,20 @@ model Recurso {
   @@map("recursos")
 }
 
+model ResumenIaRecurso {
+  recursoId            Int      @id
+  resumen              String
+  proveedor            String
+  modelo               String
+  extension            String?
+  caracteresAnalizados Int      @default(0)
+  advertencia          String?
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+
+  @@map("resumenes_ia_recursos")
+}
+
 model ComentarioForoRecurso {
   comentarioForoId Int
   recursoId        Int

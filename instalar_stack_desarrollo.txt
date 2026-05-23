@@ -1,0 +1,68 @@
+Instalar aplicaciòn en Linux
+
+- Actualizar
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+- Instalar herramientas basicas (curl, git, gcc/g++, herramientas de compilacion)
+sudo apt install curl git build-essential unzip -y
+
+- Instalar RUST + CARGO
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+//Agregar al path
+source $HOME/.cargo/env
+//Verificar
+rustc --version
+cargo --version
+
+-- Instalar Fast Node Manager (Administrador de versiones de node)
+curl -fsSL https://fnm.vercel.app/install | bash
+//Agregar al Path
+source ~/.bashrc
+//Verificar
+fnm --version
+
+-- Instalar Node.js 
+fnm install 24
+//Delegar que se use esa version
+fnm use 24
+//Dejarla por defecto
+fnm default 24
+//Verificamos
+node -v
+npm -v
+
+-- Instalar NESTJS CLI
+npm install -g @nestjs/cli
+//verificamos
+nest --version
+
+
+-- Instalacion de postgresql
+sudo apt install postgresql postgresql-contrib -y
+//Verificar
+psql --version
+//Inicializar postgres
+sudo systemctl start postgresql
+sudo systemctl enable postgresql
+//Verificar estado
+sudo systemctl status postgresql
+//Entrar a postgresql
+sudo -u postgres psql
+//Crear usuario
+CREATE USER jose WITH PASSWORD '123456';
+//Crear base de datos
+CREATE DATABASE plataforma_academica OWNER jose;
+//Dar permisos
+GRANT ALL PRIVILEGES ON DATABASE instituciones_db TO jose;
+//Salir
+\q
+
+-- Instalar dependencias del Backend
+cd backend
+npm install
+
+-- Instalar Prisma
+npm install prisma --save-dev
+npm install @prisma/client
+//Inicializar Prisma
+npx prisma init
