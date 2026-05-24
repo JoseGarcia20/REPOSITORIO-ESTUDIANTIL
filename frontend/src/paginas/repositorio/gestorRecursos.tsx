@@ -4,7 +4,7 @@ import { useSearchParams } from 'react-router-dom';
 import {
   API_URL,
   calificarRecurso,
-  generarResumenIaRecurso,
+  generarResumenIaRecursoStream,
   obtenerGradosEscolares,
   obtenerRecomendacionesRecursos,
   obtenerRecursosRepositorio,
@@ -145,12 +145,16 @@ export function GestorRecursos() {
   const [gradosEscolares, setGradosEscolares] = useState<GradoEscolar[]>([]);
   const [recursoSeleccionado, setRecursoSeleccionado] =
     useState<Recurso | null>(null);
+  const [recursoResumenIa, setRecursoResumenIa] = useState<Recurso | null>(
+    null,
+  );
   const [resumenCalificacion, setResumenCalificacion] =
     useState<ResumenCalificacionRecurso | null>(null);
   const [resumenesIa, setResumenesIa] = useState<
     Record<number, ResumenIaRecurso>
   >({});
   const [resumiendoId, setResumiendoId] = useState<number | null>(null);
+  const [estadoResumenIa, setEstadoResumenIa] = useState('');
   const [errorResumenIa, setErrorResumenIa] = useState('');
   const [guardandoCalificacion, setGuardandoCalificacion] = useState(false);
   const [vista, setVista] = useState<VistaRepositorio>('tarjetas');
@@ -238,12 +242,14 @@ export function GestorRecursos() {
   useEffect(() => {
     if (recursoSeleccionado) {
       cargarResumenCalificacion(recursoSeleccionado.id);
-      setErrorResumenIa('');
     } else {
       setResumenCalificacion(null);
-      setErrorResumenIa('');
     }
   }, [recursoSeleccionado?.id]);
+
+  useEffect(() => {
+    setErrorResumenIa('');
+  }, [recursoResumenIa?.id]);
 
   async function cargarGradosEscolares() {
     try {
@@ -349,20 +355,77 @@ export function GestorRecursos() {
     }
   }
 
-  async function manejarResumenIa(recurso: Recurso, forzar = false) {
+  async function abrirResumenIa(recurso: Recurso, forzar = false) {
     if (!puedeGenerarResumenIa(recurso) || resumiendoId) {
       return;
     }
 
+    setRecursoResumenIa(recurso);
+    setRecursoSeleccionado(null);
+
+    if (
+      resumenesIa[recurso.id] &&
+      resumenesIa[recurso.id].proveedor !== 'extractivo' &&
+      !forzar
+    ) {
+      return;
+    }
+
     try {
-      setRecursoSeleccionado(recurso);
       setErrorResumenIa('');
+      setEstadoResumenIa('Preparando resumen AI.');
+      if (forzar || resumenesIa[recurso.id]?.proveedor === 'extractivo') {
+        setResumenesIa((prev) => {
+          const copia = { ...prev };
+          delete copia[recurso.id];
+          return copia;
+        });
+      }
       setResumiendoId(recurso.id);
-      const resumen = await generarResumenIaRecurso(recurso.id, forzar);
-      setResumenesIa((prev) => ({
-        ...prev,
-        [recurso.id]: resumen,
-      }));
+      let resumenParcial = '';
+
+      await generarResumenIaRecursoStream(recurso.id, forzar, (evento) => {
+        if (evento.tipo === 'estado') {
+          setEstadoResumenIa(evento.mensaje);
+          return;
+        }
+
+        if (evento.tipo === 'reiniciar') {
+          resumenParcial = '';
+          setResumenesIa((prev) => {
+            const copia = { ...prev };
+            delete copia[recurso.id];
+            return copia;
+          });
+          return;
+        }
+
+        if (evento.tipo === 'delta') {
+          resumenParcial += evento.texto;
+          setResumenesIa((prev) => ({
+            ...prev,
+            [recurso.id]: {
+              recursoId: recurso.id,
+              resumen: resumenParcial,
+              proveedor: 'generando',
+              modelo: 'stream',
+              generadoEn: new Date().toISOString(),
+              desdeCache: false,
+              caracteresAnalizados: prev[recurso.id]?.caracteresAnalizados || 0,
+              extension: obtenerExtension(recurso),
+            },
+          }));
+          return;
+        }
+
+        if (evento.tipo === 'final') {
+          setResumenesIa((prev) => ({
+            ...prev,
+            [recurso.id]: evento.resumen,
+          }));
+          setEstadoResumenIa('Resumen listo.');
+        }
+      });
     } catch (error) {
       setErrorResumenIa(
         error instanceof Error
@@ -374,12 +437,18 @@ export function GestorRecursos() {
     }
   }
 
+  function cerrarResumenIa() {
+    setRecursoResumenIa(null);
+    setErrorResumenIa('');
+    setEstadoResumenIa('');
+  }
+
   function manejarClickResumenIa(
     event: MouseEvent<HTMLButtonElement>,
     recurso: Recurso,
   ) {
     event.stopPropagation();
-    manejarResumenIa(recurso);
+    abrirResumenIa(recurso);
   }
 
   function renderVistaPrevia(recurso: Recurso) {
@@ -472,7 +541,7 @@ export function GestorRecursos() {
             {recurso.categoria?.nombre || 'Sin categoría'}
           </span>
           <h2>{recurso.titulo}</h2>
-          <p>{recurso.contenidoResumen || 'Sin resumen registrado.'}</p>
+          <p>{recurso.contenidoResumen || 'Sin introducción registrada.'}</p>
         </div>
 
         <div className="resource-tags">
@@ -517,7 +586,7 @@ export function GestorRecursos() {
           <span>
             <strong>{recurso.titulo}</strong>
             <small>
-              {recurso.contenidoResumen || 'Sin resumen registrado.'}
+              {recurso.contenidoResumen || 'Sin introducción registrada.'}
             </small>
           </span>
         </span>
@@ -683,57 +752,6 @@ export function GestorRecursos() {
               </div>
 
               <aside className="resource-detail-panel">
-                <div className="resource-ai-summary">
-                  <div className="resource-ai-summary-head">
-                    <span>Resumen AI</span>
-                    {puedeGenerarResumenIa(recursoSeleccionado) && (
-                      <button
-                        type="button"
-                        onClick={() =>
-                          manejarResumenIa(
-                            recursoSeleccionado,
-                            Boolean(resumenesIa[recursoSeleccionado.id]),
-                          )
-                        }
-                        disabled={resumiendoId === recursoSeleccionado.id}
-                      >
-                        {resumenesIa[recursoSeleccionado.id]
-                          ? 'Regenerar'
-                          : 'Generar'}
-                      </button>
-                    )}
-                  </div>
-
-                  {!puedeGenerarResumenIa(recursoSeleccionado) && (
-                    <p>No disponible para este formato.</p>
-                  )}
-
-                  {resumiendoId === recursoSeleccionado.id && (
-                    <p>Generando resumen...</p>
-                  )}
-
-                  {errorResumenIa && (
-                    <p className="resource-ai-error">{errorResumenIa}</p>
-                  )}
-
-                  {resumenesIa[recursoSeleccionado.id] && (
-                    <>
-                      <p className="resource-ai-text">
-                        {resumenesIa[recursoSeleccionado.id].resumen}
-                      </p>
-                      <small>
-                        {resumenesIa[recursoSeleccionado.id].proveedor} ·{' '}
-                        {resumenesIa[recursoSeleccionado.id].modelo}
-                      </small>
-                      {resumenesIa[recursoSeleccionado.id].advertencia && (
-                        <small className="resource-ai-warning">
-                          {resumenesIa[recursoSeleccionado.id].advertencia}
-                        </small>
-                      )}
-                    </>
-                  )}
-                </div>
-
                 <div className="resource-rating-box">
                   <span>Calificación</span>
                   <strong>
@@ -762,10 +780,10 @@ export function GestorRecursos() {
                 </div>
 
                 <div>
-                  <span>Resumen</span>
+                  <span>Introducción</span>
                   <p>
                     {recursoSeleccionado.contenidoResumen ||
-                      'Este recurso no tiene resumen registrado.'}
+                      'Este recurso no tiene introducción registrada.'}
                   </p>
                 </div>
 
@@ -823,6 +841,119 @@ export function GestorRecursos() {
                   >
                     Abrir en nueva pestaña
                   </a>
+                )}
+
+                {puedeGenerarResumenIa(recursoSeleccionado) && (
+                  <button
+                    className="resource-ai-detail-button"
+                    type="button"
+                    onClick={() => abrirResumenIa(recursoSeleccionado)}
+                    disabled={resumiendoId === recursoSeleccionado.id}
+                  >
+                    {resumiendoId === recursoSeleccionado.id
+                      ? 'Generando resumen AI...'
+                      : 'Resumen AI'}
+                  </button>
+                )}
+              </aside>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {recursoResumenIa && (
+        <div className="resource-ai-modal-overlay">
+          <div className="resource-ai-modal">
+            <div className="resource-ai-modal-header">
+              <div>
+                <span className="section-label">Resumen AI</span>
+                <h2>{recursoResumenIa.titulo}</h2>
+                <p>
+                  {describirTipoArchivo(recursoResumenIa)} ·{' '}
+                  {recursoResumenIa.categoria?.nombre || 'Sin categoría'}
+                </p>
+              </div>
+
+              <button
+                className="modal-close"
+                onClick={cerrarResumenIa}
+                aria-label="Cerrar resumen AI"
+              >
+                ×
+              </button>
+            </div>
+
+            <div className="resource-ai-modal-content">
+              <div className="resource-ai-file">
+                <div className="resource-ai-file-head">
+                  <span>Archivo</span>
+                  {obtenerUrlRecurso(recursoResumenIa) && (
+                    <a
+                      href={obtenerUrlRecurso(recursoResumenIa)}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      Abrir
+                    </a>
+                  )}
+                </div>
+                <div className="resource-preview resource-ai-preview">
+                  {renderVistaPrevia(recursoResumenIa)}
+                </div>
+              </div>
+
+              <aside className="resource-ai-result">
+                <div className="resource-ai-result-head">
+                  <div>
+                    <span>Lectura generada</span>
+                    <strong>
+                      {resumenesIa[recursoResumenIa.id]
+                        ? 'Resumen completo'
+                        : 'Preparando resumen'}
+                    </strong>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => abrirResumenIa(recursoResumenIa, true)}
+                    disabled={resumiendoId === recursoResumenIa.id}
+                  >
+                    {resumenesIa[recursoResumenIa.id] ? 'Regenerar' : 'Generar'}
+                  </button>
+                </div>
+
+                {resumiendoId === recursoResumenIa.id && (
+                  <div className="resource-ai-loading">
+                    <span>AI</span>
+                    <p>
+                      {estadoResumenIa ||
+                        'Analizando el archivo y preparando el resumen...'}
+                    </p>
+                  </div>
+                )}
+
+                {errorResumenIa && (
+                  <p className="resource-ai-error">{errorResumenIa}</p>
+                )}
+
+                {resumenesIa[recursoResumenIa.id] && (
+                  <>
+                    <div className="resource-ai-text">
+                      {resumenesIa[recursoResumenIa.id].resumen}
+                    </div>
+                    {resumenesIa[recursoResumenIa.id].proveedor !==
+                      'generando' && (
+                      <div className="resource-ai-meta">
+                        <span>
+                          {resumenesIa[recursoResumenIa.id].proveedor} ·{' '}
+                          {resumenesIa[recursoResumenIa.id].modelo}
+                        </span>
+                        {resumenesIa[recursoResumenIa.id].desdeCache && (
+                          <span>Guardado previamente</span>
+                        )}
+                      </div>
+                    )}
+                  </>
                 )}
               </aside>
             </div>

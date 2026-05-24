@@ -850,6 +850,13 @@ export type ResumenIaRecurso = {
   advertencia?: string;
 };
 
+export type EventoResumenIa =
+  | { tipo: 'estado'; mensaje: string }
+  | { tipo: 'reiniciar' }
+  | { tipo: 'delta'; texto: string }
+  | { tipo: 'final'; resumen: ResumenIaRecurso }
+  | { tipo: 'error'; mensaje: string };
+
 export function obtenerResumenCalificacionRecurso(recursoId: number) {
   return get<ResumenCalificacionRecurso>(
     `/calificacion-recurso/recurso/${recursoId}/resumen`,
@@ -875,6 +882,69 @@ export function generarResumenIaRecurso(recursoId: number, forzar = false) {
     { forzar },
     'Error al generar resumen AI',
   );
+}
+
+export async function generarResumenIaRecursoStream(
+  recursoId: number,
+  forzar: boolean,
+  onEvento: (evento: EventoResumenIa) => void,
+) {
+  const respuesta = await fetch(
+    `${API_URL}/recursos/${recursoId}/resumen-ia/stream`,
+    {
+      method: 'POST',
+      headers: construirHeadersAutorizados(),
+      body: JSON.stringify({ forzar }),
+    },
+  );
+
+  if (!respuesta.ok || !respuesta.body) {
+    await procesarRespuesta<never>(respuesta, 'Error al generar resumen AI');
+    return;
+  }
+
+  const reader = respuesta.body.getReader();
+  const decoder = new TextDecoder();
+  let buffer = '';
+
+  const procesarEvento = (eventoCrudo: string) => {
+    const payload = eventoCrudo
+      .split('\n')
+      .map((linea) => linea.trim())
+      .filter((linea) => linea.startsWith('data:'))
+      .map((linea) => linea.replace(/^data:\s*/, ''))
+      .join('\n')
+      .trim();
+
+    if (!payload) {
+      return;
+    }
+
+    const evento = JSON.parse(payload) as EventoResumenIa;
+    onEvento(evento);
+
+    if (evento.tipo === 'error') {
+      throw new Error(evento.mensaje);
+    }
+  };
+
+  while (true) {
+    const { value, done } = await reader.read();
+
+    if (done) {
+      break;
+    }
+
+    buffer += decoder.decode(value, { stream: true });
+    const eventos = buffer.split('\n\n');
+    buffer = eventos.pop() || '';
+
+    eventos.forEach(procesarEvento);
+  }
+
+  if (buffer.trim()) {
+    procesarEvento(buffer);
+  }
 }
 
 export function consultarAsistente(pregunta: string) {

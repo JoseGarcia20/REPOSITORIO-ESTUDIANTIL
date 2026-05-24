@@ -10,10 +10,12 @@ import {
   Put,
   Query,
   Req,
+  Res,
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
+import type { Response } from 'express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
 import { RecursoService } from '../servicios/recurso.service';
@@ -110,6 +112,38 @@ export class RecursoController {
       body,
       req.usuarioAuth,
     );
+  }
+
+  @Post(':id/resumen-ia/stream')
+  @RequierePermisos(PERMISOS.RECURSOS_VER)
+  async generarResumenIaStream(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() body: GenerarResumenIaRecursoDto,
+    @Req() req: any,
+    @Res() res: Response,
+  ) {
+    res.setHeader('Content-Type', 'text/event-stream; charset=utf-8');
+    res.setHeader('Cache-Control', 'no-cache, no-transform');
+    res.setHeader('Connection', 'keep-alive');
+    res.flushHeaders?.();
+
+    try {
+      for await (const evento of this.recursoService.generarResumenIaStream(
+        id,
+        body,
+        req.usuarioAuth,
+      )) {
+        res.write(`data: ${JSON.stringify(evento)}\n\n`);
+      }
+    } catch (error) {
+      const mensaje =
+        error instanceof Error
+          ? error.message
+          : 'No se pudo generar el resumen AI.';
+      res.write(`data: ${JSON.stringify({ tipo: 'error', mensaje })}\n\n`);
+    } finally {
+      res.end();
+    }
   }
 
   @Put(':id')

@@ -891,7 +891,7 @@ export function Recursos() {
                 </div>
 
                 <div className="form-group form-group-full">
-                  <label>Resumen</label>
+                  <label>Introducción</label>
                   <textarea
                     name="contenidoResumen"
                     value={formulario.contenidoResumen}

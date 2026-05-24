@@ -23,7 +23,7 @@ La base funcional del software ya incluye:
 - Aula colaborativa con proyectos, integrantes, tablero de actividades, evidencias, entregas y revisión docente.
 - Calificación de recursos por estrellas.
 - Chatbot académico inicial para consultar recursos del repositorio.
-- Resumen AI de recursos PDF, Word DOCX y Excel desde el gestor de recursos, usando Ollama o resumen local extractivo como respaldo.
+- Resumen AI de recursos PDF, Word DOCX, Excel XLSX y CSV desde el gestor de recursos, usando Gemini, Ollama o resumen local extractivo como respaldo.
 
 ## Estructura General
 
@@ -323,7 +323,7 @@ El recomendador actual es de reglas, no usa una API externa de IA. Usa:
 - Tema/contexto escrito.
 - Palabras clave.
 - Título.
-- Resumen.
+- Introducción.
 - Categoría.
 - Tipo de recurso.
 - Grado escolar.
@@ -356,6 +356,7 @@ Endpoint:
 
 ```text
 POST /recursos/:id/resumen-ia
+POST /recursos/:id/resumen-ia/stream
 ```
 
 Soporta archivos cargados localmente en:
@@ -364,15 +365,25 @@ Soporta archivos cargados localmente en:
 - Word `.docx`.
 - Excel `.xlsx` y `.csv`.
 
-El backend extrae texto limpio del archivo, lo envía a Ollama y guarda el resultado en el recurso para reutilizarlo. Si Ollama no está disponible, por defecto genera un resumen local extractivo para no bloquear la experiencia.
+El backend extrae texto limpio del archivo, lo divide en partes pequeñas, resume cada parte y luego genera un resumen final consolidado. El endpoint `stream` envía eventos progresivos para que el modal muestre el avance y el texto parcial mientras la IA responde.
+
+Por defecto intenta usar Gemini. Si no existe `GEMINI_API_KEY` o Gemini no responde, usa Ollama local como respaldo. Si ningún proveedor AI está disponible, puede generar un resumen local extractivo para no bloquear la experiencia.
 
 Variables opcionales:
 
 ```env
-AI_RESUMEN_PROVIDER="ollama"
+AI_RESUMEN_PROVIDER="gemini"
+GEMINI_API_KEY=""
+GEMINI_MODEL="gemini-2.5-flash-lite"
+GEMINI_FALLBACK_MODELS="gemini-2.0-flash-lite,gemini-2.0-flash"
+GEMINI_MAX_ATTEMPTS="3"
+GEMINI_RETRY_DELAY_MS="1200"
 OLLAMA_URL="http://localhost:11434"
-OLLAMA_MODEL="qwen2.5:7b"
-AI_RESUMEN_MAX_CHARS="14000"
+OLLAMA_MODEL="qwen2.5:3b"
+AI_RESUMEN_MAX_CHARS="18000"
+AI_RESUMEN_CHUNK_CHARS="3000"
+AI_RESUMEN_MAX_CHUNKS="6"
+AI_RESUMEN_NUM_CTX="4096"
 AI_RESUMEN_TIMEOUT_MS="120000"
 AI_RESUMEN_FALLBACK_EXTRACTIVO="true"
 ```
@@ -380,7 +391,7 @@ AI_RESUMEN_FALLBACK_EXTRACTIVO="true"
 Para usar Ollama local:
 
 ```bash
-ollama pull qwen2.5:7b
+ollama pull qwen2.5:3b
 ollama serve
 ```
 

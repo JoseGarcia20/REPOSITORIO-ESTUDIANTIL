@@ -814,6 +814,28 @@ export class RecursoService {
     );
   }
 
+  async *generarResumenIaStream(
+    id: number,
+    data: GenerarResumenIaRecursoDto,
+    usuarioAuth: any,
+  ) {
+    validarPermiso(usuarioAuth, PERMISOS.RECURSOS_VER);
+    const recurso = await this.prisma.recurso.findUnique({
+      where: { id },
+      include: this.includeRecursoDetalle,
+    });
+
+    if (!recurso) {
+      throw new NotFoundException(`Recurso con id ${id} no encontrado`);
+    }
+
+    this.validarAccesoRecursoPublicado(usuarioAuth, recurso);
+    yield* this.resumenIaRecursoService.generarStream(
+      recurso,
+      data?.forzar === true,
+    );
+  }
+
   async inactivar(id: number, usuarioAuth: any) {
     validarPermiso(usuarioAuth, PERMISOS.RECURSOS_CAMBIAR_ESTADO);
     await this.obtenerPorId(id, usuarioAuth);
