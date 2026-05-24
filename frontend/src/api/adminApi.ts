@@ -481,6 +481,77 @@ export type RespuestaRecomendacionesRecursos = {
   recursos: RecursoAsistente[];
 };
 
+export type TipoReporte =
+  | 'recursos-institucion'
+  | 'trabajos-colaborativos'
+  | 'recursos-uso';
+
+export type PayloadReporte = {
+  tipo: TipoReporte;
+  fechaInicio?: string;
+  fechaFin?: string;
+  institucionId?: string;
+  categoriaId?: string;
+  gradoEscolarId?: string;
+  estadoProyecto?: string;
+  moduloUso?: string;
+  limite?: string;
+};
+
+export type CatalogosReportes = {
+  instituciones: Array<{
+    id: number;
+    nombre: string;
+    logo?: string | null;
+  }>;
+  categorias: Array<{
+    id: number;
+    nombre: string;
+    institucion?: {
+      id: number;
+      nombre: string;
+    };
+  }>;
+  gradosEscolares: Array<{
+    id: number;
+    nombre: string;
+    orden: number;
+  }>;
+};
+
+export type ReporteGenerado = {
+  tipo: TipoReporte;
+  titulo: string;
+  descripcion: string;
+  generadoEn: string;
+  periodo: string;
+  encabezado: {
+    software: boolean;
+    nombreEmisor: string;
+    nit?: string;
+    ubicacion?: string;
+    logo?: string;
+    generadoPor: string;
+    rolGenerador?: string;
+  };
+  filtros: Array<{
+    label: string;
+    value: string;
+  }>;
+  metricas: Array<{
+    label: string;
+    value: string | number;
+    detail?: string;
+  }>;
+  columnas: Array<{
+    key: string;
+    label: string;
+    align?: 'left' | 'right' | 'center';
+  }>;
+  filas: Array<Record<string, string | number>>;
+  notas?: string[];
+};
+
 export const PERMISOS = {
   SISTEMA_TOTAL: 'sistema.total',
   INSTITUCIONES_VER: 'instituciones.ver',
@@ -959,6 +1030,21 @@ export function obtenerRecomendacionesRecursos(query?: ConsultaPaginada) {
   return get<RespuestaRecomendacionesRecursos>(
     conQuery('/recomendaciones/recursos', query),
     'Error al obtener recomendaciones de recursos',
+  );
+}
+
+export function obtenerCatalogosReportes() {
+  return get<CatalogosReportes>(
+    '/reportes/catalogos',
+    'Error al obtener catálogos de reportes',
+  );
+}
+
+export function generarReporte(data: PayloadReporte) {
+  return post<ReporteGenerado>(
+    '/reportes/generar',
+    data,
+    'Error al generar reporte',
   );
 }
 

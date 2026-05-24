@@ -66,3 +66,13 @@ npm install prisma --save-dev
 npm install @prisma/client
 //Inicializar Prisma
 npx prisma init
+
+-- Instalar Ollama (Modelo LLM para resumenes de textos)
+//Actualizar
+sudo apt update && sudo apt upgrade -y
+//Instalar dependencias basicas
+sudo apt install curl -y
+//Instalar ollama
+curl -fsSL https://ollama.com/install.sh | sh
+
+

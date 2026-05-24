@@ -481,7 +481,17 @@ Existe una ruta y permiso base para reportes:
 /reportes
 ```
 
-Actualmente funciona como base para el rol administrativo. Los reportes avanzados todavía están pendientes.
+El modulo permite generar informes administrativos con filtros por rango de fechas y campos adicionales segun el tipo de reporte. Solo tienen acceso los usuarios con el permiso `REPORTES_VER`: superadministradores, administradores, usuarios administrativos y docentes. Los estudiantes no tienen acceso a este modulo.
+
+Los reportes disponibles inicialmente son:
+
+- Estadistica de recursos de la institucion: muestra datos principales del recurso, categoria, grado, estado de publicacion, promedio de calificacion y usuarios que lo han calificado.
+- Trabajos colaborativos: muestra proyectos creados en el periodo, docente responsable, integrantes, actividades, entregas y el recurso resultante cuando exista.
+- Recursos mas usados o referenciados: consolida el uso de recursos dentro de foros, aula, rutas de aprendizaje y calificaciones.
+
+Cada reporte se genera con un encabezado profesional que incluye nombre, identificacion y logo de la institucion emisora cuando aplica. Si un superadministrador genera un reporte general del sistema, se usa la identidad visual base del software. La vista del reporte incluye accion de impresion para guardar en PDF desde el navegador.
+
+> Nota: el reporte de recursos mas usados utiliza las referencias registradas en los modulos existentes. Si se requiere medir visualizaciones directas por apertura de archivo o detalle del recurso, se debe activar un registro historico de vistas por usuario y recurso.
 
 ### Módulos Académicos Base
 

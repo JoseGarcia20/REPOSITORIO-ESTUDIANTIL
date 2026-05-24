@@ -167,6 +167,7 @@ const rolesBase = [
       permisos.AULA_COLABORATIVA_GESTIONAR,
       permisos.AULA_COLABORATIVA_PARTICIPAR,
       permisos.AULA_COLABORATIVA_REVISAR,
+      permisos.REPORTES_VER,
     ],
   },
   {
