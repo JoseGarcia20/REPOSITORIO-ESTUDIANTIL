@@ -689,29 +689,6 @@ export function PreparadorIa() {
             />
           </label>
 
-          <div className="ai-material-options">
-            {tiposMaterial.map((tipo) => (
-              <label
-                key={tipo.valor}
-                className={`ai-material-option ${
-                  formulario.tipoMaterial === tipo.valor ? 'selected' : ''
-                }`}
-              >
-                <input
-                  type="radio"
-                  name="tipoMaterial"
-                  value={tipo.valor}
-                  checked={formulario.tipoMaterial === tipo.valor}
-                  onChange={manejarCambio}
-                />
-                <span>
-                  <strong>{tipo.label}</strong>
-                  <small>{tipo.descripcion}</small>
-                </span>
-              </label>
-            ))}
-          </div>
-
           {error && <p className="ai-alert error">{error}</p>}
           {exito && (
             <p className="ai-alert success">

@@ -5,10 +5,17 @@ import {
   ServiceUnavailableException,
 } from '@nestjs/common';
 import PDFDocument from 'pdfkit';
+import SVGtoPDF from 'svg-to-pdfkit';
 import { createWriteStream, existsSync } from 'fs';
 import { mkdir } from 'fs/promises';
 import { basename, extname, join } from 'path';
 import { jsonrepair } from 'jsonrepair';
+import { mathjax } from 'mathjax-full/js/mathjax.js';
+import { TeX } from 'mathjax-full/js/input/tex.js';
+import { SVG } from 'mathjax-full/js/output/svg.js';
+import { liteAdaptor } from 'mathjax-full/js/adaptors/liteAdaptor.js';
+import { RegisterHTMLHandler } from 'mathjax-full/js/handlers/html.js';
+import { AllPackages } from 'mathjax-full/js/input/tex/AllPackages.js';
 import { PrismaService } from '../../../baseDatos/prisma/prisma.service';
 import {
   PERMISOS,
@@ -77,6 +84,17 @@ type GeminiResponse = {
     message?: string;
   };
 };
+
+type FragmentoLatexPdf =
+  | { tipo: 'texto'; valor: string }
+  | { tipo: 'formula'; valor: string; display: boolean };
+
+const mathAdaptor = liteAdaptor();
+RegisterHTMLHandler(mathAdaptor);
+const mathDocument = mathjax.document('', {
+  InputJax: new TeX({ packages: AllPackages }),
+  OutputJax: new SVG({ fontCache: 'none' }),
+});
 
 @Injectable()
 export class PreparadorIaService {
@@ -580,6 +598,7 @@ ${
     modelo: string,
   ): MaterialIa {
     const payload = this.parsearJsonGemini(textoGemini);
+    const fallbackRespuesta = this.textoFallbackGemini(textoGemini);
     const titulo = this.textoCorto(
       payload?.titulo,
       `${this.etiquetaTipoMaterial(data.tipoMaterial)}: ${data.tema}`,
@@ -597,7 +616,8 @@ ${
       extension: data.extension,
       introduccion: this.textoLargo(
         payload?.introduccion,
-        this.textoPlanoDesdeGemini(textoGemini),
+        fallbackRespuesta ||
+          `Material académico preparado para trabajar el tema ${data.tema}.`,
       ),
       objetivos: this.listaTexto(payload?.objetivos, [
         `Comprender los aspectos principales de ${data.tema}.`,
@@ -606,7 +626,7 @@ ${
       conceptosClave: this.listaTexto(payload?.conceptosClave, [
         data.tema.trim(),
       ]),
-      secciones: this.seccionesTexto(payload?.secciones, textoGemini),
+      secciones: this.seccionesTexto(payload?.secciones, fallbackRespuesta),
       actividadClase: this.textoLargo(
         payload?.actividadClase,
         'Realizar una socialización guiada del tema y construir una síntesis grupal con ejemplos.',
@@ -634,8 +654,14 @@ ${
     data: GuardarMaterialIaDto,
     contexto: Awaited<ReturnType<PreparadorIaService['obtenerContexto']>>,
   ): MaterialIa {
+    const materialEmbebido =
+      this.parsearJsonGemini(data.introduccion) ||
+      data.secciones
+        .map((seccion) => this.parsearJsonGemini(seccion.contenido))
+        .find(Boolean);
+
     return {
-      titulo: data.titulo.trim(),
+      titulo: this.textoCorto(materialEmbebido?.titulo, data.titulo, 180),
       tema: data.tema.trim(),
       gradoEscolarId: String(contexto.gradoEscolar.id),
       gradoEscolar: contexto.gradoEscolar.nombre,
@@ -643,14 +669,34 @@ ${
       categoria: contexto.categoria?.nombre,
       tipoMaterial: data.tipoMaterial,
       extension: data.extension,
-      introduccion: data.introduccion.trim(),
-      objetivos: this.listaTexto(data.objetivos),
-      conceptosClave: this.listaTexto(data.conceptosClave),
-      secciones: this.seccionesTexto(data.secciones),
-      actividadClase: data.actividadClase.trim(),
-      preguntasComprension: this.listaTexto(data.preguntasComprension),
-      cierre: data.cierre.trim(),
-      palabrasClave: this.listaTexto(data.palabrasClave).slice(0, 8),
+      introduccion: this.textoLargo(
+        materialEmbebido?.introduccion,
+        this.limpiarTextoJsonVisible(data.introduccion),
+      ),
+      objetivos: this.listaTexto(materialEmbebido?.objetivos, data.objetivos),
+      conceptosClave: this.listaTexto(
+        materialEmbebido?.conceptosClave,
+        data.conceptosClave,
+      ),
+      secciones: this.seccionesTexto(
+        materialEmbebido?.secciones || data.secciones,
+      ),
+      actividadClase: this.textoLargo(
+        materialEmbebido?.actividadClase,
+        this.limpiarTextoJsonVisible(data.actividadClase),
+      ),
+      preguntasComprension: this.listaTexto(
+        materialEmbebido?.preguntasComprension,
+        data.preguntasComprension,
+      ),
+      cierre: this.textoLargo(
+        materialEmbebido?.cierre,
+        this.limpiarTextoJsonVisible(data.cierre),
+      ),
+      palabrasClave: this.listaTexto(
+        materialEmbebido?.palabrasClave,
+        data.palabrasClave,
+      ).slice(0, 8),
       fuentes: this.deduplicarFuentes(data.fuentes || []),
       busquedas: [],
       modelo: this.obtenerModeloGemini(),
@@ -853,32 +899,233 @@ ${
     contenido: string,
   ) {
     this.tituloPdf(doc, titulo);
-    doc
-      .font('Helvetica')
-      .fontSize(10)
-      .fillColor('#1f2937')
-      .text(contenido, {
-        width: doc.page.width - doc.page.margins.left - doc.page.margins.right,
-        lineGap: 2,
-      })
-      .moveDown(0.9);
+    this.escribirTextoConLatexPdf(doc, contenido, { lineGap: 2 });
+    doc.moveDown(0.9);
   }
 
   private listaPdf(doc: PDFKit.PDFDocument, titulo: string, items: string[]) {
     this.tituloPdf(doc, titulo);
     items.forEach((item) => {
       this.saltoSiNecesario(doc, 28);
-      doc
-        .font('Helvetica')
-        .fontSize(10)
-        .fillColor('#1f2937')
-        .text(`- ${item}`, {
-          width:
-            doc.page.width - doc.page.margins.left - doc.page.margins.right,
-          lineGap: 2,
-        });
+      this.escribirTextoConLatexPdf(doc, `- ${item}`, { lineGap: 2 });
+      doc.moveDown(0.2);
     });
     doc.moveDown(0.9);
+  }
+
+  private escribirTextoConLatexPdf(
+    doc: PDFKit.PDFDocument,
+    contenido: string,
+    opciones?: {
+      lineGap?: number;
+      fontSize?: number;
+      indent?: number;
+    },
+  ) {
+    const lineGap = opciones?.lineGap ?? 2;
+    const fontSize = opciones?.fontSize ?? 10;
+    const indent = opciones?.indent ?? 0;
+    const anchoBase =
+      doc.page.width - doc.page.margins.left - doc.page.margins.right;
+    const ancho = Math.max(120, anchoBase - indent);
+    const x = doc.page.margins.left + indent;
+    const texto = String(contenido || '')
+      .replace(/\r/g, '')
+      .trim();
+
+    if (!texto) {
+      return;
+    }
+
+    const parrafos = texto.split(/\n{2,}/);
+    parrafos.forEach((parrafo, indiceParrafo) => {
+      const lineas = parrafo.split('\n');
+
+      lineas.forEach((linea) => {
+        const fragmentos = this.extraerFragmentosLatexPdf(linea);
+
+        fragmentos.forEach((fragmento) => {
+          if (fragmento.tipo === 'texto') {
+            const valor = fragmento.valor.trim();
+            if (!valor) {
+              return;
+            }
+
+            this.saltoSiNecesario(doc, 30);
+            doc
+              .font('Helvetica')
+              .fontSize(fontSize)
+              .fillColor('#1f2937')
+              .text(valor, x, doc.y, {
+                width: ancho,
+                lineGap,
+              });
+            return;
+          }
+
+          const render = this.renderizarFormulaSvgPdf(
+            fragmento.valor,
+            fontSize,
+            fragmento.display,
+            ancho,
+          );
+
+          if (!render) {
+            const fallback = fragmento.display
+              ? `$$${fragmento.valor}$$`
+              : `$${fragmento.valor}$`;
+            this.saltoSiNecesario(doc, 28);
+            doc
+              .font('Helvetica')
+              .fontSize(fontSize)
+              .fillColor('#1f2937')
+              .text(fallback, x, doc.y, {
+                width: ancho,
+                lineGap,
+              });
+            return;
+          }
+
+          this.saltoSiNecesario(doc, render.alto + 16);
+          const y = doc.y;
+          SVGtoPDF(doc, render.svg, x, y, {
+            width: render.ancho,
+            height: render.alto,
+            preserveAspectRatio: 'xMinYMin meet',
+          });
+          doc.y = y + render.alto + (fragmento.display ? 8 : 6);
+        });
+      });
+
+      if (indiceParrafo < parrafos.length - 1) {
+        doc.moveDown(0.55);
+      }
+    });
+  }
+
+  private extraerFragmentosLatexPdf(texto: string): FragmentoLatexPdf[] {
+    const valor = String(texto || '');
+    const regex = /(\$\$[\s\S]+?\$\$|\$[^$\n]+?\$)/g;
+    const fragmentos: FragmentoLatexPdf[] = [];
+    let cursor = 0;
+
+    for (const coincidencia of valor.matchAll(regex)) {
+      const match = coincidencia[0];
+      const inicio = coincidencia.index ?? 0;
+
+      if (inicio > cursor) {
+        fragmentos.push({
+          tipo: 'texto',
+          valor: valor.slice(cursor, inicio),
+        });
+      }
+
+      const esDisplay = match.startsWith('$$');
+      const formula = esDisplay
+        ? match.slice(2, -2).trim()
+        : match.slice(1, -1).trim();
+
+      if (formula) {
+        fragmentos.push({
+          tipo: 'formula',
+          valor: this.normalizarLatexPdf(formula),
+          display: esDisplay,
+        });
+      }
+
+      cursor = inicio + match.length;
+    }
+
+    if (cursor < valor.length) {
+      fragmentos.push({
+        tipo: 'texto',
+        valor: valor.slice(cursor),
+      });
+    }
+
+    return fragmentos.length > 0 ? fragmentos : [{ tipo: 'texto', valor }];
+  }
+
+  private normalizarLatexPdf(latex: string) {
+    return String(latex || '')
+      .replace(/\r/g, '')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  private renderizarFormulaSvgPdf(
+    latex: string,
+    fontSize: number,
+    display: boolean,
+    maxAncho: number,
+  ) {
+    try {
+      const nodo = mathDocument.convert(latex, { display });
+      const svgCrudo = mathAdaptor.outerHTML(nodo);
+      const svg = this.ajustarSvgMathJaxPdf(
+        this.extraerSvgMathJaxPdf(svgCrudo),
+        fontSize,
+      );
+      if (!svg) {
+        return null;
+      }
+
+      const dimensiones = this.dimensionesSvgPdf(svg, display, fontSize);
+      const escala =
+        dimensiones.ancho > maxAncho ? maxAncho / dimensiones.ancho : 1;
+
+      return {
+        svg,
+        ancho: Number((dimensiones.ancho * escala).toFixed(2)),
+        alto: Number((dimensiones.alto * escala).toFixed(2)),
+      };
+    } catch {
+      return null;
+    }
+  }
+
+  private extraerSvgMathJaxPdf(html: string) {
+    const match = String(html || '').match(/<svg[\s\S]*<\/svg>/i);
+    return match?.[0] || '';
+  }
+
+  private ajustarSvgMathJaxPdf(svg: string, fontSize: number) {
+    const exToPt = (valor: string) =>
+      (Number(valor) * Math.max(5, fontSize * 0.5)).toFixed(2);
+
+    return svg
+      .replace(/stroke="currentColor"/g, 'stroke="#111827"')
+      .replace(/fill="currentColor"/g, 'fill="#111827"')
+      .replace(
+        /width="([\d.]+)ex"/g,
+        (_, valor) => `width="${exToPt(valor)}pt"`,
+      )
+      .replace(
+        /height="([\d.]+)ex"/g,
+        (_, valor) => `height="${exToPt(valor)}pt"`,
+      );
+  }
+
+  private dimensionesSvgPdf(svg: string, display: boolean, fontSize: number) {
+    const parsear = (attr: 'width' | 'height') => {
+      const match = svg.match(new RegExp(`${attr}="([\\d.]+)(pt|px)?"`, 'i'));
+      return match ? Number(match[1]) : 0;
+    };
+
+    const ancho = parsear('width');
+    const alto = parsear('height');
+
+    if (ancho > 0 && alto > 0) {
+      return { ancho, alto };
+    }
+
+    const baseAncho = display ? 280 : 160;
+    const baseAlto = Math.max(18, fontSize * (display ? 1.9 : 1.45));
+
+    return {
+      ancho: baseAncho,
+      alto: baseAlto,
+    };
   }
 
   private saltoSiNecesario(doc: PDFKit.PDFDocument, espacio: number) {
@@ -902,9 +1149,13 @@ ${
 
   private parsearJsonGemini(texto: string) {
     const limpio = this.textoPlanoDesdeGemini(texto);
-    const candidatos = [limpio, this.extraerObjetoJson(limpio)].filter(
-      (item): item is string => Boolean(item && item.trim()),
-    );
+    const objeto = this.extraerObjetoJson(limpio);
+    const candidatos = [
+      this.normalizarJsonRelajado(objeto),
+      this.normalizarJsonRelajado(limpio),
+      objeto,
+      limpio,
+    ].filter((item): item is string => Boolean(item && item.trim()));
 
     for (const candidato of candidatos) {
       try {
@@ -919,14 +1170,14 @@ ${
       }
     }
 
-    return null;
+    return this.parsearMaterialJsonPorCampos(objeto || limpio);
   }
 
   private textoPlanoDesdeGemini(texto: string) {
     return texto
-      .replace(/^```json\s*/i, '')
-      .replace(/^```\s*/i, '')
-      .replace(/```$/i, '')
+      .replace(/^\s*```json\s*/i, '')
+      .replace(/^\s*```\s*/i, '')
+      .replace(/```\s*$/i, '')
       .trim();
   }
 
@@ -941,12 +1192,265 @@ ${
     return texto.slice(inicio, fin + 1).trim();
   }
 
+  private normalizarJsonRelajado(texto: string) {
+    const valor = String(texto || '');
+    if (!valor.trim()) {
+      return '';
+    }
+
+    let resultado = '';
+    let dentroString = false;
+
+    for (let i = 0; i < valor.length; i += 1) {
+      const caracter = valor[i];
+
+      if (!dentroString) {
+        resultado += caracter;
+        if (caracter === '"') {
+          dentroString = true;
+        }
+        continue;
+      }
+
+      if (caracter === '\\') {
+        const siguiente = valor[i + 1] || '';
+        if (!siguiente) {
+          resultado += '\\\\';
+          continue;
+        }
+
+        const comandoLatex = this.extraerComandoLatexJson(valor, i);
+        if (comandoLatex) {
+          resultado += `\\\\${comandoLatex}`;
+          i += comandoLatex.length;
+          continue;
+        }
+
+        if (['"', '\\', '/', 'n', 'r', 't'].includes(siguiente)) {
+          resultado += `\\${siguiente}`;
+          i += 1;
+          continue;
+        }
+
+        if (
+          siguiente === 'u' &&
+          /^[0-9a-fA-F]{4}$/.test(valor.slice(i + 2, i + 6))
+        ) {
+          resultado += valor.slice(i, i + 6);
+          i += 5;
+          continue;
+        }
+
+        resultado += `\\\\${siguiente}`;
+        i += 1;
+        continue;
+      }
+
+      if (caracter === '"') {
+        dentroString = false;
+        resultado += caracter;
+        continue;
+      }
+
+      if (caracter === '\n') {
+        resultado += '\\n';
+        continue;
+      }
+
+      if (caracter === '\r') {
+        continue;
+      }
+
+      resultado += caracter;
+    }
+
+    return resultado;
+  }
+
+  private extraerComandoLatexJson(texto: string, indiceBarra: number) {
+    const comando = texto.slice(indiceBarra + 1).match(/^[A-Za-z]+/)?.[0] || '';
+    if (!comando) {
+      return '';
+    }
+
+    const comandosLatex = [
+      'alpha',
+      'approx',
+      'beta',
+      'cdot',
+      'cos',
+      'delta',
+      'div',
+      'frac',
+      'gamma',
+      'geq',
+      'in',
+      'int',
+      'lambda',
+      'left',
+      'leq',
+      'lim',
+      'ln',
+      'log',
+      'neq',
+      'not',
+      'notin',
+      'pi',
+      'pm',
+      'right',
+      'sin',
+      'sqrt',
+      'tan',
+      'theta',
+      'times',
+    ];
+
+    return comandosLatex.find((item) => comando.startsWith(item)) || '';
+  }
+
+  private parsearMaterialJsonPorCampos(texto: string) {
+    const objeto = this.extraerObjetoJson(this.textoPlanoDesdeGemini(texto));
+    if (!this.pareceJsonMaterial(objeto)) {
+      return null;
+    }
+
+    const material = {
+      titulo: this.extraerStringJsonLike(objeto, 'titulo', 'introduccion'),
+      introduccion: this.extraerStringJsonLike(
+        objeto,
+        'introduccion',
+        'objetivos',
+      ),
+      objetivos: this.extraerArrayJsonLike(
+        objeto,
+        'objetivos',
+        'conceptosClave',
+      ),
+      conceptosClave: this.extraerArrayJsonLike(
+        objeto,
+        'conceptosClave',
+        'secciones',
+      ),
+      secciones: this.extraerSeccionesJsonLike(objeto),
+      actividadClase: this.extraerStringJsonLike(
+        objeto,
+        'actividadClase',
+        'preguntasComprension',
+      ),
+      preguntasComprension: this.extraerArrayJsonLike(
+        objeto,
+        'preguntasComprension',
+        'cierre',
+      ),
+      cierre: this.extraerStringJsonLike(objeto, 'cierre', 'palabrasClave'),
+      palabrasClave: this.extraerArrayJsonLike(objeto, 'palabrasClave'),
+    };
+
+    return Object.values(material).some((valor) =>
+      Array.isArray(valor) ? valor.length > 0 : Boolean(valor),
+    )
+      ? material
+      : null;
+  }
+
+  private extraerStringJsonLike(
+    texto: string,
+    campo: string,
+    siguienteCampo: string,
+  ) {
+    const regex = new RegExp(
+      `"${campo}"\\s*:\\s*"([\\s\\S]*?)"\\s*,\\s*"${siguienteCampo}"\\s*:`,
+      'i',
+    );
+    const match = texto.match(regex);
+    return this.limpiarValorJsonLike(match?.[1] || '');
+  }
+
+  private extraerArrayJsonLike(
+    texto: string,
+    campo: string,
+    siguienteCampo?: string,
+  ) {
+    const cierre = siguienteCampo
+      ? `\\]\\s*,\\s*"${siguienteCampo}"\\s*:`
+      : '\\]\\s*\\}?';
+    const regex = new RegExp(
+      `"${campo}"\\s*:\\s*\\[([\\s\\S]*?)${cierre}`,
+      'i',
+    );
+    const match = texto.match(regex);
+    const cuerpo = match?.[1] || '';
+    const items = [...cuerpo.matchAll(/"([\s\S]*?)"\s*,?/g)]
+      .map((item) => this.limpiarValorJsonLike(item[1]))
+      .filter(Boolean);
+
+    return items;
+  }
+
+  private extraerSeccionesJsonLike(texto: string): SeccionMaterialIa[] {
+    const match = texto.match(
+      /"secciones"\s*:\s*\[([\s\S]*?)\]\s*,\s*"actividadClase"\s*:/i,
+    );
+    const cuerpo = match?.[1] || '';
+    const secciones = [
+      ...cuerpo.matchAll(
+        /\{\s*"titulo"\s*:\s*"([\s\S]*?)"\s*,\s*"contenido"\s*:\s*"([\s\S]*?)"\s*\}/g,
+      ),
+    ]
+      .map((item) => ({
+        titulo: this.textoCorto(
+          this.limpiarValorJsonLike(item[1]),
+          'Desarrollo',
+          120,
+        ),
+        contenido: this.limpiarValorJsonLike(item[2]),
+      }))
+      .filter((item) => item.contenido);
+
+    return secciones.slice(0, 8);
+  }
+
+  private limpiarValorJsonLike(valor: string) {
+    return String(valor || '')
+      .replace(/\\"/g, '"')
+      .replace(/\\r/g, '')
+      .replace(/\\\\/g, '\\')
+      .replace(/\r/g, '')
+      .replace(/\n{3,}/g, '\n\n')
+      .trim();
+  }
+
+  private pareceJsonMaterial(texto: string) {
+    const limpio = String(texto || '').trim();
+    return (
+      limpio.startsWith('{') &&
+      /"(titulo|introduccion|objetivos|secciones|actividadClase)"\s*:/.test(
+        limpio,
+      )
+    );
+  }
+
+  private textoFallbackGemini(texto: string) {
+    const limpio = this.textoPlanoDesdeGemini(texto);
+    return this.pareceJsonMaterial(limpio) ? '' : limpio;
+  }
+
+  private limpiarTextoJsonVisible(texto: string) {
+    const limpio = this.textoLargo(texto, '');
+    if (!this.pareceJsonMaterial(limpio)) {
+      return limpio;
+    }
+
+    const material = this.parsearJsonGemini(limpio);
+    return this.textoLargo(material?.introduccion, '');
+  }
+
   private seccionesTexto(valor: any, textoFallback = ''): SeccionMaterialIa[] {
     if (Array.isArray(valor)) {
       const secciones = valor
         .map((item) => ({
           titulo: this.textoCorto(item?.titulo, 'Desarrollo', 120),
-          contenido: this.textoLargo(item?.contenido, ''),
+          contenido: this.limpiarTextoJsonVisible(item?.contenido || ''),
         }))
         .filter((item) => item.contenido);
 
@@ -955,7 +1459,7 @@ ${
       }
     }
 
-    const fallback = this.textoPlanoDesdeGemini(textoFallback);
+    const fallback = this.textoFallbackGemini(textoFallback);
     return [
       {
         titulo: 'Desarrollo del tema',
@@ -974,7 +1478,7 @@ ${
         : fallback;
 
     return lista
-      .map((item) => String(item || '').trim())
+      .map((item) => this.limpiarTextoJsonVisible(String(item || '')))
       .filter(Boolean)
       .slice(0, 10);
   }
