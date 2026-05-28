@@ -488,9 +488,7 @@ export class ReportesService {
         calificaciones: conteos.calificaciones,
         total,
       })),
-      notas: [
-        'Este informe usa trazas registradas por relaciones del sistema. Las visualizaciones históricas directas de lectura no se registraban antes de este módulo.',
-      ],
+      notas: [],
     };
   }
 

@@ -50,6 +50,7 @@ const permisos = {
   AULA_COLABORATIVA_PARTICIPAR: 'aula_colaborativa.participar',
   AULA_COLABORATIVA_REVISAR: 'aula_colaborativa.revisar',
   REPORTES_VER: 'reportes.ver',
+  PREPARADOR_IA_USAR: 'preparador_ia.usar',
 } as const;
 
 const descripcionesPermisos: Record<string, string> = {
@@ -101,6 +102,8 @@ const descripcionesPermisos: Record<string, string> = {
   [permisos.AULA_COLABORATIVA_REVISAR]:
     'Revisar entregas finales y publicar recursos aprobados',
   [permisos.REPORTES_VER]: 'Ver reportes',
+  [permisos.PREPARADOR_IA_USAR]:
+    'Usar el preparador académico con inteligencia artificial',
 };
 
 const rolesBase = [
@@ -145,6 +148,7 @@ const rolesBase = [
       permisos.AULA_COLABORATIVA_PARTICIPAR,
       permisos.AULA_COLABORATIVA_REVISAR,
       permisos.REPORTES_VER,
+      permisos.PREPARADOR_IA_USAR,
     ],
   },
   {
@@ -168,6 +172,7 @@ const rolesBase = [
       permisos.AULA_COLABORATIVA_PARTICIPAR,
       permisos.AULA_COLABORATIVA_REVISAR,
       permisos.REPORTES_VER,
+      permisos.PREPARADOR_IA_USAR,
     ],
   },
   {
@@ -191,6 +196,7 @@ const rolesBase = [
       permisos.FOROS_SUBIR_RECURSO,
       permisos.RECURSOS_VER_TODOS_GRADOS,
       permisos.REPORTES_VER,
+      permisos.PREPARADOR_IA_USAR,
     ],
   },
 ];

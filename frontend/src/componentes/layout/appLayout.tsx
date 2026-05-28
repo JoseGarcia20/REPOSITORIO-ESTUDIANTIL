@@ -50,6 +50,13 @@ export function AppLayout() {
       });
     }
 
+    if (usuarioTienePermiso(PERMISOS.PREPARADOR_IA_USAR)) {
+      items.push({
+        titulo: 'Herramientas IA',
+        hijos: [{ titulo: 'Preparador de clases', ruta: '/preparador-ia' }],
+      });
+    }
+
     if (usuarioTienePermiso(PERMISOS.INSTITUCIONES_CREAR)) {
       administracion.push({
         titulo: 'Instituciones',

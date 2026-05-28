@@ -24,6 +24,7 @@ La base funcional del software ya incluye:
 - Calificación de recursos por estrellas.
 - Chatbot académico inicial para consultar recursos del repositorio.
 - Resumen AI de recursos PDF, Word DOCX, Excel XLSX y CSV desde el gestor de recursos, usando Gemini, Ollama o resumen local extractivo como respaldo.
+- Preparador IA de clases con Gemini y búsqueda web, vista previa editable, fuentes consultadas, PDF y guardado directo en el repositorio.
 
 ## Estructura General
 
@@ -70,6 +71,7 @@ El backend está en `src/` y usa NestJS con módulos por dominio. La base de dat
 | `calificacionRecurso`           | `/calificacion-recurso`            | Calificación y resumen de estrellas por recurso.                     |
 | `recomendaciones`               | `/recomendaciones`                 | Recomendador académico de recursos.                                  |
 | `asistente`                     | `/asistente`                       | Chatbot inicial conectado al recomendador.                           |
+| `preparadorIa`                  | `/preparador-ia`                   | Generación de material académico con Gemini, PDF y repositorio.      |
 | `foro`                          | `/foros`                           | Foros académicos, comentarios, adjuntos y recursos vinculados.       |
 | `aulaColaborativa`              | `/aula-colaborativa`               | Proyectos colaborativos, tablero, evidencias, entregas y revisión.   |
 | `tiposAprendizaje`              | `/tipos-aprendizaje`               | Maestro académico para rutas/diagnósticos.                           |
@@ -96,13 +98,13 @@ Los roles se leen desde la base de datos. No se debe depender del nombre del rol
 
 Roles base cargados por `prisma/seed.ts`:
 
-| Rol                      | Alcance actual                                                                                                                                                                                    |
-| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `superadministrador`     | Acceso total al sistema mediante `sistema.total`.                                                                                                                                                 |
-| `administrador`          | Administración completa de una institución: usuarios, estudiantes, categorías, recursos, foros, aula colaborativa y reportes.                                                                     |
-| `docente`                | Puede ver estudiantes de su institución, crear/subir recursos, participar en foros, crear foros públicos/institucionales, cerrar sus foros y gestionar aula colaborativa. No administra usuarios. |
-| `estudiante`             | Puede ver recursos de su grado e institución, participar en foros y trabajar en aula colaborativa.                                                                                                |
-| `usuario administrativo` | Perfil orientado a reportes y participación limitada en comunidad académica.                                                                                                                      |
+| Rol                      | Alcance actual                                                                                                                                                                                                           |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `superadministrador`     | Acceso total al sistema mediante `sistema.total`.                                                                                                                                                                        |
+| `administrador`          | Administración completa de una institución: usuarios, estudiantes, categorías, recursos, foros, aula colaborativa y reportes.                                                                                            |
+| `docente`                | Puede ver estudiantes de su institución, crear/subir recursos, usar el preparador IA, participar en foros, crear foros públicos/institucionales, cerrar sus foros y gestionar aula colaborativa. No administra usuarios. |
+| `estudiante`             | Puede ver recursos de su grado e institución, participar en foros y trabajar en aula colaborativa.                                                                                                                       |
+| `usuario administrativo` | Perfil orientado a reportes, preparación de material con IA y participación limitada en comunidad académica.                                                                                                             |
 
 ### Permisos Relevantes
 
@@ -126,6 +128,7 @@ Algunos permisos importantes:
 - `foros.subir_recurso`
 - `aula_colaborativa.*`
 - `reportes.ver`
+- `preparador_ia.usar`
 
 Cuando se cambien permisos o roles base, ejecutar:
 
@@ -154,6 +157,7 @@ El frontend está en `frontend/` y usa React con Vite.
 | `/foros`                | Foros académicos                   | `foros.ver`                 |
 | `/aula-colaborativa`    | Aula colaborativa                  | `aula_colaborativa.ver`     |
 | `/reportes`             | Reportes                           | `reportes.ver`              |
+| `/preparador-ia`        | Preparador IA de clases            | `preparador_ia.usar`        |
 
 ### Componentes Frontend Relevantes
 
@@ -386,6 +390,9 @@ AI_RESUMEN_MAX_CHUNKS="6"
 AI_RESUMEN_NUM_CTX="4096"
 AI_RESUMEN_TIMEOUT_MS="120000"
 AI_RESUMEN_FALLBACK_EXTRACTIVO="true"
+GEMINI_PREPARADOR_MODEL="gemini-2.5-flash"
+GEMINI_PREPARADOR_TIMEOUT_MS="120000"
+GEMINI_PREPARADOR_MAX_OUTPUT_TOKENS="8192"
 ```
 
 Para usar Ollama local:
@@ -400,6 +407,24 @@ También se puede usar:
 ```bash
 OLLAMA_MODEL="llama3:8b"
 ```
+
+### Preparador IA de Clases
+
+Ruta:
+
+```text
+/preparador-ia
+```
+
+Permiso:
+
+```text
+preparador_ia.usar
+```
+
+El modulo permite a docentes, administradores, superadministradores y usuarios administrativos generar material academico con Gemini y busqueda web. El usuario indica tema, grado, categoria, tipo de material y extension. La plataforma genera una vista previa editable con introduccion, objetivos, conceptos clave, desarrollo, actividad, preguntas, cierre y fuentes consultadas.
+
+Cuando el usuario confirma, el backend genera un PDF en `uploads/recursos/ia-clases/` y crea un recurso del repositorio con el archivo asociado. Los estudiantes no tienen acceso al modulo, pero pueden consultar el recurso si queda publicado y pertenece a su grado e institucion.
 
 ### Foros Académicos
 
@@ -490,8 +515,6 @@ Los reportes disponibles inicialmente son:
 - Recursos mas usados o referenciados: consolida el uso de recursos dentro de foros, aula, rutas de aprendizaje y calificaciones.
 
 Cada reporte se genera con un encabezado profesional que incluye nombre, identificacion y logo de la institucion emisora cuando aplica. Si un superadministrador genera un reporte general del sistema, se usa la identidad visual base del software. La vista del reporte incluye accion de impresion para guardar en PDF desde el navegador.
-
-> Nota: el reporte de recursos mas usados utiliza las referencias registradas en los modulos existentes. Si se requiere medir visualizaciones directas por apertura de archivo o detalle del recurso, se debe activar un registro historico de vistas por usuario y recurso.
 
 ### Módulos Académicos Base
 

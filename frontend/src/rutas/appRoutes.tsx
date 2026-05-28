@@ -18,6 +18,7 @@ import { Reportes } from '../paginas/reportes/reportes';
 import { Foros } from '../paginas/foros/foros';
 import { GestorRecursos } from '../paginas/repositorio/gestorRecursos';
 import { AulaColaborativa } from '../paginas/aulaColaborativa/aulaColaborativa';
+import { PreparadorIa } from '../paginas/preparadorIa/preparadorIa';
 
 function RutaProtegidaPorPermiso({
   permiso,
@@ -112,6 +113,14 @@ export function AppRoutes() {
             element={
               <RutaProtegidaPorPermiso permiso={PERMISOS.REPORTES_VER}>
                 <Reportes />
+              </RutaProtegidaPorPermiso>
+            }
+          />
+          <Route
+            path="/preparador-ia"
+            element={
+              <RutaProtegidaPorPermiso permiso={PERMISOS.PREPARADOR_IA_USAR}>
+                <PreparadorIa />
               </RutaProtegidaPorPermiso>
             }
           />

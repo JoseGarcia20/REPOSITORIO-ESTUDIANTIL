@@ -552,6 +552,110 @@ export type ReporteGenerado = {
   notas?: string[];
 };
 
+export type TipoMaterialIa =
+  | 'guia_clase'
+  | 'taller'
+  | 'lectura'
+  | 'evaluacion'
+  | 'resumen';
+
+export type ExtensionMaterialIa = 'breve' | 'normal' | 'extenso';
+
+export type CatalogosPreparadorIa = {
+  instituciones: Array<{
+    id: number;
+    nombre: string;
+  }>;
+  categorias: Array<{
+    id: number;
+    nombre: string;
+    institucionId: number;
+    institucion?: {
+      id: number;
+      nombre: string;
+    };
+  }>;
+  gradosEscolares: GradoEscolar[];
+  tiposRecursos: Array<{
+    id: number;
+    nombre: string;
+  }>;
+};
+
+export type PayloadGenerarMaterialIa = {
+  tema: string;
+  gradoEscolarId: string;
+  institucionId?: string;
+  categoriaId?: string;
+  tipoMaterial?: TipoMaterialIa;
+  extension?: ExtensionMaterialIa;
+  instruccionesAdicionales?: string;
+};
+
+export type FuenteMaterialIa = {
+  titulo: string;
+  url: string;
+};
+
+export type SeccionMaterialIa = {
+  titulo: string;
+  contenido: string;
+};
+
+export type MaterialIaGenerado = {
+  titulo: string;
+  tema: string;
+  gradoEscolarId: string;
+  gradoEscolar: string;
+  categoriaId?: string;
+  categoria?: string;
+  tipoMaterial: TipoMaterialIa;
+  extension: ExtensionMaterialIa;
+  introduccion: string;
+  objetivos: string[];
+  conceptosClave: string[];
+  secciones: SeccionMaterialIa[];
+  actividadClase: string;
+  preguntasComprension: string[];
+  cierre: string;
+  palabrasClave: string[];
+  fuentes: FuenteMaterialIa[];
+  busquedas: string[];
+  modelo: string;
+  generadoEn: string;
+};
+
+export type PayloadGuardarMaterialIa = {
+  titulo: string;
+  tema: string;
+  gradoEscolarId: string;
+  institucionId?: string;
+  categoriaId?: string;
+  tipoRecursoId?: string;
+  tipoMaterial: TipoMaterialIa;
+  extension: ExtensionMaterialIa;
+  introduccion: string;
+  objetivos: string[];
+  conceptosClave: string[];
+  secciones: SeccionMaterialIa[];
+  actividadClase: string;
+  preguntasComprension: string[];
+  cierre: string;
+  palabrasClave: string[];
+  fuentes: FuenteMaterialIa[];
+  publicado?: boolean;
+};
+
+export type RespuestaGuardarMaterialIa = {
+  mensaje: string;
+  archivo: {
+    nombreArchivo: string;
+    rutaPublica: string;
+    mimeType: string;
+  };
+  recurso: Recurso;
+};
+
 export const PERMISOS = {
   SISTEMA_TOTAL: 'sistema.total',
   INSTITUCIONES_VER: 'instituciones.ver',
@@ -593,6 +697,7 @@ export const PERMISOS = {
   AULA_COLABORATIVA_PARTICIPAR: 'aula_colaborativa.participar',
   AULA_COLABORATIVA_REVISAR: 'aula_colaborativa.revisar',
   REPORTES_VER: 'reportes.ver',
+  PREPARADOR_IA_USAR: 'preparador_ia.usar',
 } as const;
 
 function obtenerToken(): string {
@@ -1045,6 +1150,29 @@ export function generarReporte(data: PayloadReporte) {
     '/reportes/generar',
     data,
     'Error al generar reporte',
+  );
+}
+
+export function obtenerCatalogosPreparadorIa() {
+  return get<CatalogosPreparadorIa>(
+    '/preparador-ia/catalogos',
+    'Error al obtener catálogos del preparador IA',
+  );
+}
+
+export function generarMaterialIa(data: PayloadGenerarMaterialIa) {
+  return post<MaterialIaGenerado>(
+    '/preparador-ia/generar',
+    data,
+    'Error al generar material con IA',
+  );
+}
+
+export function guardarMaterialIa(data: PayloadGuardarMaterialIa) {
+  return post<RespuestaGuardarMaterialIa>(
+    '/preparador-ia/guardar',
+    data,
+    'Error al guardar material en el repositorio',
   );
 }
 

@@ -50,6 +50,7 @@ export const PERMISOS = {
   AULA_COLABORATIVA_REVISAR: 'aula_colaborativa.revisar',
 
   REPORTES_VER: 'reportes.ver',
+  PREPARADOR_IA_USAR: 'preparador_ia.usar',
 } as const;
 
 export type CodigoPermiso = (typeof PERMISOS)[keyof typeof PERMISOS];

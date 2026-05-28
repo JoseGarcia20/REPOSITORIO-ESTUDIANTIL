@@ -19,6 +19,7 @@ import { DetalleDiagnosticoAprendizajeModule } from './modulos/detalleDiagnostic
 import { AuthModule } from './modulos/auth/auth.module';
 import { RecomendacionesModule } from './modulos/recomendaciones/recomendaciones.module';
 import { ReportesModule } from './modulos/reportes/reportes.module';
+import { PreparadorIaModule } from './modulos/preparadorIa/preparador-ia.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 
@@ -47,6 +48,7 @@ import { join } from 'path';
     CalificacionRecursoModule,
     RecomendacionesModule,
     ReportesModule,
+    PreparadorIaModule,
     DetalleRutaAprendizajeModule,
     DetalleDiagnosticoAprendizajeModule,
   ],
