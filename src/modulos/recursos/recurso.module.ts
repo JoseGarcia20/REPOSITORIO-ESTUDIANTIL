@@ -13,6 +13,6 @@ import { ResumenIaRecursoService } from './servicios/resumen-ia-recurso.service'
     ExtractorTextoRecursoService,
     ResumenIaRecursoService,
   ],
-  exports: [RecursoService],
+  exports: [RecursoService, ExtractorTextoRecursoService],
 })
 export class RecursoModule {}

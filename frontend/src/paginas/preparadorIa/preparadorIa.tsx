@@ -9,12 +9,15 @@ import {
   generarMaterialIa,
   guardarMaterialIa,
   obtenerCatalogosPreparadorIa,
+  obtenerRecursosRepositorio,
   obtenerUsuarioAutenticado,
 } from '../../api/adminApi';
 import type {
   CatalogosPreparadorIa,
   ExtensionMaterialIa,
   MaterialIaGenerado,
+  OrigenMaterialIa,
+  Recurso,
   SeccionMaterialIa,
   TipoMaterialIa,
 } from '../../api/adminApi';
@@ -26,6 +29,8 @@ type FormularioPreparador = {
   categoriaId: string;
   gradoEscolarId: string;
   tipoMaterial: TipoMaterialIa;
+  origenContenido: OrigenMaterialIa;
+  recursoFuenteId: string;
   extension: ExtensionMaterialIa;
   instruccionesAdicionales: string;
   tipoRecursoId: string;
@@ -46,6 +51,11 @@ const tiposMaterial: Array<{
     valor: 'taller',
     label: 'Taller',
     descripcion: 'Ejercicios, instrucciones y preguntas para resolver.',
+  },
+  {
+    valor: 'quiz',
+    label: 'Quiz',
+    descripcion: 'Preguntas cortas para verificar comprensión rápida.',
   },
   {
     valor: 'lectura',
@@ -82,6 +92,7 @@ const catalogosVacios: CatalogosPreparadorIa = {
 
 const limiteTema = 1000;
 const limiteInstrucciones = 2000;
+const extensionesEvaluablesRepositorio = ['pdf', 'docx', 'xlsx', 'csv'];
 
 type FragmentoMatematico =
   | { tipo: 'texto'; valor: string }
@@ -98,6 +109,20 @@ function tieneFormulaLatex(texto: string) {
 
 function normalizarLatex(texto: string) {
   return (texto || '').replace(/\\\\/g, '\\');
+}
+
+function extensionRecurso(recurso: Recurso) {
+  const ruta = (recurso.rutaRecurso || '').split('?')[0].split('#')[0];
+  const extension = ruta.split('.').pop()?.toLowerCase() || '';
+
+  return extension === ruta ? '' : extension;
+}
+
+function esRecursoEvaluable(recurso: Recurso) {
+  return (
+    Boolean(recurso.rutaRecurso) &&
+    extensionesEvaluablesRepositorio.includes(extensionRecurso(recurso))
+  );
 }
 
 function separarBloquesMatematicos(texto: string) {
@@ -216,6 +241,8 @@ function crearFormularioInicial(): FormularioPreparador {
       ? String(usuario.gradoEscolar.id)
       : '',
     tipoMaterial: 'guia_clase',
+    origenContenido: 'tema_web',
+    recursoFuenteId: '',
     extension: 'normal',
     instruccionesAdicionales: '',
     tipoRecursoId: '',
@@ -232,6 +259,8 @@ export function PreparadorIa() {
   );
   const [material, setMaterial] = useState<MaterialIaGenerado | null>(null);
   const [cargandoCatalogos, setCargandoCatalogos] = useState(true);
+  const [recursosRepositorio, setRecursosRepositorio] = useState<Recurso[]>([]);
+  const [cargandoRecursos, setCargandoRecursos] = useState(false);
   const [generando, setGenerando] = useState(false);
   const [guardando, setGuardando] = useState(false);
   const [error, setError] = useState('');
@@ -244,6 +273,17 @@ export function PreparadorIa() {
   useEffect(() => {
     cargarCatalogos();
   }, []);
+
+  useEffect(() => {
+    if (formulario.origenContenido === 'recurso_repositorio') {
+      cargarRecursosRepositorio();
+    }
+  }, [
+    formulario.origenContenido,
+    formulario.institucionId,
+    formulario.gradoEscolarId,
+    formulario.categoriaId,
+  ]);
 
   async function cargarCatalogos() {
     try {
@@ -275,6 +315,43 @@ export function PreparadorIa() {
     }
   }
 
+  async function cargarRecursosRepositorio() {
+    if (esSuper && !formulario.institucionId) {
+      setRecursosRepositorio([]);
+      return;
+    }
+
+    try {
+      setCargandoRecursos(true);
+      const respuesta = await obtenerRecursosRepositorio({
+        limite: 100,
+        institucionId: formulario.institucionId || undefined,
+        gradoEscolarId: formulario.gradoEscolarId || undefined,
+        categoriaId: formulario.categoriaId || undefined,
+      });
+      const recursosEvaluables = respuesta.data.filter((recurso) =>
+        esRecursoEvaluable(recurso),
+      );
+
+      setRecursosRepositorio(recursosEvaluables);
+      setFormulario((prev) => ({
+        ...prev,
+        recursoFuenteId: recursosEvaluables.some(
+          (recurso) => String(recurso.id) === prev.recursoFuenteId,
+        )
+          ? prev.recursoFuenteId
+          : '',
+      }));
+    } catch {
+      setRecursosRepositorio([]);
+      setError(
+        'No se pudieron cargar los recursos evaluables del repositorio.',
+      );
+    } finally {
+      setCargandoRecursos(false);
+    }
+  }
+
   const categoriasDisponibles = useMemo(() => {
     const institucionId = Number(formulario.institucionId);
 
@@ -287,12 +364,45 @@ export function PreparadorIa() {
     return catalogos.categorias;
   }, [catalogos.categorias, esSuper, formulario.institucionId]);
 
+  const tiposMaterialDisponibles = useMemo(() => {
+    if (formulario.origenContenido !== 'recurso_repositorio') {
+      return tiposMaterial;
+    }
+
+    return tiposMaterial.filter((tipo) =>
+      ['quiz', 'taller', 'evaluacion'].includes(tipo.valor),
+    );
+  }, [formulario.origenContenido]);
+
+  const recursoFuenteSeleccionado = useMemo(
+    () =>
+      recursosRepositorio.find(
+        (recurso) => String(recurso.id) === formulario.recursoFuenteId,
+      ),
+    [formulario.recursoFuenteId, recursosRepositorio],
+  );
+
   function manejarCambio(
     event: ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
     >,
   ) {
     const { name, value } = event.target;
+
+    if (name === 'origenContenido') {
+      const origen = value as OrigenMaterialIa;
+      setFormulario((prev) => ({
+        ...prev,
+        origenContenido: origen,
+        recursoFuenteId: '',
+        tipoMaterial:
+          origen === 'recurso_repositorio' &&
+          !['quiz', 'taller', 'evaluacion'].includes(prev.tipoMaterial)
+            ? 'evaluacion'
+            : prev.tipoMaterial,
+      }));
+      return;
+    }
 
     setFormulario((prev) => ({
       ...prev,
@@ -304,8 +414,16 @@ export function PreparadorIa() {
   async function generar(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    if (!formulario.tema.trim()) {
+    if (formulario.origenContenido === 'tema_web' && !formulario.tema.trim()) {
       setError('Indica el tema que quieres preparar.');
+      return;
+    }
+
+    if (
+      formulario.origenContenido === 'recurso_repositorio' &&
+      !formulario.recursoFuenteId
+    ) {
+      setError('Selecciona el recurso del repositorio que quieres evaluar.');
       return;
     }
 
@@ -318,8 +436,12 @@ export function PreparadorIa() {
       setGenerando(true);
       setError('');
       setExito('');
+      const temaBase =
+        formulario.tema.trim() ||
+        recursoFuenteSeleccionado?.titulo ||
+        'Evaluación desde recurso del repositorio';
       const respuesta = await generarMaterialIa({
-        tema: formulario.tema.trim(),
+        tema: temaBase,
         gradoEscolarId: formulario.gradoEscolarId,
         institucionId: formulario.institucionId || undefined,
         categoriaId: formulario.categoriaId || undefined,
@@ -327,6 +449,11 @@ export function PreparadorIa() {
         extension: formulario.extension,
         instruccionesAdicionales:
           formulario.instruccionesAdicionales.trim() || undefined,
+        origenContenido: formulario.origenContenido,
+        recursoFuenteId:
+          formulario.origenContenido === 'recurso_repositorio'
+            ? formulario.recursoFuenteId
+            : undefined,
       });
 
       setMaterial({
@@ -390,6 +517,8 @@ export function PreparadorIa() {
         gradoEscolarId: '',
         instruccionesAdicionales: '',
         tipoMaterial: 'guia_clase',
+        origenContenido: 'tema_web',
+        recursoFuenteId: '',
         extension: 'normal',
         tipoRecursoId: '',
         publicado: true,
@@ -563,12 +692,30 @@ export function PreparadorIa() {
         <form className="ai-chat-panel" onSubmit={generar}>
           <div className="ai-chat-message assistant">
             <strong>Preparador IA</strong>
-            <p>Indica el tema de estudio, el grado y el formato.</p>
+            <p>Indica el origen, el grado y el formato del material.</p>
           </div>
 
           <label className="ai-field full">
+            Origen del material
+            <select
+              name="origenContenido"
+              value={formulario.origenContenido}
+              onChange={manejarCambio}
+            >
+              <option value="tema_web">
+                Preparar desde un tema con búsqueda web
+              </option>
+              <option value="recurso_repositorio">
+                Preparar quiz o examen desde un recurso del repositorio
+              </option>
+            </select>
+          </label>
+
+          <label className="ai-field full">
             <span>
-              Tema o pregunta de clase
+              {formulario.origenContenido === 'recurso_repositorio'
+                ? 'Enfoque de la evaluación'
+                : 'Tema o pregunta de clase'}
               <small>
                 {formulario.tema.length}/{limiteTema}
               </small>
@@ -579,8 +726,12 @@ export function PreparadorIa() {
               onChange={manejarCambio}
               rows={4}
               maxLength={limiteTema}
-              placeholder="Ej: fotosíntesis y su importancia en los ecosistemas"
-              required
+              placeholder={
+                formulario.origenContenido === 'recurso_repositorio'
+                  ? 'Ej: evaluar conceptos principales y casos de aplicación'
+                  : 'Ej: fotosíntesis y su importancia en los ecosistemas'
+              }
+              required={formulario.origenContenido === 'tema_web'}
             />
           </label>
 
@@ -647,7 +798,7 @@ export function PreparadorIa() {
                 value={formulario.tipoMaterial}
                 onChange={manejarCambio}
               >
-                {tiposMaterial.map((tipo) => (
+                {tiposMaterialDisponibles.map((tipo) => (
                   <option key={tipo.valor} value={tipo.valor}>
                     {tipo.label}
                   </option>
@@ -670,6 +821,32 @@ export function PreparadorIa() {
               </select>
             </label>
           </div>
+
+          {formulario.origenContenido === 'recurso_repositorio' && (
+            <label className="ai-field full">
+              Recurso base del repositorio
+              <select
+                name="recursoFuenteId"
+                value={formulario.recursoFuenteId}
+                onChange={manejarCambio}
+                required
+                disabled={
+                  cargandoRecursos || (esSuper && !formulario.institucionId)
+                }
+              >
+                <option value="">
+                  {cargandoRecursos
+                    ? 'Cargando recursos...'
+                    : 'Selecciona un PDF, Word, Excel o CSV'}
+                </option>
+                {recursosRepositorio.map((recurso) => (
+                  <option key={recurso.id} value={recurso.id}>
+                    {recurso.titulo} · {extensionRecurso(recurso).toUpperCase()}
+                  </option>
+                ))}
+              </select>
+            </label>
+          )}
 
           <label className="ai-field full">
             <span>

@@ -555,11 +555,13 @@ export type ReporteGenerado = {
 export type TipoMaterialIa =
   | 'guia_clase'
   | 'taller'
+  | 'quiz'
   | 'lectura'
   | 'evaluacion'
   | 'resumen';
 
 export type ExtensionMaterialIa = 'breve' | 'normal' | 'extenso';
+export type OrigenMaterialIa = 'tema_web' | 'recurso_repositorio';
 
 export type CatalogosPreparadorIa = {
   instituciones: Array<{
@@ -590,6 +592,8 @@ export type PayloadGenerarMaterialIa = {
   tipoMaterial?: TipoMaterialIa;
   extension?: ExtensionMaterialIa;
   instruccionesAdicionales?: string;
+  origenContenido?: OrigenMaterialIa;
+  recursoFuenteId?: string;
 };
 
 export type FuenteMaterialIa = {
