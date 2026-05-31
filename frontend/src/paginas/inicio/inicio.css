@@ -243,6 +243,12 @@
   color: var(--text-primary);
 }
 
+.dashboard-actions-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
 .inicio-hero {
   background: #ffffff;
   border: 1px solid var(--border-soft);
@@ -304,8 +310,7 @@
 }
 
 .inicio-role-card span,
-.inicio-role-card small,
-.inicio-module span {
+.inicio-role-card small {
   color: var(--text-muted);
   font-size: 13px;
   font-weight: 700;

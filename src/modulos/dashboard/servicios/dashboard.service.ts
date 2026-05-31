@@ -28,16 +28,70 @@ export class DashboardService {
   constructor(private readonly prisma: PrismaService) {}
 
   async obtenerResumen(usuarioAuth: any) {
-    validarPermiso(usuarioAuth, PERMISOS.USUARIOS_VER);
-    const esGlobal = tieneAccesoTotal(usuarioAuth);
+    validarPermiso(usuarioAuth, PERMISOS.FOROS_VER);
 
-    if (esGlobal) {
+    const alcance = this.clasificarAlcance(usuarioAuth);
+    const institucionId = Number(usuarioAuth?.institucionId);
+    const usuarioId = Number(usuarioAuth?.sub);
+
+    if (alcance === 'global') {
       return await this.obtenerResumenGlobal();
     }
 
-    return await this.obtenerResumenInstitucion(
-      Number(usuarioAuth?.institucionId),
-    );
+    if (alcance === 'institucion') {
+      return await this.obtenerResumenInstitucion(institucionId);
+    }
+
+    if (alcance === 'docente') {
+      return await this.obtenerResumenDocente(institucionId, usuarioId);
+    }
+
+    if (alcance === 'estudiante') {
+      return await this.obtenerResumenEstudiante(institucionId, usuarioId);
+    }
+
+    return await this.obtenerResumenAdministrativo(institucionId);
+  }
+
+  private clasificarAlcance(usuarioAuth: any) {
+    if (tieneAccesoTotal(usuarioAuth)) {
+      return 'global' as const;
+    }
+
+    const rolNormalizado = this.normalizar(usuarioAuth?.rol || '');
+
+    if (rolNormalizado === 'administrador') {
+      return 'institucion' as const;
+    }
+
+    if (rolNormalizado.includes('docente')) {
+      return 'docente' as const;
+    }
+
+    if (rolNormalizado.includes('estudiante')) {
+      return 'estudiante' as const;
+    }
+
+    if (
+      rolNormalizado.includes('usuario administrativo') ||
+      (rolNormalizado.includes('administrativo') &&
+        !rolNormalizado.includes('administrador'))
+    ) {
+      return 'administrativo' as const;
+    }
+
+    if (
+      this.tienePermiso(usuarioAuth, PERMISOS.USUARIOS_CREAR) ||
+      this.tienePermiso(usuarioAuth, PERMISOS.USUARIOS_VER)
+    ) {
+      return 'institucion' as const;
+    }
+
+    if (this.tienePermiso(usuarioAuth, PERMISOS.REPORTES_VER)) {
+      return 'administrativo' as const;
+    }
+
+    return 'institucion' as const;
   }
 
   private async obtenerResumenGlobal() {
@@ -94,10 +148,16 @@ export class DashboardService {
     ]);
 
     const usuariosPorInstitucion = new Map<number, number>(
-      usuariosPorInstitucionRaw.map((item) => [item.institucionId, item._count._all]),
+      usuariosPorInstitucionRaw.map((item) => [
+        item.institucionId,
+        item._count._all,
+      ]),
     );
     const recursosPorInstitucion = new Map<number, number>(
-      recursosPorInstitucionRaw.map((item) => [item.institucionId, item._count._all]),
+      recursosPorInstitucionRaw.map((item) => [
+        item.institucionId,
+        item._count._all,
+      ]),
     );
     const actividadPorInstitucion = new Map<number, number>(
       actividadPorInstitucionRaw
@@ -320,6 +380,609 @@ export class DashboardService {
     };
   }
 
+  private async obtenerResumenDocente(institucionId: number, usuarioId: number) {
+    const whereDocente = {
+      institucionId,
+      docenteId: usuarioId,
+    };
+
+    const [
+      institucion,
+      misRecursos,
+      misForos,
+      misProyectos,
+      entregasPendientes,
+      recursosRecientesRaw,
+      forosAbiertosRaw,
+      proyectosDocenteRaw,
+      entregasPendientesRaw,
+      logsRecientes,
+    ] = await Promise.all([
+      this.prisma.institucion.findUnique({
+        where: { id: institucionId },
+        select: { id: true, nombre: true },
+      }),
+      this.prisma.recurso.count({
+        where: {
+          institucionId,
+          usuarioCreadorId: usuarioId,
+          estado: true,
+        },
+      }),
+      this.prisma.foro.count({
+        where: {
+          institucionId,
+          usuarioId,
+          estado: true,
+        },
+      }),
+      this.prisma.proyectoColaborativo.count({
+        where: whereDocente,
+      }),
+      this.prisma.proyectoColaborativoEntrega.count({
+        where: {
+          estado: 'entregada',
+          fechaRevision: null,
+          proyecto: whereDocente,
+        },
+      }),
+      this.prisma.recurso.findMany({
+        where: {
+          institucionId,
+          usuarioCreadorId: usuarioId,
+          estado: true,
+        },
+        select: {
+          id: true,
+          titulo: true,
+          createdAt: true,
+        },
+        orderBy: { createdAt: 'desc' },
+        take: 5,
+      }),
+      this.prisma.foro.findMany({
+        where: {
+          institucionId,
+          usuarioId,
+          estado: true,
+          cerrado: false,
+        },
+        select: {
+          id: true,
+          titulo: true,
+          createdAt: true,
+          publico: true,
+          _count: { select: { comentarios: true } },
+        },
+        orderBy: { createdAt: 'desc' },
+        take: 8,
+      }),
+      this.prisma.proyectoColaborativo.findMany({
+        where: whereDocente,
+        select: {
+          id: true,
+          titulo: true,
+          estado: true,
+          fechaLimite: true,
+          createdAt: true,
+          _count: {
+            select: {
+              integrantes: true,
+              actividades: true,
+              entregas: true,
+            },
+          },
+        },
+        orderBy: { createdAt: 'desc' },
+        take: 8,
+      }),
+      this.prisma.proyectoColaborativoEntrega.findMany({
+        where: {
+          estado: 'entregada',
+          fechaRevision: null,
+          proyecto: whereDocente,
+        },
+        select: {
+          id: true,
+          nombreArchivo: true,
+          createdAt: true,
+          usuario: {
+            select: {
+              nombres: true,
+              apellidos: true,
+              correo: true,
+            },
+          },
+          proyecto: {
+            select: {
+              id: true,
+              titulo: true,
+              estado: true,
+              fechaLimite: true,
+            },
+          },
+        },
+        orderBy: [{ createdAt: 'asc' }],
+        take: 10,
+      }),
+      this.obtenerLogsRecientes({ institucionId, usuarioId }, 6),
+    ]);
+
+    const recursoIds = recursosRecientesRaw.map((item) => item.id);
+    const valoracionesRaw = recursoIds.length
+      ? await this.prisma.calificacionRecurso.groupBy({
+          by: ['recursoId'],
+          where: {
+            estado: true,
+            recursoId: { in: recursoIds },
+          },
+          _avg: { calificacion: true },
+          _count: { _all: true },
+        })
+      : [];
+
+    const valoracionPorRecursoId = new Map(
+      valoracionesRaw.map((item) => [
+        item.recursoId,
+        {
+          promedio: Number(item._avg.calificacion || 0),
+          total: item._count._all,
+        },
+      ]),
+    );
+
+    const misRecursosRecientes = recursosRecientesRaw.map((item) => {
+      const valoracion = valoracionPorRecursoId.get(item.id);
+      return {
+        id: item.id,
+        titulo: item.titulo,
+        createdAt: item.createdAt,
+        promedioCalificacion: valoracion ? Number(valoracion.promedio.toFixed(2)) : 0,
+        totalCalificaciones: valoracion?.total || 0,
+      };
+    });
+
+    const misForosAbiertos = forosAbiertosRaw.map((foro) => ({
+      id: foro.id,
+      titulo: foro.titulo,
+      createdAt: foro.createdAt,
+      publico: foro.publico,
+      comentarios: foro._count.comentarios,
+    }));
+
+    const proyectosDocente = proyectosDocenteRaw.map((proyecto) => ({
+      id: proyecto.id,
+      titulo: proyecto.titulo,
+      estado: proyecto.estado,
+      estadoLabel: this.etiquetaEstado(proyecto.estado),
+      fechaLimite: proyecto.fechaLimite,
+      integrantes: proyecto._count.integrantes,
+      actividades: proyecto._count.actividades,
+      entregas: proyecto._count.entregas,
+    }));
+
+    const entregasPendientesRevision = entregasPendientesRaw.map((entrega) => ({
+      id: entrega.id,
+      nombreArchivo: entrega.nombreArchivo,
+      createdAt: entrega.createdAt,
+      estudiante: this.nombreUsuario(entrega.usuario),
+      proyectoId: entrega.proyecto.id,
+      proyectoTitulo: entrega.proyecto.titulo,
+      estadoProyecto: this.etiquetaEstado(entrega.proyecto.estado),
+      fechaLimiteProyecto: entrega.proyecto.fechaLimite,
+    }));
+
+    return {
+      alcance: 'docente',
+      institucion: institucion || { id: institucionId, nombre: 'Institución' },
+      kpis: [
+        { key: 'mis_recursos', label: 'Mis recursos', value: misRecursos },
+        { key: 'mis_foros', label: 'Mis foros', value: misForos },
+        { key: 'mis_proyectos', label: 'Mis proyectos', value: misProyectos },
+        {
+          key: 'entregas_pendientes',
+          label: 'Entregas por revisar',
+          value: entregasPendientes,
+        },
+      ],
+      misRecursosRecientes,
+      misForosAbiertos,
+      proyectosDocente,
+      entregasPendientesRevision,
+      logsRecientes,
+    };
+  }
+
+  private async obtenerResumenEstudiante(
+    institucionId: number,
+    usuarioId: number,
+  ) {
+    const perfil = await this.prisma.usuario.findUnique({
+      where: { id: usuarioId },
+      select: {
+        institucionId: true,
+        gradoEscolarId: true,
+        gradoEscolar: {
+          select: {
+            id: true,
+            nombre: true,
+            codigo: true,
+          },
+        },
+      },
+    });
+
+    const gradoEscolarId = perfil?.gradoEscolarId || null;
+    const institucionReal = Number(perfil?.institucionId || institucionId);
+
+    const whereForoVisible = {
+      OR: [{ publico: true }, { institucionId: institucionReal }],
+    };
+
+    const [
+      institucion,
+      proyectosParticipa,
+      forosComentadosRaw,
+      rutasAsignadas,
+      diagnosticosRealizados,
+      proyectosEstudianteRaw,
+      rutasAprendizajeRaw,
+      ultimoDiagnosticoRaw,
+      forosGradoRaw,
+    ] = await Promise.all([
+      this.prisma.institucion.findUnique({
+        where: { id: institucionReal },
+        select: { id: true, nombre: true },
+      }),
+      this.prisma.proyectoColaborativoIntegrante.count({
+        where: {
+          usuarioId,
+          estado: true,
+          proyecto: { institucionId: institucionReal },
+        },
+      }),
+      this.prisma.comentarioForo.findMany({
+        where: {
+          usuarioId,
+          estado: true,
+          foro: {
+            estado: true,
+            ...whereForoVisible,
+          },
+        },
+        select: { foroId: true },
+        distinct: ['foroId'],
+      }),
+      this.prisma.asignacionRutaAprendizaje.count({
+        where: { usuarioId },
+      }),
+      this.prisma.diagnosticoAprendizaje.count({
+        where: { usuarioId },
+      }),
+      this.prisma.proyectoColaborativoIntegrante.findMany({
+        where: {
+          usuarioId,
+          estado: true,
+          proyecto: {
+            institucionId: institucionReal,
+          },
+        },
+        select: {
+          id: true,
+          rolProyecto: true,
+          proyecto: {
+            select: {
+              id: true,
+              titulo: true,
+              estado: true,
+              fechaLimite: true,
+              docente: {
+                select: {
+                  nombres: true,
+                  apellidos: true,
+                  correo: true,
+                },
+              },
+            },
+          },
+        },
+        orderBy: { id: 'desc' },
+        take: 12,
+      }),
+      this.prisma.asignacionRutaAprendizaje.findMany({
+        where: { usuarioId },
+        select: {
+          id: true,
+          estado: true,
+          porcentajeAvance: true,
+          fechaAsignacion: true,
+          fechaFinalizacion: true,
+          rutaAprendizaje: {
+            select: {
+              id: true,
+              titulo: true,
+              temaObjetivo: true,
+              nivelDificultad: true,
+            },
+          },
+        },
+        orderBy: { fechaAsignacion: 'desc' },
+        take: 8,
+      }),
+      this.prisma.diagnosticoAprendizaje.findFirst({
+        where: { usuarioId },
+        select: {
+          id: true,
+          puntajeFinal: true,
+          resultadoFinal: true,
+          createdAt: true,
+          tipoAprendizaje: {
+            select: {
+              id: true,
+              nombre: true,
+            },
+          },
+        },
+        orderBy: { createdAt: 'desc' },
+      }),
+      gradoEscolarId
+        ? this.prisma.foro.findMany({
+            where: {
+              estado: true,
+              ...whereForoVisible,
+              OR: [
+                {
+                  recursos: {
+                    some: {
+                      estado: true,
+                      gradoEscolarId,
+                    },
+                  },
+                },
+                {
+                  comentarios: {
+                    some: {
+                      estado: true,
+                      OR: [
+                        {
+                          recursos: {
+                            some: {
+                              estado: true,
+                              gradoEscolarId,
+                            },
+                          },
+                        },
+                        {
+                          recursosCompartidos: {
+                            some: {
+                              recurso: {
+                                estado: true,
+                                gradoEscolarId,
+                              },
+                            },
+                          },
+                        },
+                      ],
+                    },
+                  },
+                },
+              ],
+            },
+            select: {
+              id: true,
+              titulo: true,
+              publico: true,
+              createdAt: true,
+              categoria: {
+                select: {
+                  nombre: true,
+                },
+              },
+              _count: {
+                select: {
+                  comentarios: true,
+                },
+              },
+            },
+            orderBy: { createdAt: 'desc' },
+            take: 8,
+          })
+        : Promise.resolve([]),
+    ]);
+
+    const forosComentados = forosComentadosRaw.length;
+
+    const misProyectos = [...proyectosEstudianteRaw]
+      .sort(
+        (a, b) =>
+          new Date(a.proyecto.fechaLimite).getTime() -
+          new Date(b.proyecto.fechaLimite).getTime(),
+      )
+      .map((integrante) => ({
+        id: integrante.id,
+        proyectoId: integrante.proyecto.id,
+        titulo: integrante.proyecto.titulo,
+        estado: integrante.proyecto.estado,
+        estadoLabel: this.etiquetaEstado(integrante.proyecto.estado),
+        fechaLimite: integrante.proyecto.fechaLimite,
+        rolProyecto: this.etiquetaRolProyecto(integrante.rolProyecto),
+        docente: this.nombreUsuario(integrante.proyecto.docente),
+      }));
+
+    const forosDirigidosGrado = forosGradoRaw.map((foro) => ({
+      id: foro.id,
+      titulo: foro.titulo,
+      createdAt: foro.createdAt,
+      publico: foro.publico,
+      categoria: foro.categoria?.nombre || 'Sin categoría',
+      comentarios: foro._count.comentarios,
+    }));
+
+    const misRutasAprendizaje = rutasAprendizajeRaw.map((asignacion) => ({
+      id: asignacion.id,
+      rutaId: asignacion.rutaAprendizaje.id,
+      titulo: asignacion.rutaAprendizaje.titulo,
+      temaObjetivo: asignacion.rutaAprendizaje.temaObjetivo,
+      nivelDificultad: asignacion.rutaAprendizaje.nivelDificultad,
+      estado: asignacion.estado,
+      porcentajeAvance: Number(asignacion.porcentajeAvance || 0),
+      fechaAsignacion: asignacion.fechaAsignacion,
+      fechaFinalizacion: asignacion.fechaFinalizacion,
+    }));
+
+    const ultimoDiagnostico = ultimoDiagnosticoRaw
+      ? {
+          id: ultimoDiagnosticoRaw.id,
+          puntajeFinal: Number(ultimoDiagnosticoRaw.puntajeFinal || 0),
+          resultadoFinal: ultimoDiagnosticoRaw.resultadoFinal || 'Sin resultado',
+          createdAt: ultimoDiagnosticoRaw.createdAt,
+          tipoAprendizaje: ultimoDiagnosticoRaw.tipoAprendizaje?.nombre || 'General',
+        }
+      : null;
+
+    return {
+      alcance: 'estudiante',
+      institucion: institucion || { id: institucionReal, nombre: 'Institución' },
+      gradoEscolar: perfil?.gradoEscolar || null,
+      kpis: [
+        {
+          key: 'proyectos_participo',
+          label: 'Proyectos donde participo',
+          value: proyectosParticipa,
+        },
+        {
+          key: 'foros_comentados',
+          label: 'Foros donde comenté',
+          value: forosComentados,
+        },
+        {
+          key: 'rutas_asignadas',
+          label: 'Rutas asignadas',
+          value: rutasAsignadas,
+        },
+        {
+          key: 'diagnosticos_realizados',
+          label: 'Diagnósticos realizados',
+          value: diagnosticosRealizados,
+        },
+      ],
+      misProyectos,
+      forosDirigidosGrado,
+      misRutasAprendizaje,
+      ultimoDiagnostico,
+      logsRecientes: [],
+    };
+  }
+
+  private async obtenerResumenAdministrativo(institucionId: number) {
+    const [
+      institucion,
+      totalUsuarios,
+      totalRecursos,
+      totalForos,
+      totalProyectos,
+      logsRecientes,
+      recursosPorCategoriaPublicacionRaw,
+    ] = await Promise.all([
+      this.prisma.institucion.findUnique({
+        where: { id: institucionId },
+        select: { id: true, nombre: true },
+      }),
+      this.prisma.usuario.count({
+        where: {
+          institucionId,
+          activo: true,
+        },
+      }),
+      this.prisma.recurso.count({
+        where: {
+          institucionId,
+          estado: true,
+        },
+      }),
+      this.prisma.foro.count({
+        where: {
+          institucionId,
+          estado: true,
+        },
+      }),
+      this.prisma.proyectoColaborativo.count({
+        where: {
+          institucionId,
+          estado: { in: ESTADOS_PROYECTO_ACTIVOS },
+        },
+      }),
+      this.obtenerLogsRecientes({ institucionId }, 15),
+      this.prisma.recurso.groupBy({
+        by: ['categoriaId', 'publicado'],
+        where: {
+          institucionId,
+          estado: true,
+        },
+        _count: { _all: true },
+      }),
+    ]);
+
+    const categoriaIds = Array.from(
+      new Set(recursosPorCategoriaPublicacionRaw.map((item) => item.categoriaId)),
+    );
+    const categorias = categoriaIds.length
+      ? await this.prisma.categoria.findMany({
+          where: { id: { in: categoriaIds } },
+          select: { id: true, nombre: true },
+        })
+      : [];
+    const categoriaNombre = new Map(categorias.map((item) => [item.id, item.nombre]));
+
+    const resumenPorCategoria = new Map<
+      number,
+      {
+        id: number;
+        nombre: string;
+        publicados: number;
+        borradores: number;
+        total: number;
+      }
+    >();
+
+    recursosPorCategoriaPublicacionRaw.forEach((item) => {
+      const actual = resumenPorCategoria.get(item.categoriaId) || {
+        id: item.categoriaId,
+        nombre:
+          categoriaNombre.get(item.categoriaId) || `Categoría ${item.categoriaId}`,
+        publicados: 0,
+        borradores: 0,
+        total: 0,
+      };
+
+      const total = item._count._all;
+      if (item.publicado) {
+        actual.publicados += total;
+      } else {
+        actual.borradores += total;
+      }
+      actual.total += total;
+      resumenPorCategoria.set(item.categoriaId, actual);
+    });
+
+    const recursosPublicadosVsBorradores = Array.from(resumenPorCategoria.values())
+      .sort((a, b) => b.total - a.total || a.nombre.localeCompare(b.nombre))
+      .slice(0, 15);
+
+    return {
+      alcance: 'administrativo',
+      institucion: institucion || { id: institucionId, nombre: 'Institución' },
+      kpis: [
+        { key: 'usuarios', label: 'Usuarios', value: totalUsuarios },
+        { key: 'recursos', label: 'Recursos', value: totalRecursos },
+        { key: 'foros', label: 'Foros', value: totalForos },
+        { key: 'proyectos', label: 'Proyectos', value: totalProyectos },
+      ],
+      recursosPublicadosVsBorradores,
+      logsRecientes,
+    };
+  }
+
   private async obtenerDistribucionUsuariosGlobal(where: Record<string, unknown>) {
     const [roles, agrupado] = await Promise.all([
       this.prisma.rol.findMany({
@@ -412,6 +1075,35 @@ export class DashboardService {
     return null;
   }
 
+  private etiquetaEstado(estado: string) {
+    const etiquetas: Record<string, string> = {
+      activo: 'Activo',
+      en_revision: 'En revisión',
+      requiere_ajustes: 'Requiere ajustes',
+      aprobado: 'Aprobado',
+      cerrado: 'Cerrado',
+      pendiente: 'Pendiente',
+      en_progreso: 'En progreso',
+      completada: 'Completada',
+      entregada: 'Entregada',
+      aprobada: 'Aprobada',
+      rechazada: 'Rechazada',
+    };
+
+    return etiquetas[estado] || estado;
+  }
+
+  private etiquetaRolProyecto(rolProyecto?: string | null) {
+    const rol = this.normalizar(rolProyecto || '').replace(/\s+/g, '_');
+    const etiquetas: Record<string, string> = {
+      lider: 'Líder',
+      investigador: 'Investigador',
+      expositor: 'Expositor',
+    };
+
+    return etiquetas[rol] || rolProyecto || 'Sin rol';
+  }
+
   private fechaActividad() {
     const fecha = new Date();
     fecha.setDate(fecha.getDate() - VENTANA_ACTIVIDAD_DIAS);
@@ -424,6 +1116,11 @@ export class DashboardService {
       .replace(/[\u0300-\u036f]/g, '')
       .toLowerCase()
       .trim();
+  }
+
+  private tienePermiso(usuarioAuth: any, permiso: string) {
+    const permisos = usuarioAuth?.permisos || [];
+    return permisos.includes(PERMISOS.SISTEMA_TOTAL) || permisos.includes(permiso);
   }
 
   private nombreUsuario(

@@ -8,7 +8,7 @@ export class DashboardController {
   constructor(private readonly dashboardService: DashboardService) {}
 
   @Get('resumen')
-  @RequierePermisos(PERMISOS.USUARIOS_VER)
+  @RequierePermisos(PERMISOS.FOROS_VER)
   async obtenerResumen(@Req() req: any) {
     return await this.dashboardService.obtenerResumen(req.usuarioAuth);
   }

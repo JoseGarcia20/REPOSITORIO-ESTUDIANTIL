@@ -537,14 +537,110 @@ export type DashboardForoReciente = {
   autor: string;
 };
 
+export type DashboardRecursoDocente = {
+  id: number;
+  titulo: string;
+  createdAt: string;
+  promedioCalificacion: number;
+  totalCalificaciones: number;
+};
+
+export type DashboardForoDocente = {
+  id: number;
+  titulo: string;
+  createdAt: string;
+  publico: boolean;
+  comentarios: number;
+};
+
+export type DashboardProyectoDocente = {
+  id: number;
+  titulo: string;
+  estado: string;
+  estadoLabel: string;
+  fechaLimite: string;
+  integrantes: number;
+  actividades: number;
+  entregas: number;
+};
+
+export type DashboardEntregaPendienteRevision = {
+  id: number;
+  nombreArchivo: string;
+  createdAt: string;
+  estudiante: string;
+  proyectoId: number;
+  proyectoTitulo: string;
+  estadoProyecto: string;
+  fechaLimiteProyecto: string;
+};
+
+export type DashboardProyectoEstudiante = {
+  id: number;
+  proyectoId: number;
+  titulo: string;
+  estado: string;
+  estadoLabel: string;
+  fechaLimite: string;
+  rolProyecto: string;
+  docente: string;
+};
+
+export type DashboardForoGradoEstudiante = {
+  id: number;
+  titulo: string;
+  createdAt: string;
+  publico: boolean;
+  categoria: string;
+  comentarios: number;
+};
+
+export type DashboardRutaEstudiante = {
+  id: number;
+  rutaId: number;
+  titulo: string;
+  temaObjetivo: string;
+  nivelDificultad: string;
+  estado: string;
+  porcentajeAvance: number;
+  fechaAsignacion: string;
+  fechaFinalizacion: string | null;
+};
+
+export type DashboardUltimoDiagnostico = {
+  id: number;
+  puntajeFinal: number;
+  resultadoFinal: string;
+  createdAt: string;
+  tipoAprendizaje: string;
+} | null;
+
+export type DashboardCategoriaPublicacion = {
+  id: number;
+  nombre: string;
+  publicados: number;
+  borradores: number;
+  total: number;
+};
+
 export type ResumenDashboard = {
-  alcance: 'global' | 'institucion';
+  alcance:
+    | 'global'
+    | 'institucion'
+    | 'docente'
+    | 'estudiante'
+    | 'administrativo';
   institucion?: {
     id: number;
     nombre: string;
   };
+  gradoEscolar?: {
+    id: number;
+    nombre: string;
+    codigo: string;
+  } | null;
   kpis: DashboardKpi[];
-  distribucionUsuarios:
+  distribucionUsuarios?:
     | DashboardDistribucionGlobal
     | DashboardDistribucionInstitucion;
   usuariosPorInstitucion?: DashboardInstitucionResumen[];
@@ -553,6 +649,15 @@ export type ResumenDashboard = {
   recursosPorCategoria?: DashboardSerie[];
   recursosPorGrado?: DashboardSerie[];
   forosRecientes?: DashboardForoReciente[];
+  misRecursosRecientes?: DashboardRecursoDocente[];
+  misForosAbiertos?: DashboardForoDocente[];
+  proyectosDocente?: DashboardProyectoDocente[];
+  entregasPendientesRevision?: DashboardEntregaPendienteRevision[];
+  misProyectos?: DashboardProyectoEstudiante[];
+  forosDirigidosGrado?: DashboardForoGradoEstudiante[];
+  misRutasAprendizaje?: DashboardRutaEstudiante[];
+  ultimoDiagnostico?: DashboardUltimoDiagnostico;
+  recursosPublicadosVsBorradores?: DashboardCategoriaPublicacion[];
   logsRecientes: DashboardLogReciente[];
 };
 

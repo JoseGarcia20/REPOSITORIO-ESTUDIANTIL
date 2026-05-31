@@ -1,9 +1,11 @@
 import { useEffect, useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   API_URL,
+  PERMISOS,
+  descargarExcelAuditoria,
   obtenerResumenDashboard,
   obtenerUsuarioAutenticado,
-  PERMISOS,
 } from '../../api/adminApi';
 import type {
   DashboardDistribucionGlobal,
@@ -20,19 +22,11 @@ type SegmentoDona = {
   color: string;
 };
 
-function normalizarTexto(valor?: string) {
-  return (valor || '')
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .toLowerCase()
-    .trim();
-}
-
 function formatearNumero(valor: number) {
   return new Intl.NumberFormat('es-CO').format(valor || 0);
 }
 
-function formatearFecha(valor: string) {
+function formatearFecha(valor: string | null | undefined) {
   if (!valor) {
     return 'Sin fecha';
   }
@@ -293,23 +287,19 @@ function describirAlcance(permisos: string[]) {
 }
 
 export function Inicio() {
+  const navigate = useNavigate();
   const usuario = obtenerUsuarioAutenticado();
   const permisos = usuario?.permisos || [];
-  const rolNormalizado = normalizarTexto(usuario?.rol?.nombre);
-  const esSuperadmin =
-    permisos.includes(PERMISOS.SISTEMA_TOTAL) ||
-    rolNormalizado.includes('superadministrador');
-  const esAdministrador = rolNormalizado === 'administrador';
-  const usarDashboardAvanzado = esSuperadmin || esAdministrador;
   const logo = usuario?.institucion?.logo
     ? `${API_URL}${usuario.institucion.logo}`
     : null;
   const [resumen, setResumen] = useState<ResumenDashboard | null>(null);
   const [cargandoResumen, setCargandoResumen] = useState(false);
   const [errorResumen, setErrorResumen] = useState('');
+  const [descargandoAuditoria, setDescargandoAuditoria] = useState(false);
 
   useEffect(() => {
-    if (!usarDashboardAvanzado) {
+    if (!usuario?.id) {
       setResumen(null);
       return;
     }
@@ -344,7 +334,7 @@ export function Inicio() {
     return () => {
       activo = false;
     };
-  }, [usarDashboardAvanzado]);
+  }, [usuario?.id]);
 
   const segmentosGlobales = useMemo(() => {
     if (!resumen || resumen.alcance !== 'global') {
@@ -378,136 +368,45 @@ export function Inicio() {
     ];
   }, [resumen]);
 
-  if (usarDashboardAvanzado) {
-    return (
-      <section className="inicio-page">
-        <div className="inicio-hero">
-          <div className="inicio-logo">
-            {logo ? (
-              <img src={logo} alt="Logo institución" />
-            ) : (
-              <span>{usuario?.institucion?.nombre?.charAt(0) || 'N'}</span>
-            )}
-          </div>
+  const tituloPanel =
+    resumen?.alcance === 'global'
+      ? 'Visión global de NEXORA AI'
+      : resumen?.alcance === 'institucion'
+        ? `Visión institucional · ${usuario?.institucion?.nombre || 'Institución'}`
+        : resumen?.alcance === 'docente'
+          ? 'Panel docente'
+          : resumen?.alcance === 'estudiante'
+            ? 'Panel de estudiante'
+            : resumen?.alcance === 'administrativo'
+              ? 'Panel administrativo'
+              : usuario?.institucion?.nombre || 'NEXORA AI';
 
-          <div className="inicio-heading">
-            <span className="section-label">Panel de control</span>
-            <h1>
-              {esSuperadmin
-                ? 'Visión global de NEXORA AI'
-                : `Visión institucional · ${usuario?.institucion?.nombre || 'Institución'}`}
-            </h1>
-            <p>
-              {esSuperadmin
-                ? 'Seguimiento consolidado de instituciones, actividad y uso de la plataforma.'
-                : 'Monitoreo de usuarios, recursos y actividad académica de tu institución.'}
-            </p>
-          </div>
+  const descripcionPanel =
+    resumen?.alcance === 'global'
+      ? 'Seguimiento consolidado de instituciones, actividad y uso de la plataforma.'
+      : resumen?.alcance === 'institucion'
+        ? 'Monitoreo de usuarios, recursos y actividad académica de tu institución.'
+        : resumen?.alcance === 'docente'
+          ? 'Control personal de tus recursos, foros, proyectos y revisión de entregas.'
+          : resumen?.alcance === 'estudiante'
+            ? 'Seguimiento personal de participación, proyectos y avance académico.'
+            : resumen?.alcance === 'administrativo'
+              ? 'Resumen institucional con métricas operativas, auditoría y reportes.'
+              : describirAlcance(permisos);
 
-          <div className="inicio-role-card">
-            <span>Rol activo</span>
-            <strong>{usuario?.rol?.nombre || 'Usuario'}</strong>
-            <small>
-              {usuario?.nombres} {usuario?.apellidos}
-            </small>
-          </div>
-        </div>
-
-        {cargandoResumen && (
-          <div className="inicio-dashboard-loading">
-            Cargando indicadores del dashboard...
-          </div>
-        )}
-
-        {errorResumen && !cargandoResumen && (
-          <div className="inicio-dashboard-error">{errorResumen}</div>
-        )}
-
-        {!cargandoResumen && !errorResumen && resumen && (
-          <>
-            <section className="dashboard-kpi-grid">
-              {resumen.kpis.map((item) => (
-                <CardKpi
-                  key={item.key}
-                  label={item.label}
-                  value={item.value}
-                  detail={item.detail}
-                />
-              ))}
-            </section>
-
-            {resumen.alcance === 'global' && (
-              <>
-                <section className="dashboard-grid two">
-                  <GraficoDona
-                    titulo="Distribución global de usuarios por rol"
-                    segmentos={segmentosGlobales}
-                  />
-                  <TablaInstituciones
-                    datos={resumen.usuariosPorInstitucion || []}
-                  />
-                </section>
-
-                <section className="dashboard-grid two">
-                  <ListaActividad
-                    titulo="Instituciones con más actividad (30 días)"
-                    datos={resumen.institucionesConMasActividad || []}
-                  />
-                  <ListaActividad
-                    titulo="Instituciones sin actividad (30 días)"
-                    datos={resumen.institucionesSinActividad || []}
-                  />
-                </section>
-              </>
-            )}
-
-            {resumen.alcance === 'institucion' && (
-              <>
-                <section className="dashboard-grid two">
-                  <GraficoDona
-                    titulo="Distribución de usuarios"
-                    segmentos={segmentosInstitucion}
-                  />
-                  <article className="dashboard-panel">
-                    <header>
-                      <h3>Foros recientes</h3>
-                    </header>
-                    <div className="dashboard-activity-list">
-                      {(resumen.forosRecientes || []).length === 0 ? (
-                        <p className="dashboard-empty">Sin foros recientes.</p>
-                      ) : (
-                        resumen.forosRecientes?.map((foro) => (
-                          <div className="dashboard-activity-item" key={foro.id}>
-                            <strong>{foro.titulo}</strong>
-                            <small>
-                              {formatearFecha(foro.createdAt)} · {foro.autor} ·
-                              Comentarios: {formatearNumero(foro.comentarios)}
-                            </small>
-                          </div>
-                        ))
-                      )}
-                    </div>
-                  </article>
-                </section>
-
-                <section className="dashboard-grid two">
-                  <GraficoBarras
-                    titulo="Recursos por categoría"
-                    datos={resumen.recursosPorCategoria || []}
-                  />
-                  <GraficoBarras
-                    titulo="Recursos por grado"
-                    datos={resumen.recursosPorGrado || []}
-                  />
-                </section>
-              </>
-            )}
-
-            <TablaLogs logs={resumen.logsRecientes} />
-          </>
-        )}
-      </section>
-    );
+  async function exportarAuditoria() {
+    try {
+      setDescargandoAuditoria(true);
+      await descargarExcelAuditoria();
+    } catch (error) {
+      setErrorResumen(
+        error instanceof Error
+          ? error.message
+          : 'No se pudo exportar la auditoría en Excel.',
+      );
+    } finally {
+      setDescargandoAuditoria(false);
+    }
   }
 
   return (
@@ -517,14 +416,14 @@ export function Inicio() {
           {logo ? (
             <img src={logo} alt="Logo institución" />
           ) : (
-            <span>{usuario?.institucion?.nombre?.charAt(0) || 'P'}</span>
+            <span>{usuario?.institucion?.nombre?.charAt(0) || 'N'}</span>
           )}
         </div>
 
         <div className="inicio-heading">
-          <span className="section-label">Panel inicial</span>
-          <h1>{usuario?.institucion?.nombre || 'Plataforma Estudiantil'}</h1>
-          <p>{describirAlcance(permisos)}</p>
+          <span className="section-label">Panel de control</span>
+          <h1>{tituloPanel}</h1>
+          <p>{descripcionPanel}</p>
         </div>
 
         <div className="inicio-role-card">
@@ -535,6 +434,390 @@ export function Inicio() {
           </small>
         </div>
       </div>
+
+      {cargandoResumen && (
+        <div className="inicio-dashboard-loading">
+          Cargando indicadores del dashboard...
+        </div>
+      )}
+
+      {errorResumen && !cargandoResumen && (
+        <div className="inicio-dashboard-error">{errorResumen}</div>
+      )}
+
+      {!cargandoResumen && !errorResumen && resumen && (
+        <>
+          <section className="dashboard-kpi-grid">
+            {resumen.kpis.map((item) => (
+              <CardKpi
+                key={item.key}
+                label={item.label}
+                value={item.value}
+                detail={item.detail}
+              />
+            ))}
+          </section>
+
+          {resumen.alcance === 'global' && (
+            <>
+              <section className="dashboard-grid two">
+                <GraficoDona
+                  titulo="Distribución global de usuarios por rol"
+                  segmentos={segmentosGlobales}
+                />
+                <TablaInstituciones datos={resumen.usuariosPorInstitucion || []} />
+              </section>
+
+              <section className="dashboard-grid two">
+                <ListaActividad
+                  titulo="Instituciones con más actividad (30 días)"
+                  datos={resumen.institucionesConMasActividad || []}
+                />
+                <ListaActividad
+                  titulo="Instituciones sin actividad (30 días)"
+                  datos={resumen.institucionesSinActividad || []}
+                />
+              </section>
+
+              <TablaLogs logs={resumen.logsRecientes} />
+            </>
+          )}
+
+          {resumen.alcance === 'institucion' && (
+            <>
+              <section className="dashboard-grid two">
+                <GraficoDona
+                  titulo="Distribución de usuarios"
+                  segmentos={segmentosInstitucion}
+                />
+                <article className="dashboard-panel">
+                  <header>
+                    <h3>Foros recientes</h3>
+                  </header>
+                  <div className="dashboard-activity-list">
+                    {(resumen.forosRecientes || []).length === 0 ? (
+                      <p className="dashboard-empty">Sin foros recientes.</p>
+                    ) : (
+                      resumen.forosRecientes?.map((foro) => (
+                        <div className="dashboard-activity-item" key={foro.id}>
+                          <strong>{foro.titulo}</strong>
+                          <small>
+                            {formatearFecha(foro.createdAt)} · {foro.autor} ·
+                            Comentarios: {formatearNumero(foro.comentarios)}
+                          </small>
+                        </div>
+                      ))
+                    )}
+                  </div>
+                </article>
+              </section>
+
+              <section className="dashboard-grid two">
+                <GraficoBarras
+                  titulo="Recursos por categoría"
+                  datos={resumen.recursosPorCategoria || []}
+                />
+                <GraficoBarras
+                  titulo="Recursos por grado"
+                  datos={resumen.recursosPorGrado || []}
+                />
+              </section>
+
+              <TablaLogs logs={resumen.logsRecientes} />
+            </>
+          )}
+
+          {resumen.alcance === 'docente' && (
+            <>
+              <section className="dashboard-grid two">
+                <article className="dashboard-panel">
+                  <header>
+                    <h3>Mis últimos 5 recursos</h3>
+                  </header>
+                  <div className="dashboard-table-wrap">
+                    <table className="dashboard-table">
+                      <thead>
+                        <tr>
+                          <th>Recurso</th>
+                          <th>Fecha</th>
+                          <th>Valoración</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {(resumen.misRecursosRecientes || []).length === 0 ? (
+                          <tr>
+                            <td colSpan={3}>No tienes recursos recientes.</td>
+                          </tr>
+                        ) : (
+                          resumen.misRecursosRecientes?.map((recurso) => (
+                            <tr key={recurso.id}>
+                              <td>{recurso.titulo}</td>
+                              <td>{formatearFecha(recurso.createdAt)}</td>
+                              <td>
+                                {recurso.totalCalificaciones > 0
+                                  ? `${recurso.promedioCalificacion.toFixed(1)} / 5 · ${formatearNumero(recurso.totalCalificaciones)} calificaciones`
+                                  : 'Sin calificaciones'}
+                              </td>
+                            </tr>
+                          ))
+                        )}
+                      </tbody>
+                    </table>
+                  </div>
+                </article>
+
+                <article className="dashboard-panel">
+                  <header>
+                    <h3>Mis foros académicos abiertos</h3>
+                  </header>
+                  <div className="dashboard-activity-list">
+                    {(resumen.misForosAbiertos || []).length === 0 ? (
+                      <p className="dashboard-empty">No tienes foros abiertos.</p>
+                    ) : (
+                      resumen.misForosAbiertos?.map((foro) => (
+                        <div className="dashboard-activity-item" key={foro.id}>
+                          <strong>{foro.titulo}</strong>
+                          <small>
+                            {formatearFecha(foro.createdAt)} · Comentarios:{' '}
+                            {formatearNumero(foro.comentarios)} ·{' '}
+                            {foro.publico ? 'Público' : 'Institucional'}
+                          </small>
+                        </div>
+                      ))
+                    )}
+                  </div>
+                </article>
+              </section>
+
+              <section className="dashboard-grid two">
+                <article className="dashboard-panel">
+                  <header>
+                    <h3>Proyectos donde soy docente</h3>
+                  </header>
+                  <div className="dashboard-activity-list">
+                    {(resumen.proyectosDocente || []).length === 0 ? (
+                      <p className="dashboard-empty">No tienes proyectos registrados.</p>
+                    ) : (
+                      resumen.proyectosDocente?.map((proyecto) => (
+                        <div className="dashboard-activity-item" key={proyecto.id}>
+                          <strong>{proyecto.titulo}</strong>
+                          <small>
+                            Estado: {proyecto.estadoLabel} · Fecha límite:{' '}
+                            {formatearFecha(proyecto.fechaLimite)} · Integrantes:{' '}
+                            {formatearNumero(proyecto.integrantes)}
+                          </small>
+                        </div>
+                      ))
+                    )}
+                  </div>
+                </article>
+
+                <article className="dashboard-panel">
+                  <header>
+                    <h3>Entregas pendientes por revisar</h3>
+                  </header>
+                  <div className="dashboard-activity-list">
+                    {(resumen.entregasPendientesRevision || []).length === 0 ? (
+                      <p className="dashboard-empty">
+                        No tienes entregas pendientes.
+                      </p>
+                    ) : (
+                      resumen.entregasPendientesRevision?.map((entrega) => (
+                        <div className="dashboard-activity-item" key={entrega.id}>
+                          <strong>{entrega.proyectoTitulo}</strong>
+                          <small>
+                            Estudiante: {entrega.estudiante} · Entregada:{' '}
+                            {formatearFecha(entrega.createdAt)}
+                          </small>
+                        </div>
+                      ))
+                    )}
+                  </div>
+                </article>
+              </section>
+            </>
+          )}
+
+          {resumen.alcance === 'estudiante' && (
+            <>
+              <section className="dashboard-grid two">
+                <article className="dashboard-panel">
+                  <header>
+                    <h3>Mis proyectos</h3>
+                    <span>{resumen.gradoEscolar?.nombre || 'Sin grado asignado'}</span>
+                  </header>
+                  <div className="dashboard-table-wrap">
+                    <table className="dashboard-table">
+                      <thead>
+                        <tr>
+                          <th>Proyecto</th>
+                          <th>Rol</th>
+                          <th>Estado</th>
+                          <th>Fecha límite</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {(resumen.misProyectos || []).length === 0 ? (
+                          <tr>
+                            <td colSpan={4}>No tienes proyectos asignados.</td>
+                          </tr>
+                        ) : (
+                          resumen.misProyectos?.map((proyecto) => (
+                            <tr key={proyecto.id}>
+                              <td>{proyecto.titulo}</td>
+                              <td>{proyecto.rolProyecto}</td>
+                              <td>{proyecto.estadoLabel}</td>
+                              <td>{formatearFecha(proyecto.fechaLimite)}</td>
+                            </tr>
+                          ))
+                        )}
+                      </tbody>
+                    </table>
+                  </div>
+                </article>
+
+                <article className="dashboard-panel">
+                  <header>
+                    <h3>Foros académicos para mi grado</h3>
+                  </header>
+                  <div className="dashboard-activity-list">
+                    {(resumen.forosDirigidosGrado || []).length === 0 ? (
+                      <p className="dashboard-empty">
+                        Aún no hay foros relacionados con tu grado.
+                      </p>
+                    ) : (
+                      resumen.forosDirigidosGrado?.map((foro) => (
+                        <div className="dashboard-activity-item" key={foro.id}>
+                          <strong>{foro.titulo}</strong>
+                          <small>
+                            {foro.categoria} · Comentarios:{' '}
+                            {formatearNumero(foro.comentarios)} ·{' '}
+                            {foro.publico ? 'Público' : 'Institucional'}
+                          </small>
+                        </div>
+                      ))
+                    )}
+                  </div>
+                </article>
+              </section>
+
+              <section className="dashboard-grid two">
+                <article className="dashboard-panel">
+                  <header>
+                    <h3>Mis rutas de aprendizaje</h3>
+                  </header>
+                  <div className="dashboard-activity-list">
+                    {(resumen.misRutasAprendizaje || []).length === 0 ? (
+                      <p className="dashboard-empty">No tienes rutas asignadas.</p>
+                    ) : (
+                      resumen.misRutasAprendizaje?.map((ruta) => (
+                        <div className="dashboard-activity-item" key={ruta.id}>
+                          <strong>{ruta.titulo}</strong>
+                          <small>
+                            Estado: {ruta.estado} · Avance:{' '}
+                            {Number(ruta.porcentajeAvance || 0).toFixed(0)}% ·
+                            Asignada: {formatearFecha(ruta.fechaAsignacion)}
+                          </small>
+                        </div>
+                      ))
+                    )}
+                  </div>
+                </article>
+
+                <article className="dashboard-panel">
+                  <header>
+                    <h3>Último diagnóstico</h3>
+                  </header>
+                  {resumen.ultimoDiagnostico ? (
+                    <div className="dashboard-activity-item">
+                      <strong>{resumen.ultimoDiagnostico.tipoAprendizaje}</strong>
+                      <small>
+                        Puntaje: {resumen.ultimoDiagnostico.puntajeFinal} ·{' '}
+                        Resultado: {resumen.ultimoDiagnostico.resultadoFinal}
+                      </small>
+                      <small>
+                        Fecha: {formatearFecha(resumen.ultimoDiagnostico.createdAt)}
+                      </small>
+                    </div>
+                  ) : (
+                    <p className="dashboard-empty">
+                      Aún no tienes diagnósticos registrados.
+                    </p>
+                  )}
+                </article>
+              </section>
+            </>
+          )}
+
+          {resumen.alcance === 'administrativo' && (
+            <>
+              <section className="dashboard-actions-strip">
+                <button
+                  className="primary-button"
+                  type="button"
+                  onClick={() => navigate('/reportes')}
+                >
+                  Generar reporte de recursos
+                </button>
+                <button
+                  className="secondary-button"
+                  type="button"
+                  onClick={exportarAuditoria}
+                  disabled={descargandoAuditoria}
+                >
+                  {descargandoAuditoria
+                    ? 'Exportando auditoría...'
+                    : 'Exportar auditoría en Excel'}
+                </button>
+              </section>
+
+              <section className="dashboard-grid two">
+                <TablaLogs logs={resumen.logsRecientes} />
+
+                <article className="dashboard-panel">
+                  <header>
+                    <h3>Recursos publicados vs borradores por categoría</h3>
+                  </header>
+                  <div className="dashboard-table-wrap">
+                    <table className="dashboard-table">
+                      <thead>
+                        <tr>
+                          <th>Categoría</th>
+                          <th>Publicados</th>
+                          <th>Borradores</th>
+                          <th>Total</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {(resumen.recursosPublicadosVsBorradores || []).length === 0 ? (
+                          <tr>
+                            <td colSpan={4}>No hay recursos para mostrar.</td>
+                          </tr>
+                        ) : (
+                          resumen.recursosPublicadosVsBorradores?.map((item) => (
+                            <tr key={item.id}>
+                              <td>{item.nombre}</td>
+                              <td>{formatearNumero(item.publicados)}</td>
+                              <td>{formatearNumero(item.borradores)}</td>
+                              <td>{formatearNumero(item.total)}</td>
+                            </tr>
+                          ))
+                        )}
+                      </tbody>
+                    </table>
+                  </div>
+                </article>
+              </section>
+            </>
+          )}
+        </>
+      )}
+
+      {!cargandoResumen && !errorResumen && !resumen && (
+        <article className="dashboard-panel">
+          <p className="dashboard-empty">No hay datos disponibles para este panel.</p>
+        </article>
+      )}
     </section>
   );
 }
