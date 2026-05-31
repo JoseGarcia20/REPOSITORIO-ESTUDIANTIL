@@ -1,5 +1,45 @@
 @import '../instituciones/instituciones.css';
 
+.usuarios-submodulos {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.usuarios-submodulo-link {
+  border: 1px solid var(--border-soft);
+  border-radius: 8px;
+  background: var(--surface-card);
+  text-decoration: none;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.usuarios-submodulo-link strong {
+  color: var(--text-primary);
+  font-size: 14px;
+}
+
+.usuarios-submodulo-link small {
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.usuarios-submodulo-link:hover {
+  border-color: var(--brand-primary);
+  background: var(--surface-accent);
+}
+
+.usuarios-submodulo-link.active {
+  border-color: var(--brand-primary);
+  background: var(--surface-accent);
+  box-shadow: inset 0 0 0 1px var(--focus-ring);
+}
+
 .readonly-note {
   color: var(--text-muted);
   font-size: 13px;
@@ -13,4 +53,10 @@
 
 .user-name-cell small {
   color: var(--text-muted);
+}
+
+@media (max-width: 980px) {
+  .usuarios-submodulos {
+    grid-template-columns: 1fr;
+  }
 }

@@ -433,6 +433,7 @@ export type ConsultaPaginada = {
   estado?: string;
   institucionId?: number | string;
   rolId?: number | string;
+  rolIds?: number | string;
   categoriaId?: number | string;
   categoriaIds?: number | string;
   tipoRecursoId?: number | string;

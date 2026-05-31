@@ -74,7 +74,16 @@ export class UsuarioService {
       where.institucionId = Number(query.institucionId);
     }
 
-    if (query.rolId) {
+    if (query.rolIds) {
+      const rolIds = query.rolIds
+        .split(',')
+        .map((valor) => Number(valor.trim()))
+        .filter((valor) => Number.isInteger(valor) && valor > 0);
+
+      if (rolIds.length > 0) {
+        where.rolId = { in: rolIds };
+      }
+    } else if (query.rolId) {
       where.rolId = Number(query.rolId);
     }
 

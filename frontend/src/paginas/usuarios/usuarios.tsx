@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import type { ChangeEvent, FormEvent } from 'react';
+import { NavLink, useNavigate, useParams } from 'react-router-dom';
 import {
   actualizarUsuarioAdmin,
   crearUsuarioAdmin,
@@ -36,6 +37,68 @@ type FormularioUsuario = {
   gradoEscolarId: string;
 };
 
+type SubmoduloUsuarios = 'estudiantes' | 'docentes' | 'administrativos';
+
+type ConfiguracionSubmoduloUsuarios = {
+  id: SubmoduloUsuarios;
+  titulo: string;
+  descripcion: string;
+};
+
+const SUBMODULO_USUARIOS_POR_DEFECTO: SubmoduloUsuarios = 'estudiantes';
+
+const SUBMODULOS_USUARIOS: ConfiguracionSubmoduloUsuarios[] = [
+  {
+    id: 'estudiantes',
+    titulo: 'Estudiantes',
+    descripcion: 'Gestión de cuentas estudiantiles.',
+  },
+  {
+    id: 'docentes',
+    titulo: 'Docentes',
+    descripcion: 'Gestión de cuentas docentes.',
+  },
+  {
+    id: 'administrativos',
+    titulo: 'Usuarios administrativos',
+    descripcion: 'Administradores, superadministradores y apoyo administrativo.',
+  },
+];
+
+function esSubmoduloUsuarios(valor?: string): valor is SubmoduloUsuarios {
+  return (
+    valor === 'estudiantes' ||
+    valor === 'docentes' ||
+    valor === 'administrativos'
+  );
+}
+
+function normalizarTextoRol(valor: string): string {
+  return valor
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .trim();
+}
+
+function obtenerSubmoduloPorRol(nombreRol: string): SubmoduloUsuarios | null {
+  const rol = normalizarTextoRol(nombreRol);
+
+  if (rol.includes('estudiante')) {
+    return 'estudiantes';
+  }
+
+  if (rol.includes('docente')) {
+    return 'docentes';
+  }
+
+  if (rol.includes('administrador') || rol.includes('administrativo')) {
+    return 'administrativos';
+  }
+
+  return null;
+}
+
 function normalizarFecha(valor?: string): string {
   return valor ? valor.slice(0, 10) : '';
 }
@@ -60,6 +123,8 @@ function crearFormularioInicial(
 }
 
 export function Usuarios() {
+  const navigate = useNavigate();
+  const { submodulo } = useParams<{ submodulo?: string }>();
   const usuarioSesion = obtenerUsuarioAutenticado();
   const esSuper = esSuperadministrador();
   const institucionSesionId = usuarioSesion?.institucion?.id;
@@ -69,6 +134,12 @@ export function Usuarios() {
     PERMISOS.USUARIOS_CAMBIAR_ESTADO,
   );
   const tieneAcciones = puedeEditar || puedeCambiarEstado;
+  const submoduloActivo = esSubmoduloUsuarios(submodulo)
+    ? submodulo
+    : SUBMODULO_USUARIOS_POR_DEFECTO;
+  const configuracionSubmodulo =
+    SUBMODULOS_USUARIOS.find((item) => item.id === submoduloActivo) ||
+    SUBMODULOS_USUARIOS[0];
 
   const [usuarios, setUsuarios] = useState<UsuarioAdmin[]>([]);
   const [roles, setRoles] = useState<Rol[]>([]);
@@ -83,7 +154,6 @@ export function Usuarios() {
   const [filtros, setFiltros] = useState({
     busqueda: '',
     estado: '',
-    rolId: '',
     gradoEscolarId: '',
     institucionId: '',
   });
@@ -114,9 +184,46 @@ export function Usuarios() {
     [gradosEscolares],
   );
 
+  const rolesAgrupados = useMemo<
+    Record<SubmoduloUsuarios, Rol[]>
+  >(() => {
+    const agrupados: Record<SubmoduloUsuarios, Rol[]> = {
+      estudiantes: [],
+      docentes: [],
+      administrativos: [],
+    };
+
+    roles.forEach((rol) => {
+      const submoduloRol = obtenerSubmoduloPorRol(rol.nombre);
+      if (submoduloRol) {
+        agrupados[submoduloRol].push(rol);
+      }
+    });
+
+    return agrupados;
+  }, [roles]);
+
+  const rolesSubmodulo = rolesAgrupados[submoduloActivo];
+  const rolIdsSubmodulo = useMemo(
+    () => rolesSubmodulo.map((rol) => rol.id).join(','),
+    [rolesSubmodulo],
+  );
+
   useEffect(() => {
     cargarCatalogos();
   }, []);
+
+  useEffect(() => {
+    if (!esSubmoduloUsuarios(submodulo)) {
+      navigate(`/admin/usuarios/${SUBMODULO_USUARIOS_POR_DEFECTO}`, {
+        replace: true,
+      });
+    }
+  }, [navigate, submodulo]);
+
+  useEffect(() => {
+    setPagina(1);
+  }, [submoduloActivo]);
 
   useEffect(() => {
     cargarUsuarios();
@@ -124,8 +231,9 @@ export function Usuarios() {
     pagina,
     filtros.busqueda,
     filtros.estado,
-    filtros.rolId,
+    filtros.gradoEscolarId,
     filtros.institucionId,
+    rolIdsSubmodulo,
   ]);
 
   async function cargarCatalogos() {
@@ -152,12 +260,19 @@ export function Usuarios() {
       setCargando(true);
       setError('');
 
+      if (!rolIdsSubmodulo) {
+        setUsuarios([]);
+        setTotal(0);
+        setTotalPaginas(1);
+        return;
+      }
+
       const usuariosData = await obtenerUsuariosAdmin({
         pagina,
         limite: 10,
         busqueda: filtros.busqueda,
         estado: filtros.estado,
-        rolId: filtros.rolId,
+        rolIds: rolIdsSubmodulo,
         gradoEscolarId: filtros.gradoEscolarId,
         institucionId: esSuper ? filtros.institucionId : undefined,
       });
@@ -175,7 +290,11 @@ export function Usuarios() {
   function abrirModal() {
     setModoEdicion(false);
     setUsuarioEditandoId(null);
-    setFormulario(crearFormularioInicial(esSuper, institucionSesionId));
+    const rolPredeterminado = rolesSubmodulo[0];
+    setFormulario({
+      ...crearFormularioInicial(esSuper, institucionSesionId),
+      rolId: rolPredeterminado ? String(rolPredeterminado.id) : '',
+    });
     setModalAbierto(true);
   }
 
@@ -191,7 +310,6 @@ export function Usuarios() {
     setFiltros({
       busqueda: '',
       estado: '',
-      rolId: '',
       gradoEscolarId: '',
       institucionId: '',
     });
@@ -307,8 +425,8 @@ export function Usuarios() {
       <div className="instituciones-header">
         <div>
           <span className="section-label">Administración</span>
-          <h1>Usuarios</h1>
-          <p>Gestiona las cuentas vinculadas a las instituciones educativas.</p>
+          <h1>Usuarios · {configuracionSubmodulo.titulo}</h1>
+          <p>{configuracionSubmodulo.descripcion}</p>
         </div>
 
         {puedeCrear && (
@@ -316,6 +434,21 @@ export function Usuarios() {
             + Nuevo usuario
           </button>
         )}
+      </div>
+
+      <div className="usuarios-submodulos">
+        {SUBMODULOS_USUARIOS.map((item) => (
+          <NavLink
+            key={item.id}
+            to={`/admin/usuarios/${item.id}`}
+            className={({ isActive }) =>
+              `usuarios-submodulo-link ${isActive ? 'active' : ''}`
+            }
+          >
+            <strong>{item.titulo}</strong>
+            <small>{item.descripcion}</small>
+          </NavLink>
+        ))}
       </div>
 
       <div className="instituciones-card">
@@ -331,15 +464,6 @@ export function Usuarios() {
             <option value="">Todos los estados</option>
             <option value="true">Activos</option>
             <option value="false">Inactivos</option>
-          </select>
-
-          <select name="rolId" value={filtros.rolId} onChange={manejarFiltro}>
-            <option value="">Todos los roles</option>
-            {roles.map((rol) => (
-              <option key={rol.id} value={rol.id}>
-                {rol.nombre}
-              </option>
-            ))}
           </select>
 
           <select
@@ -470,7 +594,7 @@ export function Usuarios() {
                       colSpan={tieneAcciones ? 7 : 6}
                       className="empty-table"
                     >
-                      No hay usuarios registrados.
+                      No hay {configuracionSubmodulo.titulo.toLowerCase()} registrados.
                     </td>
                   </tr>
                 )}
@@ -612,9 +736,14 @@ export function Usuarios() {
                     value={formulario.rolId}
                     onChange={manejarCambio}
                     required
+                    disabled={rolesSubmodulo.length === 0}
                   >
-                    <option value="">Selecciona un rol</option>
-                    {roles.map((rol) => (
+                    <option value="">
+                      {rolesSubmodulo.length === 0
+                        ? 'No hay roles disponibles'
+                        : 'Selecciona un rol'}
+                    </option>
+                    {rolesSubmodulo.map((rol) => (
                       <option key={rol.id} value={rol.id}>
                         {rol.nombre}
                       </option>

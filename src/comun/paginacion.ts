@@ -5,6 +5,7 @@ export type ConsultaPaginada = {
   estado?: string;
   institucionId?: string;
   rolId?: string;
+  rolIds?: string;
   categoriaId?: string;
   tipoRecursoId?: string;
   tipoArchivo?: string;

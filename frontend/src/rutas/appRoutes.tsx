@@ -73,6 +73,17 @@ export function AppRoutes() {
                 permiso={PERMISOS.USUARIOS_VER}
                 rolesBloqueados={['docente']}
               >
+                <Navigate to="/admin/usuarios/estudiantes" replace />
+              </RutaProtegidaPorPermiso>
+            }
+          />
+          <Route
+            path="/admin/usuarios/:submodulo"
+            element={
+              <RutaProtegidaPorPermiso
+                permiso={PERMISOS.USUARIOS_VER}
+                rolesBloqueados={['docente']}
+              >
                 <Usuarios />
               </RutaProtegidaPorPermiso>
             }

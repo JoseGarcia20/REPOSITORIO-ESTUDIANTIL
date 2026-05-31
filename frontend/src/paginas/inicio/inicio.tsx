@@ -122,7 +122,7 @@ export function Inicio() {
   const accesosVisibles = accesos.filter(
     (acceso) =>
       usuarioTienePermiso(acceso.permiso) &&
-      !(esDocente && acceso.ruta === '/admin/usuarios'),
+      !(esDocente && acceso.ruta.startsWith('/admin/usuarios')),
   );
 
   return (
