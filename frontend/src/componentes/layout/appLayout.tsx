@@ -4,6 +4,8 @@ import { PERMISOS, usuarioTienePermiso } from '../../api/adminApi';
 import { ChatbotWidget } from '../chatbot/chatbotWidget';
 import './appLayout.css';
 
+const APP_LOGO_SRC = '/logo-solo.png';
+
 type MenuItem = {
   titulo: string;
   ruta?: string;
@@ -174,7 +176,9 @@ export function AppLayout() {
 
       <aside className={`sidebar ${menuAbierto ? 'sidebar-open' : ''}`}>
         <div className="sidebar-header">
-          <div className="sidebar-logo">AI</div>
+          <div className="sidebar-logo">
+            <img src={APP_LOGO_SRC} alt="NEXORA AI" />
+          </div>
 
           <div className="sidebar-user-info">
             <h3>{usuario?.institucion?.nombre || 'Institución'}</h3>

@@ -2,6 +2,8 @@ import { useState } from 'react';
 import './dashboard.css';
 import { Instituciones } from '../instituciones/instituciones';
 
+const APP_LOGO_SRC = '/logo-solo.png';
+
 export function Dashboard() {
   const [menuAbierto, setMenuAbierto] = useState(
     window.innerWidth > 900,
@@ -53,7 +55,9 @@ export function Dashboard() {
 
       <aside className={`sidebar ${menuAbierto ? 'sidebar-open' : ''}`}>
         <div className="sidebar-header">
-          <div className="sidebar-logo">AI</div>
+          <div className="sidebar-logo">
+            <img src={APP_LOGO_SRC} alt="NEXORA AI" />
+          </div>
 
           <div className="sidebar-user-info">
             <h3>{usuario?.institucion?.nombre || 'Institución'}</h3>
@@ -123,7 +127,7 @@ export function Dashboard() {
 
             <h1>
               {usuario?.institucion?.nombre ||
-                'Plataforma Estudiantil'}
+                'NEXORA AI'}
             </h1>
 
             <p>

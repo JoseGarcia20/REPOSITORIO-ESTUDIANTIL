@@ -1,8 +1,8 @@
 .recommended-resources {
   background: #ffffff;
-  border: 1px solid #e5eaf5;
+  border: 1px solid var(--border-soft);
   border-radius: 18px;
-  box-shadow: 0 16px 38px rgba(38, 50, 77, 0.08);
+  box-shadow: 0 16px 38px var(--shadow-soft);
   display: grid;
   gap: 14px;
   padding: 18px;
@@ -21,7 +21,7 @@
 }
 
 .recommended-header h2 {
-  color: #1f2a44;
+  color: var(--text-primary);
   font-size: 22px;
   line-height: 1.15;
   margin: 6px 0 6px;
@@ -29,13 +29,13 @@
 
 .recommended-header p,
 .recommended-state {
-  color: #7b8499;
+  color: var(--text-muted);
   line-height: 1.45;
   margin: 0;
 }
 
 .recommended-state.error {
-  color: #c24141;
+  color: var(--status-danger);
 }
 
 .recommended-list {
@@ -45,10 +45,10 @@
 }
 
 .recommended-card {
-  background: #f8faff;
-  border: 1px solid #e5eaf5;
+  background: var(--surface-muted);
+  border: 1px solid var(--border-soft);
   border-radius: 14px;
-  color: #273653;
+  color: var(--text-secondary);
   display: grid;
   gap: 6px;
   min-width: 0;
@@ -57,12 +57,12 @@
 }
 
 .recommended-card:hover {
-  background: #eef3ff;
-  border-color: #bdcafe;
+  background: var(--surface-accent);
+  border-color: var(--surface-accent);
 }
 
 .recommended-card span {
-  color: #5277f4;
+  color: var(--brand-primary);
   font-size: 11px;
   font-weight: 900;
   text-transform: uppercase;
@@ -76,13 +76,13 @@
 
 .recommended-card small,
 .recommended-card em {
-  color: #7b8499;
+  color: var(--text-muted);
   font-size: 12px;
   line-height: 1.35;
 }
 
 .recommended-card em {
-  color: #56627a;
+  color: var(--text-secondary);
   font-style: normal;
   font-weight: 800;
 }
@@ -95,10 +95,10 @@
 }
 
 .recommended-actions button {
-  border: 1px solid #dbe4f6;
+  border: 1px solid var(--border-soft);
   background: #ffffff;
   border-radius: 10px;
-  color: #33405f;
+  color: var(--text-secondary);
   cursor: pointer;
   font-size: 12px;
   font-weight: 900;
@@ -107,19 +107,19 @@
 }
 
 .recommended-actions button:hover {
-  background: #eef3ff;
-  border-color: #bdcafe;
+  background: var(--surface-accent);
+  border-color: var(--surface-accent);
 }
 
 .recommended-actions .recommended-primary-action {
-  background: #5277f4;
-  border-color: #5277f4;
+  background: var(--brand-primary);
+  border-color: var(--brand-primary);
   color: #ffffff;
 }
 
 .recommended-actions .recommended-primary-action:hover {
-  background: #3d63dd;
-  border-color: #3d63dd;
+  background: var(--brand-deep);
+  border-color: var(--brand-deep);
 }
 
 @media (max-width: 720px) {

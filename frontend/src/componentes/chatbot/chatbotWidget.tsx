@@ -9,6 +9,8 @@ import {
 import type { RecursoAsistente } from '../../api/adminApi';
 import './chatbotWidget.css';
 
+const APP_LOGO_SRC = '/logo-solo.png';
+
 type MensajeChat = {
   id: number;
   tipo: 'usuario' | 'asistente';
@@ -153,7 +155,7 @@ export function ChatbotWidget() {
         onClick={() => setAbierto((prev) => !prev)}
         aria-label="Abrir asistente académico"
       >
-        AI
+        <img src={APP_LOGO_SRC} alt="NEXORA AI" />
       </button>
     </div>
   );

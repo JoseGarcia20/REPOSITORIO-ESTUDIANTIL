@@ -1,0 +1,53 @@
+:root {
+  --brand-deep: #070738;
+  --brand-primary: #111184;
+  --brand-primary-hover: #1d1da3;
+  --brand-soft: #2b2d5e;
+  --surface-app: #f1f2f7;
+  --surface-card: #ffffff;
+  --surface-muted: #eceef5;
+  --surface-accent: #e4e7f3;
+  --surface-soft: #f8fafc;
+  --border-soft: #d3d3d3;
+  --text-primary: #070738;
+  --text-secondary: #2b2d5e;
+  --text-muted: #63658a;
+  --text-disabled: #a7abbe;
+  --status-danger: #c24141;
+  --status-danger-strong: #b42318;
+  --status-danger-bg: #fff0f0;
+  --status-danger-bg-soft: #fff5f3;
+  --status-danger-border: #f5b5ae;
+  --status-danger-soft: #ffd6d6;
+  --status-success: #168a55;
+  --status-success-strong: #176b45;
+  --status-success-bg: #e9f8f1;
+  --status-success-bg-soft: #eefaf4;
+  --status-success-border: #a8e7c7;
+  --status-warning: #8a6100;
+  --status-warning-strong: #6c4a1f;
+  --status-warning-bg: #fff9df;
+  --status-warning-bg-soft: #fff8ed;
+  --status-warning-border: #f5d36f;
+  --status-warning-accent: #d98d2b;
+  --focus-ring: rgba(17, 17, 132, 0.16);
+  --shadow-soft: rgba(7, 7, 56, 0.09);
+  --shadow-strong: rgba(7, 7, 56, 0.24);
+  --overlay-soft: rgba(7, 7, 56, 0.34);
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--surface-app);
+  color: var(--text-primary);
+}
+
+a {
+  color: var(--brand-primary);
+}

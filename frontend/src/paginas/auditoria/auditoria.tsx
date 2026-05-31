@@ -13,6 +13,8 @@ import type {
 } from '../../api/adminApi';
 import './auditoria.css';
 
+const APP_LOGO_SRC = '/logo-solo.png';
+
 const entidadesDisponibles: { valor: EntidadAuditoria; etiqueta: string }[] = [
   { valor: '', etiqueta: 'Todas las entidades' },
   { valor: 'recurso', etiqueta: 'Recursos' },
@@ -318,18 +320,21 @@ export function Auditoria() {
         </div>
 
         <header className="report-document-header">
-          <div className="report-logo">
-            {usuario?.institucion?.logo ? (
-              <img
-                src={`${API_URL}${usuario.institucion.logo}`}
-                alt={usuario.institucion.nombre}
-              />
-            ) : (
-              <span>AI</span>
+          <div className="report-logos">
+            <div className="report-logo">
+              <img src={APP_LOGO_SRC} alt="NEXORA AI" />
+            </div>
+            {usuario?.institucion?.logo && (
+              <div className="report-logo">
+                <img
+                  src={`${API_URL}${usuario.institucion.logo}`}
+                  alt={usuario.institucion.nombre}
+                />
+              </div>
             )}
           </div>
           <div>
-            <span>{usuario?.institucion?.nombre || 'Plataforma Estudiantil'}</span>
+            <span>{usuario?.institucion?.nombre || 'NEXORA AI'}</span>
             <h2>Auditoría del Sistema</h2>
             <p>
               Registro de acciones realizadas en la plataforma · {entidadFiltro ? etiquetarEntidad(entidadFiltro) : 'Todas las entidades'}
@@ -394,7 +399,7 @@ export function Auditoria() {
         </div>
 
         <footer className="report-footer">
-          Documento generado por Plataforma Estudiantil.
+          Documento generado por NEXORA AI.
         </footer>
       </article>
     </section>

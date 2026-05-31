@@ -27,7 +27,7 @@ function crearFormularioInicial(
   return {
     nombre: '',
     descripcion: '',
-    color: '#5277f4',
+    color: '#111184',
     institucionId: esSuper ? '' : String(institucionSesionId || ''),
   };
 }
@@ -101,7 +101,7 @@ export function Categorias() {
     setFormulario({
       nombre: categoria.nombre,
       descripcion: categoria.descripcion,
-      color: categoria.color || '#5277f4',
+      color: categoria.color || '#111184',
       institucionId: String(categoria.institucionId),
     });
     setModalAbierto(true);
@@ -215,7 +215,7 @@ export function Categorias() {
                       <span className="color-cell">
                         <span
                           className="color-swatch"
-                          style={{ backgroundColor: categoria.color || '#eef3ff' }}
+                          style={{ backgroundColor: categoria.color || '#e4e7f3' }}
                         />
                         {categoria.color || 'Sin color'}
                       </span>

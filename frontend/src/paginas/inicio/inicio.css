@@ -9,9 +9,9 @@
 
 .inicio-hero {
   background: #ffffff;
-  border: 1px solid #e5eaf5;
+  border: 1px solid var(--border-soft);
   border-radius: 24px;
-  box-shadow: 0 20px 50px rgba(38, 50, 77, 0.08);
+  box-shadow: 0 20px 50px var(--shadow-soft);
   padding: 28px;
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) minmax(220px, 0.28fr);
@@ -23,8 +23,8 @@
   width: 112px;
   height: 112px;
   border-radius: 24px;
-  background: #f8faff;
-  border: 1px solid #e5eaf5;
+  background: var(--surface-muted);
+  border: 1px solid var(--border-soft);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -39,27 +39,27 @@
 }
 
 .inicio-logo span {
-  color: #5277f4;
+  color: var(--brand-primary);
   font-size: 42px;
   font-weight: 900;
 }
 
 .inicio-heading h1 {
   margin: 6px 0 10px;
-  color: #1f2a44;
+  color: var(--text-primary);
   font-size: 36px;
   line-height: 1.08;
 }
 
 .inicio-heading p {
   margin: 0;
-  color: #6c7892;
+  color: var(--text-muted);
   font-size: 16px;
 }
 
 .inicio-role-card {
-  background: #f8faff;
-  border: 1px solid #e5eaf5;
+  background: var(--surface-muted);
+  border: 1px solid var(--border-soft);
   border-radius: 18px;
   padding: 18px;
   display: flex;
@@ -70,13 +70,13 @@
 .inicio-role-card span,
 .inicio-role-card small,
 .inicio-module span {
-  color: #7b8499;
+  color: var(--text-muted);
   font-size: 13px;
   font-weight: 700;
 }
 
 .inicio-role-card strong {
-  color: #273653;
+  color: var(--text-secondary);
   font-size: 20px;
   text-transform: capitalize;
 }
@@ -90,9 +90,9 @@
 .inicio-module {
   min-height: 176px;
   background: #ffffff;
-  border: 1px solid #e5eaf5;
+  border: 1px solid var(--border-soft);
   border-radius: 18px;
-  box-shadow: 0 14px 34px rgba(38, 50, 77, 0.07);
+  box-shadow: 0 14px 34px var(--shadow-soft);
   padding: 20px;
   text-decoration: none;
   display: flex;
@@ -106,19 +106,19 @@
 
 .inicio-module:hover {
   transform: translateY(-2px);
-  border-color: #bdcafe;
-  box-shadow: 0 18px 42px rgba(38, 50, 77, 0.1);
+  border-color: var(--surface-accent);
+  box-shadow: 0 18px 42px rgba(7, 7, 56, 0.12);
 }
 
 .inicio-module h2 {
   margin: 12px 0 8px;
-  color: #273653;
+  color: var(--text-secondary);
   font-size: 20px;
 }
 
 .inicio-module p {
   margin: 0;
-  color: #6c7892;
+  color: var(--text-muted);
   line-height: 1.45;
   font-size: 14px;
 }

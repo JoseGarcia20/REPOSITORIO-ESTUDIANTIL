@@ -3,32 +3,32 @@
 .form-group textarea {
   width: 100%;
   min-height: 104px;
-  border: 1px solid #e1e6f0;
-  background: #f8faff;
+  border: 1px solid var(--border-soft);
+  background: var(--surface-muted);
   padding: 14px 15px;
   border-radius: 12px;
   font-size: 15px;
   outline: none;
-  color: #26324d;
+  color: var(--text-secondary);
   resize: vertical;
 }
 
 .form-group textarea:focus {
-  border-color: #5277f4;
+  border-color: var(--brand-primary);
   background: #ffffff;
-  box-shadow: 0 0 0 4px rgba(82, 119, 244, 0.12);
+  box-shadow: 0 0 0 4px var(--focus-ring);
 }
 
 .checkbox-field {
   min-height: 49px;
-  border: 1px solid #e1e6f0;
-  background: #f8faff;
+  border: 1px solid var(--border-soft);
+  background: var(--surface-muted);
   border-radius: 12px;
   padding: 12px 14px;
   display: flex;
   align-items: center;
   gap: 10px;
-  color: #3d4864;
+  color: var(--text-secondary);
   font-weight: 700;
 }
 
@@ -40,13 +40,13 @@
 .file-state,
 .file-link,
 .form-helper {
-  color: #5277f4;
+  color: var(--brand-primary);
   font-size: 13px;
   font-weight: 700;
 }
 
 .form-helper {
-  color: #7b8499;
+  color: var(--text-muted);
   line-height: 1.4;
 }
 
@@ -65,5 +65,5 @@
 }
 
 .resource-source small {
-  color: #7b8499;
+  color: var(--text-muted);
 }

@@ -15,6 +15,8 @@ import type {
 } from '../../api/adminApi';
 import './reportes.css';
 
+const APP_LOGO_SRC = '/logo-solo.png';
+
 type ReporteDisponible = {
   id: TipoReporte;
   titulo: string;
@@ -173,7 +175,7 @@ export function Reportes() {
     window.print();
   }
 
-  function renderLogo(reporteGenerado: ReporteGenerado) {
+  function renderLogoInstitucion(reporteGenerado: ReporteGenerado) {
     const logo = reporteGenerado.encabezado.logo;
 
     if (logo) {
@@ -185,8 +187,10 @@ export function Reportes() {
       );
     }
 
-    return <span>AI</span>;
+    return null;
   }
+
+  const logoInstitucional = reporte ? renderLogoInstitucion(reporte) : null;
 
   return (
     <section className="reportes-page">
@@ -376,7 +380,7 @@ export function Reportes() {
             <span>
               Emisor:{' '}
               {esSuper && !formulario.institucionId
-                ? 'Plataforma Estudiantil'
+                ? 'NEXORA AI'
                 : usuario?.institucion?.nombre || 'Institución'}
             </span>
             <button
@@ -401,7 +405,12 @@ export function Reportes() {
           </div>
 
           <header className="report-document-header">
-            <div className="report-logo">{renderLogo(reporte)}</div>
+            <div className="report-logos">
+              <div className="report-logo">
+                <img src={APP_LOGO_SRC} alt="NEXORA AI" />
+              </div>
+              {logoInstitucional && <div className="report-logo">{logoInstitucional}</div>}
+            </div>
             <div>
               <span>{reporte.encabezado.nombreEmisor}</span>
               <h2>{reporte.titulo}</h2>
@@ -500,7 +509,7 @@ export function Reportes() {
           )}
 
           <footer className="report-footer">
-            Documento generado por Plataforma Estudiantil.
+            Documento generado por NEXORA AI.
           </footer>
         </article>
       )}

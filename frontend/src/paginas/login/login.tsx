@@ -3,6 +3,8 @@ import { obtenerInstituciones } from '../../api/api';
 import { login } from '../../api/api';
 import './login.css';
 
+const APP_LOGO_SRC = '/logo-solo.png';
+
 type Institucion = {
   id: number;
   nombre: string;
@@ -55,19 +57,19 @@ export function Login() {
           <div className="hero-decoration circle-two"></div>
 
           <div className="hero-content">
-            <h1>Tu aprendizaje empieza aquí</h1>
+            <h1>NEXORA AI: Donde el conocimiento se conecta</h1>
             <p>
-              Accede a recursos académicos, rutas de aprendizaje y herramientas inteligentes.
+              Explora recursos, comparte conocimiento y aprende con el apoyo de inteligencia artificial.
             </p>
           </div>
         </div>
 
         <div className="login-form-container">
           <div className="login-logo">
-            <span>AI</span>
+            <img src={APP_LOGO_SRC} alt="NEXORA AI" />
           </div>
 
-          <h2>Bienvenido de nuevo</h2>
+          <h2>Bienvenido a NEXORA AI</h2>
           <p className="login-subtitle">Ingresa a tu institución educativa</p>
 
           <form className="login-form" onSubmit={manejarSubmit}>
