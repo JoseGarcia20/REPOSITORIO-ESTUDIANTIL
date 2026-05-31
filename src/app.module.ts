@@ -22,6 +22,7 @@ import { RecomendacionesModule } from './modulos/recomendaciones/recomendaciones
 import { ReportesModule } from './modulos/reportes/reportes.module';
 import { PreparadorIaModule } from './modulos/preparadorIa/preparador-ia.module';
 import { AuditoriaModule } from './modulos/auditoria/auditoria.module';
+import { DashboardModule } from './modulos/dashboard/dashboard.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 
@@ -55,6 +56,7 @@ import { join } from 'path';
     DetalleRutaAprendizajeModule,
     DetalleDiagnosticoAprendizajeModule,
     AuditoriaModule,
+    DashboardModule,
   ],
 
   controllers: [],

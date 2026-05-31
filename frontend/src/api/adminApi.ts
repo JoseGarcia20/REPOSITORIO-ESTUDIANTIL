@@ -482,6 +482,80 @@ export type RespuestaRecomendacionesRecursos = {
   recursos: RecursoAsistente[];
 };
 
+export type DashboardKpi = {
+  key: string;
+  label: string;
+  value: number;
+  detail?: string;
+};
+
+export type DashboardLogReciente = {
+  id: string;
+  entidad: string;
+  accion: string;
+  createdAt: string;
+  usuario: string;
+  institucion: string;
+  detalle: string;
+};
+
+export type DashboardInstitucionResumen = {
+  institucionId: number;
+  nombre: string;
+  usuarios: number;
+  recursos: number;
+  actividad: number;
+};
+
+export type DashboardDistribucionGlobal = {
+  superadministrador: number;
+  administrador: number;
+  docente: number;
+  estudiante: number;
+  usuarioAdministrativo: number;
+};
+
+export type DashboardDistribucionInstitucion = {
+  estudiantes: number;
+  docentes: number;
+  administrativos: number;
+};
+
+export type DashboardSerie = {
+  id: number;
+  nombre: string;
+  total: number;
+};
+
+export type DashboardForoReciente = {
+  id: number;
+  titulo: string;
+  createdAt: string;
+  publico: boolean;
+  cerrado: boolean;
+  comentarios: number;
+  autor: string;
+};
+
+export type ResumenDashboard = {
+  alcance: 'global' | 'institucion';
+  institucion?: {
+    id: number;
+    nombre: string;
+  };
+  kpis: DashboardKpi[];
+  distribucionUsuarios:
+    | DashboardDistribucionGlobal
+    | DashboardDistribucionInstitucion;
+  usuariosPorInstitucion?: DashboardInstitucionResumen[];
+  institucionesSinActividad?: DashboardInstitucionResumen[];
+  institucionesConMasActividad?: DashboardInstitucionResumen[];
+  recursosPorCategoria?: DashboardSerie[];
+  recursosPorGrado?: DashboardSerie[];
+  forosRecientes?: DashboardForoReciente[];
+  logsRecientes: DashboardLogReciente[];
+};
+
 export type TipoReporte =
   | 'recursos-institucion'
   | 'trabajos-colaborativos'
@@ -1148,6 +1222,13 @@ export function obtenerCatalogosReportes() {
   return get<CatalogosReportes>(
     '/reportes/catalogos',
     'Error al obtener catálogos de reportes',
+  );
+}
+
+export function obtenerResumenDashboard() {
+  return get<ResumenDashboard>(
+    '/dashboard/resumen',
+    'Error al obtener resumen del dashboard',
   );
 }
 
