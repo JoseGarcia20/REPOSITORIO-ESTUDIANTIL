@@ -2,6 +2,15 @@ import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from '../../../baseDatos/prisma/prisma.service';
 
+function ipV4(ip: string | undefined): string | null {
+  if (!ip) return null;
+  if (ip === '::1' || ip === '::ffff:127.0.0.1') return '127.0.0.1';
+  const match = /^::ffff:(\d+\.\d+\.\d+\.\d+)$/.exec(ip);
+  if (match) return match[1];
+  if (ip.includes(':')) return null;
+  return ip;
+}
+
 @Injectable()
 export class JwtAuthGuard implements CanActivate {
   constructor(
@@ -58,6 +67,7 @@ export class JwtAuthGuard implements CanActivate {
         institucionId: usuario.institucionId,
         gradoEscolarId: usuario.gradoEscolarId,
         permisos: usuario.rol.permisos.map((item) => item.permiso.codigo),
+        ip: ipV4(request.ip),
       };
       return true;
     } catch (error) {

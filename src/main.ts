@@ -3,9 +3,15 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 
+// Prisma BigInt fields (e.g. auditoria_logs.id) cannot be serialized to JSON by default.
+(BigInt.prototype as any).toJSON = function () {
+  return this.toString();
+};
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors(); //Habilita CORS para permitir solicitudes desde otros dominios (REACT)
+  app.getHttpAdapter().getInstance().set('trust proxy', true);
 
   //Habilita la validacion global de los DTOs utilizando class-validator
   app.useGlobalPipes(

@@ -19,6 +19,7 @@ import {
   validarPermiso,
 } from '../../auth/utils/roles.util';
 import { RecursoService } from '../../recursos/servicios/recurso.service';
+import { AuditoriaService } from '../../auditoria/servicios/auditoria.service';
 import { CrearProyectoColaborativoDto } from '../dto/crear-proyecto-colaborativo.dto';
 import { CrearActividadColaborativaDto } from '../dto/crear-actividad-colaborativa.dto';
 import { ActualizarEstadoActividadDto } from '../dto/actualizar-estado-actividad.dto';
@@ -31,6 +32,7 @@ export class AulaColaborativaService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly recursoService: RecursoService,
+    private readonly auditoriaService: AuditoriaService,
   ) {}
 
   private readonly rolesProyecto = ['lider', 'investigador', 'expositor'];
@@ -522,7 +524,7 @@ export class AulaColaborativaService {
       }
     }
 
-    return await this.prisma.proyectoColaborativo.create({
+    const proyecto = await this.prisma.proyectoColaborativo.create({
       data: {
         titulo: data.titulo,
         descripcion: data.descripcion,
@@ -540,6 +542,22 @@ export class AulaColaborativaService {
       },
       include: this.includeProyectoDetalle,
     });
+
+    await this.auditoriaService.registrar(
+      {
+        entidad: 'proyecto_colaborativo',
+        entidadId: proyecto.id,
+        accion: 'creado',
+        detalles: {
+          titulo: proyecto.titulo,
+          institucionId: proyecto.institucionId,
+        },
+        institucionId: proyecto.institucionId,
+      },
+      usuarioAuth,
+    );
+
+    return proyecto;
   }
 
   async crearActividad(
@@ -832,6 +850,21 @@ export class AulaColaborativaService {
         },
       });
     });
+
+    await this.auditoriaService.registrar(
+      {
+        entidad: 'proyecto_colaborativo',
+        entidadId: proyectoId,
+        accion: `entrega_${estado}`,
+        detalles: {
+          titulo: proyecto.titulo,
+          calificacion: data.calificacion,
+          institucionId: proyecto.institucionId,
+        },
+        institucionId: proyecto.institucionId,
+      },
+      usuarioAuth,
+    );
 
     return await this.obtenerProyectoConAcceso(proyectoId, usuarioAuth);
   }

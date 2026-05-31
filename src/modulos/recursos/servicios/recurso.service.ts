@@ -11,6 +11,7 @@ import { CrearRecursoDto } from '../dto/crear-recurso.dto';
 import { ActualizarRecursoDto } from '../dto/actualizar-recurso.dto';
 import { GenerarResumenIaRecursoDto } from '../dto/generar-resumen-ia-recurso.dto';
 import { ResumenIaRecursoService } from './resumen-ia-recurso.service';
+import { AuditoriaService } from '../../auditoria/servicios/auditoria.service';
 import {
   PERMISOS,
   tieneAccesoTotal,
@@ -30,6 +31,7 @@ export class RecursoService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly resumenIaRecursoService: ResumenIaRecursoService,
+    private readonly auditoriaService: AuditoriaService,
   ) {}
 
   private readonly limitePalabrasClave = 6;
@@ -693,11 +695,43 @@ export class RecursoService {
 
   async crear(data: CrearRecursoDto, usuarioAuth: any) {
     validarPermiso(usuarioAuth, PERMISOS.RECURSOS_CREAR);
-    return await this.crearClasificado(data, usuarioAuth);
+    const recurso = await this.crearClasificado(data, usuarioAuth);
+
+    await this.auditoriaService.registrar(
+      {
+        entidad: 'recurso',
+        entidadId: recurso.id,
+        accion: 'creado',
+        detalles: {
+          titulo: recurso.titulo,
+          institucionId: recurso.institucionId,
+        },
+        institucionId: recurso.institucionId,
+      },
+      usuarioAuth,
+    );
+
+    return recurso;
   }
 
   async crearDesdeAulaColaborativa(data: CrearRecursoDto, usuarioAuth: any) {
-    return await this.crearClasificado(data, usuarioAuth);
+    const recurso = await this.crearClasificado(data, usuarioAuth);
+
+    await this.auditoriaService.registrar(
+      {
+        entidad: 'recurso',
+        entidadId: recurso.id,
+        accion: 'creado_desde_aula',
+        detalles: {
+          titulo: recurso.titulo,
+          institucionId: recurso.institucionId,
+        },
+        institucionId: recurso.institucionId,
+      },
+      usuarioAuth,
+    );
+
+    return recurso;
   }
 
   async listar(usuarioAuth: any, query: ConsultaPaginada = {}) {
@@ -765,7 +799,7 @@ export class RecursoService {
 
   async actualizar(id: number, data: ActualizarRecursoDto, usuarioAuth: any) {
     validarPermiso(usuarioAuth, PERMISOS.RECURSOS_EDITAR);
-    await this.obtenerPorId(id, usuarioAuth);
+    const recursoAnterior = await this.obtenerPorId(id, usuarioAuth);
 
     const payload = tieneAccesoTotal(usuarioAuth)
       ? data
@@ -788,6 +822,28 @@ export class RecursoService {
         where: { recursoId: id },
       });
     }
+
+    const excludedKeys = ['institucionId', 'usuarioCreadorId'];
+    const camposActualizados = Object.keys(data).filter((key) => {
+      if (excludedKeys.includes(key)) return false;
+      const valorAnterior = (recursoAnterior as any)[key];
+      const valorNuevo = (data as any)[key];
+      return valorNuevo !== undefined && valorAnterior !== valorNuevo;
+    });
+
+    await this.auditoriaService.registrar(
+      {
+        entidad: 'recurso',
+        entidadId: id,
+        accion: 'editado',
+        detalles: {
+          titulo: recursoActualizado.titulo,
+          camposActualizados,
+        },
+        institucionId: recursoActualizado.institucionId,
+      },
+      usuarioAuth,
+    );
 
     return recursoActualizado;
   }
@@ -838,22 +894,48 @@ export class RecursoService {
 
   async inactivar(id: number, usuarioAuth: any) {
     validarPermiso(usuarioAuth, PERMISOS.RECURSOS_CAMBIAR_ESTADO);
-    await this.obtenerPorId(id, usuarioAuth);
-    return await this.prisma.recurso.update({
+    const recurso = await this.obtenerPorId(id, usuarioAuth);
+    const resultado = await this.prisma.recurso.update({
       where: { id },
       data: { estado: false },
       include: this.includeRecursoDetalle,
     });
+
+    await this.auditoriaService.registrar(
+      {
+        entidad: 'recurso',
+        entidadId: id,
+        accion: 'inactivado',
+        detalles: { titulo: recurso.titulo },
+        institucionId: recurso.institucionId,
+      },
+      usuarioAuth,
+    );
+
+    return resultado;
   }
 
   async reactivar(id: number, usuarioAuth: any) {
     validarPermiso(usuarioAuth, PERMISOS.RECURSOS_CAMBIAR_ESTADO);
-    await this.obtenerPorId(id, usuarioAuth);
-    return await this.prisma.recurso.update({
+    const recurso = await this.obtenerPorId(id, usuarioAuth);
+    const resultado = await this.prisma.recurso.update({
       where: { id },
       data: { estado: true },
       include: this.includeRecursoDetalle,
     });
+
+    await this.auditoriaService.registrar(
+      {
+        entidad: 'recurso',
+        entidadId: id,
+        accion: 'reactivado',
+        detalles: { titulo: recurso.titulo },
+        institucionId: recurso.institucionId,
+      },
+      usuarioAuth,
+    );
+
+    return resultado;
   }
 
   async validarSubidaArchivo(usuarioAuth: any, file: Express.Multer.File) {

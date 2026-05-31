@@ -19,6 +19,7 @@ import { Foros } from '../paginas/foros/foros';
 import { GestorRecursos } from '../paginas/repositorio/gestorRecursos';
 import { AulaColaborativa } from '../paginas/aulaColaborativa/aulaColaborativa';
 import { PreparadorIa } from '../paginas/preparadorIa/preparadorIa';
+import { Auditoria } from '../paginas/auditoria/auditoria';
 
 function RutaProtegidaPorPermiso({
   permiso,
@@ -137,6 +138,14 @@ export function AppRoutes() {
             element={
               <RutaProtegidaPorPermiso permiso={PERMISOS.AULA_COLABORATIVA_VER}>
                 <AulaColaborativa />
+              </RutaProtegidaPorPermiso>
+            }
+          />
+          <Route
+            path="/admin/auditoria"
+            element={
+              <RutaProtegidaPorPermiso permiso={PERMISOS.AUDITORIA_VER}>
+                <Auditoria />
               </RutaProtegidaPorPermiso>
             }
           />

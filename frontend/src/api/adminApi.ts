@@ -702,6 +702,7 @@ export const PERMISOS = {
   AULA_COLABORATIVA_REVISAR: 'aula_colaborativa.revisar',
   REPORTES_VER: 'reportes.ver',
   PREPARADOR_IA_USAR: 'preparador_ia.usar',
+  AUDITORIA_VER: 'auditoria.ver',
 } as const;
 
 function obtenerToken(): string {
@@ -1434,4 +1435,60 @@ export function crudUpdate(path: string, id: number, data: any) {
 
 export function crudToggle(path: string, id: number, activar: boolean) {
   return cambiarEstado<any>(path, id, activar ? 'reactivar' : 'inactivar');
+}
+
+export type AuditoriaLogItem = {
+  id: string;
+  entidad: string;
+  entidadId: number | null;
+  accion: string;
+  usuarioId: number;
+  institucionId: number | null;
+  detalles: Record<string, unknown> | null;
+  direccionIp: string | null;
+  createdAt: string;
+  usuario: {
+    id: number;
+    nombres: string;
+    apellidos: string;
+    correo: string;
+  };
+  institucion: {
+    id: number;
+    nombre: string;
+  } | null;
+};
+
+export type EntidadAuditoria =
+  | ''
+  | 'recurso'
+  | 'foro'
+  | 'proyecto_colaborativo'
+  | 'preparador_ia'
+  | 'usuario'
+  | 'institucion';
+
+export function obtenerAuditoriaLogs(query?: ConsultaPaginada & { entidad?: string; entidadId?: string }) {
+  return get<RespuestaPaginada<AuditoriaLogItem>>(
+    conQuery('/auditoria', query),
+    'Error al obtener registros de auditoría',
+  );
+}
+
+export async function descargarExcelAuditoria(query?: { entidad?: string; entidadId?: string }) {
+  const token = obtenerToken();
+  const queryString = construirQueryString(query as ConsultaPaginada);
+  const respuesta = await fetch(`${API_URL}/auditoria/exportar-excel${queryString}`, {
+    headers: token ? { Authorization: `Bearer ${token}` } : {},
+  });
+  if (!respuesta.ok) throw new Error('Error al descargar el archivo Excel');
+  const blob = await respuesta.blob();
+  const url = URL.createObjectURL(blob);
+  const enlace = document.createElement('a');
+  enlace.href = url;
+  enlace.download = `auditoria-${Date.now()}.xlsx`;
+  document.body.appendChild(enlace);
+  enlace.click();
+  document.body.removeChild(enlace);
+  URL.revokeObjectURL(url);
 }

@@ -25,6 +25,7 @@ import {
 } from '../../auth/utils/roles.util';
 import { RecursoService } from '../../recursos/servicios/recurso.service';
 import { ExtractorTextoRecursoService } from '../../recursos/servicios/extractor-texto-recurso.service';
+import { AuditoriaService } from '../../auditoria/servicios/auditoria.service';
 import {
   GenerarMaterialIaDto,
   type ExtensionMaterialIa,
@@ -104,6 +105,7 @@ export class PreparadorIaService {
     private readonly prisma: PrismaService,
     private readonly recursoService: RecursoService,
     private readonly extractorTextoRecurso: ExtractorTextoRecursoService,
+    private readonly auditoriaService: AuditoriaService,
   ) {}
 
   async obtenerCatalogos(usuarioAuth: any) {
@@ -284,6 +286,22 @@ export class PreparadorIaService {
         categoriaId: contexto.categoria?.id,
         tipoRecursoId: this.numeroPositivo(data.tipoRecursoId) || undefined,
         usuarioCreadorId: Number(usuarioAuth?.sub),
+      },
+      usuarioAuth,
+    );
+
+    await this.auditoriaService.registrar(
+      {
+        entidad: 'preparador_ia',
+        entidadId: recurso.id,
+        accion: 'material_guardado',
+        detalles: {
+          titulo: material.titulo,
+          tema: material.tema,
+          tipoMaterial: material.tipoMaterial,
+          institucionId: contexto.institucion.id,
+        },
+        institucionId: contexto.institucion.id,
       },
       usuarioAuth,
     );

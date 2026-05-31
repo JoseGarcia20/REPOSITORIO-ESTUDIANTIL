@@ -403,6 +403,7 @@ export const ModelName = {
   ProyectoColaborativoActividad: 'ProyectoColaborativoActividad',
   ProyectoColaborativoEvidencia: 'ProyectoColaborativoEvidencia',
   ProyectoColaborativoEntrega: 'ProyectoColaborativoEntrega',
+  AuditoriaLog: 'AuditoriaLog',
   CalificacionRecurso: 'CalificacionRecurso',
   TipoAprendizaje: 'TipoAprendizaje',
   RutaAprendizaje: 'RutaAprendizaje',
@@ -425,7 +426,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "institucion" | "rol" | "permiso" | "rolPermiso" | "usuario" | "gradoEscolar" | "categoria" | "foro" | "foroCategoria" | "comentarioForo" | "tipoRecurso" | "recurso" | "resumenIaRecurso" | "comentarioForoRecurso" | "proyectoColaborativo" | "proyectoColaborativoIntegrante" | "proyectoColaborativoActividad" | "proyectoColaborativoEvidencia" | "proyectoColaborativoEntrega" | "calificacionRecurso" | "tipoAprendizaje" | "rutaAprendizaje" | "detalleRutaAprendizaje" | "asignacionRutaAprendizaje" | "diagnosticoAprendizaje" | "detalleDiagnosticoAprendizaje"
+    modelProps: "institucion" | "rol" | "permiso" | "rolPermiso" | "usuario" | "gradoEscolar" | "categoria" | "foro" | "foroCategoria" | "comentarioForo" | "tipoRecurso" | "recurso" | "resumenIaRecurso" | "comentarioForoRecurso" | "proyectoColaborativo" | "proyectoColaborativoIntegrante" | "proyectoColaborativoActividad" | "proyectoColaborativoEvidencia" | "proyectoColaborativoEntrega" | "auditoriaLog" | "calificacionRecurso" | "tipoAprendizaje" | "rutaAprendizaje" | "detalleRutaAprendizaje" | "asignacionRutaAprendizaje" | "diagnosticoAprendizaje" | "detalleDiagnosticoAprendizaje"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1835,6 +1836,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    AuditoriaLog: {
+      payload: Prisma.$AuditoriaLogPayload<ExtArgs>
+      fields: Prisma.AuditoriaLogFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.AuditoriaLogFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuditoriaLogPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.AuditoriaLogFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuditoriaLogPayload>
+        }
+        findFirst: {
+          args: Prisma.AuditoriaLogFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuditoriaLogPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.AuditoriaLogFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuditoriaLogPayload>
+        }
+        findMany: {
+          args: Prisma.AuditoriaLogFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuditoriaLogPayload>[]
+        }
+        create: {
+          args: Prisma.AuditoriaLogCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuditoriaLogPayload>
+        }
+        createMany: {
+          args: Prisma.AuditoriaLogCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.AuditoriaLogCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuditoriaLogPayload>[]
+        }
+        delete: {
+          args: Prisma.AuditoriaLogDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuditoriaLogPayload>
+        }
+        update: {
+          args: Prisma.AuditoriaLogUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuditoriaLogPayload>
+        }
+        deleteMany: {
+          args: Prisma.AuditoriaLogDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.AuditoriaLogUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.AuditoriaLogUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuditoriaLogPayload>[]
+        }
+        upsert: {
+          args: Prisma.AuditoriaLogUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuditoriaLogPayload>
+        }
+        aggregate: {
+          args: Prisma.AuditoriaLogAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAuditoriaLog>
+        }
+        groupBy: {
+          args: Prisma.AuditoriaLogGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AuditoriaLogGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.AuditoriaLogCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AuditoriaLogCountAggregateOutputType> | number
+        }
+      }
+    }
     CalificacionRecurso: {
       payload: Prisma.$CalificacionRecursoPayload<ExtArgs>
       fields: Prisma.CalificacionRecursoFieldRefs
@@ -2685,6 +2760,21 @@ export const ProyectoColaborativoEntregaScalarFieldEnum = {
 export type ProyectoColaborativoEntregaScalarFieldEnum = (typeof ProyectoColaborativoEntregaScalarFieldEnum)[keyof typeof ProyectoColaborativoEntregaScalarFieldEnum]
 
 
+export const AuditoriaLogScalarFieldEnum = {
+  id: 'id',
+  entidad: 'entidad',
+  entidadId: 'entidadId',
+  accion: 'accion',
+  usuarioId: 'usuarioId',
+  institucionId: 'institucionId',
+  detalles: 'detalles',
+  direccionIp: 'direccionIp',
+  createdAt: 'createdAt'
+} as const
+
+export type AuditoriaLogScalarFieldEnum = (typeof AuditoriaLogScalarFieldEnum)[keyof typeof AuditoriaLogScalarFieldEnum]
+
+
 export const CalificacionRecursoScalarFieldEnum = {
   id: 'id',
   calificacion: 'calificacion',
@@ -2793,6 +2883,14 @@ export const SortOrder = {
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+export const NullableJsonNullValueInput = {
+  DbNull: DbNull,
+  JsonNull: JsonNull
+} as const
+
+export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
 export const QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
@@ -2807,6 +2905,15 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
 
@@ -2875,6 +2982,34 @@ export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, '
  * Reference to a field of type 'Float[]'
  */
 export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
+
+
+/**
+ * Reference to a field of type 'BigInt'
+ */
+export type BigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt'>
+    
+
+
+/**
+ * Reference to a field of type 'BigInt[]'
+ */
+export type ListBigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Json'
+ */
+export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+/**
+ * Reference to a field of type 'QueryMode'
+ */
+export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
     
 
 /**
@@ -3006,6 +3141,7 @@ export type GlobalOmitConfig = {
   proyectoColaborativoActividad?: Prisma.ProyectoColaborativoActividadOmit
   proyectoColaborativoEvidencia?: Prisma.ProyectoColaborativoEvidenciaOmit
   proyectoColaborativoEntrega?: Prisma.ProyectoColaborativoEntregaOmit
+  auditoriaLog?: Prisma.AuditoriaLogOmit
   calificacionRecurso?: Prisma.CalificacionRecursoOmit
   tipoAprendizaje?: Prisma.TipoAprendizajeOmit
   rutaAprendizaje?: Prisma.RutaAprendizajeOmit

@@ -293,6 +293,7 @@ export type InstitucionWhereInput = {
   foros?: Prisma.ForoListRelationFilter
   recursos?: Prisma.RecursoListRelationFilter
   proyectosColaborativos?: Prisma.ProyectoColaborativoListRelationFilter
+  auditoriaLogs?: Prisma.AuditoriaLogListRelationFilter
 }
 
 export type InstitucionOrderByWithRelationInput = {
@@ -315,6 +316,7 @@ export type InstitucionOrderByWithRelationInput = {
   foros?: Prisma.ForoOrderByRelationAggregateInput
   recursos?: Prisma.RecursoOrderByRelationAggregateInput
   proyectosColaborativos?: Prisma.ProyectoColaborativoOrderByRelationAggregateInput
+  auditoriaLogs?: Prisma.AuditoriaLogOrderByRelationAggregateInput
 }
 
 export type InstitucionWhereUniqueInput = Prisma.AtLeast<{
@@ -340,6 +342,7 @@ export type InstitucionWhereUniqueInput = Prisma.AtLeast<{
   foros?: Prisma.ForoListRelationFilter
   recursos?: Prisma.RecursoListRelationFilter
   proyectosColaborativos?: Prisma.ProyectoColaborativoListRelationFilter
+  auditoriaLogs?: Prisma.AuditoriaLogListRelationFilter
 }, "id" | "codigo" | "nit">
 
 export type InstitucionOrderByWithAggregationInput = {
@@ -403,6 +406,7 @@ export type InstitucionCreateInput = {
   foros?: Prisma.ForoCreateNestedManyWithoutInstitucionInput
   recursos?: Prisma.RecursoCreateNestedManyWithoutInstitucionInput
   proyectosColaborativos?: Prisma.ProyectoColaborativoCreateNestedManyWithoutInstitucionInput
+  auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutInstitucionInput
 }
 
 export type InstitucionUncheckedCreateInput = {
@@ -425,6 +429,7 @@ export type InstitucionUncheckedCreateInput = {
   foros?: Prisma.ForoUncheckedCreateNestedManyWithoutInstitucionInput
   recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutInstitucionInput
   proyectosColaborativos?: Prisma.ProyectoColaborativoUncheckedCreateNestedManyWithoutInstitucionInput
+  auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutInstitucionInput
 }
 
 export type InstitucionUpdateInput = {
@@ -446,6 +451,7 @@ export type InstitucionUpdateInput = {
   foros?: Prisma.ForoUpdateManyWithoutInstitucionNestedInput
   recursos?: Prisma.RecursoUpdateManyWithoutInstitucionNestedInput
   proyectosColaborativos?: Prisma.ProyectoColaborativoUpdateManyWithoutInstitucionNestedInput
+  auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutInstitucionNestedInput
 }
 
 export type InstitucionUncheckedUpdateInput = {
@@ -468,6 +474,7 @@ export type InstitucionUncheckedUpdateInput = {
   foros?: Prisma.ForoUncheckedUpdateManyWithoutInstitucionNestedInput
   recursos?: Prisma.RecursoUncheckedUpdateManyWithoutInstitucionNestedInput
   proyectosColaborativos?: Prisma.ProyectoColaborativoUncheckedUpdateManyWithoutInstitucionNestedInput
+  auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutInstitucionNestedInput
 }
 
 export type InstitucionCreateManyInput = {
@@ -584,6 +591,11 @@ export type InstitucionScalarRelationFilter = {
   isNot?: Prisma.InstitucionWhereInput
 }
 
+export type InstitucionNullableScalarRelationFilter = {
+  is?: Prisma.InstitucionWhereInput | null
+  isNot?: Prisma.InstitucionWhereInput | null
+}
+
 export type StringFieldUpdateOperationsInput = {
   set?: string
 }
@@ -678,6 +690,22 @@ export type InstitucionUpdateOneRequiredWithoutProyectosColaborativosNestedInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.InstitucionUpdateToOneWithWhereWithoutProyectosColaborativosInput, Prisma.InstitucionUpdateWithoutProyectosColaborativosInput>, Prisma.InstitucionUncheckedUpdateWithoutProyectosColaborativosInput>
 }
 
+export type InstitucionCreateNestedOneWithoutAuditoriaLogsInput = {
+  create?: Prisma.XOR<Prisma.InstitucionCreateWithoutAuditoriaLogsInput, Prisma.InstitucionUncheckedCreateWithoutAuditoriaLogsInput>
+  connectOrCreate?: Prisma.InstitucionCreateOrConnectWithoutAuditoriaLogsInput
+  connect?: Prisma.InstitucionWhereUniqueInput
+}
+
+export type InstitucionUpdateOneWithoutAuditoriaLogsNestedInput = {
+  create?: Prisma.XOR<Prisma.InstitucionCreateWithoutAuditoriaLogsInput, Prisma.InstitucionUncheckedCreateWithoutAuditoriaLogsInput>
+  connectOrCreate?: Prisma.InstitucionCreateOrConnectWithoutAuditoriaLogsInput
+  upsert?: Prisma.InstitucionUpsertWithoutAuditoriaLogsInput
+  disconnect?: Prisma.InstitucionWhereInput | boolean
+  delete?: Prisma.InstitucionWhereInput | boolean
+  connect?: Prisma.InstitucionWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.InstitucionUpdateToOneWithWhereWithoutAuditoriaLogsInput, Prisma.InstitucionUpdateWithoutAuditoriaLogsInput>, Prisma.InstitucionUncheckedUpdateWithoutAuditoriaLogsInput>
+}
+
 export type InstitucionCreateWithoutUsuariosInput = {
   nombre: string
   codigo: string
@@ -696,6 +724,7 @@ export type InstitucionCreateWithoutUsuariosInput = {
   foros?: Prisma.ForoCreateNestedManyWithoutInstitucionInput
   recursos?: Prisma.RecursoCreateNestedManyWithoutInstitucionInput
   proyectosColaborativos?: Prisma.ProyectoColaborativoCreateNestedManyWithoutInstitucionInput
+  auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutInstitucionInput
 }
 
 export type InstitucionUncheckedCreateWithoutUsuariosInput = {
@@ -717,6 +746,7 @@ export type InstitucionUncheckedCreateWithoutUsuariosInput = {
   foros?: Prisma.ForoUncheckedCreateNestedManyWithoutInstitucionInput
   recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutInstitucionInput
   proyectosColaborativos?: Prisma.ProyectoColaborativoUncheckedCreateNestedManyWithoutInstitucionInput
+  auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutInstitucionInput
 }
 
 export type InstitucionCreateOrConnectWithoutUsuariosInput = {
@@ -753,6 +783,7 @@ export type InstitucionUpdateWithoutUsuariosInput = {
   foros?: Prisma.ForoUpdateManyWithoutInstitucionNestedInput
   recursos?: Prisma.RecursoUpdateManyWithoutInstitucionNestedInput
   proyectosColaborativos?: Prisma.ProyectoColaborativoUpdateManyWithoutInstitucionNestedInput
+  auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutInstitucionNestedInput
 }
 
 export type InstitucionUncheckedUpdateWithoutUsuariosInput = {
@@ -774,6 +805,7 @@ export type InstitucionUncheckedUpdateWithoutUsuariosInput = {
   foros?: Prisma.ForoUncheckedUpdateManyWithoutInstitucionNestedInput
   recursos?: Prisma.RecursoUncheckedUpdateManyWithoutInstitucionNestedInput
   proyectosColaborativos?: Prisma.ProyectoColaborativoUncheckedUpdateManyWithoutInstitucionNestedInput
+  auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutInstitucionNestedInput
 }
 
 export type InstitucionCreateWithoutCategoriasInput = {
@@ -794,6 +826,7 @@ export type InstitucionCreateWithoutCategoriasInput = {
   foros?: Prisma.ForoCreateNestedManyWithoutInstitucionInput
   recursos?: Prisma.RecursoCreateNestedManyWithoutInstitucionInput
   proyectosColaborativos?: Prisma.ProyectoColaborativoCreateNestedManyWithoutInstitucionInput
+  auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutInstitucionInput
 }
 
 export type InstitucionUncheckedCreateWithoutCategoriasInput = {
@@ -815,6 +848,7 @@ export type InstitucionUncheckedCreateWithoutCategoriasInput = {
   foros?: Prisma.ForoUncheckedCreateNestedManyWithoutInstitucionInput
   recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutInstitucionInput
   proyectosColaborativos?: Prisma.ProyectoColaborativoUncheckedCreateNestedManyWithoutInstitucionInput
+  auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutInstitucionInput
 }
 
 export type InstitucionCreateOrConnectWithoutCategoriasInput = {
@@ -851,6 +885,7 @@ export type InstitucionUpdateWithoutCategoriasInput = {
   foros?: Prisma.ForoUpdateManyWithoutInstitucionNestedInput
   recursos?: Prisma.RecursoUpdateManyWithoutInstitucionNestedInput
   proyectosColaborativos?: Prisma.ProyectoColaborativoUpdateManyWithoutInstitucionNestedInput
+  auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutInstitucionNestedInput
 }
 
 export type InstitucionUncheckedUpdateWithoutCategoriasInput = {
@@ -872,6 +907,7 @@ export type InstitucionUncheckedUpdateWithoutCategoriasInput = {
   foros?: Prisma.ForoUncheckedUpdateManyWithoutInstitucionNestedInput
   recursos?: Prisma.RecursoUncheckedUpdateManyWithoutInstitucionNestedInput
   proyectosColaborativos?: Prisma.ProyectoColaborativoUncheckedUpdateManyWithoutInstitucionNestedInput
+  auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutInstitucionNestedInput
 }
 
 export type InstitucionCreateWithoutForosInput = {
@@ -892,6 +928,7 @@ export type InstitucionCreateWithoutForosInput = {
   categorias?: Prisma.CategoriaCreateNestedManyWithoutInstitucionInput
   recursos?: Prisma.RecursoCreateNestedManyWithoutInstitucionInput
   proyectosColaborativos?: Prisma.ProyectoColaborativoCreateNestedManyWithoutInstitucionInput
+  auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutInstitucionInput
 }
 
 export type InstitucionUncheckedCreateWithoutForosInput = {
@@ -913,6 +950,7 @@ export type InstitucionUncheckedCreateWithoutForosInput = {
   categorias?: Prisma.CategoriaUncheckedCreateNestedManyWithoutInstitucionInput
   recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutInstitucionInput
   proyectosColaborativos?: Prisma.ProyectoColaborativoUncheckedCreateNestedManyWithoutInstitucionInput
+  auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutInstitucionInput
 }
 
 export type InstitucionCreateOrConnectWithoutForosInput = {
@@ -949,6 +987,7 @@ export type InstitucionUpdateWithoutForosInput = {
   categorias?: Prisma.CategoriaUpdateManyWithoutInstitucionNestedInput
   recursos?: Prisma.RecursoUpdateManyWithoutInstitucionNestedInput
   proyectosColaborativos?: Prisma.ProyectoColaborativoUpdateManyWithoutInstitucionNestedInput
+  auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutInstitucionNestedInput
 }
 
 export type InstitucionUncheckedUpdateWithoutForosInput = {
@@ -970,6 +1009,7 @@ export type InstitucionUncheckedUpdateWithoutForosInput = {
   categorias?: Prisma.CategoriaUncheckedUpdateManyWithoutInstitucionNestedInput
   recursos?: Prisma.RecursoUncheckedUpdateManyWithoutInstitucionNestedInput
   proyectosColaborativos?: Prisma.ProyectoColaborativoUncheckedUpdateManyWithoutInstitucionNestedInput
+  auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutInstitucionNestedInput
 }
 
 export type InstitucionCreateWithoutRecursosInput = {
@@ -990,6 +1030,7 @@ export type InstitucionCreateWithoutRecursosInput = {
   categorias?: Prisma.CategoriaCreateNestedManyWithoutInstitucionInput
   foros?: Prisma.ForoCreateNestedManyWithoutInstitucionInput
   proyectosColaborativos?: Prisma.ProyectoColaborativoCreateNestedManyWithoutInstitucionInput
+  auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutInstitucionInput
 }
 
 export type InstitucionUncheckedCreateWithoutRecursosInput = {
@@ -1011,6 +1052,7 @@ export type InstitucionUncheckedCreateWithoutRecursosInput = {
   categorias?: Prisma.CategoriaUncheckedCreateNestedManyWithoutInstitucionInput
   foros?: Prisma.ForoUncheckedCreateNestedManyWithoutInstitucionInput
   proyectosColaborativos?: Prisma.ProyectoColaborativoUncheckedCreateNestedManyWithoutInstitucionInput
+  auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutInstitucionInput
 }
 
 export type InstitucionCreateOrConnectWithoutRecursosInput = {
@@ -1047,6 +1089,7 @@ export type InstitucionUpdateWithoutRecursosInput = {
   categorias?: Prisma.CategoriaUpdateManyWithoutInstitucionNestedInput
   foros?: Prisma.ForoUpdateManyWithoutInstitucionNestedInput
   proyectosColaborativos?: Prisma.ProyectoColaborativoUpdateManyWithoutInstitucionNestedInput
+  auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutInstitucionNestedInput
 }
 
 export type InstitucionUncheckedUpdateWithoutRecursosInput = {
@@ -1068,6 +1111,7 @@ export type InstitucionUncheckedUpdateWithoutRecursosInput = {
   categorias?: Prisma.CategoriaUncheckedUpdateManyWithoutInstitucionNestedInput
   foros?: Prisma.ForoUncheckedUpdateManyWithoutInstitucionNestedInput
   proyectosColaborativos?: Prisma.ProyectoColaborativoUncheckedUpdateManyWithoutInstitucionNestedInput
+  auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutInstitucionNestedInput
 }
 
 export type InstitucionCreateWithoutProyectosColaborativosInput = {
@@ -1088,6 +1132,7 @@ export type InstitucionCreateWithoutProyectosColaborativosInput = {
   categorias?: Prisma.CategoriaCreateNestedManyWithoutInstitucionInput
   foros?: Prisma.ForoCreateNestedManyWithoutInstitucionInput
   recursos?: Prisma.RecursoCreateNestedManyWithoutInstitucionInput
+  auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutInstitucionInput
 }
 
 export type InstitucionUncheckedCreateWithoutProyectosColaborativosInput = {
@@ -1109,6 +1154,7 @@ export type InstitucionUncheckedCreateWithoutProyectosColaborativosInput = {
   categorias?: Prisma.CategoriaUncheckedCreateNestedManyWithoutInstitucionInput
   foros?: Prisma.ForoUncheckedCreateNestedManyWithoutInstitucionInput
   recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutInstitucionInput
+  auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutInstitucionInput
 }
 
 export type InstitucionCreateOrConnectWithoutProyectosColaborativosInput = {
@@ -1145,6 +1191,7 @@ export type InstitucionUpdateWithoutProyectosColaborativosInput = {
   categorias?: Prisma.CategoriaUpdateManyWithoutInstitucionNestedInput
   foros?: Prisma.ForoUpdateManyWithoutInstitucionNestedInput
   recursos?: Prisma.RecursoUpdateManyWithoutInstitucionNestedInput
+  auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutInstitucionNestedInput
 }
 
 export type InstitucionUncheckedUpdateWithoutProyectosColaborativosInput = {
@@ -1166,6 +1213,109 @@ export type InstitucionUncheckedUpdateWithoutProyectosColaborativosInput = {
   categorias?: Prisma.CategoriaUncheckedUpdateManyWithoutInstitucionNestedInput
   foros?: Prisma.ForoUncheckedUpdateManyWithoutInstitucionNestedInput
   recursos?: Prisma.RecursoUncheckedUpdateManyWithoutInstitucionNestedInput
+  auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutInstitucionNestedInput
+}
+
+export type InstitucionCreateWithoutAuditoriaLogsInput = {
+  nombre: string
+  codigo: string
+  nit: string
+  correo: string
+  telefono: string
+  direccion: string
+  ciudad: string
+  departamento: string
+  sitioWeb?: string | null
+  logo?: string | null
+  estado?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  usuarios?: Prisma.UsuarioCreateNestedManyWithoutInstitucionInput
+  categorias?: Prisma.CategoriaCreateNestedManyWithoutInstitucionInput
+  foros?: Prisma.ForoCreateNestedManyWithoutInstitucionInput
+  recursos?: Prisma.RecursoCreateNestedManyWithoutInstitucionInput
+  proyectosColaborativos?: Prisma.ProyectoColaborativoCreateNestedManyWithoutInstitucionInput
+}
+
+export type InstitucionUncheckedCreateWithoutAuditoriaLogsInput = {
+  id?: number
+  nombre: string
+  codigo: string
+  nit: string
+  correo: string
+  telefono: string
+  direccion: string
+  ciudad: string
+  departamento: string
+  sitioWeb?: string | null
+  logo?: string | null
+  estado?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  usuarios?: Prisma.UsuarioUncheckedCreateNestedManyWithoutInstitucionInput
+  categorias?: Prisma.CategoriaUncheckedCreateNestedManyWithoutInstitucionInput
+  foros?: Prisma.ForoUncheckedCreateNestedManyWithoutInstitucionInput
+  recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutInstitucionInput
+  proyectosColaborativos?: Prisma.ProyectoColaborativoUncheckedCreateNestedManyWithoutInstitucionInput
+}
+
+export type InstitucionCreateOrConnectWithoutAuditoriaLogsInput = {
+  where: Prisma.InstitucionWhereUniqueInput
+  create: Prisma.XOR<Prisma.InstitucionCreateWithoutAuditoriaLogsInput, Prisma.InstitucionUncheckedCreateWithoutAuditoriaLogsInput>
+}
+
+export type InstitucionUpsertWithoutAuditoriaLogsInput = {
+  update: Prisma.XOR<Prisma.InstitucionUpdateWithoutAuditoriaLogsInput, Prisma.InstitucionUncheckedUpdateWithoutAuditoriaLogsInput>
+  create: Prisma.XOR<Prisma.InstitucionCreateWithoutAuditoriaLogsInput, Prisma.InstitucionUncheckedCreateWithoutAuditoriaLogsInput>
+  where?: Prisma.InstitucionWhereInput
+}
+
+export type InstitucionUpdateToOneWithWhereWithoutAuditoriaLogsInput = {
+  where?: Prisma.InstitucionWhereInput
+  data: Prisma.XOR<Prisma.InstitucionUpdateWithoutAuditoriaLogsInput, Prisma.InstitucionUncheckedUpdateWithoutAuditoriaLogsInput>
+}
+
+export type InstitucionUpdateWithoutAuditoriaLogsInput = {
+  nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  codigo?: Prisma.StringFieldUpdateOperationsInput | string
+  nit?: Prisma.StringFieldUpdateOperationsInput | string
+  correo?: Prisma.StringFieldUpdateOperationsInput | string
+  telefono?: Prisma.StringFieldUpdateOperationsInput | string
+  direccion?: Prisma.StringFieldUpdateOperationsInput | string
+  ciudad?: Prisma.StringFieldUpdateOperationsInput | string
+  departamento?: Prisma.StringFieldUpdateOperationsInput | string
+  sitioWeb?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  usuarios?: Prisma.UsuarioUpdateManyWithoutInstitucionNestedInput
+  categorias?: Prisma.CategoriaUpdateManyWithoutInstitucionNestedInput
+  foros?: Prisma.ForoUpdateManyWithoutInstitucionNestedInput
+  recursos?: Prisma.RecursoUpdateManyWithoutInstitucionNestedInput
+  proyectosColaborativos?: Prisma.ProyectoColaborativoUpdateManyWithoutInstitucionNestedInput
+}
+
+export type InstitucionUncheckedUpdateWithoutAuditoriaLogsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  codigo?: Prisma.StringFieldUpdateOperationsInput | string
+  nit?: Prisma.StringFieldUpdateOperationsInput | string
+  correo?: Prisma.StringFieldUpdateOperationsInput | string
+  telefono?: Prisma.StringFieldUpdateOperationsInput | string
+  direccion?: Prisma.StringFieldUpdateOperationsInput | string
+  ciudad?: Prisma.StringFieldUpdateOperationsInput | string
+  departamento?: Prisma.StringFieldUpdateOperationsInput | string
+  sitioWeb?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  usuarios?: Prisma.UsuarioUncheckedUpdateManyWithoutInstitucionNestedInput
+  categorias?: Prisma.CategoriaUncheckedUpdateManyWithoutInstitucionNestedInput
+  foros?: Prisma.ForoUncheckedUpdateManyWithoutInstitucionNestedInput
+  recursos?: Prisma.RecursoUncheckedUpdateManyWithoutInstitucionNestedInput
+  proyectosColaborativos?: Prisma.ProyectoColaborativoUncheckedUpdateManyWithoutInstitucionNestedInput
 }
 
 
@@ -1179,6 +1329,7 @@ export type InstitucionCountOutputType = {
   foros: number
   recursos: number
   proyectosColaborativos: number
+  auditoriaLogs: number
 }
 
 export type InstitucionCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1187,6 +1338,7 @@ export type InstitucionCountOutputTypeSelect<ExtArgs extends runtime.Types.Exten
   foros?: boolean | InstitucionCountOutputTypeCountForosArgs
   recursos?: boolean | InstitucionCountOutputTypeCountRecursosArgs
   proyectosColaborativos?: boolean | InstitucionCountOutputTypeCountProyectosColaborativosArgs
+  auditoriaLogs?: boolean | InstitucionCountOutputTypeCountAuditoriaLogsArgs
 }
 
 /**
@@ -1234,6 +1386,13 @@ export type InstitucionCountOutputTypeCountProyectosColaborativosArgs<ExtArgs ex
   where?: Prisma.ProyectoColaborativoWhereInput
 }
 
+/**
+ * InstitucionCountOutputType without action
+ */
+export type InstitucionCountOutputTypeCountAuditoriaLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AuditoriaLogWhereInput
+}
+
 
 export type InstitucionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1255,6 +1414,7 @@ export type InstitucionSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   foros?: boolean | Prisma.Institucion$forosArgs<ExtArgs>
   recursos?: boolean | Prisma.Institucion$recursosArgs<ExtArgs>
   proyectosColaborativos?: boolean | Prisma.Institucion$proyectosColaborativosArgs<ExtArgs>
+  auditoriaLogs?: boolean | Prisma.Institucion$auditoriaLogsArgs<ExtArgs>
   _count?: boolean | Prisma.InstitucionCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["institucion"]>
 
@@ -1316,6 +1476,7 @@ export type InstitucionInclude<ExtArgs extends runtime.Types.Extensions.Internal
   foros?: boolean | Prisma.Institucion$forosArgs<ExtArgs>
   recursos?: boolean | Prisma.Institucion$recursosArgs<ExtArgs>
   proyectosColaborativos?: boolean | Prisma.Institucion$proyectosColaborativosArgs<ExtArgs>
+  auditoriaLogs?: boolean | Prisma.Institucion$auditoriaLogsArgs<ExtArgs>
   _count?: boolean | Prisma.InstitucionCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type InstitucionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1329,6 +1490,7 @@ export type $InstitucionPayload<ExtArgs extends runtime.Types.Extensions.Interna
     foros: Prisma.$ForoPayload<ExtArgs>[]
     recursos: Prisma.$RecursoPayload<ExtArgs>[]
     proyectosColaborativos: Prisma.$ProyectoColaborativoPayload<ExtArgs>[]
+    auditoriaLogs: Prisma.$AuditoriaLogPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1744,6 +1906,7 @@ export interface Prisma__InstitucionClient<T, Null = never, ExtArgs extends runt
   foros<T extends Prisma.Institucion$forosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Institucion$forosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ForoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   recursos<T extends Prisma.Institucion$recursosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Institucion$recursosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RecursoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   proyectosColaborativos<T extends Prisma.Institucion$proyectosColaborativosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Institucion$proyectosColaborativosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProyectoColaborativoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  auditoriaLogs<T extends Prisma.Institucion$auditoriaLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Institucion$auditoriaLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AuditoriaLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2297,6 +2460,30 @@ export type Institucion$proyectosColaborativosArgs<ExtArgs extends runtime.Types
   take?: number
   skip?: number
   distinct?: Prisma.ProyectoColaborativoScalarFieldEnum | Prisma.ProyectoColaborativoScalarFieldEnum[]
+}
+
+/**
+ * Institucion.auditoriaLogs
+ */
+export type Institucion$auditoriaLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AuditoriaLog
+   */
+  select?: Prisma.AuditoriaLogSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AuditoriaLog
+   */
+  omit?: Prisma.AuditoriaLogOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AuditoriaLogInclude<ExtArgs> | null
+  where?: Prisma.AuditoriaLogWhereInput
+  orderBy?: Prisma.AuditoriaLogOrderByWithRelationInput | Prisma.AuditoriaLogOrderByWithRelationInput[]
+  cursor?: Prisma.AuditoriaLogWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AuditoriaLogScalarFieldEnum | Prisma.AuditoriaLogScalarFieldEnum[]
 }
 
 /**

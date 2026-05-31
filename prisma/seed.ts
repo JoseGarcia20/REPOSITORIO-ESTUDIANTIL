@@ -51,6 +51,7 @@ const permisos = {
   AULA_COLABORATIVA_REVISAR: 'aula_colaborativa.revisar',
   REPORTES_VER: 'reportes.ver',
   PREPARADOR_IA_USAR: 'preparador_ia.usar',
+  AUDITORIA_VER: 'auditoria.ver',
 } as const;
 
 const descripcionesPermisos: Record<string, string> = {
@@ -104,6 +105,8 @@ const descripcionesPermisos: Record<string, string> = {
   [permisos.REPORTES_VER]: 'Ver reportes',
   [permisos.PREPARADOR_IA_USAR]:
     'Usar el preparador académico con inteligencia artificial',
+  [permisos.AUDITORIA_VER]:
+    'Ver el módulo de auditoría y registros de cambios en el sistema',
 };
 
 const rolesBase = [
@@ -149,6 +152,7 @@ const rolesBase = [
       permisos.AULA_COLABORATIVA_REVISAR,
       permisos.REPORTES_VER,
       permisos.PREPARADOR_IA_USAR,
+      permisos.AUDITORIA_VER,
     ],
   },
   {
@@ -189,7 +193,7 @@ const rolesBase = [
   },
   {
     nombre: 'usuario administrativo',
-    descripcion: 'Usuario administrativo para reportes',
+    descripcion: 'Usuario administrativo para reportes y auditoría',
     permisos: [
       permisos.FOROS_VER,
       permisos.FOROS_COMENTAR,
@@ -197,6 +201,7 @@ const rolesBase = [
       permisos.RECURSOS_VER_TODOS_GRADOS,
       permisos.REPORTES_VER,
       permisos.PREPARADOR_IA_USAR,
+      permisos.AUDITORIA_VER,
     ],
   },
 ];

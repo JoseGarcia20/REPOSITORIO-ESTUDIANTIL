@@ -87,6 +87,10 @@ export function AppLayout() {
       administracion.push({ titulo: 'Roles', ruta: '/admin/roles' });
     }
 
+    if (usuarioTienePermiso(PERMISOS.AUDITORIA_VER)) {
+      administracion.push({ titulo: 'Auditoría', ruta: '/admin/auditoria' });
+    }
+
     if (administracion.length > 0) {
       items.push({
         titulo: 'Administración',

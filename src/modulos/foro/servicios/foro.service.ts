@@ -12,6 +12,7 @@ import { CrearComentarioForoDto } from '../dto/crear-comentario-foro.dto';
 import { SubirRecursoForoDto } from '../dto/subir-recurso-foro.dto';
 import { ComentarRecursoForoDto } from '../dto/comentar-recurso-foro.dto';
 import { ComentarRecursoExistenteForoDto } from '../dto/comentar-recurso-existente-foro.dto';
+import { AuditoriaService } from '../../auditoria/servicios/auditoria.service';
 import {
   PERMISOS,
   tieneAccesoTotal,
@@ -28,7 +29,10 @@ import {
 
 @Injectable()
 export class ForoService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly auditoriaService: AuditoriaService,
+  ) {}
 
   private readonly limitePalabrasClave = 6;
 
@@ -715,6 +719,20 @@ export class ForoService {
       include: this.includeForoDetalle,
     });
 
+    await this.auditoriaService.registrar(
+      {
+        entidad: 'foro',
+        entidadId: foro.id,
+        accion: 'creado',
+        detalles: {
+          titulo: foro.titulo,
+          publico: foro.publico,
+        },
+        institucionId: foro.institucionId,
+      },
+      usuarioAuth,
+    );
+
     return this.normalizarForoRespuesta(foro);
   }
 
@@ -883,6 +901,28 @@ export class ForoService {
         include: this.includeForoDetalle,
       });
 
+      const excludedKeys = ['institucionId', 'usuarioId', 'categoriaIds', 'categoriaId'];
+      const camposActualizados = Object.keys(data).filter((key) => {
+        if (excludedKeys.includes(key)) return false;
+        const valorAnterior = (foro as any)[key];
+        const valorNuevo = (data as any)[key];
+        return valorNuevo !== undefined && valorAnterior !== valorNuevo;
+      });
+
+      await this.auditoriaService.registrar(
+        {
+          entidad: 'foro',
+          entidadId: id,
+          accion: 'editado',
+          detalles: {
+            titulo: foroActualizado.titulo,
+            camposActualizados,
+          },
+          institucionId: foroActualizado.institucionId,
+        },
+        usuarioAuth,
+      );
+
       return this.normalizarForoRespuesta(foroActualizadoCompleto);
     });
   }
@@ -907,6 +947,17 @@ export class ForoService {
       include: this.includeForoDetalle,
     });
 
+    await this.auditoriaService.registrar(
+      {
+        entidad: 'foro',
+        entidadId: id,
+        accion: 'cerrado',
+        detalles: { titulo: foroCerrado.titulo },
+        institucionId: foroCerrado.institucionId,
+      },
+      usuarioAuth,
+    );
+
     return this.normalizarForoRespuesta(foroCerrado);
   }
 
@@ -928,6 +979,17 @@ export class ForoService {
       include: this.includeForoDetalle,
     });
 
+    await this.auditoriaService.registrar(
+      {
+        entidad: 'foro',
+        entidadId: id,
+        accion: 'inactivado',
+        detalles: { titulo: foroInactivo.titulo },
+        institucionId: foroInactivo.institucionId,
+      },
+      usuarioAuth,
+    );
+
     return this.normalizarForoRespuesta(foroInactivo);
   }
 
@@ -948,6 +1010,17 @@ export class ForoService {
       },
       include: this.includeForoDetalle,
     });
+
+    await this.auditoriaService.registrar(
+      {
+        entidad: 'foro',
+        entidadId: id,
+        accion: 'reactivado',
+        detalles: { titulo: foroReactivo.titulo },
+        institucionId: foroReactivo.institucionId,
+      },
+      usuarioAuth,
+    );
 
     return this.normalizarForoRespuesta(foroReactivo);
   }

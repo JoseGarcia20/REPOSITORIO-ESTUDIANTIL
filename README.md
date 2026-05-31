@@ -912,7 +912,7 @@ El visor usa Office Viewer para documentos Office. Para que funcione, la URL del
   - explicación de documentos
   - preguntas sobre contenido
   - clasificación semántica avanzada
-- Auditoría de acciones importantes.
+- Auditoría de acciones importantes (retención de 2 meses, limpieza automática diaria a las 3:00 AM).
 - Recuperación/cambio de contraseña.
 - Notificaciones para entregas, comentarios y revisiones.
 - Dashboard estadístico por rol.

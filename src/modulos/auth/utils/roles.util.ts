@@ -51,6 +51,7 @@ export const PERMISOS = {
 
   REPORTES_VER: 'reportes.ver',
   PREPARADOR_IA_USAR: 'preparador_ia.usar',
+  AUDITORIA_VER: 'auditoria.ver',
 } as const;
 
 export type CodigoPermiso = (typeof PERMISOS)[keyof typeof PERMISOS];

@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { ScheduleModule } from '@nestjs/schedule';
 import { AsistenteModule } from './modulos/asistente/asistente.module';
 import { PrismaModule } from './baseDatos/prisma/prisma.module';
 import { InstitucionesModule } from './modulos/instituciones/instituciones.module';
@@ -20,11 +21,13 @@ import { AuthModule } from './modulos/auth/auth.module';
 import { RecomendacionesModule } from './modulos/recomendaciones/recomendaciones.module';
 import { ReportesModule } from './modulos/reportes/reportes.module';
 import { PreparadorIaModule } from './modulos/preparadorIa/preparador-ia.module';
+import { AuditoriaModule } from './modulos/auditoria/auditoria.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 
 @Module({
   imports: [
+    ScheduleModule.forRoot(),
     ServeStaticModule.forRoot({
       rootPath: join(process.cwd(), 'uploads'),
       serveRoot: '/uploads',
@@ -51,6 +54,7 @@ import { join } from 'path';
     PreparadorIaModule,
     DetalleRutaAprendizajeModule,
     DetalleDiagnosticoAprendizajeModule,
+    AuditoriaModule,
   ],
 
   controllers: [],

@@ -113,6 +113,11 @@ export type ProyectoColaborativoEvidencia = Prisma.ProyectoColaborativoEvidencia
  */
 export type ProyectoColaborativoEntrega = Prisma.ProyectoColaborativoEntregaModel
 /**
+ * Model AuditoriaLog
+ * 
+ */
+export type AuditoriaLog = Prisma.AuditoriaLogModel
+/**
  * Model CalificacionRecurso
  * 
  */

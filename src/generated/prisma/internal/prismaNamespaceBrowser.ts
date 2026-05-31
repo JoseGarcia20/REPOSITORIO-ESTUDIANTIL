@@ -70,6 +70,7 @@ export const ModelName = {
   ProyectoColaborativoActividad: 'ProyectoColaborativoActividad',
   ProyectoColaborativoEvidencia: 'ProyectoColaborativoEvidencia',
   ProyectoColaborativoEntrega: 'ProyectoColaborativoEntrega',
+  AuditoriaLog: 'AuditoriaLog',
   CalificacionRecurso: 'CalificacionRecurso',
   TipoAprendizaje: 'TipoAprendizaje',
   RutaAprendizaje: 'RutaAprendizaje',
@@ -388,6 +389,21 @@ export const ProyectoColaborativoEntregaScalarFieldEnum = {
 export type ProyectoColaborativoEntregaScalarFieldEnum = (typeof ProyectoColaborativoEntregaScalarFieldEnum)[keyof typeof ProyectoColaborativoEntregaScalarFieldEnum]
 
 
+export const AuditoriaLogScalarFieldEnum = {
+  id: 'id',
+  entidad: 'entidad',
+  entidadId: 'entidadId',
+  accion: 'accion',
+  usuarioId: 'usuarioId',
+  institucionId: 'institucionId',
+  detalles: 'detalles',
+  direccionIp: 'direccionIp',
+  createdAt: 'createdAt'
+} as const
+
+export type AuditoriaLogScalarFieldEnum = (typeof AuditoriaLogScalarFieldEnum)[keyof typeof AuditoriaLogScalarFieldEnum]
+
+
 export const CalificacionRecursoScalarFieldEnum = {
   id: 'id',
   calificacion: 'calificacion',
@@ -496,6 +512,14 @@ export const SortOrder = {
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+export const NullableJsonNullValueInput = {
+  DbNull: DbNull,
+  JsonNull: JsonNull
+} as const
+
+export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
 export const QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
@@ -510,4 +534,13 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
