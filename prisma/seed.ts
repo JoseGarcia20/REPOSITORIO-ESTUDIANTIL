@@ -206,6 +206,63 @@ const rolesBase = [
   },
 ];
 
+const tiposAprendizajeBase = [
+  {
+    nombre: 'Visual',
+    descripcion:
+      'Aprende mejor con esquemas, mapas mentales, diagramas, colores e información representada gráficamente.',
+    estrategias: ['Mapas mentales', 'Diagramas', 'Infografías', 'Videos interactivos'],
+  },
+  {
+    nombre: 'Auditivo',
+    descripcion:
+      'Aprende mejor escuchando explicaciones, conversaciones guiadas, audios y ejemplos narrados.',
+    estrategias: ['Videos explicativos', 'Podcast académico', 'Lectura en voz alta', 'Debate guiado'],
+  },
+  {
+    nombre: 'Lector-escritor',
+    descripcion:
+      'Aprende mejor leyendo, tomando apuntes, resumiendo ideas y construyendo textos propios.',
+    estrategias: ['Lecturas guiadas', 'Resúmenes', 'Cuadros comparativos', 'Guías escritas'],
+  },
+  {
+    nombre: 'Práctico',
+    descripcion:
+      'Aprende mejor resolviendo ejercicios, manipulando ejemplos, haciendo talleres y aplicando conceptos.',
+    estrategias: ['Talleres', 'Simulaciones', 'Ejercicios paso a paso', 'Laboratorios prácticos'],
+  },
+  {
+    nombre: 'Explorador',
+    descripcion:
+      'Aprende mejor investigando, comparando fuentes, formulando preguntas y descubriendo patrones.',
+    estrategias: ['Investigación guiada', 'Retos de exploración', 'Búsqueda web curada', 'Casos de estudio'],
+  },
+  {
+    nombre: 'Guiado',
+    descripcion:
+      'Aprende mejor con instrucciones secuenciales, acompañamiento y retroalimentación frecuente.',
+    estrategias: ['Explicación paso a paso', 'Tutoría guiada', 'Checklist de avance', 'Ejemplos resueltos'],
+  },
+  {
+    nombre: 'Competitivo',
+    descripcion:
+      'Aprende mejor con metas claras, retos medibles, puntuación y comparación contra objetivos.',
+    estrategias: ['Retos por puntos', 'Quices cortos', 'Metas de logro', 'Simulacros'],
+  },
+  {
+    nombre: 'Colaborativo',
+    descripcion:
+      'Aprende mejor trabajando con otros, explicando ideas, recibiendo aportes y construyendo en grupo.',
+    estrategias: ['Trabajo colaborativo', 'Discusión en foro', 'Co-evaluación', 'Proyecto grupal'],
+  },
+  {
+    nombre: 'Reflexivo',
+    descripcion:
+      'Aprende mejor analizando con calma, conectando experiencias, escribiendo conclusiones y revisando errores.',
+    estrategias: ['Diario de aprendizaje', 'Preguntas metacognitivas', 'Análisis de errores', 'Autoevaluación'],
+  },
+];
+
 async function main() {
   await prisma.gradoEscolar.createMany({
     data: [
@@ -294,6 +351,54 @@ async function main() {
       })),
       skipDuplicates: true,
     });
+  }
+
+  for (const tipoBase of tiposAprendizajeBase) {
+    const tipoExistente = await prisma.tipoAprendizaje.findFirst({
+      where: { nombre: { equals: tipoBase.nombre, mode: 'insensitive' } },
+    });
+    const tipo = tipoExistente
+      ? await prisma.tipoAprendizaje.update({
+          where: { id: tipoExistente.id },
+          data: {
+            descripcion: tipoBase.descripcion,
+            estado: true,
+          },
+        })
+      : await prisma.tipoAprendizaje.create({
+          data: {
+            nombre: tipoBase.nombre,
+            descripcion: tipoBase.descripcion,
+            estado: true,
+          },
+        });
+
+    for (const estrategiaNombre of tipoBase.estrategias) {
+      const estrategia = await prisma.estrategiaAprendizaje.upsert({
+        where: { nombre: estrategiaNombre },
+        update: { estado: true },
+        create: {
+          nombre: estrategiaNombre,
+          descripcion: `Estrategia sugerida para aprendizaje ${tipoBase.nombre.toLowerCase()}.`,
+          estado: true,
+        },
+      });
+
+      await prisma.tipoAprendizajeEstrategia.upsert({
+        where: {
+          tipoAprendizajeId_estrategiaId: {
+            tipoAprendizajeId: tipo.id,
+            estrategiaId: estrategia.id,
+          },
+        },
+        update: { pesoSugerido: 70 },
+        create: {
+          tipoAprendizajeId: tipo.id,
+          estrategiaId: estrategia.id,
+          pesoSugerido: 70,
+        },
+      });
+    }
   }
 
   const rolSuperadmin = await prisma.rol.findUniqueOrThrow({

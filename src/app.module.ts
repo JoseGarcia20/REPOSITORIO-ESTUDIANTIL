@@ -23,6 +23,7 @@ import { ReportesModule } from './modulos/reportes/reportes.module';
 import { PreparadorIaModule } from './modulos/preparadorIa/preparador-ia.module';
 import { AuditoriaModule } from './modulos/auditoria/auditoria.module';
 import { DashboardModule } from './modulos/dashboard/dashboard.module';
+import { AprendizajeAdaptativoModule } from './modulos/aprendizajeAdaptativo/aprendizaje-adaptativo.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 
@@ -57,6 +58,7 @@ import { join } from 'path';
     DetalleDiagnosticoAprendizajeModule,
     AuditoriaModule,
     DashboardModule,
+    AprendizajeAdaptativoModule,
   ],
 
   controllers: [],

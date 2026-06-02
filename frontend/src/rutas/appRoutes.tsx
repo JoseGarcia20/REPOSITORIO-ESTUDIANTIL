@@ -19,14 +19,18 @@ import { Foros } from '../paginas/foros/foros';
 import { GestorRecursos } from '../paginas/repositorio/gestorRecursos';
 import { AulaColaborativa } from '../paginas/aulaColaborativa/aulaColaborativa';
 import { PreparadorIa } from '../paginas/preparadorIa/preparadorIa';
+import { AprendizajeAdaptativo } from '../paginas/aprendizajeAdaptativo/aprendizajeAdaptativo';
+import { RutasAprendizajeAdmin } from '../paginas/rutasAprendizajeAdmin/rutasAprendizajeAdmin';
 import { Auditoria } from '../paginas/auditoria/auditoria';
 
 function RutaProtegidaPorPermiso({
   permiso,
+  permisos,
   rolesBloqueados = [],
   children,
 }: {
-  permiso: string;
+  permiso?: string;
+  permisos?: string[];
   rolesBloqueados?: string[];
   children: ReactElement;
 }) {
@@ -35,7 +39,10 @@ function RutaProtegidaPorPermiso({
   if (rol && rolesBloqueados.includes(rol)) {
     return <Navigate to="/inicio" replace />;
   }
-  if (!usuarioTienePermiso(permiso)) return <Navigate to="/inicio" replace />;
+  const permisosValidos = permisos || (permiso ? [permiso] : []);
+  if (!permisosValidos.some((item) => usuarioTienePermiso(item))) {
+    return <Navigate to="/inicio" replace />;
+  }
   return children;
 }
 
@@ -105,6 +112,14 @@ export function AppRoutes() {
             }
           />
           <Route
+            path="/admin/rutas-aprendizaje"
+            element={
+              <RutaProtegidaPorPermiso permiso={PERMISOS.TIPOS_RECURSOS_VER}>
+                <RutasAprendizajeAdmin />
+              </RutaProtegidaPorPermiso>
+            }
+          />
+          <Route
             path="/admin/recursos"
             element={
               <RutaProtegidaPorPermiso permiso={PERMISOS.RECURSOS_CREAR}>
@@ -133,6 +148,20 @@ export function AppRoutes() {
             element={
               <RutaProtegidaPorPermiso permiso={PERMISOS.PREPARADOR_IA_USAR}>
                 <PreparadorIa />
+              </RutaProtegidaPorPermiso>
+            }
+          />
+          <Route
+            path="/aprendizaje-adaptativo"
+            element={
+              <RutaProtegidaPorPermiso
+                permisos={[
+                  PERMISOS.FOROS_VER,
+                  PERMISOS.RECURSOS_VER,
+                  PERMISOS.PREPARADOR_IA_USAR,
+                ]}
+              >
+                <AprendizajeAdaptativo />
               </RutaProtegidaPorPermiso>
             }
           />

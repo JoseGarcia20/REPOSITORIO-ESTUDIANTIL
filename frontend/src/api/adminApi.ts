@@ -732,6 +732,93 @@ export type ReporteGenerado = {
   notas?: string[];
 };
 
+export type CatalogosAprendizajeAdaptativo = {
+  estados: string[];
+  tiposAprendizaje: Array<{
+    id: number;
+    nombre: string;
+    descripcion?: string | null;
+    estrategias: Array<{
+      id: number;
+      nombre: string;
+      descripcion?: string | null;
+      pesoSugerido: number;
+    }>;
+  }>;
+  estudiantes: Array<{
+    id: number;
+    nombres: string;
+    apellidos: string;
+    correo: string;
+    nombreCompleto: string;
+    gradoEscolar?: { id: number; nombre: string } | null;
+  }>;
+  docentes: Array<{
+    id: number;
+    nombres: string;
+    apellidos: string;
+    correo: string;
+    nombreCompleto: string;
+  }>;
+  puedeGestionar: boolean;
+  esEstudiante: boolean;
+};
+
+export type AsignacionAprendizajeAdaptativo = {
+  id: number;
+  tema: string;
+  objetivo?: string | null;
+  nivelSolicitado?: string | null;
+  tiempoDisponible?: string | null;
+  estado: string;
+  entrevistaPreguntas?: any;
+  entrevistaRespuestas?: any;
+  perfilAprendizaje?: any;
+  diagnostico?: any;
+  ruta?: any;
+  evaluacion?: any;
+  respuestasEvaluacion?: any;
+  resultadoEvaluacion?: any;
+  revisionDocente?: any;
+  conclusionesPdf?: string | null;
+  fechaLimite?: string | null;
+  fechaAprobacion?: string | null;
+  fechaRutaGenerada?: string | null;
+  fechaFinalizacion?: string | null;
+  fechaRevision?: string | null;
+  createdAt: string;
+  updatedAt: string;
+  institucionId: number;
+  docenteId: number;
+  estudianteId: number;
+  gradoEscolarId?: number | null;
+  institucion?: {
+    id: number;
+    nombre: string;
+    logo?: string | null;
+  };
+  docente?: {
+    id: number;
+    nombres: string;
+    apellidos: string;
+    correo: string;
+  };
+  estudiante?: {
+    id: number;
+    nombres: string;
+    apellidos: string;
+    correo: string;
+    gradoEscolar?: { id: number; nombre: string; codigo: string } | null;
+  };
+  gradoEscolar?: { id: number; nombre: string; codigo: string } | null;
+};
+
+export type PayloadTipoAprendizajeAdaptativo = {
+  nombre: string;
+  descripcion?: string;
+  estrategias?: string[];
+};
+
 export type TipoMaterialIa =
   | 'guia_clase'
   | 'taller'
@@ -1365,6 +1452,155 @@ export function guardarMaterialIa(data: PayloadGuardarMaterialIa) {
     '/preparador-ia/guardar',
     data,
     'Error al guardar material en el repositorio',
+  );
+}
+
+export function obtenerCatalogosAprendizajeAdaptativo() {
+  return get<CatalogosAprendizajeAdaptativo>(
+    '/aprendizaje-adaptativo/catalogos',
+    'Error al obtener catálogos de aprendizaje adaptativo',
+  );
+}
+
+export function listarAsignacionesAprendizajeAdaptativo() {
+  return get<AsignacionAprendizajeAdaptativo[]>(
+    '/aprendizaje-adaptativo/asignaciones',
+    'Error al obtener asignaciones de aprendizaje adaptativo',
+  );
+}
+
+export function crearAsignacionAprendizajeAdaptativo(data: {
+  estudianteId: number;
+  docenteId?: number;
+  tema: string;
+  objetivo?: string;
+  nivelSolicitado?: string;
+  tiempoDisponible?: string;
+  fechaLimite?: string;
+}) {
+  return post<AsignacionAprendizajeAdaptativo>(
+    '/aprendizaje-adaptativo/asignaciones',
+    data,
+    'Error al crear asignación adaptativa',
+  );
+}
+
+export function aprobarAsignacionAprendizajeAdaptativo(id: number) {
+  return post<AsignacionAprendizajeAdaptativo>(
+    `/aprendizaje-adaptativo/${id}/aprobar`,
+    {},
+    'Error al aprobar asignación adaptativa',
+  );
+}
+
+export function responderEntrevistaAprendizajeAdaptativo(
+  id: number,
+  respuestas: Array<{ preguntaId: string; respuesta: string }>,
+) {
+  return post<AsignacionAprendizajeAdaptativo>(
+    `/aprendizaje-adaptativo/${id}/entrevista`,
+    { respuestas },
+    'Error al registrar entrevista adaptativa',
+  );
+}
+
+export function iniciarRutaAprendizajeAdaptativo(id: number) {
+  return post<AsignacionAprendizajeAdaptativo>(
+    `/aprendizaje-adaptativo/${id}/iniciar`,
+    {},
+    'Error al iniciar ruta adaptativa',
+  );
+}
+
+export function regenerarRutaAprendizajeAdaptativo(id: number) {
+  return post<AsignacionAprendizajeAdaptativo>(
+    `/aprendizaje-adaptativo/${id}/regenerar-ruta`,
+    {},
+    'Error al regenerar ruta adaptativa',
+  );
+}
+
+export function actualizarPasoAprendizajeAdaptativo(
+  id: number,
+  indice: number,
+  completado: boolean,
+) {
+  return patchJson<AsignacionAprendizajeAdaptativo>(
+    `/aprendizaje-adaptativo/${id}/pasos/${indice}`,
+    { completado },
+    'Error al actualizar paso adaptativo',
+  );
+}
+
+export function enviarEvaluacionAprendizajeAdaptativo(
+  id: number,
+  respuestas: Array<{ preguntaId: string; respuesta: string }>,
+) {
+  return post<AsignacionAprendizajeAdaptativo>(
+    `/aprendizaje-adaptativo/${id}/evaluacion`,
+    { respuestas },
+    'Error al enviar evaluación adaptativa',
+  );
+}
+
+export function iniciarEvaluacionAprendizajeAdaptativo(id: number) {
+  return post<AsignacionAprendizajeAdaptativo>(
+    `/aprendizaje-adaptativo/${id}/evaluacion/iniciar`,
+    {},
+    'Error al iniciar evaluación adaptativa',
+  );
+}
+
+export function guardarParcialEvaluacionAprendizajeAdaptativo(
+  id: number,
+  respuestas: Array<{ preguntaId: string; respuesta: string }>,
+) {
+  return post<AsignacionAprendizajeAdaptativo>(
+    `/aprendizaje-adaptativo/${id}/evaluacion/parcial`,
+    { respuestas },
+    'Error al guardar evaluación parcial',
+  );
+}
+
+export function cerrarEvaluacionAprendizajeAdaptativo(
+  id: number,
+  data: {
+    respuestas?: Array<{ preguntaId: string; respuesta: string }>;
+    motivo?: string;
+  } = {},
+) {
+  return post<AsignacionAprendizajeAdaptativo>(
+    `/aprendizaje-adaptativo/${id}/evaluacion/cerrar`,
+    data,
+    'Error al cerrar evaluación adaptativa',
+  );
+}
+
+export function revisarAsignacionAprendizajeAdaptativo(
+  id: number,
+  data: { decision: 'completada' | 'reasignada'; observaciones?: string },
+) {
+  return post<AsignacionAprendizajeAdaptativo>(
+    `/aprendizaje-adaptativo/${id}/revisar`,
+    data,
+    'Error al revisar asignación adaptativa',
+  );
+}
+
+export function crearTipoAprendizajeAdaptativo(
+  data: PayloadTipoAprendizajeAdaptativo,
+) {
+  return post<CatalogosAprendizajeAdaptativo['tiposAprendizaje'][number]>(
+    '/aprendizaje-adaptativo/tipos',
+    data,
+    'Error al crear tipo de aprendizaje',
+  );
+}
+
+export function inactivarTipoAprendizajeAdaptativo(id: number) {
+  return patch<CatalogosAprendizajeAdaptativo['tiposAprendizaje'][number]>(
+    `/aprendizaje-adaptativo/tipos/${id}/inactivar`,
+    'Error al inactivar tipo de aprendizaje',
   );
 }
 

@@ -1,10 +1,11 @@
 import { useEffect, useMemo, useState } from 'react';
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
-import { PERMISOS, usuarioTienePermiso } from '../../api/adminApi';
+import { API_URL, PERMISOS, usuarioTienePermiso } from '../../api/adminApi';
 import { ChatbotWidget } from '../chatbot/chatbotWidget';
 import './appLayout.css';
 
 const APP_LOGO_SRC = '/logo-solo.png';
+const CLAVE_EVALUACION_ACTIVA = 'nexora_evaluacion_adaptativa_activa';
 
 type MenuItem = {
   titulo: string;
@@ -52,10 +53,34 @@ export function AppLayout() {
       });
     }
 
-    if (usuarioTienePermiso(PERMISOS.PREPARADOR_IA_USAR)) {
+    if (
+      usuarioTienePermiso(PERMISOS.PREPARADOR_IA_USAR) ||
+      usuarioTienePermiso(PERMISOS.FOROS_VER) ||
+      usuarioTienePermiso(PERMISOS.RECURSOS_VER)
+    ) {
+      const herramientasIa: { titulo: string; ruta: string }[] = [];
+
+      if (usuarioTienePermiso(PERMISOS.PREPARADOR_IA_USAR)) {
+        herramientasIa.push({
+          titulo: 'Preparador de clases',
+          ruta: '/preparador-ia',
+        });
+      }
+
+      if (
+        usuarioTienePermiso(PERMISOS.FOROS_VER) ||
+        usuarioTienePermiso(PERMISOS.RECURSOS_VER) ||
+        usuarioTienePermiso(PERMISOS.PREPARADOR_IA_USAR)
+      ) {
+        herramientasIa.push({
+          titulo: 'Aprendizaje adaptativo',
+          ruta: '/aprendizaje-adaptativo',
+        });
+      }
+
       items.push({
         titulo: 'Herramientas IA',
-        hijos: [{ titulo: 'Preparador de clases', ruta: '/preparador-ia' }],
+        hijos: herramientasIa,
       });
     }
 
@@ -78,6 +103,10 @@ export function AppLayout() {
       administracion.push({
         titulo: 'Tipos de recursos',
         ruta: '/admin/tipos-recursos',
+      });
+      administracion.push({
+        titulo: 'Rutas de aprendizaje',
+        ruta: '/admin/rutas-aprendizaje',
       });
     }
 
@@ -150,7 +179,45 @@ export function AppLayout() {
     }
   }, [location.pathname]);
 
-  function cerrarSesion() {
+  async function cerrarSesion() {
+    const token = localStorage.getItem('token') || '';
+    const evaluacionActivaRaw = localStorage.getItem(CLAVE_EVALUACION_ACTIVA);
+
+    if (token && evaluacionActivaRaw) {
+      try {
+        const evaluacionActiva = JSON.parse(evaluacionActivaRaw) as {
+          asignacionId?: number;
+          respuestas?: Array<{ preguntaId: string; respuesta: string }>;
+        };
+
+        if (evaluacionActiva?.asignacionId) {
+          await Promise.race([
+            fetch(
+              `${API_URL}/aprendizaje-adaptativo/${evaluacionActiva.asignacionId}/evaluacion/cerrar`,
+              {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify({
+                  respuestas: Array.isArray(evaluacionActiva.respuestas)
+                    ? evaluacionActiva.respuestas
+                    : [],
+                  motivo: 'abandono',
+                }),
+                keepalive: true,
+              },
+            ).catch(() => undefined),
+            new Promise((resolve) => setTimeout(resolve, 1200)),
+          ]);
+        }
+      } catch {
+        // Continúa con el cierre de sesión aunque falle el cierre remoto.
+      }
+    }
+
+    localStorage.removeItem(CLAVE_EVALUACION_ACTIVA);
     localStorage.removeItem('token');
     localStorage.removeItem('usuario');
     window.location.reload();

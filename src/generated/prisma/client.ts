@@ -150,6 +150,16 @@ export type CalificacionRecurso = Prisma.CalificacionRecursoModel
  */
 export type TipoAprendizaje = Prisma.TipoAprendizajeModel
 /**
+ * Model EstrategiaAprendizaje
+ * 
+ */
+export type EstrategiaAprendizaje = Prisma.EstrategiaAprendizajeModel
+/**
+ * Model TipoAprendizajeEstrategia
+ * 
+ */
+export type TipoAprendizajeEstrategia = Prisma.TipoAprendizajeEstrategiaModel
+/**
  * Model RutaAprendizaje
  * 
  */
@@ -174,3 +184,8 @@ export type DiagnosticoAprendizaje = Prisma.DiagnosticoAprendizajeModel
  * 
  */
 export type DetalleDiagnosticoAprendizaje = Prisma.DetalleDiagnosticoAprendizajeModel
+/**
+ * Model AsignacionAprendizajeAdaptativo
+ * 
+ */
+export type AsignacionAprendizajeAdaptativo = Prisma.AsignacionAprendizajeAdaptativoModel

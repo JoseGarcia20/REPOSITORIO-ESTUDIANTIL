@@ -406,11 +406,14 @@ export const ModelName = {
   AuditoriaLog: 'AuditoriaLog',
   CalificacionRecurso: 'CalificacionRecurso',
   TipoAprendizaje: 'TipoAprendizaje',
+  EstrategiaAprendizaje: 'EstrategiaAprendizaje',
+  TipoAprendizajeEstrategia: 'TipoAprendizajeEstrategia',
   RutaAprendizaje: 'RutaAprendizaje',
   DetalleRutaAprendizaje: 'DetalleRutaAprendizaje',
   AsignacionRutaAprendizaje: 'AsignacionRutaAprendizaje',
   DiagnosticoAprendizaje: 'DiagnosticoAprendizaje',
-  DetalleDiagnosticoAprendizaje: 'DetalleDiagnosticoAprendizaje'
+  DetalleDiagnosticoAprendizaje: 'DetalleDiagnosticoAprendizaje',
+  AsignacionAprendizajeAdaptativo: 'AsignacionAprendizajeAdaptativo'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -426,7 +429,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "institucion" | "rol" | "permiso" | "rolPermiso" | "usuario" | "gradoEscolar" | "categoria" | "foro" | "foroCategoria" | "comentarioForo" | "tipoRecurso" | "recurso" | "resumenIaRecurso" | "comentarioForoRecurso" | "proyectoColaborativo" | "proyectoColaborativoIntegrante" | "proyectoColaborativoActividad" | "proyectoColaborativoEvidencia" | "proyectoColaborativoEntrega" | "auditoriaLog" | "calificacionRecurso" | "tipoAprendizaje" | "rutaAprendizaje" | "detalleRutaAprendizaje" | "asignacionRutaAprendizaje" | "diagnosticoAprendizaje" | "detalleDiagnosticoAprendizaje"
+    modelProps: "institucion" | "rol" | "permiso" | "rolPermiso" | "usuario" | "gradoEscolar" | "categoria" | "foro" | "foroCategoria" | "comentarioForo" | "tipoRecurso" | "recurso" | "resumenIaRecurso" | "comentarioForoRecurso" | "proyectoColaborativo" | "proyectoColaborativoIntegrante" | "proyectoColaborativoActividad" | "proyectoColaborativoEvidencia" | "proyectoColaborativoEntrega" | "auditoriaLog" | "calificacionRecurso" | "tipoAprendizaje" | "estrategiaAprendizaje" | "tipoAprendizajeEstrategia" | "rutaAprendizaje" | "detalleRutaAprendizaje" | "asignacionRutaAprendizaje" | "diagnosticoAprendizaje" | "detalleDiagnosticoAprendizaje" | "asignacionAprendizajeAdaptativo"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2058,6 +2061,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    EstrategiaAprendizaje: {
+      payload: Prisma.$EstrategiaAprendizajePayload<ExtArgs>
+      fields: Prisma.EstrategiaAprendizajeFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.EstrategiaAprendizajeFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EstrategiaAprendizajePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.EstrategiaAprendizajeFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EstrategiaAprendizajePayload>
+        }
+        findFirst: {
+          args: Prisma.EstrategiaAprendizajeFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EstrategiaAprendizajePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.EstrategiaAprendizajeFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EstrategiaAprendizajePayload>
+        }
+        findMany: {
+          args: Prisma.EstrategiaAprendizajeFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EstrategiaAprendizajePayload>[]
+        }
+        create: {
+          args: Prisma.EstrategiaAprendizajeCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EstrategiaAprendizajePayload>
+        }
+        createMany: {
+          args: Prisma.EstrategiaAprendizajeCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.EstrategiaAprendizajeCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EstrategiaAprendizajePayload>[]
+        }
+        delete: {
+          args: Prisma.EstrategiaAprendizajeDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EstrategiaAprendizajePayload>
+        }
+        update: {
+          args: Prisma.EstrategiaAprendizajeUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EstrategiaAprendizajePayload>
+        }
+        deleteMany: {
+          args: Prisma.EstrategiaAprendizajeDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.EstrategiaAprendizajeUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.EstrategiaAprendizajeUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EstrategiaAprendizajePayload>[]
+        }
+        upsert: {
+          args: Prisma.EstrategiaAprendizajeUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EstrategiaAprendizajePayload>
+        }
+        aggregate: {
+          args: Prisma.EstrategiaAprendizajeAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateEstrategiaAprendizaje>
+        }
+        groupBy: {
+          args: Prisma.EstrategiaAprendizajeGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.EstrategiaAprendizajeGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.EstrategiaAprendizajeCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.EstrategiaAprendizajeCountAggregateOutputType> | number
+        }
+      }
+    }
+    TipoAprendizajeEstrategia: {
+      payload: Prisma.$TipoAprendizajeEstrategiaPayload<ExtArgs>
+      fields: Prisma.TipoAprendizajeEstrategiaFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.TipoAprendizajeEstrategiaFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TipoAprendizajeEstrategiaPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.TipoAprendizajeEstrategiaFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TipoAprendizajeEstrategiaPayload>
+        }
+        findFirst: {
+          args: Prisma.TipoAprendizajeEstrategiaFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TipoAprendizajeEstrategiaPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.TipoAprendizajeEstrategiaFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TipoAprendizajeEstrategiaPayload>
+        }
+        findMany: {
+          args: Prisma.TipoAprendizajeEstrategiaFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TipoAprendizajeEstrategiaPayload>[]
+        }
+        create: {
+          args: Prisma.TipoAprendizajeEstrategiaCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TipoAprendizajeEstrategiaPayload>
+        }
+        createMany: {
+          args: Prisma.TipoAprendizajeEstrategiaCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.TipoAprendizajeEstrategiaCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TipoAprendizajeEstrategiaPayload>[]
+        }
+        delete: {
+          args: Prisma.TipoAprendizajeEstrategiaDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TipoAprendizajeEstrategiaPayload>
+        }
+        update: {
+          args: Prisma.TipoAprendizajeEstrategiaUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TipoAprendizajeEstrategiaPayload>
+        }
+        deleteMany: {
+          args: Prisma.TipoAprendizajeEstrategiaDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.TipoAprendizajeEstrategiaUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.TipoAprendizajeEstrategiaUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TipoAprendizajeEstrategiaPayload>[]
+        }
+        upsert: {
+          args: Prisma.TipoAprendizajeEstrategiaUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TipoAprendizajeEstrategiaPayload>
+        }
+        aggregate: {
+          args: Prisma.TipoAprendizajeEstrategiaAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTipoAprendizajeEstrategia>
+        }
+        groupBy: {
+          args: Prisma.TipoAprendizajeEstrategiaGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TipoAprendizajeEstrategiaGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.TipoAprendizajeEstrategiaCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TipoAprendizajeEstrategiaCountAggregateOutputType> | number
+        }
+      }
+    }
     RutaAprendizaje: {
       payload: Prisma.$RutaAprendizajePayload<ExtArgs>
       fields: Prisma.RutaAprendizajeFieldRefs
@@ -2425,6 +2576,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.DetalleDiagnosticoAprendizajeCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.DetalleDiagnosticoAprendizajeCountAggregateOutputType> | number
+        }
+      }
+    }
+    AsignacionAprendizajeAdaptativo: {
+      payload: Prisma.$AsignacionAprendizajeAdaptativoPayload<ExtArgs>
+      fields: Prisma.AsignacionAprendizajeAdaptativoFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.AsignacionAprendizajeAdaptativoFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AsignacionAprendizajeAdaptativoPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.AsignacionAprendizajeAdaptativoFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AsignacionAprendizajeAdaptativoPayload>
+        }
+        findFirst: {
+          args: Prisma.AsignacionAprendizajeAdaptativoFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AsignacionAprendizajeAdaptativoPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.AsignacionAprendizajeAdaptativoFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AsignacionAprendizajeAdaptativoPayload>
+        }
+        findMany: {
+          args: Prisma.AsignacionAprendizajeAdaptativoFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AsignacionAprendizajeAdaptativoPayload>[]
+        }
+        create: {
+          args: Prisma.AsignacionAprendizajeAdaptativoCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AsignacionAprendizajeAdaptativoPayload>
+        }
+        createMany: {
+          args: Prisma.AsignacionAprendizajeAdaptativoCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.AsignacionAprendizajeAdaptativoCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AsignacionAprendizajeAdaptativoPayload>[]
+        }
+        delete: {
+          args: Prisma.AsignacionAprendizajeAdaptativoDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AsignacionAprendizajeAdaptativoPayload>
+        }
+        update: {
+          args: Prisma.AsignacionAprendizajeAdaptativoUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AsignacionAprendizajeAdaptativoPayload>
+        }
+        deleteMany: {
+          args: Prisma.AsignacionAprendizajeAdaptativoDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.AsignacionAprendizajeAdaptativoUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.AsignacionAprendizajeAdaptativoUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AsignacionAprendizajeAdaptativoPayload>[]
+        }
+        upsert: {
+          args: Prisma.AsignacionAprendizajeAdaptativoUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AsignacionAprendizajeAdaptativoPayload>
+        }
+        aggregate: {
+          args: Prisma.AsignacionAprendizajeAdaptativoAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAsignacionAprendizajeAdaptativo>
+        }
+        groupBy: {
+          args: Prisma.AsignacionAprendizajeAdaptativoGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AsignacionAprendizajeAdaptativoGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.AsignacionAprendizajeAdaptativoCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AsignacionAprendizajeAdaptativoCountAggregateOutputType> | number
         }
       }
     }
@@ -2801,6 +3026,28 @@ export const TipoAprendizajeScalarFieldEnum = {
 export type TipoAprendizajeScalarFieldEnum = (typeof TipoAprendizajeScalarFieldEnum)[keyof typeof TipoAprendizajeScalarFieldEnum]
 
 
+export const EstrategiaAprendizajeScalarFieldEnum = {
+  id: 'id',
+  nombre: 'nombre',
+  descripcion: 'descripcion',
+  estado: 'estado',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type EstrategiaAprendizajeScalarFieldEnum = (typeof EstrategiaAprendizajeScalarFieldEnum)[keyof typeof EstrategiaAprendizajeScalarFieldEnum]
+
+
+export const TipoAprendizajeEstrategiaScalarFieldEnum = {
+  tipoAprendizajeId: 'tipoAprendizajeId',
+  estrategiaId: 'estrategiaId',
+  pesoSugerido: 'pesoSugerido',
+  createdAt: 'createdAt'
+} as const
+
+export type TipoAprendizajeEstrategiaScalarFieldEnum = (typeof TipoAprendizajeEstrategiaScalarFieldEnum)[keyof typeof TipoAprendizajeEstrategiaScalarFieldEnum]
+
+
 export const RutaAprendizajeScalarFieldEnum = {
   id: 'id',
   titulo: 'titulo',
@@ -2873,6 +3120,39 @@ export const DetalleDiagnosticoAprendizajeScalarFieldEnum = {
 } as const
 
 export type DetalleDiagnosticoAprendizajeScalarFieldEnum = (typeof DetalleDiagnosticoAprendizajeScalarFieldEnum)[keyof typeof DetalleDiagnosticoAprendizajeScalarFieldEnum]
+
+
+export const AsignacionAprendizajeAdaptativoScalarFieldEnum = {
+  id: 'id',
+  tema: 'tema',
+  objetivo: 'objetivo',
+  nivelSolicitado: 'nivelSolicitado',
+  tiempoDisponible: 'tiempoDisponible',
+  estado: 'estado',
+  entrevistaPreguntas: 'entrevistaPreguntas',
+  entrevistaRespuestas: 'entrevistaRespuestas',
+  perfilAprendizaje: 'perfilAprendizaje',
+  diagnostico: 'diagnostico',
+  ruta: 'ruta',
+  evaluacion: 'evaluacion',
+  respuestasEvaluacion: 'respuestasEvaluacion',
+  resultadoEvaluacion: 'resultadoEvaluacion',
+  revisionDocente: 'revisionDocente',
+  conclusionesPdf: 'conclusionesPdf',
+  fechaLimite: 'fechaLimite',
+  fechaAprobacion: 'fechaAprobacion',
+  fechaRutaGenerada: 'fechaRutaGenerada',
+  fechaFinalizacion: 'fechaFinalizacion',
+  fechaRevision: 'fechaRevision',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  institucionId: 'institucionId',
+  docenteId: 'docenteId',
+  estudianteId: 'estudianteId',
+  gradoEscolarId: 'gradoEscolarId'
+} as const
+
+export type AsignacionAprendizajeAdaptativoScalarFieldEnum = (typeof AsignacionAprendizajeAdaptativoScalarFieldEnum)[keyof typeof AsignacionAprendizajeAdaptativoScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -3144,11 +3424,14 @@ export type GlobalOmitConfig = {
   auditoriaLog?: Prisma.AuditoriaLogOmit
   calificacionRecurso?: Prisma.CalificacionRecursoOmit
   tipoAprendizaje?: Prisma.TipoAprendizajeOmit
+  estrategiaAprendizaje?: Prisma.EstrategiaAprendizajeOmit
+  tipoAprendizajeEstrategia?: Prisma.TipoAprendizajeEstrategiaOmit
   rutaAprendizaje?: Prisma.RutaAprendizajeOmit
   detalleRutaAprendizaje?: Prisma.DetalleRutaAprendizajeOmit
   asignacionRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeOmit
   diagnosticoAprendizaje?: Prisma.DiagnosticoAprendizajeOmit
   detalleDiagnosticoAprendizaje?: Prisma.DetalleDiagnosticoAprendizajeOmit
+  asignacionAprendizajeAdaptativo?: Prisma.AsignacionAprendizajeAdaptativoOmit
 }
 
 /* Types for Logging */

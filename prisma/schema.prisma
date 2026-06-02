@@ -30,6 +30,7 @@ model Institucion {
   foros                  Foro[]
   recursos               Recurso[]
   proyectosColaborativos ProyectoColaborativo[]
+  aprendizajeAdaptativo  AsignacionAprendizajeAdaptativo[]
   auditoriaLogs          AuditoriaLog[]
 
   @@map("instituciones")
@@ -97,19 +98,21 @@ model Usuario {
   rol          Rol           @relation(fields: [rolId], references: [id])
   gradoEscolar GradoEscolar? @relation(fields: [gradoEscolarId], references: [id])
 
-  foros                       Foro[]
-  comentariosForo             ComentarioForo[]
-  recursos                    Recurso[]
-  calificacionesRecurso       CalificacionRecurso[]
-  proyectosDocente            ProyectoColaborativo[]           @relation("ProyectoDocente")
-  proyectosIntegrante         ProyectoColaborativoIntegrante[] @relation("ProyectoIntegranteUsuario")
-  actividadesResponsable      ProyectoColaborativoActividad[]  @relation("ProyectoActividadResponsable")
-  actividadesCreadas          ProyectoColaborativoActividad[]  @relation("ProyectoActividadCreador")
-  evidenciasAula              ProyectoColaborativoEvidencia[]  @relation("ProyectoEvidenciaUsuario")
-  entregasAula                ProyectoColaborativoEntrega[]    @relation("ProyectoEntregaUsuario")
-  asignacionesRutaAprendizaje AsignacionRutaAprendizaje[]
-  diagnosticosAprendizaje     DiagnosticoAprendizaje[]
-  auditoriaLogs               AuditoriaLog[]
+  foros                        Foro[]
+  comentariosForo              ComentarioForo[]
+  recursos                     Recurso[]
+  calificacionesRecurso        CalificacionRecurso[]
+  proyectosDocente             ProyectoColaborativo[]            @relation("ProyectoDocente")
+  proyectosIntegrante          ProyectoColaborativoIntegrante[]  @relation("ProyectoIntegranteUsuario")
+  actividadesResponsable       ProyectoColaborativoActividad[]   @relation("ProyectoActividadResponsable")
+  actividadesCreadas           ProyectoColaborativoActividad[]   @relation("ProyectoActividadCreador")
+  evidenciasAula               ProyectoColaborativoEvidencia[]   @relation("ProyectoEvidenciaUsuario")
+  entregasAula                 ProyectoColaborativoEntrega[]     @relation("ProyectoEntregaUsuario")
+  asignacionesRutaAprendizaje  AsignacionRutaAprendizaje[]
+  diagnosticosAprendizaje      DiagnosticoAprendizaje[]
+  aprendizajeAdaptativoAlumno  AsignacionAprendizajeAdaptativo[] @relation("AprendizajeAdaptativoAlumno")
+  aprendizajeAdaptativoDocente AsignacionAprendizajeAdaptativo[] @relation("AprendizajeAdaptativoDocente")
+  auditoriaLogs                AuditoriaLog[]
 
   @@map("usuarios")
 }
@@ -126,6 +129,7 @@ model GradoEscolar {
   usuarios               Usuario[]
   recursos               Recurso[]
   proyectosColaborativos ProyectoColaborativo[]
+  aprendizajeAdaptativo  AsignacionAprendizajeAdaptativo[]
 
   @@map("grados_escolares")
 }
@@ -446,8 +450,35 @@ model TipoAprendizaje {
   rutasAprendizaje               RutaAprendizaje[]
   diagnosticosAprendizaje        DiagnosticoAprendizaje[]
   detallesDiagnosticoAprendizaje DetalleDiagnosticoAprendizaje[]
+  estrategias                    TipoAprendizajeEstrategia[]
 
   @@map("tipos_aprendizaje")
+}
+
+model EstrategiaAprendizaje {
+  id          Int      @id @default(autoincrement())
+  nombre      String   @unique
+  descripcion String?
+  estado      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  tipos TipoAprendizajeEstrategia[]
+
+  @@map("estrategias_aprendizaje")
+}
+
+model TipoAprendizajeEstrategia {
+  tipoAprendizajeId Int
+  estrategiaId      Int
+  pesoSugerido      Int      @default(50)
+  createdAt         DateTime @default(now())
+
+  tipoAprendizaje TipoAprendizaje       @relation(fields: [tipoAprendizajeId], references: [id], onDelete: Cascade)
+  estrategia      EstrategiaAprendizaje @relation(fields: [estrategiaId], references: [id], onDelete: Cascade)
+
+  @@id([tipoAprendizajeId, estrategiaId])
+  @@map("tipo_aprendizaje_estrategias")
 }
 
 model RutaAprendizaje {
@@ -542,4 +573,42 @@ model DetalleDiagnosticoAprendizaje {
 
   @@unique([diagnosticoAprendizajeId, tipoAprendizajeId])
   @@map("detalles_diagnostico_aprendizaje")
+}
+
+model AsignacionAprendizajeAdaptativo {
+  id                   Int       @id @default(autoincrement())
+  tema                 String
+  objetivo             String?
+  nivelSolicitado      String?
+  tiempoDisponible     String?
+  estado               String    @default("asignada")
+  entrevistaPreguntas  Json?
+  entrevistaRespuestas Json?
+  perfilAprendizaje    Json?
+  diagnostico          Json?
+  ruta                 Json?
+  evaluacion           Json?
+  respuestasEvaluacion Json?
+  resultadoEvaluacion  Json?
+  revisionDocente      Json?
+  conclusionesPdf      String?
+  fechaLimite          DateTime?
+  fechaAprobacion      DateTime?
+  fechaRutaGenerada    DateTime?
+  fechaFinalizacion    DateTime?
+  fechaRevision        DateTime?
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
+
+  institucionId  Int
+  docenteId      Int
+  estudianteId   Int
+  gradoEscolarId Int?
+
+  institucion  Institucion   @relation(fields: [institucionId], references: [id])
+  docente      Usuario       @relation("AprendizajeAdaptativoDocente", fields: [docenteId], references: [id])
+  estudiante   Usuario       @relation("AprendizajeAdaptativoAlumno", fields: [estudianteId], references: [id])
+  gradoEscolar GradoEscolar? @relation(fields: [gradoEscolarId], references: [id])
+
+  @@map("asignaciones_aprendizaje_adaptativo")
 }

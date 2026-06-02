@@ -73,11 +73,14 @@ export const ModelName = {
   AuditoriaLog: 'AuditoriaLog',
   CalificacionRecurso: 'CalificacionRecurso',
   TipoAprendizaje: 'TipoAprendizaje',
+  EstrategiaAprendizaje: 'EstrategiaAprendizaje',
+  TipoAprendizajeEstrategia: 'TipoAprendizajeEstrategia',
   RutaAprendizaje: 'RutaAprendizaje',
   DetalleRutaAprendizaje: 'DetalleRutaAprendizaje',
   AsignacionRutaAprendizaje: 'AsignacionRutaAprendizaje',
   DiagnosticoAprendizaje: 'DiagnosticoAprendizaje',
-  DetalleDiagnosticoAprendizaje: 'DetalleDiagnosticoAprendizaje'
+  DetalleDiagnosticoAprendizaje: 'DetalleDiagnosticoAprendizaje',
+  AsignacionAprendizajeAdaptativo: 'AsignacionAprendizajeAdaptativo'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -430,6 +433,28 @@ export const TipoAprendizajeScalarFieldEnum = {
 export type TipoAprendizajeScalarFieldEnum = (typeof TipoAprendizajeScalarFieldEnum)[keyof typeof TipoAprendizajeScalarFieldEnum]
 
 
+export const EstrategiaAprendizajeScalarFieldEnum = {
+  id: 'id',
+  nombre: 'nombre',
+  descripcion: 'descripcion',
+  estado: 'estado',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type EstrategiaAprendizajeScalarFieldEnum = (typeof EstrategiaAprendizajeScalarFieldEnum)[keyof typeof EstrategiaAprendizajeScalarFieldEnum]
+
+
+export const TipoAprendizajeEstrategiaScalarFieldEnum = {
+  tipoAprendizajeId: 'tipoAprendizajeId',
+  estrategiaId: 'estrategiaId',
+  pesoSugerido: 'pesoSugerido',
+  createdAt: 'createdAt'
+} as const
+
+export type TipoAprendizajeEstrategiaScalarFieldEnum = (typeof TipoAprendizajeEstrategiaScalarFieldEnum)[keyof typeof TipoAprendizajeEstrategiaScalarFieldEnum]
+
+
 export const RutaAprendizajeScalarFieldEnum = {
   id: 'id',
   titulo: 'titulo',
@@ -502,6 +527,39 @@ export const DetalleDiagnosticoAprendizajeScalarFieldEnum = {
 } as const
 
 export type DetalleDiagnosticoAprendizajeScalarFieldEnum = (typeof DetalleDiagnosticoAprendizajeScalarFieldEnum)[keyof typeof DetalleDiagnosticoAprendizajeScalarFieldEnum]
+
+
+export const AsignacionAprendizajeAdaptativoScalarFieldEnum = {
+  id: 'id',
+  tema: 'tema',
+  objetivo: 'objetivo',
+  nivelSolicitado: 'nivelSolicitado',
+  tiempoDisponible: 'tiempoDisponible',
+  estado: 'estado',
+  entrevistaPreguntas: 'entrevistaPreguntas',
+  entrevistaRespuestas: 'entrevistaRespuestas',
+  perfilAprendizaje: 'perfilAprendizaje',
+  diagnostico: 'diagnostico',
+  ruta: 'ruta',
+  evaluacion: 'evaluacion',
+  respuestasEvaluacion: 'respuestasEvaluacion',
+  resultadoEvaluacion: 'resultadoEvaluacion',
+  revisionDocente: 'revisionDocente',
+  conclusionesPdf: 'conclusionesPdf',
+  fechaLimite: 'fechaLimite',
+  fechaAprobacion: 'fechaAprobacion',
+  fechaRutaGenerada: 'fechaRutaGenerada',
+  fechaFinalizacion: 'fechaFinalizacion',
+  fechaRevision: 'fechaRevision',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  institucionId: 'institucionId',
+  docenteId: 'docenteId',
+  estudianteId: 'estudianteId',
+  gradoEscolarId: 'gradoEscolarId'
+} as const
+
+export type AsignacionAprendizajeAdaptativoScalarFieldEnum = (typeof AsignacionAprendizajeAdaptativoScalarFieldEnum)[keyof typeof AsignacionAprendizajeAdaptativoScalarFieldEnum]
 
 
 export const SortOrder = {
