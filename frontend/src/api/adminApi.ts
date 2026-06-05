@@ -1524,10 +1524,11 @@ export function actualizarPasoAprendizajeAdaptativo(
   id: number,
   indice: number,
   completado: boolean,
+  pasoActual?: number,
 ) {
   return patchJson<AsignacionAprendizajeAdaptativo>(
     `/aprendizaje-adaptativo/${id}/pasos/${indice}`,
-    { completado },
+    { completado, pasoActual },
     'Error al actualizar paso adaptativo',
   );
 }

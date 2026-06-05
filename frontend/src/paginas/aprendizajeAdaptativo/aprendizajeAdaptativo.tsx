@@ -29,7 +29,6 @@ type FormularioAsignacion = {
   tema: string;
   objetivo: string;
   nivelSolicitado: string;
-  tiempoDisponible: string;
   fechaLimite: string;
 };
 
@@ -44,18 +43,12 @@ type RecursoRuta = {
   contenido?: string;
 };
 
-type RecursoAbierto = {
-  tipo: string;
-  titulo: string;
-  descripcion?: string;
-  contenido?: string;
-};
-
 type PasoRuta = {
   id?: string;
   orden?: number;
   titulo?: string;
   objetivo?: string;
+  categoriaPaso?: 'recurso' | 'actividad';
   estrategia?: string;
   tipoActividad?: string;
   descripcion?: string;
@@ -78,7 +71,6 @@ const formularioInicial: FormularioAsignacion = {
   tema: '',
   objetivo: '',
   nivelSolicitado: '',
-  tiempoDisponible: '',
   fechaLimite: '',
 };
 
@@ -105,6 +97,7 @@ const fasesRuta = [
 ];
 
 const CLAVE_EVALUACION_ACTIVA = 'nexora_evaluacion_adaptativa_activa';
+type SubmoduloAdaptativo = 'asignar' | 'rutas';
 
 function formatearFecha(valor?: string | null) {
   if (!valor) {
@@ -142,6 +135,106 @@ function obtenerPasos(
 ): PasoRuta[] {
   const pasos = asignacion?.ruta?.pasos;
   return Array.isArray(pasos) ? pasos : [];
+}
+
+function obtenerPasoActual(asignacion?: AsignacionAprendizajeAdaptativo | null) {
+  const pasos = obtenerPasos(asignacion);
+  if (pasos.length === 0) {
+    return 0;
+  }
+
+  if (asignacion?.estado === 'evaluacion' || asignacion?.estado === 'evaluada') {
+    return pasos.length;
+  }
+
+  const pasoActualRuta = Number(asignacion?.ruta?.pasoActual ?? -1);
+  if (Number.isFinite(pasoActualRuta) && pasoActualRuta >= 0) {
+    return Math.min(pasoActualRuta, pasos.length);
+  }
+
+  const primerPendiente = pasos.findIndex((paso) => !paso.completado);
+  return primerPendiente >= 0 ? primerPendiente : pasos.length;
+}
+
+function obtenerRecursoPrincipal(paso?: PasoRuta | null) {
+  const recursos = Array.isArray(paso?.recursos) ? paso?.recursos : [];
+  return recursos[0] || null;
+}
+
+function esPasoActividad(paso?: PasoRuta | null, indice = 0) {
+  if (paso?.categoriaPaso) {
+    return paso.categoriaPaso === 'actividad';
+  }
+
+  return indice === 1 || indice === 3;
+}
+
+function etiquetaTipoRecurso(recurso?: RecursoRuta | null) {
+  switch (recurso?.tipo) {
+    case 'youtube':
+      return 'Video guiado';
+    case 'web':
+      return 'Lectura externa';
+    case 'mapa':
+      return 'Mapa conceptual';
+    case 'lectura':
+      return 'Lectura guiada';
+    case 'actividad':
+      return 'Actividad';
+    default:
+      return 'Material';
+  }
+}
+
+function etiquetaAccionRecurso(recurso?: RecursoRuta | null) {
+  if (recurso?.tipo === 'web' || recurso?.tipo === 'lectura') {
+    return 'Ver recurso aquí';
+  }
+
+  if (recurso?.tipo === 'youtube') {
+    return 'Abrir en YouTube';
+  }
+
+  return 'Abrir recurso';
+}
+
+function descripcionPlazo(asignacion?: AsignacionAprendizajeAdaptativo | null) {
+  if (asignacion?.ruta?.duracionEstimada) {
+    return String(asignacion.ruta.duracionEstimada);
+  }
+
+  if (asignacion?.tiempoDisponible) {
+    return String(asignacion.tiempoDisponible);
+  }
+
+  if (asignacion?.fechaLimite) {
+    const hoy = new Date();
+    const limite = new Date(asignacion.fechaLimite);
+    hoy.setHours(0, 0, 0, 0);
+    limite.setHours(0, 0, 0, 0);
+    const dias = Math.max(1, Math.ceil((limite.getTime() - hoy.getTime()) / 86400000));
+    return dias === 1 ? '1 día disponible' : `${dias} días disponibles`;
+  }
+
+  return 'Tiempo flexible';
+}
+
+function descripcionPlazoDesdeFechaLimite(fechaLimite?: string) {
+  if (!fechaLimite) {
+    return 'Se calculará a partir de la fecha límite';
+  }
+
+  return descripcionPlazo({
+    id: 0,
+    tema: '',
+    estado: 'asignada',
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+    institucionId: 0,
+    docenteId: 0,
+    estudianteId: 0,
+    fechaLimite,
+  } as AsignacionAprendizajeAdaptativo);
 }
 
 function obtenerPreguntasEvaluacion(
@@ -253,11 +346,14 @@ export function AprendizajeAdaptativo() {
   const [error, setError] = useState('');
   const [mensaje, setMensaje] = useState('');
   const [segundosRestantes, setSegundosRestantes] = useState<number | null>(null);
-  const [recursoAbierto, setRecursoAbierto] = useState<RecursoAbierto | null>(null);
   const [evaluacionModalAbierta, setEvaluacionModalAbierta] = useState(false);
   const [confirmacionEvaluacionAbierta, setConfirmacionEvaluacionAbierta] =
     useState(false);
-  const [videosAbiertos, setVideosAbiertos] = useState<Record<string, boolean>>({});
+  const [submoduloActivo, setSubmoduloActivo] =
+    useState<SubmoduloAdaptativo>('rutas');
+  const [detalleAbierto, setDetalleAbierto] = useState(false);
+  const [rutaModalAbierta, setRutaModalAbierta] = useState(false);
+  const [pasoRutaActivo, setPasoRutaActivo] = useState(0);
   const cierreAutomaticoRef = useRef<string>('');
   const cierreRecuperacionRef = useRef<number | null>(null);
 
@@ -303,6 +399,19 @@ export function AprendizajeAdaptativo() {
       estadoEvaluacionSeleccionada.iniciadaEn &&
       !estadoEvaluacionSeleccionada.cerradaEn,
   );
+  const pasosSeleccionados = useMemo(
+    () => obtenerPasos(asignacionSeleccionada),
+    [asignacionSeleccionada],
+  );
+  const pasoActualSeleccionado = useMemo(
+    () => obtenerPasoActual(asignacionSeleccionada),
+    [asignacionSeleccionada],
+  );
+  const pasoRutaActual =
+    rutaModalAbierta && pasoRutaActivo < pasosSeleccionados.length
+      ? pasosSeleccionados[pasoRutaActivo]
+      : null;
+  const recursoPasoActual = obtenerRecursoPrincipal(pasoRutaActual);
 
   const indicadores = useMemo(() => {
     const activas = asignaciones.filter((item) =>
@@ -552,6 +661,16 @@ export function AprendizajeAdaptativo() {
     setEvaluacionModalAbierta(false);
   }, [evaluacionEnCurso]);
 
+  useEffect(() => {
+    if (!asignacionSeleccionada) {
+      setDetalleAbierto(false);
+      setRutaModalAbierta(false);
+      return;
+    }
+
+    setPasoRutaActivo(obtenerPasoActual(asignacionSeleccionada));
+  }, [asignacionSeleccionada?.id, asignacionSeleccionada?.updatedAt]);
+
   function construirRespuestasEvaluacion() {
     if (!asignacionSeleccionada) {
       return [];
@@ -609,35 +728,124 @@ export function AprendizajeAdaptativo() {
     }
   }
 
-  function claveRecurso(pasoId: string | undefined, indice: number) {
-    return `${pasoId || 'paso'}-${indice}`;
+  function abrirDetalleAsignacion(asignacionId: number) {
+    setAsignacionSeleccionadaId(asignacionId);
+    setDetalleAbierto(true);
   }
 
-  function alternarVideo(pasoId: string | undefined, indice: number) {
-    const clave = claveRecurso(pasoId, indice);
-    setVideosAbiertos((prev) => ({ ...prev, [clave]: !prev[clave] }));
+  function cerrarDetalleAsignacion() {
+    setDetalleAbierto(false);
   }
 
-  function abrirRecurso(recurso: RecursoRuta) {
-    setRecursoAbierto({
-      tipo: recurso.tipo || 'material',
-      titulo: recurso.titulo || 'Material de apoyo',
-      descripcion: recurso.descripcion,
-      contenido: recurso.contenido,
-    });
+  async function abrirRutaGuiada() {
+    if (!asignacionSeleccionada) {
+      return;
+    }
+
+    try {
+      setError('');
+      let actualizada = asignacionSeleccionada;
+
+      if (asignacionSeleccionada.estado === 'ruta_generada') {
+        setProcesando('iniciar');
+        actualizada = await iniciarRutaAprendizajeAdaptativo(asignacionSeleccionada.id);
+        registrarAsignacionActualizada(actualizada);
+      }
+
+      setPasoRutaActivo(obtenerPasoActual(actualizada));
+      setRutaModalAbierta(true);
+      setDetalleAbierto(false);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'No se pudo iniciar la ruta.');
+    } finally {
+      setProcesando('');
+    }
   }
 
-  function etiquetaRecurso(recurso: RecursoRuta) {
-    if (recurso.tipo === 'mapa') {
-      return 'Ver mapa mental';
+  async function guardarProgresoRutaActual() {
+    if (!asignacionSeleccionada || !rutaModalAbierta) {
+      return;
     }
-    if (recurso.tipo === 'lectura') {
-      return 'Ver lectura';
+
+    const pasos = obtenerPasos(asignacionSeleccionada);
+    if (pasoRutaActivo >= pasos.length || !pasos[pasoRutaActivo]) {
+      return;
     }
-    if (recurso.tipo === 'actividad') {
-      return 'Ver actividad';
+
+    try {
+      const actualizada = await actualizarPasoAprendizajeAdaptativo(
+        asignacionSeleccionada.id,
+        pasoRutaActivo,
+        Boolean(pasos[pasoRutaActivo].completado),
+        pasoRutaActivo,
+      );
+      registrarAsignacionActualizada(actualizada);
+    } catch {
+      // Mantiene la experiencia fluida si la red falla en un cierre manual.
     }
-    return 'Ver material';
+  }
+
+  async function cerrarRutaGuiada() {
+    await guardarProgresoRutaActual();
+    setRutaModalAbierta(false);
+  }
+
+  async function avanzarPasoGuiado() {
+    if (!asignacionSeleccionada) {
+      return;
+    }
+
+    const pasos = obtenerPasos(asignacionSeleccionada);
+    if (!pasos[pasoRutaActivo]) {
+      return;
+    }
+
+    try {
+      setProcesando(`paso-${pasoRutaActivo}`);
+      const siguientePaso = Math.min(pasoRutaActivo + 1, pasos.length);
+      const actualizada = await actualizarPasoAprendizajeAdaptativo(
+        asignacionSeleccionada.id,
+        pasoRutaActivo,
+        true,
+        siguientePaso,
+      );
+      registrarAsignacionActualizada(actualizada);
+
+      if (actualizada.estado === 'evaluacion') {
+        setPasoRutaActivo(obtenerPasoActual(actualizada));
+        return;
+      }
+
+      setPasoRutaActivo(siguientePaso);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'No se pudo avanzar el paso.');
+    } finally {
+      setProcesando('');
+    }
+  }
+
+  async function irPasoAnterior() {
+    if (!asignacionSeleccionada || pasoRutaActivo === 0) {
+      return;
+    }
+
+    const pasos = obtenerPasos(asignacionSeleccionada);
+    const nuevoPaso = Math.max(0, pasoRutaActivo - 1);
+
+    try {
+      const actualizada = await actualizarPasoAprendizajeAdaptativo(
+        asignacionSeleccionada.id,
+        pasoRutaActivo,
+        Boolean(pasos[pasoRutaActivo]?.completado),
+        nuevoPaso,
+      );
+      registrarAsignacionActualizada(actualizada);
+      setPasoRutaActivo(nuevoPaso);
+    } catch (err) {
+      setError(
+        err instanceof Error ? err.message : 'No se pudo actualizar el progreso.',
+      );
+    }
   }
 
   async function cargarDatos() {
@@ -709,7 +917,6 @@ export function AprendizajeAdaptativo() {
         tema: formulario.tema.trim(),
         objetivo: formulario.objetivo.trim() || undefined,
         nivelSolicitado: formulario.nivelSolicitado || undefined,
-        tiempoDisponible: formulario.tiempoDisponible.trim() || undefined,
         fechaLimite: formulario.fechaLimite || undefined,
       });
 
@@ -777,25 +984,6 @@ export function AprendizajeAdaptativo() {
     }
   }
 
-  async function iniciarRuta() {
-    if (!asignacionSeleccionada) {
-      return;
-    }
-
-    try {
-      setProcesando('iniciar');
-      const asignacion = await iniciarRutaAprendizajeAdaptativo(
-        asignacionSeleccionada.id,
-      );
-      registrarAsignacionActualizada(asignacion);
-      setMensaje('Ruta iniciada.');
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'No se pudo iniciar la ruta.');
-    } finally {
-      setProcesando('');
-    }
-  }
-
   async function iniciarEvaluacion() {
     if (!asignacionSeleccionada) {
       return;
@@ -837,26 +1025,6 @@ export function AprendizajeAdaptativo() {
       setError(
         err instanceof Error ? err.message : 'No se pudo regenerar la ruta.',
       );
-    } finally {
-      setProcesando('');
-    }
-  }
-
-  async function actualizarPaso(indice: number, completado: boolean) {
-    if (!asignacionSeleccionada) {
-      return;
-    }
-
-    try {
-      setProcesando(`paso-${indice}`);
-      const asignacion = await actualizarPasoAprendizajeAdaptativo(
-        asignacionSeleccionada.id,
-        indice,
-        completado,
-      );
-      registrarAsignacionActualizada(asignacion);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'No se pudo actualizar el paso.');
     } finally {
       setProcesando('');
     }
@@ -922,24 +1090,128 @@ export function AprendizajeAdaptativo() {
     }
   }
 
-  function renderAsignacionDetalle() {
-    if (!asignacionSeleccionada) {
-      return (
-        <div className="adaptativo-empty">
-          <span>AI</span>
-          <h2>No hay rutas adaptativas</h2>
-          <p>Cuando exista una asignación, su entrevista, ruta y evaluación aparecerán aquí.</p>
-        </div>
-      );
+  function renderResultadoEvaluacion() {
+    if (!asignacionSeleccionada?.resultadoEvaluacion) {
+      return null;
     }
 
-    const pasos = obtenerPasos(asignacionSeleccionada);
+    return (
+      <section className="adaptativo-section">
+        <div className="adaptativo-section-title">
+          <h3>Resultado de IA</h3>
+          <p>{asignacionSeleccionada.resultadoEvaluacion.veredicto}</p>
+        </div>
+        <div className="adaptativo-score">
+          <strong>{asignacionSeleccionada.resultadoEvaluacion.puntaje || 0}</strong>
+          <span>/100</span>
+        </div>
+        <div className="adaptativo-two-columns">
+          <div>
+            <h4>Fortalezas</h4>
+            <ul>
+              {(asignacionSeleccionada.resultadoEvaluacion.fortalezas || []).map(
+                (item: string) => (
+                  <li key={item}>{item}</li>
+                ),
+              )}
+            </ul>
+          </div>
+          <div>
+            <h4>Oportunidades</h4>
+            <ul>
+              {(asignacionSeleccionada.resultadoEvaluacion.oportunidades || []).map(
+                (item: string) => (
+                  <li key={item}>{item}</li>
+                ),
+              )}
+            </ul>
+          </div>
+        </div>
+        <p className="adaptativo-text">
+          {asignacionSeleccionada.resultadoEvaluacion.recomendacion}
+        </p>
+        {asignacionSeleccionada.conclusionesPdf && (
+          <a
+            className="adaptativo-pdf-link"
+            href={construirUrlDocumento(asignacionSeleccionada.conclusionesPdf)}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Ver PDF de conclusiones
+          </a>
+        )}
+      </section>
+    );
+  }
+
+  function renderRevisionDocente() {
+    if (!asignacionSeleccionada) {
+      return null;
+    }
+
+    const puedeRevisar =
+      puedeGestionar && ['evaluada', 'revisada'].includes(asignacionSeleccionada.estado);
+
+    if (!puedeRevisar) {
+      return null;
+    }
+
+    return (
+      <form className="adaptativo-section" onSubmit={revisarAsignacion}>
+        <div className="adaptativo-section-title">
+          <h3>Revisión docente</h3>
+          <p>Cierre o reasignación de la ruta</p>
+        </div>
+        <div className="adaptativo-form-grid compact">
+          <label className="adaptativo-field">
+            <span>Decisión</span>
+            <select
+              value={revision.decision}
+              onChange={(event) =>
+                setRevision((prev) => ({
+                  ...prev,
+                  decision: event.target.value as 'completada' | 'reasignada',
+                }))
+              }
+            >
+              <option value="completada">Completada</option>
+              <option value="reasignada">Reasignar refuerzo</option>
+            </select>
+          </label>
+          <label className="adaptativo-field full">
+            <span>Observaciones</span>
+            <textarea
+              rows={4}
+              value={revision.observaciones}
+              onChange={(event) =>
+                setRevision((prev) => ({
+                  ...prev,
+                  observaciones: event.target.value,
+                }))
+              }
+            />
+          </label>
+        </div>
+        <button
+          className="primary-button"
+          type="submit"
+          disabled={Boolean(procesando)}
+        >
+          Registrar revisión
+        </button>
+      </form>
+    );
+  }
+
+  function renderDetalleAsignacion() {
+    if (!asignacionSeleccionada) {
+      return null;
+    }
+
     const preguntasEntrevista = obtenerPreguntasEntrevista(asignacionSeleccionada);
     const porcentajes = obtenerPorcentajes(asignacionSeleccionada);
     const puedeResponder =
       esEstudiante && Number(asignacionSeleccionada.estudianteId) === Number(usuario?.id);
-    const puedeRevisar =
-      puedeGestionar && ['evaluada', 'revisada'].includes(asignacionSeleccionada.estado);
     const avance = calcularAvance(asignacionSeleccionada);
     const faseActual = indiceFase(asignacionSeleccionada.estado);
     const estadoEvaluacion = estadoEvaluacionSeleccionada;
@@ -951,98 +1223,109 @@ export function AprendizajeAdaptativo() {
 
     return (
       <>
-        <div className="adaptativo-detail-header">
+        <div className="adaptativo-modal-head adaptativo-detail-modal-head">
           <div>
             <span className={`adaptativo-status status-${asignacionSeleccionada.estado}`}>
               {normalizarEstado(asignacionSeleccionada.estado)}
             </span>
-            <h2>{asignacionSeleccionada.tema}</h2>
+            <h3>{asignacionSeleccionada.tema}</h3>
             <p>{asignacionSeleccionada.objetivo || 'Ruta personalizada de aprendizaje.'}</p>
           </div>
-          <div className="adaptativo-progress">
-            <span>{avance}%</span>
-            <div>
-              <i style={{ width: `${avance}%` }} />
-            </div>
-          </div>
+          <button
+            type="button"
+            className="secondary-button"
+            onClick={cerrarDetalleAsignacion}
+          >
+            Cerrar
+          </button>
         </div>
 
-        <div className="adaptativo-meta-grid">
-          <div>
-            <span>Estudiante</span>
-            <strong>{nombreUsuario(asignacionSeleccionada.estudiante)}</strong>
-          </div>
-          <div>
-            <span>Docente</span>
-            <strong>{nombreUsuario(asignacionSeleccionada.docente)}</strong>
-          </div>
-          <div>
-            <span>Grado</span>
-            <strong>{asignacionSeleccionada.gradoEscolar?.nombre || 'Sin grado'}</strong>
-          </div>
-          <div>
-            <span>Fecha límite</span>
-            <strong>{formatearFecha(asignacionSeleccionada.fechaLimite)}</strong>
-          </div>
-        </div>
-
-        <div className="adaptativo-phase-strip">
-          {fasesRuta.map((fase, indice) => (
-            <div
-              key={fase.estado}
-              className={
-                indice <= faseActual
-                  ? 'adaptativo-phase active'
-                  : 'adaptativo-phase'
-              }
-            >
-              <span>{indice + 1}</span>
-              <strong>{fase.label}</strong>
+        <section className="adaptativo-section">
+          <div className="adaptativo-detail-summary">
+            <div className="adaptativo-progress">
+              <span>{avance}%</span>
+              <div>
+                <i style={{ width: `${avance}%` }} />
+              </div>
             </div>
-          ))}
-        </div>
-
-        {porcentajes.length > 0 && (
-          <section className="adaptativo-section">
-            <div className="adaptativo-section-title">
-              <h3>Perfil de aprendizaje</h3>
-              <p>{asignacionSeleccionada.perfilAprendizaje?.principal || 'Perfil mixto'}</p>
+            <div className="adaptativo-meta-grid">
+              <div>
+                <span>Estudiante</span>
+                <strong>{nombreUsuario(asignacionSeleccionada.estudiante)}</strong>
+              </div>
+              <div>
+                <span>Docente</span>
+                <strong>{nombreUsuario(asignacionSeleccionada.docente)}</strong>
+              </div>
+              <div>
+                <span>Grado</span>
+                <strong>{asignacionSeleccionada.gradoEscolar?.nombre || 'Sin grado'}</strong>
+              </div>
+              <div>
+                <span>Fecha límite</span>
+                <strong>{formatearFecha(asignacionSeleccionada.fechaLimite)}</strong>
+              </div>
             </div>
-            <div className="adaptativo-profile-bars">
-              {porcentajes.map((perfil: any) => (
-                <div key={perfil.tipo} className="adaptativo-profile-row">
-                  <span>{perfil.tipo}</span>
-                  <div>
-                    <i style={{ width: `${Number(perfil.porcentaje || 0)}%` }} />
-                  </div>
-                  <strong>{perfil.porcentaje}%</strong>
+          </div>
+          <div className="adaptativo-phase-strip">
+            {fasesRuta.map((fase, indice) => (
+              <div
+                key={fase.estado}
+                className={
+                  indice <= faseActual ? 'adaptativo-phase active' : 'adaptativo-phase'
+                }
+              >
+                <span>{indice + 1}</span>
+                <strong>{fase.label}</strong>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {(porcentajes.length > 0 || asignacionSeleccionada.diagnostico) && (
+          <div className="adaptativo-detail-grid">
+            {porcentajes.length > 0 && (
+              <section className="adaptativo-section">
+                <div className="adaptativo-section-title">
+                  <h3>Perfil de aprendizaje</h3>
+                  <p>{asignacionSeleccionada.perfilAprendizaje?.principal || 'Perfil mixto'}</p>
                 </div>
-              ))}
-            </div>
-          </section>
-        )}
-
-        {asignacionSeleccionada.diagnostico && (
-          <section className="adaptativo-section">
-            <div className="adaptativo-section-title">
-              <h3>Diagnóstico</h3>
-              <p>{asignacionSeleccionada.diagnostico.duracionEstimada}</p>
-            </div>
-            <p className="adaptativo-text">
-              {asignacionSeleccionada.diagnostico.justificacion}
-            </p>
-            <div className="adaptativo-tags">
-              <span>{asignacionSeleccionada.diagnostico.nivelDificultad}</span>
-              <span>{asignacionSeleccionada.tiempoDisponible || 'Tiempo flexible'}</span>
-            </div>
-          </section>
+                <div className="adaptativo-profile-bars">
+                  {porcentajes.map((perfil: any) => (
+                    <div key={perfil.tipo} className="adaptativo-profile-row">
+                      <span>{perfil.tipo}</span>
+                      <div>
+                        <i style={{ width: `${Number(perfil.porcentaje || 0)}%` }} />
+                      </div>
+                      <strong>{perfil.porcentaje}%</strong>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            )}
+            {asignacionSeleccionada.diagnostico && (
+              <section className="adaptativo-section">
+                <div className="adaptativo-section-title">
+                  <h3>Diagnóstico</h3>
+                  <p>{asignacionSeleccionada.diagnostico.duracionEstimada}</p>
+                </div>
+                <p className="adaptativo-text">
+                  {asignacionSeleccionada.diagnostico.justificacion}
+                </p>
+                <div className="adaptativo-tags">
+                  <span>{asignacionSeleccionada.diagnostico.nivelDificultad}</span>
+                  <span>{descripcionPlazo(asignacionSeleccionada)}</span>
+                </div>
+              </section>
+            )}
+          </div>
         )}
 
         {puedeResponder &&
           ['asignada', 'reasignada'].includes(asignacionSeleccionada.estado) && (
             <section className="adaptativo-action-panel">
               <h3>Aprobar asignación</h3>
-              <p>Al aprobar, se abre la entrevista para construir tu ruta personalizada.</p>
+              <p>Al aprobar, se abrirá la entrevista para construir la ruta personalizada.</p>
               <button
                 className="primary-button"
                 onClick={aprobarAsignacion}
@@ -1057,7 +1340,7 @@ export function AprendizajeAdaptativo() {
           <form className="adaptativo-section" onSubmit={enviarEntrevista}>
             <div className="adaptativo-section-title">
               <h3>Entrevista adaptativa</h3>
-              <p>Máximo 5 respuestas</p>
+              <p>5 preguntas para personalizar la ruta</p>
             </div>
             <div className="adaptativo-question-list">
               {preguntasEntrevista.map((pregunta) => (
@@ -1087,14 +1370,14 @@ export function AprendizajeAdaptativo() {
           </form>
         )}
 
-        {pasos.length === 0 &&
+        {pasosSeleccionados.length === 0 &&
           Array.isArray(asignacionSeleccionada.entrevistaRespuestas) &&
           asignacionSeleccionada.entrevistaRespuestas.length > 0 && (
             <section className="adaptativo-action-panel">
               <h3>Ruta pendiente por estructurar</h3>
               <p>
                 La entrevista ya está registrada. Puedes generar nuevamente el
-                perfil, el paso a paso de estudio y la evaluación.
+                perfil, los 5 pasos de estudio y la evaluación final.
               </p>
               <button
                 className="primary-button"
@@ -1107,114 +1390,92 @@ export function AprendizajeAdaptativo() {
             </section>
           )}
 
-        {pasos.length > 0 && (
+        {pasosSeleccionados.length > 0 && (
           <section className="adaptativo-section">
             <div className="adaptativo-section-title">
-              <h3>{asignacionSeleccionada.ruta?.titulo || 'Ruta adaptativa'}</h3>
-              <p>{asignacionSeleccionada.ruta?.duracionEstimada}</p>
-            </div>
-            <div className="adaptativo-steps">
-              {pasos.map((paso, indice) => (
-                <article
-                  className={`adaptativo-step ${paso.completado ? 'done' : ''}`}
-                  key={paso.id || indice}
+              <div>
+                <h3>{asignacionSeleccionada.ruta?.titulo || 'Ruta adaptativa'}</h3>
+                <p>
+                  {asignacionSeleccionada.ruta?.duracionEstimada}
+                  {asignacionSeleccionada.estado === 'en_curso' &&
+                    ` · retomando desde el paso ${Math.min(
+                      pasoActualSeleccionado + 1,
+                      pasosSeleccionados.length,
+                    )}`}
+                </p>
+              </div>
+              {puedeResponder && (
+                <button
+                  type="button"
+                  className="primary-button"
+                  onClick={abrirRutaGuiada}
+                  disabled={Boolean(procesando)}
                 >
-                  <div className="adaptativo-step-head">
-                    <span>{paso.orden || indice + 1}</span>
-                    <div>
-                      <h4>{paso.titulo}</h4>
-                      <p>{paso.objetivo}</p>
-                    </div>
-                    {puedeResponder && asignacionSeleccionada.estado === 'en_curso' && (
-                      <label className="adaptativo-step-check">
-                        <input
-                          type="checkbox"
-                          checked={Boolean(paso.completado)}
-                          disabled={procesando === `paso-${indice}`}
-                          onChange={(event) =>
-                            actualizarPaso(indice, event.target.checked)
-                          }
-                        />
-                        Listo
-                      </label>
-                    )}
-                  </div>
-                  <p className="adaptativo-text">{paso.descripcion}</p>
-                  <div className="adaptativo-tags">
-                    <span>{paso.estrategia}</span>
-                    <span>{paso.tipoActividad}</span>
-                  </div>
-                  <p className="adaptativo-activity">{paso.actividad}</p>
-                  {paso.evidenciaEsperada && (
-                    <small>Evidencia esperada: {paso.evidenciaEsperada}</small>
-                  )}
-                  {Array.isArray(paso.recursos) && paso.recursos.length > 0 && (
-                    <div className="adaptativo-resources">
-                      {paso.recursos.map((recurso, recursoIndice) => (
-                        <div key={`${paso.id}-${recursoIndice}`}>
-                          <strong>
-                            {recurso.titulo || recurso.url || 'Recurso sugerido'}
-                          </strong>
-                          {recurso.descripcion && <p>{recurso.descripcion}</p>}
-                          <div className="adaptativo-resource-actions">
-                            {recurso.contenido && (
-                              <button
-                                type="button"
-                                className="secondary-button"
-                                onClick={() => abrirRecurso(recurso)}
-                              >
-                                {etiquetaRecurso(recurso)}
-                              </button>
-                            )}
-                            {recurso.tipo === 'youtube' && recurso.embedUrl && (
-                              <button
-                                type="button"
-                                className="secondary-button"
-                                onClick={() => alternarVideo(paso.id, recursoIndice)}
-                              >
-                                {videosAbiertos[claveRecurso(paso.id, recursoIndice)]
-                                  ? 'Ocultar video'
-                                  : 'Ver video'}
-                              </button>
-                            )}
-                            {recurso.url && (
-                              <a
-                                className="secondary-button adaptativo-resource-link"
-                                href={recurso.url}
-                                target="_blank"
-                                rel="noreferrer"
-                              >
-                                Abrir recurso
-                              </a>
-                            )}
-                          </div>
-                          {recurso.tipo === 'youtube' &&
-                            recurso.embedUrl &&
-                            videosAbiertos[claveRecurso(paso.id, recursoIndice)] && (
-                              <iframe
-                                src={recurso.embedUrl}
-                                title={recurso.titulo || 'Video sugerido'}
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowFullScreen
-                              />
-                            )}
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </article>
-              ))}
+                  {asignacionSeleccionada.estado === 'ruta_generada'
+                    ? 'Iniciar ruta'
+                    : asignacionSeleccionada.estado === 'en_curso'
+                      ? 'Continuar ruta'
+                      : asignacionSeleccionada.estado === 'evaluacion' &&
+                          !estadoEvaluacion.iniciadaEn &&
+                          !estadoEvaluacion.cerradaEn
+                        ? 'Abrir paso final'
+                        : 'Ver recorrido'}
+                </button>
+              )}
             </div>
-
-            {puedeResponder && asignacionSeleccionada.estado === 'ruta_generada' && (
-              <button
-                className="primary-button"
-                onClick={iniciarRuta}
-                disabled={Boolean(procesando)}
+            <div className="adaptativo-step-outline">
+              {pasosSeleccionados.map((paso, indice) => {
+                const recurso = obtenerRecursoPrincipal(paso);
+                return (
+                  <article
+                    key={paso.id || indice}
+                    className={`adaptativo-step adaptativo-step-outline-card ${
+                      paso.completado ? 'done' : ''
+                    }`}
+                  >
+                    <div className="adaptativo-step-head">
+                      <span>{indice + 1}</span>
+                      <div>
+                        <h4>{paso.titulo}</h4>
+                        <p>{paso.objetivo}</p>
+                      </div>
+                    </div>
+                    <div className="adaptativo-tags">
+                      <span>{esPasoActividad(paso, indice) ? 'Actividad' : 'Recurso'}</span>
+                      <span>{paso.tipoActividad || 'Bloque guiado'}</span>
+                    </div>
+                    <p className="adaptativo-text">{paso.descripcion}</p>
+                    <div className="adaptativo-outline-resource">
+                      <strong>{recurso?.titulo || 'Material del paso'}</strong>
+                      <small>{etiquetaTipoRecurso(recurso)}</small>
+                    </div>
+                  </article>
+                );
+              })}
+              <article
+                className={`adaptativo-step adaptativo-step-outline-card ${
+                  asignacionSeleccionada.estado === 'evaluada' ||
+                  asignacionSeleccionada.estado === 'completada'
+                    ? 'done'
+                    : ''
+                }`}
               >
-                Iniciar ruta
-              </button>
-            )}
+                <div className="adaptativo-step-head">
+                  <span>6</span>
+                  <div>
+                    <h4>Evaluación final</h4>
+                    <p>Validación de comprensión del tema completo.</p>
+                  </div>
+                </div>
+                <div className="adaptativo-tags">
+                  <span>Evaluación</span>
+                  <span>30 minutos</span>
+                </div>
+                <p className="adaptativo-text">
+                  Este paso se habilita cuando el estudiante completa los cinco bloques de la ruta.
+                </p>
+              </article>
+            </div>
           </section>
         )}
 
@@ -1222,13 +1483,16 @@ export function AprendizajeAdaptativo() {
           <section className="adaptativo-action-panel">
             <h3>Evaluación final disponible</h3>
             <p>
-              Ya completaste todos los pasos. Al iniciar, dispones de 30 minutos
-              y si sales se cierra automáticamente.
+              Ya completaste todos los pasos. La evaluación se abrirá en una vista
+              dedicada con 30 minutos para responder.
             </p>
             <button
               className="primary-button"
               type="button"
-              onClick={() => setConfirmacionEvaluacionAbierta(true)}
+              onClick={() => {
+                setDetalleAbierto(false);
+                setConfirmacionEvaluacionAbierta(true);
+              }}
               disabled={Boolean(procesando)}
             >
               Realizar evaluación
@@ -1246,7 +1510,10 @@ export function AprendizajeAdaptativo() {
             <button
               className="primary-button"
               type="button"
-              onClick={() => setEvaluacionModalAbierta(true)}
+              onClick={() => {
+                setDetalleAbierto(false);
+                setEvaluacionModalAbierta(true);
+              }}
             >
               Volver a la evaluación
             </button>
@@ -1259,105 +1526,12 @@ export function AprendizajeAdaptativo() {
           !evaluacionEnCurso && (
             <section className="adaptativo-action-panel">
               <h3>Evaluación cerrada</h3>
-              <p>
-                La evaluación ya fue cerrada y enviada para revisión docente.
-              </p>
+              <p>La evaluación ya fue cerrada y enviada para revisión docente.</p>
             </section>
           )}
 
-        {asignacionSeleccionada.resultadoEvaluacion && (
-          <section className="adaptativo-section">
-            <div className="adaptativo-section-title">
-              <h3>Resultado de IA</h3>
-              <p>{asignacionSeleccionada.resultadoEvaluacion.veredicto}</p>
-            </div>
-            <div className="adaptativo-score">
-              <strong>{asignacionSeleccionada.resultadoEvaluacion.puntaje || 0}</strong>
-              <span>/100</span>
-            </div>
-            <div className="adaptativo-two-columns">
-              <div>
-                <h4>Fortalezas</h4>
-                <ul>
-                  {(asignacionSeleccionada.resultadoEvaluacion.fortalezas || []).map(
-                    (item: string) => (
-                      <li key={item}>{item}</li>
-                    ),
-                  )}
-                </ul>
-              </div>
-              <div>
-                <h4>Oportunidades</h4>
-                <ul>
-                  {(
-                    asignacionSeleccionada.resultadoEvaluacion.oportunidades || []
-                  ).map((item: string) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-            <p className="adaptativo-text">
-              {asignacionSeleccionada.resultadoEvaluacion.recomendacion}
-            </p>
-            {asignacionSeleccionada.conclusionesPdf && (
-              <a
-                className="adaptativo-pdf-link"
-                href={construirUrlDocumento(asignacionSeleccionada.conclusionesPdf)}
-                target="_blank"
-                rel="noreferrer"
-              >
-                Ver PDF de conclusiones
-              </a>
-            )}
-          </section>
-        )}
-
-        {puedeRevisar && (
-          <form className="adaptativo-section" onSubmit={revisarAsignacion}>
-            <div className="adaptativo-section-title">
-              <h3>Revisión docente</h3>
-              <p>Cierre o reasignación de la ruta</p>
-            </div>
-            <div className="adaptativo-form-grid compact">
-              <label className="adaptativo-field">
-                <span>Decisión</span>
-                <select
-                  value={revision.decision}
-                  onChange={(event) =>
-                    setRevision((prev) => ({
-                      ...prev,
-                      decision: event.target.value as 'completada' | 'reasignada',
-                    }))
-                  }
-                >
-                  <option value="completada">Completada</option>
-                  <option value="reasignada">Reasignar refuerzo</option>
-                </select>
-              </label>
-              <label className="adaptativo-field full">
-                <span>Observaciones</span>
-                <textarea
-                  rows={4}
-                  value={revision.observaciones}
-                  onChange={(event) =>
-                    setRevision((prev) => ({
-                      ...prev,
-                      observaciones: event.target.value,
-                    }))
-                  }
-                />
-              </label>
-            </div>
-            <button
-              className="primary-button"
-              type="submit"
-              disabled={Boolean(procesando)}
-            >
-              Registrar revisión
-            </button>
-          </form>
-        )}
+        {renderResultadoEvaluacion()}
+        {renderRevisionDocente()}
       </>
     );
   }
@@ -1402,7 +1576,26 @@ export function AprendizajeAdaptativo() {
         ))}
       </section>
 
-      {puedeGestionar && (
+      <section className="adaptativo-tabs">
+        {puedeGestionar && (
+          <button
+            type="button"
+            className={submoduloActivo === 'asignar' ? 'active' : ''}
+            onClick={() => setSubmoduloActivo('asignar')}
+          >
+            Asignar ruta
+          </button>
+        )}
+        <button
+          type="button"
+          className={submoduloActivo === 'rutas' ? 'active' : ''}
+          onClick={() => setSubmoduloActivo('rutas')}
+        >
+          Rutas asignadas
+        </button>
+      </section>
+
+      {puedeGestionar && submoduloActivo === 'asignar' && (
         <section className="adaptativo-panel">
           <div className="adaptativo-section-title">
             <h2>Asignar nueva ruta</h2>
@@ -1476,22 +1669,19 @@ export function AprendizajeAdaptativo() {
               </select>
             </label>
             <label className="adaptativo-field">
-              <span>Tiempo disponible</span>
-              <input
-                name="tiempoDisponible"
-                value={formulario.tiempoDisponible}
-                onChange={actualizarFormulario}
-                maxLength={120}
-                placeholder="Ej. 5 días, 30 minutos diarios"
-              />
-            </label>
-            <label className="adaptativo-field">
               <span>Fecha límite</span>
               <input
                 type="date"
                 name="fechaLimite"
                 value={formulario.fechaLimite}
                 onChange={actualizarFormulario}
+              />
+            </label>
+            <label className="adaptativo-field">
+              <span>Plazo estimado</span>
+              <input
+                value={descripcionPlazoDesdeFechaLimite(formulario.fechaLimite)}
+                readOnly
               />
             </label>
             <div className="adaptativo-form-actions">
@@ -1507,43 +1697,285 @@ export function AprendizajeAdaptativo() {
         </section>
       )}
 
-      <section className="adaptativo-workspace">
-        <aside className="adaptativo-list">
-          <div className="adaptativo-list-tools">
-            <h2>{esEstudiante ? 'Mis rutas' : 'Rutas asignadas'}</h2>
+      {submoduloActivo === 'rutas' && (
+        <section className="adaptativo-panel">
+          <div className="adaptativo-list-tools adaptativo-list-tools-wide">
+            <div>
+              <h2>{esEstudiante ? 'Mis rutas asignadas' : 'Rutas asignadas'}</h2>
+              <p className="adaptativo-muted">
+                Consulta el estado de cada ruta y abre su detalle en una vista dedicada.
+              </p>
+            </div>
             <input
               value={busqueda}
               onChange={(event) => setBusqueda(event.target.value)}
               placeholder="Buscar por tema, estudiante o estado"
             />
           </div>
-          <div className="adaptativo-cards">
-            {asignacionesFiltradas.map((asignacion) => (
-              <button
-                key={asignacion.id}
-                className={`adaptativo-card ${
-                  asignacionSeleccionada?.id === asignacion.id ? 'active' : ''
-                }`}
-                onClick={() => setAsignacionSeleccionadaId(asignacion.id)}
-              >
-                <span className={`adaptativo-status status-${asignacion.estado}`}>
-                  {normalizarEstado(asignacion.estado)}
+
+          {asignacionesFiltradas.length === 0 ? (
+            <div className="adaptativo-empty adaptativo-empty-panel">
+              <span>AI</span>
+              <h2>No hay rutas para mostrar</h2>
+              <p>
+                Cuando exista una asignación de aprendizaje adaptativo, aparecerá aquí con su progreso y estado.
+              </p>
+            </div>
+          ) : (
+            <div className="adaptativo-card-grid">
+              {asignacionesFiltradas.map((asignacion) => (
+                <article key={asignacion.id} className="adaptativo-card adaptativo-route-card">
+                  <div className="adaptativo-route-card-head">
+                    <span className={`adaptativo-status status-${asignacion.estado}`}>
+                      {normalizarEstado(asignacion.estado)}
+                    </span>
+                    <strong>{calcularAvance(asignacion)}%</strong>
+                  </div>
+                  <div>
+                    <h3>{asignacion.tema}</h3>
+                    <p>{asignacion.objetivo || 'Ruta personalizada de aprendizaje'}</p>
+                  </div>
+                  <div className="adaptativo-route-card-meta">
+                    <small>
+                      Estudiante: {nombreUsuario(asignacion.estudiante)}
+                    </small>
+                    <small>Docente: {nombreUsuario(asignacion.docente)}</small>
+                    <small>
+                      Fecha límite: {formatearFecha(asignacion.fechaLimite)}
+                    </small>
+                  </div>
+                  <div className="adaptativo-route-card-footer">
+                    <div className="adaptativo-progress">
+                      <div>
+                        <i style={{ width: `${calcularAvance(asignacion)}%` }} />
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      className="secondary-button"
+                      onClick={() => abrirDetalleAsignacion(asignacion.id)}
+                    >
+                      Ver detalle
+                    </button>
+                  </div>
+                </article>
+              ))}
+            </div>
+          )}
+        </section>
+      )}
+
+      {detalleAbierto && asignacionSeleccionada && (
+        <div
+          className="adaptativo-modal-backdrop"
+          role="presentation"
+          onClick={cerrarDetalleAsignacion}
+        >
+          <div
+            className="adaptativo-modal adaptativo-detail-modal"
+            onClick={(event) => event.stopPropagation()}
+          >
+            {renderDetalleAsignacion()}
+          </div>
+        </div>
+      )}
+
+      {rutaModalAbierta && asignacionSeleccionada && (
+        <div
+          className="adaptativo-modal-backdrop adaptativo-evaluacion-backdrop"
+          role="presentation"
+          onClick={() => undefined}
+        >
+          <div
+            className="adaptativo-modal adaptativo-route-modal"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="adaptativo-modal-head adaptativo-route-modal-head">
+              <div>
+                <span className="adaptativo-status status-en_curso">
+                  {pasoRutaActivo < pasosSeleccionados.length
+                    ? `Paso ${pasoRutaActivo + 1} de ${pasosSeleccionados.length + 1}`
+                    : `Paso ${pasosSeleccionados.length + 1} de ${pasosSeleccionados.length + 1}`}
                 </span>
-                <h3>{asignacion.tema}</h3>
-                <p>{nombreUsuario(asignacion.estudiante)}</p>
-                <small>
-                  {calcularAvance(asignacion)}% · {formatearFecha(asignacion.fechaLimite)}
-                </small>
+                <h3>{asignacionSeleccionada.tema}</h3>
+                <p>
+                  {pasoRutaActivo < pasosSeleccionados.length
+                    ? 'La ruta se desarrolla paso a paso. Si cierras esta ventana, retomaremos desde este bloque.'
+                    : 'Terminaste el recorrido de estudio. Solo falta la evaluación final.'}
+                </p>
+              </div>
+              <button
+                type="button"
+                className="secondary-button"
+                onClick={cerrarRutaGuiada}
+              >
+                Cerrar
               </button>
-            ))}
-            {asignacionesFiltradas.length === 0 && (
-              <p className="adaptativo-muted">No hay rutas con esos filtros.</p>
+            </div>
+
+            {pasoRutaActivo < pasosSeleccionados.length && pasoRutaActual ? (
+              <div className="adaptativo-route-shell">
+                <section className="adaptativo-route-stage">
+                  <div className="adaptativo-step-head adaptativo-route-step-head">
+                    <span>{pasoRutaActivo + 1}</span>
+                    <div className="adaptativo-route-step-copy">
+                      <h4>{pasoRutaActual.titulo}</h4>
+                      <p>{pasoRutaActual.objetivo}</p>
+                    </div>
+                  </div>
+                  <div className="adaptativo-tags">
+                    <span>{esPasoActividad(pasoRutaActual, pasoRutaActivo) ? 'Actividad' : 'Recurso'}</span>
+                    <span>{pasoRutaActual.tipoActividad || 'Bloque guiado'}</span>
+                    <span>{pasoRutaActual.estrategia || 'Acompañamiento personalizado'}</span>
+                  </div>
+                  <p className="adaptativo-text">{pasoRutaActual.descripcion}</p>
+                  <div className="adaptativo-route-emphasis">
+                    <strong>Actividad del paso</strong>
+                    <p>{pasoRutaActual.actividad}</p>
+                  </div>
+                  <div className="adaptativo-route-emphasis">
+                    <strong>Evidencia esperada</strong>
+                    <p>{pasoRutaActual.evidenciaEsperada}</p>
+                  </div>
+                </section>
+
+                <section className="adaptativo-route-resource">
+                  <div className="adaptativo-section-title adaptativo-route-resource-head">
+                    <div className="adaptativo-route-resource-copy">
+                      <h3>{recursoPasoActual?.titulo || 'Material del paso'}</h3>
+                      <p>{etiquetaTipoRecurso(recursoPasoActual)}</p>
+                    </div>
+                  </div>
+
+                  {recursoPasoActual?.descripcion && (
+                    <p className="adaptativo-text">{recursoPasoActual.descripcion}</p>
+                  )}
+
+                  {recursoPasoActual?.tipo === 'youtube' && recursoPasoActual.embedUrl && (
+                    <iframe
+                      src={recursoPasoActual.embedUrl}
+                      title={recursoPasoActual.titulo || 'Video sugerido'}
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    />
+                  )}
+
+                  {recursoPasoActual?.url && recursoPasoActual?.tipo !== 'youtube' && (
+                    <div className="adaptativo-link-card">
+                      <div>
+                        <strong>Recurso listo para consultar</strong>
+                        <p>
+                          Ábrelo en una pestaña aparte para revisar la lectura o referencia completa.
+                        </p>
+                      </div>
+                      <a
+                        className="secondary-button adaptativo-resource-link adaptativo-inline-action"
+                        href={recursoPasoActual.url}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        {etiquetaAccionRecurso(recursoPasoActual)}
+                      </a>
+                    </div>
+                  )}
+
+                  {recursoPasoActual?.contenido && (
+                    <div
+                      className={`adaptativo-material-preview adaptativo-route-material tipo-${recursoPasoActual.tipo}`}
+                    >
+                      {recursoPasoActual.contenido
+                        .split('\n')
+                        .filter(Boolean)
+                        .map((linea) => (
+                          <article key={linea}>
+                            <span />
+                            <p>{linea}</p>
+                          </article>
+                        ))}
+                    </div>
+                  )}
+                </section>
+
+                <div className="adaptativo-modal-actions adaptativo-route-actions">
+                  <button
+                    type="button"
+                    className="secondary-button"
+                    onClick={irPasoAnterior}
+                    disabled={pasoRutaActivo === 0 || Boolean(procesando)}
+                  >
+                    Paso anterior
+                  </button>
+                  <button
+                    type="button"
+                    className="primary-button"
+                    onClick={avanzarPasoGuiado}
+                    disabled={procesando === `paso-${pasoRutaActivo}`}
+                  >
+                    Marcar paso como listo
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className="adaptativo-route-shell adaptativo-route-shell-final">
+                <section className="adaptativo-route-final-card">
+                  <div className="adaptativo-route-final-badge">6</div>
+                  <div className="adaptativo-route-final-copy">
+                    <div>
+                      <span className="adaptativo-status status-evaluacion">
+                        Evaluación final
+                      </span>
+                      <h4>Evaluación final</h4>
+                      <p>Es el cierre formal de la ruta para verificar comprensión.</p>
+                    </div>
+                    <div className="adaptativo-route-final-grid">
+                      <article>
+                        <strong>Recorrido completado</strong>
+                        <p>
+                          Finalizaste los cinco bloques de estudio. El siguiente paso
+                          valida comprensión, aplicación y claridad conceptual.
+                        </p>
+                      </article>
+                      <article>
+                        <strong>Tiempo disponible</strong>
+                        <p>
+                          Tendrás 30 minutos desde el momento en que inicies la
+                          evaluación.
+                        </p>
+                      </article>
+                      <article>
+                        <strong>Regla de cierre</strong>
+                        <p>
+                          Si sales de la plataforma, se guardará lo respondido y la
+                          evaluación quedará cerrada.
+                        </p>
+                      </article>
+                    </div>
+                  </div>
+                </section>
+                <div className="adaptativo-modal-actions adaptativo-route-actions">
+                  <button
+                    type="button"
+                    className="secondary-button"
+                    onClick={() => setPasoRutaActivo(Math.max(0, pasosSeleccionados.length - 1))}
+                  >
+                    Volver al paso anterior
+                  </button>
+                  <button
+                    type="button"
+                    className="primary-button"
+                    onClick={() => {
+                      setRutaModalAbierta(false);
+                      setConfirmacionEvaluacionAbierta(true);
+                    }}
+                  >
+                    Ir a la evaluación
+                  </button>
+                </div>
+              </div>
             )}
           </div>
-        </aside>
-
-        <section className="adaptativo-detail">{renderAsignacionDetalle()}</section>
-      </section>
+        </div>
+      )}
 
       {confirmacionEvaluacionAbierta && (
         <div
@@ -1637,7 +2069,7 @@ export function AprendizajeAdaptativo() {
               <div className="adaptativo-modal-actions">
                 <button
                   type="submit"
-                  className="primary-button"
+                  className="primary-button adaptativo-evaluacion-submit"
                   disabled={Boolean(procesando)}
                 >
                   Enviar evaluación
@@ -1648,40 +2080,6 @@ export function AprendizajeAdaptativo() {
         </div>
       )}
 
-      {recursoAbierto && (
-        <div
-          className="adaptativo-modal-backdrop"
-          role="presentation"
-          onClick={() => setRecursoAbierto(null)}
-        >
-          <div className="adaptativo-modal" onClick={(event) => event.stopPropagation()}>
-            <div className="adaptativo-modal-head">
-              <div>
-                <h3>{recursoAbierto.titulo}</h3>
-                {recursoAbierto.descripcion && <p>{recursoAbierto.descripcion}</p>}
-              </div>
-              <button
-                type="button"
-                className="secondary-button"
-                onClick={() => setRecursoAbierto(null)}
-              >
-                Cerrar
-              </button>
-            </div>
-            <div className={`adaptativo-material-preview tipo-${recursoAbierto.tipo}`}>
-              {(recursoAbierto.contenido || '')
-                .split('\n')
-                .filter(Boolean)
-                .map((linea) => (
-                  <article key={linea}>
-                    <span />
-                    <p>{linea}</p>
-                  </article>
-                ))}
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

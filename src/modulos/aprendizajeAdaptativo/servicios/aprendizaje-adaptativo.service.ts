@@ -5,7 +5,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { createWriteStream, existsSync, mkdirSync } from 'fs';
-import { join } from 'path';
+import { extname, join } from 'path';
 import PDFDocument from 'pdfkit';
 import { jsonrepair } from 'jsonrepair';
 import { Prisma } from '../../../generated/prisma/client';
@@ -39,6 +39,7 @@ type PasoRuta = {
   orden: number;
   titulo: string;
   objetivo: string;
+  categoriaPaso?: 'recurso' | 'actividad';
   estrategia: string;
   tipoActividad: string;
   descripcion: string;
@@ -246,13 +247,19 @@ export class AprendizajeAdaptativoService {
 
     const preguntas = this.construirPreguntasEntrevista(data.tema);
 
+    const tiempoDisponibleCalculado =
+      data.tiempoDisponible?.trim() ||
+      this.descripcionTiempoAsignacion({
+        fechaLimite: data.fechaLimite ? new Date(data.fechaLimite) : null,
+      });
+
     const asignacion =
       await this.prisma.asignacionAprendizajeAdaptativo.create({
         data: {
           tema: data.tema.trim(),
           objetivo: data.objetivo?.trim(),
           nivelSolicitado: data.nivelSolicitado?.trim(),
-          tiempoDisponible: data.tiempoDisponible?.trim(),
+          tiempoDisponible: tiempoDisponibleCalculado,
           fechaLimite: data.fechaLimite ? new Date(data.fechaLimite) : undefined,
           entrevistaPreguntas: preguntas,
           institucionId: estudiante.institucionId,
@@ -432,9 +439,23 @@ export class AprendizajeAdaptativoService {
       throw new BadRequestException('La ruta no está lista para iniciar.');
     }
 
+    const ruta = this.obtenerRuta(asignacion);
+    const pasoActual =
+      this.aNumero(ruta?.pasoActual, 0) ||
+      this.obtenerSiguientePasoPendiente(ruta.pasos || []);
+
     return await this.prisma.asignacionAprendizajeAdaptativo.update({
       where: { id },
-      data: { estado: 'en_curso' },
+      data: {
+        estado: 'en_curso',
+        ruta: {
+          ...ruta,
+          rutaIniciada: true,
+          pasoActual: Math.max(0, Math.min(pasoActual, (ruta.pasos || []).length - 1)),
+          totalPasos: Array.isArray(ruta.pasos) ? ruta.pasos.length : 0,
+          ultimaInteraccionEn: new Date().toISOString(),
+        },
+      },
       include: this.includeAsignacion,
     });
   }
@@ -498,11 +519,32 @@ export class AprendizajeAdaptativoService {
 
     pasos[indice] = { ...pasos[indice], completado: data.completado };
     const todosCompletos = pasos.every((paso) => paso.completado);
+    const siguientePendiente = this.obtenerSiguientePasoPendiente(pasos);
+    const pasoActualCalculado = todosCompletos
+      ? pasos.length
+      : typeof data.pasoActual === 'number'
+        ? Math.max(0, Math.min(data.pasoActual, pasos.length - 1))
+        : data.completado
+          ? Math.max(
+              0,
+              Math.min(
+                siguientePendiente >= 0 ? siguientePendiente : indice + 1,
+                pasos.length - 1,
+              ),
+            )
+          : Math.max(0, Math.min(indice, pasos.length - 1));
 
     return await this.prisma.asignacionAprendizajeAdaptativo.update({
       where: { id },
       data: {
-        ruta: { ...ruta, pasos },
+        ruta: {
+          ...ruta,
+          pasos,
+          pasoActual: pasoActualCalculado,
+          totalPasos: pasos.length,
+          rutaIniciada: true,
+          ultimaInteraccionEn: new Date().toISOString(),
+        },
         estado: todosCompletos ? 'evaluacion' : 'en_curso',
       },
       include: this.includeAsignacion,
@@ -1335,14 +1377,17 @@ export class AprendizajeAdaptativoService {
       'Devuelve SOLO JSON válido con las llaves: perfilAprendizaje, diagnostico, ruta, evaluacion.',
       'perfilAprendizaje debe incluir principal, secundarios y porcentajes. porcentajes debe ser un arreglo de objetos {tipo, porcentaje, justificacion}.',
       'diagnostico debe incluir nivelDificultad, duracionEstimada y justificacion.',
-      'ruta debe ser un plan de clases o estudio completo con entre 5 y 8 pasos progresivos.',
-      'Cada paso debe ser una clase, actividad o bloque de estudio accionable y debe incluir id, orden, titulo, objetivo, estrategia, tipoActividad, descripcion, actividad, evidenciaEsperada, recursos y completado=false.',
+      'ruta debe ser un plan exacto de 5 pasos progresivos.',
+      'Los pasos deben seguir este orden: paso 1 recurso principal, paso 2 taller o ejercicio sobre el paso 1, paso 3 recurso principal de profundización, paso 4 ejercicio de aplicación sobre el paso 3, paso 5 recurso final de cierre y consolidación.',
+      'No incluyas la evaluación final como paso de la ruta. La evaluación va separada en la llave evaluacion.',
+      'Cada paso debe incluir id, orden, titulo, objetivo, estrategia, tipoActividad, descripcion, actividad, evidenciaEsperada, recursos y completado=false.',
+      'Cada paso debe tener exactamente un recurso en el arreglo recursos.',
       'La ruta no debe quedarse en recomendaciones generales: cada paso debe explicar qué estudiar, cómo hacerlo, qué material usar y qué evidencia produce el estudiante.',
       'evaluacion debe tener entre 4 y 6 preguntas abiertas con id, pregunta, criterio y puntajeMaximo.',
       `Tema: ${asignacion.tema}`,
       `Objetivo docente: ${asignacion.objetivo || 'No especificado'}`,
       `Nivel solicitado: ${asignacion.nivelSolicitado || 'No especificado'}`,
-      `Tiempo disponible: ${asignacion.tiempoDisponible || 'No especificado'}`,
+      `Tiempo disponible: ${this.descripcionTiempoAsignacion(asignacion)}`,
       `Grado: ${asignacion.gradoEscolar?.nombre || 'No especificado'}`,
       `Tipos y estrategias disponibles: ${JSON.stringify(catalogo)}`,
       `Respuestas entrevista: ${JSON.stringify(respuestas)}`,
@@ -1382,7 +1427,7 @@ export class AprendizajeAdaptativoService {
           : [];
     const pasos =
       pasosGenerados.length >= 5
-        ? pasosGenerados.slice(0, 8).map((paso: any, index: number) =>
+        ? pasosGenerados.slice(0, 5).map((paso: any, index: number) =>
             this.normalizarPasoRuta(paso, index, recursos, tema),
           )
         : rutaLocal.ruta.pasos;
@@ -1427,6 +1472,9 @@ export class AprendizajeAdaptativoService {
           generado.ruta?.enfoquePedagogico ||
           `Ruta adaptada al perfil ${perfilAprendizaje.principal}.`,
         pasos,
+        pasoActual: 0,
+        totalPasos: pasos.length,
+        rutaIniciada: false,
         recomendacionesDocente:
           generado.ruta?.recomendacionesDocente ||
           rutaLocal.ruta.recomendacionesDocente,
@@ -1499,186 +1547,202 @@ export class AprendizajeAdaptativoService {
     recursos: { web: any[]; videos: any[] },
     tema: string,
   ): PasoRuta {
-    const recursosPaso = Array.isArray(paso.recursos)
-      ? paso.recursos
-      : [
-          ...(recursos.videos[index] ? [{ tipo: 'youtube', ...recursos.videos[index] }] : []),
-          ...(recursos.web[index] ? [{ tipo: 'web', ...recursos.web[index] }] : []),
-        ];
-
-    if (recursosPaso.length === 0) {
-      const query = encodeURIComponent(`${tema} ${paso.titulo || `paso ${index + 1}`} explicación`);
-      recursosPaso.push(
-        {
-          tipo: 'youtube',
-          titulo: `Video sugerido · ${paso.titulo || `Paso ${index + 1}`}`,
-          url: `https://www.youtube.com/results?search_query=${query}`,
-          embedUrl: `https://www.youtube.com/embed?listType=search&list=${query}`,
-          descripcion: 'Video sugerido para reforzar este bloque de la ruta.',
-        },
-        {
-          tipo: 'web',
-          titulo: `Lectura sugerida · ${paso.titulo || `Paso ${index + 1}`}`,
-          url: `https://www.google.com/search?q=${query}`,
-          descripcion: 'Referencia web para ampliar el concepto del paso.',
-        },
-      );
-    }
-
-    const recursosNormalizados: RecursoRuta[] = recursosPaso.map((recurso: any) => {
-      const recursoObjeto =
-        recurso && typeof recurso === 'object' && !Array.isArray(recurso)
-          ? recurso
-          : {};
-      const recursoTexto = typeof recurso === 'string' ? recurso : '';
-      const tipo = this.obtenerTextoRecurso(recursoObjeto.tipo);
-      const tituloBase =
-        this.obtenerTextoRecurso(recursoObjeto.titulo) ||
-        this.obtenerTextoRecurso(recursoObjeto.title) ||
-        recursoTexto ||
-        '';
-      const urlBase =
-        this.obtenerUrlRecurso(recursoObjeto, recursoTexto) ||
-        this.construirUrlBusquedaRecurso(tituloBase, tema);
-      const url = this.normalizarUrlRecurso(urlBase);
-      const embed =
-        this.obtenerTextoRecurso(recursoObjeto.embedUrl) ||
-        this.extraerEmbedYoutube(urlBase || url) ||
-        this.construirEmbedBusquedaYoutube(tituloBase, tema);
-      const titulo =
-        tituloBase && tituloBase !== urlBase
-          ? tituloBase
-          : embed || /youtube/i.test(url || '')
-            ? 'Video recomendado para este paso'
-            : url
-              ? 'Recurso sugerido'
-              : 'Material de apoyo';
-
-      return {
-        tipo: ['youtube', 'web', 'actividad', 'lectura', 'mapa'].includes(tipo)
-          ? (tipo as RecursoRuta['tipo'])
-          : embed
-            ? 'youtube'
-            : 'web',
-        titulo,
-        url,
-        embedUrl: embed || undefined,
-        descripcion:
-          this.obtenerTextoRecurso(recursoObjeto.descripcion) ||
-          this.obtenerTextoRecurso(recursoObjeto.snippet) ||
-          undefined,
-        contenido: this.obtenerTextoRecurso(recursoObjeto.contenido) || undefined,
-      };
-    });
-
-    const recursosDepurados = recursosNormalizados.filter((recurso, indice, lista) => {
-      const clave = [
-        recurso.tipo || 'material',
-        recurso.url || '',
-        recurso.embedUrl || '',
-        recurso.titulo || '',
-      ].join('|');
-
-      return (
-        lista.findIndex((item) => {
-          const otraClave = [
-            item.tipo || 'material',
-            item.url || '',
-            item.embedUrl || '',
-            item.titulo || '',
-          ].join('|');
-          return otraClave === clave;
-        }) === indice
-      );
-    });
-
-    const videoFallback = recursos.videos[index];
-    if (
-      videoFallback &&
-      !recursosDepurados.some(
-        (recurso) => recurso.tipo === 'youtube' && recurso.embedUrl,
-      )
-    ) {
-      recursosDepurados.unshift({
-        tipo: 'youtube',
-        titulo: String(videoFallback.titulo || `Video de apoyo · ${tema}`),
-        url: videoFallback.url,
-        embedUrl: videoFallback.embedUrl,
-        descripcion:
-          videoFallback.descripcion ||
-          'Video seleccionado para apoyar este paso de la ruta.',
-      });
-    }
-
-    const lecturaFallback = recursos.web[index];
-    if (
-      lecturaFallback &&
-      !recursosDepurados.some(
-        (recurso) => recurso.tipo === 'web' && recurso.url,
-      )
-    ) {
-      recursosDepurados.push({
-        tipo: 'web',
-        titulo: String(lecturaFallback.titulo || `Lectura de apoyo · ${tema}`),
-        url: lecturaFallback.url,
-        descripcion:
-          lecturaFallback.descripcion ||
-          'Lectura recomendada para profundizar este bloque.',
-      });
-    }
-
-    if (!recursosDepurados.some((recurso) => recurso.tipo === 'mapa')) {
-      recursosDepurados.push({
-        tipo: 'mapa',
-        titulo: `Mapa conceptual: ${paso.titulo || `Paso ${index + 1}`}`,
-        descripcion: 'Resumen visual del paso para facilitar el estudio.',
-        contenido: this.construirMapaConceptual(tema, paso),
-      });
-    }
-
-    if (!recursosDepurados.some((recurso) => recurso.tipo === 'lectura')) {
-      recursosDepurados.push({
-        tipo: 'lectura',
-        titulo: `Lectura guiada: ${paso.titulo || `Paso ${index + 1}`}`,
-        descripcion: 'Explicacion breve generada para este punto de estudio.',
-        contenido: this.construirLecturaGuiada(tema, paso),
-      });
-    }
-
-    if (!recursosDepurados.some((recurso) => recurso.tipo === 'actividad')) {
-      recursosDepurados.push({
-        tipo: 'actividad',
-        titulo: `Practica guiada: ${paso.titulo || `Paso ${index + 1}`}`,
-        descripcion: 'Actividad puntual para asumir el paso como evidencia.',
-        contenido: this.construirActividadGuiada(tema, paso),
-      });
-    }
+    const categoriaPaso = this.esPasoActividad(index) ? 'actividad' : 'recurso';
+    const recursoPrincipal = this.resolverRecursoPrincipal(
+      paso,
+      index,
+      recursos,
+      tema,
+    );
 
     return {
       id: String(paso.id || `paso-${index + 1}`),
       orden: this.aNumero(paso.orden, index + 1),
-      titulo: String(paso.titulo || `Paso ${index + 1}`),
+      titulo: String(paso.titulo || this.tituloPasoPorDefecto(index, tema)),
       objetivo: String(paso.objetivo || 'Avanzar en la comprensión del tema.'),
-      estrategia: String(paso.estrategia || 'Explicación guiada'),
-      tipoActividad: String(paso.tipoActividad || paso.tipo || 'clase guiada'),
+      categoriaPaso,
+      estrategia: String(
+        paso.estrategia ||
+          (categoriaPaso === 'actividad'
+            ? 'Práctica guiada'
+            : 'Explicación acompañada'),
+      ),
+      tipoActividad: String(
+        paso.tipoActividad ||
+          paso.tipo ||
+          (categoriaPaso === 'actividad' ? 'taller aplicado' : 'recurso guiado'),
+      ),
       descripcion: String(
         paso.descripcion ||
-          paso.contenido ||
-          'Estudia el concepto central, revisa el recurso sugerido y toma notas.',
+          (categoriaPaso === 'actividad'
+            ? 'Desarrolla la actividad con base en el recurso anterior y registra tu procedimiento.'
+            : 'Estudia el recurso principal, toma notas y conecta la idea central con un ejemplo.'),
       ),
       actividad: String(
         paso.actividad ||
-          paso.tarea ||
-          'Realiza la actividad propuesta y registra una evidencia breve.',
+          (categoriaPaso === 'actividad'
+            ? 'Completa el ejercicio del paso y deja una evidencia clara de tu proceso.'
+            : 'Revisa el recurso, sintetiza el contenido y prepara una explicación corta con tus palabras.'),
       ),
       evidenciaEsperada: String(
         paso.evidenciaEsperada ||
-          paso.evidencia ||
-          'Apunte, ejercicio resuelto o explicación propia.',
+          (categoriaPaso === 'actividad'
+            ? 'Taller resuelto, procedimiento escrito o evidencia del ejercicio.'
+            : 'Resumen breve, mapa, notas o explicación propia.'),
       ),
-      recursos: recursosDepurados,
-      completado: false,
+      recursos: [recursoPrincipal],
+      completado: Boolean(paso.completado),
     };
+  }
+
+  private resolverRecursoPrincipal(
+    paso: any,
+    index: number,
+    recursos: { web: any[]; videos: any[] },
+    tema: string,
+  ): RecursoRuta {
+    const recursosNormalizados = (Array.isArray(paso?.recursos) ? paso.recursos : [])
+      .map((recurso: any) => this.normalizarRecursoCandidato(recurso))
+      .filter(Boolean) as RecursoRuta[];
+
+    if (this.esPasoActividad(index)) {
+      return {
+        tipo: 'actividad',
+        titulo: `Actividad guiada: ${String(paso?.titulo || this.tituloPasoPorDefecto(index, tema))}`,
+        descripcion: 'Taller o ejercicio para comprobar lo aprendido en el bloque anterior.',
+        contenido: this.construirActividadGuiada(tema, paso),
+      };
+    }
+
+    if (index === 0) {
+      return (
+        recursosNormalizados.find(
+          (recurso) => recurso.tipo === 'youtube' && recurso.embedUrl,
+        ) ||
+        this.normalizarRecursoCandidato({
+          tipo: 'youtube',
+          ...recursos.videos[0],
+        }) || {
+          tipo: 'mapa',
+          titulo: `Mapa de inicio: ${String(paso?.titulo || tema)}`,
+          descripcion: 'Introducción visual para arrancar la ruta.',
+          contenido: this.construirMapaConceptual(tema, paso),
+        }
+      );
+    }
+
+    if (index === 2) {
+      return (
+        recursosNormalizados.find((recurso) =>
+          ['mapa', 'lectura', 'web', 'youtube'].includes(recurso.tipo),
+        ) ||
+        this.normalizarRecursoCandidato({
+          tipo: 'web',
+          ...recursos.web[0],
+        }) ||
+        this.normalizarRecursoCandidato({
+          tipo: 'youtube',
+          ...recursos.videos[1],
+        }) || {
+          tipo: 'lectura',
+          titulo: `Lectura guiada: ${String(paso?.titulo || this.tituloPasoPorDefecto(index, tema))}`,
+          descripcion: 'Profundización breve del concepto para el segundo bloque de estudio.',
+          contenido: this.construirLecturaGuiada(tema, paso),
+        }
+      );
+    }
+
+    return (
+      recursosNormalizados.find((recurso) =>
+        ['mapa', 'lectura', 'web', 'youtube'].includes(recurso.tipo),
+      ) || {
+        tipo: 'mapa',
+        titulo: `Síntesis final: ${String(paso?.titulo || this.tituloPasoPorDefecto(index, tema))}`,
+        descripcion: 'Cierre visual para consolidar el tema antes de la evaluación.',
+        contenido: this.construirMapaConceptual(tema, paso),
+      }
+    );
+  }
+
+  private normalizarRecursoCandidato(recurso: any): RecursoRuta | null {
+    const recursoObjeto =
+      recurso && typeof recurso === 'object' && !Array.isArray(recurso)
+        ? recurso
+        : {};
+    const recursoTexto = typeof recurso === 'string' ? recurso : '';
+    const tipoOriginal = this.obtenerTextoRecurso(recursoObjeto.tipo).toLowerCase();
+    const urlBase = this.obtenerUrlRecurso(recursoObjeto, recursoTexto);
+    const url = this.normalizarUrlRecurso(urlBase);
+    const embed =
+      this.obtenerTextoRecurso(recursoObjeto.embedUrl) ||
+      this.extraerEmbedYoutube(urlBase || url);
+    const contenido =
+      this.obtenerTextoRecurso(recursoObjeto.contenido) || undefined;
+    const titulo =
+      this.obtenerTextoRecurso(recursoObjeto.titulo) ||
+      this.obtenerTextoRecurso(recursoObjeto.title) ||
+      recursoTexto ||
+      (embed ? 'Video recomendado' : contenido ? 'Material de apoyo' : 'Recurso sugerido');
+    const descripcion =
+      this.obtenerTextoRecurso(recursoObjeto.descripcion) ||
+      this.obtenerTextoRecurso(recursoObjeto.snippet) ||
+      undefined;
+
+    let tipo: RecursoRuta['tipo'] = 'web';
+    if (tipoOriginal === 'youtube' || embed || /youtu/i.test(url || '')) {
+      tipo = 'youtube';
+    } else if (['mapa', 'lectura', 'actividad', 'web'].includes(tipoOriginal)) {
+      tipo = tipoOriginal as RecursoRuta['tipo'];
+    } else if (contenido) {
+      tipo = 'lectura';
+    }
+
+    if (tipo === 'youtube' && !embed) {
+      return null;
+    }
+
+    if ((tipo === 'web' || tipo === 'youtube') && !url) {
+      return null;
+    }
+
+    if ((tipo === 'mapa' || tipo === 'lectura' || tipo === 'actividad') && !contenido) {
+      return {
+        tipo,
+        titulo,
+        descripcion,
+        contenido: titulo,
+      };
+    }
+
+    return {
+      tipo,
+      titulo,
+      url,
+      embedUrl: embed || undefined,
+      descripcion,
+      contenido,
+    };
+  }
+
+  private esPasoActividad(index: number) {
+    return index === 1 || index === 3;
+  }
+
+  private obtenerSiguientePasoPendiente(pasos: Array<{ completado?: boolean }>) {
+    const indice = pasos.findIndex((paso) => !paso.completado);
+    return indice >= 0 ? indice : pasos.length;
+  }
+
+  private tituloPasoPorDefecto(index: number, tema: string) {
+    const titulos = [
+      `Exploración guiada de ${tema}`,
+      `Taller de comprensión inicial`,
+      `Profundización de ${tema}`,
+      `Ejercicio de aplicación`,
+      `Cierre y consolidación`,
+    ];
+
+    return titulos[index] || `Paso ${index + 1}`;
   }
 
   private extraerEmbedYoutube(url?: string) {
@@ -1883,75 +1947,63 @@ export class AprendizajeAdaptativoService {
     ];
     const plantillas = [
       {
-        titulo: `Punto de partida sobre ${asignacion.tema}`,
-        objetivo: 'Reconocer lo que ya sabes, las dudas principales y la meta de aprendizaje.',
-        tipoActividad: 'diagnóstico guiado',
-        descripcion: `Revisa una explicación introductoria de ${asignacion.tema} y escribe tres ideas que ya entiendes y tres preguntas que necesitas resolver.`,
+        titulo: `Exploración guiada sobre ${asignacion.tema}`,
+        objetivo: 'Reconocer el panorama general del tema y activar conocimientos previos.',
+        tipoActividad: 'recurso guiado',
+        descripcion: `Revisa el recurso principal de introducción a ${asignacion.tema}, identifica las ideas base y conecta el contenido con lo que ya conoces.`,
         actividad:
           principal === 'Visual'
-            ? 'Construye un mapa mental inicial con conceptos, ejemplos y dudas.'
-            : 'Elabora una lista ordenada de conceptos conocidos, dudas y ejemplos cercanos.',
-        evidenciaEsperada: 'Mapa mental, lista diagnóstica o nota inicial.',
+            ? 'Resume la explicación en un esquema visual corto con conceptos y ejemplos.'
+            : 'Elabora una nota breve con conceptos clave, dudas y un ejemplo sencillo.',
+        evidenciaEsperada: 'Resumen inicial, esquema visual o nota diagnóstica.',
       },
       {
-        titulo: `Clase guiada: fundamentos de ${asignacion.tema}`,
-        objetivo: 'Comprender los conceptos base antes de pasar a ejercicios o aplicación.',
-        tipoActividad: 'clase guiada',
+        titulo: `Taller de comprensión inicial`,
+        objetivo: 'Comprobar la comprensión básica del recurso inicial mediante práctica guiada.',
+        tipoActividad: 'taller aplicado',
         descripcion:
-          'Estudia el material sugerido con pausas activas: después de cada idea importante, escribe una explicación breve con tus palabras.',
-        actividad:
-          principal === 'Auditivo'
-            ? 'Escucha o mira una explicación, pausa por secciones y graba o escribe una explicación propia.'
-            : 'Lee o mira el recurso principal y construye una explicación corta con un ejemplo.',
-        evidenciaEsperada: 'Explicación breve del concepto base.',
-      },
-      {
-        titulo: 'Ejemplos resueltos y patrones',
-        objetivo: 'Identificar procedimientos, pasos comunes y errores frecuentes.',
-        tipoActividad: 'análisis de ejemplos',
-        descripcion:
-          'Revisa dos ejemplos del tema. Señala qué se hace primero, qué regla se usa y cómo se comprueba el resultado.',
-        actividad:
-          principal === 'Reflexivo'
-            ? 'Completa una tabla con procedimiento, razón de cada paso y error que se debe evitar.'
-            : 'Marca el procedimiento de cada ejemplo y explica por qué cada paso es necesario.',
-        evidenciaEsperada: 'Tabla de análisis o ejemplos comentados.',
-      },
-      {
-        titulo: 'Práctica acompañada',
-        objetivo: 'Aplicar el tema con apoyo gradual y retroalimentación personal.',
-        tipoActividad: 'taller progresivo',
-        descripcion:
-          'Resuelve ejercicios de dificultad creciente. Primero imita un ejemplo, luego cambia datos y finalmente resuelve uno sin guía.',
+          'Desarrolla un taller corto sobre el contenido del paso 1. La meta es demostrar comprensión, no solo repetir definiciones.',
         actividad:
           principal === 'Práctico'
-            ? 'Resuelve tres ejercicios y escribe el procedimiento completo de cada uno.'
-            : 'Desarrolla una práctica corta y explica qué decisión tomaste en cada paso.',
-        evidenciaEsperada: 'Ejercicios o actividad aplicada resuelta.',
+            ? 'Resuelve el ejercicio propuesto mostrando procedimiento y justificación.'
+            : 'Responde el taller con tus palabras y explica por qué cada respuesta tiene sentido.',
+        evidenciaEsperada: 'Taller resuelto o respuestas argumentadas.',
       },
       {
-        titulo: 'Aplicación en contexto',
-        objetivo: 'Usar el conocimiento en una situación real o problema nuevo.',
-        tipoActividad: 'reto aplicado',
+        titulo: `Profundización y conexiones`,
+        objetivo: 'Ampliar el tema con una segunda explicación o recurso de profundización.',
+        tipoActividad: 'recurso de profundización',
         descripcion:
-          'Plantea o resuelve un caso donde el tema tenga utilidad. Conecta el concepto con una situación de clase, vida diaria o proyecto.',
+          'Estudia un segundo recurso que complemente el bloque inicial, conectando conceptos, relaciones y errores frecuentes.',
         actividad:
-          principal === 'Explorador'
-            ? 'Busca una aplicación del tema, valida la fuente y resume cómo se usa.'
-            : 'Resuelve un caso aplicado y explica la relación con el concepto estudiado.',
-        evidenciaEsperada: 'Caso aplicado, solución comentada o breve investigación.',
+          principal === 'Reflexivo'
+            ? 'Construye una tabla con idea principal, ejemplo y error que se debe evitar.'
+            : 'Elabora una explicación corta de cómo este segundo recurso amplía lo aprendido.',
+        evidenciaEsperada: 'Tabla comparativa, explicación breve o síntesis comentada.',
       },
       {
-        titulo: 'Cierre, síntesis y preparación de evaluación',
-        objetivo: 'Consolidar el aprendizaje y prepararse para demostrar comprensión.',
-        tipoActividad: 'síntesis y autoevaluación',
+        titulo: 'Ejercicio de aplicación',
+        objetivo: 'Aplicar el tema en un ejercicio o situación que exija transferencia.',
+        tipoActividad: 'ejercicio aplicado',
         descripcion:
-          'Resume lo aprendido, identifica dudas restantes y prepara una explicación final del tema.',
+          'Desarrolla un ejercicio de aplicación basado en el recurso del paso 3, mostrando cómo tomas decisiones y corriges errores.',
+        actividad:
+          principal === 'Práctico'
+            ? 'Resuelve el ejercicio completo y explica el procedimiento paso a paso.'
+            : 'Responde el ejercicio y justifica cómo aplicaste el concepto.',
+        evidenciaEsperada: 'Ejercicio resuelto con procedimiento.',
+      },
+      {
+        titulo: 'Cierre y consolidación',
+        objetivo: 'Sintetizar el tema y prepararse para la evaluación final.',
+        tipoActividad: 'recurso de cierre',
+        descripcion:
+          'Revisa un recurso final de síntesis que te permita organizar lo aprendido y dejar claros los puntos centrales antes de la evaluación.',
         actividad:
           principal === 'Colaborativo'
-            ? 'Explica el tema a un compañero o simula una explicación para otro estudiante.'
-            : 'Crea una síntesis final y responde una autoevaluación antes de presentar la evaluación.',
-        evidenciaEsperada: 'Síntesis final y autoevaluación corta.',
+            ? 'Explica el tema a otra persona o simula una exposición breve del contenido.'
+            : 'Redacta una síntesis final y deja lista tu explicación del tema.',
+        evidenciaEsperada: 'Síntesis final, esquema o explicación preparada.',
       },
     ];
 
@@ -1991,15 +2043,18 @@ export class AprendizajeAdaptativoService {
       },
       diagnostico: {
         nivelDificultad: asignacion.nivelSolicitado || 'medio',
-        duracionEstimada: asignacion.tiempoDisponible || '5 a 7 días',
+        duracionEstimada: this.descripcionTiempoAsignacion(asignacion),
         justificacion:
           'Diagnóstico local basado en las respuestas de entrevista y el objetivo asignado.',
       },
       ruta: {
         titulo: `Ruta adaptativa: ${asignacion.tema}`,
         nivelDificultad: asignacion.nivelSolicitado || 'medio',
-        duracionEstimada: asignacion.tiempoDisponible || '5 a 7 días',
+        duracionEstimada: this.descripcionTiempoAsignacion(asignacion),
         pasos,
+        pasoActual: 0,
+        totalPasos: pasos.length,
+        rutaIniciada: false,
         recomendacionesDocente:
           'Revisar evidencias de los pasos y reforzar conceptos con bajo desempeño.',
       },
@@ -2120,7 +2175,13 @@ export class AprendizajeAdaptativoService {
   }
 
   private obtenerRuta(asignacion: any) {
-    const ruta = asignacion.ruta as { pasos?: PasoRuta[] } | null;
+    const ruta = asignacion.ruta as {
+      pasos?: PasoRuta[];
+      pasoActual?: number;
+      totalPasos?: number;
+      rutaIniciada?: boolean;
+      ultimaInteraccionEn?: string;
+    } | null;
     if (!ruta || !Array.isArray(ruta.pasos)) {
       throw new BadRequestException('La ruta todavía no fue generada.');
     }
@@ -2136,23 +2197,153 @@ export class AprendizajeAdaptativoService {
 
     const nombreArchivo = `conclusiones-ruta-${asignacion.id}-${Date.now()}.pdf`;
     const rutaAbsoluta = join(carpeta, nombreArchivo);
-    const doc = new PDFDocument({ margin: 50 });
+    const doc = new PDFDocument({
+      size: 'LETTER',
+      bufferPages: true,
+      margins: { top: 54, left: 54, right: 54, bottom: 54 },
+      info: {
+        Title: `Conclusiones - ${asignacion.tema}`,
+        Author: 'NEXORA AI',
+        Subject: 'Cierre de ruta de aprendizaje adaptativo',
+      },
+    });
     const stream = doc.pipe(createWriteStream(rutaAbsoluta));
 
-    doc.fontSize(18).text('Conclusiones de aprendizaje adaptativo');
-    doc.moveDown();
-    doc.fontSize(12).text(`Tema: ${asignacion.tema}`);
-    doc.text(`Estudiante: ${this.nombreUsuario(asignacion.estudiante)}`);
-    doc.text(`Docente: ${this.nombreUsuario(asignacion.docente)}`);
-    doc.text(`Institución: ${asignacion.institucion?.nombre || 'Institución'}`);
-    doc.moveDown();
-    doc.fontSize(14).text('Resultado AI');
-    doc.fontSize(11).text(JSON.stringify(asignacion.resultadoEvaluacion || {}, null, 2));
-    doc.moveDown();
-    doc.fontSize(14).text('Revisión docente');
-    doc.fontSize(11).text(revision.observaciones || 'Ruta completada.');
-    doc.moveDown();
-    doc.text('Documento generado por NEXORA AI.');
+    const ancho =
+      doc.page.width - doc.page.margins.left - doc.page.margins.right;
+    const logoInstitucion = this.rutaLogoLocal(asignacion.institucion?.logo);
+    const logoApp = this.rutaLogoAplicacionLocal();
+    const resultado = asignacion.resultadoEvaluacion || {};
+    const ruta = this.obtenerRuta(asignacion);
+    const perfil = asignacion.perfilAprendizaje || {};
+    const diagnostico = asignacion.diagnostico || {};
+
+    if (logoInstitucion) {
+      try {
+        doc.image(logoInstitucion, doc.page.margins.left, 42, {
+          fit: [62, 62],
+        });
+      } catch {
+        doc.rect(doc.page.margins.left, 42, 54, 54).stroke('#d1d5db');
+      }
+    }
+
+    if (logoApp) {
+      try {
+        doc.image(logoApp, doc.page.width - doc.page.margins.right - 62, 42, {
+          fit: [62, 62],
+          align: 'right',
+        });
+      } catch {
+        doc
+          .rect(doc.page.width - doc.page.margins.right - 54, 42, 54, 54)
+          .stroke('#d1d5db');
+      }
+    }
+
+    doc
+      .font('Helvetica-Bold')
+      .fontSize(14)
+      .fillColor('#111827')
+      .text(
+        asignacion.institucion?.nombre || 'Institución educativa',
+        logoInstitucion ? 128 : doc.page.margins.left,
+        48,
+        {
+          width: ancho - (logoInstitucion ? 74 : 0) - (logoApp ? 74 : 0),
+          align: 'center',
+        },
+      );
+    doc
+      .font('Helvetica')
+      .fontSize(9)
+      .fillColor('#4b5563')
+      .text('NEXORA AI · Conclusiones de ruta de aprendizaje adaptativo', {
+        width: ancho,
+        align: 'center',
+      })
+      .moveDown(2);
+
+    doc
+      .moveTo(54, doc.y)
+      .lineTo(doc.page.width - 54, doc.y)
+      .strokeColor('#d1d5db')
+      .stroke()
+      .moveDown(1.3);
+
+    doc
+      .font('Helvetica-Bold')
+      .fontSize(20)
+      .fillColor('#111827')
+      .text(asignacion.tema, { width: ancho })
+      .moveDown(0.45);
+    doc
+      .font('Helvetica')
+      .fontSize(10)
+      .fillColor('#4b5563')
+      .text(`Estudiante: ${this.nombreUsuario(asignacion.estudiante)}`)
+      .text(`Docente responsable: ${this.nombreUsuario(asignacion.docente)}`)
+      .text(
+        `Grado: ${asignacion.gradoEscolar?.nombre || asignacion.estudiante?.gradoEscolar?.nombre || 'Sin grado'}`,
+      )
+      .text(`Fecha límite: ${this.formatearFechaPdf(asignacion.fechaLimite)}`)
+      .text(`Duración estimada: ${this.descripcionTiempoAsignacion(asignacion)}`)
+      .text(`Fecha de cierre: ${this.formatearFechaPdf(asignacion.fechaRevision || new Date())}`)
+      .moveDown(1.2);
+
+    this.tituloPdfConclusiones(doc, 'Resumen de la ruta');
+    this.parrafoPdfConclusiones(
+      doc,
+      `La ruta se estructuró con ${Array.isArray(ruta.pasos) ? ruta.pasos.length : 0} pasos de estudio progresivo antes de la evaluación final.`,
+    );
+    this.listaPdfConclusiones(doc, [
+      `Perfil principal detectado: ${perfil.principal || 'No definido'}`,
+      `Nivel sugerido: ${diagnostico.nivelDificultad || 'No definido'}`,
+      `Duración proyectada: ${diagnostico.duracionEstimada || this.descripcionTiempoAsignacion(asignacion)}`,
+      `Tema trabajado: ${asignacion.tema}`,
+    ]);
+
+    this.tituloPdfConclusiones(doc, 'Resultado de la evaluación');
+    this.parrafoPdfConclusiones(
+      doc,
+      `Puntaje obtenido: ${resultado.puntaje || 0}/100. Veredicto: ${resultado.veredicto || 'Pendiente de revisión docente'}.`,
+    );
+    this.listaPdfConclusiones(doc, resultado.fortalezas || [], 'Fortalezas');
+    this.listaPdfConclusiones(doc, resultado.oportunidades || [], 'Oportunidades');
+    this.parrafoPdfConclusiones(
+      doc,
+      `Recomendación general: ${resultado.recomendacion || 'Validar con revisión docente.'}`,
+    );
+
+    this.tituloPdfConclusiones(doc, 'Cierre docente');
+    this.parrafoPdfConclusiones(
+      doc,
+      `Decisión final: ${revision.decision === 'completada' ? 'Ruta completada' : 'Ruta reasignada para refuerzo'}.`,
+    );
+    this.parrafoPdfConclusiones(
+      doc,
+      revision.observaciones || 'Ruta completada con cierre satisfactorio.',
+    );
+
+    const paginas = doc.bufferedPageRange();
+    for (let i = paginas.start; i < paginas.start + paginas.count; i += 1) {
+      doc.switchToPage(i);
+      const footerY = doc.page.height - doc.page.margins.bottom - 10;
+      doc
+        .font('Helvetica')
+        .fontSize(8)
+        .fillColor('#6b7280')
+        .text(
+          `Página ${i + 1} · NEXORA AI · Informe de conclusiones`,
+          54,
+          footerY,
+          {
+            width: ancho,
+            align: 'center',
+            lineBreak: false,
+          },
+        );
+    }
     doc.end();
 
     await new Promise<void>((resolve, reject) => {
@@ -2204,5 +2395,139 @@ export class AprendizajeAdaptativoService {
   private aNumero(valor: unknown, fallback = 0) {
     const numero = Number(String(valor ?? '').replace('%', '').trim());
     return Number.isFinite(numero) ? numero : fallback;
+  }
+
+  private descripcionTiempoAsignacion(asignacion: {
+    fechaLimite?: string | Date | null;
+    tiempoDisponible?: string | null;
+  }) {
+    const tiempoManual = String(asignacion?.tiempoDisponible || '').trim();
+    if (tiempoManual) {
+      return tiempoManual;
+    }
+
+    if (!asignacion?.fechaLimite) {
+      return '5 a 7 días';
+    }
+
+    const limite = new Date(asignacion.fechaLimite);
+    if (Number.isNaN(limite.getTime())) {
+      return '5 a 7 días';
+    }
+
+    const hoy = new Date();
+    hoy.setHours(0, 0, 0, 0);
+    limite.setHours(0, 0, 0, 0);
+
+    const diferenciaDias = Math.max(
+      1,
+      Math.ceil((limite.getTime() - hoy.getTime()) / 86400000),
+    );
+
+    if (diferenciaDias === 1) {
+      return '1 día disponible';
+    }
+
+    if (diferenciaDias <= 7) {
+      return `${diferenciaDias} días disponibles`;
+    }
+
+    const semanas = Math.ceil(diferenciaDias / 7);
+    return `${diferenciaDias} días disponibles (${semanas} semanas aprox.)`;
+  }
+
+  private formatearFechaPdf(fecha?: string | Date | null) {
+    if (!fecha) {
+      return 'Sin fecha definida';
+    }
+
+    const valor = new Date(fecha);
+    if (Number.isNaN(valor.getTime())) {
+      return 'Sin fecha definida';
+    }
+
+    return new Intl.DateTimeFormat('es-CO', {
+      dateStyle: 'medium',
+    }).format(valor);
+  }
+
+  private tituloPdfConclusiones(doc: PDFKit.PDFDocument, titulo: string) {
+    this.saltoSiNecesario(doc, 56);
+    doc
+      .moveDown(0.3)
+      .font('Helvetica-Bold')
+      .fontSize(13)
+      .fillColor('#0f172a')
+      .text(titulo)
+      .moveDown(0.35);
+  }
+
+  private parrafoPdfConclusiones(doc: PDFKit.PDFDocument, contenido: string) {
+    this.saltoSiNecesario(doc, 42);
+    doc
+      .font('Helvetica')
+      .fontSize(10)
+      .fillColor('#1f2937')
+      .text(contenido, {
+        width: doc.page.width - doc.page.margins.left - doc.page.margins.right,
+        lineGap: 2,
+      })
+      .moveDown(0.8);
+  }
+
+  private listaPdfConclusiones(
+    doc: PDFKit.PDFDocument,
+    items: string[],
+    titulo?: string,
+  ) {
+    const lista = Array.isArray(items) ? items.filter(Boolean) : [];
+    if (titulo && lista.length > 0) {
+      doc
+        .font('Helvetica-Bold')
+        .fontSize(10.5)
+        .fillColor('#111827')
+        .text(titulo)
+        .moveDown(0.35);
+    }
+
+    lista.forEach((item) => {
+      this.saltoSiNecesario(doc, 26);
+      doc
+        .font('Helvetica')
+        .fontSize(10)
+        .fillColor('#1f2937')
+        .text(`• ${item}`, {
+          width: doc.page.width - doc.page.margins.left - doc.page.margins.right,
+          lineGap: 2,
+        });
+    });
+
+    if (lista.length > 0) {
+      doc.moveDown(0.8);
+    }
+  }
+
+  private saltoSiNecesario(doc: PDFKit.PDFDocument, espacio: number) {
+    if (doc.y + espacio > doc.page.height - doc.page.margins.bottom) {
+      doc.addPage();
+    }
+  }
+
+  private rutaLogoLocal(logo?: string | null) {
+    if (!logo || !logo.startsWith('/uploads/')) {
+      return '';
+    }
+
+    const ruta = join(process.cwd(), logo.replace(/^\//, ''));
+    const extension = extname(ruta).toLowerCase();
+
+    return existsSync(ruta) && ['.png', '.jpg', '.jpeg'].includes(extension)
+      ? ruta
+      : '';
+  }
+
+  private rutaLogoAplicacionLocal() {
+    const ruta = join(process.cwd(), 'frontend', 'public', 'logo-solo.png');
+    return existsSync(ruta) ? ruta : '';
   }
 }
