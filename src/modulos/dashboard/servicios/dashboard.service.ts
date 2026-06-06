@@ -20,6 +20,38 @@ type DistribucionRolesInstitucion = {
   administrativos: number;
 };
 
+type ResumenRutaAprendizajeAdaptativo = {
+  id: number;
+  tema: string;
+  estado: string;
+  estadoLabel: string;
+  fechaAsignacion: Date;
+  fechaLimite: Date | null;
+  fechaRutaGenerada: Date | null;
+  fechaFinalizacion: Date | null;
+  progreso: number;
+  estudiante: string;
+  docente: string;
+  tipoAprendizaje: string;
+  nivelDificultad: string;
+  duracionEstimada: string;
+  justificacion: string;
+};
+
+type ResumenDiagnosticoAprendizajeAdaptativo = {
+  id: number;
+  tema: string;
+  estudiante: string;
+  docente: string;
+  tipoAprendizaje: string;
+  nivelDificultad: string;
+  duracionEstimada: string;
+  justificacion: string;
+  fechaGeneracion: Date;
+  estado: string;
+  progreso: number;
+};
+
 const ESTADOS_PROYECTO_ACTIVOS = ['activo', 'en_revision', 'requiere_ajustes'];
 const VENTANA_ACTIVIDAD_DIAS = 30;
 
@@ -392,10 +424,13 @@ export class DashboardService {
       misForos,
       misProyectos,
       entregasPendientes,
+      rutasAdaptativasAsignadas,
+      diagnosticosAdaptativosRealizados,
       recursosRecientesRaw,
       forosAbiertosRaw,
       proyectosDocenteRaw,
       entregasPendientesRaw,
+      rutasAdaptativasRaw,
       logsRecientes,
     ] = await Promise.all([
       this.prisma.institucion.findUnique({
@@ -424,6 +459,19 @@ export class DashboardService {
           estado: 'entregada',
           fechaRevision: null,
           proyecto: whereDocente,
+        },
+      }),
+      this.prisma.asignacionAprendizajeAdaptativo.count({
+        where: {
+          institucionId,
+          docenteId: usuarioId,
+        },
+      }),
+      this.prisma.asignacionAprendizajeAdaptativo.count({
+        where: {
+          institucionId,
+          docenteId: usuarioId,
+          fechaRutaGenerada: { not: null },
         },
       }),
       this.prisma.recurso.findMany({
@@ -505,6 +553,46 @@ export class DashboardService {
         orderBy: [{ createdAt: 'asc' }],
         take: 10,
       }),
+      this.prisma.asignacionAprendizajeAdaptativo.findMany({
+        where: {
+          institucionId,
+          docenteId: usuarioId,
+        },
+        select: {
+          id: true,
+          tema: true,
+          estado: true,
+          createdAt: true,
+          fechaLimite: true,
+          fechaRutaGenerada: true,
+          fechaFinalizacion: true,
+          ruta: true,
+          diagnostico: true,
+          perfilAprendizaje: true,
+          estudiante: {
+            select: {
+              nombres: true,
+              apellidos: true,
+              correo: true,
+              gradoEscolar: {
+                select: {
+                  nombre: true,
+                  codigo: true,
+                },
+              },
+            },
+          },
+          docente: {
+            select: {
+              nombres: true,
+              apellidos: true,
+              correo: true,
+            },
+          },
+        },
+        orderBy: { updatedAt: 'desc' },
+        take: 10,
+      }),
       this.obtenerLogsRecientes({ institucionId, usuarioId }, 6),
     ]);
 
@@ -572,6 +660,27 @@ export class DashboardService {
       fechaLimiteProyecto: entrega.proyecto.fechaLimite,
     }));
 
+    const rutasAprendizajeAdaptativo = rutasAdaptativasRaw.map((asignacion) =>
+      this.resumenRutaAprendizajeAdaptativo(asignacion),
+    );
+
+    const ultimosDiagnosticosAdaptativos = rutasAprendizajeAdaptativo
+      .filter((ruta) => ruta.justificacion)
+      .slice(0, 5)
+      .map((ruta) => ({
+          id: ruta.id,
+          tema: ruta.tema,
+          estudiante: ruta.estudiante,
+          docente: ruta.docente,
+        tipoAprendizaje: ruta.tipoAprendizaje,
+        nivelDificultad: ruta.nivelDificultad,
+        duracionEstimada: ruta.duracionEstimada,
+        justificacion: ruta.justificacion,
+        fechaGeneracion: ruta.fechaRutaGenerada || ruta.fechaAsignacion,
+        estado: ruta.estadoLabel,
+        progreso: ruta.progreso,
+      }));
+
     return {
       alcance: 'docente',
       institucion: institucion || { id: institucionId, nombre: 'Institución' },
@@ -584,11 +693,23 @@ export class DashboardService {
           label: 'Entregas por revisar',
           value: entregasPendientes,
         },
+        {
+          key: 'rutas_adaptativas',
+          label: 'Rutas adaptativas',
+          value: rutasAdaptativasAsignadas,
+        },
+        {
+          key: 'diagnosticos_adaptativos',
+          label: 'Diagnósticos adaptativos',
+          value: diagnosticosAdaptativosRealizados,
+        },
       ],
       misRecursosRecientes,
       misForosAbiertos,
       proyectosDocente,
       entregasPendientesRevision,
+      rutasAprendizajeAdaptativo,
+      ultimosDiagnosticosAdaptativos,
       logsRecientes,
     };
   }
@@ -625,8 +746,11 @@ export class DashboardService {
       forosComentadosRaw,
       rutasAsignadas,
       diagnosticosRealizados,
+      rutasAdaptativasAsignadas,
+      diagnosticosAdaptativosRealizados,
       proyectosEstudianteRaw,
       rutasAprendizajeRaw,
+      rutasAdaptativasRaw,
       ultimoDiagnosticoRaw,
       forosGradoRaw,
     ] = await Promise.all([
@@ -658,6 +782,19 @@ export class DashboardService {
       }),
       this.prisma.diagnosticoAprendizaje.count({
         where: { usuarioId },
+      }),
+      this.prisma.asignacionAprendizajeAdaptativo.count({
+        where: {
+          institucionId: institucionReal,
+          estudianteId: usuarioId,
+        },
+      }),
+      this.prisma.asignacionAprendizajeAdaptativo.count({
+        where: {
+          institucionId: institucionReal,
+          estudianteId: usuarioId,
+          fechaRutaGenerada: { not: null },
+        },
       }),
       this.prisma.proyectoColaborativoIntegrante.findMany({
         where: {
@@ -708,6 +845,46 @@ export class DashboardService {
         },
         orderBy: { fechaAsignacion: 'desc' },
         take: 8,
+      }),
+      this.prisma.asignacionAprendizajeAdaptativo.findMany({
+        where: {
+          institucionId: institucionReal,
+          estudianteId: usuarioId,
+        },
+        select: {
+          id: true,
+          tema: true,
+          estado: true,
+          createdAt: true,
+          fechaLimite: true,
+          fechaRutaGenerada: true,
+          fechaFinalizacion: true,
+          ruta: true,
+          diagnostico: true,
+          perfilAprendizaje: true,
+          estudiante: {
+            select: {
+              nombres: true,
+              apellidos: true,
+              correo: true,
+              gradoEscolar: {
+                select: {
+                  nombre: true,
+                  codigo: true,
+                },
+              },
+            },
+          },
+          docente: {
+            select: {
+              nombres: true,
+              apellidos: true,
+              correo: true,
+            },
+          },
+        },
+        orderBy: { updatedAt: 'desc' },
+        take: 10,
       }),
       this.prisma.diagnosticoAprendizaje.findFirst({
         where: { usuarioId },
@@ -830,6 +1007,27 @@ export class DashboardService {
       fechaFinalizacion: asignacion.fechaFinalizacion,
     }));
 
+    const rutasAprendizajeAdaptativo = rutasAdaptativasRaw.map((asignacion) =>
+      this.resumenRutaAprendizajeAdaptativo(asignacion),
+    );
+
+    const ultimosDiagnosticosAdaptativos = rutasAprendizajeAdaptativo
+      .filter((ruta) => ruta.justificacion || ruta.fechaRutaGenerada)
+      .slice(0, 5)
+      .map((ruta) => ({
+          id: ruta.id,
+          tema: ruta.tema,
+          estudiante: ruta.estudiante,
+          docente: ruta.docente,
+        tipoAprendizaje: ruta.tipoAprendizaje,
+        nivelDificultad: ruta.nivelDificultad,
+          duracionEstimada: ruta.duracionEstimada,
+          justificacion: ruta.justificacion,
+        fechaGeneracion: ruta.fechaRutaGenerada || ruta.fechaAsignacion,
+        estado: ruta.estadoLabel,
+        progreso: ruta.progreso,
+      }));
+
     const ultimoDiagnostico = ultimoDiagnosticoRaw
       ? {
           id: ultimoDiagnosticoRaw.id,
@@ -865,10 +1063,22 @@ export class DashboardService {
           label: 'Diagnósticos realizados',
           value: diagnosticosRealizados,
         },
+        {
+          key: 'rutas_adaptativas',
+          label: 'Rutas adaptativas',
+          value: rutasAdaptativasAsignadas,
+        },
+        {
+          key: 'diagnosticos_adaptativos',
+          label: 'Diagnósticos adaptativos',
+          value: diagnosticosAdaptativosRealizados,
+        },
       ],
       misProyectos,
       forosDirigidosGrado,
       misRutasAprendizaje,
+      rutasAprendizajeAdaptativo,
+      ultimosDiagnosticosAdaptativos,
       ultimoDiagnostico,
       logsRecientes: [],
     };
@@ -1093,6 +1303,22 @@ export class DashboardService {
     return etiquetas[estado] || estado;
   }
 
+  private etiquetaEstadoAdaptativo(estado: string) {
+    const etiquetas: Record<string, string> = {
+      asignada: 'Asignada',
+      entrevista: 'Entrevista',
+      ruta_generada: 'Ruta generada',
+      en_curso: 'En curso',
+      evaluacion: 'Evaluación',
+      evaluada: 'Evaluada',
+      revisada: 'Revisada',
+      completada: 'Completada',
+      reasignada: 'Reasignada',
+    };
+
+    return etiquetas[estado] || estado;
+  }
+
   private etiquetaRolProyecto(rolProyecto?: string | null) {
     const rol = this.normalizar(rolProyecto || '').replace(/\s+/g, '_');
     const etiquetas: Record<string, string> = {
@@ -1116,6 +1342,54 @@ export class DashboardService {
       .replace(/[\u0300-\u036f]/g, '')
       .toLowerCase()
       .trim();
+  }
+
+  private calcularProgresoRutaAdaptativa(ruta: any) {
+    const pasos = Array.isArray(ruta?.pasos) ? ruta.pasos : [];
+    if (pasos.length === 0) {
+      return 0;
+    }
+
+    const completados = pasos.filter((paso: any) => Boolean(paso?.completado)).length;
+    return Math.round((completados / pasos.length) * 100);
+  }
+
+  private resumenRutaAprendizajeAdaptativo(asignacion: any): ResumenRutaAprendizajeAdaptativo {
+    const ruta = asignacion?.ruta && typeof asignacion.ruta === 'object' ? asignacion.ruta : {};
+    const diagnostico =
+      asignacion?.diagnostico && typeof asignacion.diagnostico === 'object'
+        ? asignacion.diagnostico
+        : {};
+    const perfil =
+      asignacion?.perfilAprendizaje && typeof asignacion.perfilAprendizaje === 'object'
+        ? asignacion.perfilAprendizaje
+        : {};
+
+    return {
+      id: Number(asignacion.id),
+      tema: asignacion.tema || 'Ruta adaptativa',
+      estado: asignacion.estado || 'asignada',
+      estadoLabel: this.etiquetaEstadoAdaptativo(asignacion.estado || 'asignada'),
+      fechaAsignacion: asignacion.createdAt || asignacion.fechaAsignacion,
+      fechaLimite: asignacion.fechaLimite || null,
+      fechaRutaGenerada: asignacion.fechaRutaGenerada || null,
+      fechaFinalizacion: asignacion.fechaFinalizacion || null,
+      progreso: this.calcularProgresoRutaAdaptativa(ruta),
+      estudiante: this.nombreUsuario(asignacion.estudiante),
+      docente: this.nombreUsuario(asignacion.docente),
+      tipoAprendizaje: perfil?.principal || 'Sin perfil',
+      nivelDificultad:
+        diagnostico?.nivelDificultad ||
+        ruta?.nivelDificultad ||
+        asignacion?.nivelSolicitado ||
+        'medio',
+      duracionEstimada:
+        diagnostico?.duracionEstimada ||
+        ruta?.duracionEstimada ||
+        asignacion?.tiempoDisponible ||
+        'Sin dato',
+      justificacion: diagnostico?.justificacion || '',
+    };
   }
 
   private tienePermiso(usuarioAuth: any, permiso: string) {

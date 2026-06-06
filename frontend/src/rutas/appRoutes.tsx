@@ -1,6 +1,7 @@
 import type { ReactElement } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Login } from '../paginas/login/login';
+import { LoginSuperadmin } from '../paginas/login/loginSuperadmin';
 import { AppLayout } from '../componentes/layout/appLayout';
 import { Inicio } from '../paginas/inicio/inicio';
 import { Instituciones } from '../paginas/instituciones/instituciones';
@@ -53,7 +54,11 @@ export function AppRoutes() {
     return (
       <BrowserRouter>
         <Routes>
-          <Route path="*" element={<Login />} />
+          <Route path="/" element={<Navigate to="/login" replace />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/superadmin" element={<Navigate to="/superadmin/login" replace />} />
+          <Route path="/superadmin/login" element={<LoginSuperadmin />} />
+          <Route path="*" element={<Navigate to="/login" replace />} />
         </Routes>
       </BrowserRouter>
     );
@@ -61,8 +66,13 @@ export function AppRoutes() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/login" element={<Navigate to="/inicio" replace />} />
+        <Route
+          path="/superadmin/login"
+          element={<Navigate to="/inicio" replace />}
+        />
+        <Route path="/" element={<Navigate to="/inicio" replace />} />
         <Route element={<AppLayout />}>
-          <Route path="/" element={<Navigate to="/inicio" replace />} />
           <Route path="/inicio" element={<Inicio />} />
 
           <Route
@@ -198,6 +208,7 @@ export function AppRoutes() {
             }
           />
         </Route>
+        <Route path="*" element={<Navigate to="/inicio" replace />} />
       </Routes>
     </BrowserRouter>
   );

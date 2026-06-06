@@ -1,5 +1,32 @@
 const API_URL = 'http://localhost:3000';
 
+export type RespuestaLogin = {
+  token: string;
+  usuario: {
+    id: number;
+    nombres: string;
+    apellidos: string;
+    correo: string;
+    documento: string;
+    rol: {
+      id: number;
+      nombre: string;
+    };
+    permisos: string[];
+    institucion: {
+      id: number;
+      nombre: string;
+      logo?: string | null;
+    };
+    gradoEscolar: {
+      id: number;
+      nombre: string;
+      codigo: string;
+      orden: number;
+    } | null;
+  };
+};
+
 //Funcion para obtener el token guardado en localStorage
 function obtenerToken(): string {
   return localStorage.getItem('token') || '';
@@ -13,6 +40,30 @@ function construirHeadersAutorizados(incluirJson = true): HeadersInit {
     ...(incluirJson ? { 'Content-Type': 'application/json' } : {}),
     ...(token ? { Authorization: `Bearer ${token}` } : {}),
   };
+}
+
+async function procesarRespuesta<T>(
+  respuesta: Response,
+  mensajeError: string,
+): Promise<T> {
+  if (!respuesta.ok) {
+    let mensajeDetalle = '';
+
+    try {
+      const detalle = await respuesta.json();
+      mensajeDetalle = Array.isArray(detalle?.message)
+        ? detalle.message.join(', ')
+        : detalle?.message || detalle?.error;
+    } catch {
+      mensajeDetalle = '';
+    }
+
+    throw new Error(
+      mensajeDetalle ? `${mensajeError}: ${mensajeDetalle}` : mensajeError,
+    );
+  }
+
+  return respuesta.json() as Promise<T>;
 }
 
 export async function obtenerInstituciones() {
@@ -78,11 +129,28 @@ export async function login(data: {
     body: JSON.stringify(data),
   });
 
-  if (!respuesta.ok) {
-    throw new Error('Credenciales incorrectas');
-  }
+  return procesarRespuesta<RespuestaLogin>(
+    respuesta,
+    'No se pudo iniciar sesión',
+  );
+}
 
-  return respuesta.json();
+export async function loginSuperadmin(data: {
+  usuario: string;
+  contrasena: string;
+}) {
+  const respuesta = await fetch(`${API_URL}/auth/superadmin/login`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  });
+
+  return procesarRespuesta<RespuestaLogin>(
+    respuesta,
+    'No se pudo iniciar sesión como superadministrador',
+  );
 }
 
 export async function actualizarInstitucion(

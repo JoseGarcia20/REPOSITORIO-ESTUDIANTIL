@@ -607,6 +607,38 @@ export type DashboardRutaEstudiante = {
   fechaFinalizacion: string | null;
 };
 
+export type DashboardRutaAdaptativa = {
+  id: number;
+  tema: string;
+  estado: string;
+  estadoLabel: string;
+  fechaAsignacion: string;
+  fechaLimite: string | null;
+  fechaRutaGenerada: string | null;
+  fechaFinalizacion: string | null;
+  progreso: number;
+  estudiante: string;
+  docente: string;
+  tipoAprendizaje: string;
+  nivelDificultad: string;
+  duracionEstimada: string;
+  justificacion: string;
+};
+
+export type DashboardDiagnosticoAdaptativo = {
+  id: number;
+  tema: string;
+  estudiante: string;
+  docente: string;
+  tipoAprendizaje: string;
+  nivelDificultad: string;
+  duracionEstimada: string;
+  justificacion: string;
+  fechaGeneracion: string;
+  estado: string;
+  progreso: number;
+};
+
 export type DashboardUltimoDiagnostico = {
   id: number;
   puntajeFinal: number;
@@ -657,6 +689,8 @@ export type ResumenDashboard = {
   forosDirigidosGrado?: DashboardForoGradoEstudiante[];
   misRutasAprendizaje?: DashboardRutaEstudiante[];
   ultimoDiagnostico?: DashboardUltimoDiagnostico;
+  rutasAprendizajeAdaptativo?: DashboardRutaAdaptativa[];
+  ultimosDiagnosticosAdaptativos?: DashboardDiagnosticoAdaptativo[];
   recursosPublicadosVsBorradores?: DashboardCategoriaPublicacion[];
   logsRecientes: DashboardLogReciente[];
 };

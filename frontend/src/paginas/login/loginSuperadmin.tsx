@@ -1,43 +1,20 @@
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { obtenerInstituciones } from '../../api/api';
-import { login } from '../../api/api';
+import { useState } from 'react';
+import { loginSuperadmin } from '../../api/api';
 import './login.css';
 
 const APP_LOGO_SRC = '/logo-solo.png';
 
-type Institucion = {
-  id: number;
-  nombre: string;
-};
-
-export function Login() {
-  const [instituciones, setInstituciones] = useState<Institucion[]>([]);
-  const [institucionId, setInstitucionId] = useState('');
+export function LoginSuperadmin() {
   const [usuario, setUsuario] = useState('');
   const [contrasena, setContrasena] = useState('');
   const [error, setError] = useState('');
-
-  useEffect(() => {
-    async function cargarInstituciones() {
-      try {
-        const data = await obtenerInstituciones();
-        setInstituciones(data);
-      } catch (error) {
-        console.error('Error cargando instituciones:', error);
-      }
-    }
-
-    cargarInstituciones();
-  }, []);
 
   async function manejarSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setError('');
 
     try {
-      const data = await login({
-        institucionId,
+      const data = await loginSuperadmin({
         usuario,
         contrasena,
       });
@@ -45,24 +22,23 @@ export function Login() {
       localStorage.setItem('token', data.token);
       localStorage.setItem('usuario', JSON.stringify(data.usuario));
       window.location.href = '/inicio';
-
     } catch (error) {
-      console.error('Error login:', error);
+      console.error('Error login superadmin:', error);
       setError(error instanceof Error ? error.message : 'Credenciales incorrectas');
     }
   }
 
   return (
-    <main className="login-page">
-      <section className="login-card">
+    <main className="login-page superadmin">
+      <section className="login-card login-card-superadmin">
         <div className="login-hero">
           <div className="hero-decoration circle-one"></div>
           <div className="hero-decoration circle-two"></div>
 
           <div className="hero-content">
-            <h1>NEXORA AI: Donde el conocimiento se conecta</h1>
+            <h1>NEXORA AI</h1>
             <p>
-              Explora recursos, comparte conocimiento y aprende con el apoyo de inteligencia artificial.
+              Acceso global para administración total de la plataforma.
             </p>
           </div>
         </div>
@@ -72,26 +48,12 @@ export function Login() {
             <img src={APP_LOGO_SRC} alt="NEXORA AI" />
           </div>
 
-          <h2>Bienvenido a NEXORA AI</h2>
-          <p className="login-subtitle">Acceso institucional para estudiantes, docentes y administrativos</p>
+          <h2>Ingreso superadministrador</h2>
+          <p className="login-subtitle">
+            Usa tus credenciales globales sin seleccionar institución.
+          </p>
 
           <form className="login-form" onSubmit={manejarSubmit}>
-            <div className="form-group">
-              <label>Institución</label>
-              <select
-                value={institucionId}
-                onChange={(e) => setInstitucionId(e.target.value)}
-              >
-                <option value="">Selecciona tu institución</option>
-
-                {instituciones.map((institucion) => (
-                  <option key={institucion.id} value={institucion.id}>
-                    {institucion.nombre}
-                  </option>
-                ))}
-              </select>
-            </div>
-
             <div className="form-group">
               <label>Correo o documento</label>
               <input
@@ -112,22 +74,13 @@ export function Login() {
               />
             </div>
 
-            <div className="form-options">
-              <label>
-                <input type="checkbox" />
-                Recordarme
-              </label>
-
-              <button type="button">¿Olvidaste tu contraseña?</button>
-            </div>
-
             <button className="login-button" type="submit">
-              Iniciar sesión
+              Iniciar sesión global
             </button>
 
             {error ? <div className="login-error">{error}</div> : null}
           </form>
-          
+
         </div>
       </section>
     </main>

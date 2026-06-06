@@ -229,6 +229,10 @@
   min-width: 640px;
 }
 
+.dashboard-table-wide {
+  min-width: 920px;
+}
+
 .dashboard-table th,
 .dashboard-table td {
   border: 1px solid var(--border-soft);
@@ -406,6 +410,10 @@
   }
 
   .dashboard-table {
+    min-width: 520px;
+  }
+
+  .dashboard-table-wide {
     min-width: 520px;
   }
 }

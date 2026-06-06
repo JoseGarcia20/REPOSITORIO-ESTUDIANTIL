@@ -10,7 +10,9 @@ import {
 import type {
   DashboardDistribucionGlobal,
   DashboardDistribucionInstitucion,
+  DashboardDiagnosticoAdaptativo,
   DashboardLogReciente,
+  DashboardRutaAdaptativa,
   DashboardSerie,
   ResumenDashboard,
 } from '../../api/adminApi';
@@ -261,6 +263,104 @@ function TablaInstituciones({
             )}
           </tbody>
         </table>
+      </div>
+    </article>
+  );
+}
+
+function TablaRutasAdaptativas({
+  titulo,
+  datos,
+  mostrarEstudiante = false,
+}: {
+  titulo: string;
+  datos: DashboardRutaAdaptativa[];
+  mostrarEstudiante?: boolean;
+}) {
+  const colSpan = mostrarEstudiante ? 7 : 6;
+
+  return (
+    <article className="dashboard-panel">
+      <header>
+        <h3>{titulo}</h3>
+        <span>{formatearNumero(datos.length)} rutas</span>
+      </header>
+      <div className="dashboard-table-wrap">
+        <table className="dashboard-table dashboard-table-wide">
+          <thead>
+            <tr>
+              <th>Tema</th>
+              <th>Perfil</th>
+              {mostrarEstudiante ? <th>Estudiante</th> : null}
+              <th>Estado</th>
+              <th>Progreso</th>
+              <th>Fecha asignación</th>
+              <th>Fecha límite</th>
+            </tr>
+          </thead>
+              <tbody>
+            {datos.length === 0 ? (
+              <tr>
+                <td colSpan={colSpan}>Sin rutas adaptativas para mostrar.</td>
+              </tr>
+            ) : (
+              datos.map((ruta) => (
+                <tr key={ruta.id}>
+                  <td data-label="Tema">
+                    <strong>{ruta.tema}</strong>
+                    <small style={{ display: 'block', color: 'var(--text-muted)' }}>
+                      Nivel: {ruta.nivelDificultad}
+                    </small>
+                  </td>
+                  <td data-label="Perfil">{ruta.tipoAprendizaje}</td>
+                  {mostrarEstudiante ? (
+                    <td data-label="Estudiante">{ruta.estudiante}</td>
+                  ) : null}
+                  <td data-label="Estado">{ruta.estadoLabel}</td>
+                  <td data-label="Progreso">{Number(ruta.progreso || 0).toFixed(0)}%</td>
+                  <td data-label="Fecha asignación">{formatearFecha(ruta.fechaAsignacion)}</td>
+                  <td data-label="Fecha límite">{formatearFecha(ruta.fechaLimite)}</td>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
+      </div>
+    </article>
+  );
+}
+
+function ListaDiagnosticosAdaptativos({
+  titulo,
+  datos,
+}: {
+  titulo: string;
+  datos: DashboardDiagnosticoAdaptativo[];
+}) {
+  return (
+    <article className="dashboard-panel">
+      <header>
+        <h3>{titulo}</h3>
+      </header>
+      <div className="dashboard-activity-list">
+        {datos.length === 0 ? (
+          <p className="dashboard-empty">No hay diagnósticos adaptativos recientes.</p>
+        ) : (
+          datos.map((diagnostico) => (
+            <div className="dashboard-activity-item" key={diagnostico.id}>
+              <strong>{diagnostico.tema}</strong>
+              <small>
+                {diagnostico.estudiante} · {diagnostico.tipoAprendizaje} · Nivel:{' '}
+                {diagnostico.nivelDificultad}
+              </small>
+              <small>{diagnostico.justificacion}</small>
+              <small>
+                {diagnostico.estado} · Progreso {Number(diagnostico.progreso || 0).toFixed(0)}% ·{' '}
+                {formatearFecha(diagnostico.fechaGeneracion)}
+              </small>
+            </div>
+          ))
+        )}
       </div>
     </article>
   );
@@ -635,6 +735,18 @@ export function Inicio() {
                   </div>
                 </article>
               </section>
+
+              <section className="dashboard-grid two">
+                <TablaRutasAdaptativas
+                  titulo="Rutas de aprendizaje adaptativo asignadas"
+                  datos={resumen.rutasAprendizajeAdaptativo || []}
+                  mostrarEstudiante
+                />
+                <ListaDiagnosticosAdaptativos
+                  titulo="Últimos diagnósticos adaptativos"
+                  datos={resumen.ultimosDiagnosticosAdaptativos || []}
+                />
+              </section>
             </>
           )}
 
@@ -745,6 +857,17 @@ export function Inicio() {
                     </p>
                   )}
                 </article>
+              </section>
+
+              <section className="dashboard-grid two">
+                <TablaRutasAdaptativas
+                  titulo="Mis rutas de aprendizaje adaptativo"
+                  datos={resumen.rutasAprendizajeAdaptativo || []}
+                />
+                <ListaDiagnosticosAdaptativos
+                  titulo="Últimos diagnósticos adaptativos"
+                  datos={resumen.ultimosDiagnosticosAdaptativos || []}
+                />
               </section>
             </>
           )}

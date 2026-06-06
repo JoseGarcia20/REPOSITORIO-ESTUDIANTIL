@@ -12,6 +12,10 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
+.login-page.superadmin {
+  background: linear-gradient(135deg, #070738 0%, #111184 52%, #d3d3d3 150%);
+}
+
 .login-card {
   width: 100%;
   max-width: 1120px;
@@ -24,6 +28,10 @@
   box-shadow: 0 24px 60px rgba(39, 70, 144, 0.18);
 }
 
+.login-card-superadmin {
+  max-width: 1040px;
+}
+
 .login-hero {
   position: relative;
   background: linear-gradient(135deg, var(--brand-primary), var(--brand-primary));
@@ -32,6 +40,10 @@
   display: flex;
   align-items: center;
   overflow: hidden;
+}
+
+.login-card-superadmin .login-hero {
+  background: linear-gradient(145deg, #070738 0%, #111184 100%);
 }
 
 .hero-content {
@@ -120,6 +132,17 @@
   gap: 18px;
 }
 
+.login-error {
+  margin-top: 6px;
+  border: 1px solid rgba(176, 32, 32, 0.18);
+  background: rgba(176, 32, 32, 0.08);
+  color: #a11b1b;
+  padding: 12px 14px;
+  border-radius: 12px;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
 .form-group {
   display: flex;
   flex-direction: column;
@@ -173,6 +196,27 @@
   font-size: 14px;
 }
 
+.login-links {
+  margin-top: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.login-links a {
+  color: var(--brand-primary);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.login-links a:hover {
+  text-decoration: underline;
+}
+
 .login-button {
   margin-top: 8px;
   border: none;
@@ -191,9 +235,25 @@
   transform: translateY(-1px);
 }
 
+.login-page.superadmin .login-button {
+  background: linear-gradient(135deg, #111184, #070738);
+}
+
+.login-page.superadmin .login-button:hover {
+  background: linear-gradient(135deg, #0c0c67, #05052e);
+}
+
+.login-card-superadmin .login-form-container h2 {
+  letter-spacing: 0;
+}
+
 @media (max-width: 900px) {
   .login-card {
     grid-template-columns: 1fr;
+    max-width: 520px;
+  }
+
+  .login-card-superadmin {
     max-width: 520px;
   }
 

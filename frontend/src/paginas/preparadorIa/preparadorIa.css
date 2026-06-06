@@ -145,6 +145,74 @@
   gap: 10px;
 }
 
+.ai-resource-picker {
+  display: grid;
+  gap: 12px;
+}
+
+.ai-resource-picker .ai-section-head p {
+  margin-top: 4px;
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+
+.ai-resource-picker .ai-section-head span {
+  color: var(--brand-primary);
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.ai-resource-picker > input {
+  width: 100%;
+}
+
+.ai-resource-selected {
+  border: 1px solid var(--border-soft);
+  background: var(--surface-muted);
+  border-radius: 8px;
+  padding: 12px 13px;
+  display: grid;
+  gap: 4px;
+}
+
+.ai-resource-selected strong {
+  color: var(--text-secondary);
+}
+
+.ai-resource-selected p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.ai-resource-table {
+  min-width: 960px;
+}
+
+.ai-resource-table td strong {
+  display: block;
+  color: var(--text-secondary);
+}
+
+.ai-resource-table td small {
+  display: block;
+  margin-top: 4px;
+  color: var(--text-muted);
+  line-height: 1.35;
+}
+
+.selected-resource-row {
+  background: rgba(17, 17, 132, 0.05);
+}
+
+.ai-resource-select-button {
+  padding: 10px 12px;
+  border-radius: 10px;
+  white-space: nowrap;
+}
+
 .ai-material-option {
   display: grid;
   grid-template-columns: 22px 1fr;

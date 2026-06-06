@@ -1011,14 +1011,45 @@ ${
     const ancho =
       doc.page.width - doc.page.margins.left - doc.page.margins.right;
     const logoPath = this.rutaLogoLocal(contexto.institucion.logo);
+    const logoAppPath = this.rutaLogoAplicacionLocal();
+    const logoTamano = 58;
+    const bloqueLogo = logoTamano + 16;
+    const anchoTexto =
+      ancho - (logoPath ? bloqueLogo : 0) - (logoAppPath ? bloqueLogo : 0);
+    const textoX = doc.page.margins.left + (logoPath ? bloqueLogo : 0);
 
     if (logoPath) {
       try {
         doc.image(logoPath, doc.page.margins.left, 44, {
-          fit: [64, 64],
+          fit: [logoTamano, logoTamano],
         });
       } catch {
-        doc.rect(doc.page.margins.left, 44, 54, 54).stroke('#d1d5db');
+        doc
+          .rect(doc.page.margins.left, 44, logoTamano - 4, logoTamano - 4)
+          .stroke('#d1d5db');
+      }
+    }
+
+    if (logoAppPath) {
+      try {
+        doc.image(
+          logoAppPath,
+          doc.page.width - doc.page.margins.right - logoTamano,
+          44,
+          {
+            fit: [logoTamano, logoTamano],
+            align: 'right',
+          },
+        );
+      } catch {
+        doc
+          .rect(
+            doc.page.width - doc.page.margins.right - (logoTamano - 4),
+            44,
+            logoTamano - 4,
+            logoTamano - 4,
+          )
+          .stroke('#d1d5db');
       }
     }
 
@@ -1026,8 +1057,9 @@ ${
       .font('Helvetica-Bold')
       .fontSize(14)
       .fillColor('#111827')
-      .text(contexto.institucion.nombre, logoPath ? 130 : 54, 50, {
-        width: logoPath ? ancho - 76 : ancho,
+      .text(contexto.institucion.nombre, textoX, 50, {
+        width: anchoTexto,
+        align: 'center',
       });
     doc
       .font('Helvetica')
@@ -1042,7 +1074,10 @@ ${
         ]
           .filter(Boolean)
           .join(' · '),
-        { width: logoPath ? ancho - 76 : ancho },
+        {
+          width: anchoTexto,
+          align: 'center',
+        },
       )
       .moveDown(2);
 
@@ -1389,6 +1424,21 @@ ${
     return existsSync(ruta) && ['.png', '.jpg', '.jpeg'].includes(extension)
       ? ruta
       : '';
+  }
+
+  private rutaLogoAplicacionLocal() {
+    const candidatos = [
+      join(process.cwd(), 'frontend', 'public', 'logo-solo.png'),
+      join(process.cwd(), 'logo', 'logo-solo.png'),
+    ];
+
+    for (const ruta of candidatos) {
+      if (existsSync(ruta)) {
+        return ruta;
+      }
+    }
+
+    return '';
   }
 
   private parsearJsonGemini(texto: string) {

@@ -163,6 +163,51 @@
   grid-column: 1 / -1;
 }
 
+.adaptativo-student-picker {
+  display: grid;
+  gap: 10px;
+}
+
+.adaptativo-student-picker > span {
+  color: var(--text-secondary);
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.adaptativo-student-picker-tools {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(180px, 260px);
+  gap: 10px;
+}
+
+.adaptativo-student-table {
+  min-width: 860px;
+}
+
+.adaptativo-student-table td strong,
+.adaptativo-route-table td strong {
+  display: block;
+  color: var(--text-secondary);
+}
+
+.adaptativo-student-table td small,
+.adaptativo-route-table td small {
+  display: block;
+  margin-top: 4px;
+  color: var(--text-muted);
+  line-height: 1.35;
+}
+
+.adaptativo-route-table {
+  min-width: 1100px;
+}
+
+.adaptativo-route-table-button {
+  padding: 10px 12px;
+  border-radius: 10px;
+  white-space: nowrap;
+}
+
 .adaptativo-field input,
 .adaptativo-field select,
 .adaptativo-field textarea,
@@ -215,6 +260,10 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 16px;
+}
+
+.selected-resource-row {
+  background: rgba(17, 17, 132, 0.05);
 }
 
 .adaptativo-catalog-grid {
@@ -909,7 +958,7 @@
 }
 
 .adaptativo-inline-action {
-    white-space: nowrap;
+  white-space: nowrap;
 }
 
 .adaptativo-route-final-card {
@@ -1226,6 +1275,15 @@
   .adaptativo-section button,
   .adaptativo-route-card-footer button {
     width: 100%;
+  }
+
+  .adaptativo-student-picker-tools {
+    grid-template-columns: 1fr;
+  }
+
+  .adaptativo-student-table,
+  .adaptativo-route-table {
+    min-width: 0;
   }
 
   .adaptativo-route-card-head,

@@ -3,6 +3,8 @@ import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcryptjs';
 import { PrismaService } from '../../../baseDatos/prisma/prisma.service';
 import { LoginDto } from '../dto/login.dto';
+import { LoginSuperadminDto } from '../dto/login-superadmin.dto';
+import { PERMISOS } from '../utils/roles.util';
 
 @Injectable()
 export class AuthService {
@@ -12,14 +14,73 @@ export class AuthService {
   ) {}
 
   async login(data: LoginDto) {
-    const usuario = await this.prisma.usuario.findFirst({
+    const usuario = await this.buscarUsuarioAutenticacion({
+      institucionId: Number(data.institucionId),
+      usuario: data.usuario,
+    });
+
+    if (!usuario) {
+      throw new UnauthorizedException('Credenciales incorrectas');
+    }
+
+    if (this.esSuperadministrador(usuario)) {
+      throw new UnauthorizedException(
+        'Este usuario debe ingresar por el acceso de superadministrador',
+      );
+    }
+
+    const contrasenaValida = await bcrypt.compare(
+      data.contrasena,
+      usuario.contrasena,
+    );
+
+    if (!contrasenaValida) {
+      throw new UnauthorizedException('Credenciales incorrectas');
+    }
+
+    const permisos = usuario.rol.permisos.map((item) => item.permiso.codigo);
+    return await this.construirRespuestaSesion(usuario, permisos);
+  }
+
+  async loginSuperadmin(data: LoginSuperadminDto) {
+    const usuario = await this.buscarUsuarioAutenticacion({
+      usuario: data.usuario,
+    });
+
+    if (!usuario) {
+      throw new UnauthorizedException('Credenciales incorrectas');
+    }
+
+    if (!this.esSuperadministrador(usuario)) {
+      throw new UnauthorizedException(
+        'Este acceso es exclusivo para superadministradores',
+      );
+    }
+
+    const contrasenaValida = await bcrypt.compare(
+      data.contrasena,
+      usuario.contrasena,
+    );
+
+    if (!contrasenaValida) {
+      throw new UnauthorizedException('Credenciales incorrectas');
+    }
+
+    const permisos = usuario.rol.permisos.map((item) => item.permiso.codigo);
+    return await this.construirRespuestaSesion(usuario, permisos);
+  }
+
+  private async buscarUsuarioAutenticacion(data: {
+    institucionId?: number;
+    usuario: string;
+  }) {
+    return this.prisma.usuario.findFirst({
       where: {
-        institucionId: Number(data.institucionId),
+        ...(typeof data.institucionId === 'number'
+          ? { institucionId: data.institucionId }
+          : {}),
         activo: true,
-        OR: [
-          { correo: data.usuario },
-          { documento: data.usuario },
-        ],
+        OR: [{ correo: data.usuario }, { documento: data.usuario }],
       },
       include: {
         rol: {
@@ -35,22 +96,21 @@ export class AuthService {
         gradoEscolar: true,
       },
     });
+  }
 
-    if (!usuario) {
-      throw new UnauthorizedException('Credenciales incorrectas');
-    }
-
-    const contrasenaValida = await bcrypt.compare(
-      data.contrasena,
-      usuario.contrasena,
+  private esSuperadministrador(usuario: any) {
+    const permisos = (usuario?.rol?.permisos || []).map(
+      (item: any) => item.permiso.codigo,
     );
+    const rol = String(usuario?.rol?.nombre || '').toLowerCase();
 
-    if (!contrasenaValida) {
-      throw new UnauthorizedException('Credenciales incorrectas');
-    }
+    return (
+      permisos.includes(PERMISOS.SISTEMA_TOTAL) ||
+      rol.includes('superadministrador')
+    );
+  }
 
-    const permisos = usuario.rol.permisos.map((item) => item.permiso.codigo);
-
+  private async construirRespuestaSesion(usuario: any, permisos: string[]) {
     const payload = {
       sub: usuario.id,
       correo: usuario.correo,

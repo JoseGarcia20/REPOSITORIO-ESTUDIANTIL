@@ -221,7 +221,7 @@ function descripcionPlazo(asignacion?: AsignacionAprendizajeAdaptativo | null) {
 
 function descripcionPlazoDesdeFechaLimite(fechaLimite?: string) {
   if (!fechaLimite) {
-    return 'Se calculará a partir de la fecha límite';
+    return '';
   }
 
   return descripcionPlazo({
@@ -341,6 +341,8 @@ export function AprendizajeAdaptativo() {
     observaciones: '',
   });
   const [busqueda, setBusqueda] = useState('');
+  const [busquedaEstudiante, setBusquedaEstudiante] = useState('');
+  const [filtroGradoEstudiante, setFiltroGradoEstudiante] = useState('');
   const [cargando, setCargando] = useState(true);
   const [procesando, setProcesando] = useState('');
   const [error, setError] = useState('');
@@ -359,6 +361,41 @@ export function AprendizajeAdaptativo() {
 
   const puedeGestionar = Boolean(catalogos?.puedeGestionar);
   const esEstudiante = Boolean(catalogos?.esEstudiante);
+  const estudiantesDisponibles = catalogos?.estudiantes || [];
+
+  const gradosEstudiantesDisponibles = useMemo(() => {
+    const grados = new Map<number, { id: number; nombre: string }>();
+
+    estudiantesDisponibles.forEach((estudiante) => {
+      if (estudiante.gradoEscolar) {
+        grados.set(estudiante.gradoEscolar.id, estudiante.gradoEscolar);
+      }
+    });
+
+    return Array.from(grados.values()).sort((a, b) =>
+      a.nombre.localeCompare(b.nombre, 'es'),
+    );
+  }, [estudiantesDisponibles]);
+
+  const estudiantesFiltrados = useMemo(() => {
+    const termino = busquedaEstudiante.trim().toLowerCase();
+
+    return estudiantesDisponibles.filter((estudiante) => {
+      const coincideGrado =
+        !filtroGradoEstudiante ||
+        String(estudiante.gradoEscolar?.id || '') === filtroGradoEstudiante;
+      const texto = [
+        estudiante.nombreCompleto,
+        estudiante.correo,
+        estudiante.gradoEscolar?.nombre,
+      ]
+        .filter(Boolean)
+        .join(' ')
+        .toLowerCase();
+
+      return coincideGrado && (!termino || texto.includes(termino));
+    });
+  }, [busquedaEstudiante, estudiantesDisponibles, filtroGradoEstudiante]);
 
   const asignacionesFiltradas = useMemo(() => {
     const termino = busqueda.trim().toLowerCase();
@@ -1599,25 +1636,84 @@ export function AprendizajeAdaptativo() {
         <section className="adaptativo-panel">
           <div className="adaptativo-section-title">
             <h2>Asignar nueva ruta</h2>
-            <p>El estudiante recibirá una notificación si el correo está configurado.</p>
           </div>
           <form className="adaptativo-form-grid" onSubmit={crearAsignacion}>
-            <label className="adaptativo-field">
+            <div className="adaptativo-field full adaptativo-student-picker">
               <span>Estudiante</span>
-              <select
-                name="estudianteId"
-                value={formulario.estudianteId}
-                onChange={actualizarFormulario}
-              >
-                <option value="">Seleccionar estudiante</option>
-                {catalogos?.estudiantes.map((estudiante) => (
-                  <option key={estudiante.id} value={estudiante.id}>
-                    {estudiante.nombreCompleto}
-                    {estudiante.gradoEscolar ? ` · ${estudiante.gradoEscolar.nombre}` : ''}
-                  </option>
-                ))}
-              </select>
-            </label>
+              <div className="adaptativo-student-picker-tools">
+                <input
+                  value={busquedaEstudiante}
+                  onChange={(event) => setBusquedaEstudiante(event.target.value)}
+                  placeholder="Buscar por nombre o correo"
+                />
+                <select
+                  value={filtroGradoEstudiante}
+                  onChange={(event) => setFiltroGradoEstudiante(event.target.value)}
+                >
+                  <option value="">Todos los grados</option>
+                  {gradosEstudiantesDisponibles.map((grado) => (
+                    <option key={grado.id} value={grado.id}>
+                      {grado.nombre}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="table-responsive adaptativo-student-table-wrap">
+                <table className="data-table adaptativo-student-table">
+                  <thead>
+                    <tr>
+                      <th>Estudiante</th>
+                      <th>Grado</th>
+                      <th>Correo</th>
+                      <th>Acción</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {estudiantesFiltrados.length === 0 ? (
+                      <tr>
+                        <td colSpan={4} className="empty-table">
+                          No hay estudiantes que coincidan con el filtro.
+                        </td>
+                      </tr>
+                    ) : (
+                      estudiantesFiltrados.map((estudiante) => {
+                        const seleccionado =
+                          formulario.estudianteId === String(estudiante.id);
+
+                        return (
+                          <tr
+                            key={estudiante.id}
+                            className={seleccionado ? 'selected-resource-row' : ''}
+                          >
+                            <td data-label="Estudiante">{estudiante.nombreCompleto}</td>
+                            <td data-label="Grado">
+                              {estudiante.gradoEscolar?.nombre || 'Sin grado'}
+                            </td>
+                            <td data-label="Correo">{estudiante.correo}</td>
+                            <td data-label="Acción">
+                              <button
+                                type="button"
+                                className="secondary-button ai-resource-select-button"
+                                onClick={() =>
+                                  setFormulario((prev) => ({
+                                    ...prev,
+                                    estudianteId: String(estudiante.id),
+                                  }))
+                                }
+                                disabled={seleccionado}
+                              >
+                                {seleccionado ? 'Seleccionado' : 'Elegir'}
+                              </button>
+                            </td>
+                          </tr>
+                        );
+                      })
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
             <label className="adaptativo-field">
               <span>Docente responsable</span>
               <select
@@ -1722,44 +1818,50 @@ export function AprendizajeAdaptativo() {
               </p>
             </div>
           ) : (
-            <div className="adaptativo-card-grid">
-              {asignacionesFiltradas.map((asignacion) => (
-                <article key={asignacion.id} className="adaptativo-card adaptativo-route-card">
-                  <div className="adaptativo-route-card-head">
-                    <span className={`adaptativo-status status-${asignacion.estado}`}>
-                      {normalizarEstado(asignacion.estado)}
-                    </span>
-                    <strong>{calcularAvance(asignacion)}%</strong>
-                  </div>
-                  <div>
-                    <h3>{asignacion.tema}</h3>
-                    <p>{asignacion.objetivo || 'Ruta personalizada de aprendizaje'}</p>
-                  </div>
-                  <div className="adaptativo-route-card-meta">
-                    <small>
-                      Estudiante: {nombreUsuario(asignacion.estudiante)}
-                    </small>
-                    <small>Docente: {nombreUsuario(asignacion.docente)}</small>
-                    <small>
-                      Fecha límite: {formatearFecha(asignacion.fechaLimite)}
-                    </small>
-                  </div>
-                  <div className="adaptativo-route-card-footer">
-                    <div className="adaptativo-progress">
-                      <div>
-                        <i style={{ width: `${calcularAvance(asignacion)}%` }} />
-                      </div>
-                    </div>
-                    <button
-                      type="button"
-                      className="secondary-button"
-                      onClick={() => abrirDetalleAsignacion(asignacion.id)}
-                    >
-                      Ver detalle
-                    </button>
-                  </div>
-                </article>
-              ))}
+            <div className="table-responsive">
+              <table className="data-table adaptativo-route-table">
+                <thead>
+                  <tr>
+                    <th>Tema</th>
+                    <th>Estudiante</th>
+                    <th>Docente</th>
+                    <th>Estado</th>
+                    <th>Progreso</th>
+                    <th>Fecha límite</th>
+                    <th>Acción</th>
+                  </tr>
+                </thead>
+                  <tbody>
+                  {asignacionesFiltradas.map((asignacion) => (
+                    <tr key={asignacion.id}>
+                      <td data-label="Tema">
+                        <strong>{asignacion.tema}</strong>
+                        <small>
+                          {asignacion.objetivo || 'Ruta personalizada de aprendizaje'}
+                        </small>
+                      </td>
+                      <td data-label="Estudiante">{nombreUsuario(asignacion.estudiante)}</td>
+                      <td data-label="Docente">{nombreUsuario(asignacion.docente)}</td>
+                      <td data-label="Estado">
+                        <span className={`adaptativo-status status-${asignacion.estado}`}>
+                          {normalizarEstado(asignacion.estado)}
+                        </span>
+                      </td>
+                      <td data-label="Progreso">{calcularAvance(asignacion)}%</td>
+                      <td data-label="Fecha límite">{formatearFecha(asignacion.fechaLimite)}</td>
+                      <td data-label="Acción">
+                        <button
+                          type="button"
+                          className="secondary-button adaptativo-route-table-button"
+                          onClick={() => abrirDetalleAsignacion(asignacion.id)}
+                        >
+                          Ver detalle
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           )}
         </section>

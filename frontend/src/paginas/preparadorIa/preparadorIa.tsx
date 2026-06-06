@@ -260,6 +260,7 @@ export function PreparadorIa() {
   const [material, setMaterial] = useState<MaterialIaGenerado | null>(null);
   const [cargandoCatalogos, setCargandoCatalogos] = useState(true);
   const [recursosRepositorio, setRecursosRepositorio] = useState<Recurso[]>([]);
+  const [busquedaRecursoFuente, setBusquedaRecursoFuente] = useState('');
   const [cargandoRecursos, setCargandoRecursos] = useState(false);
   const [generando, setGenerando] = useState(false);
   const [guardando, setGuardando] = useState(false);
@@ -382,6 +383,29 @@ export function PreparadorIa() {
     [formulario.recursoFuenteId, recursosRepositorio],
   );
 
+  const recursosRepositorioFiltrados = useMemo(() => {
+    const termino = busquedaRecursoFuente.trim().toLowerCase();
+
+    if (!termino) {
+      return recursosRepositorio;
+    }
+
+    return recursosRepositorio.filter((recurso) => {
+      const texto = [
+        recurso.titulo,
+        recurso.categoria?.nombre,
+        recurso.gradoEscolar?.nombre,
+        recurso.tipoRecurso?.nombre,
+        extensionRecurso(recurso),
+      ]
+        .filter(Boolean)
+        .join(' ')
+        .toLowerCase();
+
+      return texto.includes(termino);
+    });
+  }, [busquedaRecursoFuente, recursosRepositorio]);
+
   function manejarCambio(
     event: ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
@@ -401,6 +425,9 @@ export function PreparadorIa() {
             ? 'evaluacion'
             : prev.tipoMaterial,
       }));
+      if (origen === 'tema_web') {
+        setBusquedaRecursoFuente('');
+      }
       return;
     }
 
@@ -823,29 +850,109 @@ export function PreparadorIa() {
           </div>
 
           {formulario.origenContenido === 'recurso_repositorio' && (
-            <label className="ai-field full">
-              Recurso base del repositorio
-              <select
-                name="recursoFuenteId"
-                value={formulario.recursoFuenteId}
-                onChange={manejarCambio}
-                required
-                disabled={
-                  cargandoRecursos || (esSuper && !formulario.institucionId)
-                }
-              >
-                <option value="">
-                  {cargandoRecursos
-                    ? 'Cargando recursos...'
-                    : 'Selecciona un PDF, Word, Excel o CSV'}
-                </option>
-                {recursosRepositorio.map((recurso) => (
-                  <option key={recurso.id} value={recurso.id}>
-                    {recurso.titulo} · {extensionRecurso(recurso).toUpperCase()}
-                  </option>
-                ))}
-              </select>
-            </label>
+            <section className="ai-resource-picker ai-field full">
+              <div className="ai-section-head ai-resource-picker-head">
+                <div>
+                  <h3>Recurso base del repositorio</h3>
+                  <p>
+                    Busca por título, grado, categoría o formato y selecciona el
+                    material que servirá como base de la evaluación.
+                  </p>
+                </div>
+                <span>{recursosRepositorioFiltrados.length} recursos</span>
+              </div>
+
+              <input
+                value={busquedaRecursoFuente}
+                onChange={(event) => setBusquedaRecursoFuente(event.target.value)}
+                placeholder="Buscar por título, grado, categoría o tipo"
+                disabled={cargandoRecursos || (esSuper && !formulario.institucionId)}
+              />
+
+              {recursoFuenteSeleccionado && (
+                <div className="ai-resource-selected">
+                  <strong>{recursoFuenteSeleccionado.titulo}</strong>
+                  <p>
+                    {recursoFuenteSeleccionado.gradoEscolar?.nombre || 'Sin grado'} ·{' '}
+                    {recursoFuenteSeleccionado.categoria?.nombre || 'Sin categoría'} ·{' '}
+                    {extensionRecurso(recursoFuenteSeleccionado).toUpperCase() || 'ARCHIVO'}
+                  </p>
+                </div>
+              )}
+
+              {cargandoRecursos ? (
+                <p className="state-message">Cargando recursos del repositorio...</p>
+              ) : (
+                <div className="table-responsive">
+                  <table className="data-table ai-resource-table">
+                    <thead>
+                      <tr>
+                        <th>Recurso</th>
+                        <th>Grado</th>
+                        <th>Categoría</th>
+                        <th>Formato</th>
+                        <th>Acción</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {recursosRepositorioFiltrados.length === 0 ? (
+                        <tr>
+                          <td colSpan={5} className="empty-table">
+                            No hay recursos que coincidan con la búsqueda.
+                          </td>
+                        </tr>
+                      ) : (
+                        recursosRepositorioFiltrados.map((recurso) => {
+                          const seleccionado =
+                            recursoFuenteSeleccionado?.id === recurso.id;
+
+                          return (
+                            <tr
+                              key={recurso.id}
+                              className={seleccionado ? 'selected-resource-row' : ''}
+                            >
+                              <td data-label="Recurso">
+                                <strong>{recurso.titulo}</strong>
+                                <small>
+                                  {recurso.tipoRecurso?.nombre || 'Sin tipo'} ·{' '}
+                                  {recurso.usuarioCreador
+                                    ? `${recurso.usuarioCreador.nombres} ${recurso.usuarioCreador.apellidos}`
+                                    : 'Repositorio institucional'}
+                                </small>
+                              </td>
+                              <td data-label="Grado">
+                                {recurso.gradoEscolar?.nombre || 'Sin grado'}
+                              </td>
+                              <td data-label="Categoría">
+                                {recurso.categoria?.nombre || 'Sin categoría'}
+                              </td>
+                              <td data-label="Formato">
+                                {extensionRecurso(recurso).toUpperCase() || 'ARCHIVO'}
+                              </td>
+                              <td data-label="Acción">
+                                <button
+                                  type="button"
+                                  className="secondary-button ai-resource-select-button"
+                                  onClick={() =>
+                                    setFormulario((prev) => ({
+                                      ...prev,
+                                      recursoFuenteId: String(recurso.id),
+                                    }))
+                                  }
+                                  disabled={seleccionado}
+                                >
+                                  {seleccionado ? 'Seleccionado' : 'Elegir'}
+                                </button>
+                              </td>
+                            </tr>
+                          );
+                        })
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </section>
           )}
 
           <label className="ai-field full">
