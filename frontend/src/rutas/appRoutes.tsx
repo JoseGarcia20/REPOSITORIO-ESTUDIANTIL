@@ -124,7 +124,7 @@ export function AppRoutes() {
           <Route
             path="/admin/rutas-aprendizaje"
             element={
-              <RutaProtegidaPorPermiso permiso={PERMISOS.TIPOS_RECURSOS_VER}>
+              <RutaProtegidaPorPermiso permiso={PERMISOS.SISTEMA_TOTAL}>
                 <RutasAprendizajeAdmin />
               </RutaProtegidaPorPermiso>
             }

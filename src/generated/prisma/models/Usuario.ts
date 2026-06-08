@@ -342,6 +342,7 @@ export type UsuarioWhereInput = {
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoListRelationFilter
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoListRelationFilter
   auditoriaLogs?: Prisma.AuditoriaLogListRelationFilter
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaListRelationFilter
 }
 
 export type UsuarioOrderByWithRelationInput = {
@@ -380,6 +381,7 @@ export type UsuarioOrderByWithRelationInput = {
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoOrderByRelationAggregateInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoOrderByRelationAggregateInput
   auditoriaLogs?: Prisma.AuditoriaLogOrderByRelationAggregateInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaOrderByRelationAggregateInput
 }
 
 export type UsuarioWhereUniqueInput = Prisma.AtLeast<{
@@ -421,6 +423,7 @@ export type UsuarioWhereUniqueInput = Prisma.AtLeast<{
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoListRelationFilter
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoListRelationFilter
   auditoriaLogs?: Prisma.AuditoriaLogListRelationFilter
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaListRelationFilter
 }, "id" | "correo" | "documento">
 
 export type UsuarioOrderByWithAggregationInput = {
@@ -503,6 +506,7 @@ export type UsuarioCreateInput = {
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutEstudianteInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutDocenteInput
   auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioUncheckedCreateInput = {
@@ -538,6 +542,7 @@ export type UsuarioUncheckedCreateInput = {
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutEstudianteInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutDocenteInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutUsuarioInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioUpdateInput = {
@@ -572,6 +577,7 @@ export type UsuarioUpdateInput = {
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutEstudianteNestedInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutDocenteNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioUncheckedUpdateInput = {
@@ -607,6 +613,7 @@ export type UsuarioUncheckedUpdateInput = {
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutEstudianteNestedInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutDocenteNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutUsuarioNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioCreateManyInput = {
@@ -939,6 +946,20 @@ export type UsuarioUpdateOneRequiredWithoutRecursosNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UsuarioUpdateToOneWithWhereWithoutRecursosInput, Prisma.UsuarioUpdateWithoutRecursosInput>, Prisma.UsuarioUncheckedUpdateWithoutRecursosInput>
 }
 
+export type UsuarioCreateNestedOneWithoutCalificacionesUsoIaInput = {
+  create?: Prisma.XOR<Prisma.UsuarioCreateWithoutCalificacionesUsoIaInput, Prisma.UsuarioUncheckedCreateWithoutCalificacionesUsoIaInput>
+  connectOrCreate?: Prisma.UsuarioCreateOrConnectWithoutCalificacionesUsoIaInput
+  connect?: Prisma.UsuarioWhereUniqueInput
+}
+
+export type UsuarioUpdateOneRequiredWithoutCalificacionesUsoIaNestedInput = {
+  create?: Prisma.XOR<Prisma.UsuarioCreateWithoutCalificacionesUsoIaInput, Prisma.UsuarioUncheckedCreateWithoutCalificacionesUsoIaInput>
+  connectOrCreate?: Prisma.UsuarioCreateOrConnectWithoutCalificacionesUsoIaInput
+  upsert?: Prisma.UsuarioUpsertWithoutCalificacionesUsoIaInput
+  connect?: Prisma.UsuarioWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UsuarioUpdateToOneWithWhereWithoutCalificacionesUsoIaInput, Prisma.UsuarioUpdateWithoutCalificacionesUsoIaInput>, Prisma.UsuarioUncheckedUpdateWithoutCalificacionesUsoIaInput>
+}
+
 export type UsuarioCreateNestedOneWithoutProyectosDocenteInput = {
   create?: Prisma.XOR<Prisma.UsuarioCreateWithoutProyectosDocenteInput, Prisma.UsuarioUncheckedCreateWithoutProyectosDocenteInput>
   connectOrCreate?: Prisma.UsuarioCreateOrConnectWithoutProyectosDocenteInput
@@ -1140,6 +1161,7 @@ export type UsuarioCreateWithoutInstitucionInput = {
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutEstudianteInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutDocenteInput
   auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioUncheckedCreateWithoutInstitucionInput = {
@@ -1174,6 +1196,7 @@ export type UsuarioUncheckedCreateWithoutInstitucionInput = {
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutEstudianteInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutDocenteInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutUsuarioInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioCreateOrConnectWithoutInstitucionInput = {
@@ -1256,6 +1279,7 @@ export type UsuarioCreateWithoutRolInput = {
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutEstudianteInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutDocenteInput
   auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioUncheckedCreateWithoutRolInput = {
@@ -1290,6 +1314,7 @@ export type UsuarioUncheckedCreateWithoutRolInput = {
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutEstudianteInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutDocenteInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutUsuarioInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioCreateOrConnectWithoutRolInput = {
@@ -1349,6 +1374,7 @@ export type UsuarioCreateWithoutGradoEscolarInput = {
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutEstudianteInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutDocenteInput
   auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioUncheckedCreateWithoutGradoEscolarInput = {
@@ -1383,6 +1409,7 @@ export type UsuarioUncheckedCreateWithoutGradoEscolarInput = {
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutEstudianteInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutDocenteInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutUsuarioInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioCreateOrConnectWithoutGradoEscolarInput = {
@@ -1442,6 +1469,7 @@ export type UsuarioCreateWithoutForosInput = {
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutEstudianteInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutDocenteInput
   auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioUncheckedCreateWithoutForosInput = {
@@ -1476,6 +1504,7 @@ export type UsuarioUncheckedCreateWithoutForosInput = {
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutEstudianteInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutDocenteInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutUsuarioInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioCreateOrConnectWithoutForosInput = {
@@ -1525,6 +1554,7 @@ export type UsuarioUpdateWithoutForosInput = {
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutEstudianteNestedInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutDocenteNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioUncheckedUpdateWithoutForosInput = {
@@ -1559,6 +1589,7 @@ export type UsuarioUncheckedUpdateWithoutForosInput = {
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutEstudianteNestedInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutDocenteNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutUsuarioNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioCreateWithoutComentariosForoInput = {
@@ -1592,6 +1623,7 @@ export type UsuarioCreateWithoutComentariosForoInput = {
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutEstudianteInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutDocenteInput
   auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioUncheckedCreateWithoutComentariosForoInput = {
@@ -1626,6 +1658,7 @@ export type UsuarioUncheckedCreateWithoutComentariosForoInput = {
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutEstudianteInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutDocenteInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutUsuarioInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioCreateOrConnectWithoutComentariosForoInput = {
@@ -1675,6 +1708,7 @@ export type UsuarioUpdateWithoutComentariosForoInput = {
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutEstudianteNestedInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutDocenteNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioUncheckedUpdateWithoutComentariosForoInput = {
@@ -1709,6 +1743,7 @@ export type UsuarioUncheckedUpdateWithoutComentariosForoInput = {
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutEstudianteNestedInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutDocenteNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutUsuarioNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioCreateWithoutRecursosInput = {
@@ -1742,6 +1777,7 @@ export type UsuarioCreateWithoutRecursosInput = {
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutEstudianteInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutDocenteInput
   auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioUncheckedCreateWithoutRecursosInput = {
@@ -1776,6 +1812,7 @@ export type UsuarioUncheckedCreateWithoutRecursosInput = {
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutEstudianteInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutDocenteInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutUsuarioInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioCreateOrConnectWithoutRecursosInput = {
@@ -1825,6 +1862,7 @@ export type UsuarioUpdateWithoutRecursosInput = {
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutEstudianteNestedInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutDocenteNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioUncheckedUpdateWithoutRecursosInput = {
@@ -1847,6 +1885,161 @@ export type UsuarioUncheckedUpdateWithoutRecursosInput = {
   gradoEscolarId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
   comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
+  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedUpdateManyWithoutDocenteNestedInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedUpdateManyWithoutUsuarioNestedInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutResponsableNestedInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutCreadorNestedInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedUpdateManyWithoutUsuarioNestedInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedUpdateManyWithoutUsuarioNestedInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutEstudianteNestedInput
+  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutDocenteNestedInput
+  auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutUsuarioNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutUsuarioNestedInput
+}
+
+export type UsuarioCreateWithoutCalificacionesUsoIaInput = {
+  nombres: string
+  apellidos: string
+  correo: string
+  tipoDocumento: string
+  documento: string
+  fechaNacimiento: Date | string
+  genero: string
+  foto?: string | null
+  contrasena: string
+  activo?: boolean
+  ultimoAcceso?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  institucion: Prisma.InstitucionCreateNestedOneWithoutUsuariosInput
+  rol: Prisma.RolCreateNestedOneWithoutUsuariosInput
+  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutUsuariosInput
+  foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
+  comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
+  recursos?: Prisma.RecursoCreateNestedManyWithoutUsuarioCreadorInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
+  proyectosDocente?: Prisma.ProyectoColaborativoCreateNestedManyWithoutDocenteInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteCreateNestedManyWithoutUsuarioInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutResponsableInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutCreadorInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaCreateNestedManyWithoutUsuarioInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaCreateNestedManyWithoutUsuarioInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeCreateNestedManyWithoutUsuarioInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutEstudianteInput
+  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutDocenteInput
+  auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
+}
+
+export type UsuarioUncheckedCreateWithoutCalificacionesUsoIaInput = {
+  id?: number
+  nombres: string
+  apellidos: string
+  correo: string
+  tipoDocumento: string
+  documento: string
+  fechaNacimiento: Date | string
+  genero: string
+  foto?: string | null
+  contrasena: string
+  activo?: boolean
+  ultimoAcceso?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  institucionId: number
+  rolId: number
+  gradoEscolarId?: number | null
+  foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
+  comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
+  recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutUsuarioCreadorInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
+  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedCreateNestedManyWithoutDocenteInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedCreateNestedManyWithoutUsuarioInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutResponsableInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutCreadorInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedCreateNestedManyWithoutUsuarioInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedCreateNestedManyWithoutUsuarioInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutEstudianteInput
+  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutDocenteInput
+  auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutUsuarioInput
+}
+
+export type UsuarioCreateOrConnectWithoutCalificacionesUsoIaInput = {
+  where: Prisma.UsuarioWhereUniqueInput
+  create: Prisma.XOR<Prisma.UsuarioCreateWithoutCalificacionesUsoIaInput, Prisma.UsuarioUncheckedCreateWithoutCalificacionesUsoIaInput>
+}
+
+export type UsuarioUpsertWithoutCalificacionesUsoIaInput = {
+  update: Prisma.XOR<Prisma.UsuarioUpdateWithoutCalificacionesUsoIaInput, Prisma.UsuarioUncheckedUpdateWithoutCalificacionesUsoIaInput>
+  create: Prisma.XOR<Prisma.UsuarioCreateWithoutCalificacionesUsoIaInput, Prisma.UsuarioUncheckedCreateWithoutCalificacionesUsoIaInput>
+  where?: Prisma.UsuarioWhereInput
+}
+
+export type UsuarioUpdateToOneWithWhereWithoutCalificacionesUsoIaInput = {
+  where?: Prisma.UsuarioWhereInput
+  data: Prisma.XOR<Prisma.UsuarioUpdateWithoutCalificacionesUsoIaInput, Prisma.UsuarioUncheckedUpdateWithoutCalificacionesUsoIaInput>
+}
+
+export type UsuarioUpdateWithoutCalificacionesUsoIaInput = {
+  nombres?: Prisma.StringFieldUpdateOperationsInput | string
+  apellidos?: Prisma.StringFieldUpdateOperationsInput | string
+  correo?: Prisma.StringFieldUpdateOperationsInput | string
+  tipoDocumento?: Prisma.StringFieldUpdateOperationsInput | string
+  documento?: Prisma.StringFieldUpdateOperationsInput | string
+  fechaNacimiento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  genero?: Prisma.StringFieldUpdateOperationsInput | string
+  foto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contrasena?: Prisma.StringFieldUpdateOperationsInput | string
+  activo?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ultimoAcceso?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutUsuariosNestedInput
+  rol?: Prisma.RolUpdateOneRequiredWithoutUsuariosNestedInput
+  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutUsuariosNestedInput
+  foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
+  comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
+  recursos?: Prisma.RecursoUpdateManyWithoutUsuarioCreadorNestedInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
+  proyectosDocente?: Prisma.ProyectoColaborativoUpdateManyWithoutDocenteNestedInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUpdateManyWithoutUsuarioNestedInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutResponsableNestedInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutCreadorNestedInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUpdateManyWithoutUsuarioNestedInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaUpdateManyWithoutUsuarioNestedInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUpdateManyWithoutUsuarioNestedInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutEstudianteNestedInput
+  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutDocenteNestedInput
+  auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
+}
+
+export type UsuarioUncheckedUpdateWithoutCalificacionesUsoIaInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  nombres?: Prisma.StringFieldUpdateOperationsInput | string
+  apellidos?: Prisma.StringFieldUpdateOperationsInput | string
+  correo?: Prisma.StringFieldUpdateOperationsInput | string
+  tipoDocumento?: Prisma.StringFieldUpdateOperationsInput | string
+  documento?: Prisma.StringFieldUpdateOperationsInput | string
+  fechaNacimiento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  genero?: Prisma.StringFieldUpdateOperationsInput | string
+  foto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contrasena?: Prisma.StringFieldUpdateOperationsInput | string
+  activo?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ultimoAcceso?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  institucionId?: Prisma.IntFieldUpdateOperationsInput | number
+  rolId?: Prisma.IntFieldUpdateOperationsInput | number
+  gradoEscolarId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  recursos?: Prisma.RecursoUncheckedUpdateManyWithoutUsuarioCreadorNestedInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
   proyectosDocente?: Prisma.ProyectoColaborativoUncheckedUpdateManyWithoutDocenteNestedInput
   proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedUpdateManyWithoutUsuarioNestedInput
@@ -1892,6 +2085,7 @@ export type UsuarioCreateWithoutProyectosDocenteInput = {
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutEstudianteInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutDocenteInput
   auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioUncheckedCreateWithoutProyectosDocenteInput = {
@@ -1926,6 +2120,7 @@ export type UsuarioUncheckedCreateWithoutProyectosDocenteInput = {
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutEstudianteInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutDocenteInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutUsuarioInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioCreateOrConnectWithoutProyectosDocenteInput = {
@@ -1975,6 +2170,7 @@ export type UsuarioUpdateWithoutProyectosDocenteInput = {
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutEstudianteNestedInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutDocenteNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioUncheckedUpdateWithoutProyectosDocenteInput = {
@@ -2009,6 +2205,7 @@ export type UsuarioUncheckedUpdateWithoutProyectosDocenteInput = {
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutEstudianteNestedInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutDocenteNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutUsuarioNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioCreateWithoutProyectosIntegranteInput = {
@@ -2042,6 +2239,7 @@ export type UsuarioCreateWithoutProyectosIntegranteInput = {
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutEstudianteInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutDocenteInput
   auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioUncheckedCreateWithoutProyectosIntegranteInput = {
@@ -2076,6 +2274,7 @@ export type UsuarioUncheckedCreateWithoutProyectosIntegranteInput = {
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutEstudianteInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutDocenteInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutUsuarioInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioCreateOrConnectWithoutProyectosIntegranteInput = {
@@ -2125,6 +2324,7 @@ export type UsuarioUpdateWithoutProyectosIntegranteInput = {
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutEstudianteNestedInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutDocenteNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioUncheckedUpdateWithoutProyectosIntegranteInput = {
@@ -2159,6 +2359,7 @@ export type UsuarioUncheckedUpdateWithoutProyectosIntegranteInput = {
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutEstudianteNestedInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutDocenteNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutUsuarioNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioCreateWithoutActividadesResponsableInput = {
@@ -2192,6 +2393,7 @@ export type UsuarioCreateWithoutActividadesResponsableInput = {
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutEstudianteInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutDocenteInput
   auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioUncheckedCreateWithoutActividadesResponsableInput = {
@@ -2226,6 +2428,7 @@ export type UsuarioUncheckedCreateWithoutActividadesResponsableInput = {
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutEstudianteInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutDocenteInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutUsuarioInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioCreateOrConnectWithoutActividadesResponsableInput = {
@@ -2264,6 +2467,7 @@ export type UsuarioCreateWithoutActividadesCreadasInput = {
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutEstudianteInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutDocenteInput
   auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioUncheckedCreateWithoutActividadesCreadasInput = {
@@ -2298,6 +2502,7 @@ export type UsuarioUncheckedCreateWithoutActividadesCreadasInput = {
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutEstudianteInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutDocenteInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutUsuarioInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioCreateOrConnectWithoutActividadesCreadasInput = {
@@ -2347,6 +2552,7 @@ export type UsuarioUpdateWithoutActividadesResponsableInput = {
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutEstudianteNestedInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutDocenteNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioUncheckedUpdateWithoutActividadesResponsableInput = {
@@ -2381,6 +2587,7 @@ export type UsuarioUncheckedUpdateWithoutActividadesResponsableInput = {
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutEstudianteNestedInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutDocenteNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutUsuarioNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioUpsertWithoutActividadesCreadasInput = {
@@ -2425,6 +2632,7 @@ export type UsuarioUpdateWithoutActividadesCreadasInput = {
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutEstudianteNestedInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutDocenteNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioUncheckedUpdateWithoutActividadesCreadasInput = {
@@ -2459,6 +2667,7 @@ export type UsuarioUncheckedUpdateWithoutActividadesCreadasInput = {
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutEstudianteNestedInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutDocenteNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutUsuarioNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioCreateWithoutEvidenciasAulaInput = {
@@ -2492,6 +2701,7 @@ export type UsuarioCreateWithoutEvidenciasAulaInput = {
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutEstudianteInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutDocenteInput
   auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioUncheckedCreateWithoutEvidenciasAulaInput = {
@@ -2526,6 +2736,7 @@ export type UsuarioUncheckedCreateWithoutEvidenciasAulaInput = {
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutEstudianteInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutDocenteInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutUsuarioInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioCreateOrConnectWithoutEvidenciasAulaInput = {
@@ -2575,6 +2786,7 @@ export type UsuarioUpdateWithoutEvidenciasAulaInput = {
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutEstudianteNestedInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutDocenteNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioUncheckedUpdateWithoutEvidenciasAulaInput = {
@@ -2609,6 +2821,7 @@ export type UsuarioUncheckedUpdateWithoutEvidenciasAulaInput = {
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutEstudianteNestedInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutDocenteNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutUsuarioNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioCreateWithoutEntregasAulaInput = {
@@ -2642,6 +2855,7 @@ export type UsuarioCreateWithoutEntregasAulaInput = {
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutEstudianteInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutDocenteInput
   auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioUncheckedCreateWithoutEntregasAulaInput = {
@@ -2676,6 +2890,7 @@ export type UsuarioUncheckedCreateWithoutEntregasAulaInput = {
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutEstudianteInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutDocenteInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutUsuarioInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioCreateOrConnectWithoutEntregasAulaInput = {
@@ -2725,6 +2940,7 @@ export type UsuarioUpdateWithoutEntregasAulaInput = {
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutEstudianteNestedInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutDocenteNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioUncheckedUpdateWithoutEntregasAulaInput = {
@@ -2759,6 +2975,7 @@ export type UsuarioUncheckedUpdateWithoutEntregasAulaInput = {
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutEstudianteNestedInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutDocenteNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutUsuarioNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioCreateWithoutAuditoriaLogsInput = {
@@ -2792,6 +3009,7 @@ export type UsuarioCreateWithoutAuditoriaLogsInput = {
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutEstudianteInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutDocenteInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioUncheckedCreateWithoutAuditoriaLogsInput = {
@@ -2826,6 +3044,7 @@ export type UsuarioUncheckedCreateWithoutAuditoriaLogsInput = {
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutEstudianteInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutDocenteInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioCreateOrConnectWithoutAuditoriaLogsInput = {
@@ -2875,6 +3094,7 @@ export type UsuarioUpdateWithoutAuditoriaLogsInput = {
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutEstudianteNestedInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutDocenteNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioUncheckedUpdateWithoutAuditoriaLogsInput = {
@@ -2909,6 +3129,7 @@ export type UsuarioUncheckedUpdateWithoutAuditoriaLogsInput = {
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutEstudianteNestedInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutDocenteNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioCreateWithoutCalificacionesRecursoInput = {
@@ -2942,6 +3163,7 @@ export type UsuarioCreateWithoutCalificacionesRecursoInput = {
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutEstudianteInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutDocenteInput
   auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioUncheckedCreateWithoutCalificacionesRecursoInput = {
@@ -2976,6 +3198,7 @@ export type UsuarioUncheckedCreateWithoutCalificacionesRecursoInput = {
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutEstudianteInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutDocenteInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutUsuarioInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioCreateOrConnectWithoutCalificacionesRecursoInput = {
@@ -3025,6 +3248,7 @@ export type UsuarioUpdateWithoutCalificacionesRecursoInput = {
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutEstudianteNestedInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutDocenteNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioUncheckedUpdateWithoutCalificacionesRecursoInput = {
@@ -3059,6 +3283,7 @@ export type UsuarioUncheckedUpdateWithoutCalificacionesRecursoInput = {
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutEstudianteNestedInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutDocenteNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutUsuarioNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioCreateWithoutAsignacionesRutaAprendizajeInput = {
@@ -3092,6 +3317,7 @@ export type UsuarioCreateWithoutAsignacionesRutaAprendizajeInput = {
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutEstudianteInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutDocenteInput
   auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioUncheckedCreateWithoutAsignacionesRutaAprendizajeInput = {
@@ -3126,6 +3352,7 @@ export type UsuarioUncheckedCreateWithoutAsignacionesRutaAprendizajeInput = {
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutEstudianteInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutDocenteInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutUsuarioInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioCreateOrConnectWithoutAsignacionesRutaAprendizajeInput = {
@@ -3175,6 +3402,7 @@ export type UsuarioUpdateWithoutAsignacionesRutaAprendizajeInput = {
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutEstudianteNestedInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutDocenteNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioUncheckedUpdateWithoutAsignacionesRutaAprendizajeInput = {
@@ -3209,6 +3437,7 @@ export type UsuarioUncheckedUpdateWithoutAsignacionesRutaAprendizajeInput = {
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutEstudianteNestedInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutDocenteNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutUsuarioNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioCreateWithoutDiagnosticosAprendizajeInput = {
@@ -3242,6 +3471,7 @@ export type UsuarioCreateWithoutDiagnosticosAprendizajeInput = {
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutEstudianteInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutDocenteInput
   auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioUncheckedCreateWithoutDiagnosticosAprendizajeInput = {
@@ -3276,6 +3506,7 @@ export type UsuarioUncheckedCreateWithoutDiagnosticosAprendizajeInput = {
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutEstudianteInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutDocenteInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutUsuarioInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioCreateOrConnectWithoutDiagnosticosAprendizajeInput = {
@@ -3325,6 +3556,7 @@ export type UsuarioUpdateWithoutDiagnosticosAprendizajeInput = {
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutEstudianteNestedInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutDocenteNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioUncheckedUpdateWithoutDiagnosticosAprendizajeInput = {
@@ -3359,6 +3591,7 @@ export type UsuarioUncheckedUpdateWithoutDiagnosticosAprendizajeInput = {
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutEstudianteNestedInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutDocenteNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutUsuarioNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioCreateWithoutAprendizajeAdaptativoDocenteInput = {
@@ -3392,6 +3625,7 @@ export type UsuarioCreateWithoutAprendizajeAdaptativoDocenteInput = {
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutEstudianteInput
   auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioUncheckedCreateWithoutAprendizajeAdaptativoDocenteInput = {
@@ -3426,6 +3660,7 @@ export type UsuarioUncheckedCreateWithoutAprendizajeAdaptativoDocenteInput = {
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutEstudianteInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutUsuarioInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioCreateOrConnectWithoutAprendizajeAdaptativoDocenteInput = {
@@ -3464,6 +3699,7 @@ export type UsuarioCreateWithoutAprendizajeAdaptativoAlumnoInput = {
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutDocenteInput
   auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioUncheckedCreateWithoutAprendizajeAdaptativoAlumnoInput = {
@@ -3498,6 +3734,7 @@ export type UsuarioUncheckedCreateWithoutAprendizajeAdaptativoAlumnoInput = {
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutDocenteInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutUsuarioInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioCreateOrConnectWithoutAprendizajeAdaptativoAlumnoInput = {
@@ -3547,6 +3784,7 @@ export type UsuarioUpdateWithoutAprendizajeAdaptativoDocenteInput = {
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutEstudianteNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioUncheckedUpdateWithoutAprendizajeAdaptativoDocenteInput = {
@@ -3581,6 +3819,7 @@ export type UsuarioUncheckedUpdateWithoutAprendizajeAdaptativoDocenteInput = {
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutEstudianteNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutUsuarioNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioUpsertWithoutAprendizajeAdaptativoAlumnoInput = {
@@ -3625,6 +3864,7 @@ export type UsuarioUpdateWithoutAprendizajeAdaptativoAlumnoInput = {
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutDocenteNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioUncheckedUpdateWithoutAprendizajeAdaptativoAlumnoInput = {
@@ -3659,6 +3899,7 @@ export type UsuarioUncheckedUpdateWithoutAprendizajeAdaptativoAlumnoInput = {
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutDocenteNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutUsuarioNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioCreateManyInstitucionInput = {
@@ -3711,6 +3952,7 @@ export type UsuarioUpdateWithoutInstitucionInput = {
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutEstudianteNestedInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutDocenteNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioUncheckedUpdateWithoutInstitucionInput = {
@@ -3745,6 +3987,7 @@ export type UsuarioUncheckedUpdateWithoutInstitucionInput = {
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutEstudianteNestedInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutDocenteNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutUsuarioNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioUncheckedUpdateManyWithoutInstitucionInput = {
@@ -3816,6 +4059,7 @@ export type UsuarioUpdateWithoutRolInput = {
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutEstudianteNestedInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutDocenteNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioUncheckedUpdateWithoutRolInput = {
@@ -3850,6 +4094,7 @@ export type UsuarioUncheckedUpdateWithoutRolInput = {
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutEstudianteNestedInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutDocenteNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutUsuarioNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioUncheckedUpdateManyWithoutRolInput = {
@@ -3921,6 +4166,7 @@ export type UsuarioUpdateWithoutGradoEscolarInput = {
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutEstudianteNestedInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutDocenteNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioUncheckedUpdateWithoutGradoEscolarInput = {
@@ -3955,6 +4201,7 @@ export type UsuarioUncheckedUpdateWithoutGradoEscolarInput = {
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutEstudianteNestedInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutDocenteNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutUsuarioNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioUncheckedUpdateManyWithoutGradoEscolarInput = {
@@ -3997,6 +4244,7 @@ export type UsuarioCountOutputType = {
   aprendizajeAdaptativoAlumno: number
   aprendizajeAdaptativoDocente: number
   auditoriaLogs: number
+  calificacionesUsoIa: number
 }
 
 export type UsuarioCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -4015,6 +4263,7 @@ export type UsuarioCountOutputTypeSelect<ExtArgs extends runtime.Types.Extension
   aprendizajeAdaptativoAlumno?: boolean | UsuarioCountOutputTypeCountAprendizajeAdaptativoAlumnoArgs
   aprendizajeAdaptativoDocente?: boolean | UsuarioCountOutputTypeCountAprendizajeAdaptativoDocenteArgs
   auditoriaLogs?: boolean | UsuarioCountOutputTypeCountAuditoriaLogsArgs
+  calificacionesUsoIa?: boolean | UsuarioCountOutputTypeCountCalificacionesUsoIaArgs
 }
 
 /**
@@ -4132,6 +4381,13 @@ export type UsuarioCountOutputTypeCountAuditoriaLogsArgs<ExtArgs extends runtime
   where?: Prisma.AuditoriaLogWhereInput
 }
 
+/**
+ * UsuarioCountOutputType without action
+ */
+export type UsuarioCountOutputTypeCountCalificacionesUsoIaArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CalificacionUsoIaWhereInput
+}
+
 
 export type UsuarioSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -4169,6 +4425,7 @@ export type UsuarioSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   aprendizajeAdaptativoAlumno?: boolean | Prisma.Usuario$aprendizajeAdaptativoAlumnoArgs<ExtArgs>
   aprendizajeAdaptativoDocente?: boolean | Prisma.Usuario$aprendizajeAdaptativoDocenteArgs<ExtArgs>
   auditoriaLogs?: boolean | Prisma.Usuario$auditoriaLogsArgs<ExtArgs>
+  calificacionesUsoIa?: boolean | Prisma.Usuario$calificacionesUsoIaArgs<ExtArgs>
   _count?: boolean | Prisma.UsuarioCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["usuario"]>
 
@@ -4258,6 +4515,7 @@ export type UsuarioInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   aprendizajeAdaptativoAlumno?: boolean | Prisma.Usuario$aprendizajeAdaptativoAlumnoArgs<ExtArgs>
   aprendizajeAdaptativoDocente?: boolean | Prisma.Usuario$aprendizajeAdaptativoDocenteArgs<ExtArgs>
   auditoriaLogs?: boolean | Prisma.Usuario$auditoriaLogsArgs<ExtArgs>
+  calificacionesUsoIa?: boolean | Prisma.Usuario$calificacionesUsoIaArgs<ExtArgs>
   _count?: boolean | Prisma.UsuarioCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UsuarioIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -4292,6 +4550,7 @@ export type $UsuarioPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     aprendizajeAdaptativoAlumno: Prisma.$AsignacionAprendizajeAdaptativoPayload<ExtArgs>[]
     aprendizajeAdaptativoDocente: Prisma.$AsignacionAprendizajeAdaptativoPayload<ExtArgs>[]
     auditoriaLogs: Prisma.$AuditoriaLogPayload<ExtArgs>[]
+    calificacionesUsoIa: Prisma.$CalificacionUsoIaPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -4723,6 +4982,7 @@ export interface Prisma__UsuarioClient<T, Null = never, ExtArgs extends runtime.
   aprendizajeAdaptativoAlumno<T extends Prisma.Usuario$aprendizajeAdaptativoAlumnoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$aprendizajeAdaptativoAlumnoArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AsignacionAprendizajeAdaptativoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   aprendizajeAdaptativoDocente<T extends Prisma.Usuario$aprendizajeAdaptativoDocenteArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$aprendizajeAdaptativoDocenteArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AsignacionAprendizajeAdaptativoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   auditoriaLogs<T extends Prisma.Usuario$auditoriaLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$auditoriaLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AuditoriaLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  calificacionesUsoIa<T extends Prisma.Usuario$calificacionesUsoIaArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$calificacionesUsoIaArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CalificacionUsoIaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5546,6 +5806,30 @@ export type Usuario$auditoriaLogsArgs<ExtArgs extends runtime.Types.Extensions.I
   take?: number
   skip?: number
   distinct?: Prisma.AuditoriaLogScalarFieldEnum | Prisma.AuditoriaLogScalarFieldEnum[]
+}
+
+/**
+ * Usuario.calificacionesUsoIa
+ */
+export type Usuario$calificacionesUsoIaArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CalificacionUsoIa
+   */
+  select?: Prisma.CalificacionUsoIaSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CalificacionUsoIa
+   */
+  omit?: Prisma.CalificacionUsoIaOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CalificacionUsoIaInclude<ExtArgs> | null
+  where?: Prisma.CalificacionUsoIaWhereInput
+  orderBy?: Prisma.CalificacionUsoIaOrderByWithRelationInput | Prisma.CalificacionUsoIaOrderByWithRelationInput[]
+  cursor?: Prisma.CalificacionUsoIaWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CalificacionUsoIaScalarFieldEnum | Prisma.CalificacionUsoIaScalarFieldEnum[]
 }
 
 /**

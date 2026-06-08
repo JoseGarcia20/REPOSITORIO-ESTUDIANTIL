@@ -4,6 +4,7 @@ export const TIPOS_REPORTE = [
   'recursos-institucion',
   'trabajos-colaborativos',
   'recursos-uso',
+  'calificaciones-ia',
 ] as const;
 
 export type TipoReporte = (typeof TIPOS_REPORTE)[number];
@@ -42,6 +43,17 @@ export class GenerarReporteDto {
   @IsString()
   @IsIn(['todos', 'foros', 'aula', 'rutas', 'calificaciones'])
   moduloUso?: string;
+
+  @IsOptional()
+  @IsString()
+  @IsIn([
+    'todos',
+    'recursos',
+    'preparador_ia',
+    'asistente',
+    'aprendizaje_adaptativo',
+  ])
+  moduloIa?: string;
 
   @IsOptional()
   @IsString()

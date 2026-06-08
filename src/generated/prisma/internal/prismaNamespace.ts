@@ -397,6 +397,7 @@ export const ModelName = {
   TipoRecurso: 'TipoRecurso',
   Recurso: 'Recurso',
   ResumenIaRecurso: 'ResumenIaRecurso',
+  CalificacionUsoIa: 'CalificacionUsoIa',
   ComentarioForoRecurso: 'ComentarioForoRecurso',
   ProyectoColaborativo: 'ProyectoColaborativo',
   ProyectoColaborativoIntegrante: 'ProyectoColaborativoIntegrante',
@@ -429,7 +430,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "institucion" | "rol" | "permiso" | "rolPermiso" | "usuario" | "gradoEscolar" | "categoria" | "foro" | "foroCategoria" | "comentarioForo" | "tipoRecurso" | "recurso" | "resumenIaRecurso" | "comentarioForoRecurso" | "proyectoColaborativo" | "proyectoColaborativoIntegrante" | "proyectoColaborativoActividad" | "proyectoColaborativoEvidencia" | "proyectoColaborativoEntrega" | "auditoriaLog" | "calificacionRecurso" | "tipoAprendizaje" | "estrategiaAprendizaje" | "tipoAprendizajeEstrategia" | "rutaAprendizaje" | "detalleRutaAprendizaje" | "asignacionRutaAprendizaje" | "diagnosticoAprendizaje" | "detalleDiagnosticoAprendizaje" | "asignacionAprendizajeAdaptativo"
+    modelProps: "institucion" | "rol" | "permiso" | "rolPermiso" | "usuario" | "gradoEscolar" | "categoria" | "foro" | "foroCategoria" | "comentarioForo" | "tipoRecurso" | "recurso" | "resumenIaRecurso" | "calificacionUsoIa" | "comentarioForoRecurso" | "proyectoColaborativo" | "proyectoColaborativoIntegrante" | "proyectoColaborativoActividad" | "proyectoColaborativoEvidencia" | "proyectoColaborativoEntrega" | "auditoriaLog" | "calificacionRecurso" | "tipoAprendizaje" | "estrategiaAprendizaje" | "tipoAprendizajeEstrategia" | "rutaAprendizaje" | "detalleRutaAprendizaje" | "asignacionRutaAprendizaje" | "diagnosticoAprendizaje" | "detalleDiagnosticoAprendizaje" | "asignacionAprendizajeAdaptativo"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1392,6 +1393,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.ResumenIaRecursoCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.ResumenIaRecursoCountAggregateOutputType> | number
+        }
+      }
+    }
+    CalificacionUsoIa: {
+      payload: Prisma.$CalificacionUsoIaPayload<ExtArgs>
+      fields: Prisma.CalificacionUsoIaFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CalificacionUsoIaFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CalificacionUsoIaPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CalificacionUsoIaFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CalificacionUsoIaPayload>
+        }
+        findFirst: {
+          args: Prisma.CalificacionUsoIaFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CalificacionUsoIaPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CalificacionUsoIaFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CalificacionUsoIaPayload>
+        }
+        findMany: {
+          args: Prisma.CalificacionUsoIaFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CalificacionUsoIaPayload>[]
+        }
+        create: {
+          args: Prisma.CalificacionUsoIaCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CalificacionUsoIaPayload>
+        }
+        createMany: {
+          args: Prisma.CalificacionUsoIaCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CalificacionUsoIaCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CalificacionUsoIaPayload>[]
+        }
+        delete: {
+          args: Prisma.CalificacionUsoIaDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CalificacionUsoIaPayload>
+        }
+        update: {
+          args: Prisma.CalificacionUsoIaUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CalificacionUsoIaPayload>
+        }
+        deleteMany: {
+          args: Prisma.CalificacionUsoIaDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CalificacionUsoIaUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CalificacionUsoIaUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CalificacionUsoIaPayload>[]
+        }
+        upsert: {
+          args: Prisma.CalificacionUsoIaUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CalificacionUsoIaPayload>
+        }
+        aggregate: {
+          args: Prisma.CalificacionUsoIaAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCalificacionUsoIa>
+        }
+        groupBy: {
+          args: Prisma.CalificacionUsoIaGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CalificacionUsoIaGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CalificacionUsoIaCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CalificacionUsoIaCountAggregateOutputType> | number
         }
       }
     }
@@ -2888,6 +2963,23 @@ export const ResumenIaRecursoScalarFieldEnum = {
 export type ResumenIaRecursoScalarFieldEnum = (typeof ResumenIaRecursoScalarFieldEnum)[keyof typeof ResumenIaRecursoScalarFieldEnum]
 
 
+export const CalificacionUsoIaScalarFieldEnum = {
+  id: 'id',
+  modulo: 'modulo',
+  funcionalidad: 'funcionalidad',
+  entidadTipo: 'entidadTipo',
+  entidadId: 'entidadId',
+  calificacion: 'calificacion',
+  comentario: 'comentario',
+  metadata: 'metadata',
+  createdAt: 'createdAt',
+  usuarioId: 'usuarioId',
+  institucionId: 'institucionId'
+} as const
+
+export type CalificacionUsoIaScalarFieldEnum = (typeof CalificacionUsoIaScalarFieldEnum)[keyof typeof CalificacionUsoIaScalarFieldEnum]
+
+
 export const ComentarioForoRecursoScalarFieldEnum = {
   comentarioForoId: 'comentarioForoId',
   recursoId: 'recursoId',
@@ -3138,6 +3230,12 @@ export const AsignacionAprendizajeAdaptativoScalarFieldEnum = {
   respuestasEvaluacion: 'respuestasEvaluacion',
   resultadoEvaluacion: 'resultadoEvaluacion',
   revisionDocente: 'revisionDocente',
+  calificacionEstudianteIA: 'calificacionEstudianteIA',
+  comentarioEstudianteIA: 'comentarioEstudianteIA',
+  fechaCalificacionEstudianteIA: 'fechaCalificacionEstudianteIA',
+  calificacionDocenteIA: 'calificacionDocenteIA',
+  comentarioDocenteIA: 'comentarioDocenteIA',
+  fechaCalificacionDocenteIA: 'fechaCalificacionDocenteIA',
   conclusionesPdf: 'conclusionesPdf',
   fechaLimite: 'fechaLimite',
   fechaAprobacion: 'fechaAprobacion',
@@ -3252,6 +3350,20 @@ export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaM
 
 
 /**
+ * Reference to a field of type 'Json'
+ */
+export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+/**
+ * Reference to a field of type 'QueryMode'
+ */
+export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
+    
+
+
+/**
  * Reference to a field of type 'Float'
  */
 export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -3276,20 +3388,6 @@ export type BigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 
  * Reference to a field of type 'BigInt[]'
  */
 export type ListBigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt[]'>
-    
-
-
-/**
- * Reference to a field of type 'Json'
- */
-export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
-    
-
-
-/**
- * Reference to a field of type 'QueryMode'
- */
-export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
     
 
 /**
@@ -3415,6 +3513,7 @@ export type GlobalOmitConfig = {
   tipoRecurso?: Prisma.TipoRecursoOmit
   recurso?: Prisma.RecursoOmit
   resumenIaRecurso?: Prisma.ResumenIaRecursoOmit
+  calificacionUsoIa?: Prisma.CalificacionUsoIaOmit
   comentarioForoRecurso?: Prisma.ComentarioForoRecursoOmit
   proyectoColaborativo?: Prisma.ProyectoColaborativoOmit
   proyectoColaborativoIntegrante?: Prisma.ProyectoColaborativoIntegranteOmit

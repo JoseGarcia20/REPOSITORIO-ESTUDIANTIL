@@ -666,7 +666,7 @@ export class DashboardService {
 
     const ultimosDiagnosticosAdaptativos = rutasAprendizajeAdaptativo
       .filter((ruta) => ruta.justificacion)
-      .slice(0, 5)
+      .slice(0, 3)
       .map((ruta) => ({
           id: ruta.id,
           tema: ruta.tema,

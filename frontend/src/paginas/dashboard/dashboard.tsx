@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import './dashboard.css';
 import { Instituciones } from '../instituciones/instituciones';
+import { obtenerRutaLoginSegunUsuario } from '../../api/adminApi';
 
 const APP_LOGO_SRC = '/logo-solo.png';
 
@@ -15,9 +16,10 @@ export function Dashboard() {
   const usuario = usuarioGuardado ? JSON.parse(usuarioGuardado) : null;
 
   function cerrarSesion() {
+    const rutaLogin = obtenerRutaLoginSegunUsuario();
     localStorage.removeItem('token');
     localStorage.removeItem('usuario');
-    window.location.reload();
+    window.location.replace(rutaLogin);
   }
 
   function abrirMenu() {

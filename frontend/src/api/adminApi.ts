@@ -698,7 +698,8 @@ export type ResumenDashboard = {
 export type TipoReporte =
   | 'recursos-institucion'
   | 'trabajos-colaborativos'
-  | 'recursos-uso';
+  | 'recursos-uso'
+  | 'calificaciones-ia';
 
 export type PayloadReporte = {
   tipo: TipoReporte;
@@ -709,6 +710,7 @@ export type PayloadReporte = {
   gradoEscolarId?: string;
   estadoProyecto?: string;
   moduloUso?: string;
+  moduloIa?: string;
   limite?: string;
 };
 
@@ -814,6 +816,12 @@ export type AsignacionAprendizajeAdaptativo = {
   respuestasEvaluacion?: any;
   resultadoEvaluacion?: any;
   revisionDocente?: any;
+  calificacionEstudianteIA?: number | null;
+  comentarioEstudianteIA?: string | null;
+  fechaCalificacionEstudianteIA?: string | null;
+  calificacionDocenteIA?: number | null;
+  comentarioDocenteIA?: string | null;
+  fechaCalificacionDocenteIA?: string | null;
   conclusionesPdf?: string | null;
   fechaLimite?: string | null;
   fechaAprobacion?: string | null;
@@ -1146,6 +1154,22 @@ export function obtenerUsuarioAutenticado(): UsuarioSesion | null {
   }
 }
 
+export function obtenerRutaLoginSegunUsuario(
+  usuario: UsuarioSesion | null = obtenerUsuarioAutenticado(),
+): string {
+  const rol = usuario?.rol?.nombre?.toLowerCase() || '';
+  const permisos = usuario?.permisos || [];
+
+  if (
+    permisos.includes(PERMISOS.SISTEMA_TOTAL) ||
+    rol.includes('superadministrador')
+  ) {
+    return '/superadmin/login';
+  }
+
+  return '/login';
+}
+
 export function esSuperadministrador(): boolean {
   return usuarioTienePermiso(PERMISOS.SISTEMA_TOTAL);
 }
@@ -1339,6 +1363,31 @@ export type EventoResumenIa =
   | { tipo: 'final'; resumen: ResumenIaRecurso }
   | { tipo: 'error'; mensaje: string };
 
+export type PayloadCalificacionUsoIa = {
+  modulo: string;
+  funcionalidad: string;
+  entidadTipo?: string;
+  entidadId?: number;
+  calificacion: number;
+  comentario?: string;
+  metadata?: Record<string, unknown>;
+};
+
+export type CalificacionUsoIa = PayloadCalificacionUsoIa & {
+  id: number;
+  usuarioId: number;
+  institucionId?: number | null;
+  createdAt: string;
+};
+
+export function crearCalificacionUsoIa(data: PayloadCalificacionUsoIa) {
+  return post<CalificacionUsoIa>(
+    '/calificaciones-ia',
+    data,
+    'Error al guardar la calificación de la IA',
+  );
+}
+
 export function obtenerResumenCalificacionRecurso(recursoId: number) {
   return get<ResumenCalificacionRecurso>(
     `/calificacion-recurso/recurso/${recursoId}/resumen`,
@@ -1464,6 +1513,29 @@ export function generarReporte(data: PayloadReporte) {
     data,
     'Error al generar reporte',
   );
+}
+
+export async function descargarExcelReporte(data: PayloadReporte) {
+  const respuesta = await fetch(`${API_URL}/reportes/generar-excel`, {
+    method: 'POST',
+    headers: construirHeadersAutorizados(),
+    body: JSON.stringify(data),
+  });
+
+  if (!respuesta.ok) {
+    await procesarRespuesta<never>(respuesta, 'Error al descargar el reporte en Excel');
+    return;
+  }
+
+  const blob = await respuesta.blob();
+  const url = URL.createObjectURL(blob);
+  const enlace = document.createElement('a');
+  enlace.href = url;
+  enlace.download = `reporte-${data.tipo}-${Date.now()}.xlsx`;
+  document.body.appendChild(enlace);
+  enlace.click();
+  document.body.removeChild(enlace);
+  URL.revokeObjectURL(url);
 }
 
 export function obtenerCatalogosPreparadorIa() {
@@ -1619,6 +1691,28 @@ export function revisarAsignacionAprendizajeAdaptativo(
     `/aprendizaje-adaptativo/${id}/revisar`,
     data,
     'Error al revisar asignación adaptativa',
+  );
+}
+
+export function calificarAprendizajeAdaptativoComoEstudiante(
+  id: number,
+  data: { calificacion: number; comentario?: string },
+) {
+  return post<AsignacionAprendizajeAdaptativo>(
+    `/aprendizaje-adaptativo/${id}/calificacion-estudiante`,
+    data,
+    'Error al guardar la calificación del estudiante',
+  );
+}
+
+export function calificarAprendizajeAdaptativoComoDocente(
+  id: number,
+  data: { calificacion: number; comentario?: string },
+) {
+  return post<AsignacionAprendizajeAdaptativo>(
+    `/aprendizaje-adaptativo/${id}/calificacion-docente`,
+    data,
+    'Error al guardar la calificación del docente',
   );
 }
 

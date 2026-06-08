@@ -3,6 +3,9 @@ import {
   ForbiddenException,
   Injectable,
 } from '@nestjs/common';
+import { existsSync } from 'fs';
+import { join } from 'path';
+import ExcelJS from 'exceljs';
 import { PrismaService } from '../../../baseDatos/prisma/prisma.service';
 import {
   PERMISOS,
@@ -32,6 +35,28 @@ type MetricaReporte = {
   label: string;
   value: string | number;
   detail?: string;
+};
+
+type ReporteGenerado = {
+  tipo: string;
+  titulo: string;
+  descripcion: string;
+  generadoEn: string;
+  encabezado: {
+    software: boolean;
+    nombreEmisor: string;
+    nit?: string;
+    ubicacion?: string;
+    logo?: string;
+    generadoPor: string;
+    rolGenerador?: string;
+  };
+  periodo: string;
+  filtros: Array<{ label: string; value: string }>;
+  metricas: MetricaReporte[];
+  columnas: ColumnaReporte[];
+  filas: Array<Record<string, string | number | null | undefined>>;
+  notas?: string[];
 };
 
 @Injectable()
@@ -100,12 +125,123 @@ export class ReportesService {
       );
     }
 
+    if (data.tipo === 'calificaciones-ia') {
+      return await this.generarReporteCalificacionesIa(
+        data,
+        rango,
+        alcance,
+        encabezado,
+      );
+    }
+
     return await this.generarReporteUsoRecursos(
       data,
       rango,
       alcance,
       encabezado,
     );
+  }
+
+  async generarExcel(data: GenerarReporteDto, usuarioAuth: any) {
+    const reporte = (await this.generar(data, usuarioAuth)) as ReporteGenerado;
+    const workbook = new ExcelJS.Workbook();
+    workbook.creator = 'NEXORA AI';
+    workbook.created = new Date();
+
+    const worksheet = workbook.addWorksheet('Reporte', {
+      views: [{ state: 'frozen', ySplit: 10 }],
+    });
+
+    worksheet.columns = reporte.columnas.map((columna) => ({
+      key: columna.key,
+      width: this.anchoColumnaExcel(columna.key, columna.label),
+    }));
+    this.agregarLogosExcel(workbook, worksheet, reporte);
+
+    worksheet.mergeCells('C1:H1');
+    worksheet.getCell('C1').value = reporte.encabezado.nombreEmisor;
+    worksheet.getCell('C1').font = { bold: true, size: 14, color: { argb: 'FF070738' } };
+
+    worksheet.mergeCells('C2:H2');
+    worksheet.getCell('C2').value = reporte.titulo;
+    worksheet.getCell('C2').font = { bold: true, size: 18, color: { argb: 'FF111184' } };
+
+    worksheet.mergeCells('C3:H3');
+    worksheet.getCell('C3').value = reporte.descripcion;
+    worksheet.getCell('C3').alignment = { wrapText: true };
+
+    worksheet.getCell('C5').value = 'Periodo';
+    worksheet.getCell('D5').value = reporte.periodo;
+    worksheet.getCell('C6').value = 'Generado';
+    worksheet.getCell('D6').value = new Date(reporte.generadoEn).toLocaleString('es-CO');
+    worksheet.getCell('C7').value = 'Responsable';
+    worksheet.getCell('D7').value = reporte.encabezado.generadoPor;
+
+    ['C5', 'C6', 'C7'].forEach((celda) => {
+      worksheet.getCell(celda).font = { bold: true, color: { argb: 'FF070738' } };
+    });
+
+    let filaActual = 9;
+    if (reporte.filtros.length > 0) {
+      worksheet.getCell(`A${filaActual}`).value = 'Filtros';
+      worksheet.getCell(`A${filaActual}`).font = { bold: true, color: { argb: 'FF070738' } };
+      reporte.filtros.forEach((filtro, indice) => {
+        worksheet.getCell(`B${filaActual + indice}`).value = filtro.label;
+        worksheet.getCell(`C${filaActual + indice}`).value = filtro.value;
+      });
+      filaActual += reporte.filtros.length + 1;
+    }
+
+    worksheet.getCell(`A${filaActual}`).value = 'Métricas';
+    worksheet.getCell(`A${filaActual}`).font = { bold: true, color: { argb: 'FF070738' } };
+    reporte.metricas.forEach((metrica, indice) => {
+      worksheet.getCell(`B${filaActual + indice}`).value = metrica.label;
+      worksheet.getCell(`C${filaActual + indice}`).value = metrica.value;
+      worksheet.getCell(`D${filaActual + indice}`).value = metrica.detail || '';
+    });
+    filaActual += reporte.metricas.length + 2;
+
+    const filaEncabezados = filaActual;
+    reporte.columnas.forEach((columna, indice) => {
+      const celda = worksheet.getCell(filaEncabezados, indice + 1);
+      celda.value = columna.label;
+      celda.font = { bold: true, color: { argb: 'FFFFFFFF' } };
+      celda.fill = {
+        type: 'pattern',
+        pattern: 'solid',
+        fgColor: { argb: 'FF070738' },
+      };
+      celda.alignment = {
+        horizontal: columna.align || 'left',
+        vertical: 'middle',
+        wrapText: true,
+      };
+    });
+
+    reporte.filas.forEach((fila, indiceFila) => {
+      reporte.columnas.forEach((columna, indiceColumna) => {
+        const celda = worksheet.getCell(filaEncabezados + indiceFila + 1, indiceColumna + 1);
+        celda.value = this.valorPlano(fila[columna.key]);
+        celda.alignment = {
+          horizontal: columna.align || 'left',
+          vertical: 'top',
+          wrapText: true,
+        };
+      });
+    });
+
+    worksheet.eachRow((row) => {
+      row.eachCell((cell) => {
+        cell.border = {
+          top: { style: 'thin', color: { argb: 'FFD3D3D3' } },
+          left: { style: 'thin', color: { argb: 'FFD3D3D3' } },
+          bottom: { style: 'thin', color: { argb: 'FFD3D3D3' } },
+          right: { style: 'thin', color: { argb: 'FFD3D3D3' } },
+        };
+      });
+    });
+
+    return Buffer.from(await workbook.xlsx.writeBuffer());
   }
 
   private async generarReporteRecursos(
@@ -492,6 +628,148 @@ export class ReportesService {
     };
   }
 
+  private async generarReporteCalificacionesIa(
+    data: GenerarReporteDto,
+    rango: RangoFechas,
+    alcance: AlcanceReporte,
+    encabezado: any,
+  ) {
+    const moduloIa = data.moduloIa || 'todos';
+    const where = {
+      ...this.filtroAlcance(alcance),
+      ...this.filtroFechas(rango),
+      ...(moduloIa !== 'todos' ? { modulo: moduloIa } : {}),
+    };
+
+    const calificaciones = await this.prisma.calificacionUsoIa.findMany({
+      where,
+      include: {
+        usuario: {
+          select: {
+            id: true,
+            nombres: true,
+            apellidos: true,
+            correo: true,
+            rol: { select: { nombre: true } },
+          },
+        },
+        institucion: { select: { nombre: true } },
+      },
+      orderBy: { createdAt: 'desc' },
+      take: 500,
+    });
+
+    const promedioGeneral = this.promedioCalificaciones(calificaciones);
+    const usuariosUnicos = new Set(calificaciones.map((item) => item.usuarioId));
+    const escenarios = new Map<
+      string,
+      { total: number; suma: number; modulo: string; funcionalidad: string }
+    >();
+
+    calificaciones.forEach((item) => {
+      const key = `${item.modulo}:${item.funcionalidad}`;
+      const actual =
+        escenarios.get(key) || {
+          total: 0,
+          suma: 0,
+          modulo: item.modulo,
+          funcionalidad: item.funcionalidad,
+        };
+      actual.total += 1;
+      actual.suma += item.calificacion;
+      escenarios.set(key, actual);
+    });
+
+    const resumenEscenarios = [...escenarios.values()]
+      .map((item) => ({
+        ...item,
+        promedio: item.total ? item.suma / item.total : 0,
+      }))
+      .sort((a, b) => b.promedio - a.promedio || b.total - a.total);
+
+    const mejorEscenario = resumenEscenarios[0];
+    const escenarioCritico = [...resumenEscenarios]
+      .filter((item) => item.total > 0)
+      .sort((a, b) => a.promedio - b.promedio || b.total - a.total)[0];
+
+    return {
+      tipo: data.tipo,
+      titulo: 'Calificaciones de funciones con AI',
+      descripcion:
+        'Valoraciones registradas por los usuarios sobre resúmenes, materiales, respuestas y rutas generadas con AI.',
+      generadoEn: new Date().toISOString(),
+      encabezado,
+      periodo: rango.etiqueta,
+      filtros: await this.construirFiltros(data, alcance),
+      metricas: [
+        { label: 'Valoraciones', value: calificaciones.length },
+        {
+          label: 'Promedio general',
+          value: this.formatearNumero(promedioGeneral),
+          detail: 'Escala de 1 a 5',
+        },
+        { label: 'Usuarios evaluadores', value: usuariosUnicos.size },
+        { label: 'Escenarios evaluados', value: escenarios.size },
+        mejorEscenario
+          ? {
+              label: 'Mejor escenario',
+              value: this.etiquetaEscenarioIa(
+                mejorEscenario.modulo,
+                mejorEscenario.funcionalidad,
+              ),
+              detail: `${this.formatearNumero(mejorEscenario.promedio)} / 5`,
+            }
+          : { label: 'Mejor escenario', value: 'Sin datos' },
+        escenarioCritico
+          ? {
+              label: 'Escenario por revisar',
+              value: this.etiquetaEscenarioIa(
+                escenarioCritico.modulo,
+                escenarioCritico.funcionalidad,
+              ),
+              detail: `${this.formatearNumero(escenarioCritico.promedio)} / 5`,
+            }
+          : { label: 'Escenario por revisar', value: 'Sin datos' },
+      ] satisfies MetricaReporte[],
+      columnas: [
+        { key: 'fecha', label: 'Fecha' },
+        { key: 'escenario', label: 'Escenario AI' },
+        { key: 'calificacion', label: 'Calificación', align: 'right' },
+        { key: 'usuario', label: 'Usuario' },
+        { key: 'rol', label: 'Rol' },
+        { key: 'institucion', label: 'Institución' },
+        { key: 'entidad', label: 'Referencia' },
+        { key: 'comentario', label: 'Comentario' },
+      ] satisfies ColumnaReporte[],
+      filas: calificaciones.map((item) => ({
+        fecha: this.formatearFechaHora(item.createdAt),
+        escenario: this.etiquetaEscenarioIa(item.modulo, item.funcionalidad),
+        calificacion: item.calificacion,
+        usuario: this.nombreUsuario(item.usuario),
+        rol: item.usuario?.rol?.nombre || 'Sin rol',
+        institucion: item.institucion?.nombre || 'Reporte general',
+        entidad:
+          item.entidadTipo && item.entidadId
+            ? `${this.etiquetaEntidadIa(item.entidadTipo)} #${item.entidadId}`
+            : 'Sin referencia',
+        comentario: item.comentario || 'Sin comentario',
+      })),
+      notas: resumenEscenarios.length
+        ? [
+            `Promedios por escenario: ${resumenEscenarios
+              .map(
+                (item) =>
+                  `${this.etiquetaEscenarioIa(
+                    item.modulo,
+                    item.funcionalidad,
+                  )}: ${this.formatearNumero(item.promedio)} (${item.total})`,
+              )
+              .join('; ')}`,
+          ]
+        : [],
+    };
+  }
+
   private obtenerRangoFechas(data: GenerarReporteDto): RangoFechas {
     const inicio = data.fechaInicio
       ? this.parsearFecha(data.fechaInicio, false)
@@ -574,7 +852,7 @@ export class ReportesService {
     return {
       software: alcance.global,
       nombreEmisor: alcance.global
-        ? 'Plataforma Estudiantil'
+        ? 'NEXORA AI'
         : institucion?.nombre || usuario?.institucion?.nombre || 'Institución',
       nit: alcance.global
         ? ''
@@ -641,6 +919,12 @@ export class ReportesService {
         ? {
             label: 'Módulo de uso',
             value: this.etiquetaModuloUso(data.moduloUso),
+          }
+        : null,
+      data.moduloIa
+        ? {
+            label: 'Escenario AI',
+            value: this.etiquetaModuloIa(data.moduloIa),
           }
         : null,
     ].filter(Boolean);
@@ -723,6 +1007,17 @@ export class ReportesService {
     }).format(new Date(fecha));
   }
 
+  private formatearFechaHora(fecha?: Date | string | null) {
+    if (!fecha) {
+      return 'Sin fecha';
+    }
+
+    return new Intl.DateTimeFormat('es-CO', {
+      dateStyle: 'medium',
+      timeStyle: 'short',
+    }).format(new Date(fecha));
+  }
+
   private formatearNumero(valor: number) {
     return new Intl.NumberFormat('es-CO', {
       maximumFractionDigits: 2,
@@ -775,5 +1070,119 @@ export class ReportesService {
     };
 
     return etiquetas[modulo] || modulo;
+  }
+
+  private etiquetaModuloIa(modulo: string) {
+    const etiquetas: Record<string, string> = {
+      todos: 'Todos los escenarios AI',
+      recursos: 'Resumen AI de recursos',
+      preparador_ia: 'Preparador IA de clases',
+      asistente: 'Buscador inteligente',
+      aprendizaje_adaptativo: 'Aprendizaje adaptativo',
+    };
+
+    return etiquetas[modulo] || modulo;
+  }
+
+  private etiquetaFuncionalidadIa(funcionalidad: string) {
+    const etiquetas: Record<string, string> = {
+      resumen_ia_recurso: 'Generación de resumen',
+      generacion_material: 'Generación de material',
+      busqueda_inteligente: 'Respuesta del buscador',
+      valoracion_estudiante: 'Ruta valorada por estudiante',
+      valoracion_docente: 'Ruta valorada por docente',
+    };
+
+    return etiquetas[funcionalidad] || funcionalidad.replace(/_/g, ' ');
+  }
+
+  private etiquetaEscenarioIa(modulo: string, funcionalidad: string) {
+    return `${this.etiquetaModuloIa(modulo)} · ${this.etiquetaFuncionalidadIa(
+      funcionalidad,
+    )}`;
+  }
+
+  private etiquetaEntidadIa(entidadTipo: string) {
+    const etiquetas: Record<string, string> = {
+      recurso: 'Recurso',
+      material_preparador_ia: 'Material',
+      chat_asistente: 'Chat',
+      asignacion_aprendizaje_adaptativo: 'Ruta adaptativa',
+    };
+
+    return etiquetas[entidadTipo] || entidadTipo.replace(/_/g, ' ');
+  }
+
+  private valorPlano(valor: string | number | null | undefined) {
+    if (valor === null || valor === undefined || valor === '') {
+      return 'Sin dato';
+    }
+
+    return valor;
+  }
+
+  private anchoColumnaExcel(key: string, label: string) {
+    const anchos: Record<string, number> = {
+      titulo: 34,
+      escenario: 42,
+      comentario: 44,
+      calificadores: 46,
+      usuario: 28,
+      institucion: 30,
+      fecha: 22,
+      recurso: 36,
+      entidad: 24,
+    };
+
+    return anchos[key] || Math.max(14, Math.min(30, label.length + 8));
+  }
+
+  private agregarLogosExcel(
+    workbook: ExcelJS.Workbook,
+    worksheet: ExcelJS.Worksheet,
+    reporte: ReporteGenerado,
+  ) {
+    this.agregarImagenExcel(workbook, worksheet, join(process.cwd(), 'logo', 'logo-solo.png'), {
+      tl: { col: 0, row: 0 },
+      ext: { width: 76, height: 76 },
+    });
+
+    if (reporte.encabezado.logo) {
+      this.agregarImagenExcel(
+        workbook,
+        worksheet,
+        join(process.cwd(), reporte.encabezado.logo.replace(/^\/+/, '')),
+        {
+          tl: { col: 1, row: 0 },
+          ext: { width: 76, height: 76 },
+        },
+      );
+    }
+  }
+
+  private agregarImagenExcel(
+    workbook: ExcelJS.Workbook,
+    worksheet: ExcelJS.Worksheet,
+    ruta: string,
+    rango: any,
+  ) {
+    if (!existsSync(ruta)) {
+      return;
+    }
+
+    const extension = ruta.split('.').pop()?.toLowerCase();
+    if (!extension || !['png', 'jpg', 'jpeg'].includes(extension)) {
+      return;
+    }
+
+    try {
+      const imageId = workbook.addImage({
+        filename: ruta,
+        extension: extension === 'jpg' ? 'jpeg' : (extension as 'png' | 'jpeg'),
+      });
+      worksheet.addImage(imageId, rango);
+    } catch {
+      return;
+    }
   }
 }

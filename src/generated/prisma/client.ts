@@ -105,6 +105,11 @@ export type Recurso = Prisma.RecursoModel
  */
 export type ResumenIaRecurso = Prisma.ResumenIaRecursoModel
 /**
+ * Model CalificacionUsoIa
+ * 
+ */
+export type CalificacionUsoIa = Prisma.CalificacionUsoIaModel
+/**
  * Model ComentarioForoRecurso
  * 
  */

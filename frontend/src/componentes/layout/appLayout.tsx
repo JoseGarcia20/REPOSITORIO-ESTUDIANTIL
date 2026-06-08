@@ -1,6 +1,11 @@
 import { useEffect, useMemo, useState } from 'react';
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
-import { API_URL, PERMISOS, usuarioTienePermiso } from '../../api/adminApi';
+import {
+  API_URL,
+  PERMISOS,
+  obtenerRutaLoginSegunUsuario,
+  usuarioTienePermiso,
+} from '../../api/adminApi';
 import { ChatbotWidget } from '../chatbot/chatbotWidget';
 import './appLayout.css';
 
@@ -104,8 +109,11 @@ export function AppLayout() {
         titulo: 'Tipos de recursos',
         ruta: '/admin/tipos-recursos',
       });
+    }
+
+    if (usuarioTienePermiso(PERMISOS.SISTEMA_TOTAL)) {
       administracion.push({
-        titulo: 'Rutas de aprendizaje',
+        titulo: 'Rutas de aprendizaje globales',
         ruta: '/admin/rutas-aprendizaje',
       });
     }
@@ -180,6 +188,7 @@ export function AppLayout() {
   }, [location.pathname]);
 
   async function cerrarSesion() {
+    const rutaLogin = obtenerRutaLoginSegunUsuario();
     const token = localStorage.getItem('token') || '';
     const evaluacionActivaRaw = localStorage.getItem(CLAVE_EVALUACION_ACTIVA);
 
@@ -220,7 +229,7 @@ export function AppLayout() {
     localStorage.removeItem(CLAVE_EVALUACION_ACTIVA);
     localStorage.removeItem('token');
     localStorage.removeItem('usuario');
-    window.location.reload();
+    window.location.replace(rutaLogin);
   }
 
   function alternarSubmenu(nombre: string) {

@@ -6,6 +6,7 @@ import {
   PERMISOS,
   usuarioTienePermiso,
 } from '../../api/adminApi';
+import { CalificacionIa } from '../ia/calificacionIa';
 import type { RecursoAsistente } from '../../api/adminApi';
 import './chatbotWidget.css';
 
@@ -16,6 +17,8 @@ type MensajeChat = {
   tipo: 'usuario' | 'asistente';
   texto: string;
   recursos?: RecursoAsistente[];
+  pregunta?: string;
+  calificable?: boolean;
 };
 
 const mensajeInicial: MensajeChat = {
@@ -64,6 +67,8 @@ export function ChatbotWidget() {
           tipo: 'asistente',
           texto: respuesta.mensaje,
           recursos: respuesta.recursos,
+          pregunta: texto,
+          calificable: true,
         },
       ]);
     } catch {
@@ -125,6 +130,21 @@ export function ChatbotWidget() {
                       </button>
                     ))}
                   </div>
+                )}
+
+                {mensaje.calificable && (
+                  <CalificacionIa
+                    key={mensaje.id}
+                    titulo="¿Cómo calificas esta respuesta del buscador con AI?"
+                    descripcion="Valora si la respuesta y los recursos sugeridos fueron útiles."
+                    modulo="asistente"
+                    funcionalidad="busqueda_inteligente"
+                    entidadTipo="chat_asistente"
+                    metadata={{
+                      pregunta: mensaje.pregunta,
+                      recursos: mensaje.recursos?.length || 0,
+                    }}
+                  />
                 )}
               </div>
             ))}

@@ -64,6 +64,7 @@ export const ModelName = {
   TipoRecurso: 'TipoRecurso',
   Recurso: 'Recurso',
   ResumenIaRecurso: 'ResumenIaRecurso',
+  CalificacionUsoIa: 'CalificacionUsoIa',
   ComentarioForoRecurso: 'ComentarioForoRecurso',
   ProyectoColaborativo: 'ProyectoColaborativo',
   ProyectoColaborativoIntegrante: 'ProyectoColaborativoIntegrante',
@@ -293,6 +294,23 @@ export const ResumenIaRecursoScalarFieldEnum = {
 } as const
 
 export type ResumenIaRecursoScalarFieldEnum = (typeof ResumenIaRecursoScalarFieldEnum)[keyof typeof ResumenIaRecursoScalarFieldEnum]
+
+
+export const CalificacionUsoIaScalarFieldEnum = {
+  id: 'id',
+  modulo: 'modulo',
+  funcionalidad: 'funcionalidad',
+  entidadTipo: 'entidadTipo',
+  entidadId: 'entidadId',
+  calificacion: 'calificacion',
+  comentario: 'comentario',
+  metadata: 'metadata',
+  createdAt: 'createdAt',
+  usuarioId: 'usuarioId',
+  institucionId: 'institucionId'
+} as const
+
+export type CalificacionUsoIaScalarFieldEnum = (typeof CalificacionUsoIaScalarFieldEnum)[keyof typeof CalificacionUsoIaScalarFieldEnum]
 
 
 export const ComentarioForoRecursoScalarFieldEnum = {
@@ -545,6 +563,12 @@ export const AsignacionAprendizajeAdaptativoScalarFieldEnum = {
   respuestasEvaluacion: 'respuestasEvaluacion',
   resultadoEvaluacion: 'resultadoEvaluacion',
   revisionDocente: 'revisionDocente',
+  calificacionEstudianteIA: 'calificacionEstudianteIA',
+  comentarioEstudianteIA: 'comentarioEstudianteIA',
+  fechaCalificacionEstudianteIA: 'fechaCalificacionEstudianteIA',
+  calificacionDocenteIA: 'calificacionDocenteIA',
+  comentarioDocenteIA: 'comentarioDocenteIA',
+  fechaCalificacionDocenteIA: 'fechaCalificacionDocenteIA',
   conclusionesPdf: 'conclusionesPdf',
   fechaLimite: 'fechaLimite',
   fechaAprobacion: 'fechaAprobacion',

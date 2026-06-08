@@ -4,6 +4,8 @@ import {
   API_URL,
   actualizarPasoAprendizajeAdaptativo,
   aprobarAsignacionAprendizajeAdaptativo,
+  calificarAprendizajeAdaptativoComoDocente,
+  calificarAprendizajeAdaptativoComoEstudiante,
   cerrarEvaluacionAprendizajeAdaptativo,
   crearAsignacionAprendizajeAdaptativo,
   enviarEvaluacionAprendizajeAdaptativo,
@@ -340,6 +342,10 @@ export function AprendizajeAdaptativo() {
     decision: 'completada' as 'completada' | 'reasignada',
     observaciones: '',
   });
+  const [valoracionEstudianteIA, setValoracionEstudianteIA] = useState(0);
+  const [comentarioEstudianteIA, setComentarioEstudianteIA] = useState('');
+  const [valoracionDocenteIA, setValoracionDocenteIA] = useState(0);
+  const [comentarioDocenteIA, setComentarioDocenteIA] = useState('');
   const [busqueda, setBusqueda] = useState('');
   const [busquedaEstudiante, setBusquedaEstudiante] = useState('');
   const [filtroGradoEstudiante, setFiltroGradoEstudiante] = useState('');
@@ -505,6 +511,16 @@ export function AprendizajeAdaptativo() {
       decision: 'completada',
       observaciones: asignacionSeleccionada.revisionDocente?.observaciones || '',
     });
+    setValoracionEstudianteIA(
+      Number(asignacionSeleccionada.calificacionEstudianteIA || 0),
+    );
+    setComentarioEstudianteIA(
+      asignacionSeleccionada.comentarioEstudianteIA || '',
+    );
+    setValoracionDocenteIA(
+      Number(asignacionSeleccionada.calificacionDocenteIA || 0),
+    );
+    setComentarioDocenteIA(asignacionSeleccionada.comentarioDocenteIA || '');
   }, [asignacionSeleccionada?.id]);
 
   useEffect(() => {
@@ -1127,6 +1143,62 @@ export function AprendizajeAdaptativo() {
     }
   }
 
+  async function enviarCalificacionEstudiante(event: FormEvent) {
+    event.preventDefault();
+    if (!asignacionSeleccionada || valoracionEstudianteIA < 1) {
+      setError('Selecciona una calificación para la ruta generada antes de guardar.');
+      return;
+    }
+
+    try {
+      setProcesando('calificacion-estudiante');
+      setError('');
+      const asignacion = await calificarAprendizajeAdaptativoComoEstudiante(
+        asignacionSeleccionada.id,
+        {
+          calificacion: valoracionEstudianteIA,
+          comentario: comentarioEstudianteIA.trim() || undefined,
+        },
+      );
+      registrarAsignacionActualizada(asignacion);
+      setMensaje('Tu valoración de la ruta generada quedó registrada.');
+    } catch (err) {
+      setError(
+        err instanceof Error ? err.message : 'No se pudo guardar la calificación.',
+      );
+    } finally {
+      setProcesando('');
+    }
+  }
+
+  async function enviarCalificacionDocente(event: FormEvent) {
+    event.preventDefault();
+    if (!asignacionSeleccionada || valoracionDocenteIA < 1) {
+      setError('Selecciona una calificación para el resultado generado antes de guardar.');
+      return;
+    }
+
+    try {
+      setProcesando('calificacion-docente');
+      setError('');
+      const asignacion = await calificarAprendizajeAdaptativoComoDocente(
+        asignacionSeleccionada.id,
+        {
+          calificacion: valoracionDocenteIA,
+          comentario: comentarioDocenteIA.trim() || undefined,
+        },
+      );
+      registrarAsignacionActualizada(asignacion);
+      setMensaje('La valoración docente del resultado generado quedó registrada.');
+    } catch (err) {
+      setError(
+        err instanceof Error ? err.message : 'No se pudo guardar la calificación.',
+      );
+    } finally {
+      setProcesando('');
+    }
+  }
+
   function renderResultadoEvaluacion() {
     if (!asignacionSeleccionada?.resultadoEvaluacion) {
       return null;
@@ -1177,6 +1249,53 @@ export function AprendizajeAdaptativo() {
             Ver PDF de conclusiones
           </a>
         )}
+        {esEstudiante &&
+          Number(asignacionSeleccionada.estudianteId) === Number(usuario?.id) && (
+            <form
+              className="adaptativo-section adaptativo-rating-panel"
+              onSubmit={enviarCalificacionEstudiante}
+            >
+              <div className="adaptativo-section-title">
+                <h3>Calificar la ruta generada con AI</h3>
+                <p>Valora si el diagnóstico, los pasos y la evaluación te ayudaron a aprender el tema.</p>
+              </div>
+              <div className="adaptativo-rating-stars">
+                {[1, 2, 3, 4, 5].map((valor) => (
+                  <button
+                    key={valor}
+                    type="button"
+                    className={
+                      valoracionEstudianteIA >= valor ? 'active' : ''
+                    }
+                    onClick={() => setValoracionEstudianteIA(valor)}
+                  >
+                    {valor}
+                  </button>
+                ))}
+              </div>
+              {asignacionSeleccionada.calificacionEstudianteIA ? (
+                <p className="adaptativo-rating-note">
+                  Calificación registrada: {asignacionSeleccionada.calificacionEstudianteIA}/5
+                </p>
+              ) : null}
+              <label className="adaptativo-field full">
+                <span>Comentario opcional</span>
+                <textarea
+                  rows={3}
+                  value={comentarioEstudianteIA}
+                  onChange={(event) => setComentarioEstudianteIA(event.target.value)}
+                  maxLength={1000}
+                />
+              </label>
+              <button
+                className="primary-button adaptativo-rating-submit"
+                type="submit"
+                disabled={procesando === 'calificacion-estudiante'}
+              >
+                Guardar valoración
+              </button>
+            </form>
+          )}
       </section>
     );
   }
@@ -1194,49 +1313,94 @@ export function AprendizajeAdaptativo() {
     }
 
     return (
-      <form className="adaptativo-section" onSubmit={revisarAsignacion}>
-        <div className="adaptativo-section-title">
-          <h3>Revisión docente</h3>
-          <p>Cierre o reasignación de la ruta</p>
-        </div>
-        <div className="adaptativo-form-grid compact">
-          <label className="adaptativo-field">
-            <span>Decisión</span>
-            <select
-              value={revision.decision}
-              onChange={(event) =>
-                setRevision((prev) => ({
-                  ...prev,
-                  decision: event.target.value as 'completada' | 'reasignada',
-                }))
-              }
-            >
-              <option value="completada">Completada</option>
-              <option value="reasignada">Reasignar refuerzo</option>
-            </select>
-          </label>
+      <>
+        <form className="adaptativo-section" onSubmit={revisarAsignacion}>
+          <div className="adaptativo-section-title">
+            <h3>Revisión docente</h3>
+            <p>Cierre o reasignación de la ruta</p>
+          </div>
+          <div className="adaptativo-form-grid compact">
+            <label className="adaptativo-field">
+              <span>Decisión</span>
+              <select
+                value={revision.decision}
+                onChange={(event) =>
+                  setRevision((prev) => ({
+                    ...prev,
+                    decision: event.target.value as 'completada' | 'reasignada',
+                  }))
+                }
+              >
+                <option value="completada">Completada</option>
+                <option value="reasignada">Reasignar refuerzo</option>
+              </select>
+            </label>
+            <label className="adaptativo-field full">
+              <span>Observaciones</span>
+              <textarea
+                rows={4}
+                value={revision.observaciones}
+                onChange={(event) =>
+                  setRevision((prev) => ({
+                    ...prev,
+                    observaciones: event.target.value,
+                  }))
+                }
+              />
+            </label>
+          </div>
+          <button
+            className="primary-button"
+            type="submit"
+            disabled={Boolean(procesando)}
+          >
+            Registrar revisión
+          </button>
+        </form>
+
+        <form
+          className="adaptativo-section adaptativo-rating-panel"
+          onSubmit={enviarCalificacionDocente}
+        >
+         <div className="adaptativo-section-title">
+            <h3>Calificar el resultado generado con AI</h3>
+            <p>Valora la calidad del diagnóstico, la ruta y la evaluación entregada al estudiante.</p>
+          </div>
+          <div className="adaptativo-rating-stars">
+            {[1, 2, 3, 4, 5].map((valor) => (
+              <button
+                key={valor}
+                type="button"
+                className={valoracionDocenteIA >= valor ? 'active' : ''}
+                onClick={() => setValoracionDocenteIA(valor)}
+              >
+                {valor}
+              </button>
+            ))}
+          </div>
+          {asignacionSeleccionada.calificacionDocenteIA ? (
+            <p className="adaptativo-rating-note">
+              Calificación registrada: {asignacionSeleccionada.calificacionDocenteIA}/5
+            </p>
+          ) : null}
           <label className="adaptativo-field full">
-            <span>Observaciones</span>
+            <span>Comentario opcional</span>
             <textarea
-              rows={4}
-              value={revision.observaciones}
-              onChange={(event) =>
-                setRevision((prev) => ({
-                  ...prev,
-                  observaciones: event.target.value,
-                }))
-              }
+              rows={3}
+              value={comentarioDocenteIA}
+              onChange={(event) => setComentarioDocenteIA(event.target.value)}
+              maxLength={1000}
             />
           </label>
-        </div>
-        <button
-          className="primary-button"
-          type="submit"
-          disabled={Boolean(procesando)}
-        >
-          Registrar revisión
-        </button>
-      </form>
+          <button
+            className="primary-button adaptativo-rating-submit"
+            type="submit"
+            disabled={procesando === 'calificacion-docente'}
+          >
+            Guardar valoración
+          </button>
+        </form>
+      </>
     );
   }
 

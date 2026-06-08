@@ -127,6 +127,11 @@ export function Login() {
 
             {error ? <div className="login-error">{error}</div> : null}
           </form>
+
+          <div className="login-links">
+            <span>¿Eres superadministrador?</span>
+            <Link to="/superadmin/login">Ingresar al acceso global</Link>
+          </div>
           
         </div>
       </section>

@@ -143,10 +143,10 @@ export function RutasAprendizajeAdmin() {
       <header className="adaptativo-header">
         <div>
           <span className="section-label">Administración</span>
-          <h1>Rutas de aprendizaje</h1>
+          <h1>Rutas de aprendizaje globales</h1>
           <p>
-            Administra los perfiles y estrategias que usa la IA para construir
-            rutas adaptativas en la plataforma.
+            Administra los perfiles y estrategias globales que usa la IA para
+            construir rutas adaptativas en la plataforma.
           </p>
         </div>
       </header>

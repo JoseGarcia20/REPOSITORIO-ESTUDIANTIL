@@ -12,6 +12,7 @@ import {
   PERMISOS,
   usuarioTienePermiso,
 } from '../../api/adminApi';
+import { CalificacionIa } from '../../componentes/ia/calificacionIa';
 import type {
   GradoEscolar,
   Recurso,
@@ -952,6 +953,28 @@ export function GestorRecursos() {
                           <span>Guardado previamente</span>
                         )}
                       </div>
+                    )}
+                    {resumenesIa[recursoResumenIa.id].proveedor !==
+                      'generando' && (
+                      <CalificacionIa
+                        key={`${recursoResumenIa.id}-${resumenesIa[recursoResumenIa.id].generadoEn}`}
+                        titulo="¿Cómo calificas la generación de este resumen con AI?"
+                        descripcion="Valora si el resumen fue claro, útil y fiel al documento."
+                        modulo="recursos"
+                        funcionalidad="resumen_ia_recurso"
+                        entidadTipo="recurso"
+                        entidadId={recursoResumenIa.id}
+                        metadata={{
+                          titulo: recursoResumenIa.titulo,
+                          proveedor:
+                            resumenesIa[recursoResumenIa.id].proveedor,
+                          modelo: resumenesIa[recursoResumenIa.id].modelo,
+                          desdeCache:
+                            resumenesIa[recursoResumenIa.id].desdeCache,
+                          extension:
+                            resumenesIa[recursoResumenIa.id].extension,
+                        }}
+                      />
                     )}
                   </>
                 )}

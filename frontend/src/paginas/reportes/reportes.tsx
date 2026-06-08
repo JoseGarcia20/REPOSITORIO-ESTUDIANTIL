@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import type { ChangeEvent, FormEvent } from 'react';
 import {
   API_URL,
+  descargarExcelReporte,
   esSuperadministrador,
   generarReporte,
   obtenerCatalogosReportes,
@@ -46,6 +47,13 @@ const reportesDisponibles: ReporteDisponible[] = [
       'Ranking por uso registrado en foros, aula colaborativa, rutas y calificaciones.',
     campos: ['categoria', 'grado', 'moduloUso', 'limite'],
   },
+  {
+    id: 'calificaciones-ia',
+    titulo: 'Calificaciones de funciones AI',
+    descripcion:
+      'Valoraciones registradas sobre resúmenes, materiales, respuestas y rutas generadas con AI.',
+    campos: ['moduloIa'],
+  },
 ];
 
 const estadosProyecto = [
@@ -65,6 +73,14 @@ const modulosUso = [
   { valor: 'calificaciones', etiqueta: 'Calificaciones' },
 ];
 
+const modulosIa = [
+  { valor: 'todos', etiqueta: 'Todos los escenarios AI' },
+  { valor: 'recursos', etiqueta: 'Resumen AI de recursos' },
+  { valor: 'preparador_ia', etiqueta: 'Preparador IA de clases' },
+  { valor: 'asistente', etiqueta: 'Buscador inteligente' },
+  { valor: 'aprendizaje_adaptativo', etiqueta: 'Aprendizaje adaptativo' },
+];
+
 function fechaInput(fecha: Date) {
   const local = new Date(fecha.getTime() - fecha.getTimezoneOffset() * 60000);
   return local.toISOString().slice(0, 10);
@@ -79,6 +95,7 @@ function crearFormularioInicial(): PayloadReporte {
     fechaInicio: fechaInput(inicio),
     fechaFin: fechaInput(hoy),
     moduloUso: 'todos',
+    moduloIa: 'todos',
     limite: '10',
   };
 }
@@ -103,7 +120,10 @@ export function Reportes() {
     crearFormularioInicial,
   );
   const [reporte, setReporte] = useState<ReporteGenerado | null>(null);
+  const [parametrosReporte, setParametrosReporte] =
+    useState<PayloadReporte | null>(null);
   const [cargando, setCargando] = useState(false);
+  const [descargandoExcel, setDescargandoExcel] = useState(false);
   const [cargandoCatalogos, setCargandoCatalogos] = useState(true);
   const [error, setError] = useState('');
 
@@ -136,9 +156,12 @@ export function Reportes() {
       tipo,
       estadoProyecto: '',
       moduloUso: tipo === 'recursos-uso' ? prev.moduloUso || 'todos' : 'todos',
+      moduloIa:
+        tipo === 'calificaciones-ia' ? prev.moduloIa || 'todos' : 'todos',
       limite: tipo === 'recursos-uso' ? prev.limite || '10' : '10',
     }));
     setReporte(null);
+    setParametrosReporte(null);
   }
 
   function manejarCampo(
@@ -157,8 +180,10 @@ export function Reportes() {
     try {
       setCargando(true);
       setError('');
-      const resultado = await generarReporte(formulario);
+      const parametros = { ...formulario };
+      const resultado = await generarReporte(parametros);
       setReporte(resultado);
+      setParametrosReporte(parametros);
     } catch (errorGeneracion) {
       setReporte(null);
       setError(
@@ -173,6 +198,22 @@ export function Reportes() {
 
   function imprimirReporte() {
     window.print();
+  }
+
+  async function descargarExcel() {
+    try {
+      setDescargandoExcel(true);
+      setError('');
+      await descargarExcelReporte(parametrosReporte || formulario);
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : 'No se pudo descargar el reporte en Excel.',
+      );
+    } finally {
+      setDescargandoExcel(false);
+    }
   }
 
   function renderLogoInstitucion(reporteGenerado: ReporteGenerado) {
@@ -361,6 +402,23 @@ export function Reportes() {
               </label>
             )}
 
+            {reporteSeleccionado.campos.includes('moduloIa') && (
+              <label>
+                Escenario AI
+                <select
+                  name="moduloIa"
+                  value={formulario.moduloIa || 'todos'}
+                  onChange={manejarCampo}
+                >
+                  {modulosIa.map((modulo) => (
+                    <option key={modulo.valor} value={modulo.valor}>
+                      {modulo.etiqueta}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            )}
+
             {reporteSeleccionado.campos.includes('limite') && (
               <label>
                 Cantidad de registros
@@ -401,6 +459,13 @@ export function Reportes() {
           <div className="report-document-actions no-print">
             <button className="secondary-button" onClick={imprimirReporte}>
               Imprimir / Guardar PDF
+            </button>
+            <button
+              className="secondary-button"
+              onClick={descargarExcel}
+              disabled={descargandoExcel}
+            >
+              {descargandoExcel ? 'Descargando...' : 'Descargar Excel'}
             </button>
           </div>
 

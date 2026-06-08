@@ -12,6 +12,7 @@ import {
   obtenerRecursosRepositorio,
   obtenerUsuarioAutenticado,
 } from '../../api/adminApi';
+import { CalificacionIa } from '../../componentes/ia/calificacionIa';
 import type {
   CatalogosPreparadorIa,
   ExtensionMaterialIa,
@@ -1058,6 +1059,26 @@ export function PreparadorIa() {
                   </button>
                 </div>
               </div>
+
+              <CalificacionIa
+                key={material.generadoEn}
+                titulo="¿Cómo calificas la generación de este material con AI?"
+                descripcion="Valora si la clase, taller o evaluación quedó útil para el objetivo académico."
+                modulo="preparador_ia"
+                funcionalidad="generacion_material"
+                entidadTipo="material_preparador_ia"
+                metadata={{
+                  titulo: material.titulo,
+                  tema: material.tema,
+                  tipoMaterial: material.tipoMaterial,
+                  extension: material.extension,
+                  modelo: material.modelo,
+                  generadoEn: material.generadoEn,
+                  origenContenido: formulario.origenContenido,
+                  recursoFuenteId: formulario.recursoFuenteId || null,
+                  fuentes: material.fuentes.length,
+                }}
+              />
 
               <div className="ai-document">
                 <label className="ai-document-title">

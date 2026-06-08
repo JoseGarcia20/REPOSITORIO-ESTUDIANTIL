@@ -295,6 +295,7 @@ export type InstitucionWhereInput = {
   proyectosColaborativos?: Prisma.ProyectoColaborativoListRelationFilter
   aprendizajeAdaptativo?: Prisma.AsignacionAprendizajeAdaptativoListRelationFilter
   auditoriaLogs?: Prisma.AuditoriaLogListRelationFilter
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaListRelationFilter
 }
 
 export type InstitucionOrderByWithRelationInput = {
@@ -319,6 +320,7 @@ export type InstitucionOrderByWithRelationInput = {
   proyectosColaborativos?: Prisma.ProyectoColaborativoOrderByRelationAggregateInput
   aprendizajeAdaptativo?: Prisma.AsignacionAprendizajeAdaptativoOrderByRelationAggregateInput
   auditoriaLogs?: Prisma.AuditoriaLogOrderByRelationAggregateInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaOrderByRelationAggregateInput
 }
 
 export type InstitucionWhereUniqueInput = Prisma.AtLeast<{
@@ -346,6 +348,7 @@ export type InstitucionWhereUniqueInput = Prisma.AtLeast<{
   proyectosColaborativos?: Prisma.ProyectoColaborativoListRelationFilter
   aprendizajeAdaptativo?: Prisma.AsignacionAprendizajeAdaptativoListRelationFilter
   auditoriaLogs?: Prisma.AuditoriaLogListRelationFilter
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaListRelationFilter
 }, "id" | "codigo" | "nit">
 
 export type InstitucionOrderByWithAggregationInput = {
@@ -411,6 +414,7 @@ export type InstitucionCreateInput = {
   proyectosColaborativos?: Prisma.ProyectoColaborativoCreateNestedManyWithoutInstitucionInput
   aprendizajeAdaptativo?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutInstitucionInput
   auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutInstitucionInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutInstitucionInput
 }
 
 export type InstitucionUncheckedCreateInput = {
@@ -435,6 +439,7 @@ export type InstitucionUncheckedCreateInput = {
   proyectosColaborativos?: Prisma.ProyectoColaborativoUncheckedCreateNestedManyWithoutInstitucionInput
   aprendizajeAdaptativo?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutInstitucionInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutInstitucionInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutInstitucionInput
 }
 
 export type InstitucionUpdateInput = {
@@ -458,6 +463,7 @@ export type InstitucionUpdateInput = {
   proyectosColaborativos?: Prisma.ProyectoColaborativoUpdateManyWithoutInstitucionNestedInput
   aprendizajeAdaptativo?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutInstitucionNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutInstitucionNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutInstitucionNestedInput
 }
 
 export type InstitucionUncheckedUpdateInput = {
@@ -482,6 +488,7 @@ export type InstitucionUncheckedUpdateInput = {
   proyectosColaborativos?: Prisma.ProyectoColaborativoUncheckedUpdateManyWithoutInstitucionNestedInput
   aprendizajeAdaptativo?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutInstitucionNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutInstitucionNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutInstitucionNestedInput
 }
 
 export type InstitucionCreateManyInput = {
@@ -683,6 +690,22 @@ export type InstitucionUpdateOneRequiredWithoutRecursosNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.InstitucionUpdateToOneWithWhereWithoutRecursosInput, Prisma.InstitucionUpdateWithoutRecursosInput>, Prisma.InstitucionUncheckedUpdateWithoutRecursosInput>
 }
 
+export type InstitucionCreateNestedOneWithoutCalificacionesUsoIaInput = {
+  create?: Prisma.XOR<Prisma.InstitucionCreateWithoutCalificacionesUsoIaInput, Prisma.InstitucionUncheckedCreateWithoutCalificacionesUsoIaInput>
+  connectOrCreate?: Prisma.InstitucionCreateOrConnectWithoutCalificacionesUsoIaInput
+  connect?: Prisma.InstitucionWhereUniqueInput
+}
+
+export type InstitucionUpdateOneWithoutCalificacionesUsoIaNestedInput = {
+  create?: Prisma.XOR<Prisma.InstitucionCreateWithoutCalificacionesUsoIaInput, Prisma.InstitucionUncheckedCreateWithoutCalificacionesUsoIaInput>
+  connectOrCreate?: Prisma.InstitucionCreateOrConnectWithoutCalificacionesUsoIaInput
+  upsert?: Prisma.InstitucionUpsertWithoutCalificacionesUsoIaInput
+  disconnect?: Prisma.InstitucionWhereInput | boolean
+  delete?: Prisma.InstitucionWhereInput | boolean
+  connect?: Prisma.InstitucionWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.InstitucionUpdateToOneWithWhereWithoutCalificacionesUsoIaInput, Prisma.InstitucionUpdateWithoutCalificacionesUsoIaInput>, Prisma.InstitucionUncheckedUpdateWithoutCalificacionesUsoIaInput>
+}
+
 export type InstitucionCreateNestedOneWithoutProyectosColaborativosInput = {
   create?: Prisma.XOR<Prisma.InstitucionCreateWithoutProyectosColaborativosInput, Prisma.InstitucionUncheckedCreateWithoutProyectosColaborativosInput>
   connectOrCreate?: Prisma.InstitucionCreateOrConnectWithoutProyectosColaborativosInput
@@ -747,6 +770,7 @@ export type InstitucionCreateWithoutUsuariosInput = {
   proyectosColaborativos?: Prisma.ProyectoColaborativoCreateNestedManyWithoutInstitucionInput
   aprendizajeAdaptativo?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutInstitucionInput
   auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutInstitucionInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutInstitucionInput
 }
 
 export type InstitucionUncheckedCreateWithoutUsuariosInput = {
@@ -770,6 +794,7 @@ export type InstitucionUncheckedCreateWithoutUsuariosInput = {
   proyectosColaborativos?: Prisma.ProyectoColaborativoUncheckedCreateNestedManyWithoutInstitucionInput
   aprendizajeAdaptativo?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutInstitucionInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutInstitucionInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutInstitucionInput
 }
 
 export type InstitucionCreateOrConnectWithoutUsuariosInput = {
@@ -808,6 +833,7 @@ export type InstitucionUpdateWithoutUsuariosInput = {
   proyectosColaborativos?: Prisma.ProyectoColaborativoUpdateManyWithoutInstitucionNestedInput
   aprendizajeAdaptativo?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutInstitucionNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutInstitucionNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutInstitucionNestedInput
 }
 
 export type InstitucionUncheckedUpdateWithoutUsuariosInput = {
@@ -831,6 +857,7 @@ export type InstitucionUncheckedUpdateWithoutUsuariosInput = {
   proyectosColaborativos?: Prisma.ProyectoColaborativoUncheckedUpdateManyWithoutInstitucionNestedInput
   aprendizajeAdaptativo?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutInstitucionNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutInstitucionNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutInstitucionNestedInput
 }
 
 export type InstitucionCreateWithoutCategoriasInput = {
@@ -853,6 +880,7 @@ export type InstitucionCreateWithoutCategoriasInput = {
   proyectosColaborativos?: Prisma.ProyectoColaborativoCreateNestedManyWithoutInstitucionInput
   aprendizajeAdaptativo?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutInstitucionInput
   auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutInstitucionInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutInstitucionInput
 }
 
 export type InstitucionUncheckedCreateWithoutCategoriasInput = {
@@ -876,6 +904,7 @@ export type InstitucionUncheckedCreateWithoutCategoriasInput = {
   proyectosColaborativos?: Prisma.ProyectoColaborativoUncheckedCreateNestedManyWithoutInstitucionInput
   aprendizajeAdaptativo?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutInstitucionInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutInstitucionInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutInstitucionInput
 }
 
 export type InstitucionCreateOrConnectWithoutCategoriasInput = {
@@ -914,6 +943,7 @@ export type InstitucionUpdateWithoutCategoriasInput = {
   proyectosColaborativos?: Prisma.ProyectoColaborativoUpdateManyWithoutInstitucionNestedInput
   aprendizajeAdaptativo?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutInstitucionNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutInstitucionNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutInstitucionNestedInput
 }
 
 export type InstitucionUncheckedUpdateWithoutCategoriasInput = {
@@ -937,6 +967,7 @@ export type InstitucionUncheckedUpdateWithoutCategoriasInput = {
   proyectosColaborativos?: Prisma.ProyectoColaborativoUncheckedUpdateManyWithoutInstitucionNestedInput
   aprendizajeAdaptativo?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutInstitucionNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutInstitucionNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutInstitucionNestedInput
 }
 
 export type InstitucionCreateWithoutForosInput = {
@@ -959,6 +990,7 @@ export type InstitucionCreateWithoutForosInput = {
   proyectosColaborativos?: Prisma.ProyectoColaborativoCreateNestedManyWithoutInstitucionInput
   aprendizajeAdaptativo?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutInstitucionInput
   auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutInstitucionInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutInstitucionInput
 }
 
 export type InstitucionUncheckedCreateWithoutForosInput = {
@@ -982,6 +1014,7 @@ export type InstitucionUncheckedCreateWithoutForosInput = {
   proyectosColaborativos?: Prisma.ProyectoColaborativoUncheckedCreateNestedManyWithoutInstitucionInput
   aprendizajeAdaptativo?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutInstitucionInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutInstitucionInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutInstitucionInput
 }
 
 export type InstitucionCreateOrConnectWithoutForosInput = {
@@ -1020,6 +1053,7 @@ export type InstitucionUpdateWithoutForosInput = {
   proyectosColaborativos?: Prisma.ProyectoColaborativoUpdateManyWithoutInstitucionNestedInput
   aprendizajeAdaptativo?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutInstitucionNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutInstitucionNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutInstitucionNestedInput
 }
 
 export type InstitucionUncheckedUpdateWithoutForosInput = {
@@ -1043,6 +1077,7 @@ export type InstitucionUncheckedUpdateWithoutForosInput = {
   proyectosColaborativos?: Prisma.ProyectoColaborativoUncheckedUpdateManyWithoutInstitucionNestedInput
   aprendizajeAdaptativo?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutInstitucionNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutInstitucionNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutInstitucionNestedInput
 }
 
 export type InstitucionCreateWithoutRecursosInput = {
@@ -1065,6 +1100,7 @@ export type InstitucionCreateWithoutRecursosInput = {
   proyectosColaborativos?: Prisma.ProyectoColaborativoCreateNestedManyWithoutInstitucionInput
   aprendizajeAdaptativo?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutInstitucionInput
   auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutInstitucionInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutInstitucionInput
 }
 
 export type InstitucionUncheckedCreateWithoutRecursosInput = {
@@ -1088,6 +1124,7 @@ export type InstitucionUncheckedCreateWithoutRecursosInput = {
   proyectosColaborativos?: Prisma.ProyectoColaborativoUncheckedCreateNestedManyWithoutInstitucionInput
   aprendizajeAdaptativo?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutInstitucionInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutInstitucionInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutInstitucionInput
 }
 
 export type InstitucionCreateOrConnectWithoutRecursosInput = {
@@ -1126,6 +1163,7 @@ export type InstitucionUpdateWithoutRecursosInput = {
   proyectosColaborativos?: Prisma.ProyectoColaborativoUpdateManyWithoutInstitucionNestedInput
   aprendizajeAdaptativo?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutInstitucionNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutInstitucionNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutInstitucionNestedInput
 }
 
 export type InstitucionUncheckedUpdateWithoutRecursosInput = {
@@ -1146,6 +1184,117 @@ export type InstitucionUncheckedUpdateWithoutRecursosInput = {
   usuarios?: Prisma.UsuarioUncheckedUpdateManyWithoutInstitucionNestedInput
   categorias?: Prisma.CategoriaUncheckedUpdateManyWithoutInstitucionNestedInput
   foros?: Prisma.ForoUncheckedUpdateManyWithoutInstitucionNestedInput
+  proyectosColaborativos?: Prisma.ProyectoColaborativoUncheckedUpdateManyWithoutInstitucionNestedInput
+  aprendizajeAdaptativo?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutInstitucionNestedInput
+  auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutInstitucionNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutInstitucionNestedInput
+}
+
+export type InstitucionCreateWithoutCalificacionesUsoIaInput = {
+  nombre: string
+  codigo: string
+  nit: string
+  correo: string
+  telefono: string
+  direccion: string
+  ciudad: string
+  departamento: string
+  sitioWeb?: string | null
+  logo?: string | null
+  estado?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  usuarios?: Prisma.UsuarioCreateNestedManyWithoutInstitucionInput
+  categorias?: Prisma.CategoriaCreateNestedManyWithoutInstitucionInput
+  foros?: Prisma.ForoCreateNestedManyWithoutInstitucionInput
+  recursos?: Prisma.RecursoCreateNestedManyWithoutInstitucionInput
+  proyectosColaborativos?: Prisma.ProyectoColaborativoCreateNestedManyWithoutInstitucionInput
+  aprendizajeAdaptativo?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutInstitucionInput
+  auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutInstitucionInput
+}
+
+export type InstitucionUncheckedCreateWithoutCalificacionesUsoIaInput = {
+  id?: number
+  nombre: string
+  codigo: string
+  nit: string
+  correo: string
+  telefono: string
+  direccion: string
+  ciudad: string
+  departamento: string
+  sitioWeb?: string | null
+  logo?: string | null
+  estado?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  usuarios?: Prisma.UsuarioUncheckedCreateNestedManyWithoutInstitucionInput
+  categorias?: Prisma.CategoriaUncheckedCreateNestedManyWithoutInstitucionInput
+  foros?: Prisma.ForoUncheckedCreateNestedManyWithoutInstitucionInput
+  recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutInstitucionInput
+  proyectosColaborativos?: Prisma.ProyectoColaborativoUncheckedCreateNestedManyWithoutInstitucionInput
+  aprendizajeAdaptativo?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutInstitucionInput
+  auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutInstitucionInput
+}
+
+export type InstitucionCreateOrConnectWithoutCalificacionesUsoIaInput = {
+  where: Prisma.InstitucionWhereUniqueInput
+  create: Prisma.XOR<Prisma.InstitucionCreateWithoutCalificacionesUsoIaInput, Prisma.InstitucionUncheckedCreateWithoutCalificacionesUsoIaInput>
+}
+
+export type InstitucionUpsertWithoutCalificacionesUsoIaInput = {
+  update: Prisma.XOR<Prisma.InstitucionUpdateWithoutCalificacionesUsoIaInput, Prisma.InstitucionUncheckedUpdateWithoutCalificacionesUsoIaInput>
+  create: Prisma.XOR<Prisma.InstitucionCreateWithoutCalificacionesUsoIaInput, Prisma.InstitucionUncheckedCreateWithoutCalificacionesUsoIaInput>
+  where?: Prisma.InstitucionWhereInput
+}
+
+export type InstitucionUpdateToOneWithWhereWithoutCalificacionesUsoIaInput = {
+  where?: Prisma.InstitucionWhereInput
+  data: Prisma.XOR<Prisma.InstitucionUpdateWithoutCalificacionesUsoIaInput, Prisma.InstitucionUncheckedUpdateWithoutCalificacionesUsoIaInput>
+}
+
+export type InstitucionUpdateWithoutCalificacionesUsoIaInput = {
+  nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  codigo?: Prisma.StringFieldUpdateOperationsInput | string
+  nit?: Prisma.StringFieldUpdateOperationsInput | string
+  correo?: Prisma.StringFieldUpdateOperationsInput | string
+  telefono?: Prisma.StringFieldUpdateOperationsInput | string
+  direccion?: Prisma.StringFieldUpdateOperationsInput | string
+  ciudad?: Prisma.StringFieldUpdateOperationsInput | string
+  departamento?: Prisma.StringFieldUpdateOperationsInput | string
+  sitioWeb?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  usuarios?: Prisma.UsuarioUpdateManyWithoutInstitucionNestedInput
+  categorias?: Prisma.CategoriaUpdateManyWithoutInstitucionNestedInput
+  foros?: Prisma.ForoUpdateManyWithoutInstitucionNestedInput
+  recursos?: Prisma.RecursoUpdateManyWithoutInstitucionNestedInput
+  proyectosColaborativos?: Prisma.ProyectoColaborativoUpdateManyWithoutInstitucionNestedInput
+  aprendizajeAdaptativo?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutInstitucionNestedInput
+  auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutInstitucionNestedInput
+}
+
+export type InstitucionUncheckedUpdateWithoutCalificacionesUsoIaInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  codigo?: Prisma.StringFieldUpdateOperationsInput | string
+  nit?: Prisma.StringFieldUpdateOperationsInput | string
+  correo?: Prisma.StringFieldUpdateOperationsInput | string
+  telefono?: Prisma.StringFieldUpdateOperationsInput | string
+  direccion?: Prisma.StringFieldUpdateOperationsInput | string
+  ciudad?: Prisma.StringFieldUpdateOperationsInput | string
+  departamento?: Prisma.StringFieldUpdateOperationsInput | string
+  sitioWeb?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  usuarios?: Prisma.UsuarioUncheckedUpdateManyWithoutInstitucionNestedInput
+  categorias?: Prisma.CategoriaUncheckedUpdateManyWithoutInstitucionNestedInput
+  foros?: Prisma.ForoUncheckedUpdateManyWithoutInstitucionNestedInput
+  recursos?: Prisma.RecursoUncheckedUpdateManyWithoutInstitucionNestedInput
   proyectosColaborativos?: Prisma.ProyectoColaborativoUncheckedUpdateManyWithoutInstitucionNestedInput
   aprendizajeAdaptativo?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutInstitucionNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutInstitucionNestedInput
@@ -1171,6 +1320,7 @@ export type InstitucionCreateWithoutProyectosColaborativosInput = {
   recursos?: Prisma.RecursoCreateNestedManyWithoutInstitucionInput
   aprendizajeAdaptativo?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutInstitucionInput
   auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutInstitucionInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutInstitucionInput
 }
 
 export type InstitucionUncheckedCreateWithoutProyectosColaborativosInput = {
@@ -1194,6 +1344,7 @@ export type InstitucionUncheckedCreateWithoutProyectosColaborativosInput = {
   recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutInstitucionInput
   aprendizajeAdaptativo?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutInstitucionInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutInstitucionInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutInstitucionInput
 }
 
 export type InstitucionCreateOrConnectWithoutProyectosColaborativosInput = {
@@ -1232,6 +1383,7 @@ export type InstitucionUpdateWithoutProyectosColaborativosInput = {
   recursos?: Prisma.RecursoUpdateManyWithoutInstitucionNestedInput
   aprendizajeAdaptativo?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutInstitucionNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutInstitucionNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutInstitucionNestedInput
 }
 
 export type InstitucionUncheckedUpdateWithoutProyectosColaborativosInput = {
@@ -1255,6 +1407,7 @@ export type InstitucionUncheckedUpdateWithoutProyectosColaborativosInput = {
   recursos?: Prisma.RecursoUncheckedUpdateManyWithoutInstitucionNestedInput
   aprendizajeAdaptativo?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutInstitucionNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutInstitucionNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutInstitucionNestedInput
 }
 
 export type InstitucionCreateWithoutAuditoriaLogsInput = {
@@ -1277,6 +1430,7 @@ export type InstitucionCreateWithoutAuditoriaLogsInput = {
   recursos?: Prisma.RecursoCreateNestedManyWithoutInstitucionInput
   proyectosColaborativos?: Prisma.ProyectoColaborativoCreateNestedManyWithoutInstitucionInput
   aprendizajeAdaptativo?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutInstitucionInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutInstitucionInput
 }
 
 export type InstitucionUncheckedCreateWithoutAuditoriaLogsInput = {
@@ -1300,6 +1454,7 @@ export type InstitucionUncheckedCreateWithoutAuditoriaLogsInput = {
   recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutInstitucionInput
   proyectosColaborativos?: Prisma.ProyectoColaborativoUncheckedCreateNestedManyWithoutInstitucionInput
   aprendizajeAdaptativo?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutInstitucionInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutInstitucionInput
 }
 
 export type InstitucionCreateOrConnectWithoutAuditoriaLogsInput = {
@@ -1338,6 +1493,7 @@ export type InstitucionUpdateWithoutAuditoriaLogsInput = {
   recursos?: Prisma.RecursoUpdateManyWithoutInstitucionNestedInput
   proyectosColaborativos?: Prisma.ProyectoColaborativoUpdateManyWithoutInstitucionNestedInput
   aprendizajeAdaptativo?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutInstitucionNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutInstitucionNestedInput
 }
 
 export type InstitucionUncheckedUpdateWithoutAuditoriaLogsInput = {
@@ -1361,6 +1517,7 @@ export type InstitucionUncheckedUpdateWithoutAuditoriaLogsInput = {
   recursos?: Prisma.RecursoUncheckedUpdateManyWithoutInstitucionNestedInput
   proyectosColaborativos?: Prisma.ProyectoColaborativoUncheckedUpdateManyWithoutInstitucionNestedInput
   aprendizajeAdaptativo?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutInstitucionNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutInstitucionNestedInput
 }
 
 export type InstitucionCreateWithoutAprendizajeAdaptativoInput = {
@@ -1383,6 +1540,7 @@ export type InstitucionCreateWithoutAprendizajeAdaptativoInput = {
   recursos?: Prisma.RecursoCreateNestedManyWithoutInstitucionInput
   proyectosColaborativos?: Prisma.ProyectoColaborativoCreateNestedManyWithoutInstitucionInput
   auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutInstitucionInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutInstitucionInput
 }
 
 export type InstitucionUncheckedCreateWithoutAprendizajeAdaptativoInput = {
@@ -1406,6 +1564,7 @@ export type InstitucionUncheckedCreateWithoutAprendizajeAdaptativoInput = {
   recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutInstitucionInput
   proyectosColaborativos?: Prisma.ProyectoColaborativoUncheckedCreateNestedManyWithoutInstitucionInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutInstitucionInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutInstitucionInput
 }
 
 export type InstitucionCreateOrConnectWithoutAprendizajeAdaptativoInput = {
@@ -1444,6 +1603,7 @@ export type InstitucionUpdateWithoutAprendizajeAdaptativoInput = {
   recursos?: Prisma.RecursoUpdateManyWithoutInstitucionNestedInput
   proyectosColaborativos?: Prisma.ProyectoColaborativoUpdateManyWithoutInstitucionNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutInstitucionNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutInstitucionNestedInput
 }
 
 export type InstitucionUncheckedUpdateWithoutAprendizajeAdaptativoInput = {
@@ -1467,6 +1627,7 @@ export type InstitucionUncheckedUpdateWithoutAprendizajeAdaptativoInput = {
   recursos?: Prisma.RecursoUncheckedUpdateManyWithoutInstitucionNestedInput
   proyectosColaborativos?: Prisma.ProyectoColaborativoUncheckedUpdateManyWithoutInstitucionNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutInstitucionNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutInstitucionNestedInput
 }
 
 
@@ -1482,6 +1643,7 @@ export type InstitucionCountOutputType = {
   proyectosColaborativos: number
   aprendizajeAdaptativo: number
   auditoriaLogs: number
+  calificacionesUsoIa: number
 }
 
 export type InstitucionCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1492,6 +1654,7 @@ export type InstitucionCountOutputTypeSelect<ExtArgs extends runtime.Types.Exten
   proyectosColaborativos?: boolean | InstitucionCountOutputTypeCountProyectosColaborativosArgs
   aprendizajeAdaptativo?: boolean | InstitucionCountOutputTypeCountAprendizajeAdaptativoArgs
   auditoriaLogs?: boolean | InstitucionCountOutputTypeCountAuditoriaLogsArgs
+  calificacionesUsoIa?: boolean | InstitucionCountOutputTypeCountCalificacionesUsoIaArgs
 }
 
 /**
@@ -1553,6 +1716,13 @@ export type InstitucionCountOutputTypeCountAuditoriaLogsArgs<ExtArgs extends run
   where?: Prisma.AuditoriaLogWhereInput
 }
 
+/**
+ * InstitucionCountOutputType without action
+ */
+export type InstitucionCountOutputTypeCountCalificacionesUsoIaArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CalificacionUsoIaWhereInput
+}
+
 
 export type InstitucionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1576,6 +1746,7 @@ export type InstitucionSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   proyectosColaborativos?: boolean | Prisma.Institucion$proyectosColaborativosArgs<ExtArgs>
   aprendizajeAdaptativo?: boolean | Prisma.Institucion$aprendizajeAdaptativoArgs<ExtArgs>
   auditoriaLogs?: boolean | Prisma.Institucion$auditoriaLogsArgs<ExtArgs>
+  calificacionesUsoIa?: boolean | Prisma.Institucion$calificacionesUsoIaArgs<ExtArgs>
   _count?: boolean | Prisma.InstitucionCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["institucion"]>
 
@@ -1639,6 +1810,7 @@ export type InstitucionInclude<ExtArgs extends runtime.Types.Extensions.Internal
   proyectosColaborativos?: boolean | Prisma.Institucion$proyectosColaborativosArgs<ExtArgs>
   aprendizajeAdaptativo?: boolean | Prisma.Institucion$aprendizajeAdaptativoArgs<ExtArgs>
   auditoriaLogs?: boolean | Prisma.Institucion$auditoriaLogsArgs<ExtArgs>
+  calificacionesUsoIa?: boolean | Prisma.Institucion$calificacionesUsoIaArgs<ExtArgs>
   _count?: boolean | Prisma.InstitucionCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type InstitucionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1654,6 +1826,7 @@ export type $InstitucionPayload<ExtArgs extends runtime.Types.Extensions.Interna
     proyectosColaborativos: Prisma.$ProyectoColaborativoPayload<ExtArgs>[]
     aprendizajeAdaptativo: Prisma.$AsignacionAprendizajeAdaptativoPayload<ExtArgs>[]
     auditoriaLogs: Prisma.$AuditoriaLogPayload<ExtArgs>[]
+    calificacionesUsoIa: Prisma.$CalificacionUsoIaPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -2071,6 +2244,7 @@ export interface Prisma__InstitucionClient<T, Null = never, ExtArgs extends runt
   proyectosColaborativos<T extends Prisma.Institucion$proyectosColaborativosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Institucion$proyectosColaborativosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProyectoColaborativoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   aprendizajeAdaptativo<T extends Prisma.Institucion$aprendizajeAdaptativoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Institucion$aprendizajeAdaptativoArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AsignacionAprendizajeAdaptativoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   auditoriaLogs<T extends Prisma.Institucion$auditoriaLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Institucion$auditoriaLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AuditoriaLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  calificacionesUsoIa<T extends Prisma.Institucion$calificacionesUsoIaArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Institucion$calificacionesUsoIaArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CalificacionUsoIaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2672,6 +2846,30 @@ export type Institucion$auditoriaLogsArgs<ExtArgs extends runtime.Types.Extensio
   take?: number
   skip?: number
   distinct?: Prisma.AuditoriaLogScalarFieldEnum | Prisma.AuditoriaLogScalarFieldEnum[]
+}
+
+/**
+ * Institucion.calificacionesUsoIa
+ */
+export type Institucion$calificacionesUsoIaArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CalificacionUsoIa
+   */
+  select?: Prisma.CalificacionUsoIaSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CalificacionUsoIa
+   */
+  omit?: Prisma.CalificacionUsoIaOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CalificacionUsoIaInclude<ExtArgs> | null
+  where?: Prisma.CalificacionUsoIaWhereInput
+  orderBy?: Prisma.CalificacionUsoIaOrderByWithRelationInput | Prisma.CalificacionUsoIaOrderByWithRelationInput[]
+  cursor?: Prisma.CalificacionUsoIaWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CalificacionUsoIaScalarFieldEnum | Prisma.CalificacionUsoIaScalarFieldEnum[]
 }
 
 /**

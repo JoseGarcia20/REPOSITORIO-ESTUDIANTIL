@@ -4,6 +4,7 @@ import { PERMISOS } from '../../auth/utils/roles.util';
 import { ActualizarPasoAdaptativoDto } from '../dto/actualizar-paso-adaptativo.dto';
 import { CrearAsignacionAdaptativaDto } from '../dto/crear-asignacion-adaptativa.dto';
 import { CrearTipoAprendizajeAdaptativoDto } from '../dto/crear-tipo-aprendizaje-adaptativo.dto';
+import { CalificarIaAprendizajeAdaptativoDto } from '../dto/calificar-ia-aprendizaje-adaptativo.dto';
 import { EnviarEvaluacionAdaptativaDto } from '../dto/enviar-evaluacion-adaptativa.dto';
 import { GuardarEvaluacionAdaptativaDto } from '../dto/guardar-evaluacion-adaptativa.dto';
 import { ResponderEntrevistaAdaptativaDto } from '../dto/responder-entrevista-adaptativa.dto';
@@ -41,7 +42,7 @@ export class AprendizajeAdaptativoController {
   }
 
   @Post('tipos')
-  @RequierePermisos(PERMISOS.SISTEMA_TOTAL, PERMISOS.TIPOS_RECURSOS_VER)
+  @RequierePermisos(PERMISOS.SISTEMA_TOTAL)
   async crearTipo(
     @Body() body: CrearTipoAprendizajeAdaptativoDto,
     @Req() req: any,
@@ -53,10 +54,38 @@ export class AprendizajeAdaptativoController {
   }
 
   @Patch('tipos/:id/inactivar')
-  @RequierePermisos(PERMISOS.SISTEMA_TOTAL, PERMISOS.TIPOS_RECURSOS_VER)
+  @RequierePermisos(PERMISOS.SISTEMA_TOTAL)
   async inactivarTipo(@Param('id') id: string, @Req() req: any) {
     return await this.aprendizajeAdaptativoService.inactivarTipoAprendizaje(
       Number(id),
+      req.usuarioAuth,
+    );
+  }
+
+  @Post(':id/calificacion-estudiante')
+  @RequierePermisos(...PERMISOS_USO_APRENDIZAJE)
+  async calificarEstudiante(
+    @Param('id') id: string,
+    @Body() body: CalificarIaAprendizajeAdaptativoDto,
+    @Req() req: any,
+  ) {
+    return await this.aprendizajeAdaptativoService.calificarComoEstudiante(
+      Number(id),
+      body,
+      req.usuarioAuth,
+    );
+  }
+
+  @Post(':id/calificacion-docente')
+  @RequierePermisos(...PERMISOS_USO_APRENDIZAJE)
+  async calificarDocente(
+    @Param('id') id: string,
+    @Body() body: CalificarIaAprendizajeAdaptativoDto,
+    @Req() req: any,
+  ) {
+    return await this.aprendizajeAdaptativoService.calificarComoDocente(
+      Number(id),
+      body,
       req.usuarioAuth,
     );
   }

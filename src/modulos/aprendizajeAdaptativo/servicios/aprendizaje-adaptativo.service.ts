@@ -18,6 +18,7 @@ import {
 import { AuditoriaService } from '../../auditoria/servicios/auditoria.service';
 import { CrearAsignacionAdaptativaDto } from '../dto/crear-asignacion-adaptativa.dto';
 import { CrearTipoAprendizajeAdaptativoDto } from '../dto/crear-tipo-aprendizaje-adaptativo.dto';
+import { CalificarIaAprendizajeAdaptativoDto } from '../dto/calificar-ia-aprendizaje-adaptativo.dto';
 import { ResponderEntrevistaAdaptativaDto } from '../dto/responder-entrevista-adaptativa.dto';
 import { ActualizarPasoAdaptativoDto } from '../dto/actualizar-paso-adaptativo.dto';
 import { EnviarEvaluacionAdaptativaDto } from '../dto/enviar-evaluacion-adaptativa.dto';
@@ -110,6 +111,62 @@ export class AprendizajeAdaptativoService {
     gradoEscolar: { select: { id: true, nombre: true, codigo: true } },
   };
 
+  private async registrarAuditoria(
+    asignacion: { id: number; institucionId?: number; tema?: string },
+    usuarioAuth: any,
+    accion: string,
+    detalles: Record<string, unknown> = {},
+  ) {
+    await this.auditoriaService.registrar(
+      {
+        entidad: 'aprendizaje_adaptativo',
+        entidadId: asignacion.id,
+        accion,
+        detalles: {
+          tema: asignacion.tema,
+          ...detalles,
+        },
+        institucionId: asignacion.institucionId,
+      },
+      usuarioAuth,
+    );
+  }
+
+  private async registrarCalificacionUsoIa(
+    asignacion: {
+      id: number;
+      tema?: string;
+      estado?: string;
+      institucionId?: number;
+    },
+    usuarioAuth: any,
+    rolValoracion: 'estudiante' | 'docente',
+    data: CalificarIaAprendizajeAdaptativoDto,
+  ) {
+    await this.prisma.calificacionUsoIa
+      .create({
+        data: {
+          modulo: 'aprendizaje_adaptativo',
+          funcionalidad: `valoracion_${rolValoracion}`,
+          entidadTipo: 'asignacion_aprendizaje_adaptativo',
+          entidadId: asignacion.id,
+          calificacion: data.calificacion,
+          comentario: data.comentario?.trim() || null,
+          metadata: {
+            tema: asignacion.tema,
+            estado: asignacion.estado,
+            rolValoracion,
+          } as Prisma.InputJsonObject,
+          usuarioId: Number(usuarioAuth?.sub),
+          institucionId:
+            Number(asignacion.institucionId) ||
+            Number(usuarioAuth?.institucionId) ||
+            null,
+        },
+      })
+      .catch(() => {});
+  }
+
   async catalogos(usuarioAuth: any) {
     this.validarAccesoModulo(usuarioAuth);
     await this.garantizarCatalogosBase();
@@ -198,7 +255,7 @@ export class AprendizajeAdaptativoService {
       orderBy: { id: 'desc' },
     });
 
-    return await this.aplicarCierresAutomaticosPorTiempo(asignaciones);
+    return await this.aplicarCierresAutomaticosPorTiempo(asignaciones, usuarioAuth);
   }
 
   async crear(data: CrearAsignacionAdaptativaDto, usuarioAuth: any) {
@@ -300,7 +357,7 @@ export class AprendizajeAdaptativoService {
     data: CrearTipoAprendizajeAdaptativoDto,
     usuarioAuth: any,
   ) {
-    this.validarAdministradorTipos(usuarioAuth);
+    this.validarSuperadministradorTipos(usuarioAuth);
 
     const nombre = data.nombre.trim();
     const existente = await this.prisma.tipoAprendizaje.findFirst({
@@ -339,7 +396,7 @@ export class AprendizajeAdaptativoService {
   }
 
   async inactivarTipoAprendizaje(id: number, usuarioAuth: any) {
-    this.validarAdministradorTipos(usuarioAuth);
+    this.validarSuperadministradorTipos(usuarioAuth);
 
     const tipo = await this.prisma.tipoAprendizaje.findUnique({ where: { id } });
     if (!tipo) {
@@ -375,7 +432,7 @@ export class AprendizajeAdaptativoService {
       throw new BadRequestException('La asignación ya fue aprobada.');
     }
 
-    return await this.prisma.asignacionAprendizajeAdaptativo.update({
+    const actualizado = await this.prisma.asignacionAprendizajeAdaptativo.update({
       where: { id },
       data: {
         estado: 'entrevista',
@@ -383,6 +440,12 @@ export class AprendizajeAdaptativoService {
       },
       include: this.includeAsignacion,
     });
+
+    await this.registrarAuditoria(actualizado, usuarioAuth, 'aprobar_ruta_aprendizaje', {
+      estado: actualizado.estado,
+    });
+
+    return actualizado;
   }
 
   async responderEntrevista(
@@ -409,7 +472,7 @@ export class AprendizajeAdaptativoService {
       recursos,
     );
 
-    return await this.prisma.asignacionAprendizajeAdaptativo.update({
+    const actualizado = await this.prisma.asignacionAprendizajeAdaptativo.update({
       where: { id },
       data: {
         estado: 'ruta_generada',
@@ -426,6 +489,13 @@ export class AprendizajeAdaptativoService {
       },
       include: this.includeAsignacion,
     });
+
+    await this.registrarAuditoria(actualizado, usuarioAuth, 'responder_entrevista_aprendizaje', {
+      respuestas: data.respuestas.length,
+      estado: actualizado.estado,
+    });
+
+    return actualizado;
   }
 
   async iniciarRuta(id: number, usuarioAuth: any) {
@@ -444,7 +514,7 @@ export class AprendizajeAdaptativoService {
       this.aNumero(ruta?.pasoActual, 0) ||
       this.obtenerSiguientePasoPendiente(ruta.pasos || []);
 
-    return await this.prisma.asignacionAprendizajeAdaptativo.update({
+    const actualizado = await this.prisma.asignacionAprendizajeAdaptativo.update({
       where: { id },
       data: {
         estado: 'en_curso',
@@ -458,6 +528,13 @@ export class AprendizajeAdaptativoService {
       },
       include: this.includeAsignacion,
     });
+
+    await this.registrarAuditoria(actualizado, usuarioAuth, 'iniciar_ruta_aprendizaje', {
+      pasoActual,
+      totalPasos: Array.isArray(ruta.pasos) ? ruta.pasos.length : 0,
+    });
+
+    return actualizado;
   }
 
   async regenerarRuta(id: number, usuarioAuth: any) {
@@ -481,7 +558,7 @@ export class AprendizajeAdaptativoService {
       recursos,
     );
 
-    return await this.prisma.asignacionAprendizajeAdaptativo.update({
+    const actualizado = await this.prisma.asignacionAprendizajeAdaptativo.update({
       where: { id },
       data: {
         estado: 'ruta_generada',
@@ -496,6 +573,12 @@ export class AprendizajeAdaptativoService {
       },
       include: this.includeAsignacion,
     });
+
+    await this.registrarAuditoria(actualizado, usuarioAuth, 'regenerar_ruta_aprendizaje', {
+      estado: actualizado.estado,
+    });
+
+    return actualizado;
   }
 
   async actualizarPaso(
@@ -534,7 +617,7 @@ export class AprendizajeAdaptativoService {
             )
           : Math.max(0, Math.min(indice, pasos.length - 1));
 
-    return await this.prisma.asignacionAprendizajeAdaptativo.update({
+    const actualizado = await this.prisma.asignacionAprendizajeAdaptativo.update({
       where: { id },
       data: {
         ruta: {
@@ -549,6 +632,19 @@ export class AprendizajeAdaptativoService {
       },
       include: this.includeAsignacion,
     });
+
+    if (todosCompletos) {
+      await this.registrarAuditoria(actualizado, usuarioAuth, 'completar_ruta_aprendizaje', {
+        totalPasos: pasos.length,
+      });
+    } else {
+      await this.registrarAuditoria(actualizado, usuarioAuth, 'avanzar_paso_aprendizaje', {
+        pasoActual: pasoActualCalculado,
+        pasoIndice: indice,
+      });
+    }
+
+    return actualizado;
   }
 
   async enviarEvaluacion(
@@ -566,7 +662,7 @@ export class AprendizajeAdaptativoService {
         respuestas: Array.isArray(asignacion.respuestasEvaluacion)
           ? asignacion.respuestasEvaluacion
           : data.respuestas,
-      });
+      }, usuarioAuth);
     }
 
     if (!evaluacion.iniciadaEn) {
@@ -578,7 +674,7 @@ export class AprendizajeAdaptativoService {
     return await this.finalizarEvaluacion(asignacion, {
       motivo: 'entrega',
       respuestas: data.respuestas,
-    });
+    }, usuarioAuth);
   }
 
   async iniciarEvaluacion(id: number, usuarioAuth: any) {
@@ -606,7 +702,7 @@ export class AprendizajeAdaptativoService {
         respuestas: Array.isArray(asignacion.respuestasEvaluacion)
           ? asignacion.respuestasEvaluacion
           : [],
-      });
+      }, usuarioAuth);
     }
 
     if (evaluacion.iniciadaEn) {
@@ -625,7 +721,7 @@ export class AprendizajeAdaptativoService {
       tiempoMaximoMinutos: 30,
     };
 
-    return await this.prisma.asignacionAprendizajeAdaptativo.update({
+    const actualizado = await this.prisma.asignacionAprendizajeAdaptativo.update({
       where: { id },
       data: {
         estado: 'evaluacion',
@@ -633,6 +729,12 @@ export class AprendizajeAdaptativoService {
       },
       include: this.includeAsignacion,
     });
+
+    await this.registrarAuditoria(actualizado, usuarioAuth, 'iniciar_evaluacion_aprendizaje', {
+      tiempoMaximoMinutos: 30,
+    });
+
+    return actualizado;
   }
 
   async guardarParcialEvaluacion(
@@ -662,10 +764,10 @@ export class AprendizajeAdaptativoService {
           (Array.isArray(asignacion.respuestasEvaluacion)
             ? asignacion.respuestasEvaluacion
             : []),
-      });
+      }, usuarioAuth);
     }
 
-    return await this.prisma.asignacionAprendizajeAdaptativo.update({
+    const actualizado = await this.prisma.asignacionAprendizajeAdaptativo.update({
       where: { id },
       data: {
         estado: 'evaluacion',
@@ -682,6 +784,12 @@ export class AprendizajeAdaptativoService {
       },
       include: this.includeAsignacion,
     });
+
+    await this.registrarAuditoria(actualizado, usuarioAuth, 'guardar_parcial_evaluacion_aprendizaje', {
+      respuestas: (data.respuestas || []).length,
+    });
+
+    return actualizado;
   }
 
   async cerrarEvaluacion(
@@ -704,7 +812,7 @@ export class AprendizajeAdaptativoService {
         (Array.isArray(asignacion.respuestasEvaluacion)
           ? asignacion.respuestasEvaluacion
           : []),
-    });
+    }, usuarioAuth);
   }
 
   async revisar(
@@ -753,6 +861,10 @@ export class AprendizajeAdaptativoService {
       include: this.includeAsignacion,
     });
 
+    await this.registrarAuditoria(actualizado, usuarioAuth, 'revisar_evaluacion_aprendizaje', {
+      decision: data.decision,
+    });
+
     await this.correoService.enviar({
       to: actualizado.estudiante.correo,
       subject:
@@ -781,7 +893,93 @@ export class AprendizajeAdaptativoService {
     return actualizado;
   }
 
-  private async aplicarCierresAutomaticosPorTiempo(asignaciones: any[]) {
+  async calificarComoEstudiante(
+    id: number,
+    data: CalificarIaAprendizajeAdaptativoDto,
+    usuarioAuth: any,
+  ) {
+    const asignacion = await this.obtenerConAcceso(id, usuarioAuth);
+
+    if (Number(asignacion.estudianteId) !== Number(usuarioAuth?.sub)) {
+      throw new ForbiddenException('Solo el estudiante asignado puede calificar.');
+    }
+
+    if (!['evaluada', 'revisada', 'completada'].includes(asignacion.estado)) {
+      throw new BadRequestException(
+        'La calificación del estudiante solo está disponible después de finalizar la ruta.',
+      );
+    }
+
+    const actualizado = await this.prisma.asignacionAprendizajeAdaptativo.update({
+      where: { id },
+      data: {
+        calificacionEstudianteIA: data.calificacion,
+        comentarioEstudianteIA: data.comentario?.trim() || null,
+        fechaCalificacionEstudianteIA: new Date(),
+      },
+      include: this.includeAsignacion,
+    });
+
+    await this.registrarAuditoria(actualizado, usuarioAuth, 'calificacion_estudiante_ia', {
+      calificacion: data.calificacion,
+    });
+    await this.registrarCalificacionUsoIa(
+      actualizado,
+      usuarioAuth,
+      'estudiante',
+      data,
+    );
+
+    return actualizado;
+  }
+
+  async calificarComoDocente(
+    id: number,
+    data: CalificarIaAprendizajeAdaptativoDto,
+    usuarioAuth: any,
+  ) {
+    const asignacion = await this.obtenerConAcceso(id, usuarioAuth);
+
+    if (
+      Number(asignacion.docenteId) !== Number(usuarioAuth?.sub) &&
+      !tieneAccesoTotal(usuarioAuth)
+    ) {
+      throw new ForbiddenException('Solo el docente responsable puede calificar.');
+    }
+
+    if (!['evaluada', 'revisada', 'completada'].includes(asignacion.estado)) {
+      throw new BadRequestException(
+        'La calificación del docente solo está disponible después de revisar la ruta.',
+      );
+    }
+
+    const actualizado = await this.prisma.asignacionAprendizajeAdaptativo.update({
+      where: { id },
+      data: {
+        calificacionDocenteIA: data.calificacion,
+        comentarioDocenteIA: data.comentario?.trim() || null,
+        fechaCalificacionDocenteIA: new Date(),
+      },
+      include: this.includeAsignacion,
+    });
+
+    await this.registrarAuditoria(actualizado, usuarioAuth, 'calificacion_docente_ia', {
+      calificacion: data.calificacion,
+    });
+    await this.registrarCalificacionUsoIa(
+      actualizado,
+      usuarioAuth,
+      'docente',
+      data,
+    );
+
+    return actualizado;
+  }
+
+  private async aplicarCierresAutomaticosPorTiempo(
+    asignaciones: any[],
+    usuarioAuth?: any,
+  ) {
     const resultados: any[] = [];
 
     for (const asignacion of asignaciones) {
@@ -791,12 +989,16 @@ export class AprendizajeAdaptativoService {
         this.evaluacionExpirada(evaluacion)
       ) {
         resultados.push(
-          await this.finalizarEvaluacion(asignacion, {
-            motivo: 'tiempo',
-            respuestas: Array.isArray(asignacion.respuestasEvaluacion)
-              ? asignacion.respuestasEvaluacion
-              : [],
-          }),
+          await this.finalizarEvaluacion(
+            asignacion,
+            {
+              motivo: 'tiempo',
+              respuestas: Array.isArray(asignacion.respuestasEvaluacion)
+                ? asignacion.respuestasEvaluacion
+                : [],
+            },
+            usuarioAuth,
+          ),
         );
         continue;
       }
@@ -852,6 +1054,7 @@ export class AprendizajeAdaptativoService {
   private async finalizarEvaluacion(
     asignacion: any,
     data: { motivo: string; respuestas: any[] },
+    usuarioAuth?: any,
   ) {
     const respuestas = Array.isArray(data.respuestas) ? data.respuestas : [];
     const resultado = await this.calificarEvaluacionConIa(asignacion, respuestas);
@@ -885,6 +1088,16 @@ export class AprendizajeAdaptativoService {
       ),
     });
 
+    await this.registrarAuditoria(
+      actualizado,
+      usuarioAuth,
+      'evaluacion_cerrada_aprendizaje',
+      {
+        motivo: data.motivo,
+        puntaje: resultado.puntaje || 0,
+      },
+    ).catch(() => undefined);
+
     return actualizado;
   }
 
@@ -905,10 +1118,10 @@ export class AprendizajeAdaptativoService {
     }
   }
 
-  private validarAdministradorTipos(usuarioAuth: any) {
-    if (!tieneAccesoTotal(usuarioAuth) && !this.esAdministrador(usuarioAuth)) {
+  private validarSuperadministradorTipos(usuarioAuth: any) {
+    if (!tieneAccesoTotal(usuarioAuth)) {
       throw new ForbiddenException(
-        'Solo administradores pueden modificar tipos de aprendizaje.',
+        'Solo el superadministrador puede modificar tipos de aprendizaje.',
       );
     }
   }
@@ -1008,7 +1221,7 @@ export class AprendizajeAdaptativoService {
         respuestas: Array.isArray(asignacion.respuestasEvaluacion)
           ? asignacion.respuestasEvaluacion
           : [],
-      });
+      }, usuarioAuth);
     }
 
     return asignacion;
