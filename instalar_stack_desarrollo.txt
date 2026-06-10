@@ -1,78 +1,216 @@
-Instalar aplicaciòn en Linux
+STACK DE DESARROLLO - NEXORA AI
 
-- Actualizar
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+Proyecto:
+- Backend NestJS en la raiz del repositorio.
+- Frontend React + Vite en frontend/.
+- Base de datos PostgreSQL.
+- Archivos locales en uploads/ protegidos por JWT.
+- IA con Gemini y respaldo opcional Ollama.
 
-- Instalar herramientas basicas (curl, git, gcc/g++, herramientas de compilacion)
-sudo apt install curl git build-essential unzip -y
+1. Instalar herramientas base en Linux
 
-- Instalar RUST + CARGO
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-//Agregar al path
-source $HOME/.cargo/env
-//Verificar
-rustc --version
-cargo --version
+sudo apt update
+sudo apt install curl git build-essential unzip postgresql postgresql-contrib -y
 
--- Instalar Fast Node Manager (Administrador de versiones de node)
+2. Instalar Node.js con Fast Node Manager
+
 curl -fsSL https://fnm.vercel.app/install | bash
-//Agregar al Path
 source ~/.bashrc
-//Verificar
-fnm --version
-
--- Instalar Node.js 
 fnm install 24
-//Delegar que se use esa version
 fnm use 24
-//Dejarla por defecto
 fnm default 24
-//Verificamos
 node -v
 npm -v
 
--- Instalar NESTJS CLI
+3. Instalar NestJS CLI
+
 npm install -g @nestjs/cli
-//verificamos
 nest --version
 
+4. Preparar PostgreSQL
 
--- Instalacion de postgresql
-sudo apt install postgresql postgresql-contrib -y
-//Verificar
-psql --version
-//Inicializar postgres
 sudo systemctl start postgresql
 sudo systemctl enable postgresql
-//Verificar estado
 sudo systemctl status postgresql
-//Entrar a postgresql
+
+Entrar a PostgreSQL:
+
 sudo -u postgres psql
-//Crear usuario
+
+Crear usuario y base de datos de desarrollo:
+
 CREATE USER jose WITH PASSWORD '123456';
-//Crear base de datos
 CREATE DATABASE plataforma_academica OWNER jose;
-//Dar permisos
-GRANT ALL PRIVILEGES ON DATABASE instituciones_db TO jose;
-//Salir
+GRANT ALL PRIVILEGES ON DATABASE plataforma_academica TO jose;
 \q
 
--- Instalar dependencias del Backend
-cd backend
+La cadena local quedaria asi:
+
+DATABASE_URL="postgresql://jose:123456@localhost:5432/plataforma_academica?schema=public"
+
+5. Configurar variables de entorno
+
+Desde la raiz del proyecto:
+
+cp .env.example .env
+
+Editar .env y completar como minimo:
+
+DATABASE_URL="postgresql://jose:123456@localhost:5432/plataforma_academica?schema=public"
+PORT="3000"
+JWT_SECRET="cambia-este-secreto"
+JWT_EXPIRES_IN="8h"
+GEMINI_API_KEY=""
+
+Opcionales importantes:
+
+GEMINI_MODEL="gemini-2.0-flash"
+GOOGLE_SEARCH_API_KEY=""
+GOOGLE_SEARCH_CX=""
+YOUTUBE_API_KEY=""
+SMTP_HOST=""
+SMTP_PORT="587"
+SMTP_SECURE="false"
+SMTP_USER=""
+SMTP_PASS=""
+SMTP_FROM=""
+OLLAMA_URL="http://localhost:11434"
+OLLAMA_MODEL="qwen2.5:3b"
+
+6. Instalar dependencias del backend
+
+Desde la raiz del proyecto:
+
 npm install
 
--- Instalar Prisma
-npm install prisma --save-dev
-npm install @prisma/client
-//Inicializar Prisma
-npx prisma init
+7. Instalar dependencias del frontend
 
--- Instalar Ollama (Modelo LLM para resumenes de textos)
-//Actualizar
-sudo apt update && sudo apt upgrade -y
-//Instalar dependencias basicas
-sudo apt install curl -y
-//Instalar ollama
+cd frontend
+npm install
+cd ..
+
+8. Preparar Prisma
+
+npx prisma generate
+npx prisma migrate deploy
+npm run db:seed
+
+Si estas desarrollando una migracion nueva:
+
+npx prisma migrate dev
+npx prisma format
+npx prisma generate
+
+9. Crear carpetas de uploads
+
+mkdir -p uploads/instituciones uploads/recursos uploads/aula-colaborativa uploads/aprendizaje-adaptativo
+
+Importante:
+- uploads/ ya no se sirve de forma publica.
+- Los archivos se consultan desde /uploads/... solo con JWT valido.
+- En frontend se debe usar construirUrlArchivoProtegido(ruta).
+
+10. Ejecutar backend en desarrollo
+
+npm run start:dev
+
+Backend:
+
+http://localhost:3000
+
+Si necesitas otro puerto:
+
+PORT=3001 npm run start:dev
+
+11. Ejecutar frontend en desarrollo
+
+En otra terminal:
+
+cd frontend
+npm run dev
+
+Frontend:
+
+http://localhost:5173
+
+12. Login inicial
+
+El seed crea el superadministrador base:
+
+Correo: superadmin@plataforma.edu.co
+Contrasena: Admin123456
+
+Rutas de acceso:
+- Usuarios institucionales: http://localhost:5173/login
+- Superadministrador global: http://localhost:5173/superadmin/login
+
+13. Ollama local opcional
+
+Solo es necesario si quieres usar respaldo local para resumenes de recursos.
+
+Instalar Ollama:
+
 curl -fsSL https://ollama.com/install.sh | sh
 
+Descargar modelo recomendado:
 
+ollama pull qwen2.5:3b
+
+Ejecutar servicio:
+
+ollama serve
+
+14. Comandos utiles
+
+Backend:
+
+npm run start:dev
+npm run build
+npm run db:seed
+npm run test
+
+Frontend:
+
+cd frontend
+npm run dev
+npm run build
+npm run lint
+npm run preview
+
+Prisma:
+
+npx prisma generate
+npx prisma migrate deploy
+npx prisma migrate dev
+npx prisma format
+
+15. Seguridad y observabilidad actual
+
+- Helmet habilita cabeceras HTTP de seguridad.
+- @nestjs/throttler limita peticiones globales y endurece login.
+- Los mensajes de throttling indican cuanto esperar antes de intentar de nuevo.
+- Filtro global de excepciones evita exponer stack trace al cliente.
+- Logger HTTP registra metodo, ruta, estado, duracion e IP.
+- Los endpoints protegidos usan JWT y @RequierePermisos(...).
+- El frontend usa React.lazy() y Suspense para dividir bundles por pagina.
+
+16. Validacion rapida
+
+Backend:
+
+npm run build
+
+Frontend:
+
+cd frontend
+npm run build
+
+Probar limite de login:
+
+curl -X POST http://localhost:3000/auth/login \
+  -H 'Content-Type: application/json' \
+  -d '{"institucionId":1,"usuario":"usuario-invalido","contrasena":"clave-invalida"}'
+
+Despues de varios intentos debe responder 429 con un mensaje similar:
+
+Has realizado demasiadas solicitudes. Podras volver a intentarlo en 1 minuto.

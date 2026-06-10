@@ -1,5 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ScheduleModule } from '@nestjs/schedule';
+import { APP_GUARD } from '@nestjs/core';
+import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { AsistenteModule } from './modulos/asistente/asistente.module';
 import { PrismaModule } from './baseDatos/prisma/prisma.module';
 import { InstitucionesModule } from './modulos/instituciones/instituciones.module';
@@ -25,15 +27,34 @@ import { AuditoriaModule } from './modulos/auditoria/auditoria.module';
 import { DashboardModule } from './modulos/dashboard/dashboard.module';
 import { AprendizajeAdaptativoModule } from './modulos/aprendizajeAdaptativo/aprendizaje-adaptativo.module';
 import { CalificacionUsoIaModule } from './modulos/calificacionUsoIa/calificacion-uso-ia.module';
-import { ServeStaticModule } from '@nestjs/serve-static';
-import { join } from 'path';
+
+function formatearTiempoEspera(segundos: number) {
+  if (segundos <= 1) {
+    return '1 segundo';
+  }
+
+  if (segundos < 60) {
+    return `${segundos} segundos`;
+  }
+
+  const minutos = Math.ceil(segundos / 60);
+  return minutos === 1 ? '1 minuto' : `${minutos} minutos`;
+}
 
 @Module({
   imports: [
     ScheduleModule.forRoot(),
-    ServeStaticModule.forRoot({
-      rootPath: join(process.cwd(), 'uploads'),
-      serveRoot: '/uploads',
+    ThrottlerModule.forRoot({
+      errorMessage: (_context, detalle) => {
+        const segundos = Math.max(1, Math.ceil(detalle.timeToBlockExpire || 1));
+        return `Has realizado demasiadas solicitudes. Podrás volver a intentarlo en ${formatearTiempoEspera(segundos)}.`;
+      },
+      throttlers: [
+        {
+          ttl: 60000,
+          limit: 120,
+        },
+      ],
     }),
 
     AsistenteModule,
@@ -64,6 +85,11 @@ import { join } from 'path';
   ],
 
   controllers: [],
-  providers: [],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard,
+    },
+  ],
 })
 export class AppModule {}

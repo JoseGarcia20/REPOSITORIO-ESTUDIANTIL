@@ -204,16 +204,16 @@ export type ForoCategoriaWhereInput = {
   foroId?: Prisma.IntFilter<"ForoCategoria"> | number
   categoriaId?: Prisma.IntFilter<"ForoCategoria"> | number
   createdAt?: Prisma.DateTimeFilter<"ForoCategoria"> | Date | string
-  foro?: Prisma.XOR<Prisma.ForoScalarRelationFilter, Prisma.ForoWhereInput>
   categoria?: Prisma.XOR<Prisma.CategoriaScalarRelationFilter, Prisma.CategoriaWhereInput>
+  foro?: Prisma.XOR<Prisma.ForoScalarRelationFilter, Prisma.ForoWhereInput>
 }
 
 export type ForoCategoriaOrderByWithRelationInput = {
   foroId?: Prisma.SortOrder
   categoriaId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  foro?: Prisma.ForoOrderByWithRelationInput
   categoria?: Prisma.CategoriaOrderByWithRelationInput
+  foro?: Prisma.ForoOrderByWithRelationInput
 }
 
 export type ForoCategoriaWhereUniqueInput = Prisma.AtLeast<{
@@ -224,8 +224,8 @@ export type ForoCategoriaWhereUniqueInput = Prisma.AtLeast<{
   foroId?: Prisma.IntFilter<"ForoCategoria"> | number
   categoriaId?: Prisma.IntFilter<"ForoCategoria"> | number
   createdAt?: Prisma.DateTimeFilter<"ForoCategoria"> | Date | string
-  foro?: Prisma.XOR<Prisma.ForoScalarRelationFilter, Prisma.ForoWhereInput>
   categoria?: Prisma.XOR<Prisma.CategoriaScalarRelationFilter, Prisma.CategoriaWhereInput>
+  foro?: Prisma.XOR<Prisma.ForoScalarRelationFilter, Prisma.ForoWhereInput>
 }, "foroId_categoriaId">
 
 export type ForoCategoriaOrderByWithAggregationInput = {
@@ -250,8 +250,8 @@ export type ForoCategoriaScalarWhereWithAggregatesInput = {
 
 export type ForoCategoriaCreateInput = {
   createdAt?: Date | string
-  foro: Prisma.ForoCreateNestedOneWithoutCategoriasInput
   categoria: Prisma.CategoriaCreateNestedOneWithoutForosCategoriasInput
+  foro: Prisma.ForoCreateNestedOneWithoutCategoriasInput
 }
 
 export type ForoCategoriaUncheckedCreateInput = {
@@ -262,8 +262,8 @@ export type ForoCategoriaUncheckedCreateInput = {
 
 export type ForoCategoriaUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  foro?: Prisma.ForoUpdateOneRequiredWithoutCategoriasNestedInput
   categoria?: Prisma.CategoriaUpdateOneRequiredWithoutForosCategoriasNestedInput
+  foro?: Prisma.ForoUpdateOneRequiredWithoutCategoriasNestedInput
 }
 
 export type ForoCategoriaUncheckedUpdateInput = {
@@ -542,24 +542,24 @@ export type ForoCategoriaSelect<ExtArgs extends runtime.Types.Extensions.Interna
   foroId?: boolean
   categoriaId?: boolean
   createdAt?: boolean
-  foro?: boolean | Prisma.ForoDefaultArgs<ExtArgs>
   categoria?: boolean | Prisma.CategoriaDefaultArgs<ExtArgs>
+  foro?: boolean | Prisma.ForoDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["foroCategoria"]>
 
 export type ForoCategoriaSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   foroId?: boolean
   categoriaId?: boolean
   createdAt?: boolean
-  foro?: boolean | Prisma.ForoDefaultArgs<ExtArgs>
   categoria?: boolean | Prisma.CategoriaDefaultArgs<ExtArgs>
+  foro?: boolean | Prisma.ForoDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["foroCategoria"]>
 
 export type ForoCategoriaSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   foroId?: boolean
   categoriaId?: boolean
   createdAt?: boolean
-  foro?: boolean | Prisma.ForoDefaultArgs<ExtArgs>
   categoria?: boolean | Prisma.CategoriaDefaultArgs<ExtArgs>
+  foro?: boolean | Prisma.ForoDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["foroCategoria"]>
 
 export type ForoCategoriaSelectScalar = {
@@ -570,23 +570,23 @@ export type ForoCategoriaSelectScalar = {
 
 export type ForoCategoriaOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"foroId" | "categoriaId" | "createdAt", ExtArgs["result"]["foroCategoria"]>
 export type ForoCategoriaInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  foro?: boolean | Prisma.ForoDefaultArgs<ExtArgs>
   categoria?: boolean | Prisma.CategoriaDefaultArgs<ExtArgs>
+  foro?: boolean | Prisma.ForoDefaultArgs<ExtArgs>
 }
 export type ForoCategoriaIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  foro?: boolean | Prisma.ForoDefaultArgs<ExtArgs>
   categoria?: boolean | Prisma.CategoriaDefaultArgs<ExtArgs>
+  foro?: boolean | Prisma.ForoDefaultArgs<ExtArgs>
 }
 export type ForoCategoriaIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  foro?: boolean | Prisma.ForoDefaultArgs<ExtArgs>
   categoria?: boolean | Prisma.CategoriaDefaultArgs<ExtArgs>
+  foro?: boolean | Prisma.ForoDefaultArgs<ExtArgs>
 }
 
 export type $ForoCategoriaPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "ForoCategoria"
   objects: {
-    foro: Prisma.$ForoPayload<ExtArgs>
     categoria: Prisma.$CategoriaPayload<ExtArgs>
+    foro: Prisma.$ForoPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     foroId: number
@@ -986,8 +986,8 @@ readonly fields: ForoCategoriaFieldRefs;
  */
 export interface Prisma__ForoCategoriaClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  foro<T extends Prisma.ForoDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ForoDefaultArgs<ExtArgs>>): Prisma.Prisma__ForoClient<runtime.Types.Result.GetResult<Prisma.$ForoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   categoria<T extends Prisma.CategoriaDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CategoriaDefaultArgs<ExtArgs>>): Prisma.Prisma__CategoriaClient<runtime.Types.Result.GetResult<Prisma.$CategoriaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  foro<T extends Prisma.ForoDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ForoDefaultArgs<ExtArgs>>): Prisma.Prisma__ForoClient<runtime.Types.Result.GetResult<Prisma.$ForoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

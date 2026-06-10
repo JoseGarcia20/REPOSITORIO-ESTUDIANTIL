@@ -216,8 +216,8 @@ export type TipoAprendizajeEstrategiaWhereInput = {
   estrategiaId?: Prisma.IntFilter<"TipoAprendizajeEstrategia"> | number
   pesoSugerido?: Prisma.IntFilter<"TipoAprendizajeEstrategia"> | number
   createdAt?: Prisma.DateTimeFilter<"TipoAprendizajeEstrategia"> | Date | string
-  tipoAprendizaje?: Prisma.XOR<Prisma.TipoAprendizajeScalarRelationFilter, Prisma.TipoAprendizajeWhereInput>
   estrategia?: Prisma.XOR<Prisma.EstrategiaAprendizajeScalarRelationFilter, Prisma.EstrategiaAprendizajeWhereInput>
+  tipoAprendizaje?: Prisma.XOR<Prisma.TipoAprendizajeScalarRelationFilter, Prisma.TipoAprendizajeWhereInput>
 }
 
 export type TipoAprendizajeEstrategiaOrderByWithRelationInput = {
@@ -225,8 +225,8 @@ export type TipoAprendizajeEstrategiaOrderByWithRelationInput = {
   estrategiaId?: Prisma.SortOrder
   pesoSugerido?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  tipoAprendizaje?: Prisma.TipoAprendizajeOrderByWithRelationInput
   estrategia?: Prisma.EstrategiaAprendizajeOrderByWithRelationInput
+  tipoAprendizaje?: Prisma.TipoAprendizajeOrderByWithRelationInput
 }
 
 export type TipoAprendizajeEstrategiaWhereUniqueInput = Prisma.AtLeast<{
@@ -238,8 +238,8 @@ export type TipoAprendizajeEstrategiaWhereUniqueInput = Prisma.AtLeast<{
   estrategiaId?: Prisma.IntFilter<"TipoAprendizajeEstrategia"> | number
   pesoSugerido?: Prisma.IntFilter<"TipoAprendizajeEstrategia"> | number
   createdAt?: Prisma.DateTimeFilter<"TipoAprendizajeEstrategia"> | Date | string
-  tipoAprendizaje?: Prisma.XOR<Prisma.TipoAprendizajeScalarRelationFilter, Prisma.TipoAprendizajeWhereInput>
   estrategia?: Prisma.XOR<Prisma.EstrategiaAprendizajeScalarRelationFilter, Prisma.EstrategiaAprendizajeWhereInput>
+  tipoAprendizaje?: Prisma.XOR<Prisma.TipoAprendizajeScalarRelationFilter, Prisma.TipoAprendizajeWhereInput>
 }, "tipoAprendizajeId_estrategiaId">
 
 export type TipoAprendizajeEstrategiaOrderByWithAggregationInput = {
@@ -267,8 +267,8 @@ export type TipoAprendizajeEstrategiaScalarWhereWithAggregatesInput = {
 export type TipoAprendizajeEstrategiaCreateInput = {
   pesoSugerido?: number
   createdAt?: Date | string
-  tipoAprendizaje: Prisma.TipoAprendizajeCreateNestedOneWithoutEstrategiasInput
   estrategia: Prisma.EstrategiaAprendizajeCreateNestedOneWithoutTiposInput
+  tipoAprendizaje: Prisma.TipoAprendizajeCreateNestedOneWithoutEstrategiasInput
 }
 
 export type TipoAprendizajeEstrategiaUncheckedCreateInput = {
@@ -281,8 +281,8 @@ export type TipoAprendizajeEstrategiaUncheckedCreateInput = {
 export type TipoAprendizajeEstrategiaUpdateInput = {
   pesoSugerido?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  tipoAprendizaje?: Prisma.TipoAprendizajeUpdateOneRequiredWithoutEstrategiasNestedInput
   estrategia?: Prisma.EstrategiaAprendizajeUpdateOneRequiredWithoutTiposNestedInput
+  tipoAprendizaje?: Prisma.TipoAprendizajeUpdateOneRequiredWithoutEstrategiasNestedInput
 }
 
 export type TipoAprendizajeEstrategiaUncheckedUpdateInput = {
@@ -584,8 +584,8 @@ export type TipoAprendizajeEstrategiaSelect<ExtArgs extends runtime.Types.Extens
   estrategiaId?: boolean
   pesoSugerido?: boolean
   createdAt?: boolean
-  tipoAprendizaje?: boolean | Prisma.TipoAprendizajeDefaultArgs<ExtArgs>
   estrategia?: boolean | Prisma.EstrategiaAprendizajeDefaultArgs<ExtArgs>
+  tipoAprendizaje?: boolean | Prisma.TipoAprendizajeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["tipoAprendizajeEstrategia"]>
 
 export type TipoAprendizajeEstrategiaSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -593,8 +593,8 @@ export type TipoAprendizajeEstrategiaSelectCreateManyAndReturn<ExtArgs extends r
   estrategiaId?: boolean
   pesoSugerido?: boolean
   createdAt?: boolean
-  tipoAprendizaje?: boolean | Prisma.TipoAprendizajeDefaultArgs<ExtArgs>
   estrategia?: boolean | Prisma.EstrategiaAprendizajeDefaultArgs<ExtArgs>
+  tipoAprendizaje?: boolean | Prisma.TipoAprendizajeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["tipoAprendizajeEstrategia"]>
 
 export type TipoAprendizajeEstrategiaSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -602,8 +602,8 @@ export type TipoAprendizajeEstrategiaSelectUpdateManyAndReturn<ExtArgs extends r
   estrategiaId?: boolean
   pesoSugerido?: boolean
   createdAt?: boolean
-  tipoAprendizaje?: boolean | Prisma.TipoAprendizajeDefaultArgs<ExtArgs>
   estrategia?: boolean | Prisma.EstrategiaAprendizajeDefaultArgs<ExtArgs>
+  tipoAprendizaje?: boolean | Prisma.TipoAprendizajeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["tipoAprendizajeEstrategia"]>
 
 export type TipoAprendizajeEstrategiaSelectScalar = {
@@ -615,23 +615,23 @@ export type TipoAprendizajeEstrategiaSelectScalar = {
 
 export type TipoAprendizajeEstrategiaOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"tipoAprendizajeId" | "estrategiaId" | "pesoSugerido" | "createdAt", ExtArgs["result"]["tipoAprendizajeEstrategia"]>
 export type TipoAprendizajeEstrategiaInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  tipoAprendizaje?: boolean | Prisma.TipoAprendizajeDefaultArgs<ExtArgs>
   estrategia?: boolean | Prisma.EstrategiaAprendizajeDefaultArgs<ExtArgs>
+  tipoAprendizaje?: boolean | Prisma.TipoAprendizajeDefaultArgs<ExtArgs>
 }
 export type TipoAprendizajeEstrategiaIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  tipoAprendizaje?: boolean | Prisma.TipoAprendizajeDefaultArgs<ExtArgs>
   estrategia?: boolean | Prisma.EstrategiaAprendizajeDefaultArgs<ExtArgs>
+  tipoAprendizaje?: boolean | Prisma.TipoAprendizajeDefaultArgs<ExtArgs>
 }
 export type TipoAprendizajeEstrategiaIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  tipoAprendizaje?: boolean | Prisma.TipoAprendizajeDefaultArgs<ExtArgs>
   estrategia?: boolean | Prisma.EstrategiaAprendizajeDefaultArgs<ExtArgs>
+  tipoAprendizaje?: boolean | Prisma.TipoAprendizajeDefaultArgs<ExtArgs>
 }
 
 export type $TipoAprendizajeEstrategiaPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "TipoAprendizajeEstrategia"
   objects: {
-    tipoAprendizaje: Prisma.$TipoAprendizajePayload<ExtArgs>
     estrategia: Prisma.$EstrategiaAprendizajePayload<ExtArgs>
+    tipoAprendizaje: Prisma.$TipoAprendizajePayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     tipoAprendizajeId: number
@@ -1032,8 +1032,8 @@ readonly fields: TipoAprendizajeEstrategiaFieldRefs;
  */
 export interface Prisma__TipoAprendizajeEstrategiaClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  tipoAprendizaje<T extends Prisma.TipoAprendizajeDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TipoAprendizajeDefaultArgs<ExtArgs>>): Prisma.Prisma__TipoAprendizajeClient<runtime.Types.Result.GetResult<Prisma.$TipoAprendizajePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   estrategia<T extends Prisma.EstrategiaAprendizajeDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EstrategiaAprendizajeDefaultArgs<ExtArgs>>): Prisma.Prisma__EstrategiaAprendizajeClient<runtime.Types.Result.GetResult<Prisma.$EstrategiaAprendizajePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  tipoAprendizaje<T extends Prisma.TipoAprendizajeDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TipoAprendizajeDefaultArgs<ExtArgs>>): Prisma.Prisma__TipoAprendizajeClient<runtime.Types.Result.GetResult<Prisma.$TipoAprendizajePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

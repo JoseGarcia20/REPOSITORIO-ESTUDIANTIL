@@ -4,6 +4,7 @@
   width: 100%;
   max-width: 1440px;
   margin: 0 auto;
+  min-width: 0;
 }
 
 .preparador-header {
@@ -28,7 +29,7 @@
 
 .preparador-layout {
   display: grid;
-  grid-template-columns: minmax(330px, 0.9fr) minmax(520px, 1.35fr);
+  grid-template-columns: minmax(320px, 0.85fr) minmax(0, 1.15fr);
   gap: 22px;
   align-items: start;
 }
@@ -39,6 +40,7 @@
   border: 1px solid var(--border-soft);
   border-radius: 8px;
   box-shadow: 0 16px 38px var(--shadow-soft);
+  min-width: 0;
 }
 
 .ai-chat-panel {
@@ -77,6 +79,7 @@
   color: var(--text-secondary);
   font-size: 14px;
   font-weight: 800;
+  min-width: 0;
 }
 
 .ai-field > span {
@@ -84,13 +87,14 @@
   justify-content: space-between;
   gap: 12px;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .ai-field small {
   color: var(--text-muted);
   font-size: 12px;
   font-weight: 800;
-  white-space: nowrap;
+  text-align: right;
 }
 
 .ai-field.full {
@@ -117,6 +121,7 @@
 
 .ai-field textarea,
 .ai-document textarea {
+  max-width: 100%;
   resize: vertical;
   line-height: 1.5;
 }
@@ -138,6 +143,7 @@
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 14px;
+  min-width: 0;
 }
 
 .ai-material-options {
@@ -326,6 +332,7 @@
   padding: 18px;
   border-bottom: 1px solid var(--border-soft);
   background: #ffffff;
+  min-width: 0;
 }
 
 .ai-preview-toolbar h2 {
@@ -490,10 +497,6 @@
   line-height: 1.5;
 }
 
-.ai-math-render .katex {
-  font-size: 1.03em;
-}
-
 .ai-math-block {
   border: 1px solid var(--surface-accent);
   background: #ffffff;
@@ -501,6 +504,29 @@
   padding: 8px 10px;
   margin: 8px 0;
   overflow-x: auto;
+}
+
+.ai-math-formula {
+  color: var(--brand-dark);
+  font-family: 'Times New Roman', Georgia, serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.5;
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+.ai-math-inline {
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid var(--border-soft);
+  border-radius: 6px;
+  color: var(--brand-dark);
+  display: inline-flex;
+  font-family: 'Times New Roman', Georgia, serif;
+  font-weight: 700;
+  margin: 0 3px;
+  padding: 1px 6px;
 }
 
 .ai-sources {
@@ -522,7 +548,7 @@
   background: var(--surface-accent);
 }
 
-@media (max-width: 1100px) {
+@media (max-width: 1280px) {
   .preparador-layout {
     grid-template-columns: 1fr;
   }

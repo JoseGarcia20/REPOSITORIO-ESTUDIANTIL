@@ -1,11 +1,11 @@
 import { useEffect, useMemo, useState } from 'react';
 import type { ChangeEvent, FormEvent } from 'react';
 import {
-  API_URL,
   cerrarForoAcademico,
   comentarForoAcademico,
   comentarForoConRecurso,
   comentarForoConRecursoExistente,
+  construirUrlArchivoProtegido,
   crearForoAcademico,
   esSuperadministrador,
   obtenerCategoriasForo,
@@ -86,11 +86,7 @@ function describirAutor(rol?: string, institucion?: string, fecha?: string) {
 function construirUrlRecurso(ruta?: string, url?: string) {
   const valor = ruta || url || '';
 
-  if (!valor) {
-    return '';
-  }
-
-  return valor.startsWith('http') ? valor : `${API_URL}${valor}`;
+  return construirUrlArchivoProtegido(valor);
 }
 
 export function Foros() {

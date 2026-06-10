@@ -260,9 +260,9 @@ export type RutaAprendizajeWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"RutaAprendizaje"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"RutaAprendizaje"> | Date | string
   tipoAprendizajeId?: Prisma.IntFilter<"RutaAprendizaje"> | number
-  tipoAprendizaje?: Prisma.XOR<Prisma.TipoAprendizajeScalarRelationFilter, Prisma.TipoAprendizajeWhereInput>
-  detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeListRelationFilter
   asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeListRelationFilter
+  detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeListRelationFilter
+  tipoAprendizaje?: Prisma.XOR<Prisma.TipoAprendizajeScalarRelationFilter, Prisma.TipoAprendizajeWhereInput>
 }
 
 export type RutaAprendizajeOrderByWithRelationInput = {
@@ -276,9 +276,9 @@ export type RutaAprendizajeOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   tipoAprendizajeId?: Prisma.SortOrder
-  tipoAprendizaje?: Prisma.TipoAprendizajeOrderByWithRelationInput
-  detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeOrderByRelationAggregateInput
   asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeOrderByRelationAggregateInput
+  detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeOrderByRelationAggregateInput
+  tipoAprendizaje?: Prisma.TipoAprendizajeOrderByWithRelationInput
 }
 
 export type RutaAprendizajeWhereUniqueInput = Prisma.AtLeast<{
@@ -295,9 +295,9 @@ export type RutaAprendizajeWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"RutaAprendizaje"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"RutaAprendizaje"> | Date | string
   tipoAprendizajeId?: Prisma.IntFilter<"RutaAprendizaje"> | number
-  tipoAprendizaje?: Prisma.XOR<Prisma.TipoAprendizajeScalarRelationFilter, Prisma.TipoAprendizajeWhereInput>
-  detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeListRelationFilter
   asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeListRelationFilter
+  detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeListRelationFilter
+  tipoAprendizaje?: Prisma.XOR<Prisma.TipoAprendizajeScalarRelationFilter, Prisma.TipoAprendizajeWhereInput>
 }, "id">
 
 export type RutaAprendizajeOrderByWithAggregationInput = {
@@ -343,9 +343,9 @@ export type RutaAprendizajeCreateInput = {
   estado?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  tipoAprendizaje: Prisma.TipoAprendizajeCreateNestedOneWithoutRutasAprendizajeInput
-  detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeCreateNestedManyWithoutRutaAprendizajeInput
   asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeCreateNestedManyWithoutRutaAprendizajeInput
+  detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeCreateNestedManyWithoutRutaAprendizajeInput
+  tipoAprendizaje: Prisma.TipoAprendizajeCreateNestedOneWithoutRutasAprendizajeInput
 }
 
 export type RutaAprendizajeUncheckedCreateInput = {
@@ -359,8 +359,8 @@ export type RutaAprendizajeUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   tipoAprendizajeId: number
-  detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUncheckedCreateNestedManyWithoutRutaAprendizajeInput
   asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedCreateNestedManyWithoutRutaAprendizajeInput
+  detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUncheckedCreateNestedManyWithoutRutaAprendizajeInput
 }
 
 export type RutaAprendizajeUpdateInput = {
@@ -372,9 +372,9 @@ export type RutaAprendizajeUpdateInput = {
   estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  tipoAprendizaje?: Prisma.TipoAprendizajeUpdateOneRequiredWithoutRutasAprendizajeNestedInput
-  detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUpdateManyWithoutRutaAprendizajeNestedInput
   asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUpdateManyWithoutRutaAprendizajeNestedInput
+  detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUpdateManyWithoutRutaAprendizajeNestedInput
+  tipoAprendizaje?: Prisma.TipoAprendizajeUpdateOneRequiredWithoutRutasAprendizajeNestedInput
 }
 
 export type RutaAprendizajeUncheckedUpdateInput = {
@@ -388,8 +388,8 @@ export type RutaAprendizajeUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tipoAprendizajeId?: Prisma.IntFieldUpdateOperationsInput | number
-  detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUncheckedUpdateManyWithoutRutaAprendizajeNestedInput
   asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedUpdateManyWithoutRutaAprendizajeNestedInput
+  detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUncheckedUpdateManyWithoutRutaAprendizajeNestedInput
 }
 
 export type RutaAprendizajeCreateManyInput = {
@@ -572,8 +572,8 @@ export type RutaAprendizajeCreateWithoutTipoAprendizajeInput = {
   estado?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeCreateNestedManyWithoutRutaAprendizajeInput
   asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeCreateNestedManyWithoutRutaAprendizajeInput
+  detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeCreateNestedManyWithoutRutaAprendizajeInput
 }
 
 export type RutaAprendizajeUncheckedCreateWithoutTipoAprendizajeInput = {
@@ -586,8 +586,8 @@ export type RutaAprendizajeUncheckedCreateWithoutTipoAprendizajeInput = {
   estado?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUncheckedCreateNestedManyWithoutRutaAprendizajeInput
   asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedCreateNestedManyWithoutRutaAprendizajeInput
+  detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUncheckedCreateNestedManyWithoutRutaAprendizajeInput
 }
 
 export type RutaAprendizajeCreateOrConnectWithoutTipoAprendizajeInput = {
@@ -641,8 +641,8 @@ export type RutaAprendizajeCreateWithoutDetallesRutaAprendizajeInput = {
   estado?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  tipoAprendizaje: Prisma.TipoAprendizajeCreateNestedOneWithoutRutasAprendizajeInput
   asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeCreateNestedManyWithoutRutaAprendizajeInput
+  tipoAprendizaje: Prisma.TipoAprendizajeCreateNestedOneWithoutRutasAprendizajeInput
 }
 
 export type RutaAprendizajeUncheckedCreateWithoutDetallesRutaAprendizajeInput = {
@@ -684,8 +684,8 @@ export type RutaAprendizajeUpdateWithoutDetallesRutaAprendizajeInput = {
   estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  tipoAprendizaje?: Prisma.TipoAprendizajeUpdateOneRequiredWithoutRutasAprendizajeNestedInput
   asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUpdateManyWithoutRutaAprendizajeNestedInput
+  tipoAprendizaje?: Prisma.TipoAprendizajeUpdateOneRequiredWithoutRutasAprendizajeNestedInput
 }
 
 export type RutaAprendizajeUncheckedUpdateWithoutDetallesRutaAprendizajeInput = {
@@ -711,8 +711,8 @@ export type RutaAprendizajeCreateWithoutAsignacionesRutaAprendizajeInput = {
   estado?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  tipoAprendizaje: Prisma.TipoAprendizajeCreateNestedOneWithoutRutasAprendizajeInput
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeCreateNestedManyWithoutRutaAprendizajeInput
+  tipoAprendizaje: Prisma.TipoAprendizajeCreateNestedOneWithoutRutasAprendizajeInput
 }
 
 export type RutaAprendizajeUncheckedCreateWithoutAsignacionesRutaAprendizajeInput = {
@@ -754,8 +754,8 @@ export type RutaAprendizajeUpdateWithoutAsignacionesRutaAprendizajeInput = {
   estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  tipoAprendizaje?: Prisma.TipoAprendizajeUpdateOneRequiredWithoutRutasAprendizajeNestedInput
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUpdateManyWithoutRutaAprendizajeNestedInput
+  tipoAprendizaje?: Prisma.TipoAprendizajeUpdateOneRequiredWithoutRutasAprendizajeNestedInput
 }
 
 export type RutaAprendizajeUncheckedUpdateWithoutAsignacionesRutaAprendizajeInput = {
@@ -793,8 +793,8 @@ export type RutaAprendizajeUpdateWithoutTipoAprendizajeInput = {
   estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUpdateManyWithoutRutaAprendizajeNestedInput
   asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUpdateManyWithoutRutaAprendizajeNestedInput
+  detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUpdateManyWithoutRutaAprendizajeNestedInput
 }
 
 export type RutaAprendizajeUncheckedUpdateWithoutTipoAprendizajeInput = {
@@ -807,8 +807,8 @@ export type RutaAprendizajeUncheckedUpdateWithoutTipoAprendizajeInput = {
   estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUncheckedUpdateManyWithoutRutaAprendizajeNestedInput
   asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedUpdateManyWithoutRutaAprendizajeNestedInput
+  detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUncheckedUpdateManyWithoutRutaAprendizajeNestedInput
 }
 
 export type RutaAprendizajeUncheckedUpdateManyWithoutTipoAprendizajeInput = {
@@ -829,13 +829,13 @@ export type RutaAprendizajeUncheckedUpdateManyWithoutTipoAprendizajeInput = {
  */
 
 export type RutaAprendizajeCountOutputType = {
-  detallesRutaAprendizaje: number
   asignacionesRutaAprendizaje: number
+  detallesRutaAprendizaje: number
 }
 
 export type RutaAprendizajeCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  detallesRutaAprendizaje?: boolean | RutaAprendizajeCountOutputTypeCountDetallesRutaAprendizajeArgs
   asignacionesRutaAprendizaje?: boolean | RutaAprendizajeCountOutputTypeCountAsignacionesRutaAprendizajeArgs
+  detallesRutaAprendizaje?: boolean | RutaAprendizajeCountOutputTypeCountDetallesRutaAprendizajeArgs
 }
 
 /**
@@ -851,15 +851,15 @@ export type RutaAprendizajeCountOutputTypeDefaultArgs<ExtArgs extends runtime.Ty
 /**
  * RutaAprendizajeCountOutputType without action
  */
-export type RutaAprendizajeCountOutputTypeCountDetallesRutaAprendizajeArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.DetalleRutaAprendizajeWhereInput
+export type RutaAprendizajeCountOutputTypeCountAsignacionesRutaAprendizajeArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AsignacionRutaAprendizajeWhereInput
 }
 
 /**
  * RutaAprendizajeCountOutputType without action
  */
-export type RutaAprendizajeCountOutputTypeCountAsignacionesRutaAprendizajeArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.AsignacionRutaAprendizajeWhereInput
+export type RutaAprendizajeCountOutputTypeCountDetallesRutaAprendizajeArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DetalleRutaAprendizajeWhereInput
 }
 
 
@@ -874,9 +874,9 @@ export type RutaAprendizajeSelect<ExtArgs extends runtime.Types.Extensions.Inter
   createdAt?: boolean
   updatedAt?: boolean
   tipoAprendizajeId?: boolean
-  tipoAprendizaje?: boolean | Prisma.TipoAprendizajeDefaultArgs<ExtArgs>
-  detallesRutaAprendizaje?: boolean | Prisma.RutaAprendizaje$detallesRutaAprendizajeArgs<ExtArgs>
   asignacionesRutaAprendizaje?: boolean | Prisma.RutaAprendizaje$asignacionesRutaAprendizajeArgs<ExtArgs>
+  detallesRutaAprendizaje?: boolean | Prisma.RutaAprendizaje$detallesRutaAprendizajeArgs<ExtArgs>
+  tipoAprendizaje?: boolean | Prisma.TipoAprendizajeDefaultArgs<ExtArgs>
   _count?: boolean | Prisma.RutaAprendizajeCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["rutaAprendizaje"]>
 
@@ -923,9 +923,9 @@ export type RutaAprendizajeSelectScalar = {
 
 export type RutaAprendizajeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "titulo" | "descripcion" | "temaObjetivo" | "nivelDificultad" | "duracionEstimada" | "estado" | "createdAt" | "updatedAt" | "tipoAprendizajeId", ExtArgs["result"]["rutaAprendizaje"]>
 export type RutaAprendizajeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  tipoAprendizaje?: boolean | Prisma.TipoAprendizajeDefaultArgs<ExtArgs>
-  detallesRutaAprendizaje?: boolean | Prisma.RutaAprendizaje$detallesRutaAprendizajeArgs<ExtArgs>
   asignacionesRutaAprendizaje?: boolean | Prisma.RutaAprendizaje$asignacionesRutaAprendizajeArgs<ExtArgs>
+  detallesRutaAprendizaje?: boolean | Prisma.RutaAprendizaje$detallesRutaAprendizajeArgs<ExtArgs>
+  tipoAprendizaje?: boolean | Prisma.TipoAprendizajeDefaultArgs<ExtArgs>
   _count?: boolean | Prisma.RutaAprendizajeCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type RutaAprendizajeIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -938,9 +938,9 @@ export type RutaAprendizajeIncludeUpdateManyAndReturn<ExtArgs extends runtime.Ty
 export type $RutaAprendizajePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "RutaAprendizaje"
   objects: {
-    tipoAprendizaje: Prisma.$TipoAprendizajePayload<ExtArgs>
-    detallesRutaAprendizaje: Prisma.$DetalleRutaAprendizajePayload<ExtArgs>[]
     asignacionesRutaAprendizaje: Prisma.$AsignacionRutaAprendizajePayload<ExtArgs>[]
+    detallesRutaAprendizaje: Prisma.$DetalleRutaAprendizajePayload<ExtArgs>[]
+    tipoAprendizaje: Prisma.$TipoAprendizajePayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1347,9 +1347,9 @@ readonly fields: RutaAprendizajeFieldRefs;
  */
 export interface Prisma__RutaAprendizajeClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  tipoAprendizaje<T extends Prisma.TipoAprendizajeDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TipoAprendizajeDefaultArgs<ExtArgs>>): Prisma.Prisma__TipoAprendizajeClient<runtime.Types.Result.GetResult<Prisma.$TipoAprendizajePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  detallesRutaAprendizaje<T extends Prisma.RutaAprendizaje$detallesRutaAprendizajeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RutaAprendizaje$detallesRutaAprendizajeArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DetalleRutaAprendizajePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   asignacionesRutaAprendizaje<T extends Prisma.RutaAprendizaje$asignacionesRutaAprendizajeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RutaAprendizaje$asignacionesRutaAprendizajeArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AsignacionRutaAprendizajePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  detallesRutaAprendizaje<T extends Prisma.RutaAprendizaje$detallesRutaAprendizajeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RutaAprendizaje$detallesRutaAprendizajeArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DetalleRutaAprendizajePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  tipoAprendizaje<T extends Prisma.TipoAprendizajeDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TipoAprendizajeDefaultArgs<ExtArgs>>): Prisma.Prisma__TipoAprendizajeClient<runtime.Types.Result.GetResult<Prisma.$TipoAprendizajePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1790,30 +1790,6 @@ export type RutaAprendizajeDeleteManyArgs<ExtArgs extends runtime.Types.Extensio
 }
 
 /**
- * RutaAprendizaje.detallesRutaAprendizaje
- */
-export type RutaAprendizaje$detallesRutaAprendizajeArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the DetalleRutaAprendizaje
-   */
-  select?: Prisma.DetalleRutaAprendizajeSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the DetalleRutaAprendizaje
-   */
-  omit?: Prisma.DetalleRutaAprendizajeOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.DetalleRutaAprendizajeInclude<ExtArgs> | null
-  where?: Prisma.DetalleRutaAprendizajeWhereInput
-  orderBy?: Prisma.DetalleRutaAprendizajeOrderByWithRelationInput | Prisma.DetalleRutaAprendizajeOrderByWithRelationInput[]
-  cursor?: Prisma.DetalleRutaAprendizajeWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.DetalleRutaAprendizajeScalarFieldEnum | Prisma.DetalleRutaAprendizajeScalarFieldEnum[]
-}
-
-/**
  * RutaAprendizaje.asignacionesRutaAprendizaje
  */
 export type RutaAprendizaje$asignacionesRutaAprendizajeArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1835,6 +1811,30 @@ export type RutaAprendizaje$asignacionesRutaAprendizajeArgs<ExtArgs extends runt
   take?: number
   skip?: number
   distinct?: Prisma.AsignacionRutaAprendizajeScalarFieldEnum | Prisma.AsignacionRutaAprendizajeScalarFieldEnum[]
+}
+
+/**
+ * RutaAprendizaje.detallesRutaAprendizaje
+ */
+export type RutaAprendizaje$detallesRutaAprendizajeArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the DetalleRutaAprendizaje
+   */
+  select?: Prisma.DetalleRutaAprendizajeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the DetalleRutaAprendizaje
+   */
+  omit?: Prisma.DetalleRutaAprendizajeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DetalleRutaAprendizajeInclude<ExtArgs> | null
+  where?: Prisma.DetalleRutaAprendizajeWhereInput
+  orderBy?: Prisma.DetalleRutaAprendizajeOrderByWithRelationInput | Prisma.DetalleRutaAprendizajeOrderByWithRelationInput[]
+  cursor?: Prisma.DetalleRutaAprendizajeWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DetalleRutaAprendizajeScalarFieldEnum | Prisma.DetalleRutaAprendizajeScalarFieldEnum[]
 }
 
 /**

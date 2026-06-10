@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import type { ChangeEvent, FormEvent } from 'react';
 import {
-  API_URL,
   actualizarRecurso,
+  construirUrlArchivoProtegido,
   crearRecurso,
   esSuperadministrador,
   inactivarRecurso,
@@ -869,7 +869,7 @@ export function Recursos() {
                   {formulario.rutaRecurso && (
                     <a
                       className="file-link"
-                      href={`${API_URL}${formulario.rutaRecurso}`}
+                      href={construirUrlArchivoProtegido(formulario.rutaRecurso)}
                       target="_blank"
                       rel="noreferrer"
                     >

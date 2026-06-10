@@ -1,4 +1,5 @@
-const API_URL = 'http://localhost:3000';
+const API_URL =
+  import.meta.env.VITE_API_URL?.replace(/\/+$/, '') || 'http://localhost:3000';
 
 export type RespuestaLogin = {
   token: string;
@@ -30,6 +31,49 @@ export type RespuestaLogin = {
 //Funcion para obtener el token guardado en localStorage
 function obtenerToken(): string {
   return localStorage.getItem('token') || '';
+}
+
+export function construirUrlArchivoProtegido(ruta?: string | null): string {
+  if (!ruta) {
+    return '';
+  }
+
+  if (/^https?:\/\//i.test(ruta)) {
+    return anexarTokenSiEsUpload(ruta);
+  }
+
+  const url = `${API_URL}${ruta}`;
+  if (!ruta.startsWith('/uploads/')) {
+    return url;
+  }
+
+  return anexarTokenSiEsUpload(url);
+}
+
+function anexarTokenSiEsUpload(url: string): string {
+  let esUpload = false;
+  let tieneToken = false;
+
+  try {
+    const urlParseada = new URL(url);
+    esUpload = urlParseada.pathname.startsWith('/uploads/');
+    tieneToken = urlParseada.searchParams.has('token');
+  } catch {
+    esUpload = url.startsWith('/uploads/');
+    tieneToken = /[?&]token=/.test(url);
+  }
+
+  if (!esUpload || tieneToken) {
+    return url;
+  }
+
+  const token = obtenerToken();
+  if (!token) {
+    return url;
+  }
+
+  const separador = url.includes('?') ? '&' : '?';
+  return `${url}${separador}token=${encodeURIComponent(token)}`;
 }
 
 //Funcion para construir headers con autorización JWT cuando sea necesario
@@ -115,7 +159,6 @@ export async function crearInstitucion(data: {
   return respuesta.json();
 }
 
-
 export async function login(data: {
   institucionId: string;
   usuario: string;
@@ -183,14 +226,11 @@ export async function actualizarInstitucion(
 }
 
 export async function inactivarInstitucion(id: number) {
-  const respuesta = await fetch(
-    `${API_URL}/instituciones/${id}/inactivar`,
-    {
-      method: 'PATCH',
-      //Se envía token porque este endpoint está protegido
-      headers: construirHeadersAutorizados(false),
-    },
-  );
+  const respuesta = await fetch(`${API_URL}/instituciones/${id}/inactivar`, {
+    method: 'PATCH',
+    //Se envía token porque este endpoint está protegido
+    headers: construirHeadersAutorizados(false),
+  });
 
   if (!respuesta.ok) {
     throw new Error('No se pudo inactivar la institución');
@@ -200,14 +240,11 @@ export async function inactivarInstitucion(id: number) {
 }
 
 export async function reactivarInstitucion(id: number) {
-  const respuesta = await fetch(
-    `${API_URL}/instituciones/${id}/reactivar`,
-    {
-      method: 'PATCH',
-      //Se envía token porque este endpoint está protegido
-      headers: construirHeadersAutorizados(false),
-    },
-  );
+  const respuesta = await fetch(`${API_URL}/instituciones/${id}/reactivar`, {
+    method: 'PATCH',
+    //Se envía token porque este endpoint está protegido
+    headers: construirHeadersAutorizados(false),
+  });
 
   if (!respuesta.ok) {
     throw new Error('No se pudo reactivar la institución');
@@ -216,21 +253,16 @@ export async function reactivarInstitucion(id: number) {
   return respuesta.json();
 }
 
-export async function subirLogoInstitucion(
-  archivo: File,
-) {
+export async function subirLogoInstitucion(archivo: File) {
   const formData = new FormData();
   formData.append('logo', archivo);
 
-  const respuesta = await fetch(
-    `${API_URL}/instituciones/subir-logo`,
-    {
-      method: 'POST',
-      //Se envía token sin content-type manual porque FormData lo gestiona automáticamente
-      headers: construirHeadersAutorizados(false),
-      body: formData,
-    },
-  );
+  const respuesta = await fetch(`${API_URL}/instituciones/subir-logo`, {
+    method: 'POST',
+    //Se envía token sin content-type manual porque FormData lo gestiona automáticamente
+    headers: construirHeadersAutorizados(false),
+    body: formData,
+  });
 
   if (!respuesta.ok) {
     throw new Error('No se pudo subir el logo');

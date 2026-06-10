@@ -332,13 +332,13 @@ export type ProyectoColaborativoWhereInput = {
   docenteId?: Prisma.IntFilter<"ProyectoColaborativo"> | number
   gradoEscolarId?: Prisma.IntNullableFilter<"ProyectoColaborativo"> | number | null
   categoriaId?: Prisma.IntNullableFilter<"ProyectoColaborativo"> | number | null
-  institucion?: Prisma.XOR<Prisma.InstitucionScalarRelationFilter, Prisma.InstitucionWhereInput>
-  docente?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
-  gradoEscolar?: Prisma.XOR<Prisma.GradoEscolarNullableScalarRelationFilter, Prisma.GradoEscolarWhereInput> | null
-  categoria?: Prisma.XOR<Prisma.CategoriaNullableScalarRelationFilter, Prisma.CategoriaWhereInput> | null
-  integrantes?: Prisma.ProyectoColaborativoIntegranteListRelationFilter
   actividades?: Prisma.ProyectoColaborativoActividadListRelationFilter
   entregas?: Prisma.ProyectoColaborativoEntregaListRelationFilter
+  integrantes?: Prisma.ProyectoColaborativoIntegranteListRelationFilter
+  categoria?: Prisma.XOR<Prisma.CategoriaNullableScalarRelationFilter, Prisma.CategoriaWhereInput> | null
+  docente?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
+  gradoEscolar?: Prisma.XOR<Prisma.GradoEscolarNullableScalarRelationFilter, Prisma.GradoEscolarWhereInput> | null
+  institucion?: Prisma.XOR<Prisma.InstitucionScalarRelationFilter, Prisma.InstitucionWhereInput>
 }
 
 export type ProyectoColaborativoOrderByWithRelationInput = {
@@ -359,13 +359,13 @@ export type ProyectoColaborativoOrderByWithRelationInput = {
   docenteId?: Prisma.SortOrder
   gradoEscolarId?: Prisma.SortOrderInput | Prisma.SortOrder
   categoriaId?: Prisma.SortOrderInput | Prisma.SortOrder
-  institucion?: Prisma.InstitucionOrderByWithRelationInput
-  docente?: Prisma.UsuarioOrderByWithRelationInput
-  gradoEscolar?: Prisma.GradoEscolarOrderByWithRelationInput
-  categoria?: Prisma.CategoriaOrderByWithRelationInput
-  integrantes?: Prisma.ProyectoColaborativoIntegranteOrderByRelationAggregateInput
   actividades?: Prisma.ProyectoColaborativoActividadOrderByRelationAggregateInput
   entregas?: Prisma.ProyectoColaborativoEntregaOrderByRelationAggregateInput
+  integrantes?: Prisma.ProyectoColaborativoIntegranteOrderByRelationAggregateInput
+  categoria?: Prisma.CategoriaOrderByWithRelationInput
+  docente?: Prisma.UsuarioOrderByWithRelationInput
+  gradoEscolar?: Prisma.GradoEscolarOrderByWithRelationInput
+  institucion?: Prisma.InstitucionOrderByWithRelationInput
 }
 
 export type ProyectoColaborativoWhereUniqueInput = Prisma.AtLeast<{
@@ -389,13 +389,13 @@ export type ProyectoColaborativoWhereUniqueInput = Prisma.AtLeast<{
   docenteId?: Prisma.IntFilter<"ProyectoColaborativo"> | number
   gradoEscolarId?: Prisma.IntNullableFilter<"ProyectoColaborativo"> | number | null
   categoriaId?: Prisma.IntNullableFilter<"ProyectoColaborativo"> | number | null
-  institucion?: Prisma.XOR<Prisma.InstitucionScalarRelationFilter, Prisma.InstitucionWhereInput>
-  docente?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
-  gradoEscolar?: Prisma.XOR<Prisma.GradoEscolarNullableScalarRelationFilter, Prisma.GradoEscolarWhereInput> | null
-  categoria?: Prisma.XOR<Prisma.CategoriaNullableScalarRelationFilter, Prisma.CategoriaWhereInput> | null
-  integrantes?: Prisma.ProyectoColaborativoIntegranteListRelationFilter
   actividades?: Prisma.ProyectoColaborativoActividadListRelationFilter
   entregas?: Prisma.ProyectoColaborativoEntregaListRelationFilter
+  integrantes?: Prisma.ProyectoColaborativoIntegranteListRelationFilter
+  categoria?: Prisma.XOR<Prisma.CategoriaNullableScalarRelationFilter, Prisma.CategoriaWhereInput> | null
+  docente?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
+  gradoEscolar?: Prisma.XOR<Prisma.GradoEscolarNullableScalarRelationFilter, Prisma.GradoEscolarWhereInput> | null
+  institucion?: Prisma.XOR<Prisma.InstitucionScalarRelationFilter, Prisma.InstitucionWhereInput>
 }, "id">
 
 export type ProyectoColaborativoOrderByWithAggregationInput = {
@@ -459,13 +459,13 @@ export type ProyectoColaborativoCreateInput = {
   fechaCierre?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  institucion: Prisma.InstitucionCreateNestedOneWithoutProyectosColaborativosInput
-  docente: Prisma.UsuarioCreateNestedOneWithoutProyectosDocenteInput
-  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutProyectosColaborativosInput
-  categoria?: Prisma.CategoriaCreateNestedOneWithoutProyectosColaborativosInput
-  integrantes?: Prisma.ProyectoColaborativoIntegranteCreateNestedManyWithoutProyectoInput
   actividades?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutProyectoInput
   entregas?: Prisma.ProyectoColaborativoEntregaCreateNestedManyWithoutProyectoInput
+  integrantes?: Prisma.ProyectoColaborativoIntegranteCreateNestedManyWithoutProyectoInput
+  categoria?: Prisma.CategoriaCreateNestedOneWithoutProyectosColaborativosInput
+  docente: Prisma.UsuarioCreateNestedOneWithoutProyectosDocenteInput
+  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutProyectosColaborativosInput
+  institucion: Prisma.InstitucionCreateNestedOneWithoutProyectosColaborativosInput
 }
 
 export type ProyectoColaborativoUncheckedCreateInput = {
@@ -486,9 +486,9 @@ export type ProyectoColaborativoUncheckedCreateInput = {
   docenteId: number
   gradoEscolarId?: number | null
   categoriaId?: number | null
-  integrantes?: Prisma.ProyectoColaborativoIntegranteUncheckedCreateNestedManyWithoutProyectoInput
   actividades?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutProyectoInput
   entregas?: Prisma.ProyectoColaborativoEntregaUncheckedCreateNestedManyWithoutProyectoInput
+  integrantes?: Prisma.ProyectoColaborativoIntegranteUncheckedCreateNestedManyWithoutProyectoInput
 }
 
 export type ProyectoColaborativoUpdateInput = {
@@ -504,13 +504,13 @@ export type ProyectoColaborativoUpdateInput = {
   fechaCierre?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutProyectosColaborativosNestedInput
-  docente?: Prisma.UsuarioUpdateOneRequiredWithoutProyectosDocenteNestedInput
-  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutProyectosColaborativosNestedInput
-  categoria?: Prisma.CategoriaUpdateOneWithoutProyectosColaborativosNestedInput
-  integrantes?: Prisma.ProyectoColaborativoIntegranteUpdateManyWithoutProyectoNestedInput
   actividades?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutProyectoNestedInput
   entregas?: Prisma.ProyectoColaborativoEntregaUpdateManyWithoutProyectoNestedInput
+  integrantes?: Prisma.ProyectoColaborativoIntegranteUpdateManyWithoutProyectoNestedInput
+  categoria?: Prisma.CategoriaUpdateOneWithoutProyectosColaborativosNestedInput
+  docente?: Prisma.UsuarioUpdateOneRequiredWithoutProyectosDocenteNestedInput
+  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutProyectosColaborativosNestedInput
+  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutProyectosColaborativosNestedInput
 }
 
 export type ProyectoColaborativoUncheckedUpdateInput = {
@@ -531,9 +531,9 @@ export type ProyectoColaborativoUncheckedUpdateInput = {
   docenteId?: Prisma.IntFieldUpdateOperationsInput | number
   gradoEscolarId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   categoriaId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  integrantes?: Prisma.ProyectoColaborativoIntegranteUncheckedUpdateManyWithoutProyectoNestedInput
   actividades?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutProyectoNestedInput
   entregas?: Prisma.ProyectoColaborativoEntregaUncheckedUpdateManyWithoutProyectoNestedInput
+  integrantes?: Prisma.ProyectoColaborativoIntegranteUncheckedUpdateManyWithoutProyectoNestedInput
 }
 
 export type ProyectoColaborativoCreateManyInput = {
@@ -915,12 +915,12 @@ export type ProyectoColaborativoCreateWithoutInstitucionInput = {
   fechaCierre?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  docente: Prisma.UsuarioCreateNestedOneWithoutProyectosDocenteInput
-  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutProyectosColaborativosInput
-  categoria?: Prisma.CategoriaCreateNestedOneWithoutProyectosColaborativosInput
-  integrantes?: Prisma.ProyectoColaborativoIntegranteCreateNestedManyWithoutProyectoInput
   actividades?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutProyectoInput
   entregas?: Prisma.ProyectoColaborativoEntregaCreateNestedManyWithoutProyectoInput
+  integrantes?: Prisma.ProyectoColaborativoIntegranteCreateNestedManyWithoutProyectoInput
+  categoria?: Prisma.CategoriaCreateNestedOneWithoutProyectosColaborativosInput
+  docente: Prisma.UsuarioCreateNestedOneWithoutProyectosDocenteInput
+  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutProyectosColaborativosInput
 }
 
 export type ProyectoColaborativoUncheckedCreateWithoutInstitucionInput = {
@@ -940,9 +940,9 @@ export type ProyectoColaborativoUncheckedCreateWithoutInstitucionInput = {
   docenteId: number
   gradoEscolarId?: number | null
   categoriaId?: number | null
-  integrantes?: Prisma.ProyectoColaborativoIntegranteUncheckedCreateNestedManyWithoutProyectoInput
   actividades?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutProyectoInput
   entregas?: Prisma.ProyectoColaborativoEntregaUncheckedCreateNestedManyWithoutProyectoInput
+  integrantes?: Prisma.ProyectoColaborativoIntegranteUncheckedCreateNestedManyWithoutProyectoInput
 }
 
 export type ProyectoColaborativoCreateOrConnectWithoutInstitucionInput = {
@@ -1007,12 +1007,12 @@ export type ProyectoColaborativoCreateWithoutDocenteInput = {
   fechaCierre?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  institucion: Prisma.InstitucionCreateNestedOneWithoutProyectosColaborativosInput
-  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutProyectosColaborativosInput
-  categoria?: Prisma.CategoriaCreateNestedOneWithoutProyectosColaborativosInput
-  integrantes?: Prisma.ProyectoColaborativoIntegranteCreateNestedManyWithoutProyectoInput
   actividades?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutProyectoInput
   entregas?: Prisma.ProyectoColaborativoEntregaCreateNestedManyWithoutProyectoInput
+  integrantes?: Prisma.ProyectoColaborativoIntegranteCreateNestedManyWithoutProyectoInput
+  categoria?: Prisma.CategoriaCreateNestedOneWithoutProyectosColaborativosInput
+  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutProyectosColaborativosInput
+  institucion: Prisma.InstitucionCreateNestedOneWithoutProyectosColaborativosInput
 }
 
 export type ProyectoColaborativoUncheckedCreateWithoutDocenteInput = {
@@ -1032,9 +1032,9 @@ export type ProyectoColaborativoUncheckedCreateWithoutDocenteInput = {
   institucionId: number
   gradoEscolarId?: number | null
   categoriaId?: number | null
-  integrantes?: Prisma.ProyectoColaborativoIntegranteUncheckedCreateNestedManyWithoutProyectoInput
   actividades?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutProyectoInput
   entregas?: Prisma.ProyectoColaborativoEntregaUncheckedCreateNestedManyWithoutProyectoInput
+  integrantes?: Prisma.ProyectoColaborativoIntegranteUncheckedCreateNestedManyWithoutProyectoInput
 }
 
 export type ProyectoColaborativoCreateOrConnectWithoutDocenteInput = {
@@ -1076,12 +1076,12 @@ export type ProyectoColaborativoCreateWithoutGradoEscolarInput = {
   fechaCierre?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  institucion: Prisma.InstitucionCreateNestedOneWithoutProyectosColaborativosInput
-  docente: Prisma.UsuarioCreateNestedOneWithoutProyectosDocenteInput
-  categoria?: Prisma.CategoriaCreateNestedOneWithoutProyectosColaborativosInput
-  integrantes?: Prisma.ProyectoColaborativoIntegranteCreateNestedManyWithoutProyectoInput
   actividades?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutProyectoInput
   entregas?: Prisma.ProyectoColaborativoEntregaCreateNestedManyWithoutProyectoInput
+  integrantes?: Prisma.ProyectoColaborativoIntegranteCreateNestedManyWithoutProyectoInput
+  categoria?: Prisma.CategoriaCreateNestedOneWithoutProyectosColaborativosInput
+  docente: Prisma.UsuarioCreateNestedOneWithoutProyectosDocenteInput
+  institucion: Prisma.InstitucionCreateNestedOneWithoutProyectosColaborativosInput
 }
 
 export type ProyectoColaborativoUncheckedCreateWithoutGradoEscolarInput = {
@@ -1101,9 +1101,9 @@ export type ProyectoColaborativoUncheckedCreateWithoutGradoEscolarInput = {
   institucionId: number
   docenteId: number
   categoriaId?: number | null
-  integrantes?: Prisma.ProyectoColaborativoIntegranteUncheckedCreateNestedManyWithoutProyectoInput
   actividades?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutProyectoInput
   entregas?: Prisma.ProyectoColaborativoEntregaUncheckedCreateNestedManyWithoutProyectoInput
+  integrantes?: Prisma.ProyectoColaborativoIntegranteUncheckedCreateNestedManyWithoutProyectoInput
 }
 
 export type ProyectoColaborativoCreateOrConnectWithoutGradoEscolarInput = {
@@ -1145,12 +1145,12 @@ export type ProyectoColaborativoCreateWithoutCategoriaInput = {
   fechaCierre?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  institucion: Prisma.InstitucionCreateNestedOneWithoutProyectosColaborativosInput
-  docente: Prisma.UsuarioCreateNestedOneWithoutProyectosDocenteInput
-  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutProyectosColaborativosInput
-  integrantes?: Prisma.ProyectoColaborativoIntegranteCreateNestedManyWithoutProyectoInput
   actividades?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutProyectoInput
   entregas?: Prisma.ProyectoColaborativoEntregaCreateNestedManyWithoutProyectoInput
+  integrantes?: Prisma.ProyectoColaborativoIntegranteCreateNestedManyWithoutProyectoInput
+  docente: Prisma.UsuarioCreateNestedOneWithoutProyectosDocenteInput
+  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutProyectosColaborativosInput
+  institucion: Prisma.InstitucionCreateNestedOneWithoutProyectosColaborativosInput
 }
 
 export type ProyectoColaborativoUncheckedCreateWithoutCategoriaInput = {
@@ -1170,9 +1170,9 @@ export type ProyectoColaborativoUncheckedCreateWithoutCategoriaInput = {
   institucionId: number
   docenteId: number
   gradoEscolarId?: number | null
-  integrantes?: Prisma.ProyectoColaborativoIntegranteUncheckedCreateNestedManyWithoutProyectoInput
   actividades?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutProyectoInput
   entregas?: Prisma.ProyectoColaborativoEntregaUncheckedCreateNestedManyWithoutProyectoInput
+  integrantes?: Prisma.ProyectoColaborativoIntegranteUncheckedCreateNestedManyWithoutProyectoInput
 }
 
 export type ProyectoColaborativoCreateOrConnectWithoutCategoriaInput = {
@@ -1214,12 +1214,12 @@ export type ProyectoColaborativoCreateWithoutIntegrantesInput = {
   fechaCierre?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  institucion: Prisma.InstitucionCreateNestedOneWithoutProyectosColaborativosInput
-  docente: Prisma.UsuarioCreateNestedOneWithoutProyectosDocenteInput
-  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutProyectosColaborativosInput
-  categoria?: Prisma.CategoriaCreateNestedOneWithoutProyectosColaborativosInput
   actividades?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutProyectoInput
   entregas?: Prisma.ProyectoColaborativoEntregaCreateNestedManyWithoutProyectoInput
+  categoria?: Prisma.CategoriaCreateNestedOneWithoutProyectosColaborativosInput
+  docente: Prisma.UsuarioCreateNestedOneWithoutProyectosDocenteInput
+  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutProyectosColaborativosInput
+  institucion: Prisma.InstitucionCreateNestedOneWithoutProyectosColaborativosInput
 }
 
 export type ProyectoColaborativoUncheckedCreateWithoutIntegrantesInput = {
@@ -1273,12 +1273,12 @@ export type ProyectoColaborativoUpdateWithoutIntegrantesInput = {
   fechaCierre?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutProyectosColaborativosNestedInput
-  docente?: Prisma.UsuarioUpdateOneRequiredWithoutProyectosDocenteNestedInput
-  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutProyectosColaborativosNestedInput
-  categoria?: Prisma.CategoriaUpdateOneWithoutProyectosColaborativosNestedInput
   actividades?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutProyectoNestedInput
   entregas?: Prisma.ProyectoColaborativoEntregaUpdateManyWithoutProyectoNestedInput
+  categoria?: Prisma.CategoriaUpdateOneWithoutProyectosColaborativosNestedInput
+  docente?: Prisma.UsuarioUpdateOneRequiredWithoutProyectosDocenteNestedInput
+  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutProyectosColaborativosNestedInput
+  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutProyectosColaborativosNestedInput
 }
 
 export type ProyectoColaborativoUncheckedUpdateWithoutIntegrantesInput = {
@@ -1316,12 +1316,12 @@ export type ProyectoColaborativoCreateWithoutActividadesInput = {
   fechaCierre?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  institucion: Prisma.InstitucionCreateNestedOneWithoutProyectosColaborativosInput
+  entregas?: Prisma.ProyectoColaborativoEntregaCreateNestedManyWithoutProyectoInput
+  integrantes?: Prisma.ProyectoColaborativoIntegranteCreateNestedManyWithoutProyectoInput
+  categoria?: Prisma.CategoriaCreateNestedOneWithoutProyectosColaborativosInput
   docente: Prisma.UsuarioCreateNestedOneWithoutProyectosDocenteInput
   gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutProyectosColaborativosInput
-  categoria?: Prisma.CategoriaCreateNestedOneWithoutProyectosColaborativosInput
-  integrantes?: Prisma.ProyectoColaborativoIntegranteCreateNestedManyWithoutProyectoInput
-  entregas?: Prisma.ProyectoColaborativoEntregaCreateNestedManyWithoutProyectoInput
+  institucion: Prisma.InstitucionCreateNestedOneWithoutProyectosColaborativosInput
 }
 
 export type ProyectoColaborativoUncheckedCreateWithoutActividadesInput = {
@@ -1342,8 +1342,8 @@ export type ProyectoColaborativoUncheckedCreateWithoutActividadesInput = {
   docenteId: number
   gradoEscolarId?: number | null
   categoriaId?: number | null
-  integrantes?: Prisma.ProyectoColaborativoIntegranteUncheckedCreateNestedManyWithoutProyectoInput
   entregas?: Prisma.ProyectoColaborativoEntregaUncheckedCreateNestedManyWithoutProyectoInput
+  integrantes?: Prisma.ProyectoColaborativoIntegranteUncheckedCreateNestedManyWithoutProyectoInput
 }
 
 export type ProyectoColaborativoCreateOrConnectWithoutActividadesInput = {
@@ -1375,12 +1375,12 @@ export type ProyectoColaborativoUpdateWithoutActividadesInput = {
   fechaCierre?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutProyectosColaborativosNestedInput
+  entregas?: Prisma.ProyectoColaborativoEntregaUpdateManyWithoutProyectoNestedInput
+  integrantes?: Prisma.ProyectoColaborativoIntegranteUpdateManyWithoutProyectoNestedInput
+  categoria?: Prisma.CategoriaUpdateOneWithoutProyectosColaborativosNestedInput
   docente?: Prisma.UsuarioUpdateOneRequiredWithoutProyectosDocenteNestedInput
   gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutProyectosColaborativosNestedInput
-  categoria?: Prisma.CategoriaUpdateOneWithoutProyectosColaborativosNestedInput
-  integrantes?: Prisma.ProyectoColaborativoIntegranteUpdateManyWithoutProyectoNestedInput
-  entregas?: Prisma.ProyectoColaborativoEntregaUpdateManyWithoutProyectoNestedInput
+  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutProyectosColaborativosNestedInput
 }
 
 export type ProyectoColaborativoUncheckedUpdateWithoutActividadesInput = {
@@ -1401,8 +1401,8 @@ export type ProyectoColaborativoUncheckedUpdateWithoutActividadesInput = {
   docenteId?: Prisma.IntFieldUpdateOperationsInput | number
   gradoEscolarId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   categoriaId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  integrantes?: Prisma.ProyectoColaborativoIntegranteUncheckedUpdateManyWithoutProyectoNestedInput
   entregas?: Prisma.ProyectoColaborativoEntregaUncheckedUpdateManyWithoutProyectoNestedInput
+  integrantes?: Prisma.ProyectoColaborativoIntegranteUncheckedUpdateManyWithoutProyectoNestedInput
 }
 
 export type ProyectoColaborativoCreateWithoutEntregasInput = {
@@ -1418,12 +1418,12 @@ export type ProyectoColaborativoCreateWithoutEntregasInput = {
   fechaCierre?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  institucion: Prisma.InstitucionCreateNestedOneWithoutProyectosColaborativosInput
+  actividades?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutProyectoInput
+  integrantes?: Prisma.ProyectoColaborativoIntegranteCreateNestedManyWithoutProyectoInput
+  categoria?: Prisma.CategoriaCreateNestedOneWithoutProyectosColaborativosInput
   docente: Prisma.UsuarioCreateNestedOneWithoutProyectosDocenteInput
   gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutProyectosColaborativosInput
-  categoria?: Prisma.CategoriaCreateNestedOneWithoutProyectosColaborativosInput
-  integrantes?: Prisma.ProyectoColaborativoIntegranteCreateNestedManyWithoutProyectoInput
-  actividades?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutProyectoInput
+  institucion: Prisma.InstitucionCreateNestedOneWithoutProyectosColaborativosInput
 }
 
 export type ProyectoColaborativoUncheckedCreateWithoutEntregasInput = {
@@ -1444,8 +1444,8 @@ export type ProyectoColaborativoUncheckedCreateWithoutEntregasInput = {
   docenteId: number
   gradoEscolarId?: number | null
   categoriaId?: number | null
-  integrantes?: Prisma.ProyectoColaborativoIntegranteUncheckedCreateNestedManyWithoutProyectoInput
   actividades?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutProyectoInput
+  integrantes?: Prisma.ProyectoColaborativoIntegranteUncheckedCreateNestedManyWithoutProyectoInput
 }
 
 export type ProyectoColaborativoCreateOrConnectWithoutEntregasInput = {
@@ -1477,12 +1477,12 @@ export type ProyectoColaborativoUpdateWithoutEntregasInput = {
   fechaCierre?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutProyectosColaborativosNestedInput
+  actividades?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutProyectoNestedInput
+  integrantes?: Prisma.ProyectoColaborativoIntegranteUpdateManyWithoutProyectoNestedInput
+  categoria?: Prisma.CategoriaUpdateOneWithoutProyectosColaborativosNestedInput
   docente?: Prisma.UsuarioUpdateOneRequiredWithoutProyectosDocenteNestedInput
   gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutProyectosColaborativosNestedInput
-  categoria?: Prisma.CategoriaUpdateOneWithoutProyectosColaborativosNestedInput
-  integrantes?: Prisma.ProyectoColaborativoIntegranteUpdateManyWithoutProyectoNestedInput
-  actividades?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutProyectoNestedInput
+  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutProyectosColaborativosNestedInput
 }
 
 export type ProyectoColaborativoUncheckedUpdateWithoutEntregasInput = {
@@ -1503,8 +1503,8 @@ export type ProyectoColaborativoUncheckedUpdateWithoutEntregasInput = {
   docenteId?: Prisma.IntFieldUpdateOperationsInput | number
   gradoEscolarId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   categoriaId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  integrantes?: Prisma.ProyectoColaborativoIntegranteUncheckedUpdateManyWithoutProyectoNestedInput
   actividades?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutProyectoNestedInput
+  integrantes?: Prisma.ProyectoColaborativoIntegranteUncheckedUpdateManyWithoutProyectoNestedInput
 }
 
 export type ProyectoColaborativoCreateManyInstitucionInput = {
@@ -1539,12 +1539,12 @@ export type ProyectoColaborativoUpdateWithoutInstitucionInput = {
   fechaCierre?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  docente?: Prisma.UsuarioUpdateOneRequiredWithoutProyectosDocenteNestedInput
-  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutProyectosColaborativosNestedInput
-  categoria?: Prisma.CategoriaUpdateOneWithoutProyectosColaborativosNestedInput
-  integrantes?: Prisma.ProyectoColaborativoIntegranteUpdateManyWithoutProyectoNestedInput
   actividades?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutProyectoNestedInput
   entregas?: Prisma.ProyectoColaborativoEntregaUpdateManyWithoutProyectoNestedInput
+  integrantes?: Prisma.ProyectoColaborativoIntegranteUpdateManyWithoutProyectoNestedInput
+  categoria?: Prisma.CategoriaUpdateOneWithoutProyectosColaborativosNestedInput
+  docente?: Prisma.UsuarioUpdateOneRequiredWithoutProyectosDocenteNestedInput
+  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutProyectosColaborativosNestedInput
 }
 
 export type ProyectoColaborativoUncheckedUpdateWithoutInstitucionInput = {
@@ -1564,9 +1564,9 @@ export type ProyectoColaborativoUncheckedUpdateWithoutInstitucionInput = {
   docenteId?: Prisma.IntFieldUpdateOperationsInput | number
   gradoEscolarId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   categoriaId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  integrantes?: Prisma.ProyectoColaborativoIntegranteUncheckedUpdateManyWithoutProyectoNestedInput
   actividades?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutProyectoNestedInput
   entregas?: Prisma.ProyectoColaborativoEntregaUncheckedUpdateManyWithoutProyectoNestedInput
+  integrantes?: Prisma.ProyectoColaborativoIntegranteUncheckedUpdateManyWithoutProyectoNestedInput
 }
 
 export type ProyectoColaborativoUncheckedUpdateManyWithoutInstitucionInput = {
@@ -1620,12 +1620,12 @@ export type ProyectoColaborativoUpdateWithoutDocenteInput = {
   fechaCierre?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutProyectosColaborativosNestedInput
-  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutProyectosColaborativosNestedInput
-  categoria?: Prisma.CategoriaUpdateOneWithoutProyectosColaborativosNestedInput
-  integrantes?: Prisma.ProyectoColaborativoIntegranteUpdateManyWithoutProyectoNestedInput
   actividades?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutProyectoNestedInput
   entregas?: Prisma.ProyectoColaborativoEntregaUpdateManyWithoutProyectoNestedInput
+  integrantes?: Prisma.ProyectoColaborativoIntegranteUpdateManyWithoutProyectoNestedInput
+  categoria?: Prisma.CategoriaUpdateOneWithoutProyectosColaborativosNestedInput
+  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutProyectosColaborativosNestedInput
+  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutProyectosColaborativosNestedInput
 }
 
 export type ProyectoColaborativoUncheckedUpdateWithoutDocenteInput = {
@@ -1645,9 +1645,9 @@ export type ProyectoColaborativoUncheckedUpdateWithoutDocenteInput = {
   institucionId?: Prisma.IntFieldUpdateOperationsInput | number
   gradoEscolarId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   categoriaId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  integrantes?: Prisma.ProyectoColaborativoIntegranteUncheckedUpdateManyWithoutProyectoNestedInput
   actividades?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutProyectoNestedInput
   entregas?: Prisma.ProyectoColaborativoEntregaUncheckedUpdateManyWithoutProyectoNestedInput
+  integrantes?: Prisma.ProyectoColaborativoIntegranteUncheckedUpdateManyWithoutProyectoNestedInput
 }
 
 export type ProyectoColaborativoUncheckedUpdateManyWithoutDocenteInput = {
@@ -1701,12 +1701,12 @@ export type ProyectoColaborativoUpdateWithoutGradoEscolarInput = {
   fechaCierre?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutProyectosColaborativosNestedInput
-  docente?: Prisma.UsuarioUpdateOneRequiredWithoutProyectosDocenteNestedInput
-  categoria?: Prisma.CategoriaUpdateOneWithoutProyectosColaborativosNestedInput
-  integrantes?: Prisma.ProyectoColaborativoIntegranteUpdateManyWithoutProyectoNestedInput
   actividades?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutProyectoNestedInput
   entregas?: Prisma.ProyectoColaborativoEntregaUpdateManyWithoutProyectoNestedInput
+  integrantes?: Prisma.ProyectoColaborativoIntegranteUpdateManyWithoutProyectoNestedInput
+  categoria?: Prisma.CategoriaUpdateOneWithoutProyectosColaborativosNestedInput
+  docente?: Prisma.UsuarioUpdateOneRequiredWithoutProyectosDocenteNestedInput
+  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutProyectosColaborativosNestedInput
 }
 
 export type ProyectoColaborativoUncheckedUpdateWithoutGradoEscolarInput = {
@@ -1726,9 +1726,9 @@ export type ProyectoColaborativoUncheckedUpdateWithoutGradoEscolarInput = {
   institucionId?: Prisma.IntFieldUpdateOperationsInput | number
   docenteId?: Prisma.IntFieldUpdateOperationsInput | number
   categoriaId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  integrantes?: Prisma.ProyectoColaborativoIntegranteUncheckedUpdateManyWithoutProyectoNestedInput
   actividades?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutProyectoNestedInput
   entregas?: Prisma.ProyectoColaborativoEntregaUncheckedUpdateManyWithoutProyectoNestedInput
+  integrantes?: Prisma.ProyectoColaborativoIntegranteUncheckedUpdateManyWithoutProyectoNestedInput
 }
 
 export type ProyectoColaborativoUncheckedUpdateManyWithoutGradoEscolarInput = {
@@ -1782,12 +1782,12 @@ export type ProyectoColaborativoUpdateWithoutCategoriaInput = {
   fechaCierre?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutProyectosColaborativosNestedInput
-  docente?: Prisma.UsuarioUpdateOneRequiredWithoutProyectosDocenteNestedInput
-  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutProyectosColaborativosNestedInput
-  integrantes?: Prisma.ProyectoColaborativoIntegranteUpdateManyWithoutProyectoNestedInput
   actividades?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutProyectoNestedInput
   entregas?: Prisma.ProyectoColaborativoEntregaUpdateManyWithoutProyectoNestedInput
+  integrantes?: Prisma.ProyectoColaborativoIntegranteUpdateManyWithoutProyectoNestedInput
+  docente?: Prisma.UsuarioUpdateOneRequiredWithoutProyectosDocenteNestedInput
+  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutProyectosColaborativosNestedInput
+  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutProyectosColaborativosNestedInput
 }
 
 export type ProyectoColaborativoUncheckedUpdateWithoutCategoriaInput = {
@@ -1807,9 +1807,9 @@ export type ProyectoColaborativoUncheckedUpdateWithoutCategoriaInput = {
   institucionId?: Prisma.IntFieldUpdateOperationsInput | number
   docenteId?: Prisma.IntFieldUpdateOperationsInput | number
   gradoEscolarId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  integrantes?: Prisma.ProyectoColaborativoIntegranteUncheckedUpdateManyWithoutProyectoNestedInput
   actividades?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutProyectoNestedInput
   entregas?: Prisma.ProyectoColaborativoEntregaUncheckedUpdateManyWithoutProyectoNestedInput
+  integrantes?: Prisma.ProyectoColaborativoIntegranteUncheckedUpdateManyWithoutProyectoNestedInput
 }
 
 export type ProyectoColaborativoUncheckedUpdateManyWithoutCategoriaInput = {
@@ -1837,15 +1837,15 @@ export type ProyectoColaborativoUncheckedUpdateManyWithoutCategoriaInput = {
  */
 
 export type ProyectoColaborativoCountOutputType = {
-  integrantes: number
   actividades: number
   entregas: number
+  integrantes: number
 }
 
 export type ProyectoColaborativoCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  integrantes?: boolean | ProyectoColaborativoCountOutputTypeCountIntegrantesArgs
   actividades?: boolean | ProyectoColaborativoCountOutputTypeCountActividadesArgs
   entregas?: boolean | ProyectoColaborativoCountOutputTypeCountEntregasArgs
+  integrantes?: boolean | ProyectoColaborativoCountOutputTypeCountIntegrantesArgs
 }
 
 /**
@@ -1861,13 +1861,6 @@ export type ProyectoColaborativoCountOutputTypeDefaultArgs<ExtArgs extends runti
 /**
  * ProyectoColaborativoCountOutputType without action
  */
-export type ProyectoColaborativoCountOutputTypeCountIntegrantesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ProyectoColaborativoIntegranteWhereInput
-}
-
-/**
- * ProyectoColaborativoCountOutputType without action
- */
 export type ProyectoColaborativoCountOutputTypeCountActividadesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.ProyectoColaborativoActividadWhereInput
 }
@@ -1877,6 +1870,13 @@ export type ProyectoColaborativoCountOutputTypeCountActividadesArgs<ExtArgs exte
  */
 export type ProyectoColaborativoCountOutputTypeCountEntregasArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.ProyectoColaborativoEntregaWhereInput
+}
+
+/**
+ * ProyectoColaborativoCountOutputType without action
+ */
+export type ProyectoColaborativoCountOutputTypeCountIntegrantesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProyectoColaborativoIntegranteWhereInput
 }
 
 
@@ -1898,13 +1898,13 @@ export type ProyectoColaborativoSelect<ExtArgs extends runtime.Types.Extensions.
   docenteId?: boolean
   gradoEscolarId?: boolean
   categoriaId?: boolean
-  institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
-  docente?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
-  gradoEscolar?: boolean | Prisma.ProyectoColaborativo$gradoEscolarArgs<ExtArgs>
-  categoria?: boolean | Prisma.ProyectoColaborativo$categoriaArgs<ExtArgs>
-  integrantes?: boolean | Prisma.ProyectoColaborativo$integrantesArgs<ExtArgs>
   actividades?: boolean | Prisma.ProyectoColaborativo$actividadesArgs<ExtArgs>
   entregas?: boolean | Prisma.ProyectoColaborativo$entregasArgs<ExtArgs>
+  integrantes?: boolean | Prisma.ProyectoColaborativo$integrantesArgs<ExtArgs>
+  categoria?: boolean | Prisma.ProyectoColaborativo$categoriaArgs<ExtArgs>
+  docente?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
+  gradoEscolar?: boolean | Prisma.ProyectoColaborativo$gradoEscolarArgs<ExtArgs>
+  institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
   _count?: boolean | Prisma.ProyectoColaborativoCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["proyectoColaborativo"]>
 
@@ -1926,10 +1926,10 @@ export type ProyectoColaborativoSelectCreateManyAndReturn<ExtArgs extends runtim
   docenteId?: boolean
   gradoEscolarId?: boolean
   categoriaId?: boolean
-  institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
+  categoria?: boolean | Prisma.ProyectoColaborativo$categoriaArgs<ExtArgs>
   docente?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   gradoEscolar?: boolean | Prisma.ProyectoColaborativo$gradoEscolarArgs<ExtArgs>
-  categoria?: boolean | Prisma.ProyectoColaborativo$categoriaArgs<ExtArgs>
+  institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["proyectoColaborativo"]>
 
 export type ProyectoColaborativoSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1950,10 +1950,10 @@ export type ProyectoColaborativoSelectUpdateManyAndReturn<ExtArgs extends runtim
   docenteId?: boolean
   gradoEscolarId?: boolean
   categoriaId?: boolean
-  institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
+  categoria?: boolean | Prisma.ProyectoColaborativo$categoriaArgs<ExtArgs>
   docente?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   gradoEscolar?: boolean | Prisma.ProyectoColaborativo$gradoEscolarArgs<ExtArgs>
-  categoria?: boolean | Prisma.ProyectoColaborativo$categoriaArgs<ExtArgs>
+  institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["proyectoColaborativo"]>
 
 export type ProyectoColaborativoSelectScalar = {
@@ -1978,38 +1978,38 @@ export type ProyectoColaborativoSelectScalar = {
 
 export type ProyectoColaborativoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "titulo" | "descripcion" | "objetivo" | "curso" | "instrucciones" | "fechaLimite" | "estado" | "comentariosCierre" | "calificacion" | "fechaCierre" | "createdAt" | "updatedAt" | "institucionId" | "docenteId" | "gradoEscolarId" | "categoriaId", ExtArgs["result"]["proyectoColaborativo"]>
 export type ProyectoColaborativoInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
-  docente?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
-  gradoEscolar?: boolean | Prisma.ProyectoColaborativo$gradoEscolarArgs<ExtArgs>
-  categoria?: boolean | Prisma.ProyectoColaborativo$categoriaArgs<ExtArgs>
-  integrantes?: boolean | Prisma.ProyectoColaborativo$integrantesArgs<ExtArgs>
   actividades?: boolean | Prisma.ProyectoColaborativo$actividadesArgs<ExtArgs>
   entregas?: boolean | Prisma.ProyectoColaborativo$entregasArgs<ExtArgs>
+  integrantes?: boolean | Prisma.ProyectoColaborativo$integrantesArgs<ExtArgs>
+  categoria?: boolean | Prisma.ProyectoColaborativo$categoriaArgs<ExtArgs>
+  docente?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
+  gradoEscolar?: boolean | Prisma.ProyectoColaborativo$gradoEscolarArgs<ExtArgs>
+  institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
   _count?: boolean | Prisma.ProyectoColaborativoCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ProyectoColaborativoIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
+  categoria?: boolean | Prisma.ProyectoColaborativo$categoriaArgs<ExtArgs>
   docente?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   gradoEscolar?: boolean | Prisma.ProyectoColaborativo$gradoEscolarArgs<ExtArgs>
-  categoria?: boolean | Prisma.ProyectoColaborativo$categoriaArgs<ExtArgs>
+  institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
 }
 export type ProyectoColaborativoIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
+  categoria?: boolean | Prisma.ProyectoColaborativo$categoriaArgs<ExtArgs>
   docente?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   gradoEscolar?: boolean | Prisma.ProyectoColaborativo$gradoEscolarArgs<ExtArgs>
-  categoria?: boolean | Prisma.ProyectoColaborativo$categoriaArgs<ExtArgs>
+  institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
 }
 
 export type $ProyectoColaborativoPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "ProyectoColaborativo"
   objects: {
-    institucion: Prisma.$InstitucionPayload<ExtArgs>
-    docente: Prisma.$UsuarioPayload<ExtArgs>
-    gradoEscolar: Prisma.$GradoEscolarPayload<ExtArgs> | null
-    categoria: Prisma.$CategoriaPayload<ExtArgs> | null
-    integrantes: Prisma.$ProyectoColaborativoIntegrantePayload<ExtArgs>[]
     actividades: Prisma.$ProyectoColaborativoActividadPayload<ExtArgs>[]
     entregas: Prisma.$ProyectoColaborativoEntregaPayload<ExtArgs>[]
+    integrantes: Prisma.$ProyectoColaborativoIntegrantePayload<ExtArgs>[]
+    categoria: Prisma.$CategoriaPayload<ExtArgs> | null
+    docente: Prisma.$UsuarioPayload<ExtArgs>
+    gradoEscolar: Prisma.$GradoEscolarPayload<ExtArgs> | null
+    institucion: Prisma.$InstitucionPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -2423,13 +2423,13 @@ readonly fields: ProyectoColaborativoFieldRefs;
  */
 export interface Prisma__ProyectoColaborativoClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  institucion<T extends Prisma.InstitucionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.InstitucionDefaultArgs<ExtArgs>>): Prisma.Prisma__InstitucionClient<runtime.Types.Result.GetResult<Prisma.$InstitucionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  docente<T extends Prisma.UsuarioDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UsuarioDefaultArgs<ExtArgs>>): Prisma.Prisma__UsuarioClient<runtime.Types.Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  gradoEscolar<T extends Prisma.ProyectoColaborativo$gradoEscolarArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProyectoColaborativo$gradoEscolarArgs<ExtArgs>>): Prisma.Prisma__GradoEscolarClient<runtime.Types.Result.GetResult<Prisma.$GradoEscolarPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  categoria<T extends Prisma.ProyectoColaborativo$categoriaArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProyectoColaborativo$categoriaArgs<ExtArgs>>): Prisma.Prisma__CategoriaClient<runtime.Types.Result.GetResult<Prisma.$CategoriaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  integrantes<T extends Prisma.ProyectoColaborativo$integrantesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProyectoColaborativo$integrantesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProyectoColaborativoIntegrantePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   actividades<T extends Prisma.ProyectoColaborativo$actividadesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProyectoColaborativo$actividadesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProyectoColaborativoActividadPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   entregas<T extends Prisma.ProyectoColaborativo$entregasArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProyectoColaborativo$entregasArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProyectoColaborativoEntregaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  integrantes<T extends Prisma.ProyectoColaborativo$integrantesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProyectoColaborativo$integrantesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProyectoColaborativoIntegrantePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  categoria<T extends Prisma.ProyectoColaborativo$categoriaArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProyectoColaborativo$categoriaArgs<ExtArgs>>): Prisma.Prisma__CategoriaClient<runtime.Types.Result.GetResult<Prisma.$CategoriaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  docente<T extends Prisma.UsuarioDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UsuarioDefaultArgs<ExtArgs>>): Prisma.Prisma__UsuarioClient<runtime.Types.Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  gradoEscolar<T extends Prisma.ProyectoColaborativo$gradoEscolarArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProyectoColaborativo$gradoEscolarArgs<ExtArgs>>): Prisma.Prisma__GradoEscolarClient<runtime.Types.Result.GetResult<Prisma.$GradoEscolarPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  institucion<T extends Prisma.InstitucionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.InstitucionDefaultArgs<ExtArgs>>): Prisma.Prisma__InstitucionClient<runtime.Types.Result.GetResult<Prisma.$InstitucionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2877,68 +2877,6 @@ export type ProyectoColaborativoDeleteManyArgs<ExtArgs extends runtime.Types.Ext
 }
 
 /**
- * ProyectoColaborativo.gradoEscolar
- */
-export type ProyectoColaborativo$gradoEscolarArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the GradoEscolar
-   */
-  select?: Prisma.GradoEscolarSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the GradoEscolar
-   */
-  omit?: Prisma.GradoEscolarOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.GradoEscolarInclude<ExtArgs> | null
-  where?: Prisma.GradoEscolarWhereInput
-}
-
-/**
- * ProyectoColaborativo.categoria
- */
-export type ProyectoColaborativo$categoriaArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Categoria
-   */
-  select?: Prisma.CategoriaSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Categoria
-   */
-  omit?: Prisma.CategoriaOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.CategoriaInclude<ExtArgs> | null
-  where?: Prisma.CategoriaWhereInput
-}
-
-/**
- * ProyectoColaborativo.integrantes
- */
-export type ProyectoColaborativo$integrantesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ProyectoColaborativoIntegrante
-   */
-  select?: Prisma.ProyectoColaborativoIntegranteSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the ProyectoColaborativoIntegrante
-   */
-  omit?: Prisma.ProyectoColaborativoIntegranteOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ProyectoColaborativoIntegranteInclude<ExtArgs> | null
-  where?: Prisma.ProyectoColaborativoIntegranteWhereInput
-  orderBy?: Prisma.ProyectoColaborativoIntegranteOrderByWithRelationInput | Prisma.ProyectoColaborativoIntegranteOrderByWithRelationInput[]
-  cursor?: Prisma.ProyectoColaborativoIntegranteWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ProyectoColaborativoIntegranteScalarFieldEnum | Prisma.ProyectoColaborativoIntegranteScalarFieldEnum[]
-}
-
-/**
  * ProyectoColaborativo.actividades
  */
 export type ProyectoColaborativo$actividadesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2984,6 +2922,68 @@ export type ProyectoColaborativo$entregasArgs<ExtArgs extends runtime.Types.Exte
   take?: number
   skip?: number
   distinct?: Prisma.ProyectoColaborativoEntregaScalarFieldEnum | Prisma.ProyectoColaborativoEntregaScalarFieldEnum[]
+}
+
+/**
+ * ProyectoColaborativo.integrantes
+ */
+export type ProyectoColaborativo$integrantesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProyectoColaborativoIntegrante
+   */
+  select?: Prisma.ProyectoColaborativoIntegranteSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProyectoColaborativoIntegrante
+   */
+  omit?: Prisma.ProyectoColaborativoIntegranteOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProyectoColaborativoIntegranteInclude<ExtArgs> | null
+  where?: Prisma.ProyectoColaborativoIntegranteWhereInput
+  orderBy?: Prisma.ProyectoColaborativoIntegranteOrderByWithRelationInput | Prisma.ProyectoColaborativoIntegranteOrderByWithRelationInput[]
+  cursor?: Prisma.ProyectoColaborativoIntegranteWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProyectoColaborativoIntegranteScalarFieldEnum | Prisma.ProyectoColaborativoIntegranteScalarFieldEnum[]
+}
+
+/**
+ * ProyectoColaborativo.categoria
+ */
+export type ProyectoColaborativo$categoriaArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Categoria
+   */
+  select?: Prisma.CategoriaSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Categoria
+   */
+  omit?: Prisma.CategoriaOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CategoriaInclude<ExtArgs> | null
+  where?: Prisma.CategoriaWhereInput
+}
+
+/**
+ * ProyectoColaborativo.gradoEscolar
+ */
+export type ProyectoColaborativo$gradoEscolarArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the GradoEscolar
+   */
+  select?: Prisma.GradoEscolarSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the GradoEscolar
+   */
+  omit?: Prisma.GradoEscolarOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GradoEscolarInclude<ExtArgs> | null
+  where?: Prisma.GradoEscolarWhereInput
 }
 
 /**

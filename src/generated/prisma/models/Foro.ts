@@ -45,14 +45,14 @@ export type ForoMinAggregateOutputType = {
   titulo: string | null
   descripcion: string | null
   estado: boolean | null
-  publico: boolean | null
-  cerrado: boolean | null
-  fechaCierre: Date | null
   createdAt: Date | null
   updatedAt: Date | null
   institucionId: number | null
   categoriaId: number | null
   usuarioId: number | null
+  publico: boolean | null
+  cerrado: boolean | null
+  fechaCierre: Date | null
 }
 
 export type ForoMaxAggregateOutputType = {
@@ -60,14 +60,14 @@ export type ForoMaxAggregateOutputType = {
   titulo: string | null
   descripcion: string | null
   estado: boolean | null
-  publico: boolean | null
-  cerrado: boolean | null
-  fechaCierre: Date | null
   createdAt: Date | null
   updatedAt: Date | null
   institucionId: number | null
   categoriaId: number | null
   usuarioId: number | null
+  publico: boolean | null
+  cerrado: boolean | null
+  fechaCierre: Date | null
 }
 
 export type ForoCountAggregateOutputType = {
@@ -75,14 +75,14 @@ export type ForoCountAggregateOutputType = {
   titulo: number
   descripcion: number
   estado: number
-  publico: number
-  cerrado: number
-  fechaCierre: number
   createdAt: number
   updatedAt: number
   institucionId: number
   categoriaId: number
   usuarioId: number
+  publico: number
+  cerrado: number
+  fechaCierre: number
   _all: number
 }
 
@@ -106,14 +106,14 @@ export type ForoMinAggregateInputType = {
   titulo?: true
   descripcion?: true
   estado?: true
-  publico?: true
-  cerrado?: true
-  fechaCierre?: true
   createdAt?: true
   updatedAt?: true
   institucionId?: true
   categoriaId?: true
   usuarioId?: true
+  publico?: true
+  cerrado?: true
+  fechaCierre?: true
 }
 
 export type ForoMaxAggregateInputType = {
@@ -121,14 +121,14 @@ export type ForoMaxAggregateInputType = {
   titulo?: true
   descripcion?: true
   estado?: true
-  publico?: true
-  cerrado?: true
-  fechaCierre?: true
   createdAt?: true
   updatedAt?: true
   institucionId?: true
   categoriaId?: true
   usuarioId?: true
+  publico?: true
+  cerrado?: true
+  fechaCierre?: true
 }
 
 export type ForoCountAggregateInputType = {
@@ -136,14 +136,14 @@ export type ForoCountAggregateInputType = {
   titulo?: true
   descripcion?: true
   estado?: true
-  publico?: true
-  cerrado?: true
-  fechaCierre?: true
   createdAt?: true
   updatedAt?: true
   institucionId?: true
   categoriaId?: true
   usuarioId?: true
+  publico?: true
+  cerrado?: true
+  fechaCierre?: true
   _all?: true
 }
 
@@ -238,14 +238,14 @@ export type ForoGroupByOutputType = {
   titulo: string
   descripcion: string
   estado: boolean
-  publico: boolean
-  cerrado: boolean
-  fechaCierre: Date | null
   createdAt: Date
   updatedAt: Date
   institucionId: number
   categoriaId: number
   usuarioId: number
+  publico: boolean
+  cerrado: boolean
+  fechaCierre: Date | null
   _count: ForoCountAggregateOutputType | null
   _avg: ForoAvgAggregateOutputType | null
   _sum: ForoSumAggregateOutputType | null
@@ -276,19 +276,19 @@ export type ForoWhereInput = {
   titulo?: Prisma.StringFilter<"Foro"> | string
   descripcion?: Prisma.StringFilter<"Foro"> | string
   estado?: Prisma.BoolFilter<"Foro"> | boolean
-  publico?: Prisma.BoolFilter<"Foro"> | boolean
-  cerrado?: Prisma.BoolFilter<"Foro"> | boolean
-  fechaCierre?: Prisma.DateTimeNullableFilter<"Foro"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Foro"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Foro"> | Date | string
   institucionId?: Prisma.IntFilter<"Foro"> | number
   categoriaId?: Prisma.IntFilter<"Foro"> | number
   usuarioId?: Prisma.IntFilter<"Foro"> | number
-  institucion?: Prisma.XOR<Prisma.InstitucionScalarRelationFilter, Prisma.InstitucionWhereInput>
-  categoria?: Prisma.XOR<Prisma.CategoriaScalarRelationFilter, Prisma.CategoriaWhereInput>
-  usuario?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
+  publico?: Prisma.BoolFilter<"Foro"> | boolean
+  cerrado?: Prisma.BoolFilter<"Foro"> | boolean
+  fechaCierre?: Prisma.DateTimeNullableFilter<"Foro"> | Date | string | null
   comentarios?: Prisma.ComentarioForoListRelationFilter
   categorias?: Prisma.ForoCategoriaListRelationFilter
+  categoria?: Prisma.XOR<Prisma.CategoriaScalarRelationFilter, Prisma.CategoriaWhereInput>
+  institucion?: Prisma.XOR<Prisma.InstitucionScalarRelationFilter, Prisma.InstitucionWhereInput>
+  usuario?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
   recursos?: Prisma.RecursoListRelationFilter
 }
 
@@ -297,19 +297,19 @@ export type ForoOrderByWithRelationInput = {
   titulo?: Prisma.SortOrder
   descripcion?: Prisma.SortOrder
   estado?: Prisma.SortOrder
-  publico?: Prisma.SortOrder
-  cerrado?: Prisma.SortOrder
-  fechaCierre?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   institucionId?: Prisma.SortOrder
   categoriaId?: Prisma.SortOrder
   usuarioId?: Prisma.SortOrder
-  institucion?: Prisma.InstitucionOrderByWithRelationInput
-  categoria?: Prisma.CategoriaOrderByWithRelationInput
-  usuario?: Prisma.UsuarioOrderByWithRelationInput
+  publico?: Prisma.SortOrder
+  cerrado?: Prisma.SortOrder
+  fechaCierre?: Prisma.SortOrderInput | Prisma.SortOrder
   comentarios?: Prisma.ComentarioForoOrderByRelationAggregateInput
   categorias?: Prisma.ForoCategoriaOrderByRelationAggregateInput
+  categoria?: Prisma.CategoriaOrderByWithRelationInput
+  institucion?: Prisma.InstitucionOrderByWithRelationInput
+  usuario?: Prisma.UsuarioOrderByWithRelationInput
   recursos?: Prisma.RecursoOrderByRelationAggregateInput
 }
 
@@ -321,19 +321,19 @@ export type ForoWhereUniqueInput = Prisma.AtLeast<{
   titulo?: Prisma.StringFilter<"Foro"> | string
   descripcion?: Prisma.StringFilter<"Foro"> | string
   estado?: Prisma.BoolFilter<"Foro"> | boolean
-  publico?: Prisma.BoolFilter<"Foro"> | boolean
-  cerrado?: Prisma.BoolFilter<"Foro"> | boolean
-  fechaCierre?: Prisma.DateTimeNullableFilter<"Foro"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Foro"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Foro"> | Date | string
   institucionId?: Prisma.IntFilter<"Foro"> | number
   categoriaId?: Prisma.IntFilter<"Foro"> | number
   usuarioId?: Prisma.IntFilter<"Foro"> | number
-  institucion?: Prisma.XOR<Prisma.InstitucionScalarRelationFilter, Prisma.InstitucionWhereInput>
-  categoria?: Prisma.XOR<Prisma.CategoriaScalarRelationFilter, Prisma.CategoriaWhereInput>
-  usuario?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
+  publico?: Prisma.BoolFilter<"Foro"> | boolean
+  cerrado?: Prisma.BoolFilter<"Foro"> | boolean
+  fechaCierre?: Prisma.DateTimeNullableFilter<"Foro"> | Date | string | null
   comentarios?: Prisma.ComentarioForoListRelationFilter
   categorias?: Prisma.ForoCategoriaListRelationFilter
+  categoria?: Prisma.XOR<Prisma.CategoriaScalarRelationFilter, Prisma.CategoriaWhereInput>
+  institucion?: Prisma.XOR<Prisma.InstitucionScalarRelationFilter, Prisma.InstitucionWhereInput>
+  usuario?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
   recursos?: Prisma.RecursoListRelationFilter
 }, "id">
 
@@ -342,14 +342,14 @@ export type ForoOrderByWithAggregationInput = {
   titulo?: Prisma.SortOrder
   descripcion?: Prisma.SortOrder
   estado?: Prisma.SortOrder
-  publico?: Prisma.SortOrder
-  cerrado?: Prisma.SortOrder
-  fechaCierre?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   institucionId?: Prisma.SortOrder
   categoriaId?: Prisma.SortOrder
   usuarioId?: Prisma.SortOrder
+  publico?: Prisma.SortOrder
+  cerrado?: Prisma.SortOrder
+  fechaCierre?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.ForoCountOrderByAggregateInput
   _avg?: Prisma.ForoAvgOrderByAggregateInput
   _max?: Prisma.ForoMaxOrderByAggregateInput
@@ -365,30 +365,30 @@ export type ForoScalarWhereWithAggregatesInput = {
   titulo?: Prisma.StringWithAggregatesFilter<"Foro"> | string
   descripcion?: Prisma.StringWithAggregatesFilter<"Foro"> | string
   estado?: Prisma.BoolWithAggregatesFilter<"Foro"> | boolean
-  publico?: Prisma.BoolWithAggregatesFilter<"Foro"> | boolean
-  cerrado?: Prisma.BoolWithAggregatesFilter<"Foro"> | boolean
-  fechaCierre?: Prisma.DateTimeNullableWithAggregatesFilter<"Foro"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Foro"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Foro"> | Date | string
   institucionId?: Prisma.IntWithAggregatesFilter<"Foro"> | number
   categoriaId?: Prisma.IntWithAggregatesFilter<"Foro"> | number
   usuarioId?: Prisma.IntWithAggregatesFilter<"Foro"> | number
+  publico?: Prisma.BoolWithAggregatesFilter<"Foro"> | boolean
+  cerrado?: Prisma.BoolWithAggregatesFilter<"Foro"> | boolean
+  fechaCierre?: Prisma.DateTimeNullableWithAggregatesFilter<"Foro"> | Date | string | null
 }
 
 export type ForoCreateInput = {
   titulo: string
   descripcion: string
   estado?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
   publico?: boolean
   cerrado?: boolean
   fechaCierre?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  institucion: Prisma.InstitucionCreateNestedOneWithoutForosInput
-  categoria: Prisma.CategoriaCreateNestedOneWithoutForosInput
-  usuario: Prisma.UsuarioCreateNestedOneWithoutForosInput
   comentarios?: Prisma.ComentarioForoCreateNestedManyWithoutForoInput
   categorias?: Prisma.ForoCategoriaCreateNestedManyWithoutForoInput
+  categoria: Prisma.CategoriaCreateNestedOneWithoutForosInput
+  institucion: Prisma.InstitucionCreateNestedOneWithoutForosInput
+  usuario: Prisma.UsuarioCreateNestedOneWithoutForosInput
   recursos?: Prisma.RecursoCreateNestedManyWithoutForoOrigenInput
 }
 
@@ -397,14 +397,14 @@ export type ForoUncheckedCreateInput = {
   titulo: string
   descripcion: string
   estado?: boolean
-  publico?: boolean
-  cerrado?: boolean
-  fechaCierre?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   institucionId: number
   categoriaId: number
   usuarioId: number
+  publico?: boolean
+  cerrado?: boolean
+  fechaCierre?: Date | string | null
   comentarios?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutForoInput
   categorias?: Prisma.ForoCategoriaUncheckedCreateNestedManyWithoutForoInput
   recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutForoOrigenInput
@@ -414,16 +414,16 @@ export type ForoUpdateInput = {
   titulo?: Prisma.StringFieldUpdateOperationsInput | string
   descripcion?: Prisma.StringFieldUpdateOperationsInput | string
   estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   publico?: Prisma.BoolFieldUpdateOperationsInput | boolean
   cerrado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   fechaCierre?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutForosNestedInput
-  categoria?: Prisma.CategoriaUpdateOneRequiredWithoutForosNestedInput
-  usuario?: Prisma.UsuarioUpdateOneRequiredWithoutForosNestedInput
   comentarios?: Prisma.ComentarioForoUpdateManyWithoutForoNestedInput
   categorias?: Prisma.ForoCategoriaUpdateManyWithoutForoNestedInput
+  categoria?: Prisma.CategoriaUpdateOneRequiredWithoutForosNestedInput
+  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutForosNestedInput
+  usuario?: Prisma.UsuarioUpdateOneRequiredWithoutForosNestedInput
   recursos?: Prisma.RecursoUpdateManyWithoutForoOrigenNestedInput
 }
 
@@ -432,14 +432,14 @@ export type ForoUncheckedUpdateInput = {
   titulo?: Prisma.StringFieldUpdateOperationsInput | string
   descripcion?: Prisma.StringFieldUpdateOperationsInput | string
   estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  publico?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  cerrado?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  fechaCierre?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   institucionId?: Prisma.IntFieldUpdateOperationsInput | number
   categoriaId?: Prisma.IntFieldUpdateOperationsInput | number
   usuarioId?: Prisma.IntFieldUpdateOperationsInput | number
+  publico?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  cerrado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fechaCierre?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   comentarios?: Prisma.ComentarioForoUncheckedUpdateManyWithoutForoNestedInput
   categorias?: Prisma.ForoCategoriaUncheckedUpdateManyWithoutForoNestedInput
   recursos?: Prisma.RecursoUncheckedUpdateManyWithoutForoOrigenNestedInput
@@ -450,25 +450,25 @@ export type ForoCreateManyInput = {
   titulo: string
   descripcion: string
   estado?: boolean
-  publico?: boolean
-  cerrado?: boolean
-  fechaCierre?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   institucionId: number
   categoriaId: number
   usuarioId: number
+  publico?: boolean
+  cerrado?: boolean
+  fechaCierre?: Date | string | null
 }
 
 export type ForoUpdateManyMutationInput = {
   titulo?: Prisma.StringFieldUpdateOperationsInput | string
   descripcion?: Prisma.StringFieldUpdateOperationsInput | string
   estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   publico?: Prisma.BoolFieldUpdateOperationsInput | boolean
   cerrado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   fechaCierre?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ForoUncheckedUpdateManyInput = {
@@ -476,14 +476,14 @@ export type ForoUncheckedUpdateManyInput = {
   titulo?: Prisma.StringFieldUpdateOperationsInput | string
   descripcion?: Prisma.StringFieldUpdateOperationsInput | string
   estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  publico?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  cerrado?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  fechaCierre?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   institucionId?: Prisma.IntFieldUpdateOperationsInput | number
   categoriaId?: Prisma.IntFieldUpdateOperationsInput | number
   usuarioId?: Prisma.IntFieldUpdateOperationsInput | number
+  publico?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  cerrado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fechaCierre?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type ForoListRelationFilter = {
@@ -501,14 +501,14 @@ export type ForoCountOrderByAggregateInput = {
   titulo?: Prisma.SortOrder
   descripcion?: Prisma.SortOrder
   estado?: Prisma.SortOrder
-  publico?: Prisma.SortOrder
-  cerrado?: Prisma.SortOrder
-  fechaCierre?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   institucionId?: Prisma.SortOrder
   categoriaId?: Prisma.SortOrder
   usuarioId?: Prisma.SortOrder
+  publico?: Prisma.SortOrder
+  cerrado?: Prisma.SortOrder
+  fechaCierre?: Prisma.SortOrder
 }
 
 export type ForoAvgOrderByAggregateInput = {
@@ -523,14 +523,14 @@ export type ForoMaxOrderByAggregateInput = {
   titulo?: Prisma.SortOrder
   descripcion?: Prisma.SortOrder
   estado?: Prisma.SortOrder
-  publico?: Prisma.SortOrder
-  cerrado?: Prisma.SortOrder
-  fechaCierre?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   institucionId?: Prisma.SortOrder
   categoriaId?: Prisma.SortOrder
   usuarioId?: Prisma.SortOrder
+  publico?: Prisma.SortOrder
+  cerrado?: Prisma.SortOrder
+  fechaCierre?: Prisma.SortOrder
 }
 
 export type ForoMinOrderByAggregateInput = {
@@ -538,14 +538,14 @@ export type ForoMinOrderByAggregateInput = {
   titulo?: Prisma.SortOrder
   descripcion?: Prisma.SortOrder
   estado?: Prisma.SortOrder
-  publico?: Prisma.SortOrder
-  cerrado?: Prisma.SortOrder
-  fechaCierre?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   institucionId?: Prisma.SortOrder
   categoriaId?: Prisma.SortOrder
   usuarioId?: Prisma.SortOrder
+  publico?: Prisma.SortOrder
+  cerrado?: Prisma.SortOrder
+  fechaCierre?: Prisma.SortOrder
 }
 
 export type ForoSumOrderByAggregateInput = {
@@ -739,15 +739,15 @@ export type ForoCreateWithoutInstitucionInput = {
   titulo: string
   descripcion: string
   estado?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
   publico?: boolean
   cerrado?: boolean
   fechaCierre?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  categoria: Prisma.CategoriaCreateNestedOneWithoutForosInput
-  usuario: Prisma.UsuarioCreateNestedOneWithoutForosInput
   comentarios?: Prisma.ComentarioForoCreateNestedManyWithoutForoInput
   categorias?: Prisma.ForoCategoriaCreateNestedManyWithoutForoInput
+  categoria: Prisma.CategoriaCreateNestedOneWithoutForosInput
+  usuario: Prisma.UsuarioCreateNestedOneWithoutForosInput
   recursos?: Prisma.RecursoCreateNestedManyWithoutForoOrigenInput
 }
 
@@ -756,13 +756,13 @@ export type ForoUncheckedCreateWithoutInstitucionInput = {
   titulo: string
   descripcion: string
   estado?: boolean
-  publico?: boolean
-  cerrado?: boolean
-  fechaCierre?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   categoriaId: number
   usuarioId: number
+  publico?: boolean
+  cerrado?: boolean
+  fechaCierre?: Date | string | null
   comentarios?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutForoInput
   categorias?: Prisma.ForoCategoriaUncheckedCreateNestedManyWithoutForoInput
   recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutForoOrigenInput
@@ -802,29 +802,29 @@ export type ForoScalarWhereInput = {
   titulo?: Prisma.StringFilter<"Foro"> | string
   descripcion?: Prisma.StringFilter<"Foro"> | string
   estado?: Prisma.BoolFilter<"Foro"> | boolean
-  publico?: Prisma.BoolFilter<"Foro"> | boolean
-  cerrado?: Prisma.BoolFilter<"Foro"> | boolean
-  fechaCierre?: Prisma.DateTimeNullableFilter<"Foro"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Foro"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Foro"> | Date | string
   institucionId?: Prisma.IntFilter<"Foro"> | number
   categoriaId?: Prisma.IntFilter<"Foro"> | number
   usuarioId?: Prisma.IntFilter<"Foro"> | number
+  publico?: Prisma.BoolFilter<"Foro"> | boolean
+  cerrado?: Prisma.BoolFilter<"Foro"> | boolean
+  fechaCierre?: Prisma.DateTimeNullableFilter<"Foro"> | Date | string | null
 }
 
 export type ForoCreateWithoutUsuarioInput = {
   titulo: string
   descripcion: string
   estado?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
   publico?: boolean
   cerrado?: boolean
   fechaCierre?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  institucion: Prisma.InstitucionCreateNestedOneWithoutForosInput
-  categoria: Prisma.CategoriaCreateNestedOneWithoutForosInput
   comentarios?: Prisma.ComentarioForoCreateNestedManyWithoutForoInput
   categorias?: Prisma.ForoCategoriaCreateNestedManyWithoutForoInput
+  categoria: Prisma.CategoriaCreateNestedOneWithoutForosInput
+  institucion: Prisma.InstitucionCreateNestedOneWithoutForosInput
   recursos?: Prisma.RecursoCreateNestedManyWithoutForoOrigenInput
 }
 
@@ -833,13 +833,13 @@ export type ForoUncheckedCreateWithoutUsuarioInput = {
   titulo: string
   descripcion: string
   estado?: boolean
-  publico?: boolean
-  cerrado?: boolean
-  fechaCierre?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   institucionId: number
   categoriaId: number
+  publico?: boolean
+  cerrado?: boolean
+  fechaCierre?: Date | string | null
   comentarios?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutForoInput
   categorias?: Prisma.ForoCategoriaUncheckedCreateNestedManyWithoutForoInput
   recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutForoOrigenInput
@@ -875,15 +875,15 @@ export type ForoCreateWithoutCategoriaInput = {
   titulo: string
   descripcion: string
   estado?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
   publico?: boolean
   cerrado?: boolean
   fechaCierre?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  institucion: Prisma.InstitucionCreateNestedOneWithoutForosInput
-  usuario: Prisma.UsuarioCreateNestedOneWithoutForosInput
   comentarios?: Prisma.ComentarioForoCreateNestedManyWithoutForoInput
   categorias?: Prisma.ForoCategoriaCreateNestedManyWithoutForoInput
+  institucion: Prisma.InstitucionCreateNestedOneWithoutForosInput
+  usuario: Prisma.UsuarioCreateNestedOneWithoutForosInput
   recursos?: Prisma.RecursoCreateNestedManyWithoutForoOrigenInput
 }
 
@@ -892,13 +892,13 @@ export type ForoUncheckedCreateWithoutCategoriaInput = {
   titulo: string
   descripcion: string
   estado?: boolean
-  publico?: boolean
-  cerrado?: boolean
-  fechaCierre?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   institucionId: number
   usuarioId: number
+  publico?: boolean
+  cerrado?: boolean
+  fechaCierre?: Date | string | null
   comentarios?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutForoInput
   categorias?: Prisma.ForoCategoriaUncheckedCreateNestedManyWithoutForoInput
   recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutForoOrigenInput
@@ -934,15 +934,15 @@ export type ForoCreateWithoutCategoriasInput = {
   titulo: string
   descripcion: string
   estado?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
   publico?: boolean
   cerrado?: boolean
   fechaCierre?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  institucion: Prisma.InstitucionCreateNestedOneWithoutForosInput
-  categoria: Prisma.CategoriaCreateNestedOneWithoutForosInput
-  usuario: Prisma.UsuarioCreateNestedOneWithoutForosInput
   comentarios?: Prisma.ComentarioForoCreateNestedManyWithoutForoInput
+  categoria: Prisma.CategoriaCreateNestedOneWithoutForosInput
+  institucion: Prisma.InstitucionCreateNestedOneWithoutForosInput
+  usuario: Prisma.UsuarioCreateNestedOneWithoutForosInput
   recursos?: Prisma.RecursoCreateNestedManyWithoutForoOrigenInput
 }
 
@@ -951,14 +951,14 @@ export type ForoUncheckedCreateWithoutCategoriasInput = {
   titulo: string
   descripcion: string
   estado?: boolean
-  publico?: boolean
-  cerrado?: boolean
-  fechaCierre?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   institucionId: number
   categoriaId: number
   usuarioId: number
+  publico?: boolean
+  cerrado?: boolean
+  fechaCierre?: Date | string | null
   comentarios?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutForoInput
   recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutForoOrigenInput
 }
@@ -983,15 +983,15 @@ export type ForoUpdateWithoutCategoriasInput = {
   titulo?: Prisma.StringFieldUpdateOperationsInput | string
   descripcion?: Prisma.StringFieldUpdateOperationsInput | string
   estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   publico?: Prisma.BoolFieldUpdateOperationsInput | boolean
   cerrado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   fechaCierre?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutForosNestedInput
-  categoria?: Prisma.CategoriaUpdateOneRequiredWithoutForosNestedInput
-  usuario?: Prisma.UsuarioUpdateOneRequiredWithoutForosNestedInput
   comentarios?: Prisma.ComentarioForoUpdateManyWithoutForoNestedInput
+  categoria?: Prisma.CategoriaUpdateOneRequiredWithoutForosNestedInput
+  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutForosNestedInput
+  usuario?: Prisma.UsuarioUpdateOneRequiredWithoutForosNestedInput
   recursos?: Prisma.RecursoUpdateManyWithoutForoOrigenNestedInput
 }
 
@@ -1000,14 +1000,14 @@ export type ForoUncheckedUpdateWithoutCategoriasInput = {
   titulo?: Prisma.StringFieldUpdateOperationsInput | string
   descripcion?: Prisma.StringFieldUpdateOperationsInput | string
   estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  publico?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  cerrado?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  fechaCierre?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   institucionId?: Prisma.IntFieldUpdateOperationsInput | number
   categoriaId?: Prisma.IntFieldUpdateOperationsInput | number
   usuarioId?: Prisma.IntFieldUpdateOperationsInput | number
+  publico?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  cerrado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fechaCierre?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   comentarios?: Prisma.ComentarioForoUncheckedUpdateManyWithoutForoNestedInput
   recursos?: Prisma.RecursoUncheckedUpdateManyWithoutForoOrigenNestedInput
 }
@@ -1016,15 +1016,15 @@ export type ForoCreateWithoutComentariosInput = {
   titulo: string
   descripcion: string
   estado?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
   publico?: boolean
   cerrado?: boolean
   fechaCierre?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  institucion: Prisma.InstitucionCreateNestedOneWithoutForosInput
-  categoria: Prisma.CategoriaCreateNestedOneWithoutForosInput
-  usuario: Prisma.UsuarioCreateNestedOneWithoutForosInput
   categorias?: Prisma.ForoCategoriaCreateNestedManyWithoutForoInput
+  categoria: Prisma.CategoriaCreateNestedOneWithoutForosInput
+  institucion: Prisma.InstitucionCreateNestedOneWithoutForosInput
+  usuario: Prisma.UsuarioCreateNestedOneWithoutForosInput
   recursos?: Prisma.RecursoCreateNestedManyWithoutForoOrigenInput
 }
 
@@ -1033,14 +1033,14 @@ export type ForoUncheckedCreateWithoutComentariosInput = {
   titulo: string
   descripcion: string
   estado?: boolean
-  publico?: boolean
-  cerrado?: boolean
-  fechaCierre?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   institucionId: number
   categoriaId: number
   usuarioId: number
+  publico?: boolean
+  cerrado?: boolean
+  fechaCierre?: Date | string | null
   categorias?: Prisma.ForoCategoriaUncheckedCreateNestedManyWithoutForoInput
   recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutForoOrigenInput
 }
@@ -1065,15 +1065,15 @@ export type ForoUpdateWithoutComentariosInput = {
   titulo?: Prisma.StringFieldUpdateOperationsInput | string
   descripcion?: Prisma.StringFieldUpdateOperationsInput | string
   estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   publico?: Prisma.BoolFieldUpdateOperationsInput | boolean
   cerrado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   fechaCierre?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutForosNestedInput
-  categoria?: Prisma.CategoriaUpdateOneRequiredWithoutForosNestedInput
-  usuario?: Prisma.UsuarioUpdateOneRequiredWithoutForosNestedInput
   categorias?: Prisma.ForoCategoriaUpdateManyWithoutForoNestedInput
+  categoria?: Prisma.CategoriaUpdateOneRequiredWithoutForosNestedInput
+  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutForosNestedInput
+  usuario?: Prisma.UsuarioUpdateOneRequiredWithoutForosNestedInput
   recursos?: Prisma.RecursoUpdateManyWithoutForoOrigenNestedInput
 }
 
@@ -1082,14 +1082,14 @@ export type ForoUncheckedUpdateWithoutComentariosInput = {
   titulo?: Prisma.StringFieldUpdateOperationsInput | string
   descripcion?: Prisma.StringFieldUpdateOperationsInput | string
   estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  publico?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  cerrado?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  fechaCierre?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   institucionId?: Prisma.IntFieldUpdateOperationsInput | number
   categoriaId?: Prisma.IntFieldUpdateOperationsInput | number
   usuarioId?: Prisma.IntFieldUpdateOperationsInput | number
+  publico?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  cerrado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fechaCierre?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   categorias?: Prisma.ForoCategoriaUncheckedUpdateManyWithoutForoNestedInput
   recursos?: Prisma.RecursoUncheckedUpdateManyWithoutForoOrigenNestedInput
 }
@@ -1098,16 +1098,16 @@ export type ForoCreateWithoutRecursosInput = {
   titulo: string
   descripcion: string
   estado?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
   publico?: boolean
   cerrado?: boolean
   fechaCierre?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  institucion: Prisma.InstitucionCreateNestedOneWithoutForosInput
-  categoria: Prisma.CategoriaCreateNestedOneWithoutForosInput
-  usuario: Prisma.UsuarioCreateNestedOneWithoutForosInput
   comentarios?: Prisma.ComentarioForoCreateNestedManyWithoutForoInput
   categorias?: Prisma.ForoCategoriaCreateNestedManyWithoutForoInput
+  categoria: Prisma.CategoriaCreateNestedOneWithoutForosInput
+  institucion: Prisma.InstitucionCreateNestedOneWithoutForosInput
+  usuario: Prisma.UsuarioCreateNestedOneWithoutForosInput
 }
 
 export type ForoUncheckedCreateWithoutRecursosInput = {
@@ -1115,14 +1115,14 @@ export type ForoUncheckedCreateWithoutRecursosInput = {
   titulo: string
   descripcion: string
   estado?: boolean
-  publico?: boolean
-  cerrado?: boolean
-  fechaCierre?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   institucionId: number
   categoriaId: number
   usuarioId: number
+  publico?: boolean
+  cerrado?: boolean
+  fechaCierre?: Date | string | null
   comentarios?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutForoInput
   categorias?: Prisma.ForoCategoriaUncheckedCreateNestedManyWithoutForoInput
 }
@@ -1147,16 +1147,16 @@ export type ForoUpdateWithoutRecursosInput = {
   titulo?: Prisma.StringFieldUpdateOperationsInput | string
   descripcion?: Prisma.StringFieldUpdateOperationsInput | string
   estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   publico?: Prisma.BoolFieldUpdateOperationsInput | boolean
   cerrado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   fechaCierre?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutForosNestedInput
-  categoria?: Prisma.CategoriaUpdateOneRequiredWithoutForosNestedInput
-  usuario?: Prisma.UsuarioUpdateOneRequiredWithoutForosNestedInput
   comentarios?: Prisma.ComentarioForoUpdateManyWithoutForoNestedInput
   categorias?: Prisma.ForoCategoriaUpdateManyWithoutForoNestedInput
+  categoria?: Prisma.CategoriaUpdateOneRequiredWithoutForosNestedInput
+  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutForosNestedInput
+  usuario?: Prisma.UsuarioUpdateOneRequiredWithoutForosNestedInput
 }
 
 export type ForoUncheckedUpdateWithoutRecursosInput = {
@@ -1164,14 +1164,14 @@ export type ForoUncheckedUpdateWithoutRecursosInput = {
   titulo?: Prisma.StringFieldUpdateOperationsInput | string
   descripcion?: Prisma.StringFieldUpdateOperationsInput | string
   estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  publico?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  cerrado?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  fechaCierre?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   institucionId?: Prisma.IntFieldUpdateOperationsInput | number
   categoriaId?: Prisma.IntFieldUpdateOperationsInput | number
   usuarioId?: Prisma.IntFieldUpdateOperationsInput | number
+  publico?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  cerrado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fechaCierre?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   comentarios?: Prisma.ComentarioForoUncheckedUpdateManyWithoutForoNestedInput
   categorias?: Prisma.ForoCategoriaUncheckedUpdateManyWithoutForoNestedInput
 }
@@ -1181,28 +1181,28 @@ export type ForoCreateManyInstitucionInput = {
   titulo: string
   descripcion: string
   estado?: boolean
-  publico?: boolean
-  cerrado?: boolean
-  fechaCierre?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   categoriaId: number
   usuarioId: number
+  publico?: boolean
+  cerrado?: boolean
+  fechaCierre?: Date | string | null
 }
 
 export type ForoUpdateWithoutInstitucionInput = {
   titulo?: Prisma.StringFieldUpdateOperationsInput | string
   descripcion?: Prisma.StringFieldUpdateOperationsInput | string
   estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   publico?: Prisma.BoolFieldUpdateOperationsInput | boolean
   cerrado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   fechaCierre?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  categoria?: Prisma.CategoriaUpdateOneRequiredWithoutForosNestedInput
-  usuario?: Prisma.UsuarioUpdateOneRequiredWithoutForosNestedInput
   comentarios?: Prisma.ComentarioForoUpdateManyWithoutForoNestedInput
   categorias?: Prisma.ForoCategoriaUpdateManyWithoutForoNestedInput
+  categoria?: Prisma.CategoriaUpdateOneRequiredWithoutForosNestedInput
+  usuario?: Prisma.UsuarioUpdateOneRequiredWithoutForosNestedInput
   recursos?: Prisma.RecursoUpdateManyWithoutForoOrigenNestedInput
 }
 
@@ -1211,13 +1211,13 @@ export type ForoUncheckedUpdateWithoutInstitucionInput = {
   titulo?: Prisma.StringFieldUpdateOperationsInput | string
   descripcion?: Prisma.StringFieldUpdateOperationsInput | string
   estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  publico?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  cerrado?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  fechaCierre?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   categoriaId?: Prisma.IntFieldUpdateOperationsInput | number
   usuarioId?: Prisma.IntFieldUpdateOperationsInput | number
+  publico?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  cerrado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fechaCierre?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   comentarios?: Prisma.ComentarioForoUncheckedUpdateManyWithoutForoNestedInput
   categorias?: Prisma.ForoCategoriaUncheckedUpdateManyWithoutForoNestedInput
   recursos?: Prisma.RecursoUncheckedUpdateManyWithoutForoOrigenNestedInput
@@ -1228,13 +1228,13 @@ export type ForoUncheckedUpdateManyWithoutInstitucionInput = {
   titulo?: Prisma.StringFieldUpdateOperationsInput | string
   descripcion?: Prisma.StringFieldUpdateOperationsInput | string
   estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  publico?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  cerrado?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  fechaCierre?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   categoriaId?: Prisma.IntFieldUpdateOperationsInput | number
   usuarioId?: Prisma.IntFieldUpdateOperationsInput | number
+  publico?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  cerrado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fechaCierre?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type ForoCreateManyUsuarioInput = {
@@ -1242,28 +1242,28 @@ export type ForoCreateManyUsuarioInput = {
   titulo: string
   descripcion: string
   estado?: boolean
-  publico?: boolean
-  cerrado?: boolean
-  fechaCierre?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   institucionId: number
   categoriaId: number
+  publico?: boolean
+  cerrado?: boolean
+  fechaCierre?: Date | string | null
 }
 
 export type ForoUpdateWithoutUsuarioInput = {
   titulo?: Prisma.StringFieldUpdateOperationsInput | string
   descripcion?: Prisma.StringFieldUpdateOperationsInput | string
   estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   publico?: Prisma.BoolFieldUpdateOperationsInput | boolean
   cerrado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   fechaCierre?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutForosNestedInput
-  categoria?: Prisma.CategoriaUpdateOneRequiredWithoutForosNestedInput
   comentarios?: Prisma.ComentarioForoUpdateManyWithoutForoNestedInput
   categorias?: Prisma.ForoCategoriaUpdateManyWithoutForoNestedInput
+  categoria?: Prisma.CategoriaUpdateOneRequiredWithoutForosNestedInput
+  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutForosNestedInput
   recursos?: Prisma.RecursoUpdateManyWithoutForoOrigenNestedInput
 }
 
@@ -1272,13 +1272,13 @@ export type ForoUncheckedUpdateWithoutUsuarioInput = {
   titulo?: Prisma.StringFieldUpdateOperationsInput | string
   descripcion?: Prisma.StringFieldUpdateOperationsInput | string
   estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  publico?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  cerrado?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  fechaCierre?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   institucionId?: Prisma.IntFieldUpdateOperationsInput | number
   categoriaId?: Prisma.IntFieldUpdateOperationsInput | number
+  publico?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  cerrado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fechaCierre?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   comentarios?: Prisma.ComentarioForoUncheckedUpdateManyWithoutForoNestedInput
   categorias?: Prisma.ForoCategoriaUncheckedUpdateManyWithoutForoNestedInput
   recursos?: Prisma.RecursoUncheckedUpdateManyWithoutForoOrigenNestedInput
@@ -1289,13 +1289,13 @@ export type ForoUncheckedUpdateManyWithoutUsuarioInput = {
   titulo?: Prisma.StringFieldUpdateOperationsInput | string
   descripcion?: Prisma.StringFieldUpdateOperationsInput | string
   estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  publico?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  cerrado?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  fechaCierre?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   institucionId?: Prisma.IntFieldUpdateOperationsInput | number
   categoriaId?: Prisma.IntFieldUpdateOperationsInput | number
+  publico?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  cerrado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fechaCierre?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type ForoCreateManyCategoriaInput = {
@@ -1303,28 +1303,28 @@ export type ForoCreateManyCategoriaInput = {
   titulo: string
   descripcion: string
   estado?: boolean
-  publico?: boolean
-  cerrado?: boolean
-  fechaCierre?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   institucionId: number
   usuarioId: number
+  publico?: boolean
+  cerrado?: boolean
+  fechaCierre?: Date | string | null
 }
 
 export type ForoUpdateWithoutCategoriaInput = {
   titulo?: Prisma.StringFieldUpdateOperationsInput | string
   descripcion?: Prisma.StringFieldUpdateOperationsInput | string
   estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   publico?: Prisma.BoolFieldUpdateOperationsInput | boolean
   cerrado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   fechaCierre?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutForosNestedInput
-  usuario?: Prisma.UsuarioUpdateOneRequiredWithoutForosNestedInput
   comentarios?: Prisma.ComentarioForoUpdateManyWithoutForoNestedInput
   categorias?: Prisma.ForoCategoriaUpdateManyWithoutForoNestedInput
+  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutForosNestedInput
+  usuario?: Prisma.UsuarioUpdateOneRequiredWithoutForosNestedInput
   recursos?: Prisma.RecursoUpdateManyWithoutForoOrigenNestedInput
 }
 
@@ -1333,13 +1333,13 @@ export type ForoUncheckedUpdateWithoutCategoriaInput = {
   titulo?: Prisma.StringFieldUpdateOperationsInput | string
   descripcion?: Prisma.StringFieldUpdateOperationsInput | string
   estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  publico?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  cerrado?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  fechaCierre?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   institucionId?: Prisma.IntFieldUpdateOperationsInput | number
   usuarioId?: Prisma.IntFieldUpdateOperationsInput | number
+  publico?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  cerrado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fechaCierre?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   comentarios?: Prisma.ComentarioForoUncheckedUpdateManyWithoutForoNestedInput
   categorias?: Prisma.ForoCategoriaUncheckedUpdateManyWithoutForoNestedInput
   recursos?: Prisma.RecursoUncheckedUpdateManyWithoutForoOrigenNestedInput
@@ -1350,13 +1350,13 @@ export type ForoUncheckedUpdateManyWithoutCategoriaInput = {
   titulo?: Prisma.StringFieldUpdateOperationsInput | string
   descripcion?: Prisma.StringFieldUpdateOperationsInput | string
   estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  publico?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  cerrado?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  fechaCierre?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   institucionId?: Prisma.IntFieldUpdateOperationsInput | number
   usuarioId?: Prisma.IntFieldUpdateOperationsInput | number
+  publico?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  cerrado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  fechaCierre?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 
@@ -1413,19 +1413,19 @@ export type ForoSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   titulo?: boolean
   descripcion?: boolean
   estado?: boolean
-  publico?: boolean
-  cerrado?: boolean
-  fechaCierre?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   institucionId?: boolean
   categoriaId?: boolean
   usuarioId?: boolean
-  institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
-  categoria?: boolean | Prisma.CategoriaDefaultArgs<ExtArgs>
-  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
+  publico?: boolean
+  cerrado?: boolean
+  fechaCierre?: boolean
   comentarios?: boolean | Prisma.Foro$comentariosArgs<ExtArgs>
   categorias?: boolean | Prisma.Foro$categoriasArgs<ExtArgs>
+  categoria?: boolean | Prisma.CategoriaDefaultArgs<ExtArgs>
+  institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
+  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   recursos?: boolean | Prisma.Foro$recursosArgs<ExtArgs>
   _count?: boolean | Prisma.ForoCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["foro"]>
@@ -1435,16 +1435,16 @@ export type ForoSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   titulo?: boolean
   descripcion?: boolean
   estado?: boolean
-  publico?: boolean
-  cerrado?: boolean
-  fechaCierre?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   institucionId?: boolean
   categoriaId?: boolean
   usuarioId?: boolean
-  institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
+  publico?: boolean
+  cerrado?: boolean
+  fechaCierre?: boolean
   categoria?: boolean | Prisma.CategoriaDefaultArgs<ExtArgs>
+  institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
   usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["foro"]>
 
@@ -1453,16 +1453,16 @@ export type ForoSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   titulo?: boolean
   descripcion?: boolean
   estado?: boolean
-  publico?: boolean
-  cerrado?: boolean
-  fechaCierre?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   institucionId?: boolean
   categoriaId?: boolean
   usuarioId?: boolean
-  institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
+  publico?: boolean
+  cerrado?: boolean
+  fechaCierre?: boolean
   categoria?: boolean | Prisma.CategoriaDefaultArgs<ExtArgs>
+  institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
   usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["foro"]>
 
@@ -1471,45 +1471,45 @@ export type ForoSelectScalar = {
   titulo?: boolean
   descripcion?: boolean
   estado?: boolean
-  publico?: boolean
-  cerrado?: boolean
-  fechaCierre?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   institucionId?: boolean
   categoriaId?: boolean
   usuarioId?: boolean
+  publico?: boolean
+  cerrado?: boolean
+  fechaCierre?: boolean
 }
 
-export type ForoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "titulo" | "descripcion" | "estado" | "publico" | "cerrado" | "fechaCierre" | "createdAt" | "updatedAt" | "institucionId" | "categoriaId" | "usuarioId", ExtArgs["result"]["foro"]>
+export type ForoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "titulo" | "descripcion" | "estado" | "createdAt" | "updatedAt" | "institucionId" | "categoriaId" | "usuarioId" | "publico" | "cerrado" | "fechaCierre", ExtArgs["result"]["foro"]>
 export type ForoInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
-  categoria?: boolean | Prisma.CategoriaDefaultArgs<ExtArgs>
-  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   comentarios?: boolean | Prisma.Foro$comentariosArgs<ExtArgs>
   categorias?: boolean | Prisma.Foro$categoriasArgs<ExtArgs>
+  categoria?: boolean | Prisma.CategoriaDefaultArgs<ExtArgs>
+  institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
+  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   recursos?: boolean | Prisma.Foro$recursosArgs<ExtArgs>
   _count?: boolean | Prisma.ForoCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ForoIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
   categoria?: boolean | Prisma.CategoriaDefaultArgs<ExtArgs>
+  institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
   usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
 }
 export type ForoIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
   categoria?: boolean | Prisma.CategoriaDefaultArgs<ExtArgs>
+  institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
   usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
 }
 
 export type $ForoPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Foro"
   objects: {
-    institucion: Prisma.$InstitucionPayload<ExtArgs>
-    categoria: Prisma.$CategoriaPayload<ExtArgs>
-    usuario: Prisma.$UsuarioPayload<ExtArgs>
     comentarios: Prisma.$ComentarioForoPayload<ExtArgs>[]
     categorias: Prisma.$ForoCategoriaPayload<ExtArgs>[]
+    categoria: Prisma.$CategoriaPayload<ExtArgs>
+    institucion: Prisma.$InstitucionPayload<ExtArgs>
+    usuario: Prisma.$UsuarioPayload<ExtArgs>
     recursos: Prisma.$RecursoPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -1517,14 +1517,14 @@ export type $ForoPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     titulo: string
     descripcion: string
     estado: boolean
-    publico: boolean
-    cerrado: boolean
-    fechaCierre: Date | null
     createdAt: Date
     updatedAt: Date
     institucionId: number
     categoriaId: number
     usuarioId: number
+    publico: boolean
+    cerrado: boolean
+    fechaCierre: Date | null
   }, ExtArgs["result"]["foro"]>
   composites: {}
 }
@@ -1919,11 +1919,11 @@ readonly fields: ForoFieldRefs;
  */
 export interface Prisma__ForoClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  institucion<T extends Prisma.InstitucionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.InstitucionDefaultArgs<ExtArgs>>): Prisma.Prisma__InstitucionClient<runtime.Types.Result.GetResult<Prisma.$InstitucionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  categoria<T extends Prisma.CategoriaDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CategoriaDefaultArgs<ExtArgs>>): Prisma.Prisma__CategoriaClient<runtime.Types.Result.GetResult<Prisma.$CategoriaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  usuario<T extends Prisma.UsuarioDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UsuarioDefaultArgs<ExtArgs>>): Prisma.Prisma__UsuarioClient<runtime.Types.Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   comentarios<T extends Prisma.Foro$comentariosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Foro$comentariosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ComentarioForoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   categorias<T extends Prisma.Foro$categoriasArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Foro$categoriasArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ForoCategoriaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  categoria<T extends Prisma.CategoriaDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CategoriaDefaultArgs<ExtArgs>>): Prisma.Prisma__CategoriaClient<runtime.Types.Result.GetResult<Prisma.$CategoriaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  institucion<T extends Prisma.InstitucionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.InstitucionDefaultArgs<ExtArgs>>): Prisma.Prisma__InstitucionClient<runtime.Types.Result.GetResult<Prisma.$InstitucionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  usuario<T extends Prisma.UsuarioDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UsuarioDefaultArgs<ExtArgs>>): Prisma.Prisma__UsuarioClient<runtime.Types.Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   recursos<T extends Prisma.Foro$recursosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Foro$recursosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RecursoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1958,14 +1958,14 @@ export interface ForoFieldRefs {
   readonly titulo: Prisma.FieldRef<"Foro", 'String'>
   readonly descripcion: Prisma.FieldRef<"Foro", 'String'>
   readonly estado: Prisma.FieldRef<"Foro", 'Boolean'>
-  readonly publico: Prisma.FieldRef<"Foro", 'Boolean'>
-  readonly cerrado: Prisma.FieldRef<"Foro", 'Boolean'>
-  readonly fechaCierre: Prisma.FieldRef<"Foro", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"Foro", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Foro", 'DateTime'>
   readonly institucionId: Prisma.FieldRef<"Foro", 'Int'>
   readonly categoriaId: Prisma.FieldRef<"Foro", 'Int'>
   readonly usuarioId: Prisma.FieldRef<"Foro", 'Int'>
+  readonly publico: Prisma.FieldRef<"Foro", 'Boolean'>
+  readonly cerrado: Prisma.FieldRef<"Foro", 'Boolean'>
+  readonly fechaCierre: Prisma.FieldRef<"Foro", 'DateTime'>
 }
     
 

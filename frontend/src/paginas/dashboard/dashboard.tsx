@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import './dashboard.css';
 import { Instituciones } from '../instituciones/instituciones';
-import { obtenerRutaLoginSegunUsuario } from '../../api/adminApi';
+import {
+  construirUrlArchivoProtegido,
+  obtenerRutaLoginSegunUsuario,
+} from '../../api/adminApi';
 
 const APP_LOGO_SRC = '/logo-solo.png';
 
@@ -119,7 +122,7 @@ export function Dashboard() {
             <div className="institution-logo-placeholder">
               {usuario?.institucion?.logo ? (
                 <img
-                  src={`http://localhost:3000${usuario.institucion.logo}`}
+                  src={construirUrlArchivoProtegido(usuario.institucion.logo)}
                   alt="Logo institución"
                 />
               ) : (

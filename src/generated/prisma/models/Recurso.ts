@@ -364,17 +364,18 @@ export type RecursoWhereInput = {
   gradoEscolarId?: Prisma.IntNullableFilter<"Recurso"> | number | null
   foroOrigenId?: Prisma.IntNullableFilter<"Recurso"> | number | null
   comentarioForoId?: Prisma.IntNullableFilter<"Recurso"> | number | null
-  institucion?: Prisma.XOR<Prisma.InstitucionScalarRelationFilter, Prisma.InstitucionWhereInput>
-  categoria?: Prisma.XOR<Prisma.CategoriaScalarRelationFilter, Prisma.CategoriaWhereInput>
-  tipoRecurso?: Prisma.XOR<Prisma.TipoRecursoScalarRelationFilter, Prisma.TipoRecursoWhereInput>
-  usuarioCreador?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
-  gradoEscolar?: Prisma.XOR<Prisma.GradoEscolarNullableScalarRelationFilter, Prisma.GradoEscolarWhereInput> | null
-  foroOrigen?: Prisma.XOR<Prisma.ForoNullableScalarRelationFilter, Prisma.ForoWhereInput> | null
-  comentarioForo?: Prisma.XOR<Prisma.ComentarioForoNullableScalarRelationFilter, Prisma.ComentarioForoWhereInput> | null
   calificaciones?: Prisma.CalificacionRecursoListRelationFilter
+  comentariosCompartidos?: Prisma.ComentarioForoRecursoListRelationFilter
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeListRelationFilter
   entregaAulaColaborativa?: Prisma.XOR<Prisma.ProyectoColaborativoEntregaNullableScalarRelationFilter, Prisma.ProyectoColaborativoEntregaWhereInput> | null
-  comentariosCompartidos?: Prisma.ComentarioForoRecursoListRelationFilter
+  categoria?: Prisma.XOR<Prisma.CategoriaScalarRelationFilter, Prisma.CategoriaWhereInput>
+  comentarioForo?: Prisma.XOR<Prisma.ComentarioForoNullableScalarRelationFilter, Prisma.ComentarioForoWhereInput> | null
+  foroOrigen?: Prisma.XOR<Prisma.ForoNullableScalarRelationFilter, Prisma.ForoWhereInput> | null
+  gradoEscolar?: Prisma.XOR<Prisma.GradoEscolarNullableScalarRelationFilter, Prisma.GradoEscolarWhereInput> | null
+  institucion?: Prisma.XOR<Prisma.InstitucionScalarRelationFilter, Prisma.InstitucionWhereInput>
+  resumenIa?: Prisma.XOR<Prisma.ResumenIaRecursoNullableScalarRelationFilter, Prisma.ResumenIaRecursoWhereInput> | null
+  tipoRecurso?: Prisma.XOR<Prisma.TipoRecursoScalarRelationFilter, Prisma.TipoRecursoWhereInput>
+  usuarioCreador?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
 }
 
 export type RecursoOrderByWithRelationInput = {
@@ -398,17 +399,18 @@ export type RecursoOrderByWithRelationInput = {
   gradoEscolarId?: Prisma.SortOrderInput | Prisma.SortOrder
   foroOrigenId?: Prisma.SortOrderInput | Prisma.SortOrder
   comentarioForoId?: Prisma.SortOrderInput | Prisma.SortOrder
-  institucion?: Prisma.InstitucionOrderByWithRelationInput
-  categoria?: Prisma.CategoriaOrderByWithRelationInput
-  tipoRecurso?: Prisma.TipoRecursoOrderByWithRelationInput
-  usuarioCreador?: Prisma.UsuarioOrderByWithRelationInput
-  gradoEscolar?: Prisma.GradoEscolarOrderByWithRelationInput
-  foroOrigen?: Prisma.ForoOrderByWithRelationInput
-  comentarioForo?: Prisma.ComentarioForoOrderByWithRelationInput
   calificaciones?: Prisma.CalificacionRecursoOrderByRelationAggregateInput
+  comentariosCompartidos?: Prisma.ComentarioForoRecursoOrderByRelationAggregateInput
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeOrderByRelationAggregateInput
   entregaAulaColaborativa?: Prisma.ProyectoColaborativoEntregaOrderByWithRelationInput
-  comentariosCompartidos?: Prisma.ComentarioForoRecursoOrderByRelationAggregateInput
+  categoria?: Prisma.CategoriaOrderByWithRelationInput
+  comentarioForo?: Prisma.ComentarioForoOrderByWithRelationInput
+  foroOrigen?: Prisma.ForoOrderByWithRelationInput
+  gradoEscolar?: Prisma.GradoEscolarOrderByWithRelationInput
+  institucion?: Prisma.InstitucionOrderByWithRelationInput
+  resumenIa?: Prisma.ResumenIaRecursoOrderByWithRelationInput
+  tipoRecurso?: Prisma.TipoRecursoOrderByWithRelationInput
+  usuarioCreador?: Prisma.UsuarioOrderByWithRelationInput
 }
 
 export type RecursoWhereUniqueInput = Prisma.AtLeast<{
@@ -435,17 +437,18 @@ export type RecursoWhereUniqueInput = Prisma.AtLeast<{
   gradoEscolarId?: Prisma.IntNullableFilter<"Recurso"> | number | null
   foroOrigenId?: Prisma.IntNullableFilter<"Recurso"> | number | null
   comentarioForoId?: Prisma.IntNullableFilter<"Recurso"> | number | null
-  institucion?: Prisma.XOR<Prisma.InstitucionScalarRelationFilter, Prisma.InstitucionWhereInput>
-  categoria?: Prisma.XOR<Prisma.CategoriaScalarRelationFilter, Prisma.CategoriaWhereInput>
-  tipoRecurso?: Prisma.XOR<Prisma.TipoRecursoScalarRelationFilter, Prisma.TipoRecursoWhereInput>
-  usuarioCreador?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
-  gradoEscolar?: Prisma.XOR<Prisma.GradoEscolarNullableScalarRelationFilter, Prisma.GradoEscolarWhereInput> | null
-  foroOrigen?: Prisma.XOR<Prisma.ForoNullableScalarRelationFilter, Prisma.ForoWhereInput> | null
-  comentarioForo?: Prisma.XOR<Prisma.ComentarioForoNullableScalarRelationFilter, Prisma.ComentarioForoWhereInput> | null
   calificaciones?: Prisma.CalificacionRecursoListRelationFilter
+  comentariosCompartidos?: Prisma.ComentarioForoRecursoListRelationFilter
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeListRelationFilter
   entregaAulaColaborativa?: Prisma.XOR<Prisma.ProyectoColaborativoEntregaNullableScalarRelationFilter, Prisma.ProyectoColaborativoEntregaWhereInput> | null
-  comentariosCompartidos?: Prisma.ComentarioForoRecursoListRelationFilter
+  categoria?: Prisma.XOR<Prisma.CategoriaScalarRelationFilter, Prisma.CategoriaWhereInput>
+  comentarioForo?: Prisma.XOR<Prisma.ComentarioForoNullableScalarRelationFilter, Prisma.ComentarioForoWhereInput> | null
+  foroOrigen?: Prisma.XOR<Prisma.ForoNullableScalarRelationFilter, Prisma.ForoWhereInput> | null
+  gradoEscolar?: Prisma.XOR<Prisma.GradoEscolarNullableScalarRelationFilter, Prisma.GradoEscolarWhereInput> | null
+  institucion?: Prisma.XOR<Prisma.InstitucionScalarRelationFilter, Prisma.InstitucionWhereInput>
+  resumenIa?: Prisma.XOR<Prisma.ResumenIaRecursoNullableScalarRelationFilter, Prisma.ResumenIaRecursoWhereInput> | null
+  tipoRecurso?: Prisma.XOR<Prisma.TipoRecursoScalarRelationFilter, Prisma.TipoRecursoWhereInput>
+  usuarioCreador?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
 }, "id">
 
 export type RecursoOrderByWithAggregationInput = {
@@ -515,17 +518,18 @@ export type RecursoCreateInput = {
   publicado?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  institucion: Prisma.InstitucionCreateNestedOneWithoutRecursosInput
-  categoria: Prisma.CategoriaCreateNestedOneWithoutRecursosInput
-  tipoRecurso: Prisma.TipoRecursoCreateNestedOneWithoutRecursosInput
-  usuarioCreador: Prisma.UsuarioCreateNestedOneWithoutRecursosInput
-  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutRecursosInput
-  foroOrigen?: Prisma.ForoCreateNestedOneWithoutRecursosInput
-  comentarioForo?: Prisma.ComentarioForoCreateNestedOneWithoutRecursosInput
   calificaciones?: Prisma.CalificacionRecursoCreateNestedManyWithoutRecursoInput
+  comentariosCompartidos?: Prisma.ComentarioForoRecursoCreateNestedManyWithoutRecursoInput
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeCreateNestedManyWithoutRecursoInput
   entregaAulaColaborativa?: Prisma.ProyectoColaborativoEntregaCreateNestedOneWithoutRecursoInput
-  comentariosCompartidos?: Prisma.ComentarioForoRecursoCreateNestedManyWithoutRecursoInput
+  categoria: Prisma.CategoriaCreateNestedOneWithoutRecursosInput
+  comentarioForo?: Prisma.ComentarioForoCreateNestedOneWithoutRecursosInput
+  foroOrigen?: Prisma.ForoCreateNestedOneWithoutRecursosInput
+  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutRecursosInput
+  institucion: Prisma.InstitucionCreateNestedOneWithoutRecursosInput
+  resumenIa?: Prisma.ResumenIaRecursoCreateNestedOneWithoutRecursoInput
+  tipoRecurso: Prisma.TipoRecursoCreateNestedOneWithoutRecursosInput
+  usuarioCreador: Prisma.UsuarioCreateNestedOneWithoutRecursosInput
 }
 
 export type RecursoUncheckedCreateInput = {
@@ -550,9 +554,10 @@ export type RecursoUncheckedCreateInput = {
   foroOrigenId?: number | null
   comentarioForoId?: number | null
   calificaciones?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutRecursoInput
+  comentariosCompartidos?: Prisma.ComentarioForoRecursoUncheckedCreateNestedManyWithoutRecursoInput
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUncheckedCreateNestedManyWithoutRecursoInput
   entregaAulaColaborativa?: Prisma.ProyectoColaborativoEntregaUncheckedCreateNestedOneWithoutRecursoInput
-  comentariosCompartidos?: Prisma.ComentarioForoRecursoUncheckedCreateNestedManyWithoutRecursoInput
+  resumenIa?: Prisma.ResumenIaRecursoUncheckedCreateNestedOneWithoutRecursoInput
 }
 
 export type RecursoUpdateInput = {
@@ -568,17 +573,18 @@ export type RecursoUpdateInput = {
   publicado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutRecursosNestedInput
-  categoria?: Prisma.CategoriaUpdateOneRequiredWithoutRecursosNestedInput
-  tipoRecurso?: Prisma.TipoRecursoUpdateOneRequiredWithoutRecursosNestedInput
-  usuarioCreador?: Prisma.UsuarioUpdateOneRequiredWithoutRecursosNestedInput
-  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutRecursosNestedInput
-  foroOrigen?: Prisma.ForoUpdateOneWithoutRecursosNestedInput
-  comentarioForo?: Prisma.ComentarioForoUpdateOneWithoutRecursosNestedInput
   calificaciones?: Prisma.CalificacionRecursoUpdateManyWithoutRecursoNestedInput
+  comentariosCompartidos?: Prisma.ComentarioForoRecursoUpdateManyWithoutRecursoNestedInput
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUpdateManyWithoutRecursoNestedInput
   entregaAulaColaborativa?: Prisma.ProyectoColaborativoEntregaUpdateOneWithoutRecursoNestedInput
-  comentariosCompartidos?: Prisma.ComentarioForoRecursoUpdateManyWithoutRecursoNestedInput
+  categoria?: Prisma.CategoriaUpdateOneRequiredWithoutRecursosNestedInput
+  comentarioForo?: Prisma.ComentarioForoUpdateOneWithoutRecursosNestedInput
+  foroOrigen?: Prisma.ForoUpdateOneWithoutRecursosNestedInput
+  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutRecursosNestedInput
+  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutRecursosNestedInput
+  resumenIa?: Prisma.ResumenIaRecursoUpdateOneWithoutRecursoNestedInput
+  tipoRecurso?: Prisma.TipoRecursoUpdateOneRequiredWithoutRecursosNestedInput
+  usuarioCreador?: Prisma.UsuarioUpdateOneRequiredWithoutRecursosNestedInput
 }
 
 export type RecursoUncheckedUpdateInput = {
@@ -603,9 +609,10 @@ export type RecursoUncheckedUpdateInput = {
   foroOrigenId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   comentarioForoId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   calificaciones?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutRecursoNestedInput
+  comentariosCompartidos?: Prisma.ComentarioForoRecursoUncheckedUpdateManyWithoutRecursoNestedInput
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUncheckedUpdateManyWithoutRecursoNestedInput
   entregaAulaColaborativa?: Prisma.ProyectoColaborativoEntregaUncheckedUpdateOneWithoutRecursoNestedInput
-  comentariosCompartidos?: Prisma.ComentarioForoRecursoUncheckedUpdateManyWithoutRecursoNestedInput
+  resumenIa?: Prisma.ResumenIaRecursoUncheckedUpdateOneWithoutRecursoNestedInput
 }
 
 export type RecursoCreateManyInput = {
@@ -1074,6 +1081,20 @@ export type RecursoUncheckedUpdateManyWithoutTipoRecursoNestedInput = {
   deleteMany?: Prisma.RecursoScalarWhereInput | Prisma.RecursoScalarWhereInput[]
 }
 
+export type RecursoCreateNestedOneWithoutResumenIaInput = {
+  create?: Prisma.XOR<Prisma.RecursoCreateWithoutResumenIaInput, Prisma.RecursoUncheckedCreateWithoutResumenIaInput>
+  connectOrCreate?: Prisma.RecursoCreateOrConnectWithoutResumenIaInput
+  connect?: Prisma.RecursoWhereUniqueInput
+}
+
+export type RecursoUpdateOneRequiredWithoutResumenIaNestedInput = {
+  create?: Prisma.XOR<Prisma.RecursoCreateWithoutResumenIaInput, Prisma.RecursoUncheckedCreateWithoutResumenIaInput>
+  connectOrCreate?: Prisma.RecursoCreateOrConnectWithoutResumenIaInput
+  upsert?: Prisma.RecursoUpsertWithoutResumenIaInput
+  connect?: Prisma.RecursoWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.RecursoUpdateToOneWithWhereWithoutResumenIaInput, Prisma.RecursoUpdateWithoutResumenIaInput>, Prisma.RecursoUncheckedUpdateWithoutResumenIaInput>
+}
+
 export type RecursoCreateNestedOneWithoutComentariosCompartidosInput = {
   create?: Prisma.XOR<Prisma.RecursoCreateWithoutComentariosCompartidosInput, Prisma.RecursoUncheckedCreateWithoutComentariosCompartidosInput>
   connectOrCreate?: Prisma.RecursoCreateOrConnectWithoutComentariosCompartidosInput
@@ -1147,16 +1168,17 @@ export type RecursoCreateWithoutInstitucionInput = {
   publicado?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  categoria: Prisma.CategoriaCreateNestedOneWithoutRecursosInput
-  tipoRecurso: Prisma.TipoRecursoCreateNestedOneWithoutRecursosInput
-  usuarioCreador: Prisma.UsuarioCreateNestedOneWithoutRecursosInput
-  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutRecursosInput
-  foroOrigen?: Prisma.ForoCreateNestedOneWithoutRecursosInput
-  comentarioForo?: Prisma.ComentarioForoCreateNestedOneWithoutRecursosInput
   calificaciones?: Prisma.CalificacionRecursoCreateNestedManyWithoutRecursoInput
+  comentariosCompartidos?: Prisma.ComentarioForoRecursoCreateNestedManyWithoutRecursoInput
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeCreateNestedManyWithoutRecursoInput
   entregaAulaColaborativa?: Prisma.ProyectoColaborativoEntregaCreateNestedOneWithoutRecursoInput
-  comentariosCompartidos?: Prisma.ComentarioForoRecursoCreateNestedManyWithoutRecursoInput
+  categoria: Prisma.CategoriaCreateNestedOneWithoutRecursosInput
+  comentarioForo?: Prisma.ComentarioForoCreateNestedOneWithoutRecursosInput
+  foroOrigen?: Prisma.ForoCreateNestedOneWithoutRecursosInput
+  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutRecursosInput
+  resumenIa?: Prisma.ResumenIaRecursoCreateNestedOneWithoutRecursoInput
+  tipoRecurso: Prisma.TipoRecursoCreateNestedOneWithoutRecursosInput
+  usuarioCreador: Prisma.UsuarioCreateNestedOneWithoutRecursosInput
 }
 
 export type RecursoUncheckedCreateWithoutInstitucionInput = {
@@ -1180,9 +1202,10 @@ export type RecursoUncheckedCreateWithoutInstitucionInput = {
   foroOrigenId?: number | null
   comentarioForoId?: number | null
   calificaciones?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutRecursoInput
+  comentariosCompartidos?: Prisma.ComentarioForoRecursoUncheckedCreateNestedManyWithoutRecursoInput
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUncheckedCreateNestedManyWithoutRecursoInput
   entregaAulaColaborativa?: Prisma.ProyectoColaborativoEntregaUncheckedCreateNestedOneWithoutRecursoInput
-  comentariosCompartidos?: Prisma.ComentarioForoRecursoUncheckedCreateNestedManyWithoutRecursoInput
+  resumenIa?: Prisma.ResumenIaRecursoUncheckedCreateNestedOneWithoutRecursoInput
 }
 
 export type RecursoCreateOrConnectWithoutInstitucionInput = {
@@ -1250,16 +1273,17 @@ export type RecursoCreateWithoutUsuarioCreadorInput = {
   publicado?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  institucion: Prisma.InstitucionCreateNestedOneWithoutRecursosInput
-  categoria: Prisma.CategoriaCreateNestedOneWithoutRecursosInput
-  tipoRecurso: Prisma.TipoRecursoCreateNestedOneWithoutRecursosInput
-  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutRecursosInput
-  foroOrigen?: Prisma.ForoCreateNestedOneWithoutRecursosInput
-  comentarioForo?: Prisma.ComentarioForoCreateNestedOneWithoutRecursosInput
   calificaciones?: Prisma.CalificacionRecursoCreateNestedManyWithoutRecursoInput
+  comentariosCompartidos?: Prisma.ComentarioForoRecursoCreateNestedManyWithoutRecursoInput
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeCreateNestedManyWithoutRecursoInput
   entregaAulaColaborativa?: Prisma.ProyectoColaborativoEntregaCreateNestedOneWithoutRecursoInput
-  comentariosCompartidos?: Prisma.ComentarioForoRecursoCreateNestedManyWithoutRecursoInput
+  categoria: Prisma.CategoriaCreateNestedOneWithoutRecursosInput
+  comentarioForo?: Prisma.ComentarioForoCreateNestedOneWithoutRecursosInput
+  foroOrigen?: Prisma.ForoCreateNestedOneWithoutRecursosInput
+  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutRecursosInput
+  institucion: Prisma.InstitucionCreateNestedOneWithoutRecursosInput
+  resumenIa?: Prisma.ResumenIaRecursoCreateNestedOneWithoutRecursoInput
+  tipoRecurso: Prisma.TipoRecursoCreateNestedOneWithoutRecursosInput
 }
 
 export type RecursoUncheckedCreateWithoutUsuarioCreadorInput = {
@@ -1283,9 +1307,10 @@ export type RecursoUncheckedCreateWithoutUsuarioCreadorInput = {
   foroOrigenId?: number | null
   comentarioForoId?: number | null
   calificaciones?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutRecursoInput
+  comentariosCompartidos?: Prisma.ComentarioForoRecursoUncheckedCreateNestedManyWithoutRecursoInput
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUncheckedCreateNestedManyWithoutRecursoInput
   entregaAulaColaborativa?: Prisma.ProyectoColaborativoEntregaUncheckedCreateNestedOneWithoutRecursoInput
-  comentariosCompartidos?: Prisma.ComentarioForoRecursoUncheckedCreateNestedManyWithoutRecursoInput
+  resumenIa?: Prisma.ResumenIaRecursoUncheckedCreateNestedOneWithoutRecursoInput
 }
 
 export type RecursoCreateOrConnectWithoutUsuarioCreadorInput = {
@@ -1327,16 +1352,17 @@ export type RecursoCreateWithoutGradoEscolarInput = {
   publicado?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  institucion: Prisma.InstitucionCreateNestedOneWithoutRecursosInput
-  categoria: Prisma.CategoriaCreateNestedOneWithoutRecursosInput
-  tipoRecurso: Prisma.TipoRecursoCreateNestedOneWithoutRecursosInput
-  usuarioCreador: Prisma.UsuarioCreateNestedOneWithoutRecursosInput
-  foroOrigen?: Prisma.ForoCreateNestedOneWithoutRecursosInput
-  comentarioForo?: Prisma.ComentarioForoCreateNestedOneWithoutRecursosInput
   calificaciones?: Prisma.CalificacionRecursoCreateNestedManyWithoutRecursoInput
+  comentariosCompartidos?: Prisma.ComentarioForoRecursoCreateNestedManyWithoutRecursoInput
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeCreateNestedManyWithoutRecursoInput
   entregaAulaColaborativa?: Prisma.ProyectoColaborativoEntregaCreateNestedOneWithoutRecursoInput
-  comentariosCompartidos?: Prisma.ComentarioForoRecursoCreateNestedManyWithoutRecursoInput
+  categoria: Prisma.CategoriaCreateNestedOneWithoutRecursosInput
+  comentarioForo?: Prisma.ComentarioForoCreateNestedOneWithoutRecursosInput
+  foroOrigen?: Prisma.ForoCreateNestedOneWithoutRecursosInput
+  institucion: Prisma.InstitucionCreateNestedOneWithoutRecursosInput
+  resumenIa?: Prisma.ResumenIaRecursoCreateNestedOneWithoutRecursoInput
+  tipoRecurso: Prisma.TipoRecursoCreateNestedOneWithoutRecursosInput
+  usuarioCreador: Prisma.UsuarioCreateNestedOneWithoutRecursosInput
 }
 
 export type RecursoUncheckedCreateWithoutGradoEscolarInput = {
@@ -1360,9 +1386,10 @@ export type RecursoUncheckedCreateWithoutGradoEscolarInput = {
   foroOrigenId?: number | null
   comentarioForoId?: number | null
   calificaciones?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutRecursoInput
+  comentariosCompartidos?: Prisma.ComentarioForoRecursoUncheckedCreateNestedManyWithoutRecursoInput
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUncheckedCreateNestedManyWithoutRecursoInput
   entregaAulaColaborativa?: Prisma.ProyectoColaborativoEntregaUncheckedCreateNestedOneWithoutRecursoInput
-  comentariosCompartidos?: Prisma.ComentarioForoRecursoUncheckedCreateNestedManyWithoutRecursoInput
+  resumenIa?: Prisma.ResumenIaRecursoUncheckedCreateNestedOneWithoutRecursoInput
 }
 
 export type RecursoCreateOrConnectWithoutGradoEscolarInput = {
@@ -1404,16 +1431,17 @@ export type RecursoCreateWithoutCategoriaInput = {
   publicado?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  institucion: Prisma.InstitucionCreateNestedOneWithoutRecursosInput
-  tipoRecurso: Prisma.TipoRecursoCreateNestedOneWithoutRecursosInput
-  usuarioCreador: Prisma.UsuarioCreateNestedOneWithoutRecursosInput
-  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutRecursosInput
-  foroOrigen?: Prisma.ForoCreateNestedOneWithoutRecursosInput
-  comentarioForo?: Prisma.ComentarioForoCreateNestedOneWithoutRecursosInput
   calificaciones?: Prisma.CalificacionRecursoCreateNestedManyWithoutRecursoInput
+  comentariosCompartidos?: Prisma.ComentarioForoRecursoCreateNestedManyWithoutRecursoInput
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeCreateNestedManyWithoutRecursoInput
   entregaAulaColaborativa?: Prisma.ProyectoColaborativoEntregaCreateNestedOneWithoutRecursoInput
-  comentariosCompartidos?: Prisma.ComentarioForoRecursoCreateNestedManyWithoutRecursoInput
+  comentarioForo?: Prisma.ComentarioForoCreateNestedOneWithoutRecursosInput
+  foroOrigen?: Prisma.ForoCreateNestedOneWithoutRecursosInput
+  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutRecursosInput
+  institucion: Prisma.InstitucionCreateNestedOneWithoutRecursosInput
+  resumenIa?: Prisma.ResumenIaRecursoCreateNestedOneWithoutRecursoInput
+  tipoRecurso: Prisma.TipoRecursoCreateNestedOneWithoutRecursosInput
+  usuarioCreador: Prisma.UsuarioCreateNestedOneWithoutRecursosInput
 }
 
 export type RecursoUncheckedCreateWithoutCategoriaInput = {
@@ -1437,9 +1465,10 @@ export type RecursoUncheckedCreateWithoutCategoriaInput = {
   foroOrigenId?: number | null
   comentarioForoId?: number | null
   calificaciones?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutRecursoInput
+  comentariosCompartidos?: Prisma.ComentarioForoRecursoUncheckedCreateNestedManyWithoutRecursoInput
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUncheckedCreateNestedManyWithoutRecursoInput
   entregaAulaColaborativa?: Prisma.ProyectoColaborativoEntregaUncheckedCreateNestedOneWithoutRecursoInput
-  comentariosCompartidos?: Prisma.ComentarioForoRecursoUncheckedCreateNestedManyWithoutRecursoInput
+  resumenIa?: Prisma.ResumenIaRecursoUncheckedCreateNestedOneWithoutRecursoInput
 }
 
 export type RecursoCreateOrConnectWithoutCategoriaInput = {
@@ -1481,16 +1510,17 @@ export type RecursoCreateWithoutForoOrigenInput = {
   publicado?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  institucion: Prisma.InstitucionCreateNestedOneWithoutRecursosInput
-  categoria: Prisma.CategoriaCreateNestedOneWithoutRecursosInput
-  tipoRecurso: Prisma.TipoRecursoCreateNestedOneWithoutRecursosInput
-  usuarioCreador: Prisma.UsuarioCreateNestedOneWithoutRecursosInput
-  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutRecursosInput
-  comentarioForo?: Prisma.ComentarioForoCreateNestedOneWithoutRecursosInput
   calificaciones?: Prisma.CalificacionRecursoCreateNestedManyWithoutRecursoInput
+  comentariosCompartidos?: Prisma.ComentarioForoRecursoCreateNestedManyWithoutRecursoInput
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeCreateNestedManyWithoutRecursoInput
   entregaAulaColaborativa?: Prisma.ProyectoColaborativoEntregaCreateNestedOneWithoutRecursoInput
-  comentariosCompartidos?: Prisma.ComentarioForoRecursoCreateNestedManyWithoutRecursoInput
+  categoria: Prisma.CategoriaCreateNestedOneWithoutRecursosInput
+  comentarioForo?: Prisma.ComentarioForoCreateNestedOneWithoutRecursosInput
+  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutRecursosInput
+  institucion: Prisma.InstitucionCreateNestedOneWithoutRecursosInput
+  resumenIa?: Prisma.ResumenIaRecursoCreateNestedOneWithoutRecursoInput
+  tipoRecurso: Prisma.TipoRecursoCreateNestedOneWithoutRecursosInput
+  usuarioCreador: Prisma.UsuarioCreateNestedOneWithoutRecursosInput
 }
 
 export type RecursoUncheckedCreateWithoutForoOrigenInput = {
@@ -1514,9 +1544,10 @@ export type RecursoUncheckedCreateWithoutForoOrigenInput = {
   gradoEscolarId?: number | null
   comentarioForoId?: number | null
   calificaciones?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutRecursoInput
+  comentariosCompartidos?: Prisma.ComentarioForoRecursoUncheckedCreateNestedManyWithoutRecursoInput
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUncheckedCreateNestedManyWithoutRecursoInput
   entregaAulaColaborativa?: Prisma.ProyectoColaborativoEntregaUncheckedCreateNestedOneWithoutRecursoInput
-  comentariosCompartidos?: Prisma.ComentarioForoRecursoUncheckedCreateNestedManyWithoutRecursoInput
+  resumenIa?: Prisma.ResumenIaRecursoUncheckedCreateNestedOneWithoutRecursoInput
 }
 
 export type RecursoCreateOrConnectWithoutForoOrigenInput = {
@@ -1558,16 +1589,17 @@ export type RecursoCreateWithoutComentarioForoInput = {
   publicado?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  institucion: Prisma.InstitucionCreateNestedOneWithoutRecursosInput
-  categoria: Prisma.CategoriaCreateNestedOneWithoutRecursosInput
-  tipoRecurso: Prisma.TipoRecursoCreateNestedOneWithoutRecursosInput
-  usuarioCreador: Prisma.UsuarioCreateNestedOneWithoutRecursosInput
-  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutRecursosInput
-  foroOrigen?: Prisma.ForoCreateNestedOneWithoutRecursosInput
   calificaciones?: Prisma.CalificacionRecursoCreateNestedManyWithoutRecursoInput
+  comentariosCompartidos?: Prisma.ComentarioForoRecursoCreateNestedManyWithoutRecursoInput
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeCreateNestedManyWithoutRecursoInput
   entregaAulaColaborativa?: Prisma.ProyectoColaborativoEntregaCreateNestedOneWithoutRecursoInput
-  comentariosCompartidos?: Prisma.ComentarioForoRecursoCreateNestedManyWithoutRecursoInput
+  categoria: Prisma.CategoriaCreateNestedOneWithoutRecursosInput
+  foroOrigen?: Prisma.ForoCreateNestedOneWithoutRecursosInput
+  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutRecursosInput
+  institucion: Prisma.InstitucionCreateNestedOneWithoutRecursosInput
+  resumenIa?: Prisma.ResumenIaRecursoCreateNestedOneWithoutRecursoInput
+  tipoRecurso: Prisma.TipoRecursoCreateNestedOneWithoutRecursosInput
+  usuarioCreador: Prisma.UsuarioCreateNestedOneWithoutRecursosInput
 }
 
 export type RecursoUncheckedCreateWithoutComentarioForoInput = {
@@ -1591,9 +1623,10 @@ export type RecursoUncheckedCreateWithoutComentarioForoInput = {
   gradoEscolarId?: number | null
   foroOrigenId?: number | null
   calificaciones?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutRecursoInput
+  comentariosCompartidos?: Prisma.ComentarioForoRecursoUncheckedCreateNestedManyWithoutRecursoInput
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUncheckedCreateNestedManyWithoutRecursoInput
   entregaAulaColaborativa?: Prisma.ProyectoColaborativoEntregaUncheckedCreateNestedOneWithoutRecursoInput
-  comentariosCompartidos?: Prisma.ComentarioForoRecursoUncheckedCreateNestedManyWithoutRecursoInput
+  resumenIa?: Prisma.ResumenIaRecursoUncheckedCreateNestedOneWithoutRecursoInput
 }
 
 export type RecursoCreateOrConnectWithoutComentarioForoInput = {
@@ -1635,16 +1668,17 @@ export type RecursoCreateWithoutTipoRecursoInput = {
   publicado?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  institucion: Prisma.InstitucionCreateNestedOneWithoutRecursosInput
-  categoria: Prisma.CategoriaCreateNestedOneWithoutRecursosInput
-  usuarioCreador: Prisma.UsuarioCreateNestedOneWithoutRecursosInput
-  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutRecursosInput
-  foroOrigen?: Prisma.ForoCreateNestedOneWithoutRecursosInput
-  comentarioForo?: Prisma.ComentarioForoCreateNestedOneWithoutRecursosInput
   calificaciones?: Prisma.CalificacionRecursoCreateNestedManyWithoutRecursoInput
+  comentariosCompartidos?: Prisma.ComentarioForoRecursoCreateNestedManyWithoutRecursoInput
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeCreateNestedManyWithoutRecursoInput
   entregaAulaColaborativa?: Prisma.ProyectoColaborativoEntregaCreateNestedOneWithoutRecursoInput
-  comentariosCompartidos?: Prisma.ComentarioForoRecursoCreateNestedManyWithoutRecursoInput
+  categoria: Prisma.CategoriaCreateNestedOneWithoutRecursosInput
+  comentarioForo?: Prisma.ComentarioForoCreateNestedOneWithoutRecursosInput
+  foroOrigen?: Prisma.ForoCreateNestedOneWithoutRecursosInput
+  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutRecursosInput
+  institucion: Prisma.InstitucionCreateNestedOneWithoutRecursosInput
+  resumenIa?: Prisma.ResumenIaRecursoCreateNestedOneWithoutRecursoInput
+  usuarioCreador: Prisma.UsuarioCreateNestedOneWithoutRecursosInput
 }
 
 export type RecursoUncheckedCreateWithoutTipoRecursoInput = {
@@ -1668,9 +1702,10 @@ export type RecursoUncheckedCreateWithoutTipoRecursoInput = {
   foroOrigenId?: number | null
   comentarioForoId?: number | null
   calificaciones?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutRecursoInput
+  comentariosCompartidos?: Prisma.ComentarioForoRecursoUncheckedCreateNestedManyWithoutRecursoInput
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUncheckedCreateNestedManyWithoutRecursoInput
   entregaAulaColaborativa?: Prisma.ProyectoColaborativoEntregaUncheckedCreateNestedOneWithoutRecursoInput
-  comentariosCompartidos?: Prisma.ComentarioForoRecursoUncheckedCreateNestedManyWithoutRecursoInput
+  resumenIa?: Prisma.ResumenIaRecursoUncheckedCreateNestedOneWithoutRecursoInput
 }
 
 export type RecursoCreateOrConnectWithoutTipoRecursoInput = {
@@ -1699,6 +1734,128 @@ export type RecursoUpdateManyWithWhereWithoutTipoRecursoInput = {
   data: Prisma.XOR<Prisma.RecursoUpdateManyMutationInput, Prisma.RecursoUncheckedUpdateManyWithoutTipoRecursoInput>
 }
 
+export type RecursoCreateWithoutResumenIaInput = {
+  titulo: string
+  palabrasClave?: string | null
+  contenidoResumen?: string | null
+  rutaRecurso?: string | null
+  urlRecurso?: string | null
+  fuente?: string | null
+  autorNombre?: string | null
+  nivelAcademico?: string | null
+  estado?: boolean
+  publicado?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  calificaciones?: Prisma.CalificacionRecursoCreateNestedManyWithoutRecursoInput
+  comentariosCompartidos?: Prisma.ComentarioForoRecursoCreateNestedManyWithoutRecursoInput
+  detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeCreateNestedManyWithoutRecursoInput
+  entregaAulaColaborativa?: Prisma.ProyectoColaborativoEntregaCreateNestedOneWithoutRecursoInput
+  categoria: Prisma.CategoriaCreateNestedOneWithoutRecursosInput
+  comentarioForo?: Prisma.ComentarioForoCreateNestedOneWithoutRecursosInput
+  foroOrigen?: Prisma.ForoCreateNestedOneWithoutRecursosInput
+  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutRecursosInput
+  institucion: Prisma.InstitucionCreateNestedOneWithoutRecursosInput
+  tipoRecurso: Prisma.TipoRecursoCreateNestedOneWithoutRecursosInput
+  usuarioCreador: Prisma.UsuarioCreateNestedOneWithoutRecursosInput
+}
+
+export type RecursoUncheckedCreateWithoutResumenIaInput = {
+  id?: number
+  titulo: string
+  palabrasClave?: string | null
+  contenidoResumen?: string | null
+  rutaRecurso?: string | null
+  urlRecurso?: string | null
+  fuente?: string | null
+  autorNombre?: string | null
+  nivelAcademico?: string | null
+  estado?: boolean
+  publicado?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  institucionId: number
+  categoriaId: number
+  tipoRecursoId: number
+  usuarioCreadorId: number
+  gradoEscolarId?: number | null
+  foroOrigenId?: number | null
+  comentarioForoId?: number | null
+  calificaciones?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutRecursoInput
+  comentariosCompartidos?: Prisma.ComentarioForoRecursoUncheckedCreateNestedManyWithoutRecursoInput
+  detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUncheckedCreateNestedManyWithoutRecursoInput
+  entregaAulaColaborativa?: Prisma.ProyectoColaborativoEntregaUncheckedCreateNestedOneWithoutRecursoInput
+}
+
+export type RecursoCreateOrConnectWithoutResumenIaInput = {
+  where: Prisma.RecursoWhereUniqueInput
+  create: Prisma.XOR<Prisma.RecursoCreateWithoutResumenIaInput, Prisma.RecursoUncheckedCreateWithoutResumenIaInput>
+}
+
+export type RecursoUpsertWithoutResumenIaInput = {
+  update: Prisma.XOR<Prisma.RecursoUpdateWithoutResumenIaInput, Prisma.RecursoUncheckedUpdateWithoutResumenIaInput>
+  create: Prisma.XOR<Prisma.RecursoCreateWithoutResumenIaInput, Prisma.RecursoUncheckedCreateWithoutResumenIaInput>
+  where?: Prisma.RecursoWhereInput
+}
+
+export type RecursoUpdateToOneWithWhereWithoutResumenIaInput = {
+  where?: Prisma.RecursoWhereInput
+  data: Prisma.XOR<Prisma.RecursoUpdateWithoutResumenIaInput, Prisma.RecursoUncheckedUpdateWithoutResumenIaInput>
+}
+
+export type RecursoUpdateWithoutResumenIaInput = {
+  titulo?: Prisma.StringFieldUpdateOperationsInput | string
+  palabrasClave?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contenidoResumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rutaRecurso?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  urlRecurso?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fuente?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  autorNombre?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nivelAcademico?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  publicado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  calificaciones?: Prisma.CalificacionRecursoUpdateManyWithoutRecursoNestedInput
+  comentariosCompartidos?: Prisma.ComentarioForoRecursoUpdateManyWithoutRecursoNestedInput
+  detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUpdateManyWithoutRecursoNestedInput
+  entregaAulaColaborativa?: Prisma.ProyectoColaborativoEntregaUpdateOneWithoutRecursoNestedInput
+  categoria?: Prisma.CategoriaUpdateOneRequiredWithoutRecursosNestedInput
+  comentarioForo?: Prisma.ComentarioForoUpdateOneWithoutRecursosNestedInput
+  foroOrigen?: Prisma.ForoUpdateOneWithoutRecursosNestedInput
+  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutRecursosNestedInput
+  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutRecursosNestedInput
+  tipoRecurso?: Prisma.TipoRecursoUpdateOneRequiredWithoutRecursosNestedInput
+  usuarioCreador?: Prisma.UsuarioUpdateOneRequiredWithoutRecursosNestedInput
+}
+
+export type RecursoUncheckedUpdateWithoutResumenIaInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  titulo?: Prisma.StringFieldUpdateOperationsInput | string
+  palabrasClave?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contenidoResumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rutaRecurso?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  urlRecurso?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fuente?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  autorNombre?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nivelAcademico?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  publicado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  institucionId?: Prisma.IntFieldUpdateOperationsInput | number
+  categoriaId?: Prisma.IntFieldUpdateOperationsInput | number
+  tipoRecursoId?: Prisma.IntFieldUpdateOperationsInput | number
+  usuarioCreadorId?: Prisma.IntFieldUpdateOperationsInput | number
+  gradoEscolarId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  foroOrigenId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  comentarioForoId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  calificaciones?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutRecursoNestedInput
+  comentariosCompartidos?: Prisma.ComentarioForoRecursoUncheckedUpdateManyWithoutRecursoNestedInput
+  detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUncheckedUpdateManyWithoutRecursoNestedInput
+  entregaAulaColaborativa?: Prisma.ProyectoColaborativoEntregaUncheckedUpdateOneWithoutRecursoNestedInput
+}
+
 export type RecursoCreateWithoutComentariosCompartidosInput = {
   titulo: string
   palabrasClave?: string | null
@@ -1712,16 +1869,17 @@ export type RecursoCreateWithoutComentariosCompartidosInput = {
   publicado?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  institucion: Prisma.InstitucionCreateNestedOneWithoutRecursosInput
-  categoria: Prisma.CategoriaCreateNestedOneWithoutRecursosInput
-  tipoRecurso: Prisma.TipoRecursoCreateNestedOneWithoutRecursosInput
-  usuarioCreador: Prisma.UsuarioCreateNestedOneWithoutRecursosInput
-  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutRecursosInput
-  foroOrigen?: Prisma.ForoCreateNestedOneWithoutRecursosInput
-  comentarioForo?: Prisma.ComentarioForoCreateNestedOneWithoutRecursosInput
   calificaciones?: Prisma.CalificacionRecursoCreateNestedManyWithoutRecursoInput
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeCreateNestedManyWithoutRecursoInput
   entregaAulaColaborativa?: Prisma.ProyectoColaborativoEntregaCreateNestedOneWithoutRecursoInput
+  categoria: Prisma.CategoriaCreateNestedOneWithoutRecursosInput
+  comentarioForo?: Prisma.ComentarioForoCreateNestedOneWithoutRecursosInput
+  foroOrigen?: Prisma.ForoCreateNestedOneWithoutRecursosInput
+  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutRecursosInput
+  institucion: Prisma.InstitucionCreateNestedOneWithoutRecursosInput
+  resumenIa?: Prisma.ResumenIaRecursoCreateNestedOneWithoutRecursoInput
+  tipoRecurso: Prisma.TipoRecursoCreateNestedOneWithoutRecursosInput
+  usuarioCreador: Prisma.UsuarioCreateNestedOneWithoutRecursosInput
 }
 
 export type RecursoUncheckedCreateWithoutComentariosCompartidosInput = {
@@ -1748,6 +1906,7 @@ export type RecursoUncheckedCreateWithoutComentariosCompartidosInput = {
   calificaciones?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutRecursoInput
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUncheckedCreateNestedManyWithoutRecursoInput
   entregaAulaColaborativa?: Prisma.ProyectoColaborativoEntregaUncheckedCreateNestedOneWithoutRecursoInput
+  resumenIa?: Prisma.ResumenIaRecursoUncheckedCreateNestedOneWithoutRecursoInput
 }
 
 export type RecursoCreateOrConnectWithoutComentariosCompartidosInput = {
@@ -1779,16 +1938,17 @@ export type RecursoUpdateWithoutComentariosCompartidosInput = {
   publicado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutRecursosNestedInput
-  categoria?: Prisma.CategoriaUpdateOneRequiredWithoutRecursosNestedInput
-  tipoRecurso?: Prisma.TipoRecursoUpdateOneRequiredWithoutRecursosNestedInput
-  usuarioCreador?: Prisma.UsuarioUpdateOneRequiredWithoutRecursosNestedInput
-  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutRecursosNestedInput
-  foroOrigen?: Prisma.ForoUpdateOneWithoutRecursosNestedInput
-  comentarioForo?: Prisma.ComentarioForoUpdateOneWithoutRecursosNestedInput
   calificaciones?: Prisma.CalificacionRecursoUpdateManyWithoutRecursoNestedInput
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUpdateManyWithoutRecursoNestedInput
   entregaAulaColaborativa?: Prisma.ProyectoColaborativoEntregaUpdateOneWithoutRecursoNestedInput
+  categoria?: Prisma.CategoriaUpdateOneRequiredWithoutRecursosNestedInput
+  comentarioForo?: Prisma.ComentarioForoUpdateOneWithoutRecursosNestedInput
+  foroOrigen?: Prisma.ForoUpdateOneWithoutRecursosNestedInput
+  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutRecursosNestedInput
+  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutRecursosNestedInput
+  resumenIa?: Prisma.ResumenIaRecursoUpdateOneWithoutRecursoNestedInput
+  tipoRecurso?: Prisma.TipoRecursoUpdateOneRequiredWithoutRecursosNestedInput
+  usuarioCreador?: Prisma.UsuarioUpdateOneRequiredWithoutRecursosNestedInput
 }
 
 export type RecursoUncheckedUpdateWithoutComentariosCompartidosInput = {
@@ -1815,6 +1975,7 @@ export type RecursoUncheckedUpdateWithoutComentariosCompartidosInput = {
   calificaciones?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutRecursoNestedInput
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUncheckedUpdateManyWithoutRecursoNestedInput
   entregaAulaColaborativa?: Prisma.ProyectoColaborativoEntregaUncheckedUpdateOneWithoutRecursoNestedInput
+  resumenIa?: Prisma.ResumenIaRecursoUncheckedUpdateOneWithoutRecursoNestedInput
 }
 
 export type RecursoCreateWithoutEntregaAulaColaborativaInput = {
@@ -1830,16 +1991,17 @@ export type RecursoCreateWithoutEntregaAulaColaborativaInput = {
   publicado?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  institucion: Prisma.InstitucionCreateNestedOneWithoutRecursosInput
+  calificaciones?: Prisma.CalificacionRecursoCreateNestedManyWithoutRecursoInput
+  comentariosCompartidos?: Prisma.ComentarioForoRecursoCreateNestedManyWithoutRecursoInput
+  detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeCreateNestedManyWithoutRecursoInput
   categoria: Prisma.CategoriaCreateNestedOneWithoutRecursosInput
+  comentarioForo?: Prisma.ComentarioForoCreateNestedOneWithoutRecursosInput
+  foroOrigen?: Prisma.ForoCreateNestedOneWithoutRecursosInput
+  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutRecursosInput
+  institucion: Prisma.InstitucionCreateNestedOneWithoutRecursosInput
+  resumenIa?: Prisma.ResumenIaRecursoCreateNestedOneWithoutRecursoInput
   tipoRecurso: Prisma.TipoRecursoCreateNestedOneWithoutRecursosInput
   usuarioCreador: Prisma.UsuarioCreateNestedOneWithoutRecursosInput
-  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutRecursosInput
-  foroOrigen?: Prisma.ForoCreateNestedOneWithoutRecursosInput
-  comentarioForo?: Prisma.ComentarioForoCreateNestedOneWithoutRecursosInput
-  calificaciones?: Prisma.CalificacionRecursoCreateNestedManyWithoutRecursoInput
-  detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeCreateNestedManyWithoutRecursoInput
-  comentariosCompartidos?: Prisma.ComentarioForoRecursoCreateNestedManyWithoutRecursoInput
 }
 
 export type RecursoUncheckedCreateWithoutEntregaAulaColaborativaInput = {
@@ -1864,8 +2026,9 @@ export type RecursoUncheckedCreateWithoutEntregaAulaColaborativaInput = {
   foroOrigenId?: number | null
   comentarioForoId?: number | null
   calificaciones?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutRecursoInput
-  detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUncheckedCreateNestedManyWithoutRecursoInput
   comentariosCompartidos?: Prisma.ComentarioForoRecursoUncheckedCreateNestedManyWithoutRecursoInput
+  detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUncheckedCreateNestedManyWithoutRecursoInput
+  resumenIa?: Prisma.ResumenIaRecursoUncheckedCreateNestedOneWithoutRecursoInput
 }
 
 export type RecursoCreateOrConnectWithoutEntregaAulaColaborativaInput = {
@@ -1897,16 +2060,17 @@ export type RecursoUpdateWithoutEntregaAulaColaborativaInput = {
   publicado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutRecursosNestedInput
+  calificaciones?: Prisma.CalificacionRecursoUpdateManyWithoutRecursoNestedInput
+  comentariosCompartidos?: Prisma.ComentarioForoRecursoUpdateManyWithoutRecursoNestedInput
+  detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUpdateManyWithoutRecursoNestedInput
   categoria?: Prisma.CategoriaUpdateOneRequiredWithoutRecursosNestedInput
+  comentarioForo?: Prisma.ComentarioForoUpdateOneWithoutRecursosNestedInput
+  foroOrigen?: Prisma.ForoUpdateOneWithoutRecursosNestedInput
+  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutRecursosNestedInput
+  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutRecursosNestedInput
+  resumenIa?: Prisma.ResumenIaRecursoUpdateOneWithoutRecursoNestedInput
   tipoRecurso?: Prisma.TipoRecursoUpdateOneRequiredWithoutRecursosNestedInput
   usuarioCreador?: Prisma.UsuarioUpdateOneRequiredWithoutRecursosNestedInput
-  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutRecursosNestedInput
-  foroOrigen?: Prisma.ForoUpdateOneWithoutRecursosNestedInput
-  comentarioForo?: Prisma.ComentarioForoUpdateOneWithoutRecursosNestedInput
-  calificaciones?: Prisma.CalificacionRecursoUpdateManyWithoutRecursoNestedInput
-  detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUpdateManyWithoutRecursoNestedInput
-  comentariosCompartidos?: Prisma.ComentarioForoRecursoUpdateManyWithoutRecursoNestedInput
 }
 
 export type RecursoUncheckedUpdateWithoutEntregaAulaColaborativaInput = {
@@ -1931,8 +2095,9 @@ export type RecursoUncheckedUpdateWithoutEntregaAulaColaborativaInput = {
   foroOrigenId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   comentarioForoId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   calificaciones?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutRecursoNestedInput
-  detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUncheckedUpdateManyWithoutRecursoNestedInput
   comentariosCompartidos?: Prisma.ComentarioForoRecursoUncheckedUpdateManyWithoutRecursoNestedInput
+  detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUncheckedUpdateManyWithoutRecursoNestedInput
+  resumenIa?: Prisma.ResumenIaRecursoUncheckedUpdateOneWithoutRecursoNestedInput
 }
 
 export type RecursoCreateWithoutCalificacionesInput = {
@@ -1948,16 +2113,17 @@ export type RecursoCreateWithoutCalificacionesInput = {
   publicado?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  institucion: Prisma.InstitucionCreateNestedOneWithoutRecursosInput
-  categoria: Prisma.CategoriaCreateNestedOneWithoutRecursosInput
-  tipoRecurso: Prisma.TipoRecursoCreateNestedOneWithoutRecursosInput
-  usuarioCreador: Prisma.UsuarioCreateNestedOneWithoutRecursosInput
-  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutRecursosInput
-  foroOrigen?: Prisma.ForoCreateNestedOneWithoutRecursosInput
-  comentarioForo?: Prisma.ComentarioForoCreateNestedOneWithoutRecursosInput
+  comentariosCompartidos?: Prisma.ComentarioForoRecursoCreateNestedManyWithoutRecursoInput
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeCreateNestedManyWithoutRecursoInput
   entregaAulaColaborativa?: Prisma.ProyectoColaborativoEntregaCreateNestedOneWithoutRecursoInput
-  comentariosCompartidos?: Prisma.ComentarioForoRecursoCreateNestedManyWithoutRecursoInput
+  categoria: Prisma.CategoriaCreateNestedOneWithoutRecursosInput
+  comentarioForo?: Prisma.ComentarioForoCreateNestedOneWithoutRecursosInput
+  foroOrigen?: Prisma.ForoCreateNestedOneWithoutRecursosInput
+  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutRecursosInput
+  institucion: Prisma.InstitucionCreateNestedOneWithoutRecursosInput
+  resumenIa?: Prisma.ResumenIaRecursoCreateNestedOneWithoutRecursoInput
+  tipoRecurso: Prisma.TipoRecursoCreateNestedOneWithoutRecursosInput
+  usuarioCreador: Prisma.UsuarioCreateNestedOneWithoutRecursosInput
 }
 
 export type RecursoUncheckedCreateWithoutCalificacionesInput = {
@@ -1981,9 +2147,10 @@ export type RecursoUncheckedCreateWithoutCalificacionesInput = {
   gradoEscolarId?: number | null
   foroOrigenId?: number | null
   comentarioForoId?: number | null
+  comentariosCompartidos?: Prisma.ComentarioForoRecursoUncheckedCreateNestedManyWithoutRecursoInput
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUncheckedCreateNestedManyWithoutRecursoInput
   entregaAulaColaborativa?: Prisma.ProyectoColaborativoEntregaUncheckedCreateNestedOneWithoutRecursoInput
-  comentariosCompartidos?: Prisma.ComentarioForoRecursoUncheckedCreateNestedManyWithoutRecursoInput
+  resumenIa?: Prisma.ResumenIaRecursoUncheckedCreateNestedOneWithoutRecursoInput
 }
 
 export type RecursoCreateOrConnectWithoutCalificacionesInput = {
@@ -2015,16 +2182,17 @@ export type RecursoUpdateWithoutCalificacionesInput = {
   publicado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutRecursosNestedInput
-  categoria?: Prisma.CategoriaUpdateOneRequiredWithoutRecursosNestedInput
-  tipoRecurso?: Prisma.TipoRecursoUpdateOneRequiredWithoutRecursosNestedInput
-  usuarioCreador?: Prisma.UsuarioUpdateOneRequiredWithoutRecursosNestedInput
-  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutRecursosNestedInput
-  foroOrigen?: Prisma.ForoUpdateOneWithoutRecursosNestedInput
-  comentarioForo?: Prisma.ComentarioForoUpdateOneWithoutRecursosNestedInput
+  comentariosCompartidos?: Prisma.ComentarioForoRecursoUpdateManyWithoutRecursoNestedInput
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUpdateManyWithoutRecursoNestedInput
   entregaAulaColaborativa?: Prisma.ProyectoColaborativoEntregaUpdateOneWithoutRecursoNestedInput
-  comentariosCompartidos?: Prisma.ComentarioForoRecursoUpdateManyWithoutRecursoNestedInput
+  categoria?: Prisma.CategoriaUpdateOneRequiredWithoutRecursosNestedInput
+  comentarioForo?: Prisma.ComentarioForoUpdateOneWithoutRecursosNestedInput
+  foroOrigen?: Prisma.ForoUpdateOneWithoutRecursosNestedInput
+  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutRecursosNestedInput
+  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutRecursosNestedInput
+  resumenIa?: Prisma.ResumenIaRecursoUpdateOneWithoutRecursoNestedInput
+  tipoRecurso?: Prisma.TipoRecursoUpdateOneRequiredWithoutRecursosNestedInput
+  usuarioCreador?: Prisma.UsuarioUpdateOneRequiredWithoutRecursosNestedInput
 }
 
 export type RecursoUncheckedUpdateWithoutCalificacionesInput = {
@@ -2048,9 +2216,10 @@ export type RecursoUncheckedUpdateWithoutCalificacionesInput = {
   gradoEscolarId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   foroOrigenId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   comentarioForoId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  comentariosCompartidos?: Prisma.ComentarioForoRecursoUncheckedUpdateManyWithoutRecursoNestedInput
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUncheckedUpdateManyWithoutRecursoNestedInput
   entregaAulaColaborativa?: Prisma.ProyectoColaborativoEntregaUncheckedUpdateOneWithoutRecursoNestedInput
-  comentariosCompartidos?: Prisma.ComentarioForoRecursoUncheckedUpdateManyWithoutRecursoNestedInput
+  resumenIa?: Prisma.ResumenIaRecursoUncheckedUpdateOneWithoutRecursoNestedInput
 }
 
 export type RecursoCreateWithoutDetallesRutaAprendizajeInput = {
@@ -2066,16 +2235,17 @@ export type RecursoCreateWithoutDetallesRutaAprendizajeInput = {
   publicado?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  institucion: Prisma.InstitucionCreateNestedOneWithoutRecursosInput
+  calificaciones?: Prisma.CalificacionRecursoCreateNestedManyWithoutRecursoInput
+  comentariosCompartidos?: Prisma.ComentarioForoRecursoCreateNestedManyWithoutRecursoInput
+  entregaAulaColaborativa?: Prisma.ProyectoColaborativoEntregaCreateNestedOneWithoutRecursoInput
   categoria: Prisma.CategoriaCreateNestedOneWithoutRecursosInput
+  comentarioForo?: Prisma.ComentarioForoCreateNestedOneWithoutRecursosInput
+  foroOrigen?: Prisma.ForoCreateNestedOneWithoutRecursosInput
+  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutRecursosInput
+  institucion: Prisma.InstitucionCreateNestedOneWithoutRecursosInput
+  resumenIa?: Prisma.ResumenIaRecursoCreateNestedOneWithoutRecursoInput
   tipoRecurso: Prisma.TipoRecursoCreateNestedOneWithoutRecursosInput
   usuarioCreador: Prisma.UsuarioCreateNestedOneWithoutRecursosInput
-  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutRecursosInput
-  foroOrigen?: Prisma.ForoCreateNestedOneWithoutRecursosInput
-  comentarioForo?: Prisma.ComentarioForoCreateNestedOneWithoutRecursosInput
-  calificaciones?: Prisma.CalificacionRecursoCreateNestedManyWithoutRecursoInput
-  entregaAulaColaborativa?: Prisma.ProyectoColaborativoEntregaCreateNestedOneWithoutRecursoInput
-  comentariosCompartidos?: Prisma.ComentarioForoRecursoCreateNestedManyWithoutRecursoInput
 }
 
 export type RecursoUncheckedCreateWithoutDetallesRutaAprendizajeInput = {
@@ -2100,8 +2270,9 @@ export type RecursoUncheckedCreateWithoutDetallesRutaAprendizajeInput = {
   foroOrigenId?: number | null
   comentarioForoId?: number | null
   calificaciones?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutRecursoInput
-  entregaAulaColaborativa?: Prisma.ProyectoColaborativoEntregaUncheckedCreateNestedOneWithoutRecursoInput
   comentariosCompartidos?: Prisma.ComentarioForoRecursoUncheckedCreateNestedManyWithoutRecursoInput
+  entregaAulaColaborativa?: Prisma.ProyectoColaborativoEntregaUncheckedCreateNestedOneWithoutRecursoInput
+  resumenIa?: Prisma.ResumenIaRecursoUncheckedCreateNestedOneWithoutRecursoInput
 }
 
 export type RecursoCreateOrConnectWithoutDetallesRutaAprendizajeInput = {
@@ -2133,16 +2304,17 @@ export type RecursoUpdateWithoutDetallesRutaAprendizajeInput = {
   publicado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutRecursosNestedInput
+  calificaciones?: Prisma.CalificacionRecursoUpdateManyWithoutRecursoNestedInput
+  comentariosCompartidos?: Prisma.ComentarioForoRecursoUpdateManyWithoutRecursoNestedInput
+  entregaAulaColaborativa?: Prisma.ProyectoColaborativoEntregaUpdateOneWithoutRecursoNestedInput
   categoria?: Prisma.CategoriaUpdateOneRequiredWithoutRecursosNestedInput
+  comentarioForo?: Prisma.ComentarioForoUpdateOneWithoutRecursosNestedInput
+  foroOrigen?: Prisma.ForoUpdateOneWithoutRecursosNestedInput
+  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutRecursosNestedInput
+  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutRecursosNestedInput
+  resumenIa?: Prisma.ResumenIaRecursoUpdateOneWithoutRecursoNestedInput
   tipoRecurso?: Prisma.TipoRecursoUpdateOneRequiredWithoutRecursosNestedInput
   usuarioCreador?: Prisma.UsuarioUpdateOneRequiredWithoutRecursosNestedInput
-  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutRecursosNestedInput
-  foroOrigen?: Prisma.ForoUpdateOneWithoutRecursosNestedInput
-  comentarioForo?: Prisma.ComentarioForoUpdateOneWithoutRecursosNestedInput
-  calificaciones?: Prisma.CalificacionRecursoUpdateManyWithoutRecursoNestedInput
-  entregaAulaColaborativa?: Prisma.ProyectoColaborativoEntregaUpdateOneWithoutRecursoNestedInput
-  comentariosCompartidos?: Prisma.ComentarioForoRecursoUpdateManyWithoutRecursoNestedInput
 }
 
 export type RecursoUncheckedUpdateWithoutDetallesRutaAprendizajeInput = {
@@ -2167,8 +2339,9 @@ export type RecursoUncheckedUpdateWithoutDetallesRutaAprendizajeInput = {
   foroOrigenId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   comentarioForoId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   calificaciones?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutRecursoNestedInput
-  entregaAulaColaborativa?: Prisma.ProyectoColaborativoEntregaUncheckedUpdateOneWithoutRecursoNestedInput
   comentariosCompartidos?: Prisma.ComentarioForoRecursoUncheckedUpdateManyWithoutRecursoNestedInput
+  entregaAulaColaborativa?: Prisma.ProyectoColaborativoEntregaUncheckedUpdateOneWithoutRecursoNestedInput
+  resumenIa?: Prisma.ResumenIaRecursoUncheckedUpdateOneWithoutRecursoNestedInput
 }
 
 export type RecursoCreateManyInstitucionInput = {
@@ -2206,16 +2379,17 @@ export type RecursoUpdateWithoutInstitucionInput = {
   publicado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  categoria?: Prisma.CategoriaUpdateOneRequiredWithoutRecursosNestedInput
-  tipoRecurso?: Prisma.TipoRecursoUpdateOneRequiredWithoutRecursosNestedInput
-  usuarioCreador?: Prisma.UsuarioUpdateOneRequiredWithoutRecursosNestedInput
-  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutRecursosNestedInput
-  foroOrigen?: Prisma.ForoUpdateOneWithoutRecursosNestedInput
-  comentarioForo?: Prisma.ComentarioForoUpdateOneWithoutRecursosNestedInput
   calificaciones?: Prisma.CalificacionRecursoUpdateManyWithoutRecursoNestedInput
+  comentariosCompartidos?: Prisma.ComentarioForoRecursoUpdateManyWithoutRecursoNestedInput
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUpdateManyWithoutRecursoNestedInput
   entregaAulaColaborativa?: Prisma.ProyectoColaborativoEntregaUpdateOneWithoutRecursoNestedInput
-  comentariosCompartidos?: Prisma.ComentarioForoRecursoUpdateManyWithoutRecursoNestedInput
+  categoria?: Prisma.CategoriaUpdateOneRequiredWithoutRecursosNestedInput
+  comentarioForo?: Prisma.ComentarioForoUpdateOneWithoutRecursosNestedInput
+  foroOrigen?: Prisma.ForoUpdateOneWithoutRecursosNestedInput
+  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutRecursosNestedInput
+  resumenIa?: Prisma.ResumenIaRecursoUpdateOneWithoutRecursoNestedInput
+  tipoRecurso?: Prisma.TipoRecursoUpdateOneRequiredWithoutRecursosNestedInput
+  usuarioCreador?: Prisma.UsuarioUpdateOneRequiredWithoutRecursosNestedInput
 }
 
 export type RecursoUncheckedUpdateWithoutInstitucionInput = {
@@ -2239,9 +2413,10 @@ export type RecursoUncheckedUpdateWithoutInstitucionInput = {
   foroOrigenId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   comentarioForoId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   calificaciones?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutRecursoNestedInput
+  comentariosCompartidos?: Prisma.ComentarioForoRecursoUncheckedUpdateManyWithoutRecursoNestedInput
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUncheckedUpdateManyWithoutRecursoNestedInput
   entregaAulaColaborativa?: Prisma.ProyectoColaborativoEntregaUncheckedUpdateOneWithoutRecursoNestedInput
-  comentariosCompartidos?: Prisma.ComentarioForoRecursoUncheckedUpdateManyWithoutRecursoNestedInput
+  resumenIa?: Prisma.ResumenIaRecursoUncheckedUpdateOneWithoutRecursoNestedInput
 }
 
 export type RecursoUncheckedUpdateManyWithoutInstitucionInput = {
@@ -2301,16 +2476,17 @@ export type RecursoUpdateWithoutUsuarioCreadorInput = {
   publicado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutRecursosNestedInput
-  categoria?: Prisma.CategoriaUpdateOneRequiredWithoutRecursosNestedInput
-  tipoRecurso?: Prisma.TipoRecursoUpdateOneRequiredWithoutRecursosNestedInput
-  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutRecursosNestedInput
-  foroOrigen?: Prisma.ForoUpdateOneWithoutRecursosNestedInput
-  comentarioForo?: Prisma.ComentarioForoUpdateOneWithoutRecursosNestedInput
   calificaciones?: Prisma.CalificacionRecursoUpdateManyWithoutRecursoNestedInput
+  comentariosCompartidos?: Prisma.ComentarioForoRecursoUpdateManyWithoutRecursoNestedInput
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUpdateManyWithoutRecursoNestedInput
   entregaAulaColaborativa?: Prisma.ProyectoColaborativoEntregaUpdateOneWithoutRecursoNestedInput
-  comentariosCompartidos?: Prisma.ComentarioForoRecursoUpdateManyWithoutRecursoNestedInput
+  categoria?: Prisma.CategoriaUpdateOneRequiredWithoutRecursosNestedInput
+  comentarioForo?: Prisma.ComentarioForoUpdateOneWithoutRecursosNestedInput
+  foroOrigen?: Prisma.ForoUpdateOneWithoutRecursosNestedInput
+  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutRecursosNestedInput
+  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutRecursosNestedInput
+  resumenIa?: Prisma.ResumenIaRecursoUpdateOneWithoutRecursoNestedInput
+  tipoRecurso?: Prisma.TipoRecursoUpdateOneRequiredWithoutRecursosNestedInput
 }
 
 export type RecursoUncheckedUpdateWithoutUsuarioCreadorInput = {
@@ -2334,9 +2510,10 @@ export type RecursoUncheckedUpdateWithoutUsuarioCreadorInput = {
   foroOrigenId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   comentarioForoId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   calificaciones?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutRecursoNestedInput
+  comentariosCompartidos?: Prisma.ComentarioForoRecursoUncheckedUpdateManyWithoutRecursoNestedInput
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUncheckedUpdateManyWithoutRecursoNestedInput
   entregaAulaColaborativa?: Prisma.ProyectoColaborativoEntregaUncheckedUpdateOneWithoutRecursoNestedInput
-  comentariosCompartidos?: Prisma.ComentarioForoRecursoUncheckedUpdateManyWithoutRecursoNestedInput
+  resumenIa?: Prisma.ResumenIaRecursoUncheckedUpdateOneWithoutRecursoNestedInput
 }
 
 export type RecursoUncheckedUpdateManyWithoutUsuarioCreadorInput = {
@@ -2396,16 +2573,17 @@ export type RecursoUpdateWithoutGradoEscolarInput = {
   publicado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutRecursosNestedInput
-  categoria?: Prisma.CategoriaUpdateOneRequiredWithoutRecursosNestedInput
-  tipoRecurso?: Prisma.TipoRecursoUpdateOneRequiredWithoutRecursosNestedInput
-  usuarioCreador?: Prisma.UsuarioUpdateOneRequiredWithoutRecursosNestedInput
-  foroOrigen?: Prisma.ForoUpdateOneWithoutRecursosNestedInput
-  comentarioForo?: Prisma.ComentarioForoUpdateOneWithoutRecursosNestedInput
   calificaciones?: Prisma.CalificacionRecursoUpdateManyWithoutRecursoNestedInput
+  comentariosCompartidos?: Prisma.ComentarioForoRecursoUpdateManyWithoutRecursoNestedInput
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUpdateManyWithoutRecursoNestedInput
   entregaAulaColaborativa?: Prisma.ProyectoColaborativoEntregaUpdateOneWithoutRecursoNestedInput
-  comentariosCompartidos?: Prisma.ComentarioForoRecursoUpdateManyWithoutRecursoNestedInput
+  categoria?: Prisma.CategoriaUpdateOneRequiredWithoutRecursosNestedInput
+  comentarioForo?: Prisma.ComentarioForoUpdateOneWithoutRecursosNestedInput
+  foroOrigen?: Prisma.ForoUpdateOneWithoutRecursosNestedInput
+  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutRecursosNestedInput
+  resumenIa?: Prisma.ResumenIaRecursoUpdateOneWithoutRecursoNestedInput
+  tipoRecurso?: Prisma.TipoRecursoUpdateOneRequiredWithoutRecursosNestedInput
+  usuarioCreador?: Prisma.UsuarioUpdateOneRequiredWithoutRecursosNestedInput
 }
 
 export type RecursoUncheckedUpdateWithoutGradoEscolarInput = {
@@ -2429,9 +2607,10 @@ export type RecursoUncheckedUpdateWithoutGradoEscolarInput = {
   foroOrigenId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   comentarioForoId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   calificaciones?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutRecursoNestedInput
+  comentariosCompartidos?: Prisma.ComentarioForoRecursoUncheckedUpdateManyWithoutRecursoNestedInput
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUncheckedUpdateManyWithoutRecursoNestedInput
   entregaAulaColaborativa?: Prisma.ProyectoColaborativoEntregaUncheckedUpdateOneWithoutRecursoNestedInput
-  comentariosCompartidos?: Prisma.ComentarioForoRecursoUncheckedUpdateManyWithoutRecursoNestedInput
+  resumenIa?: Prisma.ResumenIaRecursoUncheckedUpdateOneWithoutRecursoNestedInput
 }
 
 export type RecursoUncheckedUpdateManyWithoutGradoEscolarInput = {
@@ -2491,16 +2670,17 @@ export type RecursoUpdateWithoutCategoriaInput = {
   publicado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutRecursosNestedInput
-  tipoRecurso?: Prisma.TipoRecursoUpdateOneRequiredWithoutRecursosNestedInput
-  usuarioCreador?: Prisma.UsuarioUpdateOneRequiredWithoutRecursosNestedInput
-  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutRecursosNestedInput
-  foroOrigen?: Prisma.ForoUpdateOneWithoutRecursosNestedInput
-  comentarioForo?: Prisma.ComentarioForoUpdateOneWithoutRecursosNestedInput
   calificaciones?: Prisma.CalificacionRecursoUpdateManyWithoutRecursoNestedInput
+  comentariosCompartidos?: Prisma.ComentarioForoRecursoUpdateManyWithoutRecursoNestedInput
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUpdateManyWithoutRecursoNestedInput
   entregaAulaColaborativa?: Prisma.ProyectoColaborativoEntregaUpdateOneWithoutRecursoNestedInput
-  comentariosCompartidos?: Prisma.ComentarioForoRecursoUpdateManyWithoutRecursoNestedInput
+  comentarioForo?: Prisma.ComentarioForoUpdateOneWithoutRecursosNestedInput
+  foroOrigen?: Prisma.ForoUpdateOneWithoutRecursosNestedInput
+  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutRecursosNestedInput
+  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutRecursosNestedInput
+  resumenIa?: Prisma.ResumenIaRecursoUpdateOneWithoutRecursoNestedInput
+  tipoRecurso?: Prisma.TipoRecursoUpdateOneRequiredWithoutRecursosNestedInput
+  usuarioCreador?: Prisma.UsuarioUpdateOneRequiredWithoutRecursosNestedInput
 }
 
 export type RecursoUncheckedUpdateWithoutCategoriaInput = {
@@ -2524,9 +2704,10 @@ export type RecursoUncheckedUpdateWithoutCategoriaInput = {
   foroOrigenId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   comentarioForoId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   calificaciones?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutRecursoNestedInput
+  comentariosCompartidos?: Prisma.ComentarioForoRecursoUncheckedUpdateManyWithoutRecursoNestedInput
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUncheckedUpdateManyWithoutRecursoNestedInput
   entregaAulaColaborativa?: Prisma.ProyectoColaborativoEntregaUncheckedUpdateOneWithoutRecursoNestedInput
-  comentariosCompartidos?: Prisma.ComentarioForoRecursoUncheckedUpdateManyWithoutRecursoNestedInput
+  resumenIa?: Prisma.ResumenIaRecursoUncheckedUpdateOneWithoutRecursoNestedInput
 }
 
 export type RecursoUncheckedUpdateManyWithoutCategoriaInput = {
@@ -2586,16 +2767,17 @@ export type RecursoUpdateWithoutForoOrigenInput = {
   publicado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutRecursosNestedInput
-  categoria?: Prisma.CategoriaUpdateOneRequiredWithoutRecursosNestedInput
-  tipoRecurso?: Prisma.TipoRecursoUpdateOneRequiredWithoutRecursosNestedInput
-  usuarioCreador?: Prisma.UsuarioUpdateOneRequiredWithoutRecursosNestedInput
-  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutRecursosNestedInput
-  comentarioForo?: Prisma.ComentarioForoUpdateOneWithoutRecursosNestedInput
   calificaciones?: Prisma.CalificacionRecursoUpdateManyWithoutRecursoNestedInput
+  comentariosCompartidos?: Prisma.ComentarioForoRecursoUpdateManyWithoutRecursoNestedInput
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUpdateManyWithoutRecursoNestedInput
   entregaAulaColaborativa?: Prisma.ProyectoColaborativoEntregaUpdateOneWithoutRecursoNestedInput
-  comentariosCompartidos?: Prisma.ComentarioForoRecursoUpdateManyWithoutRecursoNestedInput
+  categoria?: Prisma.CategoriaUpdateOneRequiredWithoutRecursosNestedInput
+  comentarioForo?: Prisma.ComentarioForoUpdateOneWithoutRecursosNestedInput
+  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutRecursosNestedInput
+  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutRecursosNestedInput
+  resumenIa?: Prisma.ResumenIaRecursoUpdateOneWithoutRecursoNestedInput
+  tipoRecurso?: Prisma.TipoRecursoUpdateOneRequiredWithoutRecursosNestedInput
+  usuarioCreador?: Prisma.UsuarioUpdateOneRequiredWithoutRecursosNestedInput
 }
 
 export type RecursoUncheckedUpdateWithoutForoOrigenInput = {
@@ -2619,9 +2801,10 @@ export type RecursoUncheckedUpdateWithoutForoOrigenInput = {
   gradoEscolarId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   comentarioForoId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   calificaciones?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutRecursoNestedInput
+  comentariosCompartidos?: Prisma.ComentarioForoRecursoUncheckedUpdateManyWithoutRecursoNestedInput
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUncheckedUpdateManyWithoutRecursoNestedInput
   entregaAulaColaborativa?: Prisma.ProyectoColaborativoEntregaUncheckedUpdateOneWithoutRecursoNestedInput
-  comentariosCompartidos?: Prisma.ComentarioForoRecursoUncheckedUpdateManyWithoutRecursoNestedInput
+  resumenIa?: Prisma.ResumenIaRecursoUncheckedUpdateOneWithoutRecursoNestedInput
 }
 
 export type RecursoUncheckedUpdateManyWithoutForoOrigenInput = {
@@ -2681,16 +2864,17 @@ export type RecursoUpdateWithoutComentarioForoInput = {
   publicado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutRecursosNestedInput
-  categoria?: Prisma.CategoriaUpdateOneRequiredWithoutRecursosNestedInput
-  tipoRecurso?: Prisma.TipoRecursoUpdateOneRequiredWithoutRecursosNestedInput
-  usuarioCreador?: Prisma.UsuarioUpdateOneRequiredWithoutRecursosNestedInput
-  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutRecursosNestedInput
-  foroOrigen?: Prisma.ForoUpdateOneWithoutRecursosNestedInput
   calificaciones?: Prisma.CalificacionRecursoUpdateManyWithoutRecursoNestedInput
+  comentariosCompartidos?: Prisma.ComentarioForoRecursoUpdateManyWithoutRecursoNestedInput
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUpdateManyWithoutRecursoNestedInput
   entregaAulaColaborativa?: Prisma.ProyectoColaborativoEntregaUpdateOneWithoutRecursoNestedInput
-  comentariosCompartidos?: Prisma.ComentarioForoRecursoUpdateManyWithoutRecursoNestedInput
+  categoria?: Prisma.CategoriaUpdateOneRequiredWithoutRecursosNestedInput
+  foroOrigen?: Prisma.ForoUpdateOneWithoutRecursosNestedInput
+  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutRecursosNestedInput
+  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutRecursosNestedInput
+  resumenIa?: Prisma.ResumenIaRecursoUpdateOneWithoutRecursoNestedInput
+  tipoRecurso?: Prisma.TipoRecursoUpdateOneRequiredWithoutRecursosNestedInput
+  usuarioCreador?: Prisma.UsuarioUpdateOneRequiredWithoutRecursosNestedInput
 }
 
 export type RecursoUncheckedUpdateWithoutComentarioForoInput = {
@@ -2714,9 +2898,10 @@ export type RecursoUncheckedUpdateWithoutComentarioForoInput = {
   gradoEscolarId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   foroOrigenId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   calificaciones?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutRecursoNestedInput
+  comentariosCompartidos?: Prisma.ComentarioForoRecursoUncheckedUpdateManyWithoutRecursoNestedInput
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUncheckedUpdateManyWithoutRecursoNestedInput
   entregaAulaColaborativa?: Prisma.ProyectoColaborativoEntregaUncheckedUpdateOneWithoutRecursoNestedInput
-  comentariosCompartidos?: Prisma.ComentarioForoRecursoUncheckedUpdateManyWithoutRecursoNestedInput
+  resumenIa?: Prisma.ResumenIaRecursoUncheckedUpdateOneWithoutRecursoNestedInput
 }
 
 export type RecursoUncheckedUpdateManyWithoutComentarioForoInput = {
@@ -2776,16 +2961,17 @@ export type RecursoUpdateWithoutTipoRecursoInput = {
   publicado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutRecursosNestedInput
-  categoria?: Prisma.CategoriaUpdateOneRequiredWithoutRecursosNestedInput
-  usuarioCreador?: Prisma.UsuarioUpdateOneRequiredWithoutRecursosNestedInput
-  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutRecursosNestedInput
-  foroOrigen?: Prisma.ForoUpdateOneWithoutRecursosNestedInput
-  comentarioForo?: Prisma.ComentarioForoUpdateOneWithoutRecursosNestedInput
   calificaciones?: Prisma.CalificacionRecursoUpdateManyWithoutRecursoNestedInput
+  comentariosCompartidos?: Prisma.ComentarioForoRecursoUpdateManyWithoutRecursoNestedInput
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUpdateManyWithoutRecursoNestedInput
   entregaAulaColaborativa?: Prisma.ProyectoColaborativoEntregaUpdateOneWithoutRecursoNestedInput
-  comentariosCompartidos?: Prisma.ComentarioForoRecursoUpdateManyWithoutRecursoNestedInput
+  categoria?: Prisma.CategoriaUpdateOneRequiredWithoutRecursosNestedInput
+  comentarioForo?: Prisma.ComentarioForoUpdateOneWithoutRecursosNestedInput
+  foroOrigen?: Prisma.ForoUpdateOneWithoutRecursosNestedInput
+  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutRecursosNestedInput
+  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutRecursosNestedInput
+  resumenIa?: Prisma.ResumenIaRecursoUpdateOneWithoutRecursoNestedInput
+  usuarioCreador?: Prisma.UsuarioUpdateOneRequiredWithoutRecursosNestedInput
 }
 
 export type RecursoUncheckedUpdateWithoutTipoRecursoInput = {
@@ -2809,9 +2995,10 @@ export type RecursoUncheckedUpdateWithoutTipoRecursoInput = {
   foroOrigenId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   comentarioForoId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   calificaciones?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutRecursoNestedInput
+  comentariosCompartidos?: Prisma.ComentarioForoRecursoUncheckedUpdateManyWithoutRecursoNestedInput
   detallesRutaAprendizaje?: Prisma.DetalleRutaAprendizajeUncheckedUpdateManyWithoutRecursoNestedInput
   entregaAulaColaborativa?: Prisma.ProyectoColaborativoEntregaUncheckedUpdateOneWithoutRecursoNestedInput
-  comentariosCompartidos?: Prisma.ComentarioForoRecursoUncheckedUpdateManyWithoutRecursoNestedInput
+  resumenIa?: Prisma.ResumenIaRecursoUncheckedUpdateOneWithoutRecursoNestedInput
 }
 
 export type RecursoUncheckedUpdateManyWithoutTipoRecursoInput = {
@@ -2843,14 +3030,14 @@ export type RecursoUncheckedUpdateManyWithoutTipoRecursoInput = {
 
 export type RecursoCountOutputType = {
   calificaciones: number
-  detallesRutaAprendizaje: number
   comentariosCompartidos: number
+  detallesRutaAprendizaje: number
 }
 
 export type RecursoCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   calificaciones?: boolean | RecursoCountOutputTypeCountCalificacionesArgs
-  detallesRutaAprendizaje?: boolean | RecursoCountOutputTypeCountDetallesRutaAprendizajeArgs
   comentariosCompartidos?: boolean | RecursoCountOutputTypeCountComentariosCompartidosArgs
+  detallesRutaAprendizaje?: boolean | RecursoCountOutputTypeCountDetallesRutaAprendizajeArgs
 }
 
 /**
@@ -2873,15 +3060,15 @@ export type RecursoCountOutputTypeCountCalificacionesArgs<ExtArgs extends runtim
 /**
  * RecursoCountOutputType without action
  */
-export type RecursoCountOutputTypeCountDetallesRutaAprendizajeArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.DetalleRutaAprendizajeWhereInput
+export type RecursoCountOutputTypeCountComentariosCompartidosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ComentarioForoRecursoWhereInput
 }
 
 /**
  * RecursoCountOutputType without action
  */
-export type RecursoCountOutputTypeCountComentariosCompartidosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ComentarioForoRecursoWhereInput
+export type RecursoCountOutputTypeCountDetallesRutaAprendizajeArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DetalleRutaAprendizajeWhereInput
 }
 
 
@@ -2906,17 +3093,18 @@ export type RecursoSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   gradoEscolarId?: boolean
   foroOrigenId?: boolean
   comentarioForoId?: boolean
-  institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
-  categoria?: boolean | Prisma.CategoriaDefaultArgs<ExtArgs>
-  tipoRecurso?: boolean | Prisma.TipoRecursoDefaultArgs<ExtArgs>
-  usuarioCreador?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
-  gradoEscolar?: boolean | Prisma.Recurso$gradoEscolarArgs<ExtArgs>
-  foroOrigen?: boolean | Prisma.Recurso$foroOrigenArgs<ExtArgs>
-  comentarioForo?: boolean | Prisma.Recurso$comentarioForoArgs<ExtArgs>
   calificaciones?: boolean | Prisma.Recurso$calificacionesArgs<ExtArgs>
+  comentariosCompartidos?: boolean | Prisma.Recurso$comentariosCompartidosArgs<ExtArgs>
   detallesRutaAprendizaje?: boolean | Prisma.Recurso$detallesRutaAprendizajeArgs<ExtArgs>
   entregaAulaColaborativa?: boolean | Prisma.Recurso$entregaAulaColaborativaArgs<ExtArgs>
-  comentariosCompartidos?: boolean | Prisma.Recurso$comentariosCompartidosArgs<ExtArgs>
+  categoria?: boolean | Prisma.CategoriaDefaultArgs<ExtArgs>
+  comentarioForo?: boolean | Prisma.Recurso$comentarioForoArgs<ExtArgs>
+  foroOrigen?: boolean | Prisma.Recurso$foroOrigenArgs<ExtArgs>
+  gradoEscolar?: boolean | Prisma.Recurso$gradoEscolarArgs<ExtArgs>
+  institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
+  resumenIa?: boolean | Prisma.Recurso$resumenIaArgs<ExtArgs>
+  tipoRecurso?: boolean | Prisma.TipoRecursoDefaultArgs<ExtArgs>
+  usuarioCreador?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   _count?: boolean | Prisma.RecursoCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["recurso"]>
 
@@ -2941,13 +3129,13 @@ export type RecursoSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   gradoEscolarId?: boolean
   foroOrigenId?: boolean
   comentarioForoId?: boolean
-  institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
   categoria?: boolean | Prisma.CategoriaDefaultArgs<ExtArgs>
+  comentarioForo?: boolean | Prisma.Recurso$comentarioForoArgs<ExtArgs>
+  foroOrigen?: boolean | Prisma.Recurso$foroOrigenArgs<ExtArgs>
+  gradoEscolar?: boolean | Prisma.Recurso$gradoEscolarArgs<ExtArgs>
+  institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
   tipoRecurso?: boolean | Prisma.TipoRecursoDefaultArgs<ExtArgs>
   usuarioCreador?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
-  gradoEscolar?: boolean | Prisma.Recurso$gradoEscolarArgs<ExtArgs>
-  foroOrigen?: boolean | Prisma.Recurso$foroOrigenArgs<ExtArgs>
-  comentarioForo?: boolean | Prisma.Recurso$comentarioForoArgs<ExtArgs>
 }, ExtArgs["result"]["recurso"]>
 
 export type RecursoSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -2971,13 +3159,13 @@ export type RecursoSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   gradoEscolarId?: boolean
   foroOrigenId?: boolean
   comentarioForoId?: boolean
-  institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
   categoria?: boolean | Prisma.CategoriaDefaultArgs<ExtArgs>
+  comentarioForo?: boolean | Prisma.Recurso$comentarioForoArgs<ExtArgs>
+  foroOrigen?: boolean | Prisma.Recurso$foroOrigenArgs<ExtArgs>
+  gradoEscolar?: boolean | Prisma.Recurso$gradoEscolarArgs<ExtArgs>
+  institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
   tipoRecurso?: boolean | Prisma.TipoRecursoDefaultArgs<ExtArgs>
   usuarioCreador?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
-  gradoEscolar?: boolean | Prisma.Recurso$gradoEscolarArgs<ExtArgs>
-  foroOrigen?: boolean | Prisma.Recurso$foroOrigenArgs<ExtArgs>
-  comentarioForo?: boolean | Prisma.Recurso$comentarioForoArgs<ExtArgs>
 }, ExtArgs["result"]["recurso"]>
 
 export type RecursoSelectScalar = {
@@ -3005,52 +3193,54 @@ export type RecursoSelectScalar = {
 
 export type RecursoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "titulo" | "palabrasClave" | "contenidoResumen" | "rutaRecurso" | "urlRecurso" | "fuente" | "autorNombre" | "nivelAcademico" | "estado" | "publicado" | "createdAt" | "updatedAt" | "institucionId" | "categoriaId" | "tipoRecursoId" | "usuarioCreadorId" | "gradoEscolarId" | "foroOrigenId" | "comentarioForoId", ExtArgs["result"]["recurso"]>
 export type RecursoInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
-  categoria?: boolean | Prisma.CategoriaDefaultArgs<ExtArgs>
-  tipoRecurso?: boolean | Prisma.TipoRecursoDefaultArgs<ExtArgs>
-  usuarioCreador?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
-  gradoEscolar?: boolean | Prisma.Recurso$gradoEscolarArgs<ExtArgs>
-  foroOrigen?: boolean | Prisma.Recurso$foroOrigenArgs<ExtArgs>
-  comentarioForo?: boolean | Prisma.Recurso$comentarioForoArgs<ExtArgs>
   calificaciones?: boolean | Prisma.Recurso$calificacionesArgs<ExtArgs>
+  comentariosCompartidos?: boolean | Prisma.Recurso$comentariosCompartidosArgs<ExtArgs>
   detallesRutaAprendizaje?: boolean | Prisma.Recurso$detallesRutaAprendizajeArgs<ExtArgs>
   entregaAulaColaborativa?: boolean | Prisma.Recurso$entregaAulaColaborativaArgs<ExtArgs>
-  comentariosCompartidos?: boolean | Prisma.Recurso$comentariosCompartidosArgs<ExtArgs>
+  categoria?: boolean | Prisma.CategoriaDefaultArgs<ExtArgs>
+  comentarioForo?: boolean | Prisma.Recurso$comentarioForoArgs<ExtArgs>
+  foroOrigen?: boolean | Prisma.Recurso$foroOrigenArgs<ExtArgs>
+  gradoEscolar?: boolean | Prisma.Recurso$gradoEscolarArgs<ExtArgs>
+  institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
+  resumenIa?: boolean | Prisma.Recurso$resumenIaArgs<ExtArgs>
+  tipoRecurso?: boolean | Prisma.TipoRecursoDefaultArgs<ExtArgs>
+  usuarioCreador?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   _count?: boolean | Prisma.RecursoCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type RecursoIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
   categoria?: boolean | Prisma.CategoriaDefaultArgs<ExtArgs>
+  comentarioForo?: boolean | Prisma.Recurso$comentarioForoArgs<ExtArgs>
+  foroOrigen?: boolean | Prisma.Recurso$foroOrigenArgs<ExtArgs>
+  gradoEscolar?: boolean | Prisma.Recurso$gradoEscolarArgs<ExtArgs>
+  institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
   tipoRecurso?: boolean | Prisma.TipoRecursoDefaultArgs<ExtArgs>
   usuarioCreador?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
-  gradoEscolar?: boolean | Prisma.Recurso$gradoEscolarArgs<ExtArgs>
-  foroOrigen?: boolean | Prisma.Recurso$foroOrigenArgs<ExtArgs>
-  comentarioForo?: boolean | Prisma.Recurso$comentarioForoArgs<ExtArgs>
 }
 export type RecursoIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
   categoria?: boolean | Prisma.CategoriaDefaultArgs<ExtArgs>
+  comentarioForo?: boolean | Prisma.Recurso$comentarioForoArgs<ExtArgs>
+  foroOrigen?: boolean | Prisma.Recurso$foroOrigenArgs<ExtArgs>
+  gradoEscolar?: boolean | Prisma.Recurso$gradoEscolarArgs<ExtArgs>
+  institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
   tipoRecurso?: boolean | Prisma.TipoRecursoDefaultArgs<ExtArgs>
   usuarioCreador?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
-  gradoEscolar?: boolean | Prisma.Recurso$gradoEscolarArgs<ExtArgs>
-  foroOrigen?: boolean | Prisma.Recurso$foroOrigenArgs<ExtArgs>
-  comentarioForo?: boolean | Prisma.Recurso$comentarioForoArgs<ExtArgs>
 }
 
 export type $RecursoPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Recurso"
   objects: {
-    institucion: Prisma.$InstitucionPayload<ExtArgs>
-    categoria: Prisma.$CategoriaPayload<ExtArgs>
-    tipoRecurso: Prisma.$TipoRecursoPayload<ExtArgs>
-    usuarioCreador: Prisma.$UsuarioPayload<ExtArgs>
-    gradoEscolar: Prisma.$GradoEscolarPayload<ExtArgs> | null
-    foroOrigen: Prisma.$ForoPayload<ExtArgs> | null
-    comentarioForo: Prisma.$ComentarioForoPayload<ExtArgs> | null
     calificaciones: Prisma.$CalificacionRecursoPayload<ExtArgs>[]
+    comentariosCompartidos: Prisma.$ComentarioForoRecursoPayload<ExtArgs>[]
     detallesRutaAprendizaje: Prisma.$DetalleRutaAprendizajePayload<ExtArgs>[]
     entregaAulaColaborativa: Prisma.$ProyectoColaborativoEntregaPayload<ExtArgs> | null
-    comentariosCompartidos: Prisma.$ComentarioForoRecursoPayload<ExtArgs>[]
+    categoria: Prisma.$CategoriaPayload<ExtArgs>
+    comentarioForo: Prisma.$ComentarioForoPayload<ExtArgs> | null
+    foroOrigen: Prisma.$ForoPayload<ExtArgs> | null
+    gradoEscolar: Prisma.$GradoEscolarPayload<ExtArgs> | null
+    institucion: Prisma.$InstitucionPayload<ExtArgs>
+    resumenIa: Prisma.$ResumenIaRecursoPayload<ExtArgs> | null
+    tipoRecurso: Prisma.$TipoRecursoPayload<ExtArgs>
+    usuarioCreador: Prisma.$UsuarioPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -3467,17 +3657,18 @@ readonly fields: RecursoFieldRefs;
  */
 export interface Prisma__RecursoClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  institucion<T extends Prisma.InstitucionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.InstitucionDefaultArgs<ExtArgs>>): Prisma.Prisma__InstitucionClient<runtime.Types.Result.GetResult<Prisma.$InstitucionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  categoria<T extends Prisma.CategoriaDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CategoriaDefaultArgs<ExtArgs>>): Prisma.Prisma__CategoriaClient<runtime.Types.Result.GetResult<Prisma.$CategoriaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  tipoRecurso<T extends Prisma.TipoRecursoDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TipoRecursoDefaultArgs<ExtArgs>>): Prisma.Prisma__TipoRecursoClient<runtime.Types.Result.GetResult<Prisma.$TipoRecursoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  usuarioCreador<T extends Prisma.UsuarioDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UsuarioDefaultArgs<ExtArgs>>): Prisma.Prisma__UsuarioClient<runtime.Types.Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  gradoEscolar<T extends Prisma.Recurso$gradoEscolarArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Recurso$gradoEscolarArgs<ExtArgs>>): Prisma.Prisma__GradoEscolarClient<runtime.Types.Result.GetResult<Prisma.$GradoEscolarPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  foroOrigen<T extends Prisma.Recurso$foroOrigenArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Recurso$foroOrigenArgs<ExtArgs>>): Prisma.Prisma__ForoClient<runtime.Types.Result.GetResult<Prisma.$ForoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  comentarioForo<T extends Prisma.Recurso$comentarioForoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Recurso$comentarioForoArgs<ExtArgs>>): Prisma.Prisma__ComentarioForoClient<runtime.Types.Result.GetResult<Prisma.$ComentarioForoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   calificaciones<T extends Prisma.Recurso$calificacionesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Recurso$calificacionesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CalificacionRecursoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  comentariosCompartidos<T extends Prisma.Recurso$comentariosCompartidosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Recurso$comentariosCompartidosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ComentarioForoRecursoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   detallesRutaAprendizaje<T extends Prisma.Recurso$detallesRutaAprendizajeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Recurso$detallesRutaAprendizajeArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DetalleRutaAprendizajePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   entregaAulaColaborativa<T extends Prisma.Recurso$entregaAulaColaborativaArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Recurso$entregaAulaColaborativaArgs<ExtArgs>>): Prisma.Prisma__ProyectoColaborativoEntregaClient<runtime.Types.Result.GetResult<Prisma.$ProyectoColaborativoEntregaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  comentariosCompartidos<T extends Prisma.Recurso$comentariosCompartidosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Recurso$comentariosCompartidosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ComentarioForoRecursoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  categoria<T extends Prisma.CategoriaDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CategoriaDefaultArgs<ExtArgs>>): Prisma.Prisma__CategoriaClient<runtime.Types.Result.GetResult<Prisma.$CategoriaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  comentarioForo<T extends Prisma.Recurso$comentarioForoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Recurso$comentarioForoArgs<ExtArgs>>): Prisma.Prisma__ComentarioForoClient<runtime.Types.Result.GetResult<Prisma.$ComentarioForoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  foroOrigen<T extends Prisma.Recurso$foroOrigenArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Recurso$foroOrigenArgs<ExtArgs>>): Prisma.Prisma__ForoClient<runtime.Types.Result.GetResult<Prisma.$ForoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  gradoEscolar<T extends Prisma.Recurso$gradoEscolarArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Recurso$gradoEscolarArgs<ExtArgs>>): Prisma.Prisma__GradoEscolarClient<runtime.Types.Result.GetResult<Prisma.$GradoEscolarPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  institucion<T extends Prisma.InstitucionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.InstitucionDefaultArgs<ExtArgs>>): Prisma.Prisma__InstitucionClient<runtime.Types.Result.GetResult<Prisma.$InstitucionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  resumenIa<T extends Prisma.Recurso$resumenIaArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Recurso$resumenIaArgs<ExtArgs>>): Prisma.Prisma__ResumenIaRecursoClient<runtime.Types.Result.GetResult<Prisma.$ResumenIaRecursoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  tipoRecurso<T extends Prisma.TipoRecursoDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TipoRecursoDefaultArgs<ExtArgs>>): Prisma.Prisma__TipoRecursoClient<runtime.Types.Result.GetResult<Prisma.$TipoRecursoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  usuarioCreador<T extends Prisma.UsuarioDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UsuarioDefaultArgs<ExtArgs>>): Prisma.Prisma__UsuarioClient<runtime.Types.Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3928,63 +4119,6 @@ export type RecursoDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
 }
 
 /**
- * Recurso.gradoEscolar
- */
-export type Recurso$gradoEscolarArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the GradoEscolar
-   */
-  select?: Prisma.GradoEscolarSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the GradoEscolar
-   */
-  omit?: Prisma.GradoEscolarOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.GradoEscolarInclude<ExtArgs> | null
-  where?: Prisma.GradoEscolarWhereInput
-}
-
-/**
- * Recurso.foroOrigen
- */
-export type Recurso$foroOrigenArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Foro
-   */
-  select?: Prisma.ForoSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Foro
-   */
-  omit?: Prisma.ForoOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ForoInclude<ExtArgs> | null
-  where?: Prisma.ForoWhereInput
-}
-
-/**
- * Recurso.comentarioForo
- */
-export type Recurso$comentarioForoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ComentarioForo
-   */
-  select?: Prisma.ComentarioForoSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the ComentarioForo
-   */
-  omit?: Prisma.ComentarioForoOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ComentarioForoInclude<ExtArgs> | null
-  where?: Prisma.ComentarioForoWhereInput
-}
-
-/**
  * Recurso.calificaciones
  */
 export type Recurso$calificacionesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -4006,6 +4140,30 @@ export type Recurso$calificacionesArgs<ExtArgs extends runtime.Types.Extensions.
   take?: number
   skip?: number
   distinct?: Prisma.CalificacionRecursoScalarFieldEnum | Prisma.CalificacionRecursoScalarFieldEnum[]
+}
+
+/**
+ * Recurso.comentariosCompartidos
+ */
+export type Recurso$comentariosCompartidosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ComentarioForoRecurso
+   */
+  select?: Prisma.ComentarioForoRecursoSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ComentarioForoRecurso
+   */
+  omit?: Prisma.ComentarioForoRecursoOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ComentarioForoRecursoInclude<ExtArgs> | null
+  where?: Prisma.ComentarioForoRecursoWhereInput
+  orderBy?: Prisma.ComentarioForoRecursoOrderByWithRelationInput | Prisma.ComentarioForoRecursoOrderByWithRelationInput[]
+  cursor?: Prisma.ComentarioForoRecursoWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ComentarioForoRecursoScalarFieldEnum | Prisma.ComentarioForoRecursoScalarFieldEnum[]
 }
 
 /**
@@ -4052,27 +4210,79 @@ export type Recurso$entregaAulaColaborativaArgs<ExtArgs extends runtime.Types.Ex
 }
 
 /**
- * Recurso.comentariosCompartidos
+ * Recurso.comentarioForo
  */
-export type Recurso$comentariosCompartidosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Recurso$comentarioForoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the ComentarioForoRecurso
+   * Select specific fields to fetch from the ComentarioForo
    */
-  select?: Prisma.ComentarioForoRecursoSelect<ExtArgs> | null
+  select?: Prisma.ComentarioForoSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the ComentarioForoRecurso
+   * Omit specific fields from the ComentarioForo
    */
-  omit?: Prisma.ComentarioForoRecursoOmit<ExtArgs> | null
+  omit?: Prisma.ComentarioForoOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.ComentarioForoRecursoInclude<ExtArgs> | null
-  where?: Prisma.ComentarioForoRecursoWhereInput
-  orderBy?: Prisma.ComentarioForoRecursoOrderByWithRelationInput | Prisma.ComentarioForoRecursoOrderByWithRelationInput[]
-  cursor?: Prisma.ComentarioForoRecursoWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ComentarioForoRecursoScalarFieldEnum | Prisma.ComentarioForoRecursoScalarFieldEnum[]
+  include?: Prisma.ComentarioForoInclude<ExtArgs> | null
+  where?: Prisma.ComentarioForoWhereInput
+}
+
+/**
+ * Recurso.foroOrigen
+ */
+export type Recurso$foroOrigenArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Foro
+   */
+  select?: Prisma.ForoSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Foro
+   */
+  omit?: Prisma.ForoOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ForoInclude<ExtArgs> | null
+  where?: Prisma.ForoWhereInput
+}
+
+/**
+ * Recurso.gradoEscolar
+ */
+export type Recurso$gradoEscolarArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the GradoEscolar
+   */
+  select?: Prisma.GradoEscolarSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the GradoEscolar
+   */
+  omit?: Prisma.GradoEscolarOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GradoEscolarInclude<ExtArgs> | null
+  where?: Prisma.GradoEscolarWhereInput
+}
+
+/**
+ * Recurso.resumenIa
+ */
+export type Recurso$resumenIaArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ResumenIaRecurso
+   */
+  select?: Prisma.ResumenIaRecursoSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ResumenIaRecurso
+   */
+  omit?: Prisma.ResumenIaRecursoOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ResumenIaRecursoInclude<ExtArgs> | null
+  where?: Prisma.ResumenIaRecursoWhereInput
 }
 
 /**

@@ -305,8 +305,8 @@ export type ProyectoColaborativoEntregaWhereInput = {
   usuarioId?: Prisma.IntFilter<"ProyectoColaborativoEntrega"> | number
   recursoId?: Prisma.IntNullableFilter<"ProyectoColaborativoEntrega"> | number | null
   proyecto?: Prisma.XOR<Prisma.ProyectoColaborativoScalarRelationFilter, Prisma.ProyectoColaborativoWhereInput>
-  usuario?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
   recurso?: Prisma.XOR<Prisma.RecursoNullableScalarRelationFilter, Prisma.RecursoWhereInput> | null
+  usuario?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
 }
 
 export type ProyectoColaborativoEntregaOrderByWithRelationInput = {
@@ -325,8 +325,8 @@ export type ProyectoColaborativoEntregaOrderByWithRelationInput = {
   usuarioId?: Prisma.SortOrder
   recursoId?: Prisma.SortOrderInput | Prisma.SortOrder
   proyecto?: Prisma.ProyectoColaborativoOrderByWithRelationInput
-  usuario?: Prisma.UsuarioOrderByWithRelationInput
   recurso?: Prisma.RecursoOrderByWithRelationInput
+  usuario?: Prisma.UsuarioOrderByWithRelationInput
 }
 
 export type ProyectoColaborativoEntregaWhereUniqueInput = Prisma.AtLeast<{
@@ -348,8 +348,8 @@ export type ProyectoColaborativoEntregaWhereUniqueInput = Prisma.AtLeast<{
   proyectoId?: Prisma.IntFilter<"ProyectoColaborativoEntrega"> | number
   usuarioId?: Prisma.IntFilter<"ProyectoColaborativoEntrega"> | number
   proyecto?: Prisma.XOR<Prisma.ProyectoColaborativoScalarRelationFilter, Prisma.ProyectoColaborativoWhereInput>
-  usuario?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
   recurso?: Prisma.XOR<Prisma.RecursoNullableScalarRelationFilter, Prisma.RecursoWhereInput> | null
+  usuario?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
 }, "id" | "recursoId">
 
 export type ProyectoColaborativoEntregaOrderByWithAggregationInput = {
@@ -406,8 +406,8 @@ export type ProyectoColaborativoEntregaCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   proyecto: Prisma.ProyectoColaborativoCreateNestedOneWithoutEntregasInput
-  usuario: Prisma.UsuarioCreateNestedOneWithoutEntregasAulaInput
   recurso?: Prisma.RecursoCreateNestedOneWithoutEntregaAulaColaborativaInput
+  usuario: Prisma.UsuarioCreateNestedOneWithoutEntregasAulaInput
 }
 
 export type ProyectoColaborativoEntregaUncheckedCreateInput = {
@@ -439,8 +439,8 @@ export type ProyectoColaborativoEntregaUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   proyecto?: Prisma.ProyectoColaborativoUpdateOneRequiredWithoutEntregasNestedInput
-  usuario?: Prisma.UsuarioUpdateOneRequiredWithoutEntregasAulaNestedInput
   recurso?: Prisma.RecursoUpdateOneWithoutEntregaAulaColaborativaNestedInput
+  usuario?: Prisma.UsuarioUpdateOneRequiredWithoutEntregasAulaNestedInput
 }
 
 export type ProyectoColaborativoEntregaUncheckedUpdateInput = {
@@ -871,8 +871,8 @@ export type ProyectoColaborativoEntregaCreateWithoutProyectoInput = {
   fechaRevision?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  usuario: Prisma.UsuarioCreateNestedOneWithoutEntregasAulaInput
   recurso?: Prisma.RecursoCreateNestedOneWithoutEntregaAulaColaborativaInput
+  usuario: Prisma.UsuarioCreateNestedOneWithoutEntregasAulaInput
 }
 
 export type ProyectoColaborativoEntregaUncheckedCreateWithoutProyectoInput = {
@@ -1007,8 +1007,8 @@ export type ProyectoColaborativoEntregaUpdateWithoutProyectoInput = {
   fechaRevision?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  usuario?: Prisma.UsuarioUpdateOneRequiredWithoutEntregasAulaNestedInput
   recurso?: Prisma.RecursoUpdateOneWithoutEntregaAulaColaborativaNestedInput
+  usuario?: Prisma.UsuarioUpdateOneRequiredWithoutEntregasAulaNestedInput
 }
 
 export type ProyectoColaborativoEntregaUncheckedUpdateWithoutProyectoInput = {
@@ -1061,8 +1061,8 @@ export type ProyectoColaborativoEntregaSelect<ExtArgs extends runtime.Types.Exte
   usuarioId?: boolean
   recursoId?: boolean
   proyecto?: boolean | Prisma.ProyectoColaborativoDefaultArgs<ExtArgs>
-  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   recurso?: boolean | Prisma.ProyectoColaborativoEntrega$recursoArgs<ExtArgs>
+  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["proyectoColaborativoEntrega"]>
 
 export type ProyectoColaborativoEntregaSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1081,8 +1081,8 @@ export type ProyectoColaborativoEntregaSelectCreateManyAndReturn<ExtArgs extends
   usuarioId?: boolean
   recursoId?: boolean
   proyecto?: boolean | Prisma.ProyectoColaborativoDefaultArgs<ExtArgs>
-  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   recurso?: boolean | Prisma.ProyectoColaborativoEntrega$recursoArgs<ExtArgs>
+  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["proyectoColaborativoEntrega"]>
 
 export type ProyectoColaborativoEntregaSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1101,8 +1101,8 @@ export type ProyectoColaborativoEntregaSelectUpdateManyAndReturn<ExtArgs extends
   usuarioId?: boolean
   recursoId?: boolean
   proyecto?: boolean | Prisma.ProyectoColaborativoDefaultArgs<ExtArgs>
-  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   recurso?: boolean | Prisma.ProyectoColaborativoEntrega$recursoArgs<ExtArgs>
+  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["proyectoColaborativoEntrega"]>
 
 export type ProyectoColaborativoEntregaSelectScalar = {
@@ -1125,26 +1125,26 @@ export type ProyectoColaborativoEntregaSelectScalar = {
 export type ProyectoColaborativoEntregaOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "comentario" | "rutaArchivo" | "nombreArchivo" | "mimeType" | "estado" | "calificacion" | "comentariosDocente" | "fechaRevision" | "createdAt" | "updatedAt" | "proyectoId" | "usuarioId" | "recursoId", ExtArgs["result"]["proyectoColaborativoEntrega"]>
 export type ProyectoColaborativoEntregaInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   proyecto?: boolean | Prisma.ProyectoColaborativoDefaultArgs<ExtArgs>
-  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   recurso?: boolean | Prisma.ProyectoColaborativoEntrega$recursoArgs<ExtArgs>
+  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
 }
 export type ProyectoColaborativoEntregaIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   proyecto?: boolean | Prisma.ProyectoColaborativoDefaultArgs<ExtArgs>
-  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   recurso?: boolean | Prisma.ProyectoColaborativoEntrega$recursoArgs<ExtArgs>
+  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
 }
 export type ProyectoColaborativoEntregaIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   proyecto?: boolean | Prisma.ProyectoColaborativoDefaultArgs<ExtArgs>
-  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   recurso?: boolean | Prisma.ProyectoColaborativoEntrega$recursoArgs<ExtArgs>
+  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
 }
 
 export type $ProyectoColaborativoEntregaPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "ProyectoColaborativoEntrega"
   objects: {
     proyecto: Prisma.$ProyectoColaborativoPayload<ExtArgs>
-    usuario: Prisma.$UsuarioPayload<ExtArgs>
     recurso: Prisma.$RecursoPayload<ExtArgs> | null
+    usuario: Prisma.$UsuarioPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1556,8 +1556,8 @@ readonly fields: ProyectoColaborativoEntregaFieldRefs;
 export interface Prisma__ProyectoColaborativoEntregaClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   proyecto<T extends Prisma.ProyectoColaborativoDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProyectoColaborativoDefaultArgs<ExtArgs>>): Prisma.Prisma__ProyectoColaborativoClient<runtime.Types.Result.GetResult<Prisma.$ProyectoColaborativoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  usuario<T extends Prisma.UsuarioDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UsuarioDefaultArgs<ExtArgs>>): Prisma.Prisma__UsuarioClient<runtime.Types.Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   recurso<T extends Prisma.ProyectoColaborativoEntrega$recursoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProyectoColaborativoEntrega$recursoArgs<ExtArgs>>): Prisma.Prisma__RecursoClient<runtime.Types.Result.GetResult<Prisma.$RecursoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  usuario<T extends Prisma.UsuarioDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UsuarioDefaultArgs<ExtArgs>>): Prisma.Prisma__UsuarioClient<runtime.Types.Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

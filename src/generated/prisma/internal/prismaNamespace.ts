@@ -2791,9 +2791,9 @@ export const RolScalarFieldEnum = {
   id: 'id',
   nombre: 'nombre',
   descripcion: 'descripcion',
-  estado: 'estado',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  estado: 'estado'
 } as const
 
 export type RolScalarFieldEnum = (typeof RolScalarFieldEnum)[keyof typeof RolScalarFieldEnum]
@@ -2874,14 +2874,14 @@ export const ForoScalarFieldEnum = {
   titulo: 'titulo',
   descripcion: 'descripcion',
   estado: 'estado',
-  publico: 'publico',
-  cerrado: 'cerrado',
-  fechaCierre: 'fechaCierre',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   institucionId: 'institucionId',
   categoriaId: 'categoriaId',
-  usuarioId: 'usuarioId'
+  usuarioId: 'usuarioId',
+  publico: 'publico',
+  cerrado: 'cerrado',
+  fechaCierre: 'fechaCierre'
 } as const
 
 export type ForoScalarFieldEnum = (typeof ForoScalarFieldEnum)[keyof typeof ForoScalarFieldEnum]
@@ -3230,12 +3230,6 @@ export const AsignacionAprendizajeAdaptativoScalarFieldEnum = {
   respuestasEvaluacion: 'respuestasEvaluacion',
   resultadoEvaluacion: 'resultadoEvaluacion',
   revisionDocente: 'revisionDocente',
-  calificacionEstudianteIA: 'calificacionEstudianteIA',
-  comentarioEstudianteIA: 'comentarioEstudianteIA',
-  fechaCalificacionEstudianteIA: 'fechaCalificacionEstudianteIA',
-  calificacionDocenteIA: 'calificacionDocenteIA',
-  comentarioDocenteIA: 'comentarioDocenteIA',
-  fechaCalificacionDocenteIA: 'fechaCalificacionDocenteIA',
   conclusionesPdf: 'conclusionesPdf',
   fechaLimite: 'fechaLimite',
   fechaAprobacion: 'fechaAprobacion',
@@ -3247,7 +3241,13 @@ export const AsignacionAprendizajeAdaptativoScalarFieldEnum = {
   institucionId: 'institucionId',
   docenteId: 'docenteId',
   estudianteId: 'estudianteId',
-  gradoEscolarId: 'gradoEscolarId'
+  gradoEscolarId: 'gradoEscolarId',
+  calificacionEstudianteIA: 'calificacionEstudianteIA',
+  comentarioEstudianteIA: 'comentarioEstudianteIA',
+  fechaCalificacionEstudianteIA: 'fechaCalificacionEstudianteIA',
+  calificacionDocenteIA: 'calificacionDocenteIA',
+  comentarioDocenteIA: 'comentarioDocenteIA',
+  fechaCalificacionDocenteIA: 'fechaCalificacionDocenteIA'
 } as const
 
 export type AsignacionAprendizajeAdaptativoScalarFieldEnum = (typeof AsignacionAprendizajeAdaptativoScalarFieldEnum)[keyof typeof AsignacionAprendizajeAdaptativoScalarFieldEnum]

@@ -260,8 +260,8 @@ export type DetalleRutaAprendizajeWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"DetalleRutaAprendizaje"> | Date | string
   rutaAprendizajeId?: Prisma.IntFilter<"DetalleRutaAprendizaje"> | number
   recursoId?: Prisma.IntNullableFilter<"DetalleRutaAprendizaje"> | number | null
-  rutaAprendizaje?: Prisma.XOR<Prisma.RutaAprendizajeScalarRelationFilter, Prisma.RutaAprendizajeWhereInput>
   recurso?: Prisma.XOR<Prisma.RecursoNullableScalarRelationFilter, Prisma.RecursoWhereInput> | null
+  rutaAprendizaje?: Prisma.XOR<Prisma.RutaAprendizajeScalarRelationFilter, Prisma.RutaAprendizajeWhereInput>
 }
 
 export type DetalleRutaAprendizajeOrderByWithRelationInput = {
@@ -274,8 +274,8 @@ export type DetalleRutaAprendizajeOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   rutaAprendizajeId?: Prisma.SortOrder
   recursoId?: Prisma.SortOrderInput | Prisma.SortOrder
-  rutaAprendizaje?: Prisma.RutaAprendizajeOrderByWithRelationInput
   recurso?: Prisma.RecursoOrderByWithRelationInput
+  rutaAprendizaje?: Prisma.RutaAprendizajeOrderByWithRelationInput
 }
 
 export type DetalleRutaAprendizajeWhereUniqueInput = Prisma.AtLeast<{
@@ -291,8 +291,8 @@ export type DetalleRutaAprendizajeWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"DetalleRutaAprendizaje"> | Date | string
   rutaAprendizajeId?: Prisma.IntFilter<"DetalleRutaAprendizaje"> | number
   recursoId?: Prisma.IntNullableFilter<"DetalleRutaAprendizaje"> | number | null
-  rutaAprendizaje?: Prisma.XOR<Prisma.RutaAprendizajeScalarRelationFilter, Prisma.RutaAprendizajeWhereInput>
   recurso?: Prisma.XOR<Prisma.RecursoNullableScalarRelationFilter, Prisma.RecursoWhereInput> | null
+  rutaAprendizaje?: Prisma.XOR<Prisma.RutaAprendizajeScalarRelationFilter, Prisma.RutaAprendizajeWhereInput>
 }, "id">
 
 export type DetalleRutaAprendizajeOrderByWithAggregationInput = {
@@ -334,8 +334,8 @@ export type DetalleRutaAprendizajeCreateInput = {
   descripcion: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  rutaAprendizaje: Prisma.RutaAprendizajeCreateNestedOneWithoutDetallesRutaAprendizajeInput
   recurso?: Prisma.RecursoCreateNestedOneWithoutDetallesRutaAprendizajeInput
+  rutaAprendizaje: Prisma.RutaAprendizajeCreateNestedOneWithoutDetallesRutaAprendizajeInput
 }
 
 export type DetalleRutaAprendizajeUncheckedCreateInput = {
@@ -357,8 +357,8 @@ export type DetalleRutaAprendizajeUpdateInput = {
   descripcion?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  rutaAprendizaje?: Prisma.RutaAprendizajeUpdateOneRequiredWithoutDetallesRutaAprendizajeNestedInput
   recurso?: Prisma.RecursoUpdateOneWithoutDetallesRutaAprendizajeNestedInput
+  rutaAprendizaje?: Prisma.RutaAprendizajeUpdateOneRequiredWithoutDetallesRutaAprendizajeNestedInput
 }
 
 export type DetalleRutaAprendizajeUncheckedUpdateInput = {
@@ -757,8 +757,8 @@ export type DetalleRutaAprendizajeSelect<ExtArgs extends runtime.Types.Extension
   updatedAt?: boolean
   rutaAprendizajeId?: boolean
   recursoId?: boolean
-  rutaAprendizaje?: boolean | Prisma.RutaAprendizajeDefaultArgs<ExtArgs>
   recurso?: boolean | Prisma.DetalleRutaAprendizaje$recursoArgs<ExtArgs>
+  rutaAprendizaje?: boolean | Prisma.RutaAprendizajeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["detalleRutaAprendizaje"]>
 
 export type DetalleRutaAprendizajeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -771,8 +771,8 @@ export type DetalleRutaAprendizajeSelectCreateManyAndReturn<ExtArgs extends runt
   updatedAt?: boolean
   rutaAprendizajeId?: boolean
   recursoId?: boolean
-  rutaAprendizaje?: boolean | Prisma.RutaAprendizajeDefaultArgs<ExtArgs>
   recurso?: boolean | Prisma.DetalleRutaAprendizaje$recursoArgs<ExtArgs>
+  rutaAprendizaje?: boolean | Prisma.RutaAprendizajeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["detalleRutaAprendizaje"]>
 
 export type DetalleRutaAprendizajeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -785,8 +785,8 @@ export type DetalleRutaAprendizajeSelectUpdateManyAndReturn<ExtArgs extends runt
   updatedAt?: boolean
   rutaAprendizajeId?: boolean
   recursoId?: boolean
-  rutaAprendizaje?: boolean | Prisma.RutaAprendizajeDefaultArgs<ExtArgs>
   recurso?: boolean | Prisma.DetalleRutaAprendizaje$recursoArgs<ExtArgs>
+  rutaAprendizaje?: boolean | Prisma.RutaAprendizajeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["detalleRutaAprendizaje"]>
 
 export type DetalleRutaAprendizajeSelectScalar = {
@@ -803,23 +803,23 @@ export type DetalleRutaAprendizajeSelectScalar = {
 
 export type DetalleRutaAprendizajeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "orden" | "tituloPaso" | "tipoPaso" | "descripcion" | "createdAt" | "updatedAt" | "rutaAprendizajeId" | "recursoId", ExtArgs["result"]["detalleRutaAprendizaje"]>
 export type DetalleRutaAprendizajeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  rutaAprendizaje?: boolean | Prisma.RutaAprendizajeDefaultArgs<ExtArgs>
   recurso?: boolean | Prisma.DetalleRutaAprendizaje$recursoArgs<ExtArgs>
+  rutaAprendizaje?: boolean | Prisma.RutaAprendizajeDefaultArgs<ExtArgs>
 }
 export type DetalleRutaAprendizajeIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  rutaAprendizaje?: boolean | Prisma.RutaAprendizajeDefaultArgs<ExtArgs>
   recurso?: boolean | Prisma.DetalleRutaAprendizaje$recursoArgs<ExtArgs>
+  rutaAprendizaje?: boolean | Prisma.RutaAprendizajeDefaultArgs<ExtArgs>
 }
 export type DetalleRutaAprendizajeIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  rutaAprendizaje?: boolean | Prisma.RutaAprendizajeDefaultArgs<ExtArgs>
   recurso?: boolean | Prisma.DetalleRutaAprendizaje$recursoArgs<ExtArgs>
+  rutaAprendizaje?: boolean | Prisma.RutaAprendizajeDefaultArgs<ExtArgs>
 }
 
 export type $DetalleRutaAprendizajePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "DetalleRutaAprendizaje"
   objects: {
-    rutaAprendizaje: Prisma.$RutaAprendizajePayload<ExtArgs>
     recurso: Prisma.$RecursoPayload<ExtArgs> | null
+    rutaAprendizaje: Prisma.$RutaAprendizajePayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1225,8 +1225,8 @@ readonly fields: DetalleRutaAprendizajeFieldRefs;
  */
 export interface Prisma__DetalleRutaAprendizajeClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  rutaAprendizaje<T extends Prisma.RutaAprendizajeDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RutaAprendizajeDefaultArgs<ExtArgs>>): Prisma.Prisma__RutaAprendizajeClient<runtime.Types.Result.GetResult<Prisma.$RutaAprendizajePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   recurso<T extends Prisma.DetalleRutaAprendizaje$recursoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DetalleRutaAprendizaje$recursoArgs<ExtArgs>>): Prisma.Prisma__RecursoClient<runtime.Types.Result.GetResult<Prisma.$RecursoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  rutaAprendizaje<T extends Prisma.RutaAprendizajeDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RutaAprendizajeDefaultArgs<ExtArgs>>): Prisma.Prisma__RutaAprendizajeClient<runtime.Types.Result.GetResult<Prisma.$RutaAprendizajePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

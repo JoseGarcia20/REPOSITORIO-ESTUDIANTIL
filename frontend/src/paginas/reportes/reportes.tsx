@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import type { ChangeEvent, FormEvent } from 'react';
 import {
-  API_URL,
+  construirUrlArchivoProtegido,
   descargarExcelReporte,
   esSuperadministrador,
   generarReporte,
@@ -222,7 +222,7 @@ export function Reportes() {
     if (logo) {
       return (
         <img
-          src={`${API_URL}${logo}`}
+          src={construirUrlArchivoProtegido(logo)}
           alt={reporteGenerado.encabezado.nombreEmisor}
         />
       );

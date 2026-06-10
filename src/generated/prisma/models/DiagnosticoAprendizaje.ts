@@ -244,9 +244,9 @@ export type DiagnosticoAprendizajeWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"DiagnosticoAprendizaje"> | Date | string
   usuarioId?: Prisma.IntFilter<"DiagnosticoAprendizaje"> | number
   tipoAprendizajeId?: Prisma.IntFilter<"DiagnosticoAprendizaje"> | number
-  usuario?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
-  tipoAprendizaje?: Prisma.XOR<Prisma.TipoAprendizajeScalarRelationFilter, Prisma.TipoAprendizajeWhereInput>
   detallesDiagnosticoAprendizaje?: Prisma.DetalleDiagnosticoAprendizajeListRelationFilter
+  tipoAprendizaje?: Prisma.XOR<Prisma.TipoAprendizajeScalarRelationFilter, Prisma.TipoAprendizajeWhereInput>
+  usuario?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
 }
 
 export type DiagnosticoAprendizajeOrderByWithRelationInput = {
@@ -257,9 +257,9 @@ export type DiagnosticoAprendizajeOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   usuarioId?: Prisma.SortOrder
   tipoAprendizajeId?: Prisma.SortOrder
-  usuario?: Prisma.UsuarioOrderByWithRelationInput
-  tipoAprendizaje?: Prisma.TipoAprendizajeOrderByWithRelationInput
   detallesDiagnosticoAprendizaje?: Prisma.DetalleDiagnosticoAprendizajeOrderByRelationAggregateInput
+  tipoAprendizaje?: Prisma.TipoAprendizajeOrderByWithRelationInput
+  usuario?: Prisma.UsuarioOrderByWithRelationInput
 }
 
 export type DiagnosticoAprendizajeWhereUniqueInput = Prisma.AtLeast<{
@@ -273,9 +273,9 @@ export type DiagnosticoAprendizajeWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"DiagnosticoAprendizaje"> | Date | string
   usuarioId?: Prisma.IntFilter<"DiagnosticoAprendizaje"> | number
   tipoAprendizajeId?: Prisma.IntFilter<"DiagnosticoAprendizaje"> | number
-  usuario?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
-  tipoAprendizaje?: Prisma.XOR<Prisma.TipoAprendizajeScalarRelationFilter, Prisma.TipoAprendizajeWhereInput>
   detallesDiagnosticoAprendizaje?: Prisma.DetalleDiagnosticoAprendizajeListRelationFilter
+  tipoAprendizaje?: Prisma.XOR<Prisma.TipoAprendizajeScalarRelationFilter, Prisma.TipoAprendizajeWhereInput>
+  usuario?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
 }, "id">
 
 export type DiagnosticoAprendizajeOrderByWithAggregationInput = {
@@ -311,9 +311,9 @@ export type DiagnosticoAprendizajeCreateInput = {
   resultadoFinal?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  usuario: Prisma.UsuarioCreateNestedOneWithoutDiagnosticosAprendizajeInput
-  tipoAprendizaje: Prisma.TipoAprendizajeCreateNestedOneWithoutDiagnosticosAprendizajeInput
   detallesDiagnosticoAprendizaje?: Prisma.DetalleDiagnosticoAprendizajeCreateNestedManyWithoutDiagnosticoAprendizajeInput
+  tipoAprendizaje: Prisma.TipoAprendizajeCreateNestedOneWithoutDiagnosticosAprendizajeInput
+  usuario: Prisma.UsuarioCreateNestedOneWithoutDiagnosticosAprendizajeInput
 }
 
 export type DiagnosticoAprendizajeUncheckedCreateInput = {
@@ -332,9 +332,9 @@ export type DiagnosticoAprendizajeUpdateInput = {
   resultadoFinal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  usuario?: Prisma.UsuarioUpdateOneRequiredWithoutDiagnosticosAprendizajeNestedInput
-  tipoAprendizaje?: Prisma.TipoAprendizajeUpdateOneRequiredWithoutDiagnosticosAprendizajeNestedInput
   detallesDiagnosticoAprendizaje?: Prisma.DetalleDiagnosticoAprendizajeUpdateManyWithoutDiagnosticoAprendizajeNestedInput
+  tipoAprendizaje?: Prisma.TipoAprendizajeUpdateOneRequiredWithoutDiagnosticosAprendizajeNestedInput
+  usuario?: Prisma.UsuarioUpdateOneRequiredWithoutDiagnosticosAprendizajeNestedInput
 }
 
 export type DiagnosticoAprendizajeUncheckedUpdateInput = {
@@ -537,8 +537,8 @@ export type DiagnosticoAprendizajeCreateWithoutUsuarioInput = {
   resultadoFinal?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  tipoAprendizaje: Prisma.TipoAprendizajeCreateNestedOneWithoutDiagnosticosAprendizajeInput
   detallesDiagnosticoAprendizaje?: Prisma.DetalleDiagnosticoAprendizajeCreateNestedManyWithoutDiagnosticoAprendizajeInput
+  tipoAprendizaje: Prisma.TipoAprendizajeCreateNestedOneWithoutDiagnosticosAprendizajeInput
 }
 
 export type DiagnosticoAprendizajeUncheckedCreateWithoutUsuarioInput = {
@@ -595,8 +595,8 @@ export type DiagnosticoAprendizajeCreateWithoutTipoAprendizajeInput = {
   resultadoFinal?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  usuario: Prisma.UsuarioCreateNestedOneWithoutDiagnosticosAprendizajeInput
   detallesDiagnosticoAprendizaje?: Prisma.DetalleDiagnosticoAprendizajeCreateNestedManyWithoutDiagnosticoAprendizajeInput
+  usuario: Prisma.UsuarioCreateNestedOneWithoutDiagnosticosAprendizajeInput
 }
 
 export type DiagnosticoAprendizajeUncheckedCreateWithoutTipoAprendizajeInput = {
@@ -640,8 +640,8 @@ export type DiagnosticoAprendizajeCreateWithoutDetallesDiagnosticoAprendizajeInp
   resultadoFinal?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  usuario: Prisma.UsuarioCreateNestedOneWithoutDiagnosticosAprendizajeInput
   tipoAprendizaje: Prisma.TipoAprendizajeCreateNestedOneWithoutDiagnosticosAprendizajeInput
+  usuario: Prisma.UsuarioCreateNestedOneWithoutDiagnosticosAprendizajeInput
 }
 
 export type DiagnosticoAprendizajeUncheckedCreateWithoutDetallesDiagnosticoAprendizajeInput = {
@@ -675,8 +675,8 @@ export type DiagnosticoAprendizajeUpdateWithoutDetallesDiagnosticoAprendizajeInp
   resultadoFinal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  usuario?: Prisma.UsuarioUpdateOneRequiredWithoutDiagnosticosAprendizajeNestedInput
   tipoAprendizaje?: Prisma.TipoAprendizajeUpdateOneRequiredWithoutDiagnosticosAprendizajeNestedInput
+  usuario?: Prisma.UsuarioUpdateOneRequiredWithoutDiagnosticosAprendizajeNestedInput
 }
 
 export type DiagnosticoAprendizajeUncheckedUpdateWithoutDetallesDiagnosticoAprendizajeInput = {
@@ -703,8 +703,8 @@ export type DiagnosticoAprendizajeUpdateWithoutUsuarioInput = {
   resultadoFinal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  tipoAprendizaje?: Prisma.TipoAprendizajeUpdateOneRequiredWithoutDiagnosticosAprendizajeNestedInput
   detallesDiagnosticoAprendizaje?: Prisma.DetalleDiagnosticoAprendizajeUpdateManyWithoutDiagnosticoAprendizajeNestedInput
+  tipoAprendizaje?: Prisma.TipoAprendizajeUpdateOneRequiredWithoutDiagnosticosAprendizajeNestedInput
 }
 
 export type DiagnosticoAprendizajeUncheckedUpdateWithoutUsuarioInput = {
@@ -740,8 +740,8 @@ export type DiagnosticoAprendizajeUpdateWithoutTipoAprendizajeInput = {
   resultadoFinal?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  usuario?: Prisma.UsuarioUpdateOneRequiredWithoutDiagnosticosAprendizajeNestedInput
   detallesDiagnosticoAprendizaje?: Prisma.DetalleDiagnosticoAprendizajeUpdateManyWithoutDiagnosticoAprendizajeNestedInput
+  usuario?: Prisma.UsuarioUpdateOneRequiredWithoutDiagnosticosAprendizajeNestedInput
 }
 
 export type DiagnosticoAprendizajeUncheckedUpdateWithoutTipoAprendizajeInput = {
@@ -802,9 +802,9 @@ export type DiagnosticoAprendizajeSelect<ExtArgs extends runtime.Types.Extension
   updatedAt?: boolean
   usuarioId?: boolean
   tipoAprendizajeId?: boolean
-  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
-  tipoAprendizaje?: boolean | Prisma.TipoAprendizajeDefaultArgs<ExtArgs>
   detallesDiagnosticoAprendizaje?: boolean | Prisma.DiagnosticoAprendizaje$detallesDiagnosticoAprendizajeArgs<ExtArgs>
+  tipoAprendizaje?: boolean | Prisma.TipoAprendizajeDefaultArgs<ExtArgs>
+  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   _count?: boolean | Prisma.DiagnosticoAprendizajeCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["diagnosticoAprendizaje"]>
 
@@ -816,8 +816,8 @@ export type DiagnosticoAprendizajeSelectCreateManyAndReturn<ExtArgs extends runt
   updatedAt?: boolean
   usuarioId?: boolean
   tipoAprendizajeId?: boolean
-  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   tipoAprendizaje?: boolean | Prisma.TipoAprendizajeDefaultArgs<ExtArgs>
+  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["diagnosticoAprendizaje"]>
 
 export type DiagnosticoAprendizajeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -828,8 +828,8 @@ export type DiagnosticoAprendizajeSelectUpdateManyAndReturn<ExtArgs extends runt
   updatedAt?: boolean
   usuarioId?: boolean
   tipoAprendizajeId?: boolean
-  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   tipoAprendizaje?: boolean | Prisma.TipoAprendizajeDefaultArgs<ExtArgs>
+  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["diagnosticoAprendizaje"]>
 
 export type DiagnosticoAprendizajeSelectScalar = {
@@ -844,26 +844,26 @@ export type DiagnosticoAprendizajeSelectScalar = {
 
 export type DiagnosticoAprendizajeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "puntajeFinal" | "resultadoFinal" | "createdAt" | "updatedAt" | "usuarioId" | "tipoAprendizajeId", ExtArgs["result"]["diagnosticoAprendizaje"]>
 export type DiagnosticoAprendizajeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
-  tipoAprendizaje?: boolean | Prisma.TipoAprendizajeDefaultArgs<ExtArgs>
   detallesDiagnosticoAprendizaje?: boolean | Prisma.DiagnosticoAprendizaje$detallesDiagnosticoAprendizajeArgs<ExtArgs>
+  tipoAprendizaje?: boolean | Prisma.TipoAprendizajeDefaultArgs<ExtArgs>
+  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   _count?: boolean | Prisma.DiagnosticoAprendizajeCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type DiagnosticoAprendizajeIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   tipoAprendizaje?: boolean | Prisma.TipoAprendizajeDefaultArgs<ExtArgs>
+  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
 }
 export type DiagnosticoAprendizajeIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   tipoAprendizaje?: boolean | Prisma.TipoAprendizajeDefaultArgs<ExtArgs>
+  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
 }
 
 export type $DiagnosticoAprendizajePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "DiagnosticoAprendizaje"
   objects: {
-    usuario: Prisma.$UsuarioPayload<ExtArgs>
-    tipoAprendizaje: Prisma.$TipoAprendizajePayload<ExtArgs>
     detallesDiagnosticoAprendizaje: Prisma.$DetalleDiagnosticoAprendizajePayload<ExtArgs>[]
+    tipoAprendizaje: Prisma.$TipoAprendizajePayload<ExtArgs>
+    usuario: Prisma.$UsuarioPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1267,9 +1267,9 @@ readonly fields: DiagnosticoAprendizajeFieldRefs;
  */
 export interface Prisma__DiagnosticoAprendizajeClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  usuario<T extends Prisma.UsuarioDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UsuarioDefaultArgs<ExtArgs>>): Prisma.Prisma__UsuarioClient<runtime.Types.Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  tipoAprendizaje<T extends Prisma.TipoAprendizajeDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TipoAprendizajeDefaultArgs<ExtArgs>>): Prisma.Prisma__TipoAprendizajeClient<runtime.Types.Result.GetResult<Prisma.$TipoAprendizajePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   detallesDiagnosticoAprendizaje<T extends Prisma.DiagnosticoAprendizaje$detallesDiagnosticoAprendizajeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DiagnosticoAprendizaje$detallesDiagnosticoAprendizajeArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DetalleDiagnosticoAprendizajePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  tipoAprendizaje<T extends Prisma.TipoAprendizajeDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TipoAprendizajeDefaultArgs<ExtArgs>>): Prisma.Prisma__TipoAprendizajeClient<runtime.Types.Result.GetResult<Prisma.$TipoAprendizajePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  usuario<T extends Prisma.UsuarioDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UsuarioDefaultArgs<ExtArgs>>): Prisma.Prisma__UsuarioClient<runtime.Types.Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

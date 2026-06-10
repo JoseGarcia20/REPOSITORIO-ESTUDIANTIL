@@ -324,25 +324,25 @@ export type UsuarioWhereInput = {
   institucionId?: Prisma.IntFilter<"Usuario"> | number
   rolId?: Prisma.IntFilter<"Usuario"> | number
   gradoEscolarId?: Prisma.IntNullableFilter<"Usuario"> | number | null
+  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoListRelationFilter
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoListRelationFilter
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeListRelationFilter
+  auditoriaLogs?: Prisma.AuditoriaLogListRelationFilter
+  calificacionesRecurso?: Prisma.CalificacionRecursoListRelationFilter
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaListRelationFilter
+  comentariosForo?: Prisma.ComentarioForoListRelationFilter
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeListRelationFilter
+  foros?: Prisma.ForoListRelationFilter
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadListRelationFilter
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadListRelationFilter
+  entregasAula?: Prisma.ProyectoColaborativoEntregaListRelationFilter
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaListRelationFilter
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteListRelationFilter
+  proyectosDocente?: Prisma.ProyectoColaborativoListRelationFilter
+  recursos?: Prisma.RecursoListRelationFilter
+  gradoEscolar?: Prisma.XOR<Prisma.GradoEscolarNullableScalarRelationFilter, Prisma.GradoEscolarWhereInput> | null
   institucion?: Prisma.XOR<Prisma.InstitucionScalarRelationFilter, Prisma.InstitucionWhereInput>
   rol?: Prisma.XOR<Prisma.RolScalarRelationFilter, Prisma.RolWhereInput>
-  gradoEscolar?: Prisma.XOR<Prisma.GradoEscolarNullableScalarRelationFilter, Prisma.GradoEscolarWhereInput> | null
-  foros?: Prisma.ForoListRelationFilter
-  comentariosForo?: Prisma.ComentarioForoListRelationFilter
-  recursos?: Prisma.RecursoListRelationFilter
-  calificacionesRecurso?: Prisma.CalificacionRecursoListRelationFilter
-  proyectosDocente?: Prisma.ProyectoColaborativoListRelationFilter
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteListRelationFilter
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadListRelationFilter
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadListRelationFilter
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaListRelationFilter
-  entregasAula?: Prisma.ProyectoColaborativoEntregaListRelationFilter
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeListRelationFilter
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeListRelationFilter
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoListRelationFilter
-  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoListRelationFilter
-  auditoriaLogs?: Prisma.AuditoriaLogListRelationFilter
-  calificacionesUsoIa?: Prisma.CalificacionUsoIaListRelationFilter
 }
 
 export type UsuarioOrderByWithRelationInput = {
@@ -363,25 +363,25 @@ export type UsuarioOrderByWithRelationInput = {
   institucionId?: Prisma.SortOrder
   rolId?: Prisma.SortOrder
   gradoEscolarId?: Prisma.SortOrderInput | Prisma.SortOrder
+  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoOrderByRelationAggregateInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoOrderByRelationAggregateInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeOrderByRelationAggregateInput
+  auditoriaLogs?: Prisma.AuditoriaLogOrderByRelationAggregateInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoOrderByRelationAggregateInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaOrderByRelationAggregateInput
+  comentariosForo?: Prisma.ComentarioForoOrderByRelationAggregateInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeOrderByRelationAggregateInput
+  foros?: Prisma.ForoOrderByRelationAggregateInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadOrderByRelationAggregateInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadOrderByRelationAggregateInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaOrderByRelationAggregateInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaOrderByRelationAggregateInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteOrderByRelationAggregateInput
+  proyectosDocente?: Prisma.ProyectoColaborativoOrderByRelationAggregateInput
+  recursos?: Prisma.RecursoOrderByRelationAggregateInput
+  gradoEscolar?: Prisma.GradoEscolarOrderByWithRelationInput
   institucion?: Prisma.InstitucionOrderByWithRelationInput
   rol?: Prisma.RolOrderByWithRelationInput
-  gradoEscolar?: Prisma.GradoEscolarOrderByWithRelationInput
-  foros?: Prisma.ForoOrderByRelationAggregateInput
-  comentariosForo?: Prisma.ComentarioForoOrderByRelationAggregateInput
-  recursos?: Prisma.RecursoOrderByRelationAggregateInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoOrderByRelationAggregateInput
-  proyectosDocente?: Prisma.ProyectoColaborativoOrderByRelationAggregateInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteOrderByRelationAggregateInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadOrderByRelationAggregateInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadOrderByRelationAggregateInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaOrderByRelationAggregateInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaOrderByRelationAggregateInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeOrderByRelationAggregateInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeOrderByRelationAggregateInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoOrderByRelationAggregateInput
-  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoOrderByRelationAggregateInput
-  auditoriaLogs?: Prisma.AuditoriaLogOrderByRelationAggregateInput
-  calificacionesUsoIa?: Prisma.CalificacionUsoIaOrderByRelationAggregateInput
 }
 
 export type UsuarioWhereUniqueInput = Prisma.AtLeast<{
@@ -405,25 +405,25 @@ export type UsuarioWhereUniqueInput = Prisma.AtLeast<{
   institucionId?: Prisma.IntFilter<"Usuario"> | number
   rolId?: Prisma.IntFilter<"Usuario"> | number
   gradoEscolarId?: Prisma.IntNullableFilter<"Usuario"> | number | null
+  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoListRelationFilter
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoListRelationFilter
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeListRelationFilter
+  auditoriaLogs?: Prisma.AuditoriaLogListRelationFilter
+  calificacionesRecurso?: Prisma.CalificacionRecursoListRelationFilter
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaListRelationFilter
+  comentariosForo?: Prisma.ComentarioForoListRelationFilter
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeListRelationFilter
+  foros?: Prisma.ForoListRelationFilter
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadListRelationFilter
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadListRelationFilter
+  entregasAula?: Prisma.ProyectoColaborativoEntregaListRelationFilter
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaListRelationFilter
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteListRelationFilter
+  proyectosDocente?: Prisma.ProyectoColaborativoListRelationFilter
+  recursos?: Prisma.RecursoListRelationFilter
+  gradoEscolar?: Prisma.XOR<Prisma.GradoEscolarNullableScalarRelationFilter, Prisma.GradoEscolarWhereInput> | null
   institucion?: Prisma.XOR<Prisma.InstitucionScalarRelationFilter, Prisma.InstitucionWhereInput>
   rol?: Prisma.XOR<Prisma.RolScalarRelationFilter, Prisma.RolWhereInput>
-  gradoEscolar?: Prisma.XOR<Prisma.GradoEscolarNullableScalarRelationFilter, Prisma.GradoEscolarWhereInput> | null
-  foros?: Prisma.ForoListRelationFilter
-  comentariosForo?: Prisma.ComentarioForoListRelationFilter
-  recursos?: Prisma.RecursoListRelationFilter
-  calificacionesRecurso?: Prisma.CalificacionRecursoListRelationFilter
-  proyectosDocente?: Prisma.ProyectoColaborativoListRelationFilter
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteListRelationFilter
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadListRelationFilter
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadListRelationFilter
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaListRelationFilter
-  entregasAula?: Prisma.ProyectoColaborativoEntregaListRelationFilter
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeListRelationFilter
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeListRelationFilter
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoListRelationFilter
-  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoListRelationFilter
-  auditoriaLogs?: Prisma.AuditoriaLogListRelationFilter
-  calificacionesUsoIa?: Prisma.CalificacionUsoIaListRelationFilter
 }, "id" | "correo" | "documento">
 
 export type UsuarioOrderByWithAggregationInput = {
@@ -488,25 +488,25 @@ export type UsuarioCreateInput = {
   ultimoAcceso?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutDocenteInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutEstudianteInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeCreateNestedManyWithoutUsuarioInput
+  auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
+  comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
+  foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutCreadorInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutResponsableInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaCreateNestedManyWithoutUsuarioInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaCreateNestedManyWithoutUsuarioInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteCreateNestedManyWithoutUsuarioInput
+  proyectosDocente?: Prisma.ProyectoColaborativoCreateNestedManyWithoutDocenteInput
+  recursos?: Prisma.RecursoCreateNestedManyWithoutUsuarioCreadorInput
+  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutUsuariosInput
   institucion: Prisma.InstitucionCreateNestedOneWithoutUsuariosInput
   rol: Prisma.RolCreateNestedOneWithoutUsuariosInput
-  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutUsuariosInput
-  foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
-  comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
-  recursos?: Prisma.RecursoCreateNestedManyWithoutUsuarioCreadorInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
-  proyectosDocente?: Prisma.ProyectoColaborativoCreateNestedManyWithoutDocenteInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteCreateNestedManyWithoutUsuarioInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutResponsableInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutCreadorInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaCreateNestedManyWithoutUsuarioInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaCreateNestedManyWithoutUsuarioInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeCreateNestedManyWithoutUsuarioInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutEstudianteInput
-  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutDocenteInput
-  auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
-  calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioUncheckedCreateInput = {
@@ -527,22 +527,22 @@ export type UsuarioUncheckedCreateInput = {
   institucionId: number
   rolId: number
   gradoEscolarId?: number | null
-  foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
-  comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
-  recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutUsuarioCreadorInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
-  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedCreateNestedManyWithoutDocenteInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedCreateNestedManyWithoutUsuarioInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutResponsableInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutCreadorInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedCreateNestedManyWithoutUsuarioInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedCreateNestedManyWithoutUsuarioInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutEstudianteInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutDocenteInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutEstudianteInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutUsuarioInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutUsuarioInput
+  comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
+  foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutCreadorInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutResponsableInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedCreateNestedManyWithoutUsuarioInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedCreateNestedManyWithoutUsuarioInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedCreateNestedManyWithoutUsuarioInput
+  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedCreateNestedManyWithoutDocenteInput
+  recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutUsuarioCreadorInput
 }
 
 export type UsuarioUpdateInput = {
@@ -559,25 +559,25 @@ export type UsuarioUpdateInput = {
   ultimoAcceso?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutDocenteNestedInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutEstudianteNestedInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUpdateManyWithoutUsuarioNestedInput
+  auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
+  comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
+  foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutCreadorNestedInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutResponsableNestedInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaUpdateManyWithoutUsuarioNestedInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUpdateManyWithoutUsuarioNestedInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUpdateManyWithoutUsuarioNestedInput
+  proyectosDocente?: Prisma.ProyectoColaborativoUpdateManyWithoutDocenteNestedInput
+  recursos?: Prisma.RecursoUpdateManyWithoutUsuarioCreadorNestedInput
+  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutUsuariosNestedInput
   institucion?: Prisma.InstitucionUpdateOneRequiredWithoutUsuariosNestedInput
   rol?: Prisma.RolUpdateOneRequiredWithoutUsuariosNestedInput
-  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutUsuariosNestedInput
-  foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
-  comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
-  recursos?: Prisma.RecursoUpdateManyWithoutUsuarioCreadorNestedInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
-  proyectosDocente?: Prisma.ProyectoColaborativoUpdateManyWithoutDocenteNestedInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUpdateManyWithoutUsuarioNestedInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutResponsableNestedInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutCreadorNestedInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUpdateManyWithoutUsuarioNestedInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaUpdateManyWithoutUsuarioNestedInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUpdateManyWithoutUsuarioNestedInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutEstudianteNestedInput
-  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutDocenteNestedInput
-  auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
-  calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioUncheckedUpdateInput = {
@@ -598,22 +598,22 @@ export type UsuarioUncheckedUpdateInput = {
   institucionId?: Prisma.IntFieldUpdateOperationsInput | number
   rolId?: Prisma.IntFieldUpdateOperationsInput | number
   gradoEscolarId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
-  comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
-  recursos?: Prisma.RecursoUncheckedUpdateManyWithoutUsuarioCreadorNestedInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
-  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedUpdateManyWithoutDocenteNestedInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedUpdateManyWithoutUsuarioNestedInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutResponsableNestedInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutCreadorNestedInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedUpdateManyWithoutUsuarioNestedInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedUpdateManyWithoutUsuarioNestedInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutEstudianteNestedInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutDocenteNestedInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutEstudianteNestedInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutUsuarioNestedInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutUsuarioNestedInput
+  comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
+  foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutCreadorNestedInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutResponsableNestedInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedUpdateManyWithoutUsuarioNestedInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedUpdateManyWithoutUsuarioNestedInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedUpdateManyWithoutUsuarioNestedInput
+  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedUpdateManyWithoutDocenteNestedInput
+  recursos?: Prisma.RecursoUncheckedUpdateManyWithoutUsuarioCreadorNestedInput
 }
 
 export type UsuarioCreateManyInput = {
@@ -988,16 +988,24 @@ export type UsuarioUpdateOneRequiredWithoutProyectosIntegranteNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UsuarioUpdateToOneWithWhereWithoutProyectosIntegranteInput, Prisma.UsuarioUpdateWithoutProyectosIntegranteInput>, Prisma.UsuarioUncheckedUpdateWithoutProyectosIntegranteInput>
 }
 
+export type UsuarioCreateNestedOneWithoutActividadesCreadasInput = {
+  create?: Prisma.XOR<Prisma.UsuarioCreateWithoutActividadesCreadasInput, Prisma.UsuarioUncheckedCreateWithoutActividadesCreadasInput>
+  connectOrCreate?: Prisma.UsuarioCreateOrConnectWithoutActividadesCreadasInput
+  connect?: Prisma.UsuarioWhereUniqueInput
+}
+
 export type UsuarioCreateNestedOneWithoutActividadesResponsableInput = {
   create?: Prisma.XOR<Prisma.UsuarioCreateWithoutActividadesResponsableInput, Prisma.UsuarioUncheckedCreateWithoutActividadesResponsableInput>
   connectOrCreate?: Prisma.UsuarioCreateOrConnectWithoutActividadesResponsableInput
   connect?: Prisma.UsuarioWhereUniqueInput
 }
 
-export type UsuarioCreateNestedOneWithoutActividadesCreadasInput = {
+export type UsuarioUpdateOneRequiredWithoutActividadesCreadasNestedInput = {
   create?: Prisma.XOR<Prisma.UsuarioCreateWithoutActividadesCreadasInput, Prisma.UsuarioUncheckedCreateWithoutActividadesCreadasInput>
   connectOrCreate?: Prisma.UsuarioCreateOrConnectWithoutActividadesCreadasInput
+  upsert?: Prisma.UsuarioUpsertWithoutActividadesCreadasInput
   connect?: Prisma.UsuarioWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UsuarioUpdateToOneWithWhereWithoutActividadesCreadasInput, Prisma.UsuarioUpdateWithoutActividadesCreadasInput>, Prisma.UsuarioUncheckedUpdateWithoutActividadesCreadasInput>
 }
 
 export type UsuarioUpdateOneWithoutActividadesResponsableNestedInput = {
@@ -1008,14 +1016,6 @@ export type UsuarioUpdateOneWithoutActividadesResponsableNestedInput = {
   delete?: Prisma.UsuarioWhereInput | boolean
   connect?: Prisma.UsuarioWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UsuarioUpdateToOneWithWhereWithoutActividadesResponsableInput, Prisma.UsuarioUpdateWithoutActividadesResponsableInput>, Prisma.UsuarioUncheckedUpdateWithoutActividadesResponsableInput>
-}
-
-export type UsuarioUpdateOneRequiredWithoutActividadesCreadasNestedInput = {
-  create?: Prisma.XOR<Prisma.UsuarioCreateWithoutActividadesCreadasInput, Prisma.UsuarioUncheckedCreateWithoutActividadesCreadasInput>
-  connectOrCreate?: Prisma.UsuarioCreateOrConnectWithoutActividadesCreadasInput
-  upsert?: Prisma.UsuarioUpsertWithoutActividadesCreadasInput
-  connect?: Prisma.UsuarioWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UsuarioUpdateToOneWithWhereWithoutActividadesCreadasInput, Prisma.UsuarioUpdateWithoutActividadesCreadasInput>, Prisma.UsuarioUncheckedUpdateWithoutActividadesCreadasInput>
 }
 
 export type UsuarioCreateNestedOneWithoutEvidenciasAulaInput = {
@@ -1144,24 +1144,24 @@ export type UsuarioCreateWithoutInstitucionInput = {
   ultimoAcceso?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  rol: Prisma.RolCreateNestedOneWithoutUsuariosInput
-  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutUsuariosInput
-  foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
-  comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
-  recursos?: Prisma.RecursoCreateNestedManyWithoutUsuarioCreadorInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
-  proyectosDocente?: Prisma.ProyectoColaborativoCreateNestedManyWithoutDocenteInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteCreateNestedManyWithoutUsuarioInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutResponsableInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutCreadorInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaCreateNestedManyWithoutUsuarioInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaCreateNestedManyWithoutUsuarioInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeCreateNestedManyWithoutUsuarioInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutEstudianteInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutDocenteInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutEstudianteInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeCreateNestedManyWithoutUsuarioInput
   auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
+  comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
+  foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutCreadorInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutResponsableInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaCreateNestedManyWithoutUsuarioInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaCreateNestedManyWithoutUsuarioInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteCreateNestedManyWithoutUsuarioInput
+  proyectosDocente?: Prisma.ProyectoColaborativoCreateNestedManyWithoutDocenteInput
+  recursos?: Prisma.RecursoCreateNestedManyWithoutUsuarioCreadorInput
+  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutUsuariosInput
+  rol: Prisma.RolCreateNestedOneWithoutUsuariosInput
 }
 
 export type UsuarioUncheckedCreateWithoutInstitucionInput = {
@@ -1181,22 +1181,22 @@ export type UsuarioUncheckedCreateWithoutInstitucionInput = {
   updatedAt?: Date | string
   rolId: number
   gradoEscolarId?: number | null
-  foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
-  comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
-  recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutUsuarioCreadorInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
-  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedCreateNestedManyWithoutDocenteInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedCreateNestedManyWithoutUsuarioInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutResponsableInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutCreadorInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedCreateNestedManyWithoutUsuarioInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedCreateNestedManyWithoutUsuarioInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutEstudianteInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutDocenteInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutEstudianteInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutUsuarioInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutUsuarioInput
+  comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
+  foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutCreadorInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutResponsableInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedCreateNestedManyWithoutUsuarioInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedCreateNestedManyWithoutUsuarioInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedCreateNestedManyWithoutUsuarioInput
+  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedCreateNestedManyWithoutDocenteInput
+  recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutUsuarioCreadorInput
 }
 
 export type UsuarioCreateOrConnectWithoutInstitucionInput = {
@@ -1262,24 +1262,24 @@ export type UsuarioCreateWithoutRolInput = {
   ultimoAcceso?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  institucion: Prisma.InstitucionCreateNestedOneWithoutUsuariosInput
-  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutUsuariosInput
-  foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
-  comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
-  recursos?: Prisma.RecursoCreateNestedManyWithoutUsuarioCreadorInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
-  proyectosDocente?: Prisma.ProyectoColaborativoCreateNestedManyWithoutDocenteInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteCreateNestedManyWithoutUsuarioInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutResponsableInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutCreadorInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaCreateNestedManyWithoutUsuarioInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaCreateNestedManyWithoutUsuarioInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeCreateNestedManyWithoutUsuarioInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutEstudianteInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutDocenteInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutEstudianteInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeCreateNestedManyWithoutUsuarioInput
   auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
+  comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
+  foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutCreadorInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutResponsableInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaCreateNestedManyWithoutUsuarioInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaCreateNestedManyWithoutUsuarioInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteCreateNestedManyWithoutUsuarioInput
+  proyectosDocente?: Prisma.ProyectoColaborativoCreateNestedManyWithoutDocenteInput
+  recursos?: Prisma.RecursoCreateNestedManyWithoutUsuarioCreadorInput
+  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutUsuariosInput
+  institucion: Prisma.InstitucionCreateNestedOneWithoutUsuariosInput
 }
 
 export type UsuarioUncheckedCreateWithoutRolInput = {
@@ -1299,22 +1299,22 @@ export type UsuarioUncheckedCreateWithoutRolInput = {
   updatedAt?: Date | string
   institucionId: number
   gradoEscolarId?: number | null
-  foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
-  comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
-  recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutUsuarioCreadorInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
-  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedCreateNestedManyWithoutDocenteInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedCreateNestedManyWithoutUsuarioInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutResponsableInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutCreadorInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedCreateNestedManyWithoutUsuarioInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedCreateNestedManyWithoutUsuarioInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutEstudianteInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutDocenteInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutEstudianteInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutUsuarioInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutUsuarioInput
+  comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
+  foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutCreadorInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutResponsableInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedCreateNestedManyWithoutUsuarioInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedCreateNestedManyWithoutUsuarioInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedCreateNestedManyWithoutUsuarioInput
+  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedCreateNestedManyWithoutDocenteInput
+  recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutUsuarioCreadorInput
 }
 
 export type UsuarioCreateOrConnectWithoutRolInput = {
@@ -1357,24 +1357,24 @@ export type UsuarioCreateWithoutGradoEscolarInput = {
   ultimoAcceso?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutDocenteInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutEstudianteInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeCreateNestedManyWithoutUsuarioInput
+  auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
+  comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
+  foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutCreadorInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutResponsableInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaCreateNestedManyWithoutUsuarioInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaCreateNestedManyWithoutUsuarioInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteCreateNestedManyWithoutUsuarioInput
+  proyectosDocente?: Prisma.ProyectoColaborativoCreateNestedManyWithoutDocenteInput
+  recursos?: Prisma.RecursoCreateNestedManyWithoutUsuarioCreadorInput
   institucion: Prisma.InstitucionCreateNestedOneWithoutUsuariosInput
   rol: Prisma.RolCreateNestedOneWithoutUsuariosInput
-  foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
-  comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
-  recursos?: Prisma.RecursoCreateNestedManyWithoutUsuarioCreadorInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
-  proyectosDocente?: Prisma.ProyectoColaborativoCreateNestedManyWithoutDocenteInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteCreateNestedManyWithoutUsuarioInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutResponsableInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutCreadorInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaCreateNestedManyWithoutUsuarioInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaCreateNestedManyWithoutUsuarioInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeCreateNestedManyWithoutUsuarioInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutEstudianteInput
-  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutDocenteInput
-  auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
-  calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioUncheckedCreateWithoutGradoEscolarInput = {
@@ -1394,22 +1394,22 @@ export type UsuarioUncheckedCreateWithoutGradoEscolarInput = {
   updatedAt?: Date | string
   institucionId: number
   rolId: number
-  foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
-  comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
-  recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutUsuarioCreadorInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
-  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedCreateNestedManyWithoutDocenteInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedCreateNestedManyWithoutUsuarioInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutResponsableInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutCreadorInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedCreateNestedManyWithoutUsuarioInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedCreateNestedManyWithoutUsuarioInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutEstudianteInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutDocenteInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutEstudianteInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutUsuarioInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutUsuarioInput
+  comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
+  foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutCreadorInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutResponsableInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedCreateNestedManyWithoutUsuarioInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedCreateNestedManyWithoutUsuarioInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedCreateNestedManyWithoutUsuarioInput
+  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedCreateNestedManyWithoutDocenteInput
+  recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutUsuarioCreadorInput
 }
 
 export type UsuarioCreateOrConnectWithoutGradoEscolarInput = {
@@ -1452,24 +1452,24 @@ export type UsuarioCreateWithoutForosInput = {
   ultimoAcceso?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutDocenteInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutEstudianteInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeCreateNestedManyWithoutUsuarioInput
+  auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
+  comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutCreadorInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutResponsableInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaCreateNestedManyWithoutUsuarioInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaCreateNestedManyWithoutUsuarioInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteCreateNestedManyWithoutUsuarioInput
+  proyectosDocente?: Prisma.ProyectoColaborativoCreateNestedManyWithoutDocenteInput
+  recursos?: Prisma.RecursoCreateNestedManyWithoutUsuarioCreadorInput
+  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutUsuariosInput
   institucion: Prisma.InstitucionCreateNestedOneWithoutUsuariosInput
   rol: Prisma.RolCreateNestedOneWithoutUsuariosInput
-  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutUsuariosInput
-  comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
-  recursos?: Prisma.RecursoCreateNestedManyWithoutUsuarioCreadorInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
-  proyectosDocente?: Prisma.ProyectoColaborativoCreateNestedManyWithoutDocenteInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteCreateNestedManyWithoutUsuarioInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutResponsableInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutCreadorInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaCreateNestedManyWithoutUsuarioInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaCreateNestedManyWithoutUsuarioInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeCreateNestedManyWithoutUsuarioInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutEstudianteInput
-  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutDocenteInput
-  auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
-  calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioUncheckedCreateWithoutForosInput = {
@@ -1490,21 +1490,21 @@ export type UsuarioUncheckedCreateWithoutForosInput = {
   institucionId: number
   rolId: number
   gradoEscolarId?: number | null
-  comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
-  recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutUsuarioCreadorInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
-  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedCreateNestedManyWithoutDocenteInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedCreateNestedManyWithoutUsuarioInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutResponsableInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutCreadorInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedCreateNestedManyWithoutUsuarioInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedCreateNestedManyWithoutUsuarioInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutEstudianteInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutDocenteInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutEstudianteInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutUsuarioInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutUsuarioInput
+  comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutCreadorInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutResponsableInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedCreateNestedManyWithoutUsuarioInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedCreateNestedManyWithoutUsuarioInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedCreateNestedManyWithoutUsuarioInput
+  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedCreateNestedManyWithoutDocenteInput
+  recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutUsuarioCreadorInput
 }
 
 export type UsuarioCreateOrConnectWithoutForosInput = {
@@ -1537,24 +1537,24 @@ export type UsuarioUpdateWithoutForosInput = {
   ultimoAcceso?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutDocenteNestedInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutEstudianteNestedInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUpdateManyWithoutUsuarioNestedInput
+  auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
+  comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutCreadorNestedInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutResponsableNestedInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaUpdateManyWithoutUsuarioNestedInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUpdateManyWithoutUsuarioNestedInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUpdateManyWithoutUsuarioNestedInput
+  proyectosDocente?: Prisma.ProyectoColaborativoUpdateManyWithoutDocenteNestedInput
+  recursos?: Prisma.RecursoUpdateManyWithoutUsuarioCreadorNestedInput
+  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutUsuariosNestedInput
   institucion?: Prisma.InstitucionUpdateOneRequiredWithoutUsuariosNestedInput
   rol?: Prisma.RolUpdateOneRequiredWithoutUsuariosNestedInput
-  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutUsuariosNestedInput
-  comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
-  recursos?: Prisma.RecursoUpdateManyWithoutUsuarioCreadorNestedInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
-  proyectosDocente?: Prisma.ProyectoColaborativoUpdateManyWithoutDocenteNestedInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUpdateManyWithoutUsuarioNestedInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutResponsableNestedInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutCreadorNestedInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUpdateManyWithoutUsuarioNestedInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaUpdateManyWithoutUsuarioNestedInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUpdateManyWithoutUsuarioNestedInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutEstudianteNestedInput
-  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutDocenteNestedInput
-  auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
-  calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioUncheckedUpdateWithoutForosInput = {
@@ -1575,21 +1575,21 @@ export type UsuarioUncheckedUpdateWithoutForosInput = {
   institucionId?: Prisma.IntFieldUpdateOperationsInput | number
   rolId?: Prisma.IntFieldUpdateOperationsInput | number
   gradoEscolarId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
-  recursos?: Prisma.RecursoUncheckedUpdateManyWithoutUsuarioCreadorNestedInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
-  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedUpdateManyWithoutDocenteNestedInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedUpdateManyWithoutUsuarioNestedInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutResponsableNestedInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutCreadorNestedInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedUpdateManyWithoutUsuarioNestedInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedUpdateManyWithoutUsuarioNestedInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutEstudianteNestedInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutDocenteNestedInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutEstudianteNestedInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutUsuarioNestedInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutUsuarioNestedInput
+  comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutCreadorNestedInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutResponsableNestedInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedUpdateManyWithoutUsuarioNestedInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedUpdateManyWithoutUsuarioNestedInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedUpdateManyWithoutUsuarioNestedInput
+  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedUpdateManyWithoutDocenteNestedInput
+  recursos?: Prisma.RecursoUncheckedUpdateManyWithoutUsuarioCreadorNestedInput
 }
 
 export type UsuarioCreateWithoutComentariosForoInput = {
@@ -1606,24 +1606,24 @@ export type UsuarioCreateWithoutComentariosForoInput = {
   ultimoAcceso?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutDocenteInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutEstudianteInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeCreateNestedManyWithoutUsuarioInput
+  auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
+  foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutCreadorInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutResponsableInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaCreateNestedManyWithoutUsuarioInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaCreateNestedManyWithoutUsuarioInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteCreateNestedManyWithoutUsuarioInput
+  proyectosDocente?: Prisma.ProyectoColaborativoCreateNestedManyWithoutDocenteInput
+  recursos?: Prisma.RecursoCreateNestedManyWithoutUsuarioCreadorInput
+  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutUsuariosInput
   institucion: Prisma.InstitucionCreateNestedOneWithoutUsuariosInput
   rol: Prisma.RolCreateNestedOneWithoutUsuariosInput
-  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutUsuariosInput
-  foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
-  recursos?: Prisma.RecursoCreateNestedManyWithoutUsuarioCreadorInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
-  proyectosDocente?: Prisma.ProyectoColaborativoCreateNestedManyWithoutDocenteInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteCreateNestedManyWithoutUsuarioInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutResponsableInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutCreadorInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaCreateNestedManyWithoutUsuarioInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaCreateNestedManyWithoutUsuarioInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeCreateNestedManyWithoutUsuarioInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutEstudianteInput
-  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutDocenteInput
-  auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
-  calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioUncheckedCreateWithoutComentariosForoInput = {
@@ -1644,21 +1644,21 @@ export type UsuarioUncheckedCreateWithoutComentariosForoInput = {
   institucionId: number
   rolId: number
   gradoEscolarId?: number | null
-  foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
-  recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutUsuarioCreadorInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
-  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedCreateNestedManyWithoutDocenteInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedCreateNestedManyWithoutUsuarioInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutResponsableInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutCreadorInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedCreateNestedManyWithoutUsuarioInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedCreateNestedManyWithoutUsuarioInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutEstudianteInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutDocenteInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutEstudianteInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutUsuarioInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutUsuarioInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
+  foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutCreadorInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutResponsableInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedCreateNestedManyWithoutUsuarioInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedCreateNestedManyWithoutUsuarioInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedCreateNestedManyWithoutUsuarioInput
+  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedCreateNestedManyWithoutDocenteInput
+  recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutUsuarioCreadorInput
 }
 
 export type UsuarioCreateOrConnectWithoutComentariosForoInput = {
@@ -1691,24 +1691,24 @@ export type UsuarioUpdateWithoutComentariosForoInput = {
   ultimoAcceso?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutDocenteNestedInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutEstudianteNestedInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUpdateManyWithoutUsuarioNestedInput
+  auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
+  foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutCreadorNestedInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutResponsableNestedInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaUpdateManyWithoutUsuarioNestedInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUpdateManyWithoutUsuarioNestedInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUpdateManyWithoutUsuarioNestedInput
+  proyectosDocente?: Prisma.ProyectoColaborativoUpdateManyWithoutDocenteNestedInput
+  recursos?: Prisma.RecursoUpdateManyWithoutUsuarioCreadorNestedInput
+  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutUsuariosNestedInput
   institucion?: Prisma.InstitucionUpdateOneRequiredWithoutUsuariosNestedInput
   rol?: Prisma.RolUpdateOneRequiredWithoutUsuariosNestedInput
-  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutUsuariosNestedInput
-  foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
-  recursos?: Prisma.RecursoUpdateManyWithoutUsuarioCreadorNestedInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
-  proyectosDocente?: Prisma.ProyectoColaborativoUpdateManyWithoutDocenteNestedInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUpdateManyWithoutUsuarioNestedInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutResponsableNestedInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutCreadorNestedInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUpdateManyWithoutUsuarioNestedInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaUpdateManyWithoutUsuarioNestedInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUpdateManyWithoutUsuarioNestedInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutEstudianteNestedInput
-  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutDocenteNestedInput
-  auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
-  calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioUncheckedUpdateWithoutComentariosForoInput = {
@@ -1729,21 +1729,21 @@ export type UsuarioUncheckedUpdateWithoutComentariosForoInput = {
   institucionId?: Prisma.IntFieldUpdateOperationsInput | number
   rolId?: Prisma.IntFieldUpdateOperationsInput | number
   gradoEscolarId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
-  recursos?: Prisma.RecursoUncheckedUpdateManyWithoutUsuarioCreadorNestedInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
-  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedUpdateManyWithoutDocenteNestedInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedUpdateManyWithoutUsuarioNestedInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutResponsableNestedInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutCreadorNestedInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedUpdateManyWithoutUsuarioNestedInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedUpdateManyWithoutUsuarioNestedInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutEstudianteNestedInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutDocenteNestedInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutEstudianteNestedInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutUsuarioNestedInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutUsuarioNestedInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
+  foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutCreadorNestedInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutResponsableNestedInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedUpdateManyWithoutUsuarioNestedInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedUpdateManyWithoutUsuarioNestedInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedUpdateManyWithoutUsuarioNestedInput
+  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedUpdateManyWithoutDocenteNestedInput
+  recursos?: Prisma.RecursoUncheckedUpdateManyWithoutUsuarioCreadorNestedInput
 }
 
 export type UsuarioCreateWithoutRecursosInput = {
@@ -1760,24 +1760,24 @@ export type UsuarioCreateWithoutRecursosInput = {
   ultimoAcceso?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutDocenteInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutEstudianteInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeCreateNestedManyWithoutUsuarioInput
+  auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
+  comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
+  foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutCreadorInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutResponsableInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaCreateNestedManyWithoutUsuarioInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaCreateNestedManyWithoutUsuarioInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteCreateNestedManyWithoutUsuarioInput
+  proyectosDocente?: Prisma.ProyectoColaborativoCreateNestedManyWithoutDocenteInput
+  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutUsuariosInput
   institucion: Prisma.InstitucionCreateNestedOneWithoutUsuariosInput
   rol: Prisma.RolCreateNestedOneWithoutUsuariosInput
-  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutUsuariosInput
-  foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
-  comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
-  proyectosDocente?: Prisma.ProyectoColaborativoCreateNestedManyWithoutDocenteInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteCreateNestedManyWithoutUsuarioInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutResponsableInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutCreadorInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaCreateNestedManyWithoutUsuarioInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaCreateNestedManyWithoutUsuarioInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeCreateNestedManyWithoutUsuarioInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutEstudianteInput
-  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutDocenteInput
-  auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
-  calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioUncheckedCreateWithoutRecursosInput = {
@@ -1798,21 +1798,21 @@ export type UsuarioUncheckedCreateWithoutRecursosInput = {
   institucionId: number
   rolId: number
   gradoEscolarId?: number | null
-  foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
-  comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
-  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedCreateNestedManyWithoutDocenteInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedCreateNestedManyWithoutUsuarioInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutResponsableInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutCreadorInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedCreateNestedManyWithoutUsuarioInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedCreateNestedManyWithoutUsuarioInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutEstudianteInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutDocenteInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutEstudianteInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutUsuarioInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutUsuarioInput
+  comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
+  foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutCreadorInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutResponsableInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedCreateNestedManyWithoutUsuarioInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedCreateNestedManyWithoutUsuarioInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedCreateNestedManyWithoutUsuarioInput
+  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedCreateNestedManyWithoutDocenteInput
 }
 
 export type UsuarioCreateOrConnectWithoutRecursosInput = {
@@ -1845,24 +1845,24 @@ export type UsuarioUpdateWithoutRecursosInput = {
   ultimoAcceso?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutDocenteNestedInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutEstudianteNestedInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUpdateManyWithoutUsuarioNestedInput
+  auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
+  comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
+  foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutCreadorNestedInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutResponsableNestedInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaUpdateManyWithoutUsuarioNestedInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUpdateManyWithoutUsuarioNestedInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUpdateManyWithoutUsuarioNestedInput
+  proyectosDocente?: Prisma.ProyectoColaborativoUpdateManyWithoutDocenteNestedInput
+  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutUsuariosNestedInput
   institucion?: Prisma.InstitucionUpdateOneRequiredWithoutUsuariosNestedInput
   rol?: Prisma.RolUpdateOneRequiredWithoutUsuariosNestedInput
-  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutUsuariosNestedInput
-  foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
-  comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
-  proyectosDocente?: Prisma.ProyectoColaborativoUpdateManyWithoutDocenteNestedInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUpdateManyWithoutUsuarioNestedInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutResponsableNestedInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutCreadorNestedInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUpdateManyWithoutUsuarioNestedInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaUpdateManyWithoutUsuarioNestedInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUpdateManyWithoutUsuarioNestedInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutEstudianteNestedInput
-  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutDocenteNestedInput
-  auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
-  calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioUncheckedUpdateWithoutRecursosInput = {
@@ -1883,21 +1883,21 @@ export type UsuarioUncheckedUpdateWithoutRecursosInput = {
   institucionId?: Prisma.IntFieldUpdateOperationsInput | number
   rolId?: Prisma.IntFieldUpdateOperationsInput | number
   gradoEscolarId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
-  comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
-  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedUpdateManyWithoutDocenteNestedInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedUpdateManyWithoutUsuarioNestedInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutResponsableNestedInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutCreadorNestedInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedUpdateManyWithoutUsuarioNestedInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedUpdateManyWithoutUsuarioNestedInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutEstudianteNestedInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutDocenteNestedInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutEstudianteNestedInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutUsuarioNestedInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutUsuarioNestedInput
+  comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
+  foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutCreadorNestedInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutResponsableNestedInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedUpdateManyWithoutUsuarioNestedInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedUpdateManyWithoutUsuarioNestedInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedUpdateManyWithoutUsuarioNestedInput
+  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedUpdateManyWithoutDocenteNestedInput
 }
 
 export type UsuarioCreateWithoutCalificacionesUsoIaInput = {
@@ -1914,24 +1914,24 @@ export type UsuarioCreateWithoutCalificacionesUsoIaInput = {
   ultimoAcceso?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutDocenteInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutEstudianteInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeCreateNestedManyWithoutUsuarioInput
+  auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
+  comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
+  foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutCreadorInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutResponsableInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaCreateNestedManyWithoutUsuarioInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaCreateNestedManyWithoutUsuarioInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteCreateNestedManyWithoutUsuarioInput
+  proyectosDocente?: Prisma.ProyectoColaborativoCreateNestedManyWithoutDocenteInput
+  recursos?: Prisma.RecursoCreateNestedManyWithoutUsuarioCreadorInput
+  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutUsuariosInput
   institucion: Prisma.InstitucionCreateNestedOneWithoutUsuariosInput
   rol: Prisma.RolCreateNestedOneWithoutUsuariosInput
-  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutUsuariosInput
-  foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
-  comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
-  recursos?: Prisma.RecursoCreateNestedManyWithoutUsuarioCreadorInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
-  proyectosDocente?: Prisma.ProyectoColaborativoCreateNestedManyWithoutDocenteInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteCreateNestedManyWithoutUsuarioInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutResponsableInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutCreadorInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaCreateNestedManyWithoutUsuarioInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaCreateNestedManyWithoutUsuarioInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeCreateNestedManyWithoutUsuarioInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutEstudianteInput
-  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutDocenteInput
-  auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioUncheckedCreateWithoutCalificacionesUsoIaInput = {
@@ -1952,21 +1952,21 @@ export type UsuarioUncheckedCreateWithoutCalificacionesUsoIaInput = {
   institucionId: number
   rolId: number
   gradoEscolarId?: number | null
-  foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
-  comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
-  recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutUsuarioCreadorInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
-  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedCreateNestedManyWithoutDocenteInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedCreateNestedManyWithoutUsuarioInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutResponsableInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutCreadorInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedCreateNestedManyWithoutUsuarioInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedCreateNestedManyWithoutUsuarioInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutEstudianteInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutDocenteInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutEstudianteInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutUsuarioInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
+  comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
+  foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutCreadorInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutResponsableInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedCreateNestedManyWithoutUsuarioInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedCreateNestedManyWithoutUsuarioInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedCreateNestedManyWithoutUsuarioInput
+  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedCreateNestedManyWithoutDocenteInput
+  recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutUsuarioCreadorInput
 }
 
 export type UsuarioCreateOrConnectWithoutCalificacionesUsoIaInput = {
@@ -1999,24 +1999,24 @@ export type UsuarioUpdateWithoutCalificacionesUsoIaInput = {
   ultimoAcceso?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutDocenteNestedInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutEstudianteNestedInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUpdateManyWithoutUsuarioNestedInput
+  auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
+  comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
+  foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutCreadorNestedInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutResponsableNestedInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaUpdateManyWithoutUsuarioNestedInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUpdateManyWithoutUsuarioNestedInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUpdateManyWithoutUsuarioNestedInput
+  proyectosDocente?: Prisma.ProyectoColaborativoUpdateManyWithoutDocenteNestedInput
+  recursos?: Prisma.RecursoUpdateManyWithoutUsuarioCreadorNestedInput
+  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutUsuariosNestedInput
   institucion?: Prisma.InstitucionUpdateOneRequiredWithoutUsuariosNestedInput
   rol?: Prisma.RolUpdateOneRequiredWithoutUsuariosNestedInput
-  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutUsuariosNestedInput
-  foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
-  comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
-  recursos?: Prisma.RecursoUpdateManyWithoutUsuarioCreadorNestedInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
-  proyectosDocente?: Prisma.ProyectoColaborativoUpdateManyWithoutDocenteNestedInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUpdateManyWithoutUsuarioNestedInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutResponsableNestedInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutCreadorNestedInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUpdateManyWithoutUsuarioNestedInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaUpdateManyWithoutUsuarioNestedInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUpdateManyWithoutUsuarioNestedInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutEstudianteNestedInput
-  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutDocenteNestedInput
-  auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioUncheckedUpdateWithoutCalificacionesUsoIaInput = {
@@ -2037,21 +2037,21 @@ export type UsuarioUncheckedUpdateWithoutCalificacionesUsoIaInput = {
   institucionId?: Prisma.IntFieldUpdateOperationsInput | number
   rolId?: Prisma.IntFieldUpdateOperationsInput | number
   gradoEscolarId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
-  comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
-  recursos?: Prisma.RecursoUncheckedUpdateManyWithoutUsuarioCreadorNestedInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
-  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedUpdateManyWithoutDocenteNestedInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedUpdateManyWithoutUsuarioNestedInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutResponsableNestedInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutCreadorNestedInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedUpdateManyWithoutUsuarioNestedInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedUpdateManyWithoutUsuarioNestedInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutEstudianteNestedInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutDocenteNestedInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutEstudianteNestedInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutUsuarioNestedInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
+  comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
+  foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutCreadorNestedInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutResponsableNestedInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedUpdateManyWithoutUsuarioNestedInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedUpdateManyWithoutUsuarioNestedInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedUpdateManyWithoutUsuarioNestedInput
+  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedUpdateManyWithoutDocenteNestedInput
+  recursos?: Prisma.RecursoUncheckedUpdateManyWithoutUsuarioCreadorNestedInput
 }
 
 export type UsuarioCreateWithoutProyectosDocenteInput = {
@@ -2068,24 +2068,24 @@ export type UsuarioCreateWithoutProyectosDocenteInput = {
   ultimoAcceso?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutDocenteInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutEstudianteInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeCreateNestedManyWithoutUsuarioInput
+  auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
+  comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
+  foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutCreadorInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutResponsableInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaCreateNestedManyWithoutUsuarioInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaCreateNestedManyWithoutUsuarioInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteCreateNestedManyWithoutUsuarioInput
+  recursos?: Prisma.RecursoCreateNestedManyWithoutUsuarioCreadorInput
+  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutUsuariosInput
   institucion: Prisma.InstitucionCreateNestedOneWithoutUsuariosInput
   rol: Prisma.RolCreateNestedOneWithoutUsuariosInput
-  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutUsuariosInput
-  foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
-  comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
-  recursos?: Prisma.RecursoCreateNestedManyWithoutUsuarioCreadorInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteCreateNestedManyWithoutUsuarioInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutResponsableInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutCreadorInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaCreateNestedManyWithoutUsuarioInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaCreateNestedManyWithoutUsuarioInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeCreateNestedManyWithoutUsuarioInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutEstudianteInput
-  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutDocenteInput
-  auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
-  calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioUncheckedCreateWithoutProyectosDocenteInput = {
@@ -2106,21 +2106,21 @@ export type UsuarioUncheckedCreateWithoutProyectosDocenteInput = {
   institucionId: number
   rolId: number
   gradoEscolarId?: number | null
-  foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
-  comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
-  recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutUsuarioCreadorInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedCreateNestedManyWithoutUsuarioInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutResponsableInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutCreadorInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedCreateNestedManyWithoutUsuarioInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedCreateNestedManyWithoutUsuarioInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutEstudianteInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutDocenteInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutEstudianteInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutUsuarioInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutUsuarioInput
+  comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
+  foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutCreadorInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutResponsableInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedCreateNestedManyWithoutUsuarioInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedCreateNestedManyWithoutUsuarioInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedCreateNestedManyWithoutUsuarioInput
+  recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutUsuarioCreadorInput
 }
 
 export type UsuarioCreateOrConnectWithoutProyectosDocenteInput = {
@@ -2153,24 +2153,24 @@ export type UsuarioUpdateWithoutProyectosDocenteInput = {
   ultimoAcceso?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutDocenteNestedInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutEstudianteNestedInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUpdateManyWithoutUsuarioNestedInput
+  auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
+  comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
+  foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutCreadorNestedInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutResponsableNestedInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaUpdateManyWithoutUsuarioNestedInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUpdateManyWithoutUsuarioNestedInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUpdateManyWithoutUsuarioNestedInput
+  recursos?: Prisma.RecursoUpdateManyWithoutUsuarioCreadorNestedInput
+  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutUsuariosNestedInput
   institucion?: Prisma.InstitucionUpdateOneRequiredWithoutUsuariosNestedInput
   rol?: Prisma.RolUpdateOneRequiredWithoutUsuariosNestedInput
-  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutUsuariosNestedInput
-  foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
-  comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
-  recursos?: Prisma.RecursoUpdateManyWithoutUsuarioCreadorNestedInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUpdateManyWithoutUsuarioNestedInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutResponsableNestedInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutCreadorNestedInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUpdateManyWithoutUsuarioNestedInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaUpdateManyWithoutUsuarioNestedInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUpdateManyWithoutUsuarioNestedInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutEstudianteNestedInput
-  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutDocenteNestedInput
-  auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
-  calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioUncheckedUpdateWithoutProyectosDocenteInput = {
@@ -2191,21 +2191,21 @@ export type UsuarioUncheckedUpdateWithoutProyectosDocenteInput = {
   institucionId?: Prisma.IntFieldUpdateOperationsInput | number
   rolId?: Prisma.IntFieldUpdateOperationsInput | number
   gradoEscolarId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
-  comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
-  recursos?: Prisma.RecursoUncheckedUpdateManyWithoutUsuarioCreadorNestedInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedUpdateManyWithoutUsuarioNestedInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutResponsableNestedInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutCreadorNestedInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedUpdateManyWithoutUsuarioNestedInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedUpdateManyWithoutUsuarioNestedInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutEstudianteNestedInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutDocenteNestedInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutEstudianteNestedInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutUsuarioNestedInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutUsuarioNestedInput
+  comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
+  foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutCreadorNestedInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutResponsableNestedInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedUpdateManyWithoutUsuarioNestedInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedUpdateManyWithoutUsuarioNestedInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedUpdateManyWithoutUsuarioNestedInput
+  recursos?: Prisma.RecursoUncheckedUpdateManyWithoutUsuarioCreadorNestedInput
 }
 
 export type UsuarioCreateWithoutProyectosIntegranteInput = {
@@ -2222,24 +2222,24 @@ export type UsuarioCreateWithoutProyectosIntegranteInput = {
   ultimoAcceso?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutDocenteInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutEstudianteInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeCreateNestedManyWithoutUsuarioInput
+  auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
+  comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
+  foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutCreadorInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutResponsableInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaCreateNestedManyWithoutUsuarioInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaCreateNestedManyWithoutUsuarioInput
+  proyectosDocente?: Prisma.ProyectoColaborativoCreateNestedManyWithoutDocenteInput
+  recursos?: Prisma.RecursoCreateNestedManyWithoutUsuarioCreadorInput
+  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutUsuariosInput
   institucion: Prisma.InstitucionCreateNestedOneWithoutUsuariosInput
   rol: Prisma.RolCreateNestedOneWithoutUsuariosInput
-  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutUsuariosInput
-  foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
-  comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
-  recursos?: Prisma.RecursoCreateNestedManyWithoutUsuarioCreadorInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
-  proyectosDocente?: Prisma.ProyectoColaborativoCreateNestedManyWithoutDocenteInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutResponsableInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutCreadorInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaCreateNestedManyWithoutUsuarioInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaCreateNestedManyWithoutUsuarioInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeCreateNestedManyWithoutUsuarioInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutEstudianteInput
-  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutDocenteInput
-  auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
-  calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioUncheckedCreateWithoutProyectosIntegranteInput = {
@@ -2260,21 +2260,21 @@ export type UsuarioUncheckedCreateWithoutProyectosIntegranteInput = {
   institucionId: number
   rolId: number
   gradoEscolarId?: number | null
-  foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
-  comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
-  recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutUsuarioCreadorInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
-  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedCreateNestedManyWithoutDocenteInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutResponsableInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutCreadorInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedCreateNestedManyWithoutUsuarioInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedCreateNestedManyWithoutUsuarioInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutEstudianteInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutDocenteInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutEstudianteInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutUsuarioInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutUsuarioInput
+  comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
+  foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutCreadorInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutResponsableInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedCreateNestedManyWithoutUsuarioInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedCreateNestedManyWithoutUsuarioInput
+  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedCreateNestedManyWithoutDocenteInput
+  recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutUsuarioCreadorInput
 }
 
 export type UsuarioCreateOrConnectWithoutProyectosIntegranteInput = {
@@ -2307,24 +2307,24 @@ export type UsuarioUpdateWithoutProyectosIntegranteInput = {
   ultimoAcceso?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutDocenteNestedInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutEstudianteNestedInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUpdateManyWithoutUsuarioNestedInput
+  auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
+  comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
+  foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutCreadorNestedInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutResponsableNestedInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaUpdateManyWithoutUsuarioNestedInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUpdateManyWithoutUsuarioNestedInput
+  proyectosDocente?: Prisma.ProyectoColaborativoUpdateManyWithoutDocenteNestedInput
+  recursos?: Prisma.RecursoUpdateManyWithoutUsuarioCreadorNestedInput
+  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutUsuariosNestedInput
   institucion?: Prisma.InstitucionUpdateOneRequiredWithoutUsuariosNestedInput
   rol?: Prisma.RolUpdateOneRequiredWithoutUsuariosNestedInput
-  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutUsuariosNestedInput
-  foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
-  comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
-  recursos?: Prisma.RecursoUpdateManyWithoutUsuarioCreadorNestedInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
-  proyectosDocente?: Prisma.ProyectoColaborativoUpdateManyWithoutDocenteNestedInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutResponsableNestedInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutCreadorNestedInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUpdateManyWithoutUsuarioNestedInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaUpdateManyWithoutUsuarioNestedInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUpdateManyWithoutUsuarioNestedInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutEstudianteNestedInput
-  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutDocenteNestedInput
-  auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
-  calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioUncheckedUpdateWithoutProyectosIntegranteInput = {
@@ -2345,95 +2345,21 @@ export type UsuarioUncheckedUpdateWithoutProyectosIntegranteInput = {
   institucionId?: Prisma.IntFieldUpdateOperationsInput | number
   rolId?: Prisma.IntFieldUpdateOperationsInput | number
   gradoEscolarId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
-  comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
-  recursos?: Prisma.RecursoUncheckedUpdateManyWithoutUsuarioCreadorNestedInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
-  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedUpdateManyWithoutDocenteNestedInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutResponsableNestedInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutCreadorNestedInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedUpdateManyWithoutUsuarioNestedInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedUpdateManyWithoutUsuarioNestedInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutEstudianteNestedInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutDocenteNestedInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutEstudianteNestedInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutUsuarioNestedInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutUsuarioNestedInput
-}
-
-export type UsuarioCreateWithoutActividadesResponsableInput = {
-  nombres: string
-  apellidos: string
-  correo: string
-  tipoDocumento: string
-  documento: string
-  fechaNacimiento: Date | string
-  genero: string
-  foto?: string | null
-  contrasena: string
-  activo?: boolean
-  ultimoAcceso?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  institucion: Prisma.InstitucionCreateNestedOneWithoutUsuariosInput
-  rol: Prisma.RolCreateNestedOneWithoutUsuariosInput
-  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutUsuariosInput
-  foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
-  comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
-  recursos?: Prisma.RecursoCreateNestedManyWithoutUsuarioCreadorInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
-  proyectosDocente?: Prisma.ProyectoColaborativoCreateNestedManyWithoutDocenteInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteCreateNestedManyWithoutUsuarioInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutCreadorInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaCreateNestedManyWithoutUsuarioInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaCreateNestedManyWithoutUsuarioInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeCreateNestedManyWithoutUsuarioInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutEstudianteInput
-  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutDocenteInput
-  auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
-  calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
-}
-
-export type UsuarioUncheckedCreateWithoutActividadesResponsableInput = {
-  id?: number
-  nombres: string
-  apellidos: string
-  correo: string
-  tipoDocumento: string
-  documento: string
-  fechaNacimiento: Date | string
-  genero: string
-  foto?: string | null
-  contrasena: string
-  activo?: boolean
-  ultimoAcceso?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  institucionId: number
-  rolId: number
-  gradoEscolarId?: number | null
-  foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
-  comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
-  recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutUsuarioCreadorInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
-  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedCreateNestedManyWithoutDocenteInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedCreateNestedManyWithoutUsuarioInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutCreadorInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedCreateNestedManyWithoutUsuarioInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedCreateNestedManyWithoutUsuarioInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutEstudianteInput
-  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutDocenteInput
-  auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutUsuarioInput
-  calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutUsuarioInput
-}
-
-export type UsuarioCreateOrConnectWithoutActividadesResponsableInput = {
-  where: Prisma.UsuarioWhereUniqueInput
-  create: Prisma.XOR<Prisma.UsuarioCreateWithoutActividadesResponsableInput, Prisma.UsuarioUncheckedCreateWithoutActividadesResponsableInput>
+  comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
+  foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutCreadorNestedInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutResponsableNestedInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedUpdateManyWithoutUsuarioNestedInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedUpdateManyWithoutUsuarioNestedInput
+  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedUpdateManyWithoutDocenteNestedInput
+  recursos?: Prisma.RecursoUncheckedUpdateManyWithoutUsuarioCreadorNestedInput
 }
 
 export type UsuarioCreateWithoutActividadesCreadasInput = {
@@ -2450,24 +2376,24 @@ export type UsuarioCreateWithoutActividadesCreadasInput = {
   ultimoAcceso?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutDocenteInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutEstudianteInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeCreateNestedManyWithoutUsuarioInput
+  auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
+  comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
+  foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutResponsableInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaCreateNestedManyWithoutUsuarioInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaCreateNestedManyWithoutUsuarioInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteCreateNestedManyWithoutUsuarioInput
+  proyectosDocente?: Prisma.ProyectoColaborativoCreateNestedManyWithoutDocenteInput
+  recursos?: Prisma.RecursoCreateNestedManyWithoutUsuarioCreadorInput
+  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutUsuariosInput
   institucion: Prisma.InstitucionCreateNestedOneWithoutUsuariosInput
   rol: Prisma.RolCreateNestedOneWithoutUsuariosInput
-  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutUsuariosInput
-  foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
-  comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
-  recursos?: Prisma.RecursoCreateNestedManyWithoutUsuarioCreadorInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
-  proyectosDocente?: Prisma.ProyectoColaborativoCreateNestedManyWithoutDocenteInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteCreateNestedManyWithoutUsuarioInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutResponsableInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaCreateNestedManyWithoutUsuarioInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaCreateNestedManyWithoutUsuarioInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeCreateNestedManyWithoutUsuarioInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutEstudianteInput
-  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutDocenteInput
-  auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
-  calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioUncheckedCreateWithoutActividadesCreadasInput = {
@@ -2488,21 +2414,21 @@ export type UsuarioUncheckedCreateWithoutActividadesCreadasInput = {
   institucionId: number
   rolId: number
   gradoEscolarId?: number | null
-  foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
-  comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
-  recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutUsuarioCreadorInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
-  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedCreateNestedManyWithoutDocenteInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedCreateNestedManyWithoutUsuarioInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutResponsableInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedCreateNestedManyWithoutUsuarioInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedCreateNestedManyWithoutUsuarioInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutEstudianteInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutDocenteInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutEstudianteInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutUsuarioInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutUsuarioInput
+  comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
+  foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutResponsableInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedCreateNestedManyWithoutUsuarioInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedCreateNestedManyWithoutUsuarioInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedCreateNestedManyWithoutUsuarioInput
+  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedCreateNestedManyWithoutDocenteInput
+  recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutUsuarioCreadorInput
 }
 
 export type UsuarioCreateOrConnectWithoutActividadesCreadasInput = {
@@ -2510,84 +2436,78 @@ export type UsuarioCreateOrConnectWithoutActividadesCreadasInput = {
   create: Prisma.XOR<Prisma.UsuarioCreateWithoutActividadesCreadasInput, Prisma.UsuarioUncheckedCreateWithoutActividadesCreadasInput>
 }
 
-export type UsuarioUpsertWithoutActividadesResponsableInput = {
-  update: Prisma.XOR<Prisma.UsuarioUpdateWithoutActividadesResponsableInput, Prisma.UsuarioUncheckedUpdateWithoutActividadesResponsableInput>
+export type UsuarioCreateWithoutActividadesResponsableInput = {
+  nombres: string
+  apellidos: string
+  correo: string
+  tipoDocumento: string
+  documento: string
+  fechaNacimiento: Date | string
+  genero: string
+  foto?: string | null
+  contrasena: string
+  activo?: boolean
+  ultimoAcceso?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutDocenteInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutEstudianteInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeCreateNestedManyWithoutUsuarioInput
+  auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
+  comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
+  foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutCreadorInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaCreateNestedManyWithoutUsuarioInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaCreateNestedManyWithoutUsuarioInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteCreateNestedManyWithoutUsuarioInput
+  proyectosDocente?: Prisma.ProyectoColaborativoCreateNestedManyWithoutDocenteInput
+  recursos?: Prisma.RecursoCreateNestedManyWithoutUsuarioCreadorInput
+  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutUsuariosInput
+  institucion: Prisma.InstitucionCreateNestedOneWithoutUsuariosInput
+  rol: Prisma.RolCreateNestedOneWithoutUsuariosInput
+}
+
+export type UsuarioUncheckedCreateWithoutActividadesResponsableInput = {
+  id?: number
+  nombres: string
+  apellidos: string
+  correo: string
+  tipoDocumento: string
+  documento: string
+  fechaNacimiento: Date | string
+  genero: string
+  foto?: string | null
+  contrasena: string
+  activo?: boolean
+  ultimoAcceso?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  institucionId: number
+  rolId: number
+  gradoEscolarId?: number | null
+  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutDocenteInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutEstudianteInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
+  auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutUsuarioInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutUsuarioInput
+  comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
+  foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutCreadorInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedCreateNestedManyWithoutUsuarioInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedCreateNestedManyWithoutUsuarioInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedCreateNestedManyWithoutUsuarioInput
+  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedCreateNestedManyWithoutDocenteInput
+  recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutUsuarioCreadorInput
+}
+
+export type UsuarioCreateOrConnectWithoutActividadesResponsableInput = {
+  where: Prisma.UsuarioWhereUniqueInput
   create: Prisma.XOR<Prisma.UsuarioCreateWithoutActividadesResponsableInput, Prisma.UsuarioUncheckedCreateWithoutActividadesResponsableInput>
-  where?: Prisma.UsuarioWhereInput
-}
-
-export type UsuarioUpdateToOneWithWhereWithoutActividadesResponsableInput = {
-  where?: Prisma.UsuarioWhereInput
-  data: Prisma.XOR<Prisma.UsuarioUpdateWithoutActividadesResponsableInput, Prisma.UsuarioUncheckedUpdateWithoutActividadesResponsableInput>
-}
-
-export type UsuarioUpdateWithoutActividadesResponsableInput = {
-  nombres?: Prisma.StringFieldUpdateOperationsInput | string
-  apellidos?: Prisma.StringFieldUpdateOperationsInput | string
-  correo?: Prisma.StringFieldUpdateOperationsInput | string
-  tipoDocumento?: Prisma.StringFieldUpdateOperationsInput | string
-  documento?: Prisma.StringFieldUpdateOperationsInput | string
-  fechaNacimiento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  genero?: Prisma.StringFieldUpdateOperationsInput | string
-  foto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  contrasena?: Prisma.StringFieldUpdateOperationsInput | string
-  activo?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  ultimoAcceso?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutUsuariosNestedInput
-  rol?: Prisma.RolUpdateOneRequiredWithoutUsuariosNestedInput
-  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutUsuariosNestedInput
-  foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
-  comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
-  recursos?: Prisma.RecursoUpdateManyWithoutUsuarioCreadorNestedInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
-  proyectosDocente?: Prisma.ProyectoColaborativoUpdateManyWithoutDocenteNestedInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUpdateManyWithoutUsuarioNestedInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutCreadorNestedInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUpdateManyWithoutUsuarioNestedInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaUpdateManyWithoutUsuarioNestedInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUpdateManyWithoutUsuarioNestedInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutEstudianteNestedInput
-  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutDocenteNestedInput
-  auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
-  calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
-}
-
-export type UsuarioUncheckedUpdateWithoutActividadesResponsableInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  nombres?: Prisma.StringFieldUpdateOperationsInput | string
-  apellidos?: Prisma.StringFieldUpdateOperationsInput | string
-  correo?: Prisma.StringFieldUpdateOperationsInput | string
-  tipoDocumento?: Prisma.StringFieldUpdateOperationsInput | string
-  documento?: Prisma.StringFieldUpdateOperationsInput | string
-  fechaNacimiento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  genero?: Prisma.StringFieldUpdateOperationsInput | string
-  foto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  contrasena?: Prisma.StringFieldUpdateOperationsInput | string
-  activo?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  ultimoAcceso?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  institucionId?: Prisma.IntFieldUpdateOperationsInput | number
-  rolId?: Prisma.IntFieldUpdateOperationsInput | number
-  gradoEscolarId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
-  comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
-  recursos?: Prisma.RecursoUncheckedUpdateManyWithoutUsuarioCreadorNestedInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
-  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedUpdateManyWithoutDocenteNestedInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedUpdateManyWithoutUsuarioNestedInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutCreadorNestedInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedUpdateManyWithoutUsuarioNestedInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedUpdateManyWithoutUsuarioNestedInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutEstudianteNestedInput
-  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutDocenteNestedInput
-  auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutUsuarioNestedInput
-  calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioUpsertWithoutActividadesCreadasInput = {
@@ -2615,24 +2535,24 @@ export type UsuarioUpdateWithoutActividadesCreadasInput = {
   ultimoAcceso?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutDocenteNestedInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutEstudianteNestedInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUpdateManyWithoutUsuarioNestedInput
+  auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
+  comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
+  foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutResponsableNestedInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaUpdateManyWithoutUsuarioNestedInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUpdateManyWithoutUsuarioNestedInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUpdateManyWithoutUsuarioNestedInput
+  proyectosDocente?: Prisma.ProyectoColaborativoUpdateManyWithoutDocenteNestedInput
+  recursos?: Prisma.RecursoUpdateManyWithoutUsuarioCreadorNestedInput
+  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutUsuariosNestedInput
   institucion?: Prisma.InstitucionUpdateOneRequiredWithoutUsuariosNestedInput
   rol?: Prisma.RolUpdateOneRequiredWithoutUsuariosNestedInput
-  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutUsuariosNestedInput
-  foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
-  comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
-  recursos?: Prisma.RecursoUpdateManyWithoutUsuarioCreadorNestedInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
-  proyectosDocente?: Prisma.ProyectoColaborativoUpdateManyWithoutDocenteNestedInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUpdateManyWithoutUsuarioNestedInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutResponsableNestedInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUpdateManyWithoutUsuarioNestedInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaUpdateManyWithoutUsuarioNestedInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUpdateManyWithoutUsuarioNestedInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutEstudianteNestedInput
-  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutDocenteNestedInput
-  auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
-  calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioUncheckedUpdateWithoutActividadesCreadasInput = {
@@ -2653,21 +2573,101 @@ export type UsuarioUncheckedUpdateWithoutActividadesCreadasInput = {
   institucionId?: Prisma.IntFieldUpdateOperationsInput | number
   rolId?: Prisma.IntFieldUpdateOperationsInput | number
   gradoEscolarId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
-  comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
-  recursos?: Prisma.RecursoUncheckedUpdateManyWithoutUsuarioCreadorNestedInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
-  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedUpdateManyWithoutDocenteNestedInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedUpdateManyWithoutUsuarioNestedInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutResponsableNestedInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedUpdateManyWithoutUsuarioNestedInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedUpdateManyWithoutUsuarioNestedInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutEstudianteNestedInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutDocenteNestedInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutEstudianteNestedInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutUsuarioNestedInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutUsuarioNestedInput
+  comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
+  foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutResponsableNestedInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedUpdateManyWithoutUsuarioNestedInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedUpdateManyWithoutUsuarioNestedInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedUpdateManyWithoutUsuarioNestedInput
+  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedUpdateManyWithoutDocenteNestedInput
+  recursos?: Prisma.RecursoUncheckedUpdateManyWithoutUsuarioCreadorNestedInput
+}
+
+export type UsuarioUpsertWithoutActividadesResponsableInput = {
+  update: Prisma.XOR<Prisma.UsuarioUpdateWithoutActividadesResponsableInput, Prisma.UsuarioUncheckedUpdateWithoutActividadesResponsableInput>
+  create: Prisma.XOR<Prisma.UsuarioCreateWithoutActividadesResponsableInput, Prisma.UsuarioUncheckedCreateWithoutActividadesResponsableInput>
+  where?: Prisma.UsuarioWhereInput
+}
+
+export type UsuarioUpdateToOneWithWhereWithoutActividadesResponsableInput = {
+  where?: Prisma.UsuarioWhereInput
+  data: Prisma.XOR<Prisma.UsuarioUpdateWithoutActividadesResponsableInput, Prisma.UsuarioUncheckedUpdateWithoutActividadesResponsableInput>
+}
+
+export type UsuarioUpdateWithoutActividadesResponsableInput = {
+  nombres?: Prisma.StringFieldUpdateOperationsInput | string
+  apellidos?: Prisma.StringFieldUpdateOperationsInput | string
+  correo?: Prisma.StringFieldUpdateOperationsInput | string
+  tipoDocumento?: Prisma.StringFieldUpdateOperationsInput | string
+  documento?: Prisma.StringFieldUpdateOperationsInput | string
+  fechaNacimiento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  genero?: Prisma.StringFieldUpdateOperationsInput | string
+  foto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contrasena?: Prisma.StringFieldUpdateOperationsInput | string
+  activo?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ultimoAcceso?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutDocenteNestedInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutEstudianteNestedInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUpdateManyWithoutUsuarioNestedInput
+  auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
+  comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
+  foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutCreadorNestedInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaUpdateManyWithoutUsuarioNestedInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUpdateManyWithoutUsuarioNestedInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUpdateManyWithoutUsuarioNestedInput
+  proyectosDocente?: Prisma.ProyectoColaborativoUpdateManyWithoutDocenteNestedInput
+  recursos?: Prisma.RecursoUpdateManyWithoutUsuarioCreadorNestedInput
+  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutUsuariosNestedInput
+  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutUsuariosNestedInput
+  rol?: Prisma.RolUpdateOneRequiredWithoutUsuariosNestedInput
+}
+
+export type UsuarioUncheckedUpdateWithoutActividadesResponsableInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  nombres?: Prisma.StringFieldUpdateOperationsInput | string
+  apellidos?: Prisma.StringFieldUpdateOperationsInput | string
+  correo?: Prisma.StringFieldUpdateOperationsInput | string
+  tipoDocumento?: Prisma.StringFieldUpdateOperationsInput | string
+  documento?: Prisma.StringFieldUpdateOperationsInput | string
+  fechaNacimiento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  genero?: Prisma.StringFieldUpdateOperationsInput | string
+  foto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contrasena?: Prisma.StringFieldUpdateOperationsInput | string
+  activo?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ultimoAcceso?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  institucionId?: Prisma.IntFieldUpdateOperationsInput | number
+  rolId?: Prisma.IntFieldUpdateOperationsInput | number
+  gradoEscolarId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutDocenteNestedInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutEstudianteNestedInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
+  auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutUsuarioNestedInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutUsuarioNestedInput
+  comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
+  foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutCreadorNestedInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedUpdateManyWithoutUsuarioNestedInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedUpdateManyWithoutUsuarioNestedInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedUpdateManyWithoutUsuarioNestedInput
+  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedUpdateManyWithoutDocenteNestedInput
+  recursos?: Prisma.RecursoUncheckedUpdateManyWithoutUsuarioCreadorNestedInput
 }
 
 export type UsuarioCreateWithoutEvidenciasAulaInput = {
@@ -2684,24 +2684,24 @@ export type UsuarioCreateWithoutEvidenciasAulaInput = {
   ultimoAcceso?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutDocenteInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutEstudianteInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeCreateNestedManyWithoutUsuarioInput
+  auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
+  comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
+  foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutCreadorInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutResponsableInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaCreateNestedManyWithoutUsuarioInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteCreateNestedManyWithoutUsuarioInput
+  proyectosDocente?: Prisma.ProyectoColaborativoCreateNestedManyWithoutDocenteInput
+  recursos?: Prisma.RecursoCreateNestedManyWithoutUsuarioCreadorInput
+  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutUsuariosInput
   institucion: Prisma.InstitucionCreateNestedOneWithoutUsuariosInput
   rol: Prisma.RolCreateNestedOneWithoutUsuariosInput
-  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutUsuariosInput
-  foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
-  comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
-  recursos?: Prisma.RecursoCreateNestedManyWithoutUsuarioCreadorInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
-  proyectosDocente?: Prisma.ProyectoColaborativoCreateNestedManyWithoutDocenteInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteCreateNestedManyWithoutUsuarioInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutResponsableInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutCreadorInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaCreateNestedManyWithoutUsuarioInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeCreateNestedManyWithoutUsuarioInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutEstudianteInput
-  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutDocenteInput
-  auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
-  calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioUncheckedCreateWithoutEvidenciasAulaInput = {
@@ -2722,21 +2722,21 @@ export type UsuarioUncheckedCreateWithoutEvidenciasAulaInput = {
   institucionId: number
   rolId: number
   gradoEscolarId?: number | null
-  foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
-  comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
-  recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutUsuarioCreadorInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
-  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedCreateNestedManyWithoutDocenteInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedCreateNestedManyWithoutUsuarioInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutResponsableInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutCreadorInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedCreateNestedManyWithoutUsuarioInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutEstudianteInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutDocenteInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutEstudianteInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutUsuarioInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutUsuarioInput
+  comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
+  foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutCreadorInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutResponsableInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedCreateNestedManyWithoutUsuarioInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedCreateNestedManyWithoutUsuarioInput
+  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedCreateNestedManyWithoutDocenteInput
+  recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutUsuarioCreadorInput
 }
 
 export type UsuarioCreateOrConnectWithoutEvidenciasAulaInput = {
@@ -2769,24 +2769,24 @@ export type UsuarioUpdateWithoutEvidenciasAulaInput = {
   ultimoAcceso?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutDocenteNestedInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutEstudianteNestedInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUpdateManyWithoutUsuarioNestedInput
+  auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
+  comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
+  foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutCreadorNestedInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutResponsableNestedInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaUpdateManyWithoutUsuarioNestedInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUpdateManyWithoutUsuarioNestedInput
+  proyectosDocente?: Prisma.ProyectoColaborativoUpdateManyWithoutDocenteNestedInput
+  recursos?: Prisma.RecursoUpdateManyWithoutUsuarioCreadorNestedInput
+  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutUsuariosNestedInput
   institucion?: Prisma.InstitucionUpdateOneRequiredWithoutUsuariosNestedInput
   rol?: Prisma.RolUpdateOneRequiredWithoutUsuariosNestedInput
-  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutUsuariosNestedInput
-  foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
-  comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
-  recursos?: Prisma.RecursoUpdateManyWithoutUsuarioCreadorNestedInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
-  proyectosDocente?: Prisma.ProyectoColaborativoUpdateManyWithoutDocenteNestedInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUpdateManyWithoutUsuarioNestedInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutResponsableNestedInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutCreadorNestedInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaUpdateManyWithoutUsuarioNestedInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUpdateManyWithoutUsuarioNestedInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutEstudianteNestedInput
-  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutDocenteNestedInput
-  auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
-  calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioUncheckedUpdateWithoutEvidenciasAulaInput = {
@@ -2807,21 +2807,21 @@ export type UsuarioUncheckedUpdateWithoutEvidenciasAulaInput = {
   institucionId?: Prisma.IntFieldUpdateOperationsInput | number
   rolId?: Prisma.IntFieldUpdateOperationsInput | number
   gradoEscolarId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
-  comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
-  recursos?: Prisma.RecursoUncheckedUpdateManyWithoutUsuarioCreadorNestedInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
-  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedUpdateManyWithoutDocenteNestedInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedUpdateManyWithoutUsuarioNestedInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutResponsableNestedInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutCreadorNestedInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedUpdateManyWithoutUsuarioNestedInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutEstudianteNestedInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutDocenteNestedInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutEstudianteNestedInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutUsuarioNestedInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutUsuarioNestedInput
+  comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
+  foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutCreadorNestedInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutResponsableNestedInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedUpdateManyWithoutUsuarioNestedInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedUpdateManyWithoutUsuarioNestedInput
+  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedUpdateManyWithoutDocenteNestedInput
+  recursos?: Prisma.RecursoUncheckedUpdateManyWithoutUsuarioCreadorNestedInput
 }
 
 export type UsuarioCreateWithoutEntregasAulaInput = {
@@ -2838,24 +2838,24 @@ export type UsuarioCreateWithoutEntregasAulaInput = {
   ultimoAcceso?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutDocenteInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutEstudianteInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeCreateNestedManyWithoutUsuarioInput
+  auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
+  comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
+  foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutCreadorInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutResponsableInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaCreateNestedManyWithoutUsuarioInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteCreateNestedManyWithoutUsuarioInput
+  proyectosDocente?: Prisma.ProyectoColaborativoCreateNestedManyWithoutDocenteInput
+  recursos?: Prisma.RecursoCreateNestedManyWithoutUsuarioCreadorInput
+  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutUsuariosInput
   institucion: Prisma.InstitucionCreateNestedOneWithoutUsuariosInput
   rol: Prisma.RolCreateNestedOneWithoutUsuariosInput
-  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutUsuariosInput
-  foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
-  comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
-  recursos?: Prisma.RecursoCreateNestedManyWithoutUsuarioCreadorInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
-  proyectosDocente?: Prisma.ProyectoColaborativoCreateNestedManyWithoutDocenteInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteCreateNestedManyWithoutUsuarioInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutResponsableInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutCreadorInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaCreateNestedManyWithoutUsuarioInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeCreateNestedManyWithoutUsuarioInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutEstudianteInput
-  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutDocenteInput
-  auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
-  calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioUncheckedCreateWithoutEntregasAulaInput = {
@@ -2876,21 +2876,21 @@ export type UsuarioUncheckedCreateWithoutEntregasAulaInput = {
   institucionId: number
   rolId: number
   gradoEscolarId?: number | null
-  foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
-  comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
-  recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutUsuarioCreadorInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
-  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedCreateNestedManyWithoutDocenteInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedCreateNestedManyWithoutUsuarioInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutResponsableInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutCreadorInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedCreateNestedManyWithoutUsuarioInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutEstudianteInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutDocenteInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutEstudianteInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutUsuarioInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutUsuarioInput
+  comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
+  foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutCreadorInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutResponsableInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedCreateNestedManyWithoutUsuarioInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedCreateNestedManyWithoutUsuarioInput
+  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedCreateNestedManyWithoutDocenteInput
+  recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutUsuarioCreadorInput
 }
 
 export type UsuarioCreateOrConnectWithoutEntregasAulaInput = {
@@ -2923,24 +2923,24 @@ export type UsuarioUpdateWithoutEntregasAulaInput = {
   ultimoAcceso?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutDocenteNestedInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutEstudianteNestedInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUpdateManyWithoutUsuarioNestedInput
+  auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
+  comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
+  foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutCreadorNestedInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutResponsableNestedInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUpdateManyWithoutUsuarioNestedInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUpdateManyWithoutUsuarioNestedInput
+  proyectosDocente?: Prisma.ProyectoColaborativoUpdateManyWithoutDocenteNestedInput
+  recursos?: Prisma.RecursoUpdateManyWithoutUsuarioCreadorNestedInput
+  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutUsuariosNestedInput
   institucion?: Prisma.InstitucionUpdateOneRequiredWithoutUsuariosNestedInput
   rol?: Prisma.RolUpdateOneRequiredWithoutUsuariosNestedInput
-  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutUsuariosNestedInput
-  foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
-  comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
-  recursos?: Prisma.RecursoUpdateManyWithoutUsuarioCreadorNestedInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
-  proyectosDocente?: Prisma.ProyectoColaborativoUpdateManyWithoutDocenteNestedInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUpdateManyWithoutUsuarioNestedInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutResponsableNestedInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutCreadorNestedInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUpdateManyWithoutUsuarioNestedInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUpdateManyWithoutUsuarioNestedInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutEstudianteNestedInput
-  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutDocenteNestedInput
-  auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
-  calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioUncheckedUpdateWithoutEntregasAulaInput = {
@@ -2961,21 +2961,21 @@ export type UsuarioUncheckedUpdateWithoutEntregasAulaInput = {
   institucionId?: Prisma.IntFieldUpdateOperationsInput | number
   rolId?: Prisma.IntFieldUpdateOperationsInput | number
   gradoEscolarId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
-  comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
-  recursos?: Prisma.RecursoUncheckedUpdateManyWithoutUsuarioCreadorNestedInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
-  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedUpdateManyWithoutDocenteNestedInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedUpdateManyWithoutUsuarioNestedInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutResponsableNestedInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutCreadorNestedInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedUpdateManyWithoutUsuarioNestedInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutEstudianteNestedInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutDocenteNestedInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutEstudianteNestedInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutUsuarioNestedInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutUsuarioNestedInput
+  comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
+  foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutCreadorNestedInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutResponsableNestedInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedUpdateManyWithoutUsuarioNestedInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedUpdateManyWithoutUsuarioNestedInput
+  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedUpdateManyWithoutDocenteNestedInput
+  recursos?: Prisma.RecursoUncheckedUpdateManyWithoutUsuarioCreadorNestedInput
 }
 
 export type UsuarioCreateWithoutAuditoriaLogsInput = {
@@ -2992,24 +2992,24 @@ export type UsuarioCreateWithoutAuditoriaLogsInput = {
   ultimoAcceso?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutDocenteInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutEstudianteInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeCreateNestedManyWithoutUsuarioInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
+  comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
+  foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutCreadorInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutResponsableInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaCreateNestedManyWithoutUsuarioInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaCreateNestedManyWithoutUsuarioInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteCreateNestedManyWithoutUsuarioInput
+  proyectosDocente?: Prisma.ProyectoColaborativoCreateNestedManyWithoutDocenteInput
+  recursos?: Prisma.RecursoCreateNestedManyWithoutUsuarioCreadorInput
+  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutUsuariosInput
   institucion: Prisma.InstitucionCreateNestedOneWithoutUsuariosInput
   rol: Prisma.RolCreateNestedOneWithoutUsuariosInput
-  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutUsuariosInput
-  foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
-  comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
-  recursos?: Prisma.RecursoCreateNestedManyWithoutUsuarioCreadorInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
-  proyectosDocente?: Prisma.ProyectoColaborativoCreateNestedManyWithoutDocenteInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteCreateNestedManyWithoutUsuarioInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutResponsableInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutCreadorInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaCreateNestedManyWithoutUsuarioInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaCreateNestedManyWithoutUsuarioInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeCreateNestedManyWithoutUsuarioInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutEstudianteInput
-  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutDocenteInput
-  calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioUncheckedCreateWithoutAuditoriaLogsInput = {
@@ -3030,21 +3030,21 @@ export type UsuarioUncheckedCreateWithoutAuditoriaLogsInput = {
   institucionId: number
   rolId: number
   gradoEscolarId?: number | null
-  foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
-  comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
-  recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutUsuarioCreadorInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
-  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedCreateNestedManyWithoutDocenteInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedCreateNestedManyWithoutUsuarioInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutResponsableInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutCreadorInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedCreateNestedManyWithoutUsuarioInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedCreateNestedManyWithoutUsuarioInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutEstudianteInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutDocenteInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutEstudianteInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutUsuarioInput
+  comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
+  foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutCreadorInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutResponsableInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedCreateNestedManyWithoutUsuarioInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedCreateNestedManyWithoutUsuarioInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedCreateNestedManyWithoutUsuarioInput
+  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedCreateNestedManyWithoutDocenteInput
+  recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutUsuarioCreadorInput
 }
 
 export type UsuarioCreateOrConnectWithoutAuditoriaLogsInput = {
@@ -3077,24 +3077,24 @@ export type UsuarioUpdateWithoutAuditoriaLogsInput = {
   ultimoAcceso?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutDocenteNestedInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutEstudianteNestedInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUpdateManyWithoutUsuarioNestedInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
+  comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
+  foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutCreadorNestedInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutResponsableNestedInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaUpdateManyWithoutUsuarioNestedInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUpdateManyWithoutUsuarioNestedInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUpdateManyWithoutUsuarioNestedInput
+  proyectosDocente?: Prisma.ProyectoColaborativoUpdateManyWithoutDocenteNestedInput
+  recursos?: Prisma.RecursoUpdateManyWithoutUsuarioCreadorNestedInput
+  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutUsuariosNestedInput
   institucion?: Prisma.InstitucionUpdateOneRequiredWithoutUsuariosNestedInput
   rol?: Prisma.RolUpdateOneRequiredWithoutUsuariosNestedInput
-  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutUsuariosNestedInput
-  foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
-  comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
-  recursos?: Prisma.RecursoUpdateManyWithoutUsuarioCreadorNestedInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
-  proyectosDocente?: Prisma.ProyectoColaborativoUpdateManyWithoutDocenteNestedInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUpdateManyWithoutUsuarioNestedInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutResponsableNestedInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutCreadorNestedInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUpdateManyWithoutUsuarioNestedInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaUpdateManyWithoutUsuarioNestedInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUpdateManyWithoutUsuarioNestedInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutEstudianteNestedInput
-  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutDocenteNestedInput
-  calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioUncheckedUpdateWithoutAuditoriaLogsInput = {
@@ -3115,21 +3115,21 @@ export type UsuarioUncheckedUpdateWithoutAuditoriaLogsInput = {
   institucionId?: Prisma.IntFieldUpdateOperationsInput | number
   rolId?: Prisma.IntFieldUpdateOperationsInput | number
   gradoEscolarId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
-  comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
-  recursos?: Prisma.RecursoUncheckedUpdateManyWithoutUsuarioCreadorNestedInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
-  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedUpdateManyWithoutDocenteNestedInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedUpdateManyWithoutUsuarioNestedInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutResponsableNestedInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutCreadorNestedInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedUpdateManyWithoutUsuarioNestedInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedUpdateManyWithoutUsuarioNestedInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutEstudianteNestedInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutDocenteNestedInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutEstudianteNestedInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutUsuarioNestedInput
+  comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
+  foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutCreadorNestedInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutResponsableNestedInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedUpdateManyWithoutUsuarioNestedInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedUpdateManyWithoutUsuarioNestedInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedUpdateManyWithoutUsuarioNestedInput
+  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedUpdateManyWithoutDocenteNestedInput
+  recursos?: Prisma.RecursoUncheckedUpdateManyWithoutUsuarioCreadorNestedInput
 }
 
 export type UsuarioCreateWithoutCalificacionesRecursoInput = {
@@ -3146,24 +3146,24 @@ export type UsuarioCreateWithoutCalificacionesRecursoInput = {
   ultimoAcceso?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  institucion: Prisma.InstitucionCreateNestedOneWithoutUsuariosInput
-  rol: Prisma.RolCreateNestedOneWithoutUsuariosInput
-  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutUsuariosInput
-  foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
-  comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
-  recursos?: Prisma.RecursoCreateNestedManyWithoutUsuarioCreadorInput
-  proyectosDocente?: Prisma.ProyectoColaborativoCreateNestedManyWithoutDocenteInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteCreateNestedManyWithoutUsuarioInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutResponsableInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutCreadorInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaCreateNestedManyWithoutUsuarioInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaCreateNestedManyWithoutUsuarioInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeCreateNestedManyWithoutUsuarioInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutEstudianteInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutDocenteInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutEstudianteInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeCreateNestedManyWithoutUsuarioInput
   auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
+  comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
+  foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutCreadorInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutResponsableInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaCreateNestedManyWithoutUsuarioInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaCreateNestedManyWithoutUsuarioInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteCreateNestedManyWithoutUsuarioInput
+  proyectosDocente?: Prisma.ProyectoColaborativoCreateNestedManyWithoutDocenteInput
+  recursos?: Prisma.RecursoCreateNestedManyWithoutUsuarioCreadorInput
+  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutUsuariosInput
+  institucion: Prisma.InstitucionCreateNestedOneWithoutUsuariosInput
+  rol: Prisma.RolCreateNestedOneWithoutUsuariosInput
 }
 
 export type UsuarioUncheckedCreateWithoutCalificacionesRecursoInput = {
@@ -3184,21 +3184,21 @@ export type UsuarioUncheckedCreateWithoutCalificacionesRecursoInput = {
   institucionId: number
   rolId: number
   gradoEscolarId?: number | null
-  foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
-  comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
-  recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutUsuarioCreadorInput
-  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedCreateNestedManyWithoutDocenteInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedCreateNestedManyWithoutUsuarioInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutResponsableInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutCreadorInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedCreateNestedManyWithoutUsuarioInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedCreateNestedManyWithoutUsuarioInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutEstudianteInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutDocenteInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutEstudianteInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutUsuarioInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutUsuarioInput
+  comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
+  foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutCreadorInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutResponsableInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedCreateNestedManyWithoutUsuarioInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedCreateNestedManyWithoutUsuarioInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedCreateNestedManyWithoutUsuarioInput
+  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedCreateNestedManyWithoutDocenteInput
+  recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutUsuarioCreadorInput
 }
 
 export type UsuarioCreateOrConnectWithoutCalificacionesRecursoInput = {
@@ -3231,24 +3231,24 @@ export type UsuarioUpdateWithoutCalificacionesRecursoInput = {
   ultimoAcceso?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutUsuariosNestedInput
-  rol?: Prisma.RolUpdateOneRequiredWithoutUsuariosNestedInput
-  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutUsuariosNestedInput
-  foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
-  comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
-  recursos?: Prisma.RecursoUpdateManyWithoutUsuarioCreadorNestedInput
-  proyectosDocente?: Prisma.ProyectoColaborativoUpdateManyWithoutDocenteNestedInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUpdateManyWithoutUsuarioNestedInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutResponsableNestedInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutCreadorNestedInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUpdateManyWithoutUsuarioNestedInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaUpdateManyWithoutUsuarioNestedInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUpdateManyWithoutUsuarioNestedInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutEstudianteNestedInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutDocenteNestedInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutEstudianteNestedInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUpdateManyWithoutUsuarioNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
+  comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
+  foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutCreadorNestedInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutResponsableNestedInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaUpdateManyWithoutUsuarioNestedInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUpdateManyWithoutUsuarioNestedInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUpdateManyWithoutUsuarioNestedInput
+  proyectosDocente?: Prisma.ProyectoColaborativoUpdateManyWithoutDocenteNestedInput
+  recursos?: Prisma.RecursoUpdateManyWithoutUsuarioCreadorNestedInput
+  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutUsuariosNestedInput
+  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutUsuariosNestedInput
+  rol?: Prisma.RolUpdateOneRequiredWithoutUsuariosNestedInput
 }
 
 export type UsuarioUncheckedUpdateWithoutCalificacionesRecursoInput = {
@@ -3269,21 +3269,21 @@ export type UsuarioUncheckedUpdateWithoutCalificacionesRecursoInput = {
   institucionId?: Prisma.IntFieldUpdateOperationsInput | number
   rolId?: Prisma.IntFieldUpdateOperationsInput | number
   gradoEscolarId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
-  comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
-  recursos?: Prisma.RecursoUncheckedUpdateManyWithoutUsuarioCreadorNestedInput
-  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedUpdateManyWithoutDocenteNestedInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedUpdateManyWithoutUsuarioNestedInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutResponsableNestedInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutCreadorNestedInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedUpdateManyWithoutUsuarioNestedInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedUpdateManyWithoutUsuarioNestedInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutEstudianteNestedInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutDocenteNestedInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutEstudianteNestedInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutUsuarioNestedInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutUsuarioNestedInput
+  comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
+  foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutCreadorNestedInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutResponsableNestedInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedUpdateManyWithoutUsuarioNestedInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedUpdateManyWithoutUsuarioNestedInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedUpdateManyWithoutUsuarioNestedInput
+  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedUpdateManyWithoutDocenteNestedInput
+  recursos?: Prisma.RecursoUncheckedUpdateManyWithoutUsuarioCreadorNestedInput
 }
 
 export type UsuarioCreateWithoutAsignacionesRutaAprendizajeInput = {
@@ -3300,24 +3300,24 @@ export type UsuarioCreateWithoutAsignacionesRutaAprendizajeInput = {
   ultimoAcceso?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutDocenteInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutEstudianteInput
+  auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
+  comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
+  foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutCreadorInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutResponsableInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaCreateNestedManyWithoutUsuarioInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaCreateNestedManyWithoutUsuarioInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteCreateNestedManyWithoutUsuarioInput
+  proyectosDocente?: Prisma.ProyectoColaborativoCreateNestedManyWithoutDocenteInput
+  recursos?: Prisma.RecursoCreateNestedManyWithoutUsuarioCreadorInput
+  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutUsuariosInput
   institucion: Prisma.InstitucionCreateNestedOneWithoutUsuariosInput
   rol: Prisma.RolCreateNestedOneWithoutUsuariosInput
-  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutUsuariosInput
-  foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
-  comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
-  recursos?: Prisma.RecursoCreateNestedManyWithoutUsuarioCreadorInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
-  proyectosDocente?: Prisma.ProyectoColaborativoCreateNestedManyWithoutDocenteInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteCreateNestedManyWithoutUsuarioInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutResponsableInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutCreadorInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaCreateNestedManyWithoutUsuarioInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaCreateNestedManyWithoutUsuarioInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutEstudianteInput
-  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutDocenteInput
-  auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
-  calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioUncheckedCreateWithoutAsignacionesRutaAprendizajeInput = {
@@ -3338,21 +3338,21 @@ export type UsuarioUncheckedCreateWithoutAsignacionesRutaAprendizajeInput = {
   institucionId: number
   rolId: number
   gradoEscolarId?: number | null
-  foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
-  comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
-  recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutUsuarioCreadorInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
-  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedCreateNestedManyWithoutDocenteInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedCreateNestedManyWithoutUsuarioInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutResponsableInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutCreadorInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedCreateNestedManyWithoutUsuarioInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedCreateNestedManyWithoutUsuarioInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutEstudianteInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutDocenteInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutEstudianteInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutUsuarioInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutUsuarioInput
+  comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
+  foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutCreadorInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutResponsableInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedCreateNestedManyWithoutUsuarioInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedCreateNestedManyWithoutUsuarioInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedCreateNestedManyWithoutUsuarioInput
+  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedCreateNestedManyWithoutDocenteInput
+  recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutUsuarioCreadorInput
 }
 
 export type UsuarioCreateOrConnectWithoutAsignacionesRutaAprendizajeInput = {
@@ -3385,24 +3385,24 @@ export type UsuarioUpdateWithoutAsignacionesRutaAprendizajeInput = {
   ultimoAcceso?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutDocenteNestedInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutEstudianteNestedInput
+  auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
+  comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
+  foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutCreadorNestedInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutResponsableNestedInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaUpdateManyWithoutUsuarioNestedInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUpdateManyWithoutUsuarioNestedInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUpdateManyWithoutUsuarioNestedInput
+  proyectosDocente?: Prisma.ProyectoColaborativoUpdateManyWithoutDocenteNestedInput
+  recursos?: Prisma.RecursoUpdateManyWithoutUsuarioCreadorNestedInput
+  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutUsuariosNestedInput
   institucion?: Prisma.InstitucionUpdateOneRequiredWithoutUsuariosNestedInput
   rol?: Prisma.RolUpdateOneRequiredWithoutUsuariosNestedInput
-  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutUsuariosNestedInput
-  foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
-  comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
-  recursos?: Prisma.RecursoUpdateManyWithoutUsuarioCreadorNestedInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
-  proyectosDocente?: Prisma.ProyectoColaborativoUpdateManyWithoutDocenteNestedInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUpdateManyWithoutUsuarioNestedInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutResponsableNestedInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutCreadorNestedInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUpdateManyWithoutUsuarioNestedInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaUpdateManyWithoutUsuarioNestedInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutEstudianteNestedInput
-  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutDocenteNestedInput
-  auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
-  calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioUncheckedUpdateWithoutAsignacionesRutaAprendizajeInput = {
@@ -3423,21 +3423,21 @@ export type UsuarioUncheckedUpdateWithoutAsignacionesRutaAprendizajeInput = {
   institucionId?: Prisma.IntFieldUpdateOperationsInput | number
   rolId?: Prisma.IntFieldUpdateOperationsInput | number
   gradoEscolarId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
-  comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
-  recursos?: Prisma.RecursoUncheckedUpdateManyWithoutUsuarioCreadorNestedInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
-  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedUpdateManyWithoutDocenteNestedInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedUpdateManyWithoutUsuarioNestedInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutResponsableNestedInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutCreadorNestedInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedUpdateManyWithoutUsuarioNestedInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedUpdateManyWithoutUsuarioNestedInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutEstudianteNestedInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutDocenteNestedInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutEstudianteNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutUsuarioNestedInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutUsuarioNestedInput
+  comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
+  foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutCreadorNestedInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutResponsableNestedInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedUpdateManyWithoutUsuarioNestedInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedUpdateManyWithoutUsuarioNestedInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedUpdateManyWithoutUsuarioNestedInput
+  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedUpdateManyWithoutDocenteNestedInput
+  recursos?: Prisma.RecursoUncheckedUpdateManyWithoutUsuarioCreadorNestedInput
 }
 
 export type UsuarioCreateWithoutDiagnosticosAprendizajeInput = {
@@ -3454,24 +3454,24 @@ export type UsuarioCreateWithoutDiagnosticosAprendizajeInput = {
   ultimoAcceso?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutDocenteInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutEstudianteInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeCreateNestedManyWithoutUsuarioInput
+  auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
+  comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
+  foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutCreadorInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutResponsableInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaCreateNestedManyWithoutUsuarioInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaCreateNestedManyWithoutUsuarioInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteCreateNestedManyWithoutUsuarioInput
+  proyectosDocente?: Prisma.ProyectoColaborativoCreateNestedManyWithoutDocenteInput
+  recursos?: Prisma.RecursoCreateNestedManyWithoutUsuarioCreadorInput
+  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutUsuariosInput
   institucion: Prisma.InstitucionCreateNestedOneWithoutUsuariosInput
   rol: Prisma.RolCreateNestedOneWithoutUsuariosInput
-  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutUsuariosInput
-  foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
-  comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
-  recursos?: Prisma.RecursoCreateNestedManyWithoutUsuarioCreadorInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
-  proyectosDocente?: Prisma.ProyectoColaborativoCreateNestedManyWithoutDocenteInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteCreateNestedManyWithoutUsuarioInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutResponsableInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutCreadorInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaCreateNestedManyWithoutUsuarioInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaCreateNestedManyWithoutUsuarioInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeCreateNestedManyWithoutUsuarioInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutEstudianteInput
-  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutDocenteInput
-  auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
-  calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioUncheckedCreateWithoutDiagnosticosAprendizajeInput = {
@@ -3492,21 +3492,21 @@ export type UsuarioUncheckedCreateWithoutDiagnosticosAprendizajeInput = {
   institucionId: number
   rolId: number
   gradoEscolarId?: number | null
-  foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
-  comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
-  recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutUsuarioCreadorInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
-  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedCreateNestedManyWithoutDocenteInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedCreateNestedManyWithoutUsuarioInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutResponsableInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutCreadorInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedCreateNestedManyWithoutUsuarioInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedCreateNestedManyWithoutUsuarioInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutEstudianteInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutDocenteInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutEstudianteInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutUsuarioInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutUsuarioInput
+  comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
+  foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutCreadorInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutResponsableInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedCreateNestedManyWithoutUsuarioInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedCreateNestedManyWithoutUsuarioInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedCreateNestedManyWithoutUsuarioInput
+  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedCreateNestedManyWithoutDocenteInput
+  recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutUsuarioCreadorInput
 }
 
 export type UsuarioCreateOrConnectWithoutDiagnosticosAprendizajeInput = {
@@ -3539,24 +3539,24 @@ export type UsuarioUpdateWithoutDiagnosticosAprendizajeInput = {
   ultimoAcceso?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutDocenteNestedInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutEstudianteNestedInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUpdateManyWithoutUsuarioNestedInput
+  auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
+  comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
+  foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutCreadorNestedInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutResponsableNestedInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaUpdateManyWithoutUsuarioNestedInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUpdateManyWithoutUsuarioNestedInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUpdateManyWithoutUsuarioNestedInput
+  proyectosDocente?: Prisma.ProyectoColaborativoUpdateManyWithoutDocenteNestedInput
+  recursos?: Prisma.RecursoUpdateManyWithoutUsuarioCreadorNestedInput
+  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutUsuariosNestedInput
   institucion?: Prisma.InstitucionUpdateOneRequiredWithoutUsuariosNestedInput
   rol?: Prisma.RolUpdateOneRequiredWithoutUsuariosNestedInput
-  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutUsuariosNestedInput
-  foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
-  comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
-  recursos?: Prisma.RecursoUpdateManyWithoutUsuarioCreadorNestedInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
-  proyectosDocente?: Prisma.ProyectoColaborativoUpdateManyWithoutDocenteNestedInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUpdateManyWithoutUsuarioNestedInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutResponsableNestedInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutCreadorNestedInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUpdateManyWithoutUsuarioNestedInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaUpdateManyWithoutUsuarioNestedInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUpdateManyWithoutUsuarioNestedInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutEstudianteNestedInput
-  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutDocenteNestedInput
-  auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
-  calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioUncheckedUpdateWithoutDiagnosticosAprendizajeInput = {
@@ -3577,21 +3577,21 @@ export type UsuarioUncheckedUpdateWithoutDiagnosticosAprendizajeInput = {
   institucionId?: Prisma.IntFieldUpdateOperationsInput | number
   rolId?: Prisma.IntFieldUpdateOperationsInput | number
   gradoEscolarId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
-  comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
-  recursos?: Prisma.RecursoUncheckedUpdateManyWithoutUsuarioCreadorNestedInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
-  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedUpdateManyWithoutDocenteNestedInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedUpdateManyWithoutUsuarioNestedInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutResponsableNestedInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutCreadorNestedInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedUpdateManyWithoutUsuarioNestedInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedUpdateManyWithoutUsuarioNestedInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutEstudianteNestedInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutDocenteNestedInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutEstudianteNestedInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutUsuarioNestedInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutUsuarioNestedInput
+  comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutCreadorNestedInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutResponsableNestedInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedUpdateManyWithoutUsuarioNestedInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedUpdateManyWithoutUsuarioNestedInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedUpdateManyWithoutUsuarioNestedInput
+  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedUpdateManyWithoutDocenteNestedInput
+  recursos?: Prisma.RecursoUncheckedUpdateManyWithoutUsuarioCreadorNestedInput
 }
 
 export type UsuarioCreateWithoutAprendizajeAdaptativoDocenteInput = {
@@ -3608,24 +3608,24 @@ export type UsuarioCreateWithoutAprendizajeAdaptativoDocenteInput = {
   ultimoAcceso?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutEstudianteInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeCreateNestedManyWithoutUsuarioInput
+  auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
+  comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
+  foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutCreadorInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutResponsableInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaCreateNestedManyWithoutUsuarioInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaCreateNestedManyWithoutUsuarioInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteCreateNestedManyWithoutUsuarioInput
+  proyectosDocente?: Prisma.ProyectoColaborativoCreateNestedManyWithoutDocenteInput
+  recursos?: Prisma.RecursoCreateNestedManyWithoutUsuarioCreadorInput
+  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutUsuariosInput
   institucion: Prisma.InstitucionCreateNestedOneWithoutUsuariosInput
   rol: Prisma.RolCreateNestedOneWithoutUsuariosInput
-  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutUsuariosInput
-  foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
-  comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
-  recursos?: Prisma.RecursoCreateNestedManyWithoutUsuarioCreadorInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
-  proyectosDocente?: Prisma.ProyectoColaborativoCreateNestedManyWithoutDocenteInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteCreateNestedManyWithoutUsuarioInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutResponsableInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutCreadorInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaCreateNestedManyWithoutUsuarioInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaCreateNestedManyWithoutUsuarioInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeCreateNestedManyWithoutUsuarioInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutEstudianteInput
-  auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
-  calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioUncheckedCreateWithoutAprendizajeAdaptativoDocenteInput = {
@@ -3646,21 +3646,21 @@ export type UsuarioUncheckedCreateWithoutAprendizajeAdaptativoDocenteInput = {
   institucionId: number
   rolId: number
   gradoEscolarId?: number | null
-  foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
-  comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
-  recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutUsuarioCreadorInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
-  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedCreateNestedManyWithoutDocenteInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedCreateNestedManyWithoutUsuarioInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutResponsableInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutCreadorInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedCreateNestedManyWithoutUsuarioInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedCreateNestedManyWithoutUsuarioInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutEstudianteInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutUsuarioInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutUsuarioInput
+  comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
+  foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutCreadorInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutResponsableInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedCreateNestedManyWithoutUsuarioInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedCreateNestedManyWithoutUsuarioInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedCreateNestedManyWithoutUsuarioInput
+  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedCreateNestedManyWithoutDocenteInput
+  recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutUsuarioCreadorInput
 }
 
 export type UsuarioCreateOrConnectWithoutAprendizajeAdaptativoDocenteInput = {
@@ -3682,24 +3682,24 @@ export type UsuarioCreateWithoutAprendizajeAdaptativoAlumnoInput = {
   ultimoAcceso?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutDocenteInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeCreateNestedManyWithoutUsuarioInput
+  auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
+  comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
+  foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutCreadorInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutResponsableInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaCreateNestedManyWithoutUsuarioInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaCreateNestedManyWithoutUsuarioInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteCreateNestedManyWithoutUsuarioInput
+  proyectosDocente?: Prisma.ProyectoColaborativoCreateNestedManyWithoutDocenteInput
+  recursos?: Prisma.RecursoCreateNestedManyWithoutUsuarioCreadorInput
+  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutUsuariosInput
   institucion: Prisma.InstitucionCreateNestedOneWithoutUsuariosInput
   rol: Prisma.RolCreateNestedOneWithoutUsuariosInput
-  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutUsuariosInput
-  foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
-  comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
-  recursos?: Prisma.RecursoCreateNestedManyWithoutUsuarioCreadorInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
-  proyectosDocente?: Prisma.ProyectoColaborativoCreateNestedManyWithoutDocenteInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteCreateNestedManyWithoutUsuarioInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutResponsableInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutCreadorInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaCreateNestedManyWithoutUsuarioInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaCreateNestedManyWithoutUsuarioInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeCreateNestedManyWithoutUsuarioInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
-  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutDocenteInput
-  auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
-  calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
 }
 
 export type UsuarioUncheckedCreateWithoutAprendizajeAdaptativoAlumnoInput = {
@@ -3720,21 +3720,21 @@ export type UsuarioUncheckedCreateWithoutAprendizajeAdaptativoAlumnoInput = {
   institucionId: number
   rolId: number
   gradoEscolarId?: number | null
-  foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
-  comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
-  recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutUsuarioCreadorInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
-  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedCreateNestedManyWithoutDocenteInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedCreateNestedManyWithoutUsuarioInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutResponsableInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutCreadorInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedCreateNestedManyWithoutUsuarioInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedCreateNestedManyWithoutUsuarioInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutDocenteInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutUsuarioInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutUsuarioInput
+  comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
+  foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutCreadorInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutResponsableInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedCreateNestedManyWithoutUsuarioInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedCreateNestedManyWithoutUsuarioInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedCreateNestedManyWithoutUsuarioInput
+  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedCreateNestedManyWithoutDocenteInput
+  recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutUsuarioCreadorInput
 }
 
 export type UsuarioCreateOrConnectWithoutAprendizajeAdaptativoAlumnoInput = {
@@ -3767,24 +3767,24 @@ export type UsuarioUpdateWithoutAprendizajeAdaptativoDocenteInput = {
   ultimoAcceso?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutEstudianteNestedInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUpdateManyWithoutUsuarioNestedInput
+  auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
+  comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
+  foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutCreadorNestedInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutResponsableNestedInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaUpdateManyWithoutUsuarioNestedInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUpdateManyWithoutUsuarioNestedInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUpdateManyWithoutUsuarioNestedInput
+  proyectosDocente?: Prisma.ProyectoColaborativoUpdateManyWithoutDocenteNestedInput
+  recursos?: Prisma.RecursoUpdateManyWithoutUsuarioCreadorNestedInput
+  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutUsuariosNestedInput
   institucion?: Prisma.InstitucionUpdateOneRequiredWithoutUsuariosNestedInput
   rol?: Prisma.RolUpdateOneRequiredWithoutUsuariosNestedInput
-  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutUsuariosNestedInput
-  foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
-  comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
-  recursos?: Prisma.RecursoUpdateManyWithoutUsuarioCreadorNestedInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
-  proyectosDocente?: Prisma.ProyectoColaborativoUpdateManyWithoutDocenteNestedInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUpdateManyWithoutUsuarioNestedInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutResponsableNestedInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutCreadorNestedInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUpdateManyWithoutUsuarioNestedInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaUpdateManyWithoutUsuarioNestedInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUpdateManyWithoutUsuarioNestedInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutEstudianteNestedInput
-  auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
-  calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioUncheckedUpdateWithoutAprendizajeAdaptativoDocenteInput = {
@@ -3805,21 +3805,21 @@ export type UsuarioUncheckedUpdateWithoutAprendizajeAdaptativoDocenteInput = {
   institucionId?: Prisma.IntFieldUpdateOperationsInput | number
   rolId?: Prisma.IntFieldUpdateOperationsInput | number
   gradoEscolarId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
-  comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
-  recursos?: Prisma.RecursoUncheckedUpdateManyWithoutUsuarioCreadorNestedInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
-  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedUpdateManyWithoutDocenteNestedInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedUpdateManyWithoutUsuarioNestedInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutResponsableNestedInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutCreadorNestedInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedUpdateManyWithoutUsuarioNestedInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedUpdateManyWithoutUsuarioNestedInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
   aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutEstudianteNestedInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutUsuarioNestedInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutUsuarioNestedInput
+  comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
+  foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutCreadorNestedInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutResponsableNestedInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedUpdateManyWithoutUsuarioNestedInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedUpdateManyWithoutUsuarioNestedInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedUpdateManyWithoutUsuarioNestedInput
+  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedUpdateManyWithoutDocenteNestedInput
+  recursos?: Prisma.RecursoUncheckedUpdateManyWithoutUsuarioCreadorNestedInput
 }
 
 export type UsuarioUpsertWithoutAprendizajeAdaptativoAlumnoInput = {
@@ -3847,24 +3847,24 @@ export type UsuarioUpdateWithoutAprendizajeAdaptativoAlumnoInput = {
   ultimoAcceso?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutDocenteNestedInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUpdateManyWithoutUsuarioNestedInput
+  auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
+  comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
+  foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutCreadorNestedInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutResponsableNestedInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaUpdateManyWithoutUsuarioNestedInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUpdateManyWithoutUsuarioNestedInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUpdateManyWithoutUsuarioNestedInput
+  proyectosDocente?: Prisma.ProyectoColaborativoUpdateManyWithoutDocenteNestedInput
+  recursos?: Prisma.RecursoUpdateManyWithoutUsuarioCreadorNestedInput
+  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutUsuariosNestedInput
   institucion?: Prisma.InstitucionUpdateOneRequiredWithoutUsuariosNestedInput
   rol?: Prisma.RolUpdateOneRequiredWithoutUsuariosNestedInput
-  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutUsuariosNestedInput
-  foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
-  comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
-  recursos?: Prisma.RecursoUpdateManyWithoutUsuarioCreadorNestedInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
-  proyectosDocente?: Prisma.ProyectoColaborativoUpdateManyWithoutDocenteNestedInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUpdateManyWithoutUsuarioNestedInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutResponsableNestedInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutCreadorNestedInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUpdateManyWithoutUsuarioNestedInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaUpdateManyWithoutUsuarioNestedInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUpdateManyWithoutUsuarioNestedInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
-  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutDocenteNestedInput
-  auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
-  calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioUncheckedUpdateWithoutAprendizajeAdaptativoAlumnoInput = {
@@ -3885,21 +3885,21 @@ export type UsuarioUncheckedUpdateWithoutAprendizajeAdaptativoAlumnoInput = {
   institucionId?: Prisma.IntFieldUpdateOperationsInput | number
   rolId?: Prisma.IntFieldUpdateOperationsInput | number
   gradoEscolarId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
-  comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
-  recursos?: Prisma.RecursoUncheckedUpdateManyWithoutUsuarioCreadorNestedInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
-  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedUpdateManyWithoutDocenteNestedInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedUpdateManyWithoutUsuarioNestedInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutResponsableNestedInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutCreadorNestedInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedUpdateManyWithoutUsuarioNestedInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedUpdateManyWithoutUsuarioNestedInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutDocenteNestedInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutUsuarioNestedInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutUsuarioNestedInput
+  comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
+  foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutCreadorNestedInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutResponsableNestedInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedUpdateManyWithoutUsuarioNestedInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedUpdateManyWithoutUsuarioNestedInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedUpdateManyWithoutUsuarioNestedInput
+  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedUpdateManyWithoutDocenteNestedInput
+  recursos?: Prisma.RecursoUncheckedUpdateManyWithoutUsuarioCreadorNestedInput
 }
 
 export type UsuarioCreateManyInstitucionInput = {
@@ -3935,24 +3935,24 @@ export type UsuarioUpdateWithoutInstitucionInput = {
   ultimoAcceso?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  rol?: Prisma.RolUpdateOneRequiredWithoutUsuariosNestedInput
-  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutUsuariosNestedInput
-  foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
-  comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
-  recursos?: Prisma.RecursoUpdateManyWithoutUsuarioCreadorNestedInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
-  proyectosDocente?: Prisma.ProyectoColaborativoUpdateManyWithoutDocenteNestedInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUpdateManyWithoutUsuarioNestedInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutResponsableNestedInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutCreadorNestedInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUpdateManyWithoutUsuarioNestedInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaUpdateManyWithoutUsuarioNestedInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUpdateManyWithoutUsuarioNestedInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutEstudianteNestedInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutDocenteNestedInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutEstudianteNestedInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUpdateManyWithoutUsuarioNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
+  comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
+  foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutCreadorNestedInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutResponsableNestedInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaUpdateManyWithoutUsuarioNestedInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUpdateManyWithoutUsuarioNestedInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUpdateManyWithoutUsuarioNestedInput
+  proyectosDocente?: Prisma.ProyectoColaborativoUpdateManyWithoutDocenteNestedInput
+  recursos?: Prisma.RecursoUpdateManyWithoutUsuarioCreadorNestedInput
+  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutUsuariosNestedInput
+  rol?: Prisma.RolUpdateOneRequiredWithoutUsuariosNestedInput
 }
 
 export type UsuarioUncheckedUpdateWithoutInstitucionInput = {
@@ -3972,22 +3972,22 @@ export type UsuarioUncheckedUpdateWithoutInstitucionInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   rolId?: Prisma.IntFieldUpdateOperationsInput | number
   gradoEscolarId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
-  comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
-  recursos?: Prisma.RecursoUncheckedUpdateManyWithoutUsuarioCreadorNestedInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
-  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedUpdateManyWithoutDocenteNestedInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedUpdateManyWithoutUsuarioNestedInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutResponsableNestedInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutCreadorNestedInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedUpdateManyWithoutUsuarioNestedInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedUpdateManyWithoutUsuarioNestedInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutEstudianteNestedInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutDocenteNestedInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutEstudianteNestedInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutUsuarioNestedInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutUsuarioNestedInput
+  comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
+  foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutCreadorNestedInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutResponsableNestedInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedUpdateManyWithoutUsuarioNestedInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedUpdateManyWithoutUsuarioNestedInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedUpdateManyWithoutUsuarioNestedInput
+  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedUpdateManyWithoutDocenteNestedInput
+  recursos?: Prisma.RecursoUncheckedUpdateManyWithoutUsuarioCreadorNestedInput
 }
 
 export type UsuarioUncheckedUpdateManyWithoutInstitucionInput = {
@@ -4042,24 +4042,24 @@ export type UsuarioUpdateWithoutRolInput = {
   ultimoAcceso?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutUsuariosNestedInput
-  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutUsuariosNestedInput
-  foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
-  comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
-  recursos?: Prisma.RecursoUpdateManyWithoutUsuarioCreadorNestedInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
-  proyectosDocente?: Prisma.ProyectoColaborativoUpdateManyWithoutDocenteNestedInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUpdateManyWithoutUsuarioNestedInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutResponsableNestedInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutCreadorNestedInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUpdateManyWithoutUsuarioNestedInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaUpdateManyWithoutUsuarioNestedInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUpdateManyWithoutUsuarioNestedInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutEstudianteNestedInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutDocenteNestedInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutEstudianteNestedInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUpdateManyWithoutUsuarioNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
+  comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
+  foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutCreadorNestedInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutResponsableNestedInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaUpdateManyWithoutUsuarioNestedInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUpdateManyWithoutUsuarioNestedInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUpdateManyWithoutUsuarioNestedInput
+  proyectosDocente?: Prisma.ProyectoColaborativoUpdateManyWithoutDocenteNestedInput
+  recursos?: Prisma.RecursoUpdateManyWithoutUsuarioCreadorNestedInput
+  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutUsuariosNestedInput
+  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutUsuariosNestedInput
 }
 
 export type UsuarioUncheckedUpdateWithoutRolInput = {
@@ -4079,22 +4079,22 @@ export type UsuarioUncheckedUpdateWithoutRolInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   institucionId?: Prisma.IntFieldUpdateOperationsInput | number
   gradoEscolarId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
-  comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
-  recursos?: Prisma.RecursoUncheckedUpdateManyWithoutUsuarioCreadorNestedInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
-  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedUpdateManyWithoutDocenteNestedInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedUpdateManyWithoutUsuarioNestedInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutResponsableNestedInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutCreadorNestedInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedUpdateManyWithoutUsuarioNestedInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedUpdateManyWithoutUsuarioNestedInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutEstudianteNestedInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutDocenteNestedInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutEstudianteNestedInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutUsuarioNestedInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutUsuarioNestedInput
+  comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
+  foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutCreadorNestedInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutResponsableNestedInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedUpdateManyWithoutUsuarioNestedInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedUpdateManyWithoutUsuarioNestedInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedUpdateManyWithoutUsuarioNestedInput
+  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedUpdateManyWithoutDocenteNestedInput
+  recursos?: Prisma.RecursoUncheckedUpdateManyWithoutUsuarioCreadorNestedInput
 }
 
 export type UsuarioUncheckedUpdateManyWithoutRolInput = {
@@ -4149,24 +4149,24 @@ export type UsuarioUpdateWithoutGradoEscolarInput = {
   ultimoAcceso?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutDocenteNestedInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutEstudianteNestedInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUpdateManyWithoutUsuarioNestedInput
+  auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
+  comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
+  foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutCreadorNestedInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutResponsableNestedInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaUpdateManyWithoutUsuarioNestedInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUpdateManyWithoutUsuarioNestedInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUpdateManyWithoutUsuarioNestedInput
+  proyectosDocente?: Prisma.ProyectoColaborativoUpdateManyWithoutDocenteNestedInput
+  recursos?: Prisma.RecursoUpdateManyWithoutUsuarioCreadorNestedInput
   institucion?: Prisma.InstitucionUpdateOneRequiredWithoutUsuariosNestedInput
   rol?: Prisma.RolUpdateOneRequiredWithoutUsuariosNestedInput
-  foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
-  comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
-  recursos?: Prisma.RecursoUpdateManyWithoutUsuarioCreadorNestedInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
-  proyectosDocente?: Prisma.ProyectoColaborativoUpdateManyWithoutDocenteNestedInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUpdateManyWithoutUsuarioNestedInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutResponsableNestedInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutCreadorNestedInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUpdateManyWithoutUsuarioNestedInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaUpdateManyWithoutUsuarioNestedInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUpdateManyWithoutUsuarioNestedInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutEstudianteNestedInput
-  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutDocenteNestedInput
-  auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
-  calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
 }
 
 export type UsuarioUncheckedUpdateWithoutGradoEscolarInput = {
@@ -4186,22 +4186,22 @@ export type UsuarioUncheckedUpdateWithoutGradoEscolarInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   institucionId?: Prisma.IntFieldUpdateOperationsInput | number
   rolId?: Prisma.IntFieldUpdateOperationsInput | number
-  foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
-  comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
-  recursos?: Prisma.RecursoUncheckedUpdateManyWithoutUsuarioCreadorNestedInput
-  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
-  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedUpdateManyWithoutDocenteNestedInput
-  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedUpdateManyWithoutUsuarioNestedInput
-  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutResponsableNestedInput
-  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutCreadorNestedInput
-  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedUpdateManyWithoutUsuarioNestedInput
-  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedUpdateManyWithoutUsuarioNestedInput
-  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
-  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
-  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutEstudianteNestedInput
   aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutDocenteNestedInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutEstudianteNestedInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutUsuarioNestedInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutUsuarioNestedInput
+  comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
+  foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutCreadorNestedInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutResponsableNestedInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedUpdateManyWithoutUsuarioNestedInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedUpdateManyWithoutUsuarioNestedInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedUpdateManyWithoutUsuarioNestedInput
+  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedUpdateManyWithoutDocenteNestedInput
+  recursos?: Prisma.RecursoUncheckedUpdateManyWithoutUsuarioCreadorNestedInput
 }
 
 export type UsuarioUncheckedUpdateManyWithoutGradoEscolarInput = {
@@ -4229,41 +4229,41 @@ export type UsuarioUncheckedUpdateManyWithoutGradoEscolarInput = {
  */
 
 export type UsuarioCountOutputType = {
-  foros: number
-  comentariosForo: number
-  recursos: number
-  calificacionesRecurso: number
-  proyectosDocente: number
-  proyectosIntegrante: number
-  actividadesResponsable: number
-  actividadesCreadas: number
-  evidenciasAula: number
-  entregasAula: number
-  asignacionesRutaAprendizaje: number
-  diagnosticosAprendizaje: number
-  aprendizajeAdaptativoAlumno: number
   aprendizajeAdaptativoDocente: number
+  aprendizajeAdaptativoAlumno: number
+  asignacionesRutaAprendizaje: number
   auditoriaLogs: number
+  calificacionesRecurso: number
   calificacionesUsoIa: number
+  comentariosForo: number
+  diagnosticosAprendizaje: number
+  foros: number
+  actividadesCreadas: number
+  actividadesResponsable: number
+  entregasAula: number
+  evidenciasAula: number
+  proyectosIntegrante: number
+  proyectosDocente: number
+  recursos: number
 }
 
 export type UsuarioCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  foros?: boolean | UsuarioCountOutputTypeCountForosArgs
-  comentariosForo?: boolean | UsuarioCountOutputTypeCountComentariosForoArgs
-  recursos?: boolean | UsuarioCountOutputTypeCountRecursosArgs
-  calificacionesRecurso?: boolean | UsuarioCountOutputTypeCountCalificacionesRecursoArgs
-  proyectosDocente?: boolean | UsuarioCountOutputTypeCountProyectosDocenteArgs
-  proyectosIntegrante?: boolean | UsuarioCountOutputTypeCountProyectosIntegranteArgs
-  actividadesResponsable?: boolean | UsuarioCountOutputTypeCountActividadesResponsableArgs
-  actividadesCreadas?: boolean | UsuarioCountOutputTypeCountActividadesCreadasArgs
-  evidenciasAula?: boolean | UsuarioCountOutputTypeCountEvidenciasAulaArgs
-  entregasAula?: boolean | UsuarioCountOutputTypeCountEntregasAulaArgs
-  asignacionesRutaAprendizaje?: boolean | UsuarioCountOutputTypeCountAsignacionesRutaAprendizajeArgs
-  diagnosticosAprendizaje?: boolean | UsuarioCountOutputTypeCountDiagnosticosAprendizajeArgs
-  aprendizajeAdaptativoAlumno?: boolean | UsuarioCountOutputTypeCountAprendizajeAdaptativoAlumnoArgs
   aprendizajeAdaptativoDocente?: boolean | UsuarioCountOutputTypeCountAprendizajeAdaptativoDocenteArgs
+  aprendizajeAdaptativoAlumno?: boolean | UsuarioCountOutputTypeCountAprendizajeAdaptativoAlumnoArgs
+  asignacionesRutaAprendizaje?: boolean | UsuarioCountOutputTypeCountAsignacionesRutaAprendizajeArgs
   auditoriaLogs?: boolean | UsuarioCountOutputTypeCountAuditoriaLogsArgs
+  calificacionesRecurso?: boolean | UsuarioCountOutputTypeCountCalificacionesRecursoArgs
   calificacionesUsoIa?: boolean | UsuarioCountOutputTypeCountCalificacionesUsoIaArgs
+  comentariosForo?: boolean | UsuarioCountOutputTypeCountComentariosForoArgs
+  diagnosticosAprendizaje?: boolean | UsuarioCountOutputTypeCountDiagnosticosAprendizajeArgs
+  foros?: boolean | UsuarioCountOutputTypeCountForosArgs
+  actividadesCreadas?: boolean | UsuarioCountOutputTypeCountActividadesCreadasArgs
+  actividadesResponsable?: boolean | UsuarioCountOutputTypeCountActividadesResponsableArgs
+  entregasAula?: boolean | UsuarioCountOutputTypeCountEntregasAulaArgs
+  evidenciasAula?: boolean | UsuarioCountOutputTypeCountEvidenciasAulaArgs
+  proyectosIntegrante?: boolean | UsuarioCountOutputTypeCountProyectosIntegranteArgs
+  proyectosDocente?: boolean | UsuarioCountOutputTypeCountProyectosDocenteArgs
+  recursos?: boolean | UsuarioCountOutputTypeCountRecursosArgs
 }
 
 /**
@@ -4279,85 +4279,8 @@ export type UsuarioCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Exte
 /**
  * UsuarioCountOutputType without action
  */
-export type UsuarioCountOutputTypeCountForosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ForoWhereInput
-}
-
-/**
- * UsuarioCountOutputType without action
- */
-export type UsuarioCountOutputTypeCountComentariosForoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ComentarioForoWhereInput
-}
-
-/**
- * UsuarioCountOutputType without action
- */
-export type UsuarioCountOutputTypeCountRecursosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.RecursoWhereInput
-}
-
-/**
- * UsuarioCountOutputType without action
- */
-export type UsuarioCountOutputTypeCountCalificacionesRecursoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.CalificacionRecursoWhereInput
-}
-
-/**
- * UsuarioCountOutputType without action
- */
-export type UsuarioCountOutputTypeCountProyectosDocenteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ProyectoColaborativoWhereInput
-}
-
-/**
- * UsuarioCountOutputType without action
- */
-export type UsuarioCountOutputTypeCountProyectosIntegranteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ProyectoColaborativoIntegranteWhereInput
-}
-
-/**
- * UsuarioCountOutputType without action
- */
-export type UsuarioCountOutputTypeCountActividadesResponsableArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ProyectoColaborativoActividadWhereInput
-}
-
-/**
- * UsuarioCountOutputType without action
- */
-export type UsuarioCountOutputTypeCountActividadesCreadasArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ProyectoColaborativoActividadWhereInput
-}
-
-/**
- * UsuarioCountOutputType without action
- */
-export type UsuarioCountOutputTypeCountEvidenciasAulaArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ProyectoColaborativoEvidenciaWhereInput
-}
-
-/**
- * UsuarioCountOutputType without action
- */
-export type UsuarioCountOutputTypeCountEntregasAulaArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ProyectoColaborativoEntregaWhereInput
-}
-
-/**
- * UsuarioCountOutputType without action
- */
-export type UsuarioCountOutputTypeCountAsignacionesRutaAprendizajeArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.AsignacionRutaAprendizajeWhereInput
-}
-
-/**
- * UsuarioCountOutputType without action
- */
-export type UsuarioCountOutputTypeCountDiagnosticosAprendizajeArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.DiagnosticoAprendizajeWhereInput
+export type UsuarioCountOutputTypeCountAprendizajeAdaptativoDocenteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AsignacionAprendizajeAdaptativoWhereInput
 }
 
 /**
@@ -4370,8 +4293,8 @@ export type UsuarioCountOutputTypeCountAprendizajeAdaptativoAlumnoArgs<ExtArgs e
 /**
  * UsuarioCountOutputType without action
  */
-export type UsuarioCountOutputTypeCountAprendizajeAdaptativoDocenteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.AsignacionAprendizajeAdaptativoWhereInput
+export type UsuarioCountOutputTypeCountAsignacionesRutaAprendizajeArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AsignacionRutaAprendizajeWhereInput
 }
 
 /**
@@ -4384,8 +4307,85 @@ export type UsuarioCountOutputTypeCountAuditoriaLogsArgs<ExtArgs extends runtime
 /**
  * UsuarioCountOutputType without action
  */
+export type UsuarioCountOutputTypeCountCalificacionesRecursoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CalificacionRecursoWhereInput
+}
+
+/**
+ * UsuarioCountOutputType without action
+ */
 export type UsuarioCountOutputTypeCountCalificacionesUsoIaArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.CalificacionUsoIaWhereInput
+}
+
+/**
+ * UsuarioCountOutputType without action
+ */
+export type UsuarioCountOutputTypeCountComentariosForoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ComentarioForoWhereInput
+}
+
+/**
+ * UsuarioCountOutputType without action
+ */
+export type UsuarioCountOutputTypeCountDiagnosticosAprendizajeArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DiagnosticoAprendizajeWhereInput
+}
+
+/**
+ * UsuarioCountOutputType without action
+ */
+export type UsuarioCountOutputTypeCountForosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ForoWhereInput
+}
+
+/**
+ * UsuarioCountOutputType without action
+ */
+export type UsuarioCountOutputTypeCountActividadesCreadasArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProyectoColaborativoActividadWhereInput
+}
+
+/**
+ * UsuarioCountOutputType without action
+ */
+export type UsuarioCountOutputTypeCountActividadesResponsableArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProyectoColaborativoActividadWhereInput
+}
+
+/**
+ * UsuarioCountOutputType without action
+ */
+export type UsuarioCountOutputTypeCountEntregasAulaArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProyectoColaborativoEntregaWhereInput
+}
+
+/**
+ * UsuarioCountOutputType without action
+ */
+export type UsuarioCountOutputTypeCountEvidenciasAulaArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProyectoColaborativoEvidenciaWhereInput
+}
+
+/**
+ * UsuarioCountOutputType without action
+ */
+export type UsuarioCountOutputTypeCountProyectosIntegranteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProyectoColaborativoIntegranteWhereInput
+}
+
+/**
+ * UsuarioCountOutputType without action
+ */
+export type UsuarioCountOutputTypeCountProyectosDocenteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProyectoColaborativoWhereInput
+}
+
+/**
+ * UsuarioCountOutputType without action
+ */
+export type UsuarioCountOutputTypeCountRecursosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RecursoWhereInput
 }
 
 
@@ -4407,25 +4407,25 @@ export type UsuarioSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   institucionId?: boolean
   rolId?: boolean
   gradoEscolarId?: boolean
+  aprendizajeAdaptativoDocente?: boolean | Prisma.Usuario$aprendizajeAdaptativoDocenteArgs<ExtArgs>
+  aprendizajeAdaptativoAlumno?: boolean | Prisma.Usuario$aprendizajeAdaptativoAlumnoArgs<ExtArgs>
+  asignacionesRutaAprendizaje?: boolean | Prisma.Usuario$asignacionesRutaAprendizajeArgs<ExtArgs>
+  auditoriaLogs?: boolean | Prisma.Usuario$auditoriaLogsArgs<ExtArgs>
+  calificacionesRecurso?: boolean | Prisma.Usuario$calificacionesRecursoArgs<ExtArgs>
+  calificacionesUsoIa?: boolean | Prisma.Usuario$calificacionesUsoIaArgs<ExtArgs>
+  comentariosForo?: boolean | Prisma.Usuario$comentariosForoArgs<ExtArgs>
+  diagnosticosAprendizaje?: boolean | Prisma.Usuario$diagnosticosAprendizajeArgs<ExtArgs>
+  foros?: boolean | Prisma.Usuario$forosArgs<ExtArgs>
+  actividadesCreadas?: boolean | Prisma.Usuario$actividadesCreadasArgs<ExtArgs>
+  actividadesResponsable?: boolean | Prisma.Usuario$actividadesResponsableArgs<ExtArgs>
+  entregasAula?: boolean | Prisma.Usuario$entregasAulaArgs<ExtArgs>
+  evidenciasAula?: boolean | Prisma.Usuario$evidenciasAulaArgs<ExtArgs>
+  proyectosIntegrante?: boolean | Prisma.Usuario$proyectosIntegranteArgs<ExtArgs>
+  proyectosDocente?: boolean | Prisma.Usuario$proyectosDocenteArgs<ExtArgs>
+  recursos?: boolean | Prisma.Usuario$recursosArgs<ExtArgs>
+  gradoEscolar?: boolean | Prisma.Usuario$gradoEscolarArgs<ExtArgs>
   institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
   rol?: boolean | Prisma.RolDefaultArgs<ExtArgs>
-  gradoEscolar?: boolean | Prisma.Usuario$gradoEscolarArgs<ExtArgs>
-  foros?: boolean | Prisma.Usuario$forosArgs<ExtArgs>
-  comentariosForo?: boolean | Prisma.Usuario$comentariosForoArgs<ExtArgs>
-  recursos?: boolean | Prisma.Usuario$recursosArgs<ExtArgs>
-  calificacionesRecurso?: boolean | Prisma.Usuario$calificacionesRecursoArgs<ExtArgs>
-  proyectosDocente?: boolean | Prisma.Usuario$proyectosDocenteArgs<ExtArgs>
-  proyectosIntegrante?: boolean | Prisma.Usuario$proyectosIntegranteArgs<ExtArgs>
-  actividadesResponsable?: boolean | Prisma.Usuario$actividadesResponsableArgs<ExtArgs>
-  actividadesCreadas?: boolean | Prisma.Usuario$actividadesCreadasArgs<ExtArgs>
-  evidenciasAula?: boolean | Prisma.Usuario$evidenciasAulaArgs<ExtArgs>
-  entregasAula?: boolean | Prisma.Usuario$entregasAulaArgs<ExtArgs>
-  asignacionesRutaAprendizaje?: boolean | Prisma.Usuario$asignacionesRutaAprendizajeArgs<ExtArgs>
-  diagnosticosAprendizaje?: boolean | Prisma.Usuario$diagnosticosAprendizajeArgs<ExtArgs>
-  aprendizajeAdaptativoAlumno?: boolean | Prisma.Usuario$aprendizajeAdaptativoAlumnoArgs<ExtArgs>
-  aprendizajeAdaptativoDocente?: boolean | Prisma.Usuario$aprendizajeAdaptativoDocenteArgs<ExtArgs>
-  auditoriaLogs?: boolean | Prisma.Usuario$auditoriaLogsArgs<ExtArgs>
-  calificacionesUsoIa?: boolean | Prisma.Usuario$calificacionesUsoIaArgs<ExtArgs>
   _count?: boolean | Prisma.UsuarioCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["usuario"]>
 
@@ -4447,9 +4447,9 @@ export type UsuarioSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   institucionId?: boolean
   rolId?: boolean
   gradoEscolarId?: boolean
+  gradoEscolar?: boolean | Prisma.Usuario$gradoEscolarArgs<ExtArgs>
   institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
   rol?: boolean | Prisma.RolDefaultArgs<ExtArgs>
-  gradoEscolar?: boolean | Prisma.Usuario$gradoEscolarArgs<ExtArgs>
 }, ExtArgs["result"]["usuario"]>
 
 export type UsuarioSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -4470,9 +4470,9 @@ export type UsuarioSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   institucionId?: boolean
   rolId?: boolean
   gradoEscolarId?: boolean
+  gradoEscolar?: boolean | Prisma.Usuario$gradoEscolarArgs<ExtArgs>
   institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
   rol?: boolean | Prisma.RolDefaultArgs<ExtArgs>
-  gradoEscolar?: boolean | Prisma.Usuario$gradoEscolarArgs<ExtArgs>
 }, ExtArgs["result"]["usuario"]>
 
 export type UsuarioSelectScalar = {
@@ -4497,60 +4497,60 @@ export type UsuarioSelectScalar = {
 
 export type UsuarioOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nombres" | "apellidos" | "correo" | "tipoDocumento" | "documento" | "fechaNacimiento" | "genero" | "foto" | "contrasena" | "activo" | "ultimoAcceso" | "createdAt" | "updatedAt" | "institucionId" | "rolId" | "gradoEscolarId", ExtArgs["result"]["usuario"]>
 export type UsuarioInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  aprendizajeAdaptativoDocente?: boolean | Prisma.Usuario$aprendizajeAdaptativoDocenteArgs<ExtArgs>
+  aprendizajeAdaptativoAlumno?: boolean | Prisma.Usuario$aprendizajeAdaptativoAlumnoArgs<ExtArgs>
+  asignacionesRutaAprendizaje?: boolean | Prisma.Usuario$asignacionesRutaAprendizajeArgs<ExtArgs>
+  auditoriaLogs?: boolean | Prisma.Usuario$auditoriaLogsArgs<ExtArgs>
+  calificacionesRecurso?: boolean | Prisma.Usuario$calificacionesRecursoArgs<ExtArgs>
+  calificacionesUsoIa?: boolean | Prisma.Usuario$calificacionesUsoIaArgs<ExtArgs>
+  comentariosForo?: boolean | Prisma.Usuario$comentariosForoArgs<ExtArgs>
+  diagnosticosAprendizaje?: boolean | Prisma.Usuario$diagnosticosAprendizajeArgs<ExtArgs>
+  foros?: boolean | Prisma.Usuario$forosArgs<ExtArgs>
+  actividadesCreadas?: boolean | Prisma.Usuario$actividadesCreadasArgs<ExtArgs>
+  actividadesResponsable?: boolean | Prisma.Usuario$actividadesResponsableArgs<ExtArgs>
+  entregasAula?: boolean | Prisma.Usuario$entregasAulaArgs<ExtArgs>
+  evidenciasAula?: boolean | Prisma.Usuario$evidenciasAulaArgs<ExtArgs>
+  proyectosIntegrante?: boolean | Prisma.Usuario$proyectosIntegranteArgs<ExtArgs>
+  proyectosDocente?: boolean | Prisma.Usuario$proyectosDocenteArgs<ExtArgs>
+  recursos?: boolean | Prisma.Usuario$recursosArgs<ExtArgs>
+  gradoEscolar?: boolean | Prisma.Usuario$gradoEscolarArgs<ExtArgs>
   institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
   rol?: boolean | Prisma.RolDefaultArgs<ExtArgs>
-  gradoEscolar?: boolean | Prisma.Usuario$gradoEscolarArgs<ExtArgs>
-  foros?: boolean | Prisma.Usuario$forosArgs<ExtArgs>
-  comentariosForo?: boolean | Prisma.Usuario$comentariosForoArgs<ExtArgs>
-  recursos?: boolean | Prisma.Usuario$recursosArgs<ExtArgs>
-  calificacionesRecurso?: boolean | Prisma.Usuario$calificacionesRecursoArgs<ExtArgs>
-  proyectosDocente?: boolean | Prisma.Usuario$proyectosDocenteArgs<ExtArgs>
-  proyectosIntegrante?: boolean | Prisma.Usuario$proyectosIntegranteArgs<ExtArgs>
-  actividadesResponsable?: boolean | Prisma.Usuario$actividadesResponsableArgs<ExtArgs>
-  actividadesCreadas?: boolean | Prisma.Usuario$actividadesCreadasArgs<ExtArgs>
-  evidenciasAula?: boolean | Prisma.Usuario$evidenciasAulaArgs<ExtArgs>
-  entregasAula?: boolean | Prisma.Usuario$entregasAulaArgs<ExtArgs>
-  asignacionesRutaAprendizaje?: boolean | Prisma.Usuario$asignacionesRutaAprendizajeArgs<ExtArgs>
-  diagnosticosAprendizaje?: boolean | Prisma.Usuario$diagnosticosAprendizajeArgs<ExtArgs>
-  aprendizajeAdaptativoAlumno?: boolean | Prisma.Usuario$aprendizajeAdaptativoAlumnoArgs<ExtArgs>
-  aprendizajeAdaptativoDocente?: boolean | Prisma.Usuario$aprendizajeAdaptativoDocenteArgs<ExtArgs>
-  auditoriaLogs?: boolean | Prisma.Usuario$auditoriaLogsArgs<ExtArgs>
-  calificacionesUsoIa?: boolean | Prisma.Usuario$calificacionesUsoIaArgs<ExtArgs>
   _count?: boolean | Prisma.UsuarioCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UsuarioIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  gradoEscolar?: boolean | Prisma.Usuario$gradoEscolarArgs<ExtArgs>
   institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
   rol?: boolean | Prisma.RolDefaultArgs<ExtArgs>
-  gradoEscolar?: boolean | Prisma.Usuario$gradoEscolarArgs<ExtArgs>
 }
 export type UsuarioIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  gradoEscolar?: boolean | Prisma.Usuario$gradoEscolarArgs<ExtArgs>
   institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
   rol?: boolean | Prisma.RolDefaultArgs<ExtArgs>
-  gradoEscolar?: boolean | Prisma.Usuario$gradoEscolarArgs<ExtArgs>
 }
 
 export type $UsuarioPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Usuario"
   objects: {
+    aprendizajeAdaptativoDocente: Prisma.$AsignacionAprendizajeAdaptativoPayload<ExtArgs>[]
+    aprendizajeAdaptativoAlumno: Prisma.$AsignacionAprendizajeAdaptativoPayload<ExtArgs>[]
+    asignacionesRutaAprendizaje: Prisma.$AsignacionRutaAprendizajePayload<ExtArgs>[]
+    auditoriaLogs: Prisma.$AuditoriaLogPayload<ExtArgs>[]
+    calificacionesRecurso: Prisma.$CalificacionRecursoPayload<ExtArgs>[]
+    calificacionesUsoIa: Prisma.$CalificacionUsoIaPayload<ExtArgs>[]
+    comentariosForo: Prisma.$ComentarioForoPayload<ExtArgs>[]
+    diagnosticosAprendizaje: Prisma.$DiagnosticoAprendizajePayload<ExtArgs>[]
+    foros: Prisma.$ForoPayload<ExtArgs>[]
+    actividadesCreadas: Prisma.$ProyectoColaborativoActividadPayload<ExtArgs>[]
+    actividadesResponsable: Prisma.$ProyectoColaborativoActividadPayload<ExtArgs>[]
+    entregasAula: Prisma.$ProyectoColaborativoEntregaPayload<ExtArgs>[]
+    evidenciasAula: Prisma.$ProyectoColaborativoEvidenciaPayload<ExtArgs>[]
+    proyectosIntegrante: Prisma.$ProyectoColaborativoIntegrantePayload<ExtArgs>[]
+    proyectosDocente: Prisma.$ProyectoColaborativoPayload<ExtArgs>[]
+    recursos: Prisma.$RecursoPayload<ExtArgs>[]
+    gradoEscolar: Prisma.$GradoEscolarPayload<ExtArgs> | null
     institucion: Prisma.$InstitucionPayload<ExtArgs>
     rol: Prisma.$RolPayload<ExtArgs>
-    gradoEscolar: Prisma.$GradoEscolarPayload<ExtArgs> | null
-    foros: Prisma.$ForoPayload<ExtArgs>[]
-    comentariosForo: Prisma.$ComentarioForoPayload<ExtArgs>[]
-    recursos: Prisma.$RecursoPayload<ExtArgs>[]
-    calificacionesRecurso: Prisma.$CalificacionRecursoPayload<ExtArgs>[]
-    proyectosDocente: Prisma.$ProyectoColaborativoPayload<ExtArgs>[]
-    proyectosIntegrante: Prisma.$ProyectoColaborativoIntegrantePayload<ExtArgs>[]
-    actividadesResponsable: Prisma.$ProyectoColaborativoActividadPayload<ExtArgs>[]
-    actividadesCreadas: Prisma.$ProyectoColaborativoActividadPayload<ExtArgs>[]
-    evidenciasAula: Prisma.$ProyectoColaborativoEvidenciaPayload<ExtArgs>[]
-    entregasAula: Prisma.$ProyectoColaborativoEntregaPayload<ExtArgs>[]
-    asignacionesRutaAprendizaje: Prisma.$AsignacionRutaAprendizajePayload<ExtArgs>[]
-    diagnosticosAprendizaje: Prisma.$DiagnosticoAprendizajePayload<ExtArgs>[]
-    aprendizajeAdaptativoAlumno: Prisma.$AsignacionAprendizajeAdaptativoPayload<ExtArgs>[]
-    aprendizajeAdaptativoDocente: Prisma.$AsignacionAprendizajeAdaptativoPayload<ExtArgs>[]
-    auditoriaLogs: Prisma.$AuditoriaLogPayload<ExtArgs>[]
-    calificacionesUsoIa: Prisma.$CalificacionUsoIaPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -4964,25 +4964,25 @@ readonly fields: UsuarioFieldRefs;
  */
 export interface Prisma__UsuarioClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  aprendizajeAdaptativoDocente<T extends Prisma.Usuario$aprendizajeAdaptativoDocenteArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$aprendizajeAdaptativoDocenteArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AsignacionAprendizajeAdaptativoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  aprendizajeAdaptativoAlumno<T extends Prisma.Usuario$aprendizajeAdaptativoAlumnoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$aprendizajeAdaptativoAlumnoArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AsignacionAprendizajeAdaptativoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  asignacionesRutaAprendizaje<T extends Prisma.Usuario$asignacionesRutaAprendizajeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$asignacionesRutaAprendizajeArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AsignacionRutaAprendizajePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  auditoriaLogs<T extends Prisma.Usuario$auditoriaLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$auditoriaLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AuditoriaLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  calificacionesRecurso<T extends Prisma.Usuario$calificacionesRecursoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$calificacionesRecursoArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CalificacionRecursoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  calificacionesUsoIa<T extends Prisma.Usuario$calificacionesUsoIaArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$calificacionesUsoIaArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CalificacionUsoIaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  comentariosForo<T extends Prisma.Usuario$comentariosForoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$comentariosForoArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ComentarioForoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  diagnosticosAprendizaje<T extends Prisma.Usuario$diagnosticosAprendizajeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$diagnosticosAprendizajeArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DiagnosticoAprendizajePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  foros<T extends Prisma.Usuario$forosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$forosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ForoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  actividadesCreadas<T extends Prisma.Usuario$actividadesCreadasArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$actividadesCreadasArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProyectoColaborativoActividadPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  actividadesResponsable<T extends Prisma.Usuario$actividadesResponsableArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$actividadesResponsableArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProyectoColaborativoActividadPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  entregasAula<T extends Prisma.Usuario$entregasAulaArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$entregasAulaArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProyectoColaborativoEntregaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  evidenciasAula<T extends Prisma.Usuario$evidenciasAulaArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$evidenciasAulaArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProyectoColaborativoEvidenciaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  proyectosIntegrante<T extends Prisma.Usuario$proyectosIntegranteArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$proyectosIntegranteArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProyectoColaborativoIntegrantePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  proyectosDocente<T extends Prisma.Usuario$proyectosDocenteArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$proyectosDocenteArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProyectoColaborativoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  recursos<T extends Prisma.Usuario$recursosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$recursosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RecursoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  gradoEscolar<T extends Prisma.Usuario$gradoEscolarArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$gradoEscolarArgs<ExtArgs>>): Prisma.Prisma__GradoEscolarClient<runtime.Types.Result.GetResult<Prisma.$GradoEscolarPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   institucion<T extends Prisma.InstitucionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.InstitucionDefaultArgs<ExtArgs>>): Prisma.Prisma__InstitucionClient<runtime.Types.Result.GetResult<Prisma.$InstitucionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   rol<T extends Prisma.RolDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RolDefaultArgs<ExtArgs>>): Prisma.Prisma__RolClient<runtime.Types.Result.GetResult<Prisma.$RolPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  gradoEscolar<T extends Prisma.Usuario$gradoEscolarArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$gradoEscolarArgs<ExtArgs>>): Prisma.Prisma__GradoEscolarClient<runtime.Types.Result.GetResult<Prisma.$GradoEscolarPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  foros<T extends Prisma.Usuario$forosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$forosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ForoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  comentariosForo<T extends Prisma.Usuario$comentariosForoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$comentariosForoArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ComentarioForoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  recursos<T extends Prisma.Usuario$recursosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$recursosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RecursoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  calificacionesRecurso<T extends Prisma.Usuario$calificacionesRecursoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$calificacionesRecursoArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CalificacionRecursoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  proyectosDocente<T extends Prisma.Usuario$proyectosDocenteArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$proyectosDocenteArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProyectoColaborativoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  proyectosIntegrante<T extends Prisma.Usuario$proyectosIntegranteArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$proyectosIntegranteArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProyectoColaborativoIntegrantePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  actividadesResponsable<T extends Prisma.Usuario$actividadesResponsableArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$actividadesResponsableArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProyectoColaborativoActividadPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  actividadesCreadas<T extends Prisma.Usuario$actividadesCreadasArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$actividadesCreadasArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProyectoColaborativoActividadPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  evidenciasAula<T extends Prisma.Usuario$evidenciasAulaArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$evidenciasAulaArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProyectoColaborativoEvidenciaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  entregasAula<T extends Prisma.Usuario$entregasAulaArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$entregasAulaArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProyectoColaborativoEntregaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  asignacionesRutaAprendizaje<T extends Prisma.Usuario$asignacionesRutaAprendizajeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$asignacionesRutaAprendizajeArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AsignacionRutaAprendizajePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  diagnosticosAprendizaje<T extends Prisma.Usuario$diagnosticosAprendizajeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$diagnosticosAprendizajeArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DiagnosticoAprendizajePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  aprendizajeAdaptativoAlumno<T extends Prisma.Usuario$aprendizajeAdaptativoAlumnoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$aprendizajeAdaptativoAlumnoArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AsignacionAprendizajeAdaptativoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  aprendizajeAdaptativoDocente<T extends Prisma.Usuario$aprendizajeAdaptativoDocenteArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$aprendizajeAdaptativoDocenteArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AsignacionAprendizajeAdaptativoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  auditoriaLogs<T extends Prisma.Usuario$auditoriaLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$auditoriaLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AuditoriaLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  calificacionesUsoIa<T extends Prisma.Usuario$calificacionesUsoIaArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$calificacionesUsoIaArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CalificacionUsoIaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5430,310 +5430,27 @@ export type UsuarioDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
 }
 
 /**
- * Usuario.gradoEscolar
+ * Usuario.aprendizajeAdaptativoDocente
  */
-export type Usuario$gradoEscolarArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Usuario$aprendizajeAdaptativoDocenteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the GradoEscolar
+   * Select specific fields to fetch from the AsignacionAprendizajeAdaptativo
    */
-  select?: Prisma.GradoEscolarSelect<ExtArgs> | null
+  select?: Prisma.AsignacionAprendizajeAdaptativoSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the GradoEscolar
+   * Omit specific fields from the AsignacionAprendizajeAdaptativo
    */
-  omit?: Prisma.GradoEscolarOmit<ExtArgs> | null
+  omit?: Prisma.AsignacionAprendizajeAdaptativoOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.GradoEscolarInclude<ExtArgs> | null
-  where?: Prisma.GradoEscolarWhereInput
-}
-
-/**
- * Usuario.foros
- */
-export type Usuario$forosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Foro
-   */
-  select?: Prisma.ForoSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Foro
-   */
-  omit?: Prisma.ForoOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ForoInclude<ExtArgs> | null
-  where?: Prisma.ForoWhereInput
-  orderBy?: Prisma.ForoOrderByWithRelationInput | Prisma.ForoOrderByWithRelationInput[]
-  cursor?: Prisma.ForoWhereUniqueInput
+  include?: Prisma.AsignacionAprendizajeAdaptativoInclude<ExtArgs> | null
+  where?: Prisma.AsignacionAprendizajeAdaptativoWhereInput
+  orderBy?: Prisma.AsignacionAprendizajeAdaptativoOrderByWithRelationInput | Prisma.AsignacionAprendizajeAdaptativoOrderByWithRelationInput[]
+  cursor?: Prisma.AsignacionAprendizajeAdaptativoWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.ForoScalarFieldEnum | Prisma.ForoScalarFieldEnum[]
-}
-
-/**
- * Usuario.comentariosForo
- */
-export type Usuario$comentariosForoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ComentarioForo
-   */
-  select?: Prisma.ComentarioForoSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the ComentarioForo
-   */
-  omit?: Prisma.ComentarioForoOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ComentarioForoInclude<ExtArgs> | null
-  where?: Prisma.ComentarioForoWhereInput
-  orderBy?: Prisma.ComentarioForoOrderByWithRelationInput | Prisma.ComentarioForoOrderByWithRelationInput[]
-  cursor?: Prisma.ComentarioForoWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ComentarioForoScalarFieldEnum | Prisma.ComentarioForoScalarFieldEnum[]
-}
-
-/**
- * Usuario.recursos
- */
-export type Usuario$recursosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Recurso
-   */
-  select?: Prisma.RecursoSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Recurso
-   */
-  omit?: Prisma.RecursoOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.RecursoInclude<ExtArgs> | null
-  where?: Prisma.RecursoWhereInput
-  orderBy?: Prisma.RecursoOrderByWithRelationInput | Prisma.RecursoOrderByWithRelationInput[]
-  cursor?: Prisma.RecursoWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.RecursoScalarFieldEnum | Prisma.RecursoScalarFieldEnum[]
-}
-
-/**
- * Usuario.calificacionesRecurso
- */
-export type Usuario$calificacionesRecursoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the CalificacionRecurso
-   */
-  select?: Prisma.CalificacionRecursoSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the CalificacionRecurso
-   */
-  omit?: Prisma.CalificacionRecursoOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.CalificacionRecursoInclude<ExtArgs> | null
-  where?: Prisma.CalificacionRecursoWhereInput
-  orderBy?: Prisma.CalificacionRecursoOrderByWithRelationInput | Prisma.CalificacionRecursoOrderByWithRelationInput[]
-  cursor?: Prisma.CalificacionRecursoWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.CalificacionRecursoScalarFieldEnum | Prisma.CalificacionRecursoScalarFieldEnum[]
-}
-
-/**
- * Usuario.proyectosDocente
- */
-export type Usuario$proyectosDocenteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ProyectoColaborativo
-   */
-  select?: Prisma.ProyectoColaborativoSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the ProyectoColaborativo
-   */
-  omit?: Prisma.ProyectoColaborativoOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ProyectoColaborativoInclude<ExtArgs> | null
-  where?: Prisma.ProyectoColaborativoWhereInput
-  orderBy?: Prisma.ProyectoColaborativoOrderByWithRelationInput | Prisma.ProyectoColaborativoOrderByWithRelationInput[]
-  cursor?: Prisma.ProyectoColaborativoWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ProyectoColaborativoScalarFieldEnum | Prisma.ProyectoColaborativoScalarFieldEnum[]
-}
-
-/**
- * Usuario.proyectosIntegrante
- */
-export type Usuario$proyectosIntegranteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ProyectoColaborativoIntegrante
-   */
-  select?: Prisma.ProyectoColaborativoIntegranteSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the ProyectoColaborativoIntegrante
-   */
-  omit?: Prisma.ProyectoColaborativoIntegranteOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ProyectoColaborativoIntegranteInclude<ExtArgs> | null
-  where?: Prisma.ProyectoColaborativoIntegranteWhereInput
-  orderBy?: Prisma.ProyectoColaborativoIntegranteOrderByWithRelationInput | Prisma.ProyectoColaborativoIntegranteOrderByWithRelationInput[]
-  cursor?: Prisma.ProyectoColaborativoIntegranteWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ProyectoColaborativoIntegranteScalarFieldEnum | Prisma.ProyectoColaborativoIntegranteScalarFieldEnum[]
-}
-
-/**
- * Usuario.actividadesResponsable
- */
-export type Usuario$actividadesResponsableArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ProyectoColaborativoActividad
-   */
-  select?: Prisma.ProyectoColaborativoActividadSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the ProyectoColaborativoActividad
-   */
-  omit?: Prisma.ProyectoColaborativoActividadOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ProyectoColaborativoActividadInclude<ExtArgs> | null
-  where?: Prisma.ProyectoColaborativoActividadWhereInput
-  orderBy?: Prisma.ProyectoColaborativoActividadOrderByWithRelationInput | Prisma.ProyectoColaborativoActividadOrderByWithRelationInput[]
-  cursor?: Prisma.ProyectoColaborativoActividadWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ProyectoColaborativoActividadScalarFieldEnum | Prisma.ProyectoColaborativoActividadScalarFieldEnum[]
-}
-
-/**
- * Usuario.actividadesCreadas
- */
-export type Usuario$actividadesCreadasArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ProyectoColaborativoActividad
-   */
-  select?: Prisma.ProyectoColaborativoActividadSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the ProyectoColaborativoActividad
-   */
-  omit?: Prisma.ProyectoColaborativoActividadOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ProyectoColaborativoActividadInclude<ExtArgs> | null
-  where?: Prisma.ProyectoColaborativoActividadWhereInput
-  orderBy?: Prisma.ProyectoColaborativoActividadOrderByWithRelationInput | Prisma.ProyectoColaborativoActividadOrderByWithRelationInput[]
-  cursor?: Prisma.ProyectoColaborativoActividadWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ProyectoColaborativoActividadScalarFieldEnum | Prisma.ProyectoColaborativoActividadScalarFieldEnum[]
-}
-
-/**
- * Usuario.evidenciasAula
- */
-export type Usuario$evidenciasAulaArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ProyectoColaborativoEvidencia
-   */
-  select?: Prisma.ProyectoColaborativoEvidenciaSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the ProyectoColaborativoEvidencia
-   */
-  omit?: Prisma.ProyectoColaborativoEvidenciaOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ProyectoColaborativoEvidenciaInclude<ExtArgs> | null
-  where?: Prisma.ProyectoColaborativoEvidenciaWhereInput
-  orderBy?: Prisma.ProyectoColaborativoEvidenciaOrderByWithRelationInput | Prisma.ProyectoColaborativoEvidenciaOrderByWithRelationInput[]
-  cursor?: Prisma.ProyectoColaborativoEvidenciaWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ProyectoColaborativoEvidenciaScalarFieldEnum | Prisma.ProyectoColaborativoEvidenciaScalarFieldEnum[]
-}
-
-/**
- * Usuario.entregasAula
- */
-export type Usuario$entregasAulaArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ProyectoColaborativoEntrega
-   */
-  select?: Prisma.ProyectoColaborativoEntregaSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the ProyectoColaborativoEntrega
-   */
-  omit?: Prisma.ProyectoColaborativoEntregaOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ProyectoColaborativoEntregaInclude<ExtArgs> | null
-  where?: Prisma.ProyectoColaborativoEntregaWhereInput
-  orderBy?: Prisma.ProyectoColaborativoEntregaOrderByWithRelationInput | Prisma.ProyectoColaborativoEntregaOrderByWithRelationInput[]
-  cursor?: Prisma.ProyectoColaborativoEntregaWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ProyectoColaborativoEntregaScalarFieldEnum | Prisma.ProyectoColaborativoEntregaScalarFieldEnum[]
-}
-
-/**
- * Usuario.asignacionesRutaAprendizaje
- */
-export type Usuario$asignacionesRutaAprendizajeArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the AsignacionRutaAprendizaje
-   */
-  select?: Prisma.AsignacionRutaAprendizajeSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the AsignacionRutaAprendizaje
-   */
-  omit?: Prisma.AsignacionRutaAprendizajeOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.AsignacionRutaAprendizajeInclude<ExtArgs> | null
-  where?: Prisma.AsignacionRutaAprendizajeWhereInput
-  orderBy?: Prisma.AsignacionRutaAprendizajeOrderByWithRelationInput | Prisma.AsignacionRutaAprendizajeOrderByWithRelationInput[]
-  cursor?: Prisma.AsignacionRutaAprendizajeWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.AsignacionRutaAprendizajeScalarFieldEnum | Prisma.AsignacionRutaAprendizajeScalarFieldEnum[]
-}
-
-/**
- * Usuario.diagnosticosAprendizaje
- */
-export type Usuario$diagnosticosAprendizajeArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the DiagnosticoAprendizaje
-   */
-  select?: Prisma.DiagnosticoAprendizajeSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the DiagnosticoAprendizaje
-   */
-  omit?: Prisma.DiagnosticoAprendizajeOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.DiagnosticoAprendizajeInclude<ExtArgs> | null
-  where?: Prisma.DiagnosticoAprendizajeWhereInput
-  orderBy?: Prisma.DiagnosticoAprendizajeOrderByWithRelationInput | Prisma.DiagnosticoAprendizajeOrderByWithRelationInput[]
-  cursor?: Prisma.DiagnosticoAprendizajeWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.DiagnosticoAprendizajeScalarFieldEnum | Prisma.DiagnosticoAprendizajeScalarFieldEnum[]
+  distinct?: Prisma.AsignacionAprendizajeAdaptativoScalarFieldEnum | Prisma.AsignacionAprendizajeAdaptativoScalarFieldEnum[]
 }
 
 /**
@@ -5761,27 +5478,27 @@ export type Usuario$aprendizajeAdaptativoAlumnoArgs<ExtArgs extends runtime.Type
 }
 
 /**
- * Usuario.aprendizajeAdaptativoDocente
+ * Usuario.asignacionesRutaAprendizaje
  */
-export type Usuario$aprendizajeAdaptativoDocenteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Usuario$asignacionesRutaAprendizajeArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the AsignacionAprendizajeAdaptativo
+   * Select specific fields to fetch from the AsignacionRutaAprendizaje
    */
-  select?: Prisma.AsignacionAprendizajeAdaptativoSelect<ExtArgs> | null
+  select?: Prisma.AsignacionRutaAprendizajeSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the AsignacionAprendizajeAdaptativo
+   * Omit specific fields from the AsignacionRutaAprendizaje
    */
-  omit?: Prisma.AsignacionAprendizajeAdaptativoOmit<ExtArgs> | null
+  omit?: Prisma.AsignacionRutaAprendizajeOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.AsignacionAprendizajeAdaptativoInclude<ExtArgs> | null
-  where?: Prisma.AsignacionAprendizajeAdaptativoWhereInput
-  orderBy?: Prisma.AsignacionAprendizajeAdaptativoOrderByWithRelationInput | Prisma.AsignacionAprendizajeAdaptativoOrderByWithRelationInput[]
-  cursor?: Prisma.AsignacionAprendizajeAdaptativoWhereUniqueInput
+  include?: Prisma.AsignacionRutaAprendizajeInclude<ExtArgs> | null
+  where?: Prisma.AsignacionRutaAprendizajeWhereInput
+  orderBy?: Prisma.AsignacionRutaAprendizajeOrderByWithRelationInput | Prisma.AsignacionRutaAprendizajeOrderByWithRelationInput[]
+  cursor?: Prisma.AsignacionRutaAprendizajeWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.AsignacionAprendizajeAdaptativoScalarFieldEnum | Prisma.AsignacionAprendizajeAdaptativoScalarFieldEnum[]
+  distinct?: Prisma.AsignacionRutaAprendizajeScalarFieldEnum | Prisma.AsignacionRutaAprendizajeScalarFieldEnum[]
 }
 
 /**
@@ -5809,6 +5526,30 @@ export type Usuario$auditoriaLogsArgs<ExtArgs extends runtime.Types.Extensions.I
 }
 
 /**
+ * Usuario.calificacionesRecurso
+ */
+export type Usuario$calificacionesRecursoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CalificacionRecurso
+   */
+  select?: Prisma.CalificacionRecursoSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CalificacionRecurso
+   */
+  omit?: Prisma.CalificacionRecursoOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CalificacionRecursoInclude<ExtArgs> | null
+  where?: Prisma.CalificacionRecursoWhereInput
+  orderBy?: Prisma.CalificacionRecursoOrderByWithRelationInput | Prisma.CalificacionRecursoOrderByWithRelationInput[]
+  cursor?: Prisma.CalificacionRecursoWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CalificacionRecursoScalarFieldEnum | Prisma.CalificacionRecursoScalarFieldEnum[]
+}
+
+/**
  * Usuario.calificacionesUsoIa
  */
 export type Usuario$calificacionesUsoIaArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -5830,6 +5571,265 @@ export type Usuario$calificacionesUsoIaArgs<ExtArgs extends runtime.Types.Extens
   take?: number
   skip?: number
   distinct?: Prisma.CalificacionUsoIaScalarFieldEnum | Prisma.CalificacionUsoIaScalarFieldEnum[]
+}
+
+/**
+ * Usuario.comentariosForo
+ */
+export type Usuario$comentariosForoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ComentarioForo
+   */
+  select?: Prisma.ComentarioForoSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ComentarioForo
+   */
+  omit?: Prisma.ComentarioForoOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ComentarioForoInclude<ExtArgs> | null
+  where?: Prisma.ComentarioForoWhereInput
+  orderBy?: Prisma.ComentarioForoOrderByWithRelationInput | Prisma.ComentarioForoOrderByWithRelationInput[]
+  cursor?: Prisma.ComentarioForoWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ComentarioForoScalarFieldEnum | Prisma.ComentarioForoScalarFieldEnum[]
+}
+
+/**
+ * Usuario.diagnosticosAprendizaje
+ */
+export type Usuario$diagnosticosAprendizajeArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the DiagnosticoAprendizaje
+   */
+  select?: Prisma.DiagnosticoAprendizajeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the DiagnosticoAprendizaje
+   */
+  omit?: Prisma.DiagnosticoAprendizajeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DiagnosticoAprendizajeInclude<ExtArgs> | null
+  where?: Prisma.DiagnosticoAprendizajeWhereInput
+  orderBy?: Prisma.DiagnosticoAprendizajeOrderByWithRelationInput | Prisma.DiagnosticoAprendizajeOrderByWithRelationInput[]
+  cursor?: Prisma.DiagnosticoAprendizajeWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DiagnosticoAprendizajeScalarFieldEnum | Prisma.DiagnosticoAprendizajeScalarFieldEnum[]
+}
+
+/**
+ * Usuario.foros
+ */
+export type Usuario$forosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Foro
+   */
+  select?: Prisma.ForoSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Foro
+   */
+  omit?: Prisma.ForoOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ForoInclude<ExtArgs> | null
+  where?: Prisma.ForoWhereInput
+  orderBy?: Prisma.ForoOrderByWithRelationInput | Prisma.ForoOrderByWithRelationInput[]
+  cursor?: Prisma.ForoWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ForoScalarFieldEnum | Prisma.ForoScalarFieldEnum[]
+}
+
+/**
+ * Usuario.actividadesCreadas
+ */
+export type Usuario$actividadesCreadasArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProyectoColaborativoActividad
+   */
+  select?: Prisma.ProyectoColaborativoActividadSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProyectoColaborativoActividad
+   */
+  omit?: Prisma.ProyectoColaborativoActividadOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProyectoColaborativoActividadInclude<ExtArgs> | null
+  where?: Prisma.ProyectoColaborativoActividadWhereInput
+  orderBy?: Prisma.ProyectoColaborativoActividadOrderByWithRelationInput | Prisma.ProyectoColaborativoActividadOrderByWithRelationInput[]
+  cursor?: Prisma.ProyectoColaborativoActividadWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProyectoColaborativoActividadScalarFieldEnum | Prisma.ProyectoColaborativoActividadScalarFieldEnum[]
+}
+
+/**
+ * Usuario.actividadesResponsable
+ */
+export type Usuario$actividadesResponsableArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProyectoColaborativoActividad
+   */
+  select?: Prisma.ProyectoColaborativoActividadSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProyectoColaborativoActividad
+   */
+  omit?: Prisma.ProyectoColaborativoActividadOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProyectoColaborativoActividadInclude<ExtArgs> | null
+  where?: Prisma.ProyectoColaborativoActividadWhereInput
+  orderBy?: Prisma.ProyectoColaborativoActividadOrderByWithRelationInput | Prisma.ProyectoColaborativoActividadOrderByWithRelationInput[]
+  cursor?: Prisma.ProyectoColaborativoActividadWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProyectoColaborativoActividadScalarFieldEnum | Prisma.ProyectoColaborativoActividadScalarFieldEnum[]
+}
+
+/**
+ * Usuario.entregasAula
+ */
+export type Usuario$entregasAulaArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProyectoColaborativoEntrega
+   */
+  select?: Prisma.ProyectoColaborativoEntregaSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProyectoColaborativoEntrega
+   */
+  omit?: Prisma.ProyectoColaborativoEntregaOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProyectoColaborativoEntregaInclude<ExtArgs> | null
+  where?: Prisma.ProyectoColaborativoEntregaWhereInput
+  orderBy?: Prisma.ProyectoColaborativoEntregaOrderByWithRelationInput | Prisma.ProyectoColaborativoEntregaOrderByWithRelationInput[]
+  cursor?: Prisma.ProyectoColaborativoEntregaWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProyectoColaborativoEntregaScalarFieldEnum | Prisma.ProyectoColaborativoEntregaScalarFieldEnum[]
+}
+
+/**
+ * Usuario.evidenciasAula
+ */
+export type Usuario$evidenciasAulaArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProyectoColaborativoEvidencia
+   */
+  select?: Prisma.ProyectoColaborativoEvidenciaSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProyectoColaborativoEvidencia
+   */
+  omit?: Prisma.ProyectoColaborativoEvidenciaOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProyectoColaborativoEvidenciaInclude<ExtArgs> | null
+  where?: Prisma.ProyectoColaborativoEvidenciaWhereInput
+  orderBy?: Prisma.ProyectoColaborativoEvidenciaOrderByWithRelationInput | Prisma.ProyectoColaborativoEvidenciaOrderByWithRelationInput[]
+  cursor?: Prisma.ProyectoColaborativoEvidenciaWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProyectoColaborativoEvidenciaScalarFieldEnum | Prisma.ProyectoColaborativoEvidenciaScalarFieldEnum[]
+}
+
+/**
+ * Usuario.proyectosIntegrante
+ */
+export type Usuario$proyectosIntegranteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProyectoColaborativoIntegrante
+   */
+  select?: Prisma.ProyectoColaborativoIntegranteSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProyectoColaborativoIntegrante
+   */
+  omit?: Prisma.ProyectoColaborativoIntegranteOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProyectoColaborativoIntegranteInclude<ExtArgs> | null
+  where?: Prisma.ProyectoColaborativoIntegranteWhereInput
+  orderBy?: Prisma.ProyectoColaborativoIntegranteOrderByWithRelationInput | Prisma.ProyectoColaborativoIntegranteOrderByWithRelationInput[]
+  cursor?: Prisma.ProyectoColaborativoIntegranteWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProyectoColaborativoIntegranteScalarFieldEnum | Prisma.ProyectoColaborativoIntegranteScalarFieldEnum[]
+}
+
+/**
+ * Usuario.proyectosDocente
+ */
+export type Usuario$proyectosDocenteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProyectoColaborativo
+   */
+  select?: Prisma.ProyectoColaborativoSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProyectoColaborativo
+   */
+  omit?: Prisma.ProyectoColaborativoOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProyectoColaborativoInclude<ExtArgs> | null
+  where?: Prisma.ProyectoColaborativoWhereInput
+  orderBy?: Prisma.ProyectoColaborativoOrderByWithRelationInput | Prisma.ProyectoColaborativoOrderByWithRelationInput[]
+  cursor?: Prisma.ProyectoColaborativoWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProyectoColaborativoScalarFieldEnum | Prisma.ProyectoColaborativoScalarFieldEnum[]
+}
+
+/**
+ * Usuario.recursos
+ */
+export type Usuario$recursosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Recurso
+   */
+  select?: Prisma.RecursoSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Recurso
+   */
+  omit?: Prisma.RecursoOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RecursoInclude<ExtArgs> | null
+  where?: Prisma.RecursoWhereInput
+  orderBy?: Prisma.RecursoOrderByWithRelationInput | Prisma.RecursoOrderByWithRelationInput[]
+  cursor?: Prisma.RecursoWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.RecursoScalarFieldEnum | Prisma.RecursoScalarFieldEnum[]
+}
+
+/**
+ * Usuario.gradoEscolar
+ */
+export type Usuario$gradoEscolarArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the GradoEscolar
+   */
+  select?: Prisma.GradoEscolarSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the GradoEscolar
+   */
+  omit?: Prisma.GradoEscolarOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GradoEscolarInclude<ExtArgs> | null
+  where?: Prisma.GradoEscolarWhereInput
 }
 
 /**

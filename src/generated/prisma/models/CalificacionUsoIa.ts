@@ -276,8 +276,8 @@ export type CalificacionUsoIaWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"CalificacionUsoIa"> | Date | string
   usuarioId?: Prisma.IntFilter<"CalificacionUsoIa"> | number
   institucionId?: Prisma.IntNullableFilter<"CalificacionUsoIa"> | number | null
-  usuario?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
   institucion?: Prisma.XOR<Prisma.InstitucionNullableScalarRelationFilter, Prisma.InstitucionWhereInput> | null
+  usuario?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
 }
 
 export type CalificacionUsoIaOrderByWithRelationInput = {
@@ -292,8 +292,8 @@ export type CalificacionUsoIaOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   usuarioId?: Prisma.SortOrder
   institucionId?: Prisma.SortOrderInput | Prisma.SortOrder
-  usuario?: Prisma.UsuarioOrderByWithRelationInput
   institucion?: Prisma.InstitucionOrderByWithRelationInput
+  usuario?: Prisma.UsuarioOrderByWithRelationInput
 }
 
 export type CalificacionUsoIaWhereUniqueInput = Prisma.AtLeast<{
@@ -311,8 +311,8 @@ export type CalificacionUsoIaWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"CalificacionUsoIa"> | Date | string
   usuarioId?: Prisma.IntFilter<"CalificacionUsoIa"> | number
   institucionId?: Prisma.IntNullableFilter<"CalificacionUsoIa"> | number | null
-  usuario?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
   institucion?: Prisma.XOR<Prisma.InstitucionNullableScalarRelationFilter, Prisma.InstitucionWhereInput> | null
+  usuario?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
 }, "id">
 
 export type CalificacionUsoIaOrderByWithAggregationInput = {
@@ -360,8 +360,8 @@ export type CalificacionUsoIaCreateInput = {
   comentario?: string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
-  usuario: Prisma.UsuarioCreateNestedOneWithoutCalificacionesUsoIaInput
   institucion?: Prisma.InstitucionCreateNestedOneWithoutCalificacionesUsoIaInput
+  usuario: Prisma.UsuarioCreateNestedOneWithoutCalificacionesUsoIaInput
 }
 
 export type CalificacionUsoIaUncheckedCreateInput = {
@@ -387,8 +387,8 @@ export type CalificacionUsoIaUpdateInput = {
   comentario?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  usuario?: Prisma.UsuarioUpdateOneRequiredWithoutCalificacionesUsoIaNestedInput
   institucion?: Prisma.InstitucionUpdateOneWithoutCalificacionesUsoIaNestedInput
+  usuario?: Prisma.UsuarioUpdateOneRequiredWithoutCalificacionesUsoIaNestedInput
 }
 
 export type CalificacionUsoIaUncheckedUpdateInput = {
@@ -829,8 +829,8 @@ export type CalificacionUsoIaSelect<ExtArgs extends runtime.Types.Extensions.Int
   createdAt?: boolean
   usuarioId?: boolean
   institucionId?: boolean
-  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   institucion?: boolean | Prisma.CalificacionUsoIa$institucionArgs<ExtArgs>
+  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["calificacionUsoIa"]>
 
 export type CalificacionUsoIaSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -845,8 +845,8 @@ export type CalificacionUsoIaSelectCreateManyAndReturn<ExtArgs extends runtime.T
   createdAt?: boolean
   usuarioId?: boolean
   institucionId?: boolean
-  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   institucion?: boolean | Prisma.CalificacionUsoIa$institucionArgs<ExtArgs>
+  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["calificacionUsoIa"]>
 
 export type CalificacionUsoIaSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -861,8 +861,8 @@ export type CalificacionUsoIaSelectUpdateManyAndReturn<ExtArgs extends runtime.T
   createdAt?: boolean
   usuarioId?: boolean
   institucionId?: boolean
-  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   institucion?: boolean | Prisma.CalificacionUsoIa$institucionArgs<ExtArgs>
+  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["calificacionUsoIa"]>
 
 export type CalificacionUsoIaSelectScalar = {
@@ -881,23 +881,23 @@ export type CalificacionUsoIaSelectScalar = {
 
 export type CalificacionUsoIaOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "modulo" | "funcionalidad" | "entidadTipo" | "entidadId" | "calificacion" | "comentario" | "metadata" | "createdAt" | "usuarioId" | "institucionId", ExtArgs["result"]["calificacionUsoIa"]>
 export type CalificacionUsoIaInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   institucion?: boolean | Prisma.CalificacionUsoIa$institucionArgs<ExtArgs>
+  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
 }
 export type CalificacionUsoIaIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   institucion?: boolean | Prisma.CalificacionUsoIa$institucionArgs<ExtArgs>
+  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
 }
 export type CalificacionUsoIaIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   institucion?: boolean | Prisma.CalificacionUsoIa$institucionArgs<ExtArgs>
+  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
 }
 
 export type $CalificacionUsoIaPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "CalificacionUsoIa"
   objects: {
-    usuario: Prisma.$UsuarioPayload<ExtArgs>
     institucion: Prisma.$InstitucionPayload<ExtArgs> | null
+    usuario: Prisma.$UsuarioPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1305,8 +1305,8 @@ readonly fields: CalificacionUsoIaFieldRefs;
  */
 export interface Prisma__CalificacionUsoIaClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  usuario<T extends Prisma.UsuarioDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UsuarioDefaultArgs<ExtArgs>>): Prisma.Prisma__UsuarioClient<runtime.Types.Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   institucion<T extends Prisma.CalificacionUsoIa$institucionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CalificacionUsoIa$institucionArgs<ExtArgs>>): Prisma.Prisma__InstitucionClient<runtime.Types.Result.GetResult<Prisma.$InstitucionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  usuario<T extends Prisma.UsuarioDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UsuarioDefaultArgs<ExtArgs>>): Prisma.Prisma__UsuarioClient<runtime.Types.Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

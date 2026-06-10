@@ -2,8 +2,8 @@ import { useEffect, useMemo, useState } from 'react';
 import type { ChangeEvent, MouseEvent } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import {
-  API_URL,
   calificarRecurso,
+  construirUrlArchivoProtegido,
   generarResumenIaRecursoStream,
   obtenerGradosEscolares,
   obtenerRecomendacionesRecursos,
@@ -33,7 +33,7 @@ type FiltrosRepositorio = {
 
 function obtenerUrlRecurso(recurso: Recurso) {
   if (recurso.rutaRecurso) {
-    return `${API_URL}${recurso.rutaRecurso}`;
+    return construirUrlArchivoProtegido(recurso.rutaRecurso);
   }
 
   return recurso.urlRecurso || '';

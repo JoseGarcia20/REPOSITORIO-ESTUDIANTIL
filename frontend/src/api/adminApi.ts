@@ -1,4 +1,5 @@
-export const API_URL = 'http://localhost:3000';
+export const API_URL =
+  import.meta.env.VITE_API_URL?.replace(/\/+$/, '') || 'http://localhost:3000';
 
 export type InstitucionCatalogo = {
   id: number;
@@ -1018,6 +1019,49 @@ function obtenerToken(): string {
   return localStorage.getItem('token') || '';
 }
 
+export function construirUrlArchivoProtegido(ruta?: string | null): string {
+  if (!ruta) {
+    return '';
+  }
+
+  if (/^https?:\/\//i.test(ruta)) {
+    return anexarTokenSiEsUpload(ruta);
+  }
+
+  const url = `${API_URL}${ruta}`;
+  if (!ruta.startsWith('/uploads/')) {
+    return url;
+  }
+
+  return anexarTokenSiEsUpload(url);
+}
+
+function anexarTokenSiEsUpload(url: string): string {
+  let esUpload = false;
+  let tieneToken = false;
+
+  try {
+    const urlParseada = new URL(url);
+    esUpload = urlParseada.pathname.startsWith('/uploads/');
+    tieneToken = urlParseada.searchParams.has('token');
+  } catch {
+    esUpload = url.startsWith('/uploads/');
+    tieneToken = /[?&]token=/.test(url);
+  }
+
+  if (!esUpload || tieneToken) {
+    return url;
+  }
+
+  const token = obtenerToken();
+  if (!token) {
+    return url;
+  }
+
+  const separador = url.includes('?') ? '&' : '?';
+  return `${url}${separador}token=${encodeURIComponent(token)}`;
+}
+
 function construirHeadersAutorizados(incluirJson = true): HeadersInit {
   const token = obtenerToken();
 
@@ -1523,7 +1567,10 @@ export async function descargarExcelReporte(data: PayloadReporte) {
   });
 
   if (!respuesta.ok) {
-    await procesarRespuesta<never>(respuesta, 'Error al descargar el reporte en Excel');
+    await procesarRespuesta<never>(
+      respuesta,
+      'Error al descargar el reporte en Excel',
+    );
     return;
   }
 
@@ -2020,19 +2067,27 @@ export type EntidadAuditoria =
   | 'usuario'
   | 'institucion';
 
-export function obtenerAuditoriaLogs(query?: ConsultaPaginada & { entidad?: string; entidadId?: string }) {
+export function obtenerAuditoriaLogs(
+  query?: ConsultaPaginada & { entidad?: string; entidadId?: string },
+) {
   return get<RespuestaPaginada<AuditoriaLogItem>>(
     conQuery('/auditoria', query),
     'Error al obtener registros de auditoría',
   );
 }
 
-export async function descargarExcelAuditoria(query?: { entidad?: string; entidadId?: string }) {
+export async function descargarExcelAuditoria(query?: {
+  entidad?: string;
+  entidadId?: string;
+}) {
   const token = obtenerToken();
   const queryString = construirQueryString(query as ConsultaPaginada);
-  const respuesta = await fetch(`${API_URL}/auditoria/exportar-excel${queryString}`, {
-    headers: token ? { Authorization: `Bearer ${token}` } : {},
-  });
+  const respuesta = await fetch(
+    `${API_URL}/auditoria/exportar-excel${queryString}`,
+    {
+      headers: token ? { Authorization: `Bearer ${token}` } : {},
+    },
+  );
   if (!respuesta.ok) throw new Error('Error al descargar el archivo Excel');
   const blob = await respuesta.blob();
   const url = URL.createObjectURL(blob);

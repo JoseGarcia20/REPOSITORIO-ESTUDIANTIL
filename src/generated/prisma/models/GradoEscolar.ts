@@ -236,10 +236,10 @@ export type GradoEscolarWhereInput = {
   estado?: Prisma.BoolFilter<"GradoEscolar"> | boolean
   createdAt?: Prisma.DateTimeFilter<"GradoEscolar"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"GradoEscolar"> | Date | string
-  usuarios?: Prisma.UsuarioListRelationFilter
-  recursos?: Prisma.RecursoListRelationFilter
-  proyectosColaborativos?: Prisma.ProyectoColaborativoListRelationFilter
   aprendizajeAdaptativo?: Prisma.AsignacionAprendizajeAdaptativoListRelationFilter
+  proyectosColaborativos?: Prisma.ProyectoColaborativoListRelationFilter
+  recursos?: Prisma.RecursoListRelationFilter
+  usuarios?: Prisma.UsuarioListRelationFilter
 }
 
 export type GradoEscolarOrderByWithRelationInput = {
@@ -250,10 +250,10 @@ export type GradoEscolarOrderByWithRelationInput = {
   estado?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  usuarios?: Prisma.UsuarioOrderByRelationAggregateInput
-  recursos?: Prisma.RecursoOrderByRelationAggregateInput
-  proyectosColaborativos?: Prisma.ProyectoColaborativoOrderByRelationAggregateInput
   aprendizajeAdaptativo?: Prisma.AsignacionAprendizajeAdaptativoOrderByRelationAggregateInput
+  proyectosColaborativos?: Prisma.ProyectoColaborativoOrderByRelationAggregateInput
+  recursos?: Prisma.RecursoOrderByRelationAggregateInput
+  usuarios?: Prisma.UsuarioOrderByRelationAggregateInput
 }
 
 export type GradoEscolarWhereUniqueInput = Prisma.AtLeast<{
@@ -267,10 +267,10 @@ export type GradoEscolarWhereUniqueInput = Prisma.AtLeast<{
   estado?: Prisma.BoolFilter<"GradoEscolar"> | boolean
   createdAt?: Prisma.DateTimeFilter<"GradoEscolar"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"GradoEscolar"> | Date | string
-  usuarios?: Prisma.UsuarioListRelationFilter
-  recursos?: Prisma.RecursoListRelationFilter
-  proyectosColaborativos?: Prisma.ProyectoColaborativoListRelationFilter
   aprendizajeAdaptativo?: Prisma.AsignacionAprendizajeAdaptativoListRelationFilter
+  proyectosColaborativos?: Prisma.ProyectoColaborativoListRelationFilter
+  recursos?: Prisma.RecursoListRelationFilter
+  usuarios?: Prisma.UsuarioListRelationFilter
 }, "id" | "nombre" | "codigo" | "orden">
 
 export type GradoEscolarOrderByWithAggregationInput = {
@@ -308,10 +308,10 @@ export type GradoEscolarCreateInput = {
   estado?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  usuarios?: Prisma.UsuarioCreateNestedManyWithoutGradoEscolarInput
-  recursos?: Prisma.RecursoCreateNestedManyWithoutGradoEscolarInput
-  proyectosColaborativos?: Prisma.ProyectoColaborativoCreateNestedManyWithoutGradoEscolarInput
   aprendizajeAdaptativo?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutGradoEscolarInput
+  proyectosColaborativos?: Prisma.ProyectoColaborativoCreateNestedManyWithoutGradoEscolarInput
+  recursos?: Prisma.RecursoCreateNestedManyWithoutGradoEscolarInput
+  usuarios?: Prisma.UsuarioCreateNestedManyWithoutGradoEscolarInput
 }
 
 export type GradoEscolarUncheckedCreateInput = {
@@ -322,10 +322,10 @@ export type GradoEscolarUncheckedCreateInput = {
   estado?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  usuarios?: Prisma.UsuarioUncheckedCreateNestedManyWithoutGradoEscolarInput
-  recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutGradoEscolarInput
-  proyectosColaborativos?: Prisma.ProyectoColaborativoUncheckedCreateNestedManyWithoutGradoEscolarInput
   aprendizajeAdaptativo?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutGradoEscolarInput
+  proyectosColaborativos?: Prisma.ProyectoColaborativoUncheckedCreateNestedManyWithoutGradoEscolarInput
+  recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutGradoEscolarInput
+  usuarios?: Prisma.UsuarioUncheckedCreateNestedManyWithoutGradoEscolarInput
 }
 
 export type GradoEscolarUpdateInput = {
@@ -335,10 +335,10 @@ export type GradoEscolarUpdateInput = {
   estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  usuarios?: Prisma.UsuarioUpdateManyWithoutGradoEscolarNestedInput
-  recursos?: Prisma.RecursoUpdateManyWithoutGradoEscolarNestedInput
-  proyectosColaborativos?: Prisma.ProyectoColaborativoUpdateManyWithoutGradoEscolarNestedInput
   aprendizajeAdaptativo?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutGradoEscolarNestedInput
+  proyectosColaborativos?: Prisma.ProyectoColaborativoUpdateManyWithoutGradoEscolarNestedInput
+  recursos?: Prisma.RecursoUpdateManyWithoutGradoEscolarNestedInput
+  usuarios?: Prisma.UsuarioUpdateManyWithoutGradoEscolarNestedInput
 }
 
 export type GradoEscolarUncheckedUpdateInput = {
@@ -349,10 +349,10 @@ export type GradoEscolarUncheckedUpdateInput = {
   estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  usuarios?: Prisma.UsuarioUncheckedUpdateManyWithoutGradoEscolarNestedInput
-  recursos?: Prisma.RecursoUncheckedUpdateManyWithoutGradoEscolarNestedInput
-  proyectosColaborativos?: Prisma.ProyectoColaborativoUncheckedUpdateManyWithoutGradoEscolarNestedInput
   aprendizajeAdaptativo?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutGradoEscolarNestedInput
+  proyectosColaborativos?: Prisma.ProyectoColaborativoUncheckedUpdateManyWithoutGradoEscolarNestedInput
+  recursos?: Prisma.RecursoUncheckedUpdateManyWithoutGradoEscolarNestedInput
+  usuarios?: Prisma.UsuarioUncheckedUpdateManyWithoutGradoEscolarNestedInput
 }
 
 export type GradoEscolarCreateManyInput = {
@@ -500,9 +500,9 @@ export type GradoEscolarCreateWithoutUsuariosInput = {
   estado?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  recursos?: Prisma.RecursoCreateNestedManyWithoutGradoEscolarInput
-  proyectosColaborativos?: Prisma.ProyectoColaborativoCreateNestedManyWithoutGradoEscolarInput
   aprendizajeAdaptativo?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutGradoEscolarInput
+  proyectosColaborativos?: Prisma.ProyectoColaborativoCreateNestedManyWithoutGradoEscolarInput
+  recursos?: Prisma.RecursoCreateNestedManyWithoutGradoEscolarInput
 }
 
 export type GradoEscolarUncheckedCreateWithoutUsuariosInput = {
@@ -513,9 +513,9 @@ export type GradoEscolarUncheckedCreateWithoutUsuariosInput = {
   estado?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutGradoEscolarInput
-  proyectosColaborativos?: Prisma.ProyectoColaborativoUncheckedCreateNestedManyWithoutGradoEscolarInput
   aprendizajeAdaptativo?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutGradoEscolarInput
+  proyectosColaborativos?: Prisma.ProyectoColaborativoUncheckedCreateNestedManyWithoutGradoEscolarInput
+  recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutGradoEscolarInput
 }
 
 export type GradoEscolarCreateOrConnectWithoutUsuariosInput = {
@@ -541,9 +541,9 @@ export type GradoEscolarUpdateWithoutUsuariosInput = {
   estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  recursos?: Prisma.RecursoUpdateManyWithoutGradoEscolarNestedInput
-  proyectosColaborativos?: Prisma.ProyectoColaborativoUpdateManyWithoutGradoEscolarNestedInput
   aprendizajeAdaptativo?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutGradoEscolarNestedInput
+  proyectosColaborativos?: Prisma.ProyectoColaborativoUpdateManyWithoutGradoEscolarNestedInput
+  recursos?: Prisma.RecursoUpdateManyWithoutGradoEscolarNestedInput
 }
 
 export type GradoEscolarUncheckedUpdateWithoutUsuariosInput = {
@@ -554,9 +554,9 @@ export type GradoEscolarUncheckedUpdateWithoutUsuariosInput = {
   estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  recursos?: Prisma.RecursoUncheckedUpdateManyWithoutGradoEscolarNestedInput
-  proyectosColaborativos?: Prisma.ProyectoColaborativoUncheckedUpdateManyWithoutGradoEscolarNestedInput
   aprendizajeAdaptativo?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutGradoEscolarNestedInput
+  proyectosColaborativos?: Prisma.ProyectoColaborativoUncheckedUpdateManyWithoutGradoEscolarNestedInput
+  recursos?: Prisma.RecursoUncheckedUpdateManyWithoutGradoEscolarNestedInput
 }
 
 export type GradoEscolarCreateWithoutRecursosInput = {
@@ -566,9 +566,9 @@ export type GradoEscolarCreateWithoutRecursosInput = {
   estado?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  usuarios?: Prisma.UsuarioCreateNestedManyWithoutGradoEscolarInput
-  proyectosColaborativos?: Prisma.ProyectoColaborativoCreateNestedManyWithoutGradoEscolarInput
   aprendizajeAdaptativo?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutGradoEscolarInput
+  proyectosColaborativos?: Prisma.ProyectoColaborativoCreateNestedManyWithoutGradoEscolarInput
+  usuarios?: Prisma.UsuarioCreateNestedManyWithoutGradoEscolarInput
 }
 
 export type GradoEscolarUncheckedCreateWithoutRecursosInput = {
@@ -579,9 +579,9 @@ export type GradoEscolarUncheckedCreateWithoutRecursosInput = {
   estado?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  usuarios?: Prisma.UsuarioUncheckedCreateNestedManyWithoutGradoEscolarInput
-  proyectosColaborativos?: Prisma.ProyectoColaborativoUncheckedCreateNestedManyWithoutGradoEscolarInput
   aprendizajeAdaptativo?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutGradoEscolarInput
+  proyectosColaborativos?: Prisma.ProyectoColaborativoUncheckedCreateNestedManyWithoutGradoEscolarInput
+  usuarios?: Prisma.UsuarioUncheckedCreateNestedManyWithoutGradoEscolarInput
 }
 
 export type GradoEscolarCreateOrConnectWithoutRecursosInput = {
@@ -607,9 +607,9 @@ export type GradoEscolarUpdateWithoutRecursosInput = {
   estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  usuarios?: Prisma.UsuarioUpdateManyWithoutGradoEscolarNestedInput
-  proyectosColaborativos?: Prisma.ProyectoColaborativoUpdateManyWithoutGradoEscolarNestedInput
   aprendizajeAdaptativo?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutGradoEscolarNestedInput
+  proyectosColaborativos?: Prisma.ProyectoColaborativoUpdateManyWithoutGradoEscolarNestedInput
+  usuarios?: Prisma.UsuarioUpdateManyWithoutGradoEscolarNestedInput
 }
 
 export type GradoEscolarUncheckedUpdateWithoutRecursosInput = {
@@ -620,9 +620,9 @@ export type GradoEscolarUncheckedUpdateWithoutRecursosInput = {
   estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  usuarios?: Prisma.UsuarioUncheckedUpdateManyWithoutGradoEscolarNestedInput
-  proyectosColaborativos?: Prisma.ProyectoColaborativoUncheckedUpdateManyWithoutGradoEscolarNestedInput
   aprendizajeAdaptativo?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutGradoEscolarNestedInput
+  proyectosColaborativos?: Prisma.ProyectoColaborativoUncheckedUpdateManyWithoutGradoEscolarNestedInput
+  usuarios?: Prisma.UsuarioUncheckedUpdateManyWithoutGradoEscolarNestedInput
 }
 
 export type GradoEscolarCreateWithoutProyectosColaborativosInput = {
@@ -632,9 +632,9 @@ export type GradoEscolarCreateWithoutProyectosColaborativosInput = {
   estado?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  usuarios?: Prisma.UsuarioCreateNestedManyWithoutGradoEscolarInput
-  recursos?: Prisma.RecursoCreateNestedManyWithoutGradoEscolarInput
   aprendizajeAdaptativo?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutGradoEscolarInput
+  recursos?: Prisma.RecursoCreateNestedManyWithoutGradoEscolarInput
+  usuarios?: Prisma.UsuarioCreateNestedManyWithoutGradoEscolarInput
 }
 
 export type GradoEscolarUncheckedCreateWithoutProyectosColaborativosInput = {
@@ -645,9 +645,9 @@ export type GradoEscolarUncheckedCreateWithoutProyectosColaborativosInput = {
   estado?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  usuarios?: Prisma.UsuarioUncheckedCreateNestedManyWithoutGradoEscolarInput
-  recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutGradoEscolarInput
   aprendizajeAdaptativo?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutGradoEscolarInput
+  recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutGradoEscolarInput
+  usuarios?: Prisma.UsuarioUncheckedCreateNestedManyWithoutGradoEscolarInput
 }
 
 export type GradoEscolarCreateOrConnectWithoutProyectosColaborativosInput = {
@@ -673,9 +673,9 @@ export type GradoEscolarUpdateWithoutProyectosColaborativosInput = {
   estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  usuarios?: Prisma.UsuarioUpdateManyWithoutGradoEscolarNestedInput
-  recursos?: Prisma.RecursoUpdateManyWithoutGradoEscolarNestedInput
   aprendizajeAdaptativo?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutGradoEscolarNestedInput
+  recursos?: Prisma.RecursoUpdateManyWithoutGradoEscolarNestedInput
+  usuarios?: Prisma.UsuarioUpdateManyWithoutGradoEscolarNestedInput
 }
 
 export type GradoEscolarUncheckedUpdateWithoutProyectosColaborativosInput = {
@@ -686,9 +686,9 @@ export type GradoEscolarUncheckedUpdateWithoutProyectosColaborativosInput = {
   estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  usuarios?: Prisma.UsuarioUncheckedUpdateManyWithoutGradoEscolarNestedInput
-  recursos?: Prisma.RecursoUncheckedUpdateManyWithoutGradoEscolarNestedInput
   aprendizajeAdaptativo?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutGradoEscolarNestedInput
+  recursos?: Prisma.RecursoUncheckedUpdateManyWithoutGradoEscolarNestedInput
+  usuarios?: Prisma.UsuarioUncheckedUpdateManyWithoutGradoEscolarNestedInput
 }
 
 export type GradoEscolarCreateWithoutAprendizajeAdaptativoInput = {
@@ -698,9 +698,9 @@ export type GradoEscolarCreateWithoutAprendizajeAdaptativoInput = {
   estado?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  usuarios?: Prisma.UsuarioCreateNestedManyWithoutGradoEscolarInput
-  recursos?: Prisma.RecursoCreateNestedManyWithoutGradoEscolarInput
   proyectosColaborativos?: Prisma.ProyectoColaborativoCreateNestedManyWithoutGradoEscolarInput
+  recursos?: Prisma.RecursoCreateNestedManyWithoutGradoEscolarInput
+  usuarios?: Prisma.UsuarioCreateNestedManyWithoutGradoEscolarInput
 }
 
 export type GradoEscolarUncheckedCreateWithoutAprendizajeAdaptativoInput = {
@@ -711,9 +711,9 @@ export type GradoEscolarUncheckedCreateWithoutAprendizajeAdaptativoInput = {
   estado?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  usuarios?: Prisma.UsuarioUncheckedCreateNestedManyWithoutGradoEscolarInput
-  recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutGradoEscolarInput
   proyectosColaborativos?: Prisma.ProyectoColaborativoUncheckedCreateNestedManyWithoutGradoEscolarInput
+  recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutGradoEscolarInput
+  usuarios?: Prisma.UsuarioUncheckedCreateNestedManyWithoutGradoEscolarInput
 }
 
 export type GradoEscolarCreateOrConnectWithoutAprendizajeAdaptativoInput = {
@@ -739,9 +739,9 @@ export type GradoEscolarUpdateWithoutAprendizajeAdaptativoInput = {
   estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  usuarios?: Prisma.UsuarioUpdateManyWithoutGradoEscolarNestedInput
-  recursos?: Prisma.RecursoUpdateManyWithoutGradoEscolarNestedInput
   proyectosColaborativos?: Prisma.ProyectoColaborativoUpdateManyWithoutGradoEscolarNestedInput
+  recursos?: Prisma.RecursoUpdateManyWithoutGradoEscolarNestedInput
+  usuarios?: Prisma.UsuarioUpdateManyWithoutGradoEscolarNestedInput
 }
 
 export type GradoEscolarUncheckedUpdateWithoutAprendizajeAdaptativoInput = {
@@ -752,9 +752,9 @@ export type GradoEscolarUncheckedUpdateWithoutAprendizajeAdaptativoInput = {
   estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  usuarios?: Prisma.UsuarioUncheckedUpdateManyWithoutGradoEscolarNestedInput
-  recursos?: Prisma.RecursoUncheckedUpdateManyWithoutGradoEscolarNestedInput
   proyectosColaborativos?: Prisma.ProyectoColaborativoUncheckedUpdateManyWithoutGradoEscolarNestedInput
+  recursos?: Prisma.RecursoUncheckedUpdateManyWithoutGradoEscolarNestedInput
+  usuarios?: Prisma.UsuarioUncheckedUpdateManyWithoutGradoEscolarNestedInput
 }
 
 
@@ -763,17 +763,17 @@ export type GradoEscolarUncheckedUpdateWithoutAprendizajeAdaptativoInput = {
  */
 
 export type GradoEscolarCountOutputType = {
-  usuarios: number
-  recursos: number
-  proyectosColaborativos: number
   aprendizajeAdaptativo: number
+  proyectosColaborativos: number
+  recursos: number
+  usuarios: number
 }
 
 export type GradoEscolarCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  usuarios?: boolean | GradoEscolarCountOutputTypeCountUsuariosArgs
-  recursos?: boolean | GradoEscolarCountOutputTypeCountRecursosArgs
-  proyectosColaborativos?: boolean | GradoEscolarCountOutputTypeCountProyectosColaborativosArgs
   aprendizajeAdaptativo?: boolean | GradoEscolarCountOutputTypeCountAprendizajeAdaptativoArgs
+  proyectosColaborativos?: boolean | GradoEscolarCountOutputTypeCountProyectosColaborativosArgs
+  recursos?: boolean | GradoEscolarCountOutputTypeCountRecursosArgs
+  usuarios?: boolean | GradoEscolarCountOutputTypeCountUsuariosArgs
 }
 
 /**
@@ -789,15 +789,8 @@ export type GradoEscolarCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types
 /**
  * GradoEscolarCountOutputType without action
  */
-export type GradoEscolarCountOutputTypeCountUsuariosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.UsuarioWhereInput
-}
-
-/**
- * GradoEscolarCountOutputType without action
- */
-export type GradoEscolarCountOutputTypeCountRecursosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.RecursoWhereInput
+export type GradoEscolarCountOutputTypeCountAprendizajeAdaptativoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AsignacionAprendizajeAdaptativoWhereInput
 }
 
 /**
@@ -810,8 +803,15 @@ export type GradoEscolarCountOutputTypeCountProyectosColaborativosArgs<ExtArgs e
 /**
  * GradoEscolarCountOutputType without action
  */
-export type GradoEscolarCountOutputTypeCountAprendizajeAdaptativoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.AsignacionAprendizajeAdaptativoWhereInput
+export type GradoEscolarCountOutputTypeCountRecursosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RecursoWhereInput
+}
+
+/**
+ * GradoEscolarCountOutputType without action
+ */
+export type GradoEscolarCountOutputTypeCountUsuariosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.UsuarioWhereInput
 }
 
 
@@ -823,10 +823,10 @@ export type GradoEscolarSelect<ExtArgs extends runtime.Types.Extensions.Internal
   estado?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  usuarios?: boolean | Prisma.GradoEscolar$usuariosArgs<ExtArgs>
-  recursos?: boolean | Prisma.GradoEscolar$recursosArgs<ExtArgs>
-  proyectosColaborativos?: boolean | Prisma.GradoEscolar$proyectosColaborativosArgs<ExtArgs>
   aprendizajeAdaptativo?: boolean | Prisma.GradoEscolar$aprendizajeAdaptativoArgs<ExtArgs>
+  proyectosColaborativos?: boolean | Prisma.GradoEscolar$proyectosColaborativosArgs<ExtArgs>
+  recursos?: boolean | Prisma.GradoEscolar$recursosArgs<ExtArgs>
+  usuarios?: boolean | Prisma.GradoEscolar$usuariosArgs<ExtArgs>
   _count?: boolean | Prisma.GradoEscolarCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["gradoEscolar"]>
 
@@ -862,10 +862,10 @@ export type GradoEscolarSelectScalar = {
 
 export type GradoEscolarOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nombre" | "codigo" | "orden" | "estado" | "createdAt" | "updatedAt", ExtArgs["result"]["gradoEscolar"]>
 export type GradoEscolarInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  usuarios?: boolean | Prisma.GradoEscolar$usuariosArgs<ExtArgs>
-  recursos?: boolean | Prisma.GradoEscolar$recursosArgs<ExtArgs>
-  proyectosColaborativos?: boolean | Prisma.GradoEscolar$proyectosColaborativosArgs<ExtArgs>
   aprendizajeAdaptativo?: boolean | Prisma.GradoEscolar$aprendizajeAdaptativoArgs<ExtArgs>
+  proyectosColaborativos?: boolean | Prisma.GradoEscolar$proyectosColaborativosArgs<ExtArgs>
+  recursos?: boolean | Prisma.GradoEscolar$recursosArgs<ExtArgs>
+  usuarios?: boolean | Prisma.GradoEscolar$usuariosArgs<ExtArgs>
   _count?: boolean | Prisma.GradoEscolarCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type GradoEscolarIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -874,10 +874,10 @@ export type GradoEscolarIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types
 export type $GradoEscolarPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "GradoEscolar"
   objects: {
-    usuarios: Prisma.$UsuarioPayload<ExtArgs>[]
-    recursos: Prisma.$RecursoPayload<ExtArgs>[]
-    proyectosColaborativos: Prisma.$ProyectoColaborativoPayload<ExtArgs>[]
     aprendizajeAdaptativo: Prisma.$AsignacionAprendizajeAdaptativoPayload<ExtArgs>[]
+    proyectosColaborativos: Prisma.$ProyectoColaborativoPayload<ExtArgs>[]
+    recursos: Prisma.$RecursoPayload<ExtArgs>[]
+    usuarios: Prisma.$UsuarioPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1281,10 +1281,10 @@ readonly fields: GradoEscolarFieldRefs;
  */
 export interface Prisma__GradoEscolarClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  usuarios<T extends Prisma.GradoEscolar$usuariosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.GradoEscolar$usuariosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  recursos<T extends Prisma.GradoEscolar$recursosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.GradoEscolar$recursosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RecursoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  proyectosColaborativos<T extends Prisma.GradoEscolar$proyectosColaborativosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.GradoEscolar$proyectosColaborativosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProyectoColaborativoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   aprendizajeAdaptativo<T extends Prisma.GradoEscolar$aprendizajeAdaptativoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.GradoEscolar$aprendizajeAdaptativoArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AsignacionAprendizajeAdaptativoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  proyectosColaborativos<T extends Prisma.GradoEscolar$proyectosColaborativosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.GradoEscolar$proyectosColaborativosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProyectoColaborativoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  recursos<T extends Prisma.GradoEscolar$recursosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.GradoEscolar$recursosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RecursoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  usuarios<T extends Prisma.GradoEscolar$usuariosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.GradoEscolar$usuariosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1714,51 +1714,27 @@ export type GradoEscolarDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.
 }
 
 /**
- * GradoEscolar.usuarios
+ * GradoEscolar.aprendizajeAdaptativo
  */
-export type GradoEscolar$usuariosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type GradoEscolar$aprendizajeAdaptativoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the Usuario
+   * Select specific fields to fetch from the AsignacionAprendizajeAdaptativo
    */
-  select?: Prisma.UsuarioSelect<ExtArgs> | null
+  select?: Prisma.AsignacionAprendizajeAdaptativoSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the Usuario
+   * Omit specific fields from the AsignacionAprendizajeAdaptativo
    */
-  omit?: Prisma.UsuarioOmit<ExtArgs> | null
+  omit?: Prisma.AsignacionAprendizajeAdaptativoOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.UsuarioInclude<ExtArgs> | null
-  where?: Prisma.UsuarioWhereInput
-  orderBy?: Prisma.UsuarioOrderByWithRelationInput | Prisma.UsuarioOrderByWithRelationInput[]
-  cursor?: Prisma.UsuarioWhereUniqueInput
+  include?: Prisma.AsignacionAprendizajeAdaptativoInclude<ExtArgs> | null
+  where?: Prisma.AsignacionAprendizajeAdaptativoWhereInput
+  orderBy?: Prisma.AsignacionAprendizajeAdaptativoOrderByWithRelationInput | Prisma.AsignacionAprendizajeAdaptativoOrderByWithRelationInput[]
+  cursor?: Prisma.AsignacionAprendizajeAdaptativoWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.UsuarioScalarFieldEnum | Prisma.UsuarioScalarFieldEnum[]
-}
-
-/**
- * GradoEscolar.recursos
- */
-export type GradoEscolar$recursosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Recurso
-   */
-  select?: Prisma.RecursoSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Recurso
-   */
-  omit?: Prisma.RecursoOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.RecursoInclude<ExtArgs> | null
-  where?: Prisma.RecursoWhereInput
-  orderBy?: Prisma.RecursoOrderByWithRelationInput | Prisma.RecursoOrderByWithRelationInput[]
-  cursor?: Prisma.RecursoWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.RecursoScalarFieldEnum | Prisma.RecursoScalarFieldEnum[]
+  distinct?: Prisma.AsignacionAprendizajeAdaptativoScalarFieldEnum | Prisma.AsignacionAprendizajeAdaptativoScalarFieldEnum[]
 }
 
 /**
@@ -1786,27 +1762,51 @@ export type GradoEscolar$proyectosColaborativosArgs<ExtArgs extends runtime.Type
 }
 
 /**
- * GradoEscolar.aprendizajeAdaptativo
+ * GradoEscolar.recursos
  */
-export type GradoEscolar$aprendizajeAdaptativoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type GradoEscolar$recursosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the AsignacionAprendizajeAdaptativo
+   * Select specific fields to fetch from the Recurso
    */
-  select?: Prisma.AsignacionAprendizajeAdaptativoSelect<ExtArgs> | null
+  select?: Prisma.RecursoSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the AsignacionAprendizajeAdaptativo
+   * Omit specific fields from the Recurso
    */
-  omit?: Prisma.AsignacionAprendizajeAdaptativoOmit<ExtArgs> | null
+  omit?: Prisma.RecursoOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.AsignacionAprendizajeAdaptativoInclude<ExtArgs> | null
-  where?: Prisma.AsignacionAprendizajeAdaptativoWhereInput
-  orderBy?: Prisma.AsignacionAprendizajeAdaptativoOrderByWithRelationInput | Prisma.AsignacionAprendizajeAdaptativoOrderByWithRelationInput[]
-  cursor?: Prisma.AsignacionAprendizajeAdaptativoWhereUniqueInput
+  include?: Prisma.RecursoInclude<ExtArgs> | null
+  where?: Prisma.RecursoWhereInput
+  orderBy?: Prisma.RecursoOrderByWithRelationInput | Prisma.RecursoOrderByWithRelationInput[]
+  cursor?: Prisma.RecursoWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.AsignacionAprendizajeAdaptativoScalarFieldEnum | Prisma.AsignacionAprendizajeAdaptativoScalarFieldEnum[]
+  distinct?: Prisma.RecursoScalarFieldEnum | Prisma.RecursoScalarFieldEnum[]
+}
+
+/**
+ * GradoEscolar.usuarios
+ */
+export type GradoEscolar$usuariosArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Usuario
+   */
+  select?: Prisma.UsuarioSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Usuario
+   */
+  omit?: Prisma.UsuarioOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UsuarioInclude<ExtArgs> | null
+  where?: Prisma.UsuarioWhereInput
+  orderBy?: Prisma.UsuarioOrderByWithRelationInput | Prisma.UsuarioOrderByWithRelationInput[]
+  cursor?: Prisma.UsuarioWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.UsuarioScalarFieldEnum | Prisma.UsuarioScalarFieldEnum[]
 }
 
 /**

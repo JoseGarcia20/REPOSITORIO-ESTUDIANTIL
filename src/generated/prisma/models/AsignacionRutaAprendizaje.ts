@@ -288,8 +288,8 @@ export type AsignacionRutaAprendizajeWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"AsignacionRutaAprendizaje"> | Date | string
   usuarioId?: Prisma.IntFilter<"AsignacionRutaAprendizaje"> | number
   rutaAprendizajeId?: Prisma.IntFilter<"AsignacionRutaAprendizaje"> | number
-  usuario?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
   rutaAprendizaje?: Prisma.XOR<Prisma.RutaAprendizajeScalarRelationFilter, Prisma.RutaAprendizajeWhereInput>
+  usuario?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
 }
 
 export type AsignacionRutaAprendizajeOrderByWithRelationInput = {
@@ -305,8 +305,8 @@ export type AsignacionRutaAprendizajeOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   usuarioId?: Prisma.SortOrder
   rutaAprendizajeId?: Prisma.SortOrder
-  usuario?: Prisma.UsuarioOrderByWithRelationInput
   rutaAprendizaje?: Prisma.RutaAprendizajeOrderByWithRelationInput
+  usuario?: Prisma.UsuarioOrderByWithRelationInput
 }
 
 export type AsignacionRutaAprendizajeWhereUniqueInput = Prisma.AtLeast<{
@@ -325,8 +325,8 @@ export type AsignacionRutaAprendizajeWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"AsignacionRutaAprendizaje"> | Date | string
   usuarioId?: Prisma.IntFilter<"AsignacionRutaAprendizaje"> | number
   rutaAprendizajeId?: Prisma.IntFilter<"AsignacionRutaAprendizaje"> | number
-  usuario?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
   rutaAprendizaje?: Prisma.XOR<Prisma.RutaAprendizajeScalarRelationFilter, Prisma.RutaAprendizajeWhereInput>
+  usuario?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
 }, "id">
 
 export type AsignacionRutaAprendizajeOrderByWithAggregationInput = {
@@ -377,8 +377,8 @@ export type AsignacionRutaAprendizajeCreateInput = {
   temaSolicitado?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  usuario: Prisma.UsuarioCreateNestedOneWithoutAsignacionesRutaAprendizajeInput
   rutaAprendizaje: Prisma.RutaAprendizajeCreateNestedOneWithoutAsignacionesRutaAprendizajeInput
+  usuario: Prisma.UsuarioCreateNestedOneWithoutAsignacionesRutaAprendizajeInput
 }
 
 export type AsignacionRutaAprendizajeUncheckedCreateInput = {
@@ -406,8 +406,8 @@ export type AsignacionRutaAprendizajeUpdateInput = {
   temaSolicitado?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  usuario?: Prisma.UsuarioUpdateOneRequiredWithoutAsignacionesRutaAprendizajeNestedInput
   rutaAprendizaje?: Prisma.RutaAprendizajeUpdateOneRequiredWithoutAsignacionesRutaAprendizajeNestedInput
+  usuario?: Prisma.UsuarioUpdateOneRequiredWithoutAsignacionesRutaAprendizajeNestedInput
 }
 
 export type AsignacionRutaAprendizajeUncheckedUpdateInput = {
@@ -871,8 +871,8 @@ export type AsignacionRutaAprendizajeSelect<ExtArgs extends runtime.Types.Extens
   updatedAt?: boolean
   usuarioId?: boolean
   rutaAprendizajeId?: boolean
-  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   rutaAprendizaje?: boolean | Prisma.RutaAprendizajeDefaultArgs<ExtArgs>
+  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["asignacionRutaAprendizaje"]>
 
 export type AsignacionRutaAprendizajeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -888,8 +888,8 @@ export type AsignacionRutaAprendizajeSelectCreateManyAndReturn<ExtArgs extends r
   updatedAt?: boolean
   usuarioId?: boolean
   rutaAprendizajeId?: boolean
-  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   rutaAprendizaje?: boolean | Prisma.RutaAprendizajeDefaultArgs<ExtArgs>
+  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["asignacionRutaAprendizaje"]>
 
 export type AsignacionRutaAprendizajeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -905,8 +905,8 @@ export type AsignacionRutaAprendizajeSelectUpdateManyAndReturn<ExtArgs extends r
   updatedAt?: boolean
   usuarioId?: boolean
   rutaAprendizajeId?: boolean
-  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   rutaAprendizaje?: boolean | Prisma.RutaAprendizajeDefaultArgs<ExtArgs>
+  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["asignacionRutaAprendizaje"]>
 
 export type AsignacionRutaAprendizajeSelectScalar = {
@@ -926,23 +926,23 @@ export type AsignacionRutaAprendizajeSelectScalar = {
 
 export type AsignacionRutaAprendizajeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "fechaAsignacion" | "estado" | "porcentajeAvance" | "fechaInicio" | "fechaFinalizacion" | "calificacionObtenida" | "temaSolicitado" | "createdAt" | "updatedAt" | "usuarioId" | "rutaAprendizajeId", ExtArgs["result"]["asignacionRutaAprendizaje"]>
 export type AsignacionRutaAprendizajeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   rutaAprendizaje?: boolean | Prisma.RutaAprendizajeDefaultArgs<ExtArgs>
+  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
 }
 export type AsignacionRutaAprendizajeIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   rutaAprendizaje?: boolean | Prisma.RutaAprendizajeDefaultArgs<ExtArgs>
+  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
 }
 export type AsignacionRutaAprendizajeIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   rutaAprendizaje?: boolean | Prisma.RutaAprendizajeDefaultArgs<ExtArgs>
+  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
 }
 
 export type $AsignacionRutaAprendizajePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "AsignacionRutaAprendizaje"
   objects: {
-    usuario: Prisma.$UsuarioPayload<ExtArgs>
     rutaAprendizaje: Prisma.$RutaAprendizajePayload<ExtArgs>
+    usuario: Prisma.$UsuarioPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1351,8 +1351,8 @@ readonly fields: AsignacionRutaAprendizajeFieldRefs;
  */
 export interface Prisma__AsignacionRutaAprendizajeClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  usuario<T extends Prisma.UsuarioDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UsuarioDefaultArgs<ExtArgs>>): Prisma.Prisma__UsuarioClient<runtime.Types.Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   rutaAprendizaje<T extends Prisma.RutaAprendizajeDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RutaAprendizajeDefaultArgs<ExtArgs>>): Prisma.Prisma__RutaAprendizajeClient<runtime.Types.Result.GetResult<Prisma.$RutaAprendizajePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  usuario<T extends Prisma.UsuarioDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UsuarioDefaultArgs<ExtArgs>>): Prisma.Prisma__UsuarioClient<runtime.Types.Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

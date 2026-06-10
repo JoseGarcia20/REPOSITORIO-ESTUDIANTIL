@@ -268,9 +268,9 @@ export type ProyectoColaborativoActividadWhereInput = {
   proyectoId?: Prisma.IntFilter<"ProyectoColaborativoActividad"> | number
   responsableId?: Prisma.IntNullableFilter<"ProyectoColaborativoActividad"> | number | null
   creadorId?: Prisma.IntFilter<"ProyectoColaborativoActividad"> | number
+  creador?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
   proyecto?: Prisma.XOR<Prisma.ProyectoColaborativoScalarRelationFilter, Prisma.ProyectoColaborativoWhereInput>
   responsable?: Prisma.XOR<Prisma.UsuarioNullableScalarRelationFilter, Prisma.UsuarioWhereInput> | null
-  creador?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
   evidencias?: Prisma.ProyectoColaborativoEvidenciaListRelationFilter
 }
 
@@ -285,9 +285,9 @@ export type ProyectoColaborativoActividadOrderByWithRelationInput = {
   proyectoId?: Prisma.SortOrder
   responsableId?: Prisma.SortOrderInput | Prisma.SortOrder
   creadorId?: Prisma.SortOrder
+  creador?: Prisma.UsuarioOrderByWithRelationInput
   proyecto?: Prisma.ProyectoColaborativoOrderByWithRelationInput
   responsable?: Prisma.UsuarioOrderByWithRelationInput
-  creador?: Prisma.UsuarioOrderByWithRelationInput
   evidencias?: Prisma.ProyectoColaborativoEvidenciaOrderByRelationAggregateInput
 }
 
@@ -305,9 +305,9 @@ export type ProyectoColaborativoActividadWhereUniqueInput = Prisma.AtLeast<{
   proyectoId?: Prisma.IntFilter<"ProyectoColaborativoActividad"> | number
   responsableId?: Prisma.IntNullableFilter<"ProyectoColaborativoActividad"> | number | null
   creadorId?: Prisma.IntFilter<"ProyectoColaborativoActividad"> | number
+  creador?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
   proyecto?: Prisma.XOR<Prisma.ProyectoColaborativoScalarRelationFilter, Prisma.ProyectoColaborativoWhereInput>
   responsable?: Prisma.XOR<Prisma.UsuarioNullableScalarRelationFilter, Prisma.UsuarioWhereInput> | null
-  creador?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
   evidencias?: Prisma.ProyectoColaborativoEvidenciaListRelationFilter
 }, "id">
 
@@ -352,9 +352,9 @@ export type ProyectoColaborativoActividadCreateInput = {
   fechaLimite?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  creador: Prisma.UsuarioCreateNestedOneWithoutActividadesCreadasInput
   proyecto: Prisma.ProyectoColaborativoCreateNestedOneWithoutActividadesInput
   responsable?: Prisma.UsuarioCreateNestedOneWithoutActividadesResponsableInput
-  creador: Prisma.UsuarioCreateNestedOneWithoutActividadesCreadasInput
   evidencias?: Prisma.ProyectoColaborativoEvidenciaCreateNestedManyWithoutActividadInput
 }
 
@@ -379,9 +379,9 @@ export type ProyectoColaborativoActividadUpdateInput = {
   fechaLimite?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  creador?: Prisma.UsuarioUpdateOneRequiredWithoutActividadesCreadasNestedInput
   proyecto?: Prisma.ProyectoColaborativoUpdateOneRequiredWithoutActividadesNestedInput
   responsable?: Prisma.UsuarioUpdateOneWithoutActividadesResponsableNestedInput
-  creador?: Prisma.UsuarioUpdateOneRequiredWithoutActividadesCreadasNestedInput
   evidencias?: Prisma.ProyectoColaborativoEvidenciaUpdateManyWithoutActividadNestedInput
 }
 
@@ -502,13 +502,6 @@ export type ProyectoColaborativoActividadScalarRelationFilter = {
   isNot?: Prisma.ProyectoColaborativoActividadWhereInput
 }
 
-export type ProyectoColaborativoActividadCreateNestedManyWithoutResponsableInput = {
-  create?: Prisma.XOR<Prisma.ProyectoColaborativoActividadCreateWithoutResponsableInput, Prisma.ProyectoColaborativoActividadUncheckedCreateWithoutResponsableInput> | Prisma.ProyectoColaborativoActividadCreateWithoutResponsableInput[] | Prisma.ProyectoColaborativoActividadUncheckedCreateWithoutResponsableInput[]
-  connectOrCreate?: Prisma.ProyectoColaborativoActividadCreateOrConnectWithoutResponsableInput | Prisma.ProyectoColaborativoActividadCreateOrConnectWithoutResponsableInput[]
-  createMany?: Prisma.ProyectoColaborativoActividadCreateManyResponsableInputEnvelope
-  connect?: Prisma.ProyectoColaborativoActividadWhereUniqueInput | Prisma.ProyectoColaborativoActividadWhereUniqueInput[]
-}
-
 export type ProyectoColaborativoActividadCreateNestedManyWithoutCreadorInput = {
   create?: Prisma.XOR<Prisma.ProyectoColaborativoActividadCreateWithoutCreadorInput, Prisma.ProyectoColaborativoActividadUncheckedCreateWithoutCreadorInput> | Prisma.ProyectoColaborativoActividadCreateWithoutCreadorInput[] | Prisma.ProyectoColaborativoActividadUncheckedCreateWithoutCreadorInput[]
   connectOrCreate?: Prisma.ProyectoColaborativoActividadCreateOrConnectWithoutCreadorInput | Prisma.ProyectoColaborativoActividadCreateOrConnectWithoutCreadorInput[]
@@ -516,7 +509,7 @@ export type ProyectoColaborativoActividadCreateNestedManyWithoutCreadorInput = {
   connect?: Prisma.ProyectoColaborativoActividadWhereUniqueInput | Prisma.ProyectoColaborativoActividadWhereUniqueInput[]
 }
 
-export type ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutResponsableInput = {
+export type ProyectoColaborativoActividadCreateNestedManyWithoutResponsableInput = {
   create?: Prisma.XOR<Prisma.ProyectoColaborativoActividadCreateWithoutResponsableInput, Prisma.ProyectoColaborativoActividadUncheckedCreateWithoutResponsableInput> | Prisma.ProyectoColaborativoActividadCreateWithoutResponsableInput[] | Prisma.ProyectoColaborativoActividadUncheckedCreateWithoutResponsableInput[]
   connectOrCreate?: Prisma.ProyectoColaborativoActividadCreateOrConnectWithoutResponsableInput | Prisma.ProyectoColaborativoActividadCreateOrConnectWithoutResponsableInput[]
   createMany?: Prisma.ProyectoColaborativoActividadCreateManyResponsableInputEnvelope
@@ -530,18 +523,11 @@ export type ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutCreador
   connect?: Prisma.ProyectoColaborativoActividadWhereUniqueInput | Prisma.ProyectoColaborativoActividadWhereUniqueInput[]
 }
 
-export type ProyectoColaborativoActividadUpdateManyWithoutResponsableNestedInput = {
+export type ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutResponsableInput = {
   create?: Prisma.XOR<Prisma.ProyectoColaborativoActividadCreateWithoutResponsableInput, Prisma.ProyectoColaborativoActividadUncheckedCreateWithoutResponsableInput> | Prisma.ProyectoColaborativoActividadCreateWithoutResponsableInput[] | Prisma.ProyectoColaborativoActividadUncheckedCreateWithoutResponsableInput[]
   connectOrCreate?: Prisma.ProyectoColaborativoActividadCreateOrConnectWithoutResponsableInput | Prisma.ProyectoColaborativoActividadCreateOrConnectWithoutResponsableInput[]
-  upsert?: Prisma.ProyectoColaborativoActividadUpsertWithWhereUniqueWithoutResponsableInput | Prisma.ProyectoColaborativoActividadUpsertWithWhereUniqueWithoutResponsableInput[]
   createMany?: Prisma.ProyectoColaborativoActividadCreateManyResponsableInputEnvelope
-  set?: Prisma.ProyectoColaborativoActividadWhereUniqueInput | Prisma.ProyectoColaborativoActividadWhereUniqueInput[]
-  disconnect?: Prisma.ProyectoColaborativoActividadWhereUniqueInput | Prisma.ProyectoColaborativoActividadWhereUniqueInput[]
-  delete?: Prisma.ProyectoColaborativoActividadWhereUniqueInput | Prisma.ProyectoColaborativoActividadWhereUniqueInput[]
   connect?: Prisma.ProyectoColaborativoActividadWhereUniqueInput | Prisma.ProyectoColaborativoActividadWhereUniqueInput[]
-  update?: Prisma.ProyectoColaborativoActividadUpdateWithWhereUniqueWithoutResponsableInput | Prisma.ProyectoColaborativoActividadUpdateWithWhereUniqueWithoutResponsableInput[]
-  updateMany?: Prisma.ProyectoColaborativoActividadUpdateManyWithWhereWithoutResponsableInput | Prisma.ProyectoColaborativoActividadUpdateManyWithWhereWithoutResponsableInput[]
-  deleteMany?: Prisma.ProyectoColaborativoActividadScalarWhereInput | Prisma.ProyectoColaborativoActividadScalarWhereInput[]
 }
 
 export type ProyectoColaborativoActividadUpdateManyWithoutCreadorNestedInput = {
@@ -558,7 +544,7 @@ export type ProyectoColaborativoActividadUpdateManyWithoutCreadorNestedInput = {
   deleteMany?: Prisma.ProyectoColaborativoActividadScalarWhereInput | Prisma.ProyectoColaborativoActividadScalarWhereInput[]
 }
 
-export type ProyectoColaborativoActividadUncheckedUpdateManyWithoutResponsableNestedInput = {
+export type ProyectoColaborativoActividadUpdateManyWithoutResponsableNestedInput = {
   create?: Prisma.XOR<Prisma.ProyectoColaborativoActividadCreateWithoutResponsableInput, Prisma.ProyectoColaborativoActividadUncheckedCreateWithoutResponsableInput> | Prisma.ProyectoColaborativoActividadCreateWithoutResponsableInput[] | Prisma.ProyectoColaborativoActividadUncheckedCreateWithoutResponsableInput[]
   connectOrCreate?: Prisma.ProyectoColaborativoActividadCreateOrConnectWithoutResponsableInput | Prisma.ProyectoColaborativoActividadCreateOrConnectWithoutResponsableInput[]
   upsert?: Prisma.ProyectoColaborativoActividadUpsertWithWhereUniqueWithoutResponsableInput | Prisma.ProyectoColaborativoActividadUpsertWithWhereUniqueWithoutResponsableInput[]
@@ -583,6 +569,20 @@ export type ProyectoColaborativoActividadUncheckedUpdateManyWithoutCreadorNested
   connect?: Prisma.ProyectoColaborativoActividadWhereUniqueInput | Prisma.ProyectoColaborativoActividadWhereUniqueInput[]
   update?: Prisma.ProyectoColaborativoActividadUpdateWithWhereUniqueWithoutCreadorInput | Prisma.ProyectoColaborativoActividadUpdateWithWhereUniqueWithoutCreadorInput[]
   updateMany?: Prisma.ProyectoColaborativoActividadUpdateManyWithWhereWithoutCreadorInput | Prisma.ProyectoColaborativoActividadUpdateManyWithWhereWithoutCreadorInput[]
+  deleteMany?: Prisma.ProyectoColaborativoActividadScalarWhereInput | Prisma.ProyectoColaborativoActividadScalarWhereInput[]
+}
+
+export type ProyectoColaborativoActividadUncheckedUpdateManyWithoutResponsableNestedInput = {
+  create?: Prisma.XOR<Prisma.ProyectoColaborativoActividadCreateWithoutResponsableInput, Prisma.ProyectoColaborativoActividadUncheckedCreateWithoutResponsableInput> | Prisma.ProyectoColaborativoActividadCreateWithoutResponsableInput[] | Prisma.ProyectoColaborativoActividadUncheckedCreateWithoutResponsableInput[]
+  connectOrCreate?: Prisma.ProyectoColaborativoActividadCreateOrConnectWithoutResponsableInput | Prisma.ProyectoColaborativoActividadCreateOrConnectWithoutResponsableInput[]
+  upsert?: Prisma.ProyectoColaborativoActividadUpsertWithWhereUniqueWithoutResponsableInput | Prisma.ProyectoColaborativoActividadUpsertWithWhereUniqueWithoutResponsableInput[]
+  createMany?: Prisma.ProyectoColaborativoActividadCreateManyResponsableInputEnvelope
+  set?: Prisma.ProyectoColaborativoActividadWhereUniqueInput | Prisma.ProyectoColaborativoActividadWhereUniqueInput[]
+  disconnect?: Prisma.ProyectoColaborativoActividadWhereUniqueInput | Prisma.ProyectoColaborativoActividadWhereUniqueInput[]
+  delete?: Prisma.ProyectoColaborativoActividadWhereUniqueInput | Prisma.ProyectoColaborativoActividadWhereUniqueInput[]
+  connect?: Prisma.ProyectoColaborativoActividadWhereUniqueInput | Prisma.ProyectoColaborativoActividadWhereUniqueInput[]
+  update?: Prisma.ProyectoColaborativoActividadUpdateWithWhereUniqueWithoutResponsableInput | Prisma.ProyectoColaborativoActividadUpdateWithWhereUniqueWithoutResponsableInput[]
+  updateMany?: Prisma.ProyectoColaborativoActividadUpdateManyWithWhereWithoutResponsableInput | Prisma.ProyectoColaborativoActividadUpdateManyWithWhereWithoutResponsableInput[]
   deleteMany?: Prisma.ProyectoColaborativoActividadScalarWhereInput | Prisma.ProyectoColaborativoActividadScalarWhereInput[]
 }
 
@@ -642,41 +642,6 @@ export type ProyectoColaborativoActividadUpdateOneRequiredWithoutEvidenciasNeste
   update?: Prisma.XOR<Prisma.XOR<Prisma.ProyectoColaborativoActividadUpdateToOneWithWhereWithoutEvidenciasInput, Prisma.ProyectoColaborativoActividadUpdateWithoutEvidenciasInput>, Prisma.ProyectoColaborativoActividadUncheckedUpdateWithoutEvidenciasInput>
 }
 
-export type ProyectoColaborativoActividadCreateWithoutResponsableInput = {
-  titulo: string
-  descripcion?: string | null
-  estado?: string
-  fechaLimite?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  proyecto: Prisma.ProyectoColaborativoCreateNestedOneWithoutActividadesInput
-  creador: Prisma.UsuarioCreateNestedOneWithoutActividadesCreadasInput
-  evidencias?: Prisma.ProyectoColaborativoEvidenciaCreateNestedManyWithoutActividadInput
-}
-
-export type ProyectoColaborativoActividadUncheckedCreateWithoutResponsableInput = {
-  id?: number
-  titulo: string
-  descripcion?: string | null
-  estado?: string
-  fechaLimite?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  proyectoId: number
-  creadorId: number
-  evidencias?: Prisma.ProyectoColaborativoEvidenciaUncheckedCreateNestedManyWithoutActividadInput
-}
-
-export type ProyectoColaborativoActividadCreateOrConnectWithoutResponsableInput = {
-  where: Prisma.ProyectoColaborativoActividadWhereUniqueInput
-  create: Prisma.XOR<Prisma.ProyectoColaborativoActividadCreateWithoutResponsableInput, Prisma.ProyectoColaborativoActividadUncheckedCreateWithoutResponsableInput>
-}
-
-export type ProyectoColaborativoActividadCreateManyResponsableInputEnvelope = {
-  data: Prisma.ProyectoColaborativoActividadCreateManyResponsableInput | Prisma.ProyectoColaborativoActividadCreateManyResponsableInput[]
-  skipDuplicates?: boolean
-}
-
 export type ProyectoColaborativoActividadCreateWithoutCreadorInput = {
   titulo: string
   descripcion?: string | null
@@ -712,36 +677,39 @@ export type ProyectoColaborativoActividadCreateManyCreadorInputEnvelope = {
   skipDuplicates?: boolean
 }
 
-export type ProyectoColaborativoActividadUpsertWithWhereUniqueWithoutResponsableInput = {
+export type ProyectoColaborativoActividadCreateWithoutResponsableInput = {
+  titulo: string
+  descripcion?: string | null
+  estado?: string
+  fechaLimite?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  creador: Prisma.UsuarioCreateNestedOneWithoutActividadesCreadasInput
+  proyecto: Prisma.ProyectoColaborativoCreateNestedOneWithoutActividadesInput
+  evidencias?: Prisma.ProyectoColaborativoEvidenciaCreateNestedManyWithoutActividadInput
+}
+
+export type ProyectoColaborativoActividadUncheckedCreateWithoutResponsableInput = {
+  id?: number
+  titulo: string
+  descripcion?: string | null
+  estado?: string
+  fechaLimite?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  proyectoId: number
+  creadorId: number
+  evidencias?: Prisma.ProyectoColaborativoEvidenciaUncheckedCreateNestedManyWithoutActividadInput
+}
+
+export type ProyectoColaborativoActividadCreateOrConnectWithoutResponsableInput = {
   where: Prisma.ProyectoColaborativoActividadWhereUniqueInput
-  update: Prisma.XOR<Prisma.ProyectoColaborativoActividadUpdateWithoutResponsableInput, Prisma.ProyectoColaborativoActividadUncheckedUpdateWithoutResponsableInput>
   create: Prisma.XOR<Prisma.ProyectoColaborativoActividadCreateWithoutResponsableInput, Prisma.ProyectoColaborativoActividadUncheckedCreateWithoutResponsableInput>
 }
 
-export type ProyectoColaborativoActividadUpdateWithWhereUniqueWithoutResponsableInput = {
-  where: Prisma.ProyectoColaborativoActividadWhereUniqueInput
-  data: Prisma.XOR<Prisma.ProyectoColaborativoActividadUpdateWithoutResponsableInput, Prisma.ProyectoColaborativoActividadUncheckedUpdateWithoutResponsableInput>
-}
-
-export type ProyectoColaborativoActividadUpdateManyWithWhereWithoutResponsableInput = {
-  where: Prisma.ProyectoColaborativoActividadScalarWhereInput
-  data: Prisma.XOR<Prisma.ProyectoColaborativoActividadUpdateManyMutationInput, Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutResponsableInput>
-}
-
-export type ProyectoColaborativoActividadScalarWhereInput = {
-  AND?: Prisma.ProyectoColaborativoActividadScalarWhereInput | Prisma.ProyectoColaborativoActividadScalarWhereInput[]
-  OR?: Prisma.ProyectoColaborativoActividadScalarWhereInput[]
-  NOT?: Prisma.ProyectoColaborativoActividadScalarWhereInput | Prisma.ProyectoColaborativoActividadScalarWhereInput[]
-  id?: Prisma.IntFilter<"ProyectoColaborativoActividad"> | number
-  titulo?: Prisma.StringFilter<"ProyectoColaborativoActividad"> | string
-  descripcion?: Prisma.StringNullableFilter<"ProyectoColaborativoActividad"> | string | null
-  estado?: Prisma.StringFilter<"ProyectoColaborativoActividad"> | string
-  fechaLimite?: Prisma.DateTimeNullableFilter<"ProyectoColaborativoActividad"> | Date | string | null
-  createdAt?: Prisma.DateTimeFilter<"ProyectoColaborativoActividad"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"ProyectoColaborativoActividad"> | Date | string
-  proyectoId?: Prisma.IntFilter<"ProyectoColaborativoActividad"> | number
-  responsableId?: Prisma.IntNullableFilter<"ProyectoColaborativoActividad"> | number | null
-  creadorId?: Prisma.IntFilter<"ProyectoColaborativoActividad"> | number
+export type ProyectoColaborativoActividadCreateManyResponsableInputEnvelope = {
+  data: Prisma.ProyectoColaborativoActividadCreateManyResponsableInput | Prisma.ProyectoColaborativoActividadCreateManyResponsableInput[]
+  skipDuplicates?: boolean
 }
 
 export type ProyectoColaborativoActividadUpsertWithWhereUniqueWithoutCreadorInput = {
@@ -760,6 +728,38 @@ export type ProyectoColaborativoActividadUpdateManyWithWhereWithoutCreadorInput 
   data: Prisma.XOR<Prisma.ProyectoColaborativoActividadUpdateManyMutationInput, Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutCreadorInput>
 }
 
+export type ProyectoColaborativoActividadScalarWhereInput = {
+  AND?: Prisma.ProyectoColaborativoActividadScalarWhereInput | Prisma.ProyectoColaborativoActividadScalarWhereInput[]
+  OR?: Prisma.ProyectoColaborativoActividadScalarWhereInput[]
+  NOT?: Prisma.ProyectoColaborativoActividadScalarWhereInput | Prisma.ProyectoColaborativoActividadScalarWhereInput[]
+  id?: Prisma.IntFilter<"ProyectoColaborativoActividad"> | number
+  titulo?: Prisma.StringFilter<"ProyectoColaborativoActividad"> | string
+  descripcion?: Prisma.StringNullableFilter<"ProyectoColaborativoActividad"> | string | null
+  estado?: Prisma.StringFilter<"ProyectoColaborativoActividad"> | string
+  fechaLimite?: Prisma.DateTimeNullableFilter<"ProyectoColaborativoActividad"> | Date | string | null
+  createdAt?: Prisma.DateTimeFilter<"ProyectoColaborativoActividad"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"ProyectoColaborativoActividad"> | Date | string
+  proyectoId?: Prisma.IntFilter<"ProyectoColaborativoActividad"> | number
+  responsableId?: Prisma.IntNullableFilter<"ProyectoColaborativoActividad"> | number | null
+  creadorId?: Prisma.IntFilter<"ProyectoColaborativoActividad"> | number
+}
+
+export type ProyectoColaborativoActividadUpsertWithWhereUniqueWithoutResponsableInput = {
+  where: Prisma.ProyectoColaborativoActividadWhereUniqueInput
+  update: Prisma.XOR<Prisma.ProyectoColaborativoActividadUpdateWithoutResponsableInput, Prisma.ProyectoColaborativoActividadUncheckedUpdateWithoutResponsableInput>
+  create: Prisma.XOR<Prisma.ProyectoColaborativoActividadCreateWithoutResponsableInput, Prisma.ProyectoColaborativoActividadUncheckedCreateWithoutResponsableInput>
+}
+
+export type ProyectoColaborativoActividadUpdateWithWhereUniqueWithoutResponsableInput = {
+  where: Prisma.ProyectoColaborativoActividadWhereUniqueInput
+  data: Prisma.XOR<Prisma.ProyectoColaborativoActividadUpdateWithoutResponsableInput, Prisma.ProyectoColaborativoActividadUncheckedUpdateWithoutResponsableInput>
+}
+
+export type ProyectoColaborativoActividadUpdateManyWithWhereWithoutResponsableInput = {
+  where: Prisma.ProyectoColaborativoActividadScalarWhereInput
+  data: Prisma.XOR<Prisma.ProyectoColaborativoActividadUpdateManyMutationInput, Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutResponsableInput>
+}
+
 export type ProyectoColaborativoActividadCreateWithoutProyectoInput = {
   titulo: string
   descripcion?: string | null
@@ -767,8 +767,8 @@ export type ProyectoColaborativoActividadCreateWithoutProyectoInput = {
   fechaLimite?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  responsable?: Prisma.UsuarioCreateNestedOneWithoutActividadesResponsableInput
   creador: Prisma.UsuarioCreateNestedOneWithoutActividadesCreadasInput
+  responsable?: Prisma.UsuarioCreateNestedOneWithoutActividadesResponsableInput
   evidencias?: Prisma.ProyectoColaborativoEvidenciaCreateNestedManyWithoutActividadInput
 }
 
@@ -818,9 +818,9 @@ export type ProyectoColaborativoActividadCreateWithoutEvidenciasInput = {
   fechaLimite?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  creador: Prisma.UsuarioCreateNestedOneWithoutActividadesCreadasInput
   proyecto: Prisma.ProyectoColaborativoCreateNestedOneWithoutActividadesInput
   responsable?: Prisma.UsuarioCreateNestedOneWithoutActividadesResponsableInput
-  creador: Prisma.UsuarioCreateNestedOneWithoutActividadesCreadasInput
 }
 
 export type ProyectoColaborativoActividadUncheckedCreateWithoutEvidenciasInput = {
@@ -859,9 +859,9 @@ export type ProyectoColaborativoActividadUpdateWithoutEvidenciasInput = {
   fechaLimite?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  creador?: Prisma.UsuarioUpdateOneRequiredWithoutActividadesCreadasNestedInput
   proyecto?: Prisma.ProyectoColaborativoUpdateOneRequiredWithoutActividadesNestedInput
   responsable?: Prisma.UsuarioUpdateOneWithoutActividadesResponsableNestedInput
-  creador?: Prisma.UsuarioUpdateOneRequiredWithoutActividadesCreadasNestedInput
 }
 
 export type ProyectoColaborativoActividadUncheckedUpdateWithoutEvidenciasInput = {
@@ -877,18 +877,6 @@ export type ProyectoColaborativoActividadUncheckedUpdateWithoutEvidenciasInput =
   creadorId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
-export type ProyectoColaborativoActividadCreateManyResponsableInput = {
-  id?: number
-  titulo: string
-  descripcion?: string | null
-  estado?: string
-  fechaLimite?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  proyectoId: number
-  creadorId: number
-}
-
 export type ProyectoColaborativoActividadCreateManyCreadorInput = {
   id?: number
   titulo: string
@@ -901,41 +889,16 @@ export type ProyectoColaborativoActividadCreateManyCreadorInput = {
   responsableId?: number | null
 }
 
-export type ProyectoColaborativoActividadUpdateWithoutResponsableInput = {
-  titulo?: Prisma.StringFieldUpdateOperationsInput | string
-  descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  estado?: Prisma.StringFieldUpdateOperationsInput | string
-  fechaLimite?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  proyecto?: Prisma.ProyectoColaborativoUpdateOneRequiredWithoutActividadesNestedInput
-  creador?: Prisma.UsuarioUpdateOneRequiredWithoutActividadesCreadasNestedInput
-  evidencias?: Prisma.ProyectoColaborativoEvidenciaUpdateManyWithoutActividadNestedInput
-}
-
-export type ProyectoColaborativoActividadUncheckedUpdateWithoutResponsableInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  titulo?: Prisma.StringFieldUpdateOperationsInput | string
-  descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  estado?: Prisma.StringFieldUpdateOperationsInput | string
-  fechaLimite?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  proyectoId?: Prisma.IntFieldUpdateOperationsInput | number
-  creadorId?: Prisma.IntFieldUpdateOperationsInput | number
-  evidencias?: Prisma.ProyectoColaborativoEvidenciaUncheckedUpdateManyWithoutActividadNestedInput
-}
-
-export type ProyectoColaborativoActividadUncheckedUpdateManyWithoutResponsableInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  titulo?: Prisma.StringFieldUpdateOperationsInput | string
-  descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  estado?: Prisma.StringFieldUpdateOperationsInput | string
-  fechaLimite?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  proyectoId?: Prisma.IntFieldUpdateOperationsInput | number
-  creadorId?: Prisma.IntFieldUpdateOperationsInput | number
+export type ProyectoColaborativoActividadCreateManyResponsableInput = {
+  id?: number
+  titulo: string
+  descripcion?: string | null
+  estado?: string
+  fechaLimite?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  proyectoId: number
+  creadorId: number
 }
 
 export type ProyectoColaborativoActividadUpdateWithoutCreadorInput = {
@@ -975,6 +938,43 @@ export type ProyectoColaborativoActividadUncheckedUpdateManyWithoutCreadorInput 
   responsableId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
+export type ProyectoColaborativoActividadUpdateWithoutResponsableInput = {
+  titulo?: Prisma.StringFieldUpdateOperationsInput | string
+  descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estado?: Prisma.StringFieldUpdateOperationsInput | string
+  fechaLimite?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  creador?: Prisma.UsuarioUpdateOneRequiredWithoutActividadesCreadasNestedInput
+  proyecto?: Prisma.ProyectoColaborativoUpdateOneRequiredWithoutActividadesNestedInput
+  evidencias?: Prisma.ProyectoColaborativoEvidenciaUpdateManyWithoutActividadNestedInput
+}
+
+export type ProyectoColaborativoActividadUncheckedUpdateWithoutResponsableInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  titulo?: Prisma.StringFieldUpdateOperationsInput | string
+  descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estado?: Prisma.StringFieldUpdateOperationsInput | string
+  fechaLimite?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  proyectoId?: Prisma.IntFieldUpdateOperationsInput | number
+  creadorId?: Prisma.IntFieldUpdateOperationsInput | number
+  evidencias?: Prisma.ProyectoColaborativoEvidenciaUncheckedUpdateManyWithoutActividadNestedInput
+}
+
+export type ProyectoColaborativoActividadUncheckedUpdateManyWithoutResponsableInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  titulo?: Prisma.StringFieldUpdateOperationsInput | string
+  descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estado?: Prisma.StringFieldUpdateOperationsInput | string
+  fechaLimite?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  proyectoId?: Prisma.IntFieldUpdateOperationsInput | number
+  creadorId?: Prisma.IntFieldUpdateOperationsInput | number
+}
+
 export type ProyectoColaborativoActividadCreateManyProyectoInput = {
   id?: number
   titulo: string
@@ -994,8 +994,8 @@ export type ProyectoColaborativoActividadUpdateWithoutProyectoInput = {
   fechaLimite?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  responsable?: Prisma.UsuarioUpdateOneWithoutActividadesResponsableNestedInput
   creador?: Prisma.UsuarioUpdateOneRequiredWithoutActividadesCreadasNestedInput
+  responsable?: Prisma.UsuarioUpdateOneWithoutActividadesResponsableNestedInput
   evidencias?: Prisma.ProyectoColaborativoEvidenciaUpdateManyWithoutActividadNestedInput
 }
 
@@ -1066,9 +1066,9 @@ export type ProyectoColaborativoActividadSelect<ExtArgs extends runtime.Types.Ex
   proyectoId?: boolean
   responsableId?: boolean
   creadorId?: boolean
+  creador?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   proyecto?: boolean | Prisma.ProyectoColaborativoDefaultArgs<ExtArgs>
   responsable?: boolean | Prisma.ProyectoColaborativoActividad$responsableArgs<ExtArgs>
-  creador?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   evidencias?: boolean | Prisma.ProyectoColaborativoActividad$evidenciasArgs<ExtArgs>
   _count?: boolean | Prisma.ProyectoColaborativoActividadCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["proyectoColaborativoActividad"]>
@@ -1084,9 +1084,9 @@ export type ProyectoColaborativoActividadSelectCreateManyAndReturn<ExtArgs exten
   proyectoId?: boolean
   responsableId?: boolean
   creadorId?: boolean
+  creador?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   proyecto?: boolean | Prisma.ProyectoColaborativoDefaultArgs<ExtArgs>
   responsable?: boolean | Prisma.ProyectoColaborativoActividad$responsableArgs<ExtArgs>
-  creador?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["proyectoColaborativoActividad"]>
 
 export type ProyectoColaborativoActividadSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1100,9 +1100,9 @@ export type ProyectoColaborativoActividadSelectUpdateManyAndReturn<ExtArgs exten
   proyectoId?: boolean
   responsableId?: boolean
   creadorId?: boolean
+  creador?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   proyecto?: boolean | Prisma.ProyectoColaborativoDefaultArgs<ExtArgs>
   responsable?: boolean | Prisma.ProyectoColaborativoActividad$responsableArgs<ExtArgs>
-  creador?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["proyectoColaborativoActividad"]>
 
 export type ProyectoColaborativoActividadSelectScalar = {
@@ -1120,29 +1120,29 @@ export type ProyectoColaborativoActividadSelectScalar = {
 
 export type ProyectoColaborativoActividadOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "titulo" | "descripcion" | "estado" | "fechaLimite" | "createdAt" | "updatedAt" | "proyectoId" | "responsableId" | "creadorId", ExtArgs["result"]["proyectoColaborativoActividad"]>
 export type ProyectoColaborativoActividadInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  creador?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   proyecto?: boolean | Prisma.ProyectoColaborativoDefaultArgs<ExtArgs>
   responsable?: boolean | Prisma.ProyectoColaborativoActividad$responsableArgs<ExtArgs>
-  creador?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   evidencias?: boolean | Prisma.ProyectoColaborativoActividad$evidenciasArgs<ExtArgs>
   _count?: boolean | Prisma.ProyectoColaborativoActividadCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ProyectoColaborativoActividadIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  creador?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   proyecto?: boolean | Prisma.ProyectoColaborativoDefaultArgs<ExtArgs>
   responsable?: boolean | Prisma.ProyectoColaborativoActividad$responsableArgs<ExtArgs>
-  creador?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
 }
 export type ProyectoColaborativoActividadIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  creador?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   proyecto?: boolean | Prisma.ProyectoColaborativoDefaultArgs<ExtArgs>
   responsable?: boolean | Prisma.ProyectoColaborativoActividad$responsableArgs<ExtArgs>
-  creador?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
 }
 
 export type $ProyectoColaborativoActividadPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "ProyectoColaborativoActividad"
   objects: {
+    creador: Prisma.$UsuarioPayload<ExtArgs>
     proyecto: Prisma.$ProyectoColaborativoPayload<ExtArgs>
     responsable: Prisma.$UsuarioPayload<ExtArgs> | null
-    creador: Prisma.$UsuarioPayload<ExtArgs>
     evidencias: Prisma.$ProyectoColaborativoEvidenciaPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -1550,9 +1550,9 @@ readonly fields: ProyectoColaborativoActividadFieldRefs;
  */
 export interface Prisma__ProyectoColaborativoActividadClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  creador<T extends Prisma.UsuarioDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UsuarioDefaultArgs<ExtArgs>>): Prisma.Prisma__UsuarioClient<runtime.Types.Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   proyecto<T extends Prisma.ProyectoColaborativoDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProyectoColaborativoDefaultArgs<ExtArgs>>): Prisma.Prisma__ProyectoColaborativoClient<runtime.Types.Result.GetResult<Prisma.$ProyectoColaborativoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   responsable<T extends Prisma.ProyectoColaborativoActividad$responsableArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProyectoColaborativoActividad$responsableArgs<ExtArgs>>): Prisma.Prisma__UsuarioClient<runtime.Types.Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  creador<T extends Prisma.UsuarioDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UsuarioDefaultArgs<ExtArgs>>): Prisma.Prisma__UsuarioClient<runtime.Types.Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   evidencias<T extends Prisma.ProyectoColaborativoActividad$evidenciasArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProyectoColaborativoActividad$evidenciasArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProyectoColaborativoEvidenciaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.

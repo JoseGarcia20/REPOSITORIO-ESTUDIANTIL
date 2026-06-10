@@ -252,6 +252,7 @@ export type ResumenIaRecursoWhereInput = {
   advertencia?: Prisma.StringNullableFilter<"ResumenIaRecurso"> | string | null
   createdAt?: Prisma.DateTimeFilter<"ResumenIaRecurso"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ResumenIaRecurso"> | Date | string
+  recurso?: Prisma.XOR<Prisma.RecursoScalarRelationFilter, Prisma.RecursoWhereInput>
 }
 
 export type ResumenIaRecursoOrderByWithRelationInput = {
@@ -264,6 +265,7 @@ export type ResumenIaRecursoOrderByWithRelationInput = {
   advertencia?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  recurso?: Prisma.RecursoOrderByWithRelationInput
 }
 
 export type ResumenIaRecursoWhereUniqueInput = Prisma.AtLeast<{
@@ -279,6 +281,7 @@ export type ResumenIaRecursoWhereUniqueInput = Prisma.AtLeast<{
   advertencia?: Prisma.StringNullableFilter<"ResumenIaRecurso"> | string | null
   createdAt?: Prisma.DateTimeFilter<"ResumenIaRecurso"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ResumenIaRecurso"> | Date | string
+  recurso?: Prisma.XOR<Prisma.RecursoScalarRelationFilter, Prisma.RecursoWhereInput>
 }, "recursoId">
 
 export type ResumenIaRecursoOrderByWithAggregationInput = {
@@ -314,7 +317,6 @@ export type ResumenIaRecursoScalarWhereWithAggregatesInput = {
 }
 
 export type ResumenIaRecursoCreateInput = {
-  recursoId: number
   resumen: string
   proveedor: string
   modelo: string
@@ -323,6 +325,7 @@ export type ResumenIaRecursoCreateInput = {
   advertencia?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  recurso: Prisma.RecursoCreateNestedOneWithoutResumenIaInput
 }
 
 export type ResumenIaRecursoUncheckedCreateInput = {
@@ -338,7 +341,6 @@ export type ResumenIaRecursoUncheckedCreateInput = {
 }
 
 export type ResumenIaRecursoUpdateInput = {
-  recursoId?: Prisma.IntFieldUpdateOperationsInput | number
   resumen?: Prisma.StringFieldUpdateOperationsInput | string
   proveedor?: Prisma.StringFieldUpdateOperationsInput | string
   modelo?: Prisma.StringFieldUpdateOperationsInput | string
@@ -347,6 +349,7 @@ export type ResumenIaRecursoUpdateInput = {
   advertencia?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  recurso?: Prisma.RecursoUpdateOneRequiredWithoutResumenIaNestedInput
 }
 
 export type ResumenIaRecursoUncheckedUpdateInput = {
@@ -374,7 +377,6 @@ export type ResumenIaRecursoCreateManyInput = {
 }
 
 export type ResumenIaRecursoUpdateManyMutationInput = {
-  recursoId?: Prisma.IntFieldUpdateOperationsInput | number
   resumen?: Prisma.StringFieldUpdateOperationsInput | string
   proveedor?: Prisma.StringFieldUpdateOperationsInput | string
   modelo?: Prisma.StringFieldUpdateOperationsInput | string
@@ -395,6 +397,11 @@ export type ResumenIaRecursoUncheckedUpdateManyInput = {
   advertencia?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type ResumenIaRecursoNullableScalarRelationFilter = {
+  is?: Prisma.ResumenIaRecursoWhereInput | null
+  isNot?: Prisma.ResumenIaRecursoWhereInput | null
 }
 
 export type ResumenIaRecursoCountOrderByAggregateInput = {
@@ -443,6 +450,98 @@ export type ResumenIaRecursoSumOrderByAggregateInput = {
   caracteresAnalizados?: Prisma.SortOrder
 }
 
+export type ResumenIaRecursoCreateNestedOneWithoutRecursoInput = {
+  create?: Prisma.XOR<Prisma.ResumenIaRecursoCreateWithoutRecursoInput, Prisma.ResumenIaRecursoUncheckedCreateWithoutRecursoInput>
+  connectOrCreate?: Prisma.ResumenIaRecursoCreateOrConnectWithoutRecursoInput
+  connect?: Prisma.ResumenIaRecursoWhereUniqueInput
+}
+
+export type ResumenIaRecursoUncheckedCreateNestedOneWithoutRecursoInput = {
+  create?: Prisma.XOR<Prisma.ResumenIaRecursoCreateWithoutRecursoInput, Prisma.ResumenIaRecursoUncheckedCreateWithoutRecursoInput>
+  connectOrCreate?: Prisma.ResumenIaRecursoCreateOrConnectWithoutRecursoInput
+  connect?: Prisma.ResumenIaRecursoWhereUniqueInput
+}
+
+export type ResumenIaRecursoUpdateOneWithoutRecursoNestedInput = {
+  create?: Prisma.XOR<Prisma.ResumenIaRecursoCreateWithoutRecursoInput, Prisma.ResumenIaRecursoUncheckedCreateWithoutRecursoInput>
+  connectOrCreate?: Prisma.ResumenIaRecursoCreateOrConnectWithoutRecursoInput
+  upsert?: Prisma.ResumenIaRecursoUpsertWithoutRecursoInput
+  disconnect?: Prisma.ResumenIaRecursoWhereInput | boolean
+  delete?: Prisma.ResumenIaRecursoWhereInput | boolean
+  connect?: Prisma.ResumenIaRecursoWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ResumenIaRecursoUpdateToOneWithWhereWithoutRecursoInput, Prisma.ResumenIaRecursoUpdateWithoutRecursoInput>, Prisma.ResumenIaRecursoUncheckedUpdateWithoutRecursoInput>
+}
+
+export type ResumenIaRecursoUncheckedUpdateOneWithoutRecursoNestedInput = {
+  create?: Prisma.XOR<Prisma.ResumenIaRecursoCreateWithoutRecursoInput, Prisma.ResumenIaRecursoUncheckedCreateWithoutRecursoInput>
+  connectOrCreate?: Prisma.ResumenIaRecursoCreateOrConnectWithoutRecursoInput
+  upsert?: Prisma.ResumenIaRecursoUpsertWithoutRecursoInput
+  disconnect?: Prisma.ResumenIaRecursoWhereInput | boolean
+  delete?: Prisma.ResumenIaRecursoWhereInput | boolean
+  connect?: Prisma.ResumenIaRecursoWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ResumenIaRecursoUpdateToOneWithWhereWithoutRecursoInput, Prisma.ResumenIaRecursoUpdateWithoutRecursoInput>, Prisma.ResumenIaRecursoUncheckedUpdateWithoutRecursoInput>
+}
+
+export type ResumenIaRecursoCreateWithoutRecursoInput = {
+  resumen: string
+  proveedor: string
+  modelo: string
+  extension?: string | null
+  caracteresAnalizados?: number
+  advertencia?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type ResumenIaRecursoUncheckedCreateWithoutRecursoInput = {
+  resumen: string
+  proveedor: string
+  modelo: string
+  extension?: string | null
+  caracteresAnalizados?: number
+  advertencia?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type ResumenIaRecursoCreateOrConnectWithoutRecursoInput = {
+  where: Prisma.ResumenIaRecursoWhereUniqueInput
+  create: Prisma.XOR<Prisma.ResumenIaRecursoCreateWithoutRecursoInput, Prisma.ResumenIaRecursoUncheckedCreateWithoutRecursoInput>
+}
+
+export type ResumenIaRecursoUpsertWithoutRecursoInput = {
+  update: Prisma.XOR<Prisma.ResumenIaRecursoUpdateWithoutRecursoInput, Prisma.ResumenIaRecursoUncheckedUpdateWithoutRecursoInput>
+  create: Prisma.XOR<Prisma.ResumenIaRecursoCreateWithoutRecursoInput, Prisma.ResumenIaRecursoUncheckedCreateWithoutRecursoInput>
+  where?: Prisma.ResumenIaRecursoWhereInput
+}
+
+export type ResumenIaRecursoUpdateToOneWithWhereWithoutRecursoInput = {
+  where?: Prisma.ResumenIaRecursoWhereInput
+  data: Prisma.XOR<Prisma.ResumenIaRecursoUpdateWithoutRecursoInput, Prisma.ResumenIaRecursoUncheckedUpdateWithoutRecursoInput>
+}
+
+export type ResumenIaRecursoUpdateWithoutRecursoInput = {
+  resumen?: Prisma.StringFieldUpdateOperationsInput | string
+  proveedor?: Prisma.StringFieldUpdateOperationsInput | string
+  modelo?: Prisma.StringFieldUpdateOperationsInput | string
+  extension?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  caracteresAnalizados?: Prisma.IntFieldUpdateOperationsInput | number
+  advertencia?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type ResumenIaRecursoUncheckedUpdateWithoutRecursoInput = {
+  resumen?: Prisma.StringFieldUpdateOperationsInput | string
+  proveedor?: Prisma.StringFieldUpdateOperationsInput | string
+  modelo?: Prisma.StringFieldUpdateOperationsInput | string
+  extension?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  caracteresAnalizados?: Prisma.IntFieldUpdateOperationsInput | number
+  advertencia?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 
 
 export type ResumenIaRecursoSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -455,6 +554,7 @@ export type ResumenIaRecursoSelect<ExtArgs extends runtime.Types.Extensions.Inte
   advertencia?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  recurso?: boolean | Prisma.RecursoDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["resumenIaRecurso"]>
 
 export type ResumenIaRecursoSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -467,6 +567,7 @@ export type ResumenIaRecursoSelectCreateManyAndReturn<ExtArgs extends runtime.Ty
   advertencia?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  recurso?: boolean | Prisma.RecursoDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["resumenIaRecurso"]>
 
 export type ResumenIaRecursoSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -479,6 +580,7 @@ export type ResumenIaRecursoSelectUpdateManyAndReturn<ExtArgs extends runtime.Ty
   advertencia?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  recurso?: boolean | Prisma.RecursoDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["resumenIaRecurso"]>
 
 export type ResumenIaRecursoSelectScalar = {
@@ -494,10 +596,21 @@ export type ResumenIaRecursoSelectScalar = {
 }
 
 export type ResumenIaRecursoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"recursoId" | "resumen" | "proveedor" | "modelo" | "extension" | "caracteresAnalizados" | "advertencia" | "createdAt" | "updatedAt", ExtArgs["result"]["resumenIaRecurso"]>
+export type ResumenIaRecursoInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  recurso?: boolean | Prisma.RecursoDefaultArgs<ExtArgs>
+}
+export type ResumenIaRecursoIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  recurso?: boolean | Prisma.RecursoDefaultArgs<ExtArgs>
+}
+export type ResumenIaRecursoIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  recurso?: boolean | Prisma.RecursoDefaultArgs<ExtArgs>
+}
 
 export type $ResumenIaRecursoPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "ResumenIaRecurso"
-  objects: {}
+  objects: {
+    recurso: Prisma.$RecursoPayload<ExtArgs>
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     recursoId: number
     resumen: string
@@ -902,6 +1015,7 @@ readonly fields: ResumenIaRecursoFieldRefs;
  */
 export interface Prisma__ResumenIaRecursoClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  recurso<T extends Prisma.RecursoDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RecursoDefaultArgs<ExtArgs>>): Prisma.Prisma__RecursoClient<runtime.Types.Result.GetResult<Prisma.$RecursoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -957,6 +1071,10 @@ export type ResumenIaRecursoFindUniqueArgs<ExtArgs extends runtime.Types.Extensi
    */
   omit?: Prisma.ResumenIaRecursoOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ResumenIaRecursoInclude<ExtArgs> | null
+  /**
    * Filter, which ResumenIaRecurso to fetch.
    */
   where: Prisma.ResumenIaRecursoWhereUniqueInput
@@ -975,6 +1093,10 @@ export type ResumenIaRecursoFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.
    */
   omit?: Prisma.ResumenIaRecursoOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ResumenIaRecursoInclude<ExtArgs> | null
+  /**
    * Filter, which ResumenIaRecurso to fetch.
    */
   where: Prisma.ResumenIaRecursoWhereUniqueInput
@@ -992,6 +1114,10 @@ export type ResumenIaRecursoFindFirstArgs<ExtArgs extends runtime.Types.Extensio
    * Omit specific fields from the ResumenIaRecurso
    */
   omit?: Prisma.ResumenIaRecursoOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ResumenIaRecursoInclude<ExtArgs> | null
   /**
    * Filter, which ResumenIaRecurso to fetch.
    */
@@ -1041,6 +1167,10 @@ export type ResumenIaRecursoFindFirstOrThrowArgs<ExtArgs extends runtime.Types.E
    */
   omit?: Prisma.ResumenIaRecursoOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ResumenIaRecursoInclude<ExtArgs> | null
+  /**
    * Filter, which ResumenIaRecurso to fetch.
    */
   where?: Prisma.ResumenIaRecursoWhereInput
@@ -1088,6 +1218,10 @@ export type ResumenIaRecursoFindManyArgs<ExtArgs extends runtime.Types.Extension
    * Omit specific fields from the ResumenIaRecurso
    */
   omit?: Prisma.ResumenIaRecursoOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ResumenIaRecursoInclude<ExtArgs> | null
   /**
    * Filter, which ResumenIaRecursos to fetch.
    */
@@ -1137,6 +1271,10 @@ export type ResumenIaRecursoCreateArgs<ExtArgs extends runtime.Types.Extensions.
    */
   omit?: Prisma.ResumenIaRecursoOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ResumenIaRecursoInclude<ExtArgs> | null
+  /**
    * The data needed to create a ResumenIaRecurso.
    */
   data: Prisma.XOR<Prisma.ResumenIaRecursoCreateInput, Prisma.ResumenIaRecursoUncheckedCreateInput>
@@ -1170,6 +1308,10 @@ export type ResumenIaRecursoCreateManyAndReturnArgs<ExtArgs extends runtime.Type
    */
   data: Prisma.ResumenIaRecursoCreateManyInput | Prisma.ResumenIaRecursoCreateManyInput[]
   skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ResumenIaRecursoIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1184,6 +1326,10 @@ export type ResumenIaRecursoUpdateArgs<ExtArgs extends runtime.Types.Extensions.
    * Omit specific fields from the ResumenIaRecurso
    */
   omit?: Prisma.ResumenIaRecursoOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ResumenIaRecursoInclude<ExtArgs> | null
   /**
    * The data needed to update a ResumenIaRecurso.
    */
@@ -1236,6 +1382,10 @@ export type ResumenIaRecursoUpdateManyAndReturnArgs<ExtArgs extends runtime.Type
    * Limit how many ResumenIaRecursos to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ResumenIaRecursoIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1250,6 +1400,10 @@ export type ResumenIaRecursoUpsertArgs<ExtArgs extends runtime.Types.Extensions.
    * Omit specific fields from the ResumenIaRecurso
    */
   omit?: Prisma.ResumenIaRecursoOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ResumenIaRecursoInclude<ExtArgs> | null
   /**
    * The filter to search for the ResumenIaRecurso to update in case it exists.
    */
@@ -1276,6 +1430,10 @@ export type ResumenIaRecursoDeleteArgs<ExtArgs extends runtime.Types.Extensions.
    * Omit specific fields from the ResumenIaRecurso
    */
   omit?: Prisma.ResumenIaRecursoOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ResumenIaRecursoInclude<ExtArgs> | null
   /**
    * Filter which ResumenIaRecurso to delete.
    */
@@ -1308,4 +1466,8 @@ export type ResumenIaRecursoDefaultArgs<ExtArgs extends runtime.Types.Extensions
    * Omit specific fields from the ResumenIaRecurso
    */
   omit?: Prisma.ResumenIaRecursoOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ResumenIaRecursoInclude<ExtArgs> | null
 }

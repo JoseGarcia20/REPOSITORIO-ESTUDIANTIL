@@ -36,6 +36,12 @@
   --overlay-soft: rgba(7, 7, 56, 0.34);
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 html,
 body,
 #root {
@@ -46,6 +52,20 @@ body {
   margin: 0;
   background: var(--surface-app);
   color: var(--text-primary);
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+img,
+video,
+canvas,
+iframe {
+  max-width: 100%;
 }
 
 a {

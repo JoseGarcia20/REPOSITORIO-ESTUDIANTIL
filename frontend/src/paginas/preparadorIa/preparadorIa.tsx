@@ -1,10 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import type { ChangeEvent, FormEvent } from 'react';
 import type { ReactNode } from 'react';
-import { BlockMath, InlineMath } from 'react-katex';
-import 'katex/dist/katex.min.css';
 import {
-  API_URL,
+  construirUrlArchivoProtegido,
   esSuperadministrador,
   generarMaterialIa,
   guardarMaterialIa,
@@ -112,6 +110,14 @@ function normalizarLatex(texto: string) {
   return (texto || '').replace(/\\\\/g, '\\');
 }
 
+function FormulaInline({ math }: { math: string }) {
+  return <span className="ai-math-inline">{math}</span>;
+}
+
+function FormulaBloque({ math }: { math: string }) {
+  return <pre className="ai-math-formula">{math}</pre>;
+}
+
 function extensionRecurso(recurso: Recurso) {
   const ruta = (recurso.rutaRecurso || '').split('?')[0].split('#')[0];
   const extension = ruta.split('.').pop()?.toLowerCase() || '';
@@ -176,7 +182,7 @@ function renderizarLineaConFormula(
     }
 
     nodos.push(
-      <InlineMath
+      <FormulaInline
         key={`${keyBase}-math-${indice}`}
         math={normalizarLatex(match[1].trim())}
       />,
@@ -208,7 +214,7 @@ function VistaMatematica({ texto }: { texto: string }) {
         if (bloque.tipo === 'bloque') {
           return (
             <div className="ai-math-block" key={`bloque-${bloqueIndice}`}>
-              <BlockMath math={normalizarLatex(bloque.valor)} />
+              <FormulaBloque math={normalizarLatex(bloque.valor)} />
             </div>
           );
         }
@@ -865,24 +871,36 @@ export function PreparadorIa() {
 
               <input
                 value={busquedaRecursoFuente}
-                onChange={(event) => setBusquedaRecursoFuente(event.target.value)}
+                onChange={(event) =>
+                  setBusquedaRecursoFuente(event.target.value)
+                }
                 placeholder="Buscar por título, grado, categoría o tipo"
-                disabled={cargandoRecursos || (esSuper && !formulario.institucionId)}
+                disabled={
+                  cargandoRecursos || (esSuper && !formulario.institucionId)
+                }
               />
 
               {recursoFuenteSeleccionado && (
                 <div className="ai-resource-selected">
                   <strong>{recursoFuenteSeleccionado.titulo}</strong>
                   <p>
-                    {recursoFuenteSeleccionado.gradoEscolar?.nombre || 'Sin grado'} ·{' '}
-                    {recursoFuenteSeleccionado.categoria?.nombre || 'Sin categoría'} ·{' '}
-                    {extensionRecurso(recursoFuenteSeleccionado).toUpperCase() || 'ARCHIVO'}
+                    {recursoFuenteSeleccionado.gradoEscolar?.nombre ||
+                      'Sin grado'}{' '}
+                    ·{' '}
+                    {recursoFuenteSeleccionado.categoria?.nombre ||
+                      'Sin categoría'}{' '}
+                    ·{' '}
+                    {extensionRecurso(
+                      recursoFuenteSeleccionado,
+                    ).toUpperCase() || 'ARCHIVO'}
                   </p>
                 </div>
               )}
 
               {cargandoRecursos ? (
-                <p className="state-message">Cargando recursos del repositorio...</p>
+                <p className="state-message">
+                  Cargando recursos del repositorio...
+                </p>
               ) : (
                 <div className="table-responsive">
                   <table className="data-table ai-resource-table">
@@ -910,7 +928,9 @@ export function PreparadorIa() {
                           return (
                             <tr
                               key={recurso.id}
-                              className={seleccionado ? 'selected-resource-row' : ''}
+                              className={
+                                seleccionado ? 'selected-resource-row' : ''
+                              }
                             >
                               <td data-label="Recurso">
                                 <strong>{recurso.titulo}</strong>
@@ -928,7 +948,8 @@ export function PreparadorIa() {
                                 {recurso.categoria?.nombre || 'Sin categoría'}
                               </td>
                               <td data-label="Formato">
-                                {extensionRecurso(recurso).toUpperCase() || 'ARCHIVO'}
+                                {extensionRecurso(recurso).toUpperCase() ||
+                                  'ARCHIVO'}
                               </td>
                               <td data-label="Acción">
                                 <button
@@ -980,7 +1001,7 @@ export function PreparadorIa() {
               {exito}{' '}
               {ultimoDocumento && (
                 <a
-                  href={`${API_URL}${ultimoDocumento.ruta}`}
+                  href={construirUrlArchivoProtegido(ultimoDocumento.ruta)}
                   target="_blank"
                   rel="noreferrer"
                 >

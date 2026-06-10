@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import type { ChangeEvent, FormEvent } from 'react';
 import {
-  API_URL,
   actualizarEstadoActividadAula,
+  construirUrlArchivoProtegido,
   crearActividadAulaColaborativa,
   crearEntregaAulaColaborativa,
   crearProyectoAulaColaborativa,
@@ -124,11 +124,7 @@ function etiquetaEstado(estado: string) {
 }
 
 function construirUrl(ruta?: string) {
-  if (!ruta) {
-    return '';
-  }
-
-  return ruta.startsWith('http') ? ruta : `${API_URL}${ruta}`;
+  return construirUrlArchivoProtegido(ruta);
 }
 
 function nombreUsuario(usuario?: { nombres: string; apellidos: string }) {

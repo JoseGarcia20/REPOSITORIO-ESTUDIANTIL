@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { crearInstitucion, obtenerTodasInstituciones, actualizarInstitucion, inactivarInstitucion, reactivarInstitucion, subirLogoInstitucion } from '../../api/api';
+import { crearInstitucion, obtenerTodasInstituciones, actualizarInstitucion, inactivarInstitucion, reactivarInstitucion, subirLogoInstitucion, construirUrlArchivoProtegido } from '../../api/api';
 import { departamentosColombia } from '../../data/colombia'
 import './instituciones.css';
 
@@ -473,7 +473,7 @@ export function Instituciones() {
                   {formulario.logo && (
                     <div className="logo-preview">
                       <img
-                        src={`http://localhost:3000${formulario.logo}`}
+                        src={construirUrlArchivoProtegido(formulario.logo)}
                         alt="Logo institución"
                       />
                     </div>

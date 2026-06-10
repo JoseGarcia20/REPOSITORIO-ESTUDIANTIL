@@ -256,8 +256,8 @@ export type AuditoriaLogWhereInput = {
   detalles?: Prisma.JsonNullableFilter<"AuditoriaLog">
   direccionIp?: Prisma.StringNullableFilter<"AuditoriaLog"> | string | null
   createdAt?: Prisma.DateTimeFilter<"AuditoriaLog"> | Date | string
-  usuario?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
   institucion?: Prisma.XOR<Prisma.InstitucionNullableScalarRelationFilter, Prisma.InstitucionWhereInput> | null
+  usuario?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
 }
 
 export type AuditoriaLogOrderByWithRelationInput = {
@@ -270,8 +270,8 @@ export type AuditoriaLogOrderByWithRelationInput = {
   detalles?: Prisma.SortOrderInput | Prisma.SortOrder
   direccionIp?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  usuario?: Prisma.UsuarioOrderByWithRelationInput
   institucion?: Prisma.InstitucionOrderByWithRelationInput
+  usuario?: Prisma.UsuarioOrderByWithRelationInput
 }
 
 export type AuditoriaLogWhereUniqueInput = Prisma.AtLeast<{
@@ -287,8 +287,8 @@ export type AuditoriaLogWhereUniqueInput = Prisma.AtLeast<{
   detalles?: Prisma.JsonNullableFilter<"AuditoriaLog">
   direccionIp?: Prisma.StringNullableFilter<"AuditoriaLog"> | string | null
   createdAt?: Prisma.DateTimeFilter<"AuditoriaLog"> | Date | string
-  usuario?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
   institucion?: Prisma.XOR<Prisma.InstitucionNullableScalarRelationFilter, Prisma.InstitucionWhereInput> | null
+  usuario?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
 }, "id">
 
 export type AuditoriaLogOrderByWithAggregationInput = {
@@ -331,8 +331,8 @@ export type AuditoriaLogCreateInput = {
   detalles?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   direccionIp?: string | null
   createdAt?: Date | string
-  usuario: Prisma.UsuarioCreateNestedOneWithoutAuditoriaLogsInput
   institucion?: Prisma.InstitucionCreateNestedOneWithoutAuditoriaLogsInput
+  usuario: Prisma.UsuarioCreateNestedOneWithoutAuditoriaLogsInput
 }
 
 export type AuditoriaLogUncheckedCreateInput = {
@@ -355,8 +355,8 @@ export type AuditoriaLogUpdateInput = {
   detalles?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   direccionIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  usuario?: Prisma.UsuarioUpdateOneRequiredWithoutAuditoriaLogsNestedInput
   institucion?: Prisma.InstitucionUpdateOneWithoutAuditoriaLogsNestedInput
+  usuario?: Prisma.UsuarioUpdateOneRequiredWithoutAuditoriaLogsNestedInput
 }
 
 export type AuditoriaLogUncheckedUpdateInput = {
@@ -766,8 +766,8 @@ export type AuditoriaLogSelect<ExtArgs extends runtime.Types.Extensions.Internal
   detalles?: boolean
   direccionIp?: boolean
   createdAt?: boolean
-  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   institucion?: boolean | Prisma.AuditoriaLog$institucionArgs<ExtArgs>
+  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["auditoriaLog"]>
 
 export type AuditoriaLogSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -780,8 +780,8 @@ export type AuditoriaLogSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   detalles?: boolean
   direccionIp?: boolean
   createdAt?: boolean
-  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   institucion?: boolean | Prisma.AuditoriaLog$institucionArgs<ExtArgs>
+  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["auditoriaLog"]>
 
 export type AuditoriaLogSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -794,8 +794,8 @@ export type AuditoriaLogSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   detalles?: boolean
   direccionIp?: boolean
   createdAt?: boolean
-  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   institucion?: boolean | Prisma.AuditoriaLog$institucionArgs<ExtArgs>
+  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["auditoriaLog"]>
 
 export type AuditoriaLogSelectScalar = {
@@ -812,23 +812,23 @@ export type AuditoriaLogSelectScalar = {
 
 export type AuditoriaLogOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "entidad" | "entidadId" | "accion" | "usuarioId" | "institucionId" | "detalles" | "direccionIp" | "createdAt", ExtArgs["result"]["auditoriaLog"]>
 export type AuditoriaLogInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   institucion?: boolean | Prisma.AuditoriaLog$institucionArgs<ExtArgs>
+  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
 }
 export type AuditoriaLogIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   institucion?: boolean | Prisma.AuditoriaLog$institucionArgs<ExtArgs>
+  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
 }
 export type AuditoriaLogIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   institucion?: boolean | Prisma.AuditoriaLog$institucionArgs<ExtArgs>
+  usuario?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
 }
 
 export type $AuditoriaLogPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "AuditoriaLog"
   objects: {
-    usuario: Prisma.$UsuarioPayload<ExtArgs>
     institucion: Prisma.$InstitucionPayload<ExtArgs> | null
+    usuario: Prisma.$UsuarioPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: bigint
@@ -1234,8 +1234,8 @@ readonly fields: AuditoriaLogFieldRefs;
  */
 export interface Prisma__AuditoriaLogClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  usuario<T extends Prisma.UsuarioDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UsuarioDefaultArgs<ExtArgs>>): Prisma.Prisma__UsuarioClient<runtime.Types.Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   institucion<T extends Prisma.AuditoriaLog$institucionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AuditoriaLog$institucionArgs<ExtArgs>>): Prisma.Prisma__InstitucionClient<runtime.Types.Result.GetResult<Prisma.$InstitucionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  usuario<T extends Prisma.UsuarioDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UsuarioDefaultArgs<ExtArgs>>): Prisma.Prisma__UsuarioClient<runtime.Types.Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

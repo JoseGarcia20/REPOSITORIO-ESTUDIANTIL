@@ -28,22 +28,22 @@ export type AggregateAsignacionAprendizajeAdaptativo = {
 
 export type AsignacionAprendizajeAdaptativoAvgAggregateOutputType = {
   id: number | null
-  calificacionEstudianteIA: number | null
-  calificacionDocenteIA: number | null
   institucionId: number | null
   docenteId: number | null
   estudianteId: number | null
   gradoEscolarId: number | null
+  calificacionEstudianteIA: number | null
+  calificacionDocenteIA: number | null
 }
 
 export type AsignacionAprendizajeAdaptativoSumAggregateOutputType = {
   id: number | null
-  calificacionEstudianteIA: number | null
-  calificacionDocenteIA: number | null
   institucionId: number | null
   docenteId: number | null
   estudianteId: number | null
   gradoEscolarId: number | null
+  calificacionEstudianteIA: number | null
+  calificacionDocenteIA: number | null
 }
 
 export type AsignacionAprendizajeAdaptativoMinAggregateOutputType = {
@@ -53,12 +53,6 @@ export type AsignacionAprendizajeAdaptativoMinAggregateOutputType = {
   nivelSolicitado: string | null
   tiempoDisponible: string | null
   estado: string | null
-  calificacionEstudianteIA: number | null
-  comentarioEstudianteIA: string | null
-  fechaCalificacionEstudianteIA: Date | null
-  calificacionDocenteIA: number | null
-  comentarioDocenteIA: string | null
-  fechaCalificacionDocenteIA: Date | null
   conclusionesPdf: string | null
   fechaLimite: Date | null
   fechaAprobacion: Date | null
@@ -71,6 +65,12 @@ export type AsignacionAprendizajeAdaptativoMinAggregateOutputType = {
   docenteId: number | null
   estudianteId: number | null
   gradoEscolarId: number | null
+  calificacionEstudianteIA: number | null
+  comentarioEstudianteIA: string | null
+  fechaCalificacionEstudianteIA: Date | null
+  calificacionDocenteIA: number | null
+  comentarioDocenteIA: string | null
+  fechaCalificacionDocenteIA: Date | null
 }
 
 export type AsignacionAprendizajeAdaptativoMaxAggregateOutputType = {
@@ -80,12 +80,6 @@ export type AsignacionAprendizajeAdaptativoMaxAggregateOutputType = {
   nivelSolicitado: string | null
   tiempoDisponible: string | null
   estado: string | null
-  calificacionEstudianteIA: number | null
-  comentarioEstudianteIA: string | null
-  fechaCalificacionEstudianteIA: Date | null
-  calificacionDocenteIA: number | null
-  comentarioDocenteIA: string | null
-  fechaCalificacionDocenteIA: Date | null
   conclusionesPdf: string | null
   fechaLimite: Date | null
   fechaAprobacion: Date | null
@@ -98,6 +92,12 @@ export type AsignacionAprendizajeAdaptativoMaxAggregateOutputType = {
   docenteId: number | null
   estudianteId: number | null
   gradoEscolarId: number | null
+  calificacionEstudianteIA: number | null
+  comentarioEstudianteIA: string | null
+  fechaCalificacionEstudianteIA: Date | null
+  calificacionDocenteIA: number | null
+  comentarioDocenteIA: string | null
+  fechaCalificacionDocenteIA: Date | null
 }
 
 export type AsignacionAprendizajeAdaptativoCountAggregateOutputType = {
@@ -116,12 +116,6 @@ export type AsignacionAprendizajeAdaptativoCountAggregateOutputType = {
   respuestasEvaluacion: number
   resultadoEvaluacion: number
   revisionDocente: number
-  calificacionEstudianteIA: number
-  comentarioEstudianteIA: number
-  fechaCalificacionEstudianteIA: number
-  calificacionDocenteIA: number
-  comentarioDocenteIA: number
-  fechaCalificacionDocenteIA: number
   conclusionesPdf: number
   fechaLimite: number
   fechaAprobacion: number
@@ -134,28 +128,34 @@ export type AsignacionAprendizajeAdaptativoCountAggregateOutputType = {
   docenteId: number
   estudianteId: number
   gradoEscolarId: number
+  calificacionEstudianteIA: number
+  comentarioEstudianteIA: number
+  fechaCalificacionEstudianteIA: number
+  calificacionDocenteIA: number
+  comentarioDocenteIA: number
+  fechaCalificacionDocenteIA: number
   _all: number
 }
 
 
 export type AsignacionAprendizajeAdaptativoAvgAggregateInputType = {
   id?: true
-  calificacionEstudianteIA?: true
-  calificacionDocenteIA?: true
   institucionId?: true
   docenteId?: true
   estudianteId?: true
   gradoEscolarId?: true
+  calificacionEstudianteIA?: true
+  calificacionDocenteIA?: true
 }
 
 export type AsignacionAprendizajeAdaptativoSumAggregateInputType = {
   id?: true
-  calificacionEstudianteIA?: true
-  calificacionDocenteIA?: true
   institucionId?: true
   docenteId?: true
   estudianteId?: true
   gradoEscolarId?: true
+  calificacionEstudianteIA?: true
+  calificacionDocenteIA?: true
 }
 
 export type AsignacionAprendizajeAdaptativoMinAggregateInputType = {
@@ -165,12 +165,6 @@ export type AsignacionAprendizajeAdaptativoMinAggregateInputType = {
   nivelSolicitado?: true
   tiempoDisponible?: true
   estado?: true
-  calificacionEstudianteIA?: true
-  comentarioEstudianteIA?: true
-  fechaCalificacionEstudianteIA?: true
-  calificacionDocenteIA?: true
-  comentarioDocenteIA?: true
-  fechaCalificacionDocenteIA?: true
   conclusionesPdf?: true
   fechaLimite?: true
   fechaAprobacion?: true
@@ -183,6 +177,12 @@ export type AsignacionAprendizajeAdaptativoMinAggregateInputType = {
   docenteId?: true
   estudianteId?: true
   gradoEscolarId?: true
+  calificacionEstudianteIA?: true
+  comentarioEstudianteIA?: true
+  fechaCalificacionEstudianteIA?: true
+  calificacionDocenteIA?: true
+  comentarioDocenteIA?: true
+  fechaCalificacionDocenteIA?: true
 }
 
 export type AsignacionAprendizajeAdaptativoMaxAggregateInputType = {
@@ -192,12 +192,6 @@ export type AsignacionAprendizajeAdaptativoMaxAggregateInputType = {
   nivelSolicitado?: true
   tiempoDisponible?: true
   estado?: true
-  calificacionEstudianteIA?: true
-  comentarioEstudianteIA?: true
-  fechaCalificacionEstudianteIA?: true
-  calificacionDocenteIA?: true
-  comentarioDocenteIA?: true
-  fechaCalificacionDocenteIA?: true
   conclusionesPdf?: true
   fechaLimite?: true
   fechaAprobacion?: true
@@ -210,6 +204,12 @@ export type AsignacionAprendizajeAdaptativoMaxAggregateInputType = {
   docenteId?: true
   estudianteId?: true
   gradoEscolarId?: true
+  calificacionEstudianteIA?: true
+  comentarioEstudianteIA?: true
+  fechaCalificacionEstudianteIA?: true
+  calificacionDocenteIA?: true
+  comentarioDocenteIA?: true
+  fechaCalificacionDocenteIA?: true
 }
 
 export type AsignacionAprendizajeAdaptativoCountAggregateInputType = {
@@ -228,12 +228,6 @@ export type AsignacionAprendizajeAdaptativoCountAggregateInputType = {
   respuestasEvaluacion?: true
   resultadoEvaluacion?: true
   revisionDocente?: true
-  calificacionEstudianteIA?: true
-  comentarioEstudianteIA?: true
-  fechaCalificacionEstudianteIA?: true
-  calificacionDocenteIA?: true
-  comentarioDocenteIA?: true
-  fechaCalificacionDocenteIA?: true
   conclusionesPdf?: true
   fechaLimite?: true
   fechaAprobacion?: true
@@ -246,6 +240,12 @@ export type AsignacionAprendizajeAdaptativoCountAggregateInputType = {
   docenteId?: true
   estudianteId?: true
   gradoEscolarId?: true
+  calificacionEstudianteIA?: true
+  comentarioEstudianteIA?: true
+  fechaCalificacionEstudianteIA?: true
+  calificacionDocenteIA?: true
+  comentarioDocenteIA?: true
+  fechaCalificacionDocenteIA?: true
   _all?: true
 }
 
@@ -351,12 +351,6 @@ export type AsignacionAprendizajeAdaptativoGroupByOutputType = {
   respuestasEvaluacion: runtime.JsonValue | null
   resultadoEvaluacion: runtime.JsonValue | null
   revisionDocente: runtime.JsonValue | null
-  calificacionEstudianteIA: number | null
-  comentarioEstudianteIA: string | null
-  fechaCalificacionEstudianteIA: Date | null
-  calificacionDocenteIA: number | null
-  comentarioDocenteIA: string | null
-  fechaCalificacionDocenteIA: Date | null
   conclusionesPdf: string | null
   fechaLimite: Date | null
   fechaAprobacion: Date | null
@@ -369,6 +363,12 @@ export type AsignacionAprendizajeAdaptativoGroupByOutputType = {
   docenteId: number
   estudianteId: number
   gradoEscolarId: number | null
+  calificacionEstudianteIA: number | null
+  comentarioEstudianteIA: string | null
+  fechaCalificacionEstudianteIA: Date | null
+  calificacionDocenteIA: number | null
+  comentarioDocenteIA: string | null
+  fechaCalificacionDocenteIA: Date | null
   _count: AsignacionAprendizajeAdaptativoCountAggregateOutputType | null
   _avg: AsignacionAprendizajeAdaptativoAvgAggregateOutputType | null
   _sum: AsignacionAprendizajeAdaptativoSumAggregateOutputType | null
@@ -410,12 +410,6 @@ export type AsignacionAprendizajeAdaptativoWhereInput = {
   respuestasEvaluacion?: Prisma.JsonNullableFilter<"AsignacionAprendizajeAdaptativo">
   resultadoEvaluacion?: Prisma.JsonNullableFilter<"AsignacionAprendizajeAdaptativo">
   revisionDocente?: Prisma.JsonNullableFilter<"AsignacionAprendizajeAdaptativo">
-  calificacionEstudianteIA?: Prisma.IntNullableFilter<"AsignacionAprendizajeAdaptativo"> | number | null
-  comentarioEstudianteIA?: Prisma.StringNullableFilter<"AsignacionAprendizajeAdaptativo"> | string | null
-  fechaCalificacionEstudianteIA?: Prisma.DateTimeNullableFilter<"AsignacionAprendizajeAdaptativo"> | Date | string | null
-  calificacionDocenteIA?: Prisma.IntNullableFilter<"AsignacionAprendizajeAdaptativo"> | number | null
-  comentarioDocenteIA?: Prisma.StringNullableFilter<"AsignacionAprendizajeAdaptativo"> | string | null
-  fechaCalificacionDocenteIA?: Prisma.DateTimeNullableFilter<"AsignacionAprendizajeAdaptativo"> | Date | string | null
   conclusionesPdf?: Prisma.StringNullableFilter<"AsignacionAprendizajeAdaptativo"> | string | null
   fechaLimite?: Prisma.DateTimeNullableFilter<"AsignacionAprendizajeAdaptativo"> | Date | string | null
   fechaAprobacion?: Prisma.DateTimeNullableFilter<"AsignacionAprendizajeAdaptativo"> | Date | string | null
@@ -428,10 +422,16 @@ export type AsignacionAprendizajeAdaptativoWhereInput = {
   docenteId?: Prisma.IntFilter<"AsignacionAprendizajeAdaptativo"> | number
   estudianteId?: Prisma.IntFilter<"AsignacionAprendizajeAdaptativo"> | number
   gradoEscolarId?: Prisma.IntNullableFilter<"AsignacionAprendizajeAdaptativo"> | number | null
-  institucion?: Prisma.XOR<Prisma.InstitucionScalarRelationFilter, Prisma.InstitucionWhereInput>
+  calificacionEstudianteIA?: Prisma.IntNullableFilter<"AsignacionAprendizajeAdaptativo"> | number | null
+  comentarioEstudianteIA?: Prisma.StringNullableFilter<"AsignacionAprendizajeAdaptativo"> | string | null
+  fechaCalificacionEstudianteIA?: Prisma.DateTimeNullableFilter<"AsignacionAprendizajeAdaptativo"> | Date | string | null
+  calificacionDocenteIA?: Prisma.IntNullableFilter<"AsignacionAprendizajeAdaptativo"> | number | null
+  comentarioDocenteIA?: Prisma.StringNullableFilter<"AsignacionAprendizajeAdaptativo"> | string | null
+  fechaCalificacionDocenteIA?: Prisma.DateTimeNullableFilter<"AsignacionAprendizajeAdaptativo"> | Date | string | null
   docente?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
   estudiante?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
   gradoEscolar?: Prisma.XOR<Prisma.GradoEscolarNullableScalarRelationFilter, Prisma.GradoEscolarWhereInput> | null
+  institucion?: Prisma.XOR<Prisma.InstitucionScalarRelationFilter, Prisma.InstitucionWhereInput>
 }
 
 export type AsignacionAprendizajeAdaptativoOrderByWithRelationInput = {
@@ -450,12 +450,6 @@ export type AsignacionAprendizajeAdaptativoOrderByWithRelationInput = {
   respuestasEvaluacion?: Prisma.SortOrderInput | Prisma.SortOrder
   resultadoEvaluacion?: Prisma.SortOrderInput | Prisma.SortOrder
   revisionDocente?: Prisma.SortOrderInput | Prisma.SortOrder
-  calificacionEstudianteIA?: Prisma.SortOrderInput | Prisma.SortOrder
-  comentarioEstudianteIA?: Prisma.SortOrderInput | Prisma.SortOrder
-  fechaCalificacionEstudianteIA?: Prisma.SortOrderInput | Prisma.SortOrder
-  calificacionDocenteIA?: Prisma.SortOrderInput | Prisma.SortOrder
-  comentarioDocenteIA?: Prisma.SortOrderInput | Prisma.SortOrder
-  fechaCalificacionDocenteIA?: Prisma.SortOrderInput | Prisma.SortOrder
   conclusionesPdf?: Prisma.SortOrderInput | Prisma.SortOrder
   fechaLimite?: Prisma.SortOrderInput | Prisma.SortOrder
   fechaAprobacion?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -468,10 +462,16 @@ export type AsignacionAprendizajeAdaptativoOrderByWithRelationInput = {
   docenteId?: Prisma.SortOrder
   estudianteId?: Prisma.SortOrder
   gradoEscolarId?: Prisma.SortOrderInput | Prisma.SortOrder
-  institucion?: Prisma.InstitucionOrderByWithRelationInput
+  calificacionEstudianteIA?: Prisma.SortOrderInput | Prisma.SortOrder
+  comentarioEstudianteIA?: Prisma.SortOrderInput | Prisma.SortOrder
+  fechaCalificacionEstudianteIA?: Prisma.SortOrderInput | Prisma.SortOrder
+  calificacionDocenteIA?: Prisma.SortOrderInput | Prisma.SortOrder
+  comentarioDocenteIA?: Prisma.SortOrderInput | Prisma.SortOrder
+  fechaCalificacionDocenteIA?: Prisma.SortOrderInput | Prisma.SortOrder
   docente?: Prisma.UsuarioOrderByWithRelationInput
   estudiante?: Prisma.UsuarioOrderByWithRelationInput
   gradoEscolar?: Prisma.GradoEscolarOrderByWithRelationInput
+  institucion?: Prisma.InstitucionOrderByWithRelationInput
 }
 
 export type AsignacionAprendizajeAdaptativoWhereUniqueInput = Prisma.AtLeast<{
@@ -493,12 +493,6 @@ export type AsignacionAprendizajeAdaptativoWhereUniqueInput = Prisma.AtLeast<{
   respuestasEvaluacion?: Prisma.JsonNullableFilter<"AsignacionAprendizajeAdaptativo">
   resultadoEvaluacion?: Prisma.JsonNullableFilter<"AsignacionAprendizajeAdaptativo">
   revisionDocente?: Prisma.JsonNullableFilter<"AsignacionAprendizajeAdaptativo">
-  calificacionEstudianteIA?: Prisma.IntNullableFilter<"AsignacionAprendizajeAdaptativo"> | number | null
-  comentarioEstudianteIA?: Prisma.StringNullableFilter<"AsignacionAprendizajeAdaptativo"> | string | null
-  fechaCalificacionEstudianteIA?: Prisma.DateTimeNullableFilter<"AsignacionAprendizajeAdaptativo"> | Date | string | null
-  calificacionDocenteIA?: Prisma.IntNullableFilter<"AsignacionAprendizajeAdaptativo"> | number | null
-  comentarioDocenteIA?: Prisma.StringNullableFilter<"AsignacionAprendizajeAdaptativo"> | string | null
-  fechaCalificacionDocenteIA?: Prisma.DateTimeNullableFilter<"AsignacionAprendizajeAdaptativo"> | Date | string | null
   conclusionesPdf?: Prisma.StringNullableFilter<"AsignacionAprendizajeAdaptativo"> | string | null
   fechaLimite?: Prisma.DateTimeNullableFilter<"AsignacionAprendizajeAdaptativo"> | Date | string | null
   fechaAprobacion?: Prisma.DateTimeNullableFilter<"AsignacionAprendizajeAdaptativo"> | Date | string | null
@@ -511,10 +505,16 @@ export type AsignacionAprendizajeAdaptativoWhereUniqueInput = Prisma.AtLeast<{
   docenteId?: Prisma.IntFilter<"AsignacionAprendizajeAdaptativo"> | number
   estudianteId?: Prisma.IntFilter<"AsignacionAprendizajeAdaptativo"> | number
   gradoEscolarId?: Prisma.IntNullableFilter<"AsignacionAprendizajeAdaptativo"> | number | null
-  institucion?: Prisma.XOR<Prisma.InstitucionScalarRelationFilter, Prisma.InstitucionWhereInput>
+  calificacionEstudianteIA?: Prisma.IntNullableFilter<"AsignacionAprendizajeAdaptativo"> | number | null
+  comentarioEstudianteIA?: Prisma.StringNullableFilter<"AsignacionAprendizajeAdaptativo"> | string | null
+  fechaCalificacionEstudianteIA?: Prisma.DateTimeNullableFilter<"AsignacionAprendizajeAdaptativo"> | Date | string | null
+  calificacionDocenteIA?: Prisma.IntNullableFilter<"AsignacionAprendizajeAdaptativo"> | number | null
+  comentarioDocenteIA?: Prisma.StringNullableFilter<"AsignacionAprendizajeAdaptativo"> | string | null
+  fechaCalificacionDocenteIA?: Prisma.DateTimeNullableFilter<"AsignacionAprendizajeAdaptativo"> | Date | string | null
   docente?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
   estudiante?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.UsuarioWhereInput>
   gradoEscolar?: Prisma.XOR<Prisma.GradoEscolarNullableScalarRelationFilter, Prisma.GradoEscolarWhereInput> | null
+  institucion?: Prisma.XOR<Prisma.InstitucionScalarRelationFilter, Prisma.InstitucionWhereInput>
 }, "id">
 
 export type AsignacionAprendizajeAdaptativoOrderByWithAggregationInput = {
@@ -533,12 +533,6 @@ export type AsignacionAprendizajeAdaptativoOrderByWithAggregationInput = {
   respuestasEvaluacion?: Prisma.SortOrderInput | Prisma.SortOrder
   resultadoEvaluacion?: Prisma.SortOrderInput | Prisma.SortOrder
   revisionDocente?: Prisma.SortOrderInput | Prisma.SortOrder
-  calificacionEstudianteIA?: Prisma.SortOrderInput | Prisma.SortOrder
-  comentarioEstudianteIA?: Prisma.SortOrderInput | Prisma.SortOrder
-  fechaCalificacionEstudianteIA?: Prisma.SortOrderInput | Prisma.SortOrder
-  calificacionDocenteIA?: Prisma.SortOrderInput | Prisma.SortOrder
-  comentarioDocenteIA?: Prisma.SortOrderInput | Prisma.SortOrder
-  fechaCalificacionDocenteIA?: Prisma.SortOrderInput | Prisma.SortOrder
   conclusionesPdf?: Prisma.SortOrderInput | Prisma.SortOrder
   fechaLimite?: Prisma.SortOrderInput | Prisma.SortOrder
   fechaAprobacion?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -551,6 +545,12 @@ export type AsignacionAprendizajeAdaptativoOrderByWithAggregationInput = {
   docenteId?: Prisma.SortOrder
   estudianteId?: Prisma.SortOrder
   gradoEscolarId?: Prisma.SortOrderInput | Prisma.SortOrder
+  calificacionEstudianteIA?: Prisma.SortOrderInput | Prisma.SortOrder
+  comentarioEstudianteIA?: Prisma.SortOrderInput | Prisma.SortOrder
+  fechaCalificacionEstudianteIA?: Prisma.SortOrderInput | Prisma.SortOrder
+  calificacionDocenteIA?: Prisma.SortOrderInput | Prisma.SortOrder
+  comentarioDocenteIA?: Prisma.SortOrderInput | Prisma.SortOrder
+  fechaCalificacionDocenteIA?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.AsignacionAprendizajeAdaptativoCountOrderByAggregateInput
   _avg?: Prisma.AsignacionAprendizajeAdaptativoAvgOrderByAggregateInput
   _max?: Prisma.AsignacionAprendizajeAdaptativoMaxOrderByAggregateInput
@@ -577,12 +577,6 @@ export type AsignacionAprendizajeAdaptativoScalarWhereWithAggregatesInput = {
   respuestasEvaluacion?: Prisma.JsonNullableWithAggregatesFilter<"AsignacionAprendizajeAdaptativo">
   resultadoEvaluacion?: Prisma.JsonNullableWithAggregatesFilter<"AsignacionAprendizajeAdaptativo">
   revisionDocente?: Prisma.JsonNullableWithAggregatesFilter<"AsignacionAprendizajeAdaptativo">
-  calificacionEstudianteIA?: Prisma.IntNullableWithAggregatesFilter<"AsignacionAprendizajeAdaptativo"> | number | null
-  comentarioEstudianteIA?: Prisma.StringNullableWithAggregatesFilter<"AsignacionAprendizajeAdaptativo"> | string | null
-  fechaCalificacionEstudianteIA?: Prisma.DateTimeNullableWithAggregatesFilter<"AsignacionAprendizajeAdaptativo"> | Date | string | null
-  calificacionDocenteIA?: Prisma.IntNullableWithAggregatesFilter<"AsignacionAprendizajeAdaptativo"> | number | null
-  comentarioDocenteIA?: Prisma.StringNullableWithAggregatesFilter<"AsignacionAprendizajeAdaptativo"> | string | null
-  fechaCalificacionDocenteIA?: Prisma.DateTimeNullableWithAggregatesFilter<"AsignacionAprendizajeAdaptativo"> | Date | string | null
   conclusionesPdf?: Prisma.StringNullableWithAggregatesFilter<"AsignacionAprendizajeAdaptativo"> | string | null
   fechaLimite?: Prisma.DateTimeNullableWithAggregatesFilter<"AsignacionAprendizajeAdaptativo"> | Date | string | null
   fechaAprobacion?: Prisma.DateTimeNullableWithAggregatesFilter<"AsignacionAprendizajeAdaptativo"> | Date | string | null
@@ -595,6 +589,12 @@ export type AsignacionAprendizajeAdaptativoScalarWhereWithAggregatesInput = {
   docenteId?: Prisma.IntWithAggregatesFilter<"AsignacionAprendizajeAdaptativo"> | number
   estudianteId?: Prisma.IntWithAggregatesFilter<"AsignacionAprendizajeAdaptativo"> | number
   gradoEscolarId?: Prisma.IntNullableWithAggregatesFilter<"AsignacionAprendizajeAdaptativo"> | number | null
+  calificacionEstudianteIA?: Prisma.IntNullableWithAggregatesFilter<"AsignacionAprendizajeAdaptativo"> | number | null
+  comentarioEstudianteIA?: Prisma.StringNullableWithAggregatesFilter<"AsignacionAprendizajeAdaptativo"> | string | null
+  fechaCalificacionEstudianteIA?: Prisma.DateTimeNullableWithAggregatesFilter<"AsignacionAprendizajeAdaptativo"> | Date | string | null
+  calificacionDocenteIA?: Prisma.IntNullableWithAggregatesFilter<"AsignacionAprendizajeAdaptativo"> | number | null
+  comentarioDocenteIA?: Prisma.StringNullableWithAggregatesFilter<"AsignacionAprendizajeAdaptativo"> | string | null
+  fechaCalificacionDocenteIA?: Prisma.DateTimeNullableWithAggregatesFilter<"AsignacionAprendizajeAdaptativo"> | Date | string | null
 }
 
 export type AsignacionAprendizajeAdaptativoCreateInput = {
@@ -612,12 +612,6 @@ export type AsignacionAprendizajeAdaptativoCreateInput = {
   respuestasEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   resultadoEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   revisionDocente?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  calificacionEstudianteIA?: number | null
-  comentarioEstudianteIA?: string | null
-  fechaCalificacionEstudianteIA?: Date | string | null
-  calificacionDocenteIA?: number | null
-  comentarioDocenteIA?: string | null
-  fechaCalificacionDocenteIA?: Date | string | null
   conclusionesPdf?: string | null
   fechaLimite?: Date | string | null
   fechaAprobacion?: Date | string | null
@@ -626,10 +620,16 @@ export type AsignacionAprendizajeAdaptativoCreateInput = {
   fechaRevision?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  institucion: Prisma.InstitucionCreateNestedOneWithoutAprendizajeAdaptativoInput
+  calificacionEstudianteIA?: number | null
+  comentarioEstudianteIA?: string | null
+  fechaCalificacionEstudianteIA?: Date | string | null
+  calificacionDocenteIA?: number | null
+  comentarioDocenteIA?: string | null
+  fechaCalificacionDocenteIA?: Date | string | null
   docente: Prisma.UsuarioCreateNestedOneWithoutAprendizajeAdaptativoDocenteInput
   estudiante: Prisma.UsuarioCreateNestedOneWithoutAprendizajeAdaptativoAlumnoInput
   gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutAprendizajeAdaptativoInput
+  institucion: Prisma.InstitucionCreateNestedOneWithoutAprendizajeAdaptativoInput
 }
 
 export type AsignacionAprendizajeAdaptativoUncheckedCreateInput = {
@@ -648,12 +648,6 @@ export type AsignacionAprendizajeAdaptativoUncheckedCreateInput = {
   respuestasEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   resultadoEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   revisionDocente?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  calificacionEstudianteIA?: number | null
-  comentarioEstudianteIA?: string | null
-  fechaCalificacionEstudianteIA?: Date | string | null
-  calificacionDocenteIA?: number | null
-  comentarioDocenteIA?: string | null
-  fechaCalificacionDocenteIA?: Date | string | null
   conclusionesPdf?: string | null
   fechaLimite?: Date | string | null
   fechaAprobacion?: Date | string | null
@@ -666,6 +660,12 @@ export type AsignacionAprendizajeAdaptativoUncheckedCreateInput = {
   docenteId: number
   estudianteId: number
   gradoEscolarId?: number | null
+  calificacionEstudianteIA?: number | null
+  comentarioEstudianteIA?: string | null
+  fechaCalificacionEstudianteIA?: Date | string | null
+  calificacionDocenteIA?: number | null
+  comentarioDocenteIA?: string | null
+  fechaCalificacionDocenteIA?: Date | string | null
 }
 
 export type AsignacionAprendizajeAdaptativoUpdateInput = {
@@ -683,12 +683,6 @@ export type AsignacionAprendizajeAdaptativoUpdateInput = {
   respuestasEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   resultadoEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   revisionDocente?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  calificacionEstudianteIA?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  comentarioEstudianteIA?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fechaCalificacionEstudianteIA?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  calificacionDocenteIA?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  comentarioDocenteIA?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fechaCalificacionDocenteIA?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   conclusionesPdf?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fechaLimite?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fechaAprobacion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -697,10 +691,16 @@ export type AsignacionAprendizajeAdaptativoUpdateInput = {
   fechaRevision?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutAprendizajeAdaptativoNestedInput
+  calificacionEstudianteIA?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  comentarioEstudianteIA?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCalificacionEstudianteIA?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  calificacionDocenteIA?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  comentarioDocenteIA?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCalificacionDocenteIA?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   docente?: Prisma.UsuarioUpdateOneRequiredWithoutAprendizajeAdaptativoDocenteNestedInput
   estudiante?: Prisma.UsuarioUpdateOneRequiredWithoutAprendizajeAdaptativoAlumnoNestedInput
   gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutAprendizajeAdaptativoNestedInput
+  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutAprendizajeAdaptativoNestedInput
 }
 
 export type AsignacionAprendizajeAdaptativoUncheckedUpdateInput = {
@@ -719,12 +719,6 @@ export type AsignacionAprendizajeAdaptativoUncheckedUpdateInput = {
   respuestasEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   resultadoEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   revisionDocente?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  calificacionEstudianteIA?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  comentarioEstudianteIA?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fechaCalificacionEstudianteIA?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  calificacionDocenteIA?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  comentarioDocenteIA?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fechaCalificacionDocenteIA?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   conclusionesPdf?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fechaLimite?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fechaAprobacion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -737,6 +731,12 @@ export type AsignacionAprendizajeAdaptativoUncheckedUpdateInput = {
   docenteId?: Prisma.IntFieldUpdateOperationsInput | number
   estudianteId?: Prisma.IntFieldUpdateOperationsInput | number
   gradoEscolarId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  calificacionEstudianteIA?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  comentarioEstudianteIA?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCalificacionEstudianteIA?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  calificacionDocenteIA?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  comentarioDocenteIA?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCalificacionDocenteIA?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type AsignacionAprendizajeAdaptativoCreateManyInput = {
@@ -755,12 +755,6 @@ export type AsignacionAprendizajeAdaptativoCreateManyInput = {
   respuestasEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   resultadoEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   revisionDocente?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  calificacionEstudianteIA?: number | null
-  comentarioEstudianteIA?: string | null
-  fechaCalificacionEstudianteIA?: Date | string | null
-  calificacionDocenteIA?: number | null
-  comentarioDocenteIA?: string | null
-  fechaCalificacionDocenteIA?: Date | string | null
   conclusionesPdf?: string | null
   fechaLimite?: Date | string | null
   fechaAprobacion?: Date | string | null
@@ -773,6 +767,12 @@ export type AsignacionAprendizajeAdaptativoCreateManyInput = {
   docenteId: number
   estudianteId: number
   gradoEscolarId?: number | null
+  calificacionEstudianteIA?: number | null
+  comentarioEstudianteIA?: string | null
+  fechaCalificacionEstudianteIA?: Date | string | null
+  calificacionDocenteIA?: number | null
+  comentarioDocenteIA?: string | null
+  fechaCalificacionDocenteIA?: Date | string | null
 }
 
 export type AsignacionAprendizajeAdaptativoUpdateManyMutationInput = {
@@ -790,12 +790,6 @@ export type AsignacionAprendizajeAdaptativoUpdateManyMutationInput = {
   respuestasEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   resultadoEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   revisionDocente?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  calificacionEstudianteIA?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  comentarioEstudianteIA?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fechaCalificacionEstudianteIA?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  calificacionDocenteIA?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  comentarioDocenteIA?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fechaCalificacionDocenteIA?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   conclusionesPdf?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fechaLimite?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fechaAprobacion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -804,6 +798,12 @@ export type AsignacionAprendizajeAdaptativoUpdateManyMutationInput = {
   fechaRevision?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  calificacionEstudianteIA?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  comentarioEstudianteIA?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCalificacionEstudianteIA?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  calificacionDocenteIA?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  comentarioDocenteIA?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCalificacionDocenteIA?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type AsignacionAprendizajeAdaptativoUncheckedUpdateManyInput = {
@@ -822,12 +822,6 @@ export type AsignacionAprendizajeAdaptativoUncheckedUpdateManyInput = {
   respuestasEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   resultadoEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   revisionDocente?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  calificacionEstudianteIA?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  comentarioEstudianteIA?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fechaCalificacionEstudianteIA?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  calificacionDocenteIA?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  comentarioDocenteIA?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fechaCalificacionDocenteIA?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   conclusionesPdf?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fechaLimite?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fechaAprobacion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -840,6 +834,12 @@ export type AsignacionAprendizajeAdaptativoUncheckedUpdateManyInput = {
   docenteId?: Prisma.IntFieldUpdateOperationsInput | number
   estudianteId?: Prisma.IntFieldUpdateOperationsInput | number
   gradoEscolarId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  calificacionEstudianteIA?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  comentarioEstudianteIA?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCalificacionEstudianteIA?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  calificacionDocenteIA?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  comentarioDocenteIA?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCalificacionDocenteIA?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type AsignacionAprendizajeAdaptativoListRelationFilter = {
@@ -868,12 +868,6 @@ export type AsignacionAprendizajeAdaptativoCountOrderByAggregateInput = {
   respuestasEvaluacion?: Prisma.SortOrder
   resultadoEvaluacion?: Prisma.SortOrder
   revisionDocente?: Prisma.SortOrder
-  calificacionEstudianteIA?: Prisma.SortOrder
-  comentarioEstudianteIA?: Prisma.SortOrder
-  fechaCalificacionEstudianteIA?: Prisma.SortOrder
-  calificacionDocenteIA?: Prisma.SortOrder
-  comentarioDocenteIA?: Prisma.SortOrder
-  fechaCalificacionDocenteIA?: Prisma.SortOrder
   conclusionesPdf?: Prisma.SortOrder
   fechaLimite?: Prisma.SortOrder
   fechaAprobacion?: Prisma.SortOrder
@@ -886,16 +880,22 @@ export type AsignacionAprendizajeAdaptativoCountOrderByAggregateInput = {
   docenteId?: Prisma.SortOrder
   estudianteId?: Prisma.SortOrder
   gradoEscolarId?: Prisma.SortOrder
+  calificacionEstudianteIA?: Prisma.SortOrder
+  comentarioEstudianteIA?: Prisma.SortOrder
+  fechaCalificacionEstudianteIA?: Prisma.SortOrder
+  calificacionDocenteIA?: Prisma.SortOrder
+  comentarioDocenteIA?: Prisma.SortOrder
+  fechaCalificacionDocenteIA?: Prisma.SortOrder
 }
 
 export type AsignacionAprendizajeAdaptativoAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  calificacionEstudianteIA?: Prisma.SortOrder
-  calificacionDocenteIA?: Prisma.SortOrder
   institucionId?: Prisma.SortOrder
   docenteId?: Prisma.SortOrder
   estudianteId?: Prisma.SortOrder
   gradoEscolarId?: Prisma.SortOrder
+  calificacionEstudianteIA?: Prisma.SortOrder
+  calificacionDocenteIA?: Prisma.SortOrder
 }
 
 export type AsignacionAprendizajeAdaptativoMaxOrderByAggregateInput = {
@@ -905,12 +905,6 @@ export type AsignacionAprendizajeAdaptativoMaxOrderByAggregateInput = {
   nivelSolicitado?: Prisma.SortOrder
   tiempoDisponible?: Prisma.SortOrder
   estado?: Prisma.SortOrder
-  calificacionEstudianteIA?: Prisma.SortOrder
-  comentarioEstudianteIA?: Prisma.SortOrder
-  fechaCalificacionEstudianteIA?: Prisma.SortOrder
-  calificacionDocenteIA?: Prisma.SortOrder
-  comentarioDocenteIA?: Prisma.SortOrder
-  fechaCalificacionDocenteIA?: Prisma.SortOrder
   conclusionesPdf?: Prisma.SortOrder
   fechaLimite?: Prisma.SortOrder
   fechaAprobacion?: Prisma.SortOrder
@@ -923,6 +917,12 @@ export type AsignacionAprendizajeAdaptativoMaxOrderByAggregateInput = {
   docenteId?: Prisma.SortOrder
   estudianteId?: Prisma.SortOrder
   gradoEscolarId?: Prisma.SortOrder
+  calificacionEstudianteIA?: Prisma.SortOrder
+  comentarioEstudianteIA?: Prisma.SortOrder
+  fechaCalificacionEstudianteIA?: Prisma.SortOrder
+  calificacionDocenteIA?: Prisma.SortOrder
+  comentarioDocenteIA?: Prisma.SortOrder
+  fechaCalificacionDocenteIA?: Prisma.SortOrder
 }
 
 export type AsignacionAprendizajeAdaptativoMinOrderByAggregateInput = {
@@ -932,12 +932,6 @@ export type AsignacionAprendizajeAdaptativoMinOrderByAggregateInput = {
   nivelSolicitado?: Prisma.SortOrder
   tiempoDisponible?: Prisma.SortOrder
   estado?: Prisma.SortOrder
-  calificacionEstudianteIA?: Prisma.SortOrder
-  comentarioEstudianteIA?: Prisma.SortOrder
-  fechaCalificacionEstudianteIA?: Prisma.SortOrder
-  calificacionDocenteIA?: Prisma.SortOrder
-  comentarioDocenteIA?: Prisma.SortOrder
-  fechaCalificacionDocenteIA?: Prisma.SortOrder
   conclusionesPdf?: Prisma.SortOrder
   fechaLimite?: Prisma.SortOrder
   fechaAprobacion?: Prisma.SortOrder
@@ -950,16 +944,22 @@ export type AsignacionAprendizajeAdaptativoMinOrderByAggregateInput = {
   docenteId?: Prisma.SortOrder
   estudianteId?: Prisma.SortOrder
   gradoEscolarId?: Prisma.SortOrder
+  calificacionEstudianteIA?: Prisma.SortOrder
+  comentarioEstudianteIA?: Prisma.SortOrder
+  fechaCalificacionEstudianteIA?: Prisma.SortOrder
+  calificacionDocenteIA?: Prisma.SortOrder
+  comentarioDocenteIA?: Prisma.SortOrder
+  fechaCalificacionDocenteIA?: Prisma.SortOrder
 }
 
 export type AsignacionAprendizajeAdaptativoSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  calificacionEstudianteIA?: Prisma.SortOrder
-  calificacionDocenteIA?: Prisma.SortOrder
   institucionId?: Prisma.SortOrder
   docenteId?: Prisma.SortOrder
   estudianteId?: Prisma.SortOrder
   gradoEscolarId?: Prisma.SortOrder
+  calificacionEstudianteIA?: Prisma.SortOrder
+  calificacionDocenteIA?: Prisma.SortOrder
 }
 
 export type AsignacionAprendizajeAdaptativoCreateNestedManyWithoutInstitucionInput = {
@@ -1004,13 +1004,6 @@ export type AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutInstitucion
   deleteMany?: Prisma.AsignacionAprendizajeAdaptativoScalarWhereInput | Prisma.AsignacionAprendizajeAdaptativoScalarWhereInput[]
 }
 
-export type AsignacionAprendizajeAdaptativoCreateNestedManyWithoutEstudianteInput = {
-  create?: Prisma.XOR<Prisma.AsignacionAprendizajeAdaptativoCreateWithoutEstudianteInput, Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateWithoutEstudianteInput> | Prisma.AsignacionAprendizajeAdaptativoCreateWithoutEstudianteInput[] | Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateWithoutEstudianteInput[]
-  connectOrCreate?: Prisma.AsignacionAprendizajeAdaptativoCreateOrConnectWithoutEstudianteInput | Prisma.AsignacionAprendizajeAdaptativoCreateOrConnectWithoutEstudianteInput[]
-  createMany?: Prisma.AsignacionAprendizajeAdaptativoCreateManyEstudianteInputEnvelope
-  connect?: Prisma.AsignacionAprendizajeAdaptativoWhereUniqueInput | Prisma.AsignacionAprendizajeAdaptativoWhereUniqueInput[]
-}
-
 export type AsignacionAprendizajeAdaptativoCreateNestedManyWithoutDocenteInput = {
   create?: Prisma.XOR<Prisma.AsignacionAprendizajeAdaptativoCreateWithoutDocenteInput, Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateWithoutDocenteInput> | Prisma.AsignacionAprendizajeAdaptativoCreateWithoutDocenteInput[] | Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateWithoutDocenteInput[]
   connectOrCreate?: Prisma.AsignacionAprendizajeAdaptativoCreateOrConnectWithoutDocenteInput | Prisma.AsignacionAprendizajeAdaptativoCreateOrConnectWithoutDocenteInput[]
@@ -1018,7 +1011,7 @@ export type AsignacionAprendizajeAdaptativoCreateNestedManyWithoutDocenteInput =
   connect?: Prisma.AsignacionAprendizajeAdaptativoWhereUniqueInput | Prisma.AsignacionAprendizajeAdaptativoWhereUniqueInput[]
 }
 
-export type AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutEstudianteInput = {
+export type AsignacionAprendizajeAdaptativoCreateNestedManyWithoutEstudianteInput = {
   create?: Prisma.XOR<Prisma.AsignacionAprendizajeAdaptativoCreateWithoutEstudianteInput, Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateWithoutEstudianteInput> | Prisma.AsignacionAprendizajeAdaptativoCreateWithoutEstudianteInput[] | Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateWithoutEstudianteInput[]
   connectOrCreate?: Prisma.AsignacionAprendizajeAdaptativoCreateOrConnectWithoutEstudianteInput | Prisma.AsignacionAprendizajeAdaptativoCreateOrConnectWithoutEstudianteInput[]
   createMany?: Prisma.AsignacionAprendizajeAdaptativoCreateManyEstudianteInputEnvelope
@@ -1032,18 +1025,11 @@ export type AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutDocen
   connect?: Prisma.AsignacionAprendizajeAdaptativoWhereUniqueInput | Prisma.AsignacionAprendizajeAdaptativoWhereUniqueInput[]
 }
 
-export type AsignacionAprendizajeAdaptativoUpdateManyWithoutEstudianteNestedInput = {
+export type AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutEstudianteInput = {
   create?: Prisma.XOR<Prisma.AsignacionAprendizajeAdaptativoCreateWithoutEstudianteInput, Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateWithoutEstudianteInput> | Prisma.AsignacionAprendizajeAdaptativoCreateWithoutEstudianteInput[] | Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateWithoutEstudianteInput[]
   connectOrCreate?: Prisma.AsignacionAprendizajeAdaptativoCreateOrConnectWithoutEstudianteInput | Prisma.AsignacionAprendizajeAdaptativoCreateOrConnectWithoutEstudianteInput[]
-  upsert?: Prisma.AsignacionAprendizajeAdaptativoUpsertWithWhereUniqueWithoutEstudianteInput | Prisma.AsignacionAprendizajeAdaptativoUpsertWithWhereUniqueWithoutEstudianteInput[]
   createMany?: Prisma.AsignacionAprendizajeAdaptativoCreateManyEstudianteInputEnvelope
-  set?: Prisma.AsignacionAprendizajeAdaptativoWhereUniqueInput | Prisma.AsignacionAprendizajeAdaptativoWhereUniqueInput[]
-  disconnect?: Prisma.AsignacionAprendizajeAdaptativoWhereUniqueInput | Prisma.AsignacionAprendizajeAdaptativoWhereUniqueInput[]
-  delete?: Prisma.AsignacionAprendizajeAdaptativoWhereUniqueInput | Prisma.AsignacionAprendizajeAdaptativoWhereUniqueInput[]
   connect?: Prisma.AsignacionAprendizajeAdaptativoWhereUniqueInput | Prisma.AsignacionAprendizajeAdaptativoWhereUniqueInput[]
-  update?: Prisma.AsignacionAprendizajeAdaptativoUpdateWithWhereUniqueWithoutEstudianteInput | Prisma.AsignacionAprendizajeAdaptativoUpdateWithWhereUniqueWithoutEstudianteInput[]
-  updateMany?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithWhereWithoutEstudianteInput | Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithWhereWithoutEstudianteInput[]
-  deleteMany?: Prisma.AsignacionAprendizajeAdaptativoScalarWhereInput | Prisma.AsignacionAprendizajeAdaptativoScalarWhereInput[]
 }
 
 export type AsignacionAprendizajeAdaptativoUpdateManyWithoutDocenteNestedInput = {
@@ -1060,7 +1046,7 @@ export type AsignacionAprendizajeAdaptativoUpdateManyWithoutDocenteNestedInput =
   deleteMany?: Prisma.AsignacionAprendizajeAdaptativoScalarWhereInput | Prisma.AsignacionAprendizajeAdaptativoScalarWhereInput[]
 }
 
-export type AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutEstudianteNestedInput = {
+export type AsignacionAprendizajeAdaptativoUpdateManyWithoutEstudianteNestedInput = {
   create?: Prisma.XOR<Prisma.AsignacionAprendizajeAdaptativoCreateWithoutEstudianteInput, Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateWithoutEstudianteInput> | Prisma.AsignacionAprendizajeAdaptativoCreateWithoutEstudianteInput[] | Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateWithoutEstudianteInput[]
   connectOrCreate?: Prisma.AsignacionAprendizajeAdaptativoCreateOrConnectWithoutEstudianteInput | Prisma.AsignacionAprendizajeAdaptativoCreateOrConnectWithoutEstudianteInput[]
   upsert?: Prisma.AsignacionAprendizajeAdaptativoUpsertWithWhereUniqueWithoutEstudianteInput | Prisma.AsignacionAprendizajeAdaptativoUpsertWithWhereUniqueWithoutEstudianteInput[]
@@ -1085,6 +1071,20 @@ export type AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutDocenteNest
   connect?: Prisma.AsignacionAprendizajeAdaptativoWhereUniqueInput | Prisma.AsignacionAprendizajeAdaptativoWhereUniqueInput[]
   update?: Prisma.AsignacionAprendizajeAdaptativoUpdateWithWhereUniqueWithoutDocenteInput | Prisma.AsignacionAprendizajeAdaptativoUpdateWithWhereUniqueWithoutDocenteInput[]
   updateMany?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithWhereWithoutDocenteInput | Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithWhereWithoutDocenteInput[]
+  deleteMany?: Prisma.AsignacionAprendizajeAdaptativoScalarWhereInput | Prisma.AsignacionAprendizajeAdaptativoScalarWhereInput[]
+}
+
+export type AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutEstudianteNestedInput = {
+  create?: Prisma.XOR<Prisma.AsignacionAprendizajeAdaptativoCreateWithoutEstudianteInput, Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateWithoutEstudianteInput> | Prisma.AsignacionAprendizajeAdaptativoCreateWithoutEstudianteInput[] | Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateWithoutEstudianteInput[]
+  connectOrCreate?: Prisma.AsignacionAprendizajeAdaptativoCreateOrConnectWithoutEstudianteInput | Prisma.AsignacionAprendizajeAdaptativoCreateOrConnectWithoutEstudianteInput[]
+  upsert?: Prisma.AsignacionAprendizajeAdaptativoUpsertWithWhereUniqueWithoutEstudianteInput | Prisma.AsignacionAprendizajeAdaptativoUpsertWithWhereUniqueWithoutEstudianteInput[]
+  createMany?: Prisma.AsignacionAprendizajeAdaptativoCreateManyEstudianteInputEnvelope
+  set?: Prisma.AsignacionAprendizajeAdaptativoWhereUniqueInput | Prisma.AsignacionAprendizajeAdaptativoWhereUniqueInput[]
+  disconnect?: Prisma.AsignacionAprendizajeAdaptativoWhereUniqueInput | Prisma.AsignacionAprendizajeAdaptativoWhereUniqueInput[]
+  delete?: Prisma.AsignacionAprendizajeAdaptativoWhereUniqueInput | Prisma.AsignacionAprendizajeAdaptativoWhereUniqueInput[]
+  connect?: Prisma.AsignacionAprendizajeAdaptativoWhereUniqueInput | Prisma.AsignacionAprendizajeAdaptativoWhereUniqueInput[]
+  update?: Prisma.AsignacionAprendizajeAdaptativoUpdateWithWhereUniqueWithoutEstudianteInput | Prisma.AsignacionAprendizajeAdaptativoUpdateWithWhereUniqueWithoutEstudianteInput[]
+  updateMany?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithWhereWithoutEstudianteInput | Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithWhereWithoutEstudianteInput[]
   deleteMany?: Prisma.AsignacionAprendizajeAdaptativoScalarWhereInput | Prisma.AsignacionAprendizajeAdaptativoScalarWhereInput[]
 }
 
@@ -1145,12 +1145,6 @@ export type AsignacionAprendizajeAdaptativoCreateWithoutInstitucionInput = {
   respuestasEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   resultadoEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   revisionDocente?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  calificacionEstudianteIA?: number | null
-  comentarioEstudianteIA?: string | null
-  fechaCalificacionEstudianteIA?: Date | string | null
-  calificacionDocenteIA?: number | null
-  comentarioDocenteIA?: string | null
-  fechaCalificacionDocenteIA?: Date | string | null
   conclusionesPdf?: string | null
   fechaLimite?: Date | string | null
   fechaAprobacion?: Date | string | null
@@ -1159,6 +1153,12 @@ export type AsignacionAprendizajeAdaptativoCreateWithoutInstitucionInput = {
   fechaRevision?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  calificacionEstudianteIA?: number | null
+  comentarioEstudianteIA?: string | null
+  fechaCalificacionEstudianteIA?: Date | string | null
+  calificacionDocenteIA?: number | null
+  comentarioDocenteIA?: string | null
+  fechaCalificacionDocenteIA?: Date | string | null
   docente: Prisma.UsuarioCreateNestedOneWithoutAprendizajeAdaptativoDocenteInput
   estudiante: Prisma.UsuarioCreateNestedOneWithoutAprendizajeAdaptativoAlumnoInput
   gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutAprendizajeAdaptativoInput
@@ -1180,12 +1180,6 @@ export type AsignacionAprendizajeAdaptativoUncheckedCreateWithoutInstitucionInpu
   respuestasEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   resultadoEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   revisionDocente?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  calificacionEstudianteIA?: number | null
-  comentarioEstudianteIA?: string | null
-  fechaCalificacionEstudianteIA?: Date | string | null
-  calificacionDocenteIA?: number | null
-  comentarioDocenteIA?: string | null
-  fechaCalificacionDocenteIA?: Date | string | null
   conclusionesPdf?: string | null
   fechaLimite?: Date | string | null
   fechaAprobacion?: Date | string | null
@@ -1197,6 +1191,12 @@ export type AsignacionAprendizajeAdaptativoUncheckedCreateWithoutInstitucionInpu
   docenteId: number
   estudianteId: number
   gradoEscolarId?: number | null
+  calificacionEstudianteIA?: number | null
+  comentarioEstudianteIA?: string | null
+  fechaCalificacionEstudianteIA?: Date | string | null
+  calificacionDocenteIA?: number | null
+  comentarioDocenteIA?: string | null
+  fechaCalificacionDocenteIA?: Date | string | null
 }
 
 export type AsignacionAprendizajeAdaptativoCreateOrConnectWithoutInstitucionInput = {
@@ -1244,12 +1244,6 @@ export type AsignacionAprendizajeAdaptativoScalarWhereInput = {
   respuestasEvaluacion?: Prisma.JsonNullableFilter<"AsignacionAprendizajeAdaptativo">
   resultadoEvaluacion?: Prisma.JsonNullableFilter<"AsignacionAprendizajeAdaptativo">
   revisionDocente?: Prisma.JsonNullableFilter<"AsignacionAprendizajeAdaptativo">
-  calificacionEstudianteIA?: Prisma.IntNullableFilter<"AsignacionAprendizajeAdaptativo"> | number | null
-  comentarioEstudianteIA?: Prisma.StringNullableFilter<"AsignacionAprendizajeAdaptativo"> | string | null
-  fechaCalificacionEstudianteIA?: Prisma.DateTimeNullableFilter<"AsignacionAprendizajeAdaptativo"> | Date | string | null
-  calificacionDocenteIA?: Prisma.IntNullableFilter<"AsignacionAprendizajeAdaptativo"> | number | null
-  comentarioDocenteIA?: Prisma.StringNullableFilter<"AsignacionAprendizajeAdaptativo"> | string | null
-  fechaCalificacionDocenteIA?: Prisma.DateTimeNullableFilter<"AsignacionAprendizajeAdaptativo"> | Date | string | null
   conclusionesPdf?: Prisma.StringNullableFilter<"AsignacionAprendizajeAdaptativo"> | string | null
   fechaLimite?: Prisma.DateTimeNullableFilter<"AsignacionAprendizajeAdaptativo"> | Date | string | null
   fechaAprobacion?: Prisma.DateTimeNullableFilter<"AsignacionAprendizajeAdaptativo"> | Date | string | null
@@ -1262,85 +1256,12 @@ export type AsignacionAprendizajeAdaptativoScalarWhereInput = {
   docenteId?: Prisma.IntFilter<"AsignacionAprendizajeAdaptativo"> | number
   estudianteId?: Prisma.IntFilter<"AsignacionAprendizajeAdaptativo"> | number
   gradoEscolarId?: Prisma.IntNullableFilter<"AsignacionAprendizajeAdaptativo"> | number | null
-}
-
-export type AsignacionAprendizajeAdaptativoCreateWithoutEstudianteInput = {
-  tema: string
-  objetivo?: string | null
-  nivelSolicitado?: string | null
-  tiempoDisponible?: string | null
-  estado?: string
-  entrevistaPreguntas?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  entrevistaRespuestas?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  perfilAprendizaje?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  diagnostico?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  ruta?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  evaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  respuestasEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  resultadoEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  revisionDocente?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  calificacionEstudianteIA?: number | null
-  comentarioEstudianteIA?: string | null
-  fechaCalificacionEstudianteIA?: Date | string | null
-  calificacionDocenteIA?: number | null
-  comentarioDocenteIA?: string | null
-  fechaCalificacionDocenteIA?: Date | string | null
-  conclusionesPdf?: string | null
-  fechaLimite?: Date | string | null
-  fechaAprobacion?: Date | string | null
-  fechaRutaGenerada?: Date | string | null
-  fechaFinalizacion?: Date | string | null
-  fechaRevision?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  institucion: Prisma.InstitucionCreateNestedOneWithoutAprendizajeAdaptativoInput
-  docente: Prisma.UsuarioCreateNestedOneWithoutAprendizajeAdaptativoDocenteInput
-  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutAprendizajeAdaptativoInput
-}
-
-export type AsignacionAprendizajeAdaptativoUncheckedCreateWithoutEstudianteInput = {
-  id?: number
-  tema: string
-  objetivo?: string | null
-  nivelSolicitado?: string | null
-  tiempoDisponible?: string | null
-  estado?: string
-  entrevistaPreguntas?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  entrevistaRespuestas?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  perfilAprendizaje?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  diagnostico?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  ruta?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  evaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  respuestasEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  resultadoEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  revisionDocente?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  calificacionEstudianteIA?: number | null
-  comentarioEstudianteIA?: string | null
-  fechaCalificacionEstudianteIA?: Date | string | null
-  calificacionDocenteIA?: number | null
-  comentarioDocenteIA?: string | null
-  fechaCalificacionDocenteIA?: Date | string | null
-  conclusionesPdf?: string | null
-  fechaLimite?: Date | string | null
-  fechaAprobacion?: Date | string | null
-  fechaRutaGenerada?: Date | string | null
-  fechaFinalizacion?: Date | string | null
-  fechaRevision?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  institucionId: number
-  docenteId: number
-  gradoEscolarId?: number | null
-}
-
-export type AsignacionAprendizajeAdaptativoCreateOrConnectWithoutEstudianteInput = {
-  where: Prisma.AsignacionAprendizajeAdaptativoWhereUniqueInput
-  create: Prisma.XOR<Prisma.AsignacionAprendizajeAdaptativoCreateWithoutEstudianteInput, Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateWithoutEstudianteInput>
-}
-
-export type AsignacionAprendizajeAdaptativoCreateManyEstudianteInputEnvelope = {
-  data: Prisma.AsignacionAprendizajeAdaptativoCreateManyEstudianteInput | Prisma.AsignacionAprendizajeAdaptativoCreateManyEstudianteInput[]
-  skipDuplicates?: boolean
+  calificacionEstudianteIA?: Prisma.IntNullableFilter<"AsignacionAprendizajeAdaptativo"> | number | null
+  comentarioEstudianteIA?: Prisma.StringNullableFilter<"AsignacionAprendizajeAdaptativo"> | string | null
+  fechaCalificacionEstudianteIA?: Prisma.DateTimeNullableFilter<"AsignacionAprendizajeAdaptativo"> | Date | string | null
+  calificacionDocenteIA?: Prisma.IntNullableFilter<"AsignacionAprendizajeAdaptativo"> | number | null
+  comentarioDocenteIA?: Prisma.StringNullableFilter<"AsignacionAprendizajeAdaptativo"> | string | null
+  fechaCalificacionDocenteIA?: Prisma.DateTimeNullableFilter<"AsignacionAprendizajeAdaptativo"> | Date | string | null
 }
 
 export type AsignacionAprendizajeAdaptativoCreateWithoutDocenteInput = {
@@ -1358,12 +1279,6 @@ export type AsignacionAprendizajeAdaptativoCreateWithoutDocenteInput = {
   respuestasEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   resultadoEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   revisionDocente?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  calificacionEstudianteIA?: number | null
-  comentarioEstudianteIA?: string | null
-  fechaCalificacionEstudianteIA?: Date | string | null
-  calificacionDocenteIA?: number | null
-  comentarioDocenteIA?: string | null
-  fechaCalificacionDocenteIA?: Date | string | null
   conclusionesPdf?: string | null
   fechaLimite?: Date | string | null
   fechaAprobacion?: Date | string | null
@@ -1372,9 +1287,15 @@ export type AsignacionAprendizajeAdaptativoCreateWithoutDocenteInput = {
   fechaRevision?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  institucion: Prisma.InstitucionCreateNestedOneWithoutAprendizajeAdaptativoInput
+  calificacionEstudianteIA?: number | null
+  comentarioEstudianteIA?: string | null
+  fechaCalificacionEstudianteIA?: Date | string | null
+  calificacionDocenteIA?: number | null
+  comentarioDocenteIA?: string | null
+  fechaCalificacionDocenteIA?: Date | string | null
   estudiante: Prisma.UsuarioCreateNestedOneWithoutAprendizajeAdaptativoAlumnoInput
   gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutAprendizajeAdaptativoInput
+  institucion: Prisma.InstitucionCreateNestedOneWithoutAprendizajeAdaptativoInput
 }
 
 export type AsignacionAprendizajeAdaptativoUncheckedCreateWithoutDocenteInput = {
@@ -1393,12 +1314,6 @@ export type AsignacionAprendizajeAdaptativoUncheckedCreateWithoutDocenteInput = 
   respuestasEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   resultadoEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   revisionDocente?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  calificacionEstudianteIA?: number | null
-  comentarioEstudianteIA?: string | null
-  fechaCalificacionEstudianteIA?: Date | string | null
-  calificacionDocenteIA?: number | null
-  comentarioDocenteIA?: string | null
-  fechaCalificacionDocenteIA?: Date | string | null
   conclusionesPdf?: string | null
   fechaLimite?: Date | string | null
   fechaAprobacion?: Date | string | null
@@ -1410,6 +1325,12 @@ export type AsignacionAprendizajeAdaptativoUncheckedCreateWithoutDocenteInput = 
   institucionId: number
   estudianteId: number
   gradoEscolarId?: number | null
+  calificacionEstudianteIA?: number | null
+  comentarioEstudianteIA?: string | null
+  fechaCalificacionEstudianteIA?: Date | string | null
+  calificacionDocenteIA?: number | null
+  comentarioDocenteIA?: string | null
+  fechaCalificacionDocenteIA?: Date | string | null
 }
 
 export type AsignacionAprendizajeAdaptativoCreateOrConnectWithoutDocenteInput = {
@@ -1422,20 +1343,83 @@ export type AsignacionAprendizajeAdaptativoCreateManyDocenteInputEnvelope = {
   skipDuplicates?: boolean
 }
 
-export type AsignacionAprendizajeAdaptativoUpsertWithWhereUniqueWithoutEstudianteInput = {
+export type AsignacionAprendizajeAdaptativoCreateWithoutEstudianteInput = {
+  tema: string
+  objetivo?: string | null
+  nivelSolicitado?: string | null
+  tiempoDisponible?: string | null
+  estado?: string
+  entrevistaPreguntas?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  entrevistaRespuestas?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  perfilAprendizaje?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  diagnostico?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  ruta?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  evaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  respuestasEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  resultadoEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  revisionDocente?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  conclusionesPdf?: string | null
+  fechaLimite?: Date | string | null
+  fechaAprobacion?: Date | string | null
+  fechaRutaGenerada?: Date | string | null
+  fechaFinalizacion?: Date | string | null
+  fechaRevision?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  calificacionEstudianteIA?: number | null
+  comentarioEstudianteIA?: string | null
+  fechaCalificacionEstudianteIA?: Date | string | null
+  calificacionDocenteIA?: number | null
+  comentarioDocenteIA?: string | null
+  fechaCalificacionDocenteIA?: Date | string | null
+  docente: Prisma.UsuarioCreateNestedOneWithoutAprendizajeAdaptativoDocenteInput
+  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutAprendizajeAdaptativoInput
+  institucion: Prisma.InstitucionCreateNestedOneWithoutAprendizajeAdaptativoInput
+}
+
+export type AsignacionAprendizajeAdaptativoUncheckedCreateWithoutEstudianteInput = {
+  id?: number
+  tema: string
+  objetivo?: string | null
+  nivelSolicitado?: string | null
+  tiempoDisponible?: string | null
+  estado?: string
+  entrevistaPreguntas?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  entrevistaRespuestas?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  perfilAprendizaje?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  diagnostico?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  ruta?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  evaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  respuestasEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  resultadoEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  revisionDocente?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  conclusionesPdf?: string | null
+  fechaLimite?: Date | string | null
+  fechaAprobacion?: Date | string | null
+  fechaRutaGenerada?: Date | string | null
+  fechaFinalizacion?: Date | string | null
+  fechaRevision?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  institucionId: number
+  docenteId: number
+  gradoEscolarId?: number | null
+  calificacionEstudianteIA?: number | null
+  comentarioEstudianteIA?: string | null
+  fechaCalificacionEstudianteIA?: Date | string | null
+  calificacionDocenteIA?: number | null
+  comentarioDocenteIA?: string | null
+  fechaCalificacionDocenteIA?: Date | string | null
+}
+
+export type AsignacionAprendizajeAdaptativoCreateOrConnectWithoutEstudianteInput = {
   where: Prisma.AsignacionAprendizajeAdaptativoWhereUniqueInput
-  update: Prisma.XOR<Prisma.AsignacionAprendizajeAdaptativoUpdateWithoutEstudianteInput, Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateWithoutEstudianteInput>
   create: Prisma.XOR<Prisma.AsignacionAprendizajeAdaptativoCreateWithoutEstudianteInput, Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateWithoutEstudianteInput>
 }
 
-export type AsignacionAprendizajeAdaptativoUpdateWithWhereUniqueWithoutEstudianteInput = {
-  where: Prisma.AsignacionAprendizajeAdaptativoWhereUniqueInput
-  data: Prisma.XOR<Prisma.AsignacionAprendizajeAdaptativoUpdateWithoutEstudianteInput, Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateWithoutEstudianteInput>
-}
-
-export type AsignacionAprendizajeAdaptativoUpdateManyWithWhereWithoutEstudianteInput = {
-  where: Prisma.AsignacionAprendizajeAdaptativoScalarWhereInput
-  data: Prisma.XOR<Prisma.AsignacionAprendizajeAdaptativoUpdateManyMutationInput, Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutEstudianteInput>
+export type AsignacionAprendizajeAdaptativoCreateManyEstudianteInputEnvelope = {
+  data: Prisma.AsignacionAprendizajeAdaptativoCreateManyEstudianteInput | Prisma.AsignacionAprendizajeAdaptativoCreateManyEstudianteInput[]
+  skipDuplicates?: boolean
 }
 
 export type AsignacionAprendizajeAdaptativoUpsertWithWhereUniqueWithoutDocenteInput = {
@@ -1454,6 +1438,22 @@ export type AsignacionAprendizajeAdaptativoUpdateManyWithWhereWithoutDocenteInpu
   data: Prisma.XOR<Prisma.AsignacionAprendizajeAdaptativoUpdateManyMutationInput, Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutDocenteInput>
 }
 
+export type AsignacionAprendizajeAdaptativoUpsertWithWhereUniqueWithoutEstudianteInput = {
+  where: Prisma.AsignacionAprendizajeAdaptativoWhereUniqueInput
+  update: Prisma.XOR<Prisma.AsignacionAprendizajeAdaptativoUpdateWithoutEstudianteInput, Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateWithoutEstudianteInput>
+  create: Prisma.XOR<Prisma.AsignacionAprendizajeAdaptativoCreateWithoutEstudianteInput, Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateWithoutEstudianteInput>
+}
+
+export type AsignacionAprendizajeAdaptativoUpdateWithWhereUniqueWithoutEstudianteInput = {
+  where: Prisma.AsignacionAprendizajeAdaptativoWhereUniqueInput
+  data: Prisma.XOR<Prisma.AsignacionAprendizajeAdaptativoUpdateWithoutEstudianteInput, Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateWithoutEstudianteInput>
+}
+
+export type AsignacionAprendizajeAdaptativoUpdateManyWithWhereWithoutEstudianteInput = {
+  where: Prisma.AsignacionAprendizajeAdaptativoScalarWhereInput
+  data: Prisma.XOR<Prisma.AsignacionAprendizajeAdaptativoUpdateManyMutationInput, Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutEstudianteInput>
+}
+
 export type AsignacionAprendizajeAdaptativoCreateWithoutGradoEscolarInput = {
   tema: string
   objetivo?: string | null
@@ -1469,12 +1469,6 @@ export type AsignacionAprendizajeAdaptativoCreateWithoutGradoEscolarInput = {
   respuestasEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   resultadoEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   revisionDocente?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  calificacionEstudianteIA?: number | null
-  comentarioEstudianteIA?: string | null
-  fechaCalificacionEstudianteIA?: Date | string | null
-  calificacionDocenteIA?: number | null
-  comentarioDocenteIA?: string | null
-  fechaCalificacionDocenteIA?: Date | string | null
   conclusionesPdf?: string | null
   fechaLimite?: Date | string | null
   fechaAprobacion?: Date | string | null
@@ -1483,9 +1477,15 @@ export type AsignacionAprendizajeAdaptativoCreateWithoutGradoEscolarInput = {
   fechaRevision?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  institucion: Prisma.InstitucionCreateNestedOneWithoutAprendizajeAdaptativoInput
+  calificacionEstudianteIA?: number | null
+  comentarioEstudianteIA?: string | null
+  fechaCalificacionEstudianteIA?: Date | string | null
+  calificacionDocenteIA?: number | null
+  comentarioDocenteIA?: string | null
+  fechaCalificacionDocenteIA?: Date | string | null
   docente: Prisma.UsuarioCreateNestedOneWithoutAprendizajeAdaptativoDocenteInput
   estudiante: Prisma.UsuarioCreateNestedOneWithoutAprendizajeAdaptativoAlumnoInput
+  institucion: Prisma.InstitucionCreateNestedOneWithoutAprendizajeAdaptativoInput
 }
 
 export type AsignacionAprendizajeAdaptativoUncheckedCreateWithoutGradoEscolarInput = {
@@ -1504,12 +1504,6 @@ export type AsignacionAprendizajeAdaptativoUncheckedCreateWithoutGradoEscolarInp
   respuestasEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   resultadoEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   revisionDocente?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  calificacionEstudianteIA?: number | null
-  comentarioEstudianteIA?: string | null
-  fechaCalificacionEstudianteIA?: Date | string | null
-  calificacionDocenteIA?: number | null
-  comentarioDocenteIA?: string | null
-  fechaCalificacionDocenteIA?: Date | string | null
   conclusionesPdf?: string | null
   fechaLimite?: Date | string | null
   fechaAprobacion?: Date | string | null
@@ -1521,6 +1515,12 @@ export type AsignacionAprendizajeAdaptativoUncheckedCreateWithoutGradoEscolarInp
   institucionId: number
   docenteId: number
   estudianteId: number
+  calificacionEstudianteIA?: number | null
+  comentarioEstudianteIA?: string | null
+  fechaCalificacionEstudianteIA?: Date | string | null
+  calificacionDocenteIA?: number | null
+  comentarioDocenteIA?: string | null
+  fechaCalificacionDocenteIA?: Date | string | null
 }
 
 export type AsignacionAprendizajeAdaptativoCreateOrConnectWithoutGradoEscolarInput = {
@@ -1565,12 +1565,6 @@ export type AsignacionAprendizajeAdaptativoCreateManyInstitucionInput = {
   respuestasEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   resultadoEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   revisionDocente?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  calificacionEstudianteIA?: number | null
-  comentarioEstudianteIA?: string | null
-  fechaCalificacionEstudianteIA?: Date | string | null
-  calificacionDocenteIA?: number | null
-  comentarioDocenteIA?: string | null
-  fechaCalificacionDocenteIA?: Date | string | null
   conclusionesPdf?: string | null
   fechaLimite?: Date | string | null
   fechaAprobacion?: Date | string | null
@@ -1582,6 +1576,12 @@ export type AsignacionAprendizajeAdaptativoCreateManyInstitucionInput = {
   docenteId: number
   estudianteId: number
   gradoEscolarId?: number | null
+  calificacionEstudianteIA?: number | null
+  comentarioEstudianteIA?: string | null
+  fechaCalificacionEstudianteIA?: Date | string | null
+  calificacionDocenteIA?: number | null
+  comentarioDocenteIA?: string | null
+  fechaCalificacionDocenteIA?: Date | string | null
 }
 
 export type AsignacionAprendizajeAdaptativoUpdateWithoutInstitucionInput = {
@@ -1599,12 +1599,6 @@ export type AsignacionAprendizajeAdaptativoUpdateWithoutInstitucionInput = {
   respuestasEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   resultadoEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   revisionDocente?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  calificacionEstudianteIA?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  comentarioEstudianteIA?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fechaCalificacionEstudianteIA?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  calificacionDocenteIA?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  comentarioDocenteIA?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fechaCalificacionDocenteIA?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   conclusionesPdf?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fechaLimite?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fechaAprobacion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1613,6 +1607,12 @@ export type AsignacionAprendizajeAdaptativoUpdateWithoutInstitucionInput = {
   fechaRevision?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  calificacionEstudianteIA?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  comentarioEstudianteIA?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCalificacionEstudianteIA?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  calificacionDocenteIA?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  comentarioDocenteIA?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCalificacionDocenteIA?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   docente?: Prisma.UsuarioUpdateOneRequiredWithoutAprendizajeAdaptativoDocenteNestedInput
   estudiante?: Prisma.UsuarioUpdateOneRequiredWithoutAprendizajeAdaptativoAlumnoNestedInput
   gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutAprendizajeAdaptativoNestedInput
@@ -1634,12 +1634,6 @@ export type AsignacionAprendizajeAdaptativoUncheckedUpdateWithoutInstitucionInpu
   respuestasEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   resultadoEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   revisionDocente?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  calificacionEstudianteIA?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  comentarioEstudianteIA?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fechaCalificacionEstudianteIA?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  calificacionDocenteIA?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  comentarioDocenteIA?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fechaCalificacionDocenteIA?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   conclusionesPdf?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fechaLimite?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fechaAprobacion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1651,6 +1645,12 @@ export type AsignacionAprendizajeAdaptativoUncheckedUpdateWithoutInstitucionInpu
   docenteId?: Prisma.IntFieldUpdateOperationsInput | number
   estudianteId?: Prisma.IntFieldUpdateOperationsInput | number
   gradoEscolarId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  calificacionEstudianteIA?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  comentarioEstudianteIA?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCalificacionEstudianteIA?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  calificacionDocenteIA?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  comentarioDocenteIA?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCalificacionDocenteIA?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutInstitucionInput = {
@@ -1669,12 +1669,6 @@ export type AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutInstitucion
   respuestasEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   resultadoEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   revisionDocente?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  calificacionEstudianteIA?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  comentarioEstudianteIA?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fechaCalificacionEstudianteIA?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  calificacionDocenteIA?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  comentarioDocenteIA?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fechaCalificacionDocenteIA?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   conclusionesPdf?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fechaLimite?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fechaAprobacion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1686,41 +1680,12 @@ export type AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutInstitucion
   docenteId?: Prisma.IntFieldUpdateOperationsInput | number
   estudianteId?: Prisma.IntFieldUpdateOperationsInput | number
   gradoEscolarId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-}
-
-export type AsignacionAprendizajeAdaptativoCreateManyEstudianteInput = {
-  id?: number
-  tema: string
-  objetivo?: string | null
-  nivelSolicitado?: string | null
-  tiempoDisponible?: string | null
-  estado?: string
-  entrevistaPreguntas?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  entrevistaRespuestas?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  perfilAprendizaje?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  diagnostico?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  ruta?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  evaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  respuestasEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  resultadoEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  revisionDocente?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  calificacionEstudianteIA?: number | null
-  comentarioEstudianteIA?: string | null
-  fechaCalificacionEstudianteIA?: Date | string | null
-  calificacionDocenteIA?: number | null
-  comentarioDocenteIA?: string | null
-  fechaCalificacionDocenteIA?: Date | string | null
-  conclusionesPdf?: string | null
-  fechaLimite?: Date | string | null
-  fechaAprobacion?: Date | string | null
-  fechaRutaGenerada?: Date | string | null
-  fechaFinalizacion?: Date | string | null
-  fechaRevision?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  institucionId: number
-  docenteId: number
-  gradoEscolarId?: number | null
+  calificacionEstudianteIA?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  comentarioEstudianteIA?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCalificacionEstudianteIA?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  calificacionDocenteIA?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  comentarioDocenteIA?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCalificacionDocenteIA?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type AsignacionAprendizajeAdaptativoCreateManyDocenteInput = {
@@ -1739,12 +1704,6 @@ export type AsignacionAprendizajeAdaptativoCreateManyDocenteInput = {
   respuestasEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   resultadoEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   revisionDocente?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  calificacionEstudianteIA?: number | null
-  comentarioEstudianteIA?: string | null
-  fechaCalificacionEstudianteIA?: Date | string | null
-  calificacionDocenteIA?: number | null
-  comentarioDocenteIA?: string | null
-  fechaCalificacionDocenteIA?: Date | string | null
   conclusionesPdf?: string | null
   fechaLimite?: Date | string | null
   fechaAprobacion?: Date | string | null
@@ -1756,14 +1715,21 @@ export type AsignacionAprendizajeAdaptativoCreateManyDocenteInput = {
   institucionId: number
   estudianteId: number
   gradoEscolarId?: number | null
+  calificacionEstudianteIA?: number | null
+  comentarioEstudianteIA?: string | null
+  fechaCalificacionEstudianteIA?: Date | string | null
+  calificacionDocenteIA?: number | null
+  comentarioDocenteIA?: string | null
+  fechaCalificacionDocenteIA?: Date | string | null
 }
 
-export type AsignacionAprendizajeAdaptativoUpdateWithoutEstudianteInput = {
-  tema?: Prisma.StringFieldUpdateOperationsInput | string
-  objetivo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nivelSolicitado?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tiempoDisponible?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  estado?: Prisma.StringFieldUpdateOperationsInput | string
+export type AsignacionAprendizajeAdaptativoCreateManyEstudianteInput = {
+  id?: number
+  tema: string
+  objetivo?: string | null
+  nivelSolicitado?: string | null
+  tiempoDisponible?: string | null
+  estado?: string
   entrevistaPreguntas?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   entrevistaRespuestas?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   perfilAprendizaje?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -1773,93 +1739,23 @@ export type AsignacionAprendizajeAdaptativoUpdateWithoutEstudianteInput = {
   respuestasEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   resultadoEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   revisionDocente?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  calificacionEstudianteIA?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  comentarioEstudianteIA?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fechaCalificacionEstudianteIA?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  calificacionDocenteIA?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  comentarioDocenteIA?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fechaCalificacionDocenteIA?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  conclusionesPdf?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fechaLimite?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  fechaAprobacion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  fechaRutaGenerada?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  fechaFinalizacion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  fechaRevision?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutAprendizajeAdaptativoNestedInput
-  docente?: Prisma.UsuarioUpdateOneRequiredWithoutAprendizajeAdaptativoDocenteNestedInput
-  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutAprendizajeAdaptativoNestedInput
-}
-
-export type AsignacionAprendizajeAdaptativoUncheckedUpdateWithoutEstudianteInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  tema?: Prisma.StringFieldUpdateOperationsInput | string
-  objetivo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nivelSolicitado?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tiempoDisponible?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  estado?: Prisma.StringFieldUpdateOperationsInput | string
-  entrevistaPreguntas?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  entrevistaRespuestas?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  perfilAprendizaje?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  diagnostico?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  ruta?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  evaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  respuestasEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  resultadoEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  revisionDocente?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  calificacionEstudianteIA?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  comentarioEstudianteIA?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fechaCalificacionEstudianteIA?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  calificacionDocenteIA?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  comentarioDocenteIA?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fechaCalificacionDocenteIA?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  conclusionesPdf?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fechaLimite?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  fechaAprobacion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  fechaRutaGenerada?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  fechaFinalizacion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  fechaRevision?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  institucionId?: Prisma.IntFieldUpdateOperationsInput | number
-  docenteId?: Prisma.IntFieldUpdateOperationsInput | number
-  gradoEscolarId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-}
-
-export type AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutEstudianteInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  tema?: Prisma.StringFieldUpdateOperationsInput | string
-  objetivo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nivelSolicitado?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tiempoDisponible?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  estado?: Prisma.StringFieldUpdateOperationsInput | string
-  entrevistaPreguntas?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  entrevistaRespuestas?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  perfilAprendizaje?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  diagnostico?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  ruta?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  evaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  respuestasEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  resultadoEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  revisionDocente?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  calificacionEstudianteIA?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  comentarioEstudianteIA?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fechaCalificacionEstudianteIA?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  calificacionDocenteIA?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  comentarioDocenteIA?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fechaCalificacionDocenteIA?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  conclusionesPdf?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fechaLimite?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  fechaAprobacion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  fechaRutaGenerada?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  fechaFinalizacion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  fechaRevision?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  institucionId?: Prisma.IntFieldUpdateOperationsInput | number
-  docenteId?: Prisma.IntFieldUpdateOperationsInput | number
-  gradoEscolarId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  conclusionesPdf?: string | null
+  fechaLimite?: Date | string | null
+  fechaAprobacion?: Date | string | null
+  fechaRutaGenerada?: Date | string | null
+  fechaFinalizacion?: Date | string | null
+  fechaRevision?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  institucionId: number
+  docenteId: number
+  gradoEscolarId?: number | null
+  calificacionEstudianteIA?: number | null
+  comentarioEstudianteIA?: string | null
+  fechaCalificacionEstudianteIA?: Date | string | null
+  calificacionDocenteIA?: number | null
+  comentarioDocenteIA?: string | null
+  fechaCalificacionDocenteIA?: Date | string | null
 }
 
 export type AsignacionAprendizajeAdaptativoUpdateWithoutDocenteInput = {
@@ -1877,12 +1773,6 @@ export type AsignacionAprendizajeAdaptativoUpdateWithoutDocenteInput = {
   respuestasEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   resultadoEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   revisionDocente?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  calificacionEstudianteIA?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  comentarioEstudianteIA?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fechaCalificacionEstudianteIA?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  calificacionDocenteIA?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  comentarioDocenteIA?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fechaCalificacionDocenteIA?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   conclusionesPdf?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fechaLimite?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fechaAprobacion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1891,9 +1781,15 @@ export type AsignacionAprendizajeAdaptativoUpdateWithoutDocenteInput = {
   fechaRevision?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutAprendizajeAdaptativoNestedInput
+  calificacionEstudianteIA?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  comentarioEstudianteIA?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCalificacionEstudianteIA?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  calificacionDocenteIA?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  comentarioDocenteIA?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCalificacionDocenteIA?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   estudiante?: Prisma.UsuarioUpdateOneRequiredWithoutAprendizajeAdaptativoAlumnoNestedInput
   gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutAprendizajeAdaptativoNestedInput
+  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutAprendizajeAdaptativoNestedInput
 }
 
 export type AsignacionAprendizajeAdaptativoUncheckedUpdateWithoutDocenteInput = {
@@ -1912,12 +1808,6 @@ export type AsignacionAprendizajeAdaptativoUncheckedUpdateWithoutDocenteInput = 
   respuestasEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   resultadoEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   revisionDocente?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  calificacionEstudianteIA?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  comentarioEstudianteIA?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fechaCalificacionEstudianteIA?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  calificacionDocenteIA?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  comentarioDocenteIA?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fechaCalificacionDocenteIA?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   conclusionesPdf?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fechaLimite?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fechaAprobacion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1929,6 +1819,12 @@ export type AsignacionAprendizajeAdaptativoUncheckedUpdateWithoutDocenteInput = 
   institucionId?: Prisma.IntFieldUpdateOperationsInput | number
   estudianteId?: Prisma.IntFieldUpdateOperationsInput | number
   gradoEscolarId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  calificacionEstudianteIA?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  comentarioEstudianteIA?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCalificacionEstudianteIA?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  calificacionDocenteIA?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  comentarioDocenteIA?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCalificacionDocenteIA?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutDocenteInput = {
@@ -1947,12 +1843,6 @@ export type AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutDocenteInpu
   respuestasEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   resultadoEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   revisionDocente?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  calificacionEstudianteIA?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  comentarioEstudianteIA?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fechaCalificacionEstudianteIA?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  calificacionDocenteIA?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  comentarioDocenteIA?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fechaCalificacionDocenteIA?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   conclusionesPdf?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fechaLimite?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fechaAprobacion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1964,6 +1854,116 @@ export type AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutDocenteInpu
   institucionId?: Prisma.IntFieldUpdateOperationsInput | number
   estudianteId?: Prisma.IntFieldUpdateOperationsInput | number
   gradoEscolarId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  calificacionEstudianteIA?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  comentarioEstudianteIA?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCalificacionEstudianteIA?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  calificacionDocenteIA?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  comentarioDocenteIA?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCalificacionDocenteIA?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+}
+
+export type AsignacionAprendizajeAdaptativoUpdateWithoutEstudianteInput = {
+  tema?: Prisma.StringFieldUpdateOperationsInput | string
+  objetivo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nivelSolicitado?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tiempoDisponible?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estado?: Prisma.StringFieldUpdateOperationsInput | string
+  entrevistaPreguntas?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  entrevistaRespuestas?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  perfilAprendizaje?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  diagnostico?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  ruta?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  evaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  respuestasEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  resultadoEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  revisionDocente?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  conclusionesPdf?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaLimite?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaAprobacion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaRutaGenerada?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaFinalizacion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaRevision?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  calificacionEstudianteIA?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  comentarioEstudianteIA?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCalificacionEstudianteIA?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  calificacionDocenteIA?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  comentarioDocenteIA?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCalificacionDocenteIA?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  docente?: Prisma.UsuarioUpdateOneRequiredWithoutAprendizajeAdaptativoDocenteNestedInput
+  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutAprendizajeAdaptativoNestedInput
+  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutAprendizajeAdaptativoNestedInput
+}
+
+export type AsignacionAprendizajeAdaptativoUncheckedUpdateWithoutEstudianteInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  tema?: Prisma.StringFieldUpdateOperationsInput | string
+  objetivo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nivelSolicitado?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tiempoDisponible?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estado?: Prisma.StringFieldUpdateOperationsInput | string
+  entrevistaPreguntas?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  entrevistaRespuestas?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  perfilAprendizaje?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  diagnostico?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  ruta?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  evaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  respuestasEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  resultadoEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  revisionDocente?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  conclusionesPdf?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaLimite?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaAprobacion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaRutaGenerada?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaFinalizacion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaRevision?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  institucionId?: Prisma.IntFieldUpdateOperationsInput | number
+  docenteId?: Prisma.IntFieldUpdateOperationsInput | number
+  gradoEscolarId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  calificacionEstudianteIA?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  comentarioEstudianteIA?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCalificacionEstudianteIA?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  calificacionDocenteIA?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  comentarioDocenteIA?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCalificacionDocenteIA?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+}
+
+export type AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutEstudianteInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  tema?: Prisma.StringFieldUpdateOperationsInput | string
+  objetivo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nivelSolicitado?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tiempoDisponible?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estado?: Prisma.StringFieldUpdateOperationsInput | string
+  entrevistaPreguntas?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  entrevistaRespuestas?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  perfilAprendizaje?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  diagnostico?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  ruta?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  evaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  respuestasEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  resultadoEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  revisionDocente?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  conclusionesPdf?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaLimite?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaAprobacion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaRutaGenerada?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaFinalizacion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fechaRevision?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  institucionId?: Prisma.IntFieldUpdateOperationsInput | number
+  docenteId?: Prisma.IntFieldUpdateOperationsInput | number
+  gradoEscolarId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  calificacionEstudianteIA?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  comentarioEstudianteIA?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCalificacionEstudianteIA?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  calificacionDocenteIA?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  comentarioDocenteIA?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCalificacionDocenteIA?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type AsignacionAprendizajeAdaptativoCreateManyGradoEscolarInput = {
@@ -1982,12 +1982,6 @@ export type AsignacionAprendizajeAdaptativoCreateManyGradoEscolarInput = {
   respuestasEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   resultadoEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   revisionDocente?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  calificacionEstudianteIA?: number | null
-  comentarioEstudianteIA?: string | null
-  fechaCalificacionEstudianteIA?: Date | string | null
-  calificacionDocenteIA?: number | null
-  comentarioDocenteIA?: string | null
-  fechaCalificacionDocenteIA?: Date | string | null
   conclusionesPdf?: string | null
   fechaLimite?: Date | string | null
   fechaAprobacion?: Date | string | null
@@ -1999,6 +1993,12 @@ export type AsignacionAprendizajeAdaptativoCreateManyGradoEscolarInput = {
   institucionId: number
   docenteId: number
   estudianteId: number
+  calificacionEstudianteIA?: number | null
+  comentarioEstudianteIA?: string | null
+  fechaCalificacionEstudianteIA?: Date | string | null
+  calificacionDocenteIA?: number | null
+  comentarioDocenteIA?: string | null
+  fechaCalificacionDocenteIA?: Date | string | null
 }
 
 export type AsignacionAprendizajeAdaptativoUpdateWithoutGradoEscolarInput = {
@@ -2016,12 +2016,6 @@ export type AsignacionAprendizajeAdaptativoUpdateWithoutGradoEscolarInput = {
   respuestasEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   resultadoEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   revisionDocente?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  calificacionEstudianteIA?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  comentarioEstudianteIA?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fechaCalificacionEstudianteIA?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  calificacionDocenteIA?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  comentarioDocenteIA?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fechaCalificacionDocenteIA?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   conclusionesPdf?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fechaLimite?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fechaAprobacion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2030,9 +2024,15 @@ export type AsignacionAprendizajeAdaptativoUpdateWithoutGradoEscolarInput = {
   fechaRevision?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutAprendizajeAdaptativoNestedInput
+  calificacionEstudianteIA?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  comentarioEstudianteIA?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCalificacionEstudianteIA?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  calificacionDocenteIA?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  comentarioDocenteIA?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCalificacionDocenteIA?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   docente?: Prisma.UsuarioUpdateOneRequiredWithoutAprendizajeAdaptativoDocenteNestedInput
   estudiante?: Prisma.UsuarioUpdateOneRequiredWithoutAprendizajeAdaptativoAlumnoNestedInput
+  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutAprendizajeAdaptativoNestedInput
 }
 
 export type AsignacionAprendizajeAdaptativoUncheckedUpdateWithoutGradoEscolarInput = {
@@ -2051,12 +2051,6 @@ export type AsignacionAprendizajeAdaptativoUncheckedUpdateWithoutGradoEscolarInp
   respuestasEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   resultadoEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   revisionDocente?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  calificacionEstudianteIA?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  comentarioEstudianteIA?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fechaCalificacionEstudianteIA?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  calificacionDocenteIA?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  comentarioDocenteIA?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fechaCalificacionDocenteIA?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   conclusionesPdf?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fechaLimite?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fechaAprobacion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2068,6 +2062,12 @@ export type AsignacionAprendizajeAdaptativoUncheckedUpdateWithoutGradoEscolarInp
   institucionId?: Prisma.IntFieldUpdateOperationsInput | number
   docenteId?: Prisma.IntFieldUpdateOperationsInput | number
   estudianteId?: Prisma.IntFieldUpdateOperationsInput | number
+  calificacionEstudianteIA?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  comentarioEstudianteIA?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCalificacionEstudianteIA?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  calificacionDocenteIA?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  comentarioDocenteIA?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCalificacionDocenteIA?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutGradoEscolarInput = {
@@ -2086,12 +2086,6 @@ export type AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutGradoEscola
   respuestasEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   resultadoEvaluacion?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   revisionDocente?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  calificacionEstudianteIA?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  comentarioEstudianteIA?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fechaCalificacionEstudianteIA?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  calificacionDocenteIA?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  comentarioDocenteIA?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fechaCalificacionDocenteIA?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   conclusionesPdf?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fechaLimite?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fechaAprobacion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2103,6 +2097,12 @@ export type AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutGradoEscola
   institucionId?: Prisma.IntFieldUpdateOperationsInput | number
   docenteId?: Prisma.IntFieldUpdateOperationsInput | number
   estudianteId?: Prisma.IntFieldUpdateOperationsInput | number
+  calificacionEstudianteIA?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  comentarioEstudianteIA?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCalificacionEstudianteIA?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  calificacionDocenteIA?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  comentarioDocenteIA?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fechaCalificacionDocenteIA?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 
@@ -2123,12 +2123,6 @@ export type AsignacionAprendizajeAdaptativoSelect<ExtArgs extends runtime.Types.
   respuestasEvaluacion?: boolean
   resultadoEvaluacion?: boolean
   revisionDocente?: boolean
-  calificacionEstudianteIA?: boolean
-  comentarioEstudianteIA?: boolean
-  fechaCalificacionEstudianteIA?: boolean
-  calificacionDocenteIA?: boolean
-  comentarioDocenteIA?: boolean
-  fechaCalificacionDocenteIA?: boolean
   conclusionesPdf?: boolean
   fechaLimite?: boolean
   fechaAprobacion?: boolean
@@ -2141,10 +2135,16 @@ export type AsignacionAprendizajeAdaptativoSelect<ExtArgs extends runtime.Types.
   docenteId?: boolean
   estudianteId?: boolean
   gradoEscolarId?: boolean
-  institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
+  calificacionEstudianteIA?: boolean
+  comentarioEstudianteIA?: boolean
+  fechaCalificacionEstudianteIA?: boolean
+  calificacionDocenteIA?: boolean
+  comentarioDocenteIA?: boolean
+  fechaCalificacionDocenteIA?: boolean
   docente?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   estudiante?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   gradoEscolar?: boolean | Prisma.AsignacionAprendizajeAdaptativo$gradoEscolarArgs<ExtArgs>
+  institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["asignacionAprendizajeAdaptativo"]>
 
 export type AsignacionAprendizajeAdaptativoSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -2163,12 +2163,6 @@ export type AsignacionAprendizajeAdaptativoSelectCreateManyAndReturn<ExtArgs ext
   respuestasEvaluacion?: boolean
   resultadoEvaluacion?: boolean
   revisionDocente?: boolean
-  calificacionEstudianteIA?: boolean
-  comentarioEstudianteIA?: boolean
-  fechaCalificacionEstudianteIA?: boolean
-  calificacionDocenteIA?: boolean
-  comentarioDocenteIA?: boolean
-  fechaCalificacionDocenteIA?: boolean
   conclusionesPdf?: boolean
   fechaLimite?: boolean
   fechaAprobacion?: boolean
@@ -2181,10 +2175,16 @@ export type AsignacionAprendizajeAdaptativoSelectCreateManyAndReturn<ExtArgs ext
   docenteId?: boolean
   estudianteId?: boolean
   gradoEscolarId?: boolean
-  institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
+  calificacionEstudianteIA?: boolean
+  comentarioEstudianteIA?: boolean
+  fechaCalificacionEstudianteIA?: boolean
+  calificacionDocenteIA?: boolean
+  comentarioDocenteIA?: boolean
+  fechaCalificacionDocenteIA?: boolean
   docente?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   estudiante?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   gradoEscolar?: boolean | Prisma.AsignacionAprendizajeAdaptativo$gradoEscolarArgs<ExtArgs>
+  institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["asignacionAprendizajeAdaptativo"]>
 
 export type AsignacionAprendizajeAdaptativoSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -2203,12 +2203,6 @@ export type AsignacionAprendizajeAdaptativoSelectUpdateManyAndReturn<ExtArgs ext
   respuestasEvaluacion?: boolean
   resultadoEvaluacion?: boolean
   revisionDocente?: boolean
-  calificacionEstudianteIA?: boolean
-  comentarioEstudianteIA?: boolean
-  fechaCalificacionEstudianteIA?: boolean
-  calificacionDocenteIA?: boolean
-  comentarioDocenteIA?: boolean
-  fechaCalificacionDocenteIA?: boolean
   conclusionesPdf?: boolean
   fechaLimite?: boolean
   fechaAprobacion?: boolean
@@ -2221,10 +2215,16 @@ export type AsignacionAprendizajeAdaptativoSelectUpdateManyAndReturn<ExtArgs ext
   docenteId?: boolean
   estudianteId?: boolean
   gradoEscolarId?: boolean
-  institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
+  calificacionEstudianteIA?: boolean
+  comentarioEstudianteIA?: boolean
+  fechaCalificacionEstudianteIA?: boolean
+  calificacionDocenteIA?: boolean
+  comentarioDocenteIA?: boolean
+  fechaCalificacionDocenteIA?: boolean
   docente?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   estudiante?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   gradoEscolar?: boolean | Prisma.AsignacionAprendizajeAdaptativo$gradoEscolarArgs<ExtArgs>
+  institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["asignacionAprendizajeAdaptativo"]>
 
 export type AsignacionAprendizajeAdaptativoSelectScalar = {
@@ -2243,12 +2243,6 @@ export type AsignacionAprendizajeAdaptativoSelectScalar = {
   respuestasEvaluacion?: boolean
   resultadoEvaluacion?: boolean
   revisionDocente?: boolean
-  calificacionEstudianteIA?: boolean
-  comentarioEstudianteIA?: boolean
-  fechaCalificacionEstudianteIA?: boolean
-  calificacionDocenteIA?: boolean
-  comentarioDocenteIA?: boolean
-  fechaCalificacionDocenteIA?: boolean
   conclusionesPdf?: boolean
   fechaLimite?: boolean
   fechaAprobacion?: boolean
@@ -2261,35 +2255,41 @@ export type AsignacionAprendizajeAdaptativoSelectScalar = {
   docenteId?: boolean
   estudianteId?: boolean
   gradoEscolarId?: boolean
+  calificacionEstudianteIA?: boolean
+  comentarioEstudianteIA?: boolean
+  fechaCalificacionEstudianteIA?: boolean
+  calificacionDocenteIA?: boolean
+  comentarioDocenteIA?: boolean
+  fechaCalificacionDocenteIA?: boolean
 }
 
-export type AsignacionAprendizajeAdaptativoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tema" | "objetivo" | "nivelSolicitado" | "tiempoDisponible" | "estado" | "entrevistaPreguntas" | "entrevistaRespuestas" | "perfilAprendizaje" | "diagnostico" | "ruta" | "evaluacion" | "respuestasEvaluacion" | "resultadoEvaluacion" | "revisionDocente" | "calificacionEstudianteIA" | "comentarioEstudianteIA" | "fechaCalificacionEstudianteIA" | "calificacionDocenteIA" | "comentarioDocenteIA" | "fechaCalificacionDocenteIA" | "conclusionesPdf" | "fechaLimite" | "fechaAprobacion" | "fechaRutaGenerada" | "fechaFinalizacion" | "fechaRevision" | "createdAt" | "updatedAt" | "institucionId" | "docenteId" | "estudianteId" | "gradoEscolarId", ExtArgs["result"]["asignacionAprendizajeAdaptativo"]>
+export type AsignacionAprendizajeAdaptativoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tema" | "objetivo" | "nivelSolicitado" | "tiempoDisponible" | "estado" | "entrevistaPreguntas" | "entrevistaRespuestas" | "perfilAprendizaje" | "diagnostico" | "ruta" | "evaluacion" | "respuestasEvaluacion" | "resultadoEvaluacion" | "revisionDocente" | "conclusionesPdf" | "fechaLimite" | "fechaAprobacion" | "fechaRutaGenerada" | "fechaFinalizacion" | "fechaRevision" | "createdAt" | "updatedAt" | "institucionId" | "docenteId" | "estudianteId" | "gradoEscolarId" | "calificacionEstudianteIA" | "comentarioEstudianteIA" | "fechaCalificacionEstudianteIA" | "calificacionDocenteIA" | "comentarioDocenteIA" | "fechaCalificacionDocenteIA", ExtArgs["result"]["asignacionAprendizajeAdaptativo"]>
 export type AsignacionAprendizajeAdaptativoInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
   docente?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   estudiante?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   gradoEscolar?: boolean | Prisma.AsignacionAprendizajeAdaptativo$gradoEscolarArgs<ExtArgs>
+  institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
 }
 export type AsignacionAprendizajeAdaptativoIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
   docente?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   estudiante?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   gradoEscolar?: boolean | Prisma.AsignacionAprendizajeAdaptativo$gradoEscolarArgs<ExtArgs>
+  institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
 }
 export type AsignacionAprendizajeAdaptativoIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
   docente?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   estudiante?: boolean | Prisma.UsuarioDefaultArgs<ExtArgs>
   gradoEscolar?: boolean | Prisma.AsignacionAprendizajeAdaptativo$gradoEscolarArgs<ExtArgs>
+  institucion?: boolean | Prisma.InstitucionDefaultArgs<ExtArgs>
 }
 
 export type $AsignacionAprendizajeAdaptativoPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "AsignacionAprendizajeAdaptativo"
   objects: {
-    institucion: Prisma.$InstitucionPayload<ExtArgs>
     docente: Prisma.$UsuarioPayload<ExtArgs>
     estudiante: Prisma.$UsuarioPayload<ExtArgs>
     gradoEscolar: Prisma.$GradoEscolarPayload<ExtArgs> | null
+    institucion: Prisma.$InstitucionPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -2307,12 +2307,6 @@ export type $AsignacionAprendizajeAdaptativoPayload<ExtArgs extends runtime.Type
     respuestasEvaluacion: runtime.JsonValue | null
     resultadoEvaluacion: runtime.JsonValue | null
     revisionDocente: runtime.JsonValue | null
-    calificacionEstudianteIA: number | null
-    comentarioEstudianteIA: string | null
-    fechaCalificacionEstudianteIA: Date | null
-    calificacionDocenteIA: number | null
-    comentarioDocenteIA: string | null
-    fechaCalificacionDocenteIA: Date | null
     conclusionesPdf: string | null
     fechaLimite: Date | null
     fechaAprobacion: Date | null
@@ -2325,6 +2319,12 @@ export type $AsignacionAprendizajeAdaptativoPayload<ExtArgs extends runtime.Type
     docenteId: number
     estudianteId: number
     gradoEscolarId: number | null
+    calificacionEstudianteIA: number | null
+    comentarioEstudianteIA: string | null
+    fechaCalificacionEstudianteIA: Date | null
+    calificacionDocenteIA: number | null
+    comentarioDocenteIA: string | null
+    fechaCalificacionDocenteIA: Date | null
   }, ExtArgs["result"]["asignacionAprendizajeAdaptativo"]>
   composites: {}
 }
@@ -2719,10 +2719,10 @@ readonly fields: AsignacionAprendizajeAdaptativoFieldRefs;
  */
 export interface Prisma__AsignacionAprendizajeAdaptativoClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  institucion<T extends Prisma.InstitucionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.InstitucionDefaultArgs<ExtArgs>>): Prisma.Prisma__InstitucionClient<runtime.Types.Result.GetResult<Prisma.$InstitucionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   docente<T extends Prisma.UsuarioDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UsuarioDefaultArgs<ExtArgs>>): Prisma.Prisma__UsuarioClient<runtime.Types.Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   estudiante<T extends Prisma.UsuarioDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UsuarioDefaultArgs<ExtArgs>>): Prisma.Prisma__UsuarioClient<runtime.Types.Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   gradoEscolar<T extends Prisma.AsignacionAprendizajeAdaptativo$gradoEscolarArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AsignacionAprendizajeAdaptativo$gradoEscolarArgs<ExtArgs>>): Prisma.Prisma__GradoEscolarClient<runtime.Types.Result.GetResult<Prisma.$GradoEscolarPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  institucion<T extends Prisma.InstitucionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.InstitucionDefaultArgs<ExtArgs>>): Prisma.Prisma__InstitucionClient<runtime.Types.Result.GetResult<Prisma.$InstitucionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2767,12 +2767,6 @@ export interface AsignacionAprendizajeAdaptativoFieldRefs {
   readonly respuestasEvaluacion: Prisma.FieldRef<"AsignacionAprendizajeAdaptativo", 'Json'>
   readonly resultadoEvaluacion: Prisma.FieldRef<"AsignacionAprendizajeAdaptativo", 'Json'>
   readonly revisionDocente: Prisma.FieldRef<"AsignacionAprendizajeAdaptativo", 'Json'>
-  readonly calificacionEstudianteIA: Prisma.FieldRef<"AsignacionAprendizajeAdaptativo", 'Int'>
-  readonly comentarioEstudianteIA: Prisma.FieldRef<"AsignacionAprendizajeAdaptativo", 'String'>
-  readonly fechaCalificacionEstudianteIA: Prisma.FieldRef<"AsignacionAprendizajeAdaptativo", 'DateTime'>
-  readonly calificacionDocenteIA: Prisma.FieldRef<"AsignacionAprendizajeAdaptativo", 'Int'>
-  readonly comentarioDocenteIA: Prisma.FieldRef<"AsignacionAprendizajeAdaptativo", 'String'>
-  readonly fechaCalificacionDocenteIA: Prisma.FieldRef<"AsignacionAprendizajeAdaptativo", 'DateTime'>
   readonly conclusionesPdf: Prisma.FieldRef<"AsignacionAprendizajeAdaptativo", 'String'>
   readonly fechaLimite: Prisma.FieldRef<"AsignacionAprendizajeAdaptativo", 'DateTime'>
   readonly fechaAprobacion: Prisma.FieldRef<"AsignacionAprendizajeAdaptativo", 'DateTime'>
@@ -2785,6 +2779,12 @@ export interface AsignacionAprendizajeAdaptativoFieldRefs {
   readonly docenteId: Prisma.FieldRef<"AsignacionAprendizajeAdaptativo", 'Int'>
   readonly estudianteId: Prisma.FieldRef<"AsignacionAprendizajeAdaptativo", 'Int'>
   readonly gradoEscolarId: Prisma.FieldRef<"AsignacionAprendizajeAdaptativo", 'Int'>
+  readonly calificacionEstudianteIA: Prisma.FieldRef<"AsignacionAprendizajeAdaptativo", 'Int'>
+  readonly comentarioEstudianteIA: Prisma.FieldRef<"AsignacionAprendizajeAdaptativo", 'String'>
+  readonly fechaCalificacionEstudianteIA: Prisma.FieldRef<"AsignacionAprendizajeAdaptativo", 'DateTime'>
+  readonly calificacionDocenteIA: Prisma.FieldRef<"AsignacionAprendizajeAdaptativo", 'Int'>
+  readonly comentarioDocenteIA: Prisma.FieldRef<"AsignacionAprendizajeAdaptativo", 'String'>
+  readonly fechaCalificacionDocenteIA: Prisma.FieldRef<"AsignacionAprendizajeAdaptativo", 'DateTime'>
 }
     
 

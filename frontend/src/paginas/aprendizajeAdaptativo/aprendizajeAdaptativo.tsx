@@ -7,6 +7,7 @@ import {
   calificarAprendizajeAdaptativoComoDocente,
   calificarAprendizajeAdaptativoComoEstudiante,
   cerrarEvaluacionAprendizajeAdaptativo,
+  construirUrlArchivoProtegido,
   crearAsignacionAprendizajeAdaptativo,
   enviarEvaluacionAprendizajeAdaptativo,
   guardarParcialEvaluacionAprendizajeAdaptativo,
@@ -305,11 +306,7 @@ function indiceFase(estado: string) {
 }
 
 function construirUrlDocumento(ruta?: string | null) {
-  if (!ruta) {
-    return '';
-  }
-
-  return ruta.startsWith('http') ? ruta : `${API_URL}${ruta}`;
+  return construirUrlArchivoProtegido(ruta);
 }
 
 function formatearCuentaRegresiva(segundos: number) {

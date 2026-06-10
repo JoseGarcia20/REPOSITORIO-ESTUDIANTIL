@@ -1,13 +1,14 @@
-# Plataforma Estudiantil Inteligente
+# NEXORA AI - Plataforma Estudiantil Inteligente
 
 Plataforma web para la administración, consulta, clasificación, recomendación y uso académico de recursos educativos en colegios de secundaria de Bucaramanga, Santander. El sistema combina módulos administrativos, repositorio de recursos, foros académicos, aula colaborativa, recomendaciones contextuales y un asistente tipo chatbot.
 
 El proyecto está construido con:
 
-- Backend: NestJS, TypeScript, Prisma ORM, PostgreSQL, JWT, Multer.
-- Frontend: React, TypeScript, Vite, React Router.
+- Backend: NestJS 11, TypeScript, Prisma ORM, PostgreSQL, JWT, Multer, Helmet, Throttler y Nodemailer.
+- Frontend: React 19, TypeScript, Vite, React Router, `React.lazy`, `Suspense` y `ErrorBoundary`.
 - Base de datos: PostgreSQL.
-- Archivos: almacenamiento local en `uploads/`, servido públicamente por NestJS en `/uploads`.
+- Archivos: almacenamiento local en `uploads/`, servido por NestJS en `/uploads` con autenticación JWT.
+- IA: Gemini para generación de materiales y búsquedas asistidas; Ollama local como respaldo en resúmenes de recursos.
 
 ## Estado Actual
 
@@ -25,6 +26,11 @@ La base funcional del software ya incluye:
 - Chatbot académico inicial para consultar recursos del repositorio.
 - Resumen AI de recursos PDF, Word DOCX, Excel XLSX y CSV desde el gestor de recursos, usando Gemini, Ollama o resumen local extractivo como respaldo.
 - Preparador IA de clases con Gemini y búsqueda web, vista previa editable, fuentes consultadas, PDF y guardado directo en el repositorio.
+- Aprendizaje adaptativo con entrevista, ruta por pasos, recursos sugeridos, evaluación final, revisión docente y PDF de conclusiones.
+- Reportes administrativos en PDF/impresión y Excel, incluyendo calificaciones de uso de IA.
+- Auditoría de acciones relevantes y dashboard por rol.
+- Calificación de experiencias con IA en puntos críticos de la plataforma.
+- Seguridad reforzada con cabeceras HTTP, límite de peticiones, filtro global de errores y logs HTTP.
 
 ## Estructura General
 
@@ -72,6 +78,11 @@ El backend está en `src/` y usa NestJS con módulos por dominio. La base de dat
 | `recomendaciones`               | `/recomendaciones`                 | Recomendador académico de recursos.                                  |
 | `asistente`                     | `/asistente`                       | Chatbot inicial conectado al recomendador.                           |
 | `preparadorIa`                  | `/preparador-ia`                   | Generación de material académico con Gemini, PDF y repositorio.      |
+| `aprendizajeAdaptativo`         | `/aprendizaje-adaptativo`          | Asignación, entrevista, ruta personalizada, evaluación y revisión.    |
+| `reportes`                      | `/reportes`                        | Informes administrativos en PDF/impresión y Excel.                   |
+| `auditoria`                     | `/auditoria`                       | Consulta y exportación de trazabilidad del sistema.                  |
+| `dashboard`                     | `/dashboard`                       | Indicadores y resúmenes por rol.                                     |
+| `calificacionUsoIa`             | `/calificaciones-ia`               | Registro de calificaciones de funciones con IA.                      |
 | `foro`                          | `/foros`                           | Foros académicos, comentarios, adjuntos y recursos vinculados.       |
 | `aulaColaborativa`              | `/aula-colaborativa`               | Proyectos colaborativos, tablero, evidencias, entregas y revisión.   |
 | `tiposAprendizaje`              | `/tipos-aprendizaje`               | Maestro académico para rutas/diagnósticos.                           |
@@ -89,6 +100,12 @@ El sistema usa:
 - Decorador `@RequierePermisos(...)` para proteger endpoints.
 - Utilidades de permisos en `src/modulos/auth/utils/roles.util.ts`.
 - Alcance institucional para evitar que usuarios no superadministradores vean o modifiquen datos de otras instituciones.
+- Helmet para cabeceras de seguridad.
+- `@nestjs/throttler` para limitar peticiones. Los endpoints de login normal y superadministrador tienen límite estricto para reducir fuerza bruta.
+- Mensajes de límite de peticiones en español, indicando el tiempo aproximado para volver a intentar.
+- `FiltroExcepcionesGlobal` para responder errores de forma controlada sin exponer stack trace al cliente.
+- Logger HTTP en `src/main.ts` para registrar método, ruta, estado, duración e IP.
+- Archivos de `uploads/` protegidos por JWT. El frontend agrega el token a las URLs de archivos mediante `construirUrlArchivoProtegido(...)`.
 
 El frontend también valida permisos para ocultar rutas y opciones, pero la seguridad real está en el backend.
 
@@ -151,20 +168,29 @@ El frontend está en `frontend/` y usa React con Vite.
 | `/admin/usuarios`       | CRUD usuarios                      | `usuarios.ver` y no docente |
 | `/admin/categorias`     | CRUD categorías                    | `categorias.ver`            |
 | `/admin/tipos-recursos` | CRUD tipos de recursos             | `tipos_recursos.ver`        |
+| `/admin/rutas-aprendizaje` | Tipos globales de aprendizaje   | `sistema.total`             |
 | `/admin/recursos`       | Administración/maestro de recursos | `recursos.crear`            |
 | `/admin/roles`          | CRUD roles                         | `roles.ver`                 |
+| `/admin/auditoria`      | Auditoría del sistema              | `auditoria.ver`             |
 | `/repositorio/recursos` | Gestor/repositorio de recursos     | `recursos.ver`              |
 | `/foros`                | Foros académicos                   | `foros.ver`                 |
 | `/aula-colaborativa`    | Aula colaborativa                  | `aula_colaborativa.ver`     |
 | `/reportes`             | Reportes                           | `reportes.ver`              |
 | `/preparador-ia`        | Preparador IA de clases            | `preparador_ia.usar`        |
+| `/aprendizaje-adaptativo` | Rutas adaptativas                | `foros.ver`, `recursos.ver` o `preparador_ia.usar` |
+
+El ingreso regular está en `/login` y es usado por estudiantes, docentes, administradores y usuarios administrativos de institución. El ingreso global de superadministrador está separado en `/superadmin/login`.
+
+Las páginas se cargan con `React.lazy()` y `Suspense` desde `frontend/src/rutas/appRoutes.tsx`. Esto evita que módulos grandes como aprendizaje adaptativo, preparador IA o aula colaborativa se incluyan en el primer bundle cuando el usuario solo está en login.
 
 ### Componentes Frontend Relevantes
 
 - `frontend/src/componentes/layout/appLayout.tsx`: layout principal, menú lateral dinámico por permisos y chatbot.
 - `frontend/src/componentes/chatbot/chatbotWidget.tsx`: widget flotante de asistente académico.
 - `frontend/src/componentes/recomendaciones/recursosRecomendados.tsx`: bloque reusable de recomendaciones contextuales.
+- `frontend/src/componentes/errorBoundary/errorBoundary.tsx`: contenedor global para mostrar una pantalla controlada si una vista falla.
 - `frontend/src/api/adminApi.ts`: cliente HTTP centralizado para el backend.
+- `frontend/src/api/api.ts` y `frontend/src/api/adminApi.ts`: incluyen `construirUrlArchivoProtegido(...)` para abrir archivos protegidos con token.
 
 La URL del backend está definida actualmente en:
 
@@ -195,11 +221,14 @@ Modelos principales:
 - `Categoria`
 - `TipoRecurso`
 - `Recurso`
+- `ResumenIaRecurso`
 - `CalificacionRecurso`
+- `CalificacionUsoIa`
 - `Foro`
 - `ForoCategoria`
 - `ComentarioForo`
 - `ComentarioForoRecurso`
+- `AuditoriaLog`
 - `ProyectoColaborativo`
 - `ProyectoColaborativoIntegrante`
 - `ProyectoColaborativoActividad`
@@ -211,6 +240,9 @@ Modelos principales:
 - `AsignacionRutaAprendizaje`
 - `DiagnosticoAprendizaje`
 - `DetalleDiagnosticoAprendizaje`
+- `AsignacionAprendizajeAdaptativo`
+
+Las tablas críticas incluyen índices en llaves foráneas y campos de consulta frecuente para reducir búsquedas completas cuando el volumen de datos crezca. `ResumenIaRecurso` tiene relación directa con `Recurso` y se elimina en cascada si el recurso asociado desaparece.
 
 ## Funcionalidades por Módulo
 
@@ -378,21 +410,19 @@ Variables opcionales:
 ```env
 AI_RESUMEN_PROVIDER="gemini"
 GEMINI_API_KEY=""
-GEMINI_MODEL="gemini-2.5-flash-lite"
+GEMINI_MODEL="gemini-2.0-flash"
 GEMINI_FALLBACK_MODELS="gemini-2.0-flash-lite,gemini-2.0-flash"
 GEMINI_MAX_ATTEMPTS="3"
 GEMINI_RETRY_DELAY_MS="1200"
 OLLAMA_URL="http://localhost:11434"
 OLLAMA_MODEL="qwen2.5:3b"
-AI_RESUMEN_MAX_CHARS="18000"
-AI_RESUMEN_CHUNK_CHARS="3000"
-AI_RESUMEN_MAX_CHUNKS="6"
+AI_RESUMEN_MAX_CHARS="50000"
+AI_RESUMEN_CHUNK_CHARS="9000"
+AI_RESUMEN_MAX_CHUNKS="8"
 AI_RESUMEN_NUM_CTX="4096"
 AI_RESUMEN_TIMEOUT_MS="120000"
 AI_RESUMEN_FALLBACK_EXTRACTIVO="true"
-GEMINI_PREPARADOR_MODEL="gemini-2.5-flash"
-GEMINI_PREPARADOR_TIMEOUT_MS="120000"
-GEMINI_PREPARADOR_MAX_OUTPUT_TOKENS="8192"
+GEMINI_PREPARADOR_MODEL=""
 ```
 
 Para usar Ollama local:
@@ -513,8 +543,35 @@ Los reportes disponibles inicialmente son:
 - Estadistica de recursos de la institucion: muestra datos principales del recurso, categoria, grado, estado de publicacion, promedio de calificacion y usuarios que lo han calificado.
 - Trabajos colaborativos: muestra proyectos creados en el periodo, docente responsable, integrantes, actividades, entregas y el recurso resultante cuando exista.
 - Recursos mas usados o referenciados: consolida el uso de recursos dentro de foros, aula, rutas de aprendizaje y calificaciones.
+- Calificaciones de IA: consolida la valoración dada por usuarios a funciones de IA como resumen de recursos, generación de clases/materiales y aprendizaje adaptativo.
 
-Cada reporte se genera con un encabezado profesional que incluye nombre, identificacion y logo de la institucion emisora cuando aplica. Si un superadministrador genera un reporte general del sistema, se usa la identidad visual base del software. La vista del reporte incluye accion de impresion para guardar en PDF desde el navegador.
+Cada reporte se genera con un encabezado profesional que incluye nombre, identificacion y logo de la institucion emisora cuando aplica, además del logo de NEXORA AI. Si un superadministrador genera un reporte general del sistema, se usa la identidad visual base del software. La vista del reporte incluye accion de impresion para guardar en PDF desde el navegador y algunos informes tienen exportación Excel.
+
+### Aprendizaje Adaptativo
+
+Ruta:
+
+```text
+/aprendizaje-adaptativo
+```
+
+Objetivo:
+
+Permitir que docentes asignen a estudiantes una ruta personalizada para comprender un tema específico. El flujo incluye entrevista, diagnóstico, generación de ruta con IA, pasos progresivos, evaluación final, revisión docente, calificación de la experiencia con IA y PDF de conclusiones.
+
+Estados principales:
+
+- `asignada`
+- `entrevista`
+- `ruta_generada`
+- `en_curso`
+- `evaluacion`
+- `evaluada`
+- `revisada`
+- `completada`
+- `reasignada`
+
+El superadministrador administra los tipos globales de aprendizaje desde `/admin/rutas-aprendizaje`. Estos tipos aplican a todo el software.
 
 ### Módulos Académicos Base
 
@@ -526,7 +583,7 @@ También existen módulos backend para:
 - Diagnósticos de aprendizaje.
 - Detalles de diagnósticos.
 
-Estos módulos están disponibles como base para futuras funcionalidades de aprendizaje adaptativo.
+Los módulos legacy de rutas y diagnósticos se mantienen protegidos por permisos. El flujo activo de aprendizaje adaptativo usa principalmente `AsignacionAprendizajeAdaptativo` y sus campos de diagnóstico, ruta, evaluación, revisión y calificaciones.
 
 ## Archivos y Uploads
 
@@ -536,12 +593,17 @@ Nest sirve los archivos de `uploads/` en:
 http://localhost:3000/uploads/...
 ```
 
+La ruta no es pública. Cualquier acceso a `/uploads/...` requiere un JWT válido, enviado como `Authorization: Bearer <token>` o como query `?token=<token>` para visores del navegador. Si se intenta abrir un archivo sin autenticación, el backend responde `401 Autenticación requerida`.
+
+El frontend usa `construirUrlArchivoProtegido(...)` para agregar el token cuando renderiza logos, PDFs, evidencias, recursos y reportes. No se recomienda construir manualmente enlaces a `/uploads` desde componentes nuevos.
+
 Carpetas usadas:
 
 ```text
 uploads/instituciones
 uploads/recursos
 uploads/aula-colaborativa
+uploads/aprendizaje-adaptativo
 ```
 
 En Windows PowerShell se pueden crear así:
@@ -550,12 +612,13 @@ En Windows PowerShell se pueden crear así:
 New-Item -ItemType Directory -Force uploads\instituciones
 New-Item -ItemType Directory -Force uploads\recursos
 New-Item -ItemType Directory -Force uploads\aula-colaborativa
+New-Item -ItemType Directory -Force uploads\aprendizaje-adaptativo
 ```
 
 En Linux/macOS:
 
 ```bash
-mkdir -p uploads/instituciones uploads/recursos uploads/aula-colaborativa
+mkdir -p uploads/instituciones uploads/recursos uploads/aula-colaborativa uploads/aprendizaje-adaptativo
 ```
 
 ## Instalación Local
@@ -575,17 +638,29 @@ CREATE DATABASE plataforma_academica;
 
 ### Variables de Entorno
 
-Crear un archivo `.env` en la raíz del proyecto:
+Crear un archivo `.env` en la raíz del proyecto a partir de `.env.example`:
+
+```bash
+cp .env.example .env
+```
+
+Variables mínimas para iniciar:
 
 ```env
 DATABASE_URL="postgresql://USUARIO:CONTRASENA@localhost:5432/plataforma_academica?schema=public"
+PORT="3000"
 JWT_SECRET="cambia-este-secreto"
 JWT_EXPIRES_IN="8h"
+
+GEMINI_API_KEY=""
+GEMINI_MODEL="gemini-2.0-flash"
 
 SEED_SUPERADMIN_EMAIL="superadmin@plataforma.edu.co"
 SEED_SUPERADMIN_DOCUMENTO="0000000001"
 SEED_SUPERADMIN_PASSWORD="Admin123456"
 ```
+
+Para funciones de IA, correo, búsqueda web, YouTube y Ollama, revisar las variables completas en `.env.example`.
 
 No subir `.env` al repositorio. Ya está ignorado en `.gitignore`.
 
@@ -618,7 +693,7 @@ npm run db:seed
 Crear carpetas de archivos si no existen:
 
 ```bash
-mkdir -p uploads/instituciones uploads/recursos uploads/aula-colaborativa
+mkdir -p uploads/instituciones uploads/recursos uploads/aula-colaborativa uploads/aprendizaje-adaptativo
 ```
 
 En PowerShell:
@@ -627,6 +702,7 @@ En PowerShell:
 New-Item -ItemType Directory -Force uploads\instituciones
 New-Item -ItemType Directory -Force uploads\recursos
 New-Item -ItemType Directory -Force uploads\aula-colaborativa
+New-Item -ItemType Directory -Force uploads\aprendizaje-adaptativo
 ```
 
 Iniciar backend:
@@ -872,9 +948,32 @@ Verificar que existan:
 uploads/instituciones
 uploads/recursos
 uploads/aula-colaborativa
+uploads/aprendizaje-adaptativo
 ```
 
 Verificar que el archivo tenga tipo permitido y no supere el límite.
+
+### No puedo abrir un archivo de uploads
+
+La ruta `/uploads/...` requiere autenticación. Si se abre manualmente desde el navegador sin token, responderá `401 Autenticación requerida`.
+
+Desde el frontend, usar:
+
+```ts
+construirUrlArchivoProtegido(ruta);
+```
+
+No construir enlaces directos a `http://localhost:3000/uploads/...` dentro de componentes nuevos.
+
+### Login bloqueado por demasiados intentos
+
+Los endpoints de login tienen límite de peticiones para reducir ataques de fuerza bruta. Si aparece el mensaje:
+
+```text
+Has realizado demasiadas solicitudes. Podrás volver a intentarlo en 1 minuto.
+```
+
+Esperar el tiempo indicado en la respuesta `retryAfter` antes de volver a intentar.
 
 ### El frontend no conecta al backend
 
@@ -897,6 +996,8 @@ El visor usa Office Viewer para documentos Office. Para que funcione, la URL del
 ## Consideraciones de Desarrollo
 
 - Mantener permisos críticos en backend.
+- Proteger cualquier endpoint nuevo con `@RequierePermisos(...)` cuando requiera sesión.
+- Usar el logger HTTP y el `FiltroExcepcionesGlobal` para depurar producción sin exponer stack traces al cliente.
 - Mantener CRUDs administrativos en carpetas separadas por entidad.
 - No guardar contraseñas sin hash.
 - No editar contraseñas desde el CRUD normal de usuarios.
@@ -904,16 +1005,12 @@ El visor usa Office Viewer para documentos Office. Para que funcione, la URL del
 - Ejecutar migraciones antes de probar cambios de base de datos.
 - No subir `.env` ni archivos sensibles.
 - Revisar que los recursos estén `publicado: true` y `estado: true` para que aparezcan en repositorio/recomendaciones.
+- Para nuevas páginas pesadas, cargarlas con `React.lazy()` desde `frontend/src/rutas/appRoutes.tsx`.
 
 ## Próximos Desarrollos Sugeridos
 
-- Reportes reales por institución, recurso, foro, calificación y aula colaborativa.
-- Integración con un LLM externo para:
-  - explicación de documentos
-  - preguntas sobre contenido
-  - clasificación semántica avanzada
-- Auditoría de acciones importantes (retención de 2 meses, limpieza automática diaria a las 3:00 AM).
 - Recuperación/cambio de contraseña.
 - Notificaciones para entregas, comentarios y revisiones.
-- Dashboard estadístico por rol.
+- Panel estadístico avanzado de uso de IA y rendimiento por institución.
+- Integración semántica más profunda para preguntas directas sobre documentos del repositorio.
 - Tests automatizados para permisos y flujos críticos.

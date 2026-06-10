@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { loginSuperadmin } from '../../api/api';
 import './login.css';
+import { Link } from 'react-router-dom';
 
 const APP_LOGO_SRC = '/logo-solo.png';
 
@@ -80,6 +81,11 @@ export function LoginSuperadmin() {
 
             {error ? <div className="login-error">{error}</div> : null}
           </form>
+
+          <div className="login-links">
+            <span>¿Eres Usuario?</span>
+            <Link to="/login">Ingresar al acceso de usuarios</Link>
+          </div>
 
         </div>
       </section>

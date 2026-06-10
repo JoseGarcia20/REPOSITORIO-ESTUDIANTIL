@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import type { ChangeEvent, FormEvent } from 'react';
 import {
-  API_URL,
+  construirUrlArchivoProtegido,
   obtenerAuditoriaLogs,
   descargarExcelAuditoria,
   obtenerUsuarioAutenticado,
@@ -327,7 +327,7 @@ export function Auditoria() {
             {usuario?.institucion?.logo && (
               <div className="report-logo">
                 <img
-                  src={`${API_URL}${usuario.institucion.logo}`}
+                  src={construirUrlArchivoProtegido(usuario.institucion.logo)}
                   alt={usuario.institucion.nombre}
                 />
               </div>

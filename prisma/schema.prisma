@@ -109,6 +109,11 @@ model Usuario {
   institucion                  Institucion                       @relation(fields: [institucionId], references: [id])
   rol                          Rol                               @relation(fields: [rolId], references: [id])
 
+  @@index([institucionId])
+  @@index([rolId])
+  @@index([gradoEscolarId])
+  @@index([activo])
+  @@index([institucionId, rolId])
   @@map("usuarios")
 }
 
@@ -166,6 +171,11 @@ model Foro {
   usuario       Usuario          @relation(fields: [usuarioId], references: [id])
   recursos      Recurso[]
 
+  @@index([institucionId])
+  @@index([categoriaId])
+  @@index([usuarioId])
+  @@index([estado, cerrado])
+  @@index([createdAt])
   @@map("foros")
 }
 
@@ -239,9 +249,17 @@ model Recurso {
   foroOrigen              Foro?                        @relation(fields: [foroOrigenId], references: [id])
   gradoEscolar            GradoEscolar?                @relation(fields: [gradoEscolarId], references: [id])
   institucion             Institucion                  @relation(fields: [institucionId], references: [id])
+  resumenIa               ResumenIaRecurso?
   tipoRecurso             TipoRecurso                  @relation(fields: [tipoRecursoId], references: [id])
   usuarioCreador          Usuario                      @relation(fields: [usuarioCreadorId], references: [id])
 
+  @@index([institucionId])
+  @@index([categoriaId])
+  @@index([tipoRecursoId])
+  @@index([usuarioCreadorId])
+  @@index([gradoEscolarId])
+  @@index([publicado, estado])
+  @@index([createdAt])
   @@map("recursos")
 }
 
@@ -255,6 +273,7 @@ model ResumenIaRecurso {
   advertencia          String?
   createdAt            DateTime @default(now())
   updatedAt            DateTime @updatedAt
+  recurso              Recurso  @relation(fields: [recursoId], references: [id], onDelete: Cascade)
 
   @@map("resumenes_ia_recursos")
 }
@@ -407,6 +426,10 @@ model AuditoriaLog {
   institucion   Institucion? @relation(fields: [institucionId], references: [id])
   usuario       Usuario      @relation(fields: [usuarioId], references: [id])
 
+  @@index([usuarioId, createdAt])
+  @@index([institucionId, createdAt])
+  @@index([entidad, entidadId])
+  @@index([createdAt])
   @@map("auditoria_logs")
 }
 
@@ -586,5 +609,12 @@ model AsignacionAprendizajeAdaptativo {
   gradoEscolar                  GradoEscolar? @relation(fields: [gradoEscolarId], references: [id])
   institucion                   Institucion   @relation(fields: [institucionId], references: [id])
 
+  @@index([institucionId])
+  @@index([docenteId])
+  @@index([estudianteId])
+  @@index([gradoEscolarId])
+  @@index([estado])
+  @@index([fechaLimite])
+  @@index([createdAt])
   @@map("asignaciones_aprendizaje_adaptativo")
 }

@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-  API_URL,
   PERMISOS,
+  construirUrlArchivoProtegido,
   descargarExcelAuditoria,
   obtenerResumenDashboard,
   obtenerUsuarioAutenticado,
@@ -391,7 +391,7 @@ export function Inicio() {
   const usuario = obtenerUsuarioAutenticado();
   const permisos = usuario?.permisos || [];
   const logo = usuario?.institucion?.logo
-    ? `${API_URL}${usuario.institucion.logo}`
+    ? construirUrlArchivoProtegido(usuario.institucion.logo)
     : null;
   const [resumen, setResumen] = useState<ResumenDashboard | null>(null);
   const [cargandoResumen, setCargandoResumen] = useState(false);
