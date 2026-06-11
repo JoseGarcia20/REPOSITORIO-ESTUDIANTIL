@@ -1,0 +1,213 @@
+.nexora-loading {
+  width: 100%;
+  min-width: 0;
+  display: grid;
+  place-items: center;
+  background:
+    linear-gradient(135deg, rgba(7, 7, 56, 0.06), rgba(17, 17, 132, 0.1)),
+    var(--surface-app);
+  color: var(--text-primary);
+  padding: 28px;
+}
+
+.nexora-loading-pantalla {
+  min-height: 100vh;
+}
+
+.nexora-loading-panel {
+  min-height: 360px;
+  border: 1px solid var(--border-soft);
+  border-radius: 18px;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.94),
+      rgba(236, 238, 245, 0.9)
+    ),
+    var(--surface-card);
+}
+
+.nexora-loading-compacto {
+  min-height: 180px;
+  padding: 18px;
+  background: transparent;
+}
+
+.nexora-loading-card {
+  width: min(520px, 100%);
+  border: 1px solid rgba(211, 211, 211, 0.9);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 26px 70px rgba(7, 7, 56, 0.14);
+  padding: 28px;
+  display: grid;
+  justify-items: center;
+  gap: 20px;
+  text-align: center;
+}
+
+.nexora-loading-panel .nexora-loading-card,
+.nexora-loading-compacto .nexora-loading-card {
+  box-shadow: none;
+}
+
+.nexora-loading-compacto .nexora-loading-card {
+  width: min(420px, 100%);
+  padding: 20px;
+  gap: 14px;
+}
+
+.nexora-loading-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nexora-loading-logo {
+  width: 58px;
+  height: 58px;
+  border: 1px solid var(--border-soft);
+  border-radius: 16px;
+  background: #ffffff;
+  display: grid;
+  place-items: center;
+  padding: 8px;
+}
+
+.nexora-loading-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.nexora-loading-brand div:last-child {
+  display: grid;
+  justify-items: start;
+  line-height: 1;
+}
+
+.nexora-loading-brand span {
+  color: var(--text-primary);
+  font-size: 18px;
+  font-weight: 900;
+  letter-spacing: 0;
+}
+
+.nexora-loading-brand strong {
+  color: var(--brand-primary);
+  font-size: 14px;
+  font-weight: 900;
+  letter-spacing: 0;
+}
+
+.nexora-loading-orbit {
+  width: 82px;
+  height: 82px;
+  border-radius: 999px;
+  border: 1px solid var(--surface-accent);
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+
+.nexora-loading-orbit::before {
+  content: '';
+  width: 44px;
+  height: 44px;
+  border-radius: inherit;
+  background: var(--brand-deep);
+  box-shadow: inset 0 0 0 8px var(--brand-primary);
+}
+
+.nexora-loading-orbit span {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--brand-primary);
+  position: absolute;
+  animation: nexoraPulse 1.45s ease-in-out infinite;
+}
+
+.nexora-loading-orbit span:nth-child(1) {
+  top: 5px;
+}
+
+.nexora-loading-orbit span:nth-child(2) {
+  right: 8px;
+  bottom: 16px;
+  animation-delay: 0.16s;
+}
+
+.nexora-loading-orbit span:nth-child(3) {
+  left: 8px;
+  bottom: 16px;
+  animation-delay: 0.32s;
+}
+
+.nexora-loading-copy h1 {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 25px;
+  line-height: 1.16;
+}
+
+.nexora-loading-copy p {
+  max-width: 380px;
+  margin: 8px 0 0;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.nexora-loading-bar {
+  width: min(300px, 100%);
+  height: 8px;
+  border-radius: 999px;
+  background: var(--surface-accent);
+  overflow: hidden;
+}
+
+.nexora-loading-bar span {
+  display: block;
+  width: 42%;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--brand-primary);
+  animation: nexoraLoadingBar 1.35s ease-in-out infinite;
+}
+
+@keyframes nexoraPulse {
+  0%,
+  100% {
+    transform: scale(0.72);
+    opacity: 0.45;
+  }
+
+  50% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes nexoraLoadingBar {
+  0% {
+    transform: translateX(-105%);
+  }
+
+  100% {
+    transform: translateX(245%);
+  }
+}
+
+@media (max-width: 640px) {
+  .nexora-loading {
+    padding: 18px;
+  }
+
+  .nexora-loading-card {
+    padding: 22px;
+  }
+
+  .nexora-loading-copy h1 {
+    font-size: 22px;
+  }
+}

@@ -8,6 +8,7 @@ import {
   reactivarTipoRecurso,
 } from '../../api/adminApi';
 import type { TipoRecurso } from '../../api/adminApi';
+import { PantallaCarga } from '../../componentes/carga/pantallaCarga';
 import './tiposRecursos.css';
 
 type FormularioTipoRecurso = {
@@ -152,7 +153,11 @@ export function TiposRecursos() {
 
       <div className="instituciones-card">
         {cargando && (
-          <p className="state-message">Cargando tipos de recursos...</p>
+          <PantallaCarga
+            modo="panel"
+            mensaje="Cargando tipos de recursos"
+            detalle="Estamos preparando las clases de materiales educativos."
+          />
         )}
         {error && <p className="state-message error">{error}</p>}
 
@@ -240,7 +245,9 @@ export function TiposRecursos() {
               <div>
                 <span className="section-label">Registro</span>
                 <h2>
-                  {modoEdicion ? 'Editar tipo de recurso' : 'Crear tipo de recurso'}
+                  {modoEdicion
+                    ? 'Editar tipo de recurso'
+                    : 'Crear tipo de recurso'}
                 </h2>
                 <p>Define una clasificación técnica para los recursos.</p>
               </div>

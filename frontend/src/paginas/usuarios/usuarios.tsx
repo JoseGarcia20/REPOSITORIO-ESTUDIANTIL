@@ -21,6 +21,7 @@ import type {
   Rol,
   UsuarioAdmin,
 } from '../../api/adminApi';
+import { PantallaCarga } from '../../componentes/carga/pantallaCarga';
 import './usuarios.css';
 
 type FormularioUsuario = {
@@ -61,7 +62,8 @@ const SUBMODULOS_USUARIOS: ConfiguracionSubmoduloUsuarios[] = [
   {
     id: 'administrativos',
     titulo: 'Usuarios administrativos',
-    descripcion: 'Administradores, superadministradores y apoyo administrativo.',
+    descripcion:
+      'Administradores, superadministradores y apoyo administrativo.',
   },
 ];
 
@@ -160,7 +162,9 @@ export function Usuarios() {
   const [modalAbierto, setModalAbierto] = useState(false);
   const [guardando, setGuardando] = useState(false);
   const [modoEdicion, setModoEdicion] = useState(false);
-  const [usuarioEditandoId, setUsuarioEditandoId] = useState<number | null>(null);
+  const [usuarioEditandoId, setUsuarioEditandoId] = useState<number | null>(
+    null,
+  );
   const [formulario, setFormulario] = useState<FormularioUsuario>(() =>
     crearFormularioInicial(esSuper, institucionSesionId),
   );
@@ -173,20 +177,20 @@ export function Usuarios() {
   const institucionesPorId = useMemo(
     () =>
       new Map(
-        instituciones.map((institucion) => [institucion.id, institucion.nombre]),
+        instituciones.map((institucion) => [
+          institucion.id,
+          institucion.nombre,
+        ]),
       ),
     [instituciones],
   );
 
   const gradosPorId = useMemo(
-    () =>
-      new Map(gradosEscolares.map((grado) => [grado.id, grado.nombre])),
+    () => new Map(gradosEscolares.map((grado) => [grado.id, grado.nombre])),
     [gradosEscolares],
   );
 
-  const rolesAgrupados = useMemo<
-    Record<SubmoduloUsuarios, Rol[]>
-  >(() => {
+  const rolesAgrupados = useMemo<Record<SubmoduloUsuarios, Rol[]>>(() => {
     const agrupados: Record<SubmoduloUsuarios, Rol[]> = {
       estudiantes: [],
       docentes: [],
@@ -336,7 +340,9 @@ export function Usuarios() {
       contrasena: '',
       institucionId: String(usuario.institucionId),
       rolId: String(usuario.rolId),
-      gradoEscolarId: usuario.gradoEscolarId ? String(usuario.gradoEscolarId) : '',
+      gradoEscolarId: usuario.gradoEscolarId
+        ? String(usuario.gradoEscolarId)
+        : '',
     });
     setModalAbierto(true);
   }
@@ -500,7 +506,11 @@ export function Usuarios() {
         </div>
 
         {(cargando || cargandoCatalogos) && (
-          <p className="state-message">Cargando usuarios...</p>
+          <PantallaCarga
+            modo="panel"
+            mensaje="Cargando usuarios"
+            detalle="Estamos preparando la información de usuarios."
+          />
         )}
         {error && <p className="state-message error">{error}</p>}
 
@@ -590,11 +600,9 @@ export function Usuarios() {
 
                 {usuarios.length === 0 && (
                   <tr>
-                    <td
-                      colSpan={tieneAcciones ? 7 : 6}
-                      className="empty-table"
-                    >
-                      No hay {configuracionSubmodulo.titulo.toLowerCase()} registrados.
+                    <td colSpan={tieneAcciones ? 7 : 6} className="empty-table">
+                      No hay {configuracionSubmodulo.titulo.toLowerCase()}{' '}
+                      registrados.
                     </td>
                   </tr>
                 )}

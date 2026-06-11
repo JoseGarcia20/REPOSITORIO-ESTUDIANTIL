@@ -8,6 +8,7 @@ import {
   reactivarRol,
 } from '../../api/adminApi';
 import type { Rol } from '../../api/adminApi';
+import { PantallaCarga } from '../../componentes/carga/pantallaCarga';
 import './roles.css';
 
 type FormularioRol = {
@@ -28,7 +29,8 @@ export function RolesAdmin() {
   const [guardando, setGuardando] = useState(false);
   const [modoEdicion, setModoEdicion] = useState(false);
   const [rolEditandoId, setRolEditandoId] = useState<number | null>(null);
-  const [formulario, setFormulario] = useState<FormularioRol>(formularioInicial);
+  const [formulario, setFormulario] =
+    useState<FormularioRol>(formularioInicial);
 
   useEffect(() => {
     cargarRoles();
@@ -98,7 +100,9 @@ export function RolesAdmin() {
       setModalAbierto(false);
     } catch {
       alert(
-        modoEdicion ? 'No se pudo actualizar el rol.' : 'No se pudo crear el rol.',
+        modoEdicion
+          ? 'No se pudo actualizar el rol.'
+          : 'No se pudo crear el rol.',
       );
     } finally {
       setGuardando(false);
@@ -107,7 +111,9 @@ export function RolesAdmin() {
 
   async function cambiarEstadoRol(rol: Rol) {
     const confirmar = window.confirm(
-      rol.estado ? '¿Deseas inactivar este rol?' : '¿Deseas reactivar este rol?',
+      rol.estado
+        ? '¿Deseas inactivar este rol?'
+        : '¿Deseas reactivar este rol?',
     );
 
     if (!confirmar) {
@@ -142,7 +148,13 @@ export function RolesAdmin() {
       </div>
 
       <div className="instituciones-card">
-        {cargando && <p className="state-message">Cargando roles...</p>}
+        {cargando && (
+          <PantallaCarga
+            modo="panel"
+            mensaje="Cargando roles"
+            detalle="Estamos preparando los perfiles de acceso."
+          />
+        )}
         {error && <p className="state-message error">{error}</p>}
 
         {!cargando && !error && (

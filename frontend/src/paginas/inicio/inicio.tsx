@@ -16,6 +16,7 @@ import type {
   DashboardSerie,
   ResumenDashboard,
 } from '../../api/adminApi';
+import { PantallaCarga } from '../../componentes/carga/pantallaCarga';
 import './inicio.css';
 
 type SegmentoDona = {
@@ -37,7 +38,10 @@ function formatearFecha(valor: string | null | undefined) {
 }
 
 function construirGradienteDona(segmentos: SegmentoDona[]) {
-  const total = segmentos.reduce((acumulado, item) => acumulado + item.value, 0);
+  const total = segmentos.reduce(
+    (acumulado, item) => acumulado + item.value,
+    0,
+  );
   if (total <= 0) {
     return 'conic-gradient(var(--surface-muted) 0deg 360deg)';
   }
@@ -78,7 +82,10 @@ function GraficoDona({
   titulo: string;
   segmentos: SegmentoDona[];
 }) {
-  const total = segmentos.reduce((acumulado, item) => acumulado + item.value, 0);
+  const total = segmentos.reduce(
+    (acumulado, item) => acumulado + item.value,
+    0,
+  );
   const gradiente = construirGradienteDona(segmentos);
 
   return (
@@ -133,7 +140,10 @@ function GraficoBarras({
           <p className="dashboard-empty">Sin datos para mostrar.</p>
         ) : (
           datos.map((item) => (
-            <div key={`${item.id}-${item.nombre}`} className="dashboard-bar-item">
+            <div
+              key={`${item.id}-${item.nombre}`}
+              className="dashboard-bar-item"
+            >
               <div className="dashboard-bar-label">
                 <span>{item.nombre}</span>
                 <strong>{formatearNumero(item.total)}</strong>
@@ -199,7 +209,12 @@ function ListaActividad({
   datos,
 }: {
   titulo: string;
-  datos: Array<{ nombre: string; actividad: number; usuarios: number; recursos: number }>;
+  datos: Array<{
+    nombre: string;
+    actividad: number;
+    usuarios: number;
+    recursos: number;
+  }>;
 }) {
   return (
     <article className="dashboard-panel">
@@ -211,7 +226,10 @@ function ListaActividad({
           <p className="dashboard-empty">Sin instituciones para mostrar.</p>
         ) : (
           datos.map((item) => (
-            <div className="dashboard-activity-item" key={`${titulo}-${item.nombre}`}>
+            <div
+              className="dashboard-activity-item"
+              key={`${titulo}-${item.nombre}`}
+            >
               <strong>{item.nombre}</strong>
               <small>
                 Actividad: {formatearNumero(item.actividad)} · Usuarios:{' '}
@@ -229,7 +247,12 @@ function ListaActividad({
 function TablaInstituciones({
   datos,
 }: {
-  datos: Array<{ nombre: string; usuarios: number; recursos: number; actividad: number }>;
+  datos: Array<{
+    nombre: string;
+    usuarios: number;
+    recursos: number;
+    actividad: number;
+  }>;
 }) {
   return (
     <article className="dashboard-panel">
@@ -298,7 +321,7 @@ function TablaRutasAdaptativas({
               <th>Fecha límite</th>
             </tr>
           </thead>
-              <tbody>
+          <tbody>
             {datos.length === 0 ? (
               <tr>
                 <td colSpan={colSpan}>Sin rutas adaptativas para mostrar.</td>
@@ -308,7 +331,9 @@ function TablaRutasAdaptativas({
                 <tr key={ruta.id}>
                   <td data-label="Tema">
                     <strong>{ruta.tema}</strong>
-                    <small style={{ display: 'block', color: 'var(--text-muted)' }}>
+                    <small
+                      style={{ display: 'block', color: 'var(--text-muted)' }}
+                    >
                       Nivel: {ruta.nivelDificultad}
                     </small>
                   </td>
@@ -317,9 +342,15 @@ function TablaRutasAdaptativas({
                     <td data-label="Estudiante">{ruta.estudiante}</td>
                   ) : null}
                   <td data-label="Estado">{ruta.estadoLabel}</td>
-                  <td data-label="Progreso">{Number(ruta.progreso || 0).toFixed(0)}%</td>
-                  <td data-label="Fecha asignación">{formatearFecha(ruta.fechaAsignacion)}</td>
-                  <td data-label="Fecha límite">{formatearFecha(ruta.fechaLimite)}</td>
+                  <td data-label="Progreso">
+                    {Number(ruta.progreso || 0).toFixed(0)}%
+                  </td>
+                  <td data-label="Fecha asignación">
+                    {formatearFecha(ruta.fechaAsignacion)}
+                  </td>
+                  <td data-label="Fecha límite">
+                    {formatearFecha(ruta.fechaLimite)}
+                  </td>
                 </tr>
               ))
             )}
@@ -344,18 +375,21 @@ function ListaDiagnosticosAdaptativos({
       </header>
       <div className="dashboard-activity-list">
         {datos.length === 0 ? (
-          <p className="dashboard-empty">No hay diagnósticos adaptativos recientes.</p>
+          <p className="dashboard-empty">
+            No hay diagnósticos adaptativos recientes.
+          </p>
         ) : (
           datos.map((diagnostico) => (
             <div className="dashboard-activity-item" key={diagnostico.id}>
               <strong>{diagnostico.tema}</strong>
               <small>
-                {diagnostico.estudiante} · {diagnostico.tipoAprendizaje} · Nivel:{' '}
-                {diagnostico.nivelDificultad}
+                {diagnostico.estudiante} · {diagnostico.tipoAprendizaje} ·
+                Nivel: {diagnostico.nivelDificultad}
               </small>
               <small>{diagnostico.justificacion}</small>
               <small>
-                {diagnostico.estado} · Progreso {Number(diagnostico.progreso || 0).toFixed(0)}% ·{' '}
+                {diagnostico.estado} · Progreso{' '}
+                {Number(diagnostico.progreso || 0).toFixed(0)}% ·{' '}
                 {formatearFecha(diagnostico.fechaGeneracion)}
               </small>
             </div>
@@ -460,11 +494,16 @@ export function Inicio() {
       return [];
     }
 
-    const dist = resumen.distribucionUsuarios as DashboardDistribucionInstitucion;
+    const dist =
+      resumen.distribucionUsuarios as DashboardDistribucionInstitucion;
     return [
       { label: 'Estudiantes', value: dist.estudiantes, color: '#111184' },
       { label: 'Docentes', value: dist.docentes, color: '#4b5cc4' },
-      { label: 'Administrativos', value: dist.administrativos, color: '#a3adff' },
+      {
+        label: 'Administrativos',
+        value: dist.administrativos,
+        color: '#a3adff',
+      },
     ];
   }, [resumen]);
 
@@ -536,9 +575,11 @@ export function Inicio() {
       </div>
 
       {cargandoResumen && (
-        <div className="inicio-dashboard-loading">
-          Cargando indicadores del dashboard...
-        </div>
+        <PantallaCarga
+          modo="panel"
+          mensaje="Cargando indicadores"
+          detalle="Estamos preparando el panel de control de NEXORA AI."
+        />
       )}
 
       {errorResumen && !cargandoResumen && (
@@ -565,7 +606,9 @@ export function Inicio() {
                   titulo="Distribución global de usuarios por rol"
                   segmentos={segmentosGlobales}
                 />
-                <TablaInstituciones datos={resumen.usuariosPorInstitucion || []} />
+                <TablaInstituciones
+                  datos={resumen.usuariosPorInstitucion || []}
+                />
               </section>
 
               <section className="dashboard-grid two">
@@ -672,7 +715,9 @@ export function Inicio() {
                   </header>
                   <div className="dashboard-activity-list">
                     {(resumen.misForosAbiertos || []).length === 0 ? (
-                      <p className="dashboard-empty">No tienes foros abiertos.</p>
+                      <p className="dashboard-empty">
+                        No tienes foros abiertos.
+                      </p>
                     ) : (
                       resumen.misForosAbiertos?.map((foro) => (
                         <div className="dashboard-activity-item" key={foro.id}>
@@ -696,15 +741,20 @@ export function Inicio() {
                   </header>
                   <div className="dashboard-activity-list">
                     {(resumen.proyectosDocente || []).length === 0 ? (
-                      <p className="dashboard-empty">No tienes proyectos registrados.</p>
+                      <p className="dashboard-empty">
+                        No tienes proyectos registrados.
+                      </p>
                     ) : (
                       resumen.proyectosDocente?.map((proyecto) => (
-                        <div className="dashboard-activity-item" key={proyecto.id}>
+                        <div
+                          className="dashboard-activity-item"
+                          key={proyecto.id}
+                        >
                           <strong>{proyecto.titulo}</strong>
                           <small>
                             Estado: {proyecto.estadoLabel} · Fecha límite:{' '}
-                            {formatearFecha(proyecto.fechaLimite)} · Integrantes:{' '}
-                            {formatearNumero(proyecto.integrantes)}
+                            {formatearFecha(proyecto.fechaLimite)} ·
+                            Integrantes: {formatearNumero(proyecto.integrantes)}
                           </small>
                         </div>
                       ))
@@ -723,7 +773,10 @@ export function Inicio() {
                       </p>
                     ) : (
                       resumen.entregasPendientesRevision?.map((entrega) => (
-                        <div className="dashboard-activity-item" key={entrega.id}>
+                        <div
+                          className="dashboard-activity-item"
+                          key={entrega.id}
+                        >
                           <strong>{entrega.proyectoTitulo}</strong>
                           <small>
                             Estudiante: {entrega.estudiante} · Entregada:{' '}
@@ -756,7 +809,9 @@ export function Inicio() {
                 <article className="dashboard-panel">
                   <header>
                     <h3>Mis proyectos</h3>
-                    <span>{resumen.gradoEscolar?.nombre || 'Sin grado asignado'}</span>
+                    <span>
+                      {resumen.gradoEscolar?.nombre || 'Sin grado asignado'}
+                    </span>
                   </header>
                   <div className="dashboard-table-wrap">
                     <table className="dashboard-table">
@@ -820,7 +875,9 @@ export function Inicio() {
                   </header>
                   <div className="dashboard-activity-list">
                     {(resumen.misRutasAprendizaje || []).length === 0 ? (
-                      <p className="dashboard-empty">No tienes rutas asignadas.</p>
+                      <p className="dashboard-empty">
+                        No tienes rutas asignadas.
+                      </p>
                     ) : (
                       resumen.misRutasAprendizaje?.map((ruta) => (
                         <div className="dashboard-activity-item" key={ruta.id}>
@@ -842,13 +899,16 @@ export function Inicio() {
                   </header>
                   {resumen.ultimoDiagnostico ? (
                     <div className="dashboard-activity-item">
-                      <strong>{resumen.ultimoDiagnostico.tipoAprendizaje}</strong>
+                      <strong>
+                        {resumen.ultimoDiagnostico.tipoAprendizaje}
+                      </strong>
                       <small>
                         Puntaje: {resumen.ultimoDiagnostico.puntajeFinal} ·{' '}
                         Resultado: {resumen.ultimoDiagnostico.resultadoFinal}
                       </small>
                       <small>
-                        Fecha: {formatearFecha(resumen.ultimoDiagnostico.createdAt)}
+                        Fecha:{' '}
+                        {formatearFecha(resumen.ultimoDiagnostico.createdAt)}
                       </small>
                     </div>
                   ) : (
@@ -865,7 +925,7 @@ export function Inicio() {
                   datos={resumen.rutasAprendizajeAdaptativo || []}
                 />
                 <ListaDiagnosticosAdaptativos
-                  titulo="Últimos diagnósticos adaptativos"
+                  titulo="Últimos diagnósticos: Aprendizajes adaptativos"
                   datos={resumen.ultimosDiagnosticosAdaptativos || []}
                 />
               </section>
@@ -876,21 +936,31 @@ export function Inicio() {
             <>
               <section className="dashboard-actions-strip">
                 <button
-                  className="primary-button"
+                  className="dashboard-action-button dashboard-action-primary"
                   type="button"
                   onClick={() => navigate('/reportes')}
                 >
-                  Generar reporte de recursos
+                  <span className="dashboard-action-badge">REP</span>
+                  <span className="dashboard-action-copy">
+                    <strong>Generar reporte de recursos</strong>
+                    <small>Ir al módulo de informes generales</small>
+                  </span>
                 </button>
                 <button
-                  className="secondary-button"
+                  className="dashboard-action-button"
                   type="button"
                   onClick={exportarAuditoria}
                   disabled={descargandoAuditoria}
                 >
-                  {descargandoAuditoria
-                    ? 'Exportando auditoría...'
-                    : 'Exportar auditoría en Excel'}
+                  <span className="dashboard-action-badge">XLS</span>
+                  <span className="dashboard-action-copy">
+                    <strong>
+                      {descargandoAuditoria
+                        ? 'Exportando auditoría'
+                        : 'Exportar auditoría en Excel'}
+                    </strong>
+                    <small>Descargar trazabilidad administrativa</small>
+                  </span>
                 </button>
               </section>
 
@@ -912,19 +982,22 @@ export function Inicio() {
                         </tr>
                       </thead>
                       <tbody>
-                        {(resumen.recursosPublicadosVsBorradores || []).length === 0 ? (
+                        {(resumen.recursosPublicadosVsBorradores || [])
+                          .length === 0 ? (
                           <tr>
                             <td colSpan={4}>No hay recursos para mostrar.</td>
                           </tr>
                         ) : (
-                          resumen.recursosPublicadosVsBorradores?.map((item) => (
-                            <tr key={item.id}>
-                              <td>{item.nombre}</td>
-                              <td>{formatearNumero(item.publicados)}</td>
-                              <td>{formatearNumero(item.borradores)}</td>
-                              <td>{formatearNumero(item.total)}</td>
-                            </tr>
-                          ))
+                          resumen.recursosPublicadosVsBorradores?.map(
+                            (item) => (
+                              <tr key={item.id}>
+                                <td>{item.nombre}</td>
+                                <td>{formatearNumero(item.publicados)}</td>
+                                <td>{formatearNumero(item.borradores)}</td>
+                                <td>{formatearNumero(item.total)}</td>
+                              </tr>
+                            ),
+                          )
                         )}
                       </tbody>
                     </table>
@@ -938,7 +1011,9 @@ export function Inicio() {
 
       {!cargandoResumen && !errorResumen && !resumen && (
         <article className="dashboard-panel">
-          <p className="dashboard-empty">No hay datos disponibles para este panel.</p>
+          <p className="dashboard-empty">
+            No hay datos disponibles para este panel.
+          </p>
         </article>
       )}
     </section>

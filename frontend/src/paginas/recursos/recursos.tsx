@@ -18,6 +18,7 @@ import {
   subirArchivoRecurso,
   usuarioTienePermiso,
 } from '../../api/adminApi';
+import { PantallaCarga } from '../../componentes/carga/pantallaCarga';
 import type {
   Categoria,
   GradoEscolar,
@@ -603,7 +604,11 @@ export function Recursos() {
         </div>
 
         {(cargando || cargandoCatalogos) && (
-          <p className="state-message">Cargando recursos...</p>
+          <PantallaCarga
+            modo="panel"
+            mensaje="Cargando recursos"
+            detalle="Estamos consultando el inventario académico."
+          />
         )}
         {error && <p className="state-message error">{error}</p>}
 
@@ -869,7 +874,9 @@ export function Recursos() {
                   {formulario.rutaRecurso && (
                     <a
                       className="file-link"
-                      href={construirUrlArchivoProtegido(formulario.rutaRecurso)}
+                      href={construirUrlArchivoProtegido(
+                        formulario.rutaRecurso,
+                      )}
                       target="_blank"
                       rel="noreferrer"
                     >

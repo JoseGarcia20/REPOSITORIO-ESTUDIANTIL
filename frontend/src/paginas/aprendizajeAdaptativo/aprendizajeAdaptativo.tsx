@@ -20,6 +20,7 @@ import {
   responderEntrevistaAprendizajeAdaptativo,
   revisarAsignacionAprendizajeAdaptativo,
 } from '../../api/adminApi';
+import { PantallaCarga } from '../../componentes/carga/pantallaCarga';
 import type {
   AsignacionAprendizajeAdaptativo,
   CatalogosAprendizajeAdaptativo,
@@ -112,7 +113,11 @@ function formatearFecha(valor?: string | null) {
   }).format(new Date(valor));
 }
 
-function nombreUsuario(usuario?: { nombres?: string; apellidos?: string; correo?: string }) {
+function nombreUsuario(usuario?: {
+  nombres?: string;
+  apellidos?: string;
+  correo?: string;
+}) {
   const nombre = [usuario?.nombres, usuario?.apellidos]
     .filter(Boolean)
     .join(' ')
@@ -140,13 +145,18 @@ function obtenerPasos(
   return Array.isArray(pasos) ? pasos : [];
 }
 
-function obtenerPasoActual(asignacion?: AsignacionAprendizajeAdaptativo | null) {
+function obtenerPasoActual(
+  asignacion?: AsignacionAprendizajeAdaptativo | null,
+) {
   const pasos = obtenerPasos(asignacion);
   if (pasos.length === 0) {
     return 0;
   }
 
-  if (asignacion?.estado === 'evaluacion' || asignacion?.estado === 'evaluada') {
+  if (
+    asignacion?.estado === 'evaluacion' ||
+    asignacion?.estado === 'evaluada'
+  ) {
     return pasos.length;
   }
 
@@ -215,7 +225,10 @@ function descripcionPlazo(asignacion?: AsignacionAprendizajeAdaptativo | null) {
     const limite = new Date(asignacion.fechaLimite);
     hoy.setHours(0, 0, 0, 0);
     limite.setHours(0, 0, 0, 0);
-    const dias = Math.max(1, Math.ceil((limite.getTime() - hoy.getTime()) / 86400000));
+    const dias = Math.max(
+      1,
+      Math.ceil((limite.getTime() - hoy.getTime()) / 86400000),
+    );
     return dias === 1 ? '1 día disponible' : `${dias} días disponibles`;
   }
 
@@ -254,7 +267,9 @@ function obtenerPreguntasEvaluacion(
     : [];
 }
 
-function obtenerEstadoEvaluacion(asignacion?: AsignacionAprendizajeAdaptativo | null) {
+function obtenerEstadoEvaluacion(
+  asignacion?: AsignacionAprendizajeAdaptativo | null,
+) {
   const base =
     asignacion?.evaluacion &&
     typeof asignacion.evaluacion === 'object' &&
@@ -277,7 +292,9 @@ function obtenerEstadoEvaluacion(asignacion?: AsignacionAprendizajeAdaptativo | 
   };
 }
 
-function obtenerPorcentajes(asignacion?: AsignacionAprendizajeAdaptativo | null) {
+function obtenerPorcentajes(
+  asignacion?: AsignacionAprendizajeAdaptativo | null,
+) {
   const porcentajes = asignacion?.perfilAprendizaje?.porcentajes;
   return Array.isArray(porcentajes) ? porcentajes : [];
 }
@@ -350,7 +367,9 @@ export function AprendizajeAdaptativo() {
   const [procesando, setProcesando] = useState('');
   const [error, setError] = useState('');
   const [mensaje, setMensaje] = useState('');
-  const [segundosRestantes, setSegundosRestantes] = useState<number | null>(null);
+  const [segundosRestantes, setSegundosRestantes] = useState<number | null>(
+    null,
+  );
   const [evaluacionModalAbierta, setEvaluacionModalAbierta] = useState(false);
   const [confirmacionEvaluacionAbierta, setConfirmacionEvaluacionAbierta] =
     useState(false);
@@ -435,9 +454,9 @@ export function AprendizajeAdaptativo() {
   );
   const evaluacionEnCurso = Boolean(
     asignacionSeleccionada &&
-      asignacionSeleccionada.estado === 'evaluacion' &&
-      estadoEvaluacionSeleccionada.iniciadaEn &&
-      !estadoEvaluacionSeleccionada.cerradaEn,
+    asignacionSeleccionada.estado === 'evaluacion' &&
+    estadoEvaluacionSeleccionada.iniciadaEn &&
+    !estadoEvaluacionSeleccionada.cerradaEn,
   );
   const pasosSeleccionados = useMemo(
     () => obtenerPasos(asignacionSeleccionada),
@@ -483,7 +502,9 @@ export function AprendizajeAdaptativo() {
       return;
     }
 
-    const entrevista = Array.isArray(asignacionSeleccionada.entrevistaRespuestas)
+    const entrevista = Array.isArray(
+      asignacionSeleccionada.entrevistaRespuestas,
+    )
       ? asignacionSeleccionada.entrevistaRespuestas.reduce(
           (acumulado: RespuestasTexto, item: any) => ({
             ...acumulado,
@@ -492,7 +513,9 @@ export function AprendizajeAdaptativo() {
           {},
         )
       : {};
-    const evaluacion = Array.isArray(asignacionSeleccionada.respuestasEvaluacion)
+    const evaluacion = Array.isArray(
+      asignacionSeleccionada.respuestasEvaluacion,
+    )
       ? asignacionSeleccionada.respuestasEvaluacion.reduce(
           (acumulado: RespuestasTexto, item: any) => ({
             ...acumulado,
@@ -506,7 +529,8 @@ export function AprendizajeAdaptativo() {
     setRespuestasEvaluacion(evaluacion);
     setRevision({
       decision: 'completada',
-      observaciones: asignacionSeleccionada.revisionDocente?.observaciones || '',
+      observaciones:
+        asignacionSeleccionada.revisionDocente?.observaciones || '',
     });
     setValoracionEstudianteIA(
       Number(asignacionSeleccionada.calificacionEstudianteIA || 0),
@@ -528,7 +552,9 @@ export function AprendizajeAdaptativo() {
     }
 
     const actualizar = () => {
-      const limite = new Date(estadoEvaluacionSeleccionada.limiteEn || '').getTime();
+      const limite = new Date(
+        estadoEvaluacionSeleccionada.limiteEn || '',
+      ).getTime();
       const faltan = Math.floor((limite - Date.now()) / 1000);
       setSegundosRestantes(Math.max(0, faltan));
     };
@@ -539,7 +565,11 @@ export function AprendizajeAdaptativo() {
   }, [evaluacionEnCurso, estadoEvaluacionSeleccionada.limiteEn]);
 
   useEffect(() => {
-    if (!evaluacionEnCurso || !asignacionSeleccionada || segundosRestantes !== 0) {
+    if (
+      !evaluacionEnCurso ||
+      !asignacionSeleccionada ||
+      segundosRestantes !== 0
+    ) {
       return;
     }
 
@@ -562,13 +592,20 @@ export function AprendizajeAdaptativo() {
       JSON.stringify({
         asignacionId: asignacionSeleccionada.id,
         paginaId: paginaEvaluacionIdRef.current,
-        respuestas: Object.entries(respuestasEvaluacion).map(([preguntaId, respuesta]) => ({
-          preguntaId,
-          respuesta,
-        })),
+        respuestas: Object.entries(respuestasEvaluacion).map(
+          ([preguntaId, respuesta]) => ({
+            preguntaId,
+            respuesta,
+          }),
+        ),
       }),
     );
-  }, [evaluacionEnCurso, esEstudiante, asignacionSeleccionada?.id, respuestasEvaluacion]);
+  }, [
+    evaluacionEnCurso,
+    esEstudiante,
+    asignacionSeleccionada?.id,
+    respuestasEvaluacion,
+  ]);
 
   useEffect(() => {
     if (!evaluacionEnCurso || !asignacionSeleccionada || !esEstudiante) {
@@ -580,7 +617,12 @@ export function AprendizajeAdaptativo() {
     }, 10000);
 
     return () => window.clearInterval(intervalo);
-  }, [evaluacionEnCurso, esEstudiante, asignacionSeleccionada?.id, respuestasEvaluacion]);
+  }, [
+    evaluacionEnCurso,
+    esEstudiante,
+    asignacionSeleccionada?.id,
+    respuestasEvaluacion,
+  ]);
 
   useEffect(() => {
     if (!evaluacionEnCurso || !asignacionSeleccionada || !esEstudiante) {
@@ -590,15 +632,18 @@ export function AprendizajeAdaptativo() {
     const cerrarAntesDeSalir = () => {
       const token = localStorage.getItem('token') || '';
       const respuestas = construirRespuestasEvaluacion();
-      fetch(`${API_URL}/aprendizaje-adaptativo/${asignacionSeleccionada.id}/evaluacion/cerrar`, {
-        method: 'POST',
-        keepalive: true,
-        headers: {
-          'Content-Type': 'application/json',
-          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      fetch(
+        `${API_URL}/aprendizaje-adaptativo/${asignacionSeleccionada.id}/evaluacion/cerrar`,
+        {
+          method: 'POST',
+          keepalive: true,
+          headers: {
+            'Content-Type': 'application/json',
+            ...(token ? { Authorization: `Bearer ${token}` } : {}),
+          },
+          body: JSON.stringify({ respuestas, motivo: 'abandono' }),
         },
-        body: JSON.stringify({ respuestas, motivo: 'abandono' }),
-      }).catch(() => undefined);
+      ).catch(() => undefined);
     };
 
     const onBeforeUnload = (event: BeforeUnloadEvent) => {
@@ -614,7 +659,12 @@ export function AprendizajeAdaptativo() {
       window.removeEventListener('beforeunload', onBeforeUnload);
       window.removeEventListener('pagehide', onPageHide);
     };
-  }, [evaluacionEnCurso, esEstudiante, asignacionSeleccionada?.id, respuestasEvaluacion]);
+  }, [
+    evaluacionEnCurso,
+    esEstudiante,
+    asignacionSeleccionada?.id,
+    respuestasEvaluacion,
+  ]);
 
   useEffect(() => {
     return () => {
@@ -627,18 +677,21 @@ export function AprendizajeAdaptativo() {
         return;
       }
 
-      fetch(`${API_URL}/aprendizaje-adaptativo/${asignacionSeleccionada.id}/evaluacion/cerrar`, {
-        method: 'POST',
-        keepalive: true,
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
+      fetch(
+        `${API_URL}/aprendizaje-adaptativo/${asignacionSeleccionada.id}/evaluacion/cerrar`,
+        {
+          method: 'POST',
+          keepalive: true,
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            respuestas: construirRespuestasEvaluacion(),
+            motivo: 'abandono',
+          }),
         },
-        body: JSON.stringify({
-          respuestas: construirRespuestasEvaluacion(),
-          motivo: 'abandono',
-        }),
-      }).catch(() => undefined);
+      ).catch(() => undefined);
     };
   }, [evaluacionEnCurso, esEstudiante, asignacionSeleccionada?.id]);
 
@@ -726,10 +779,12 @@ export function AprendizajeAdaptativo() {
       return [];
     }
 
-    return obtenerPreguntasEvaluacion(asignacionSeleccionada).map((pregunta) => ({
-      preguntaId: pregunta.id,
-      respuesta: respuestasEvaluacion[pregunta.id] || '',
-    }));
+    return obtenerPreguntasEvaluacion(asignacionSeleccionada).map(
+      (pregunta) => ({
+        preguntaId: pregunta.id,
+        respuesta: respuestasEvaluacion[pregunta.id] || '',
+      }),
+    );
   }
 
   async function guardarParcialSilenciosa() {
@@ -798,7 +853,9 @@ export function AprendizajeAdaptativo() {
 
       if (asignacionSeleccionada.estado === 'ruta_generada') {
         setProcesando('iniciar');
-        actualizada = await iniciarRutaAprendizajeAdaptativo(asignacionSeleccionada.id);
+        actualizada = await iniciarRutaAprendizajeAdaptativo(
+          asignacionSeleccionada.id,
+        );
         registrarAsignacionActualizada(actualizada);
       }
 
@@ -806,7 +863,9 @@ export function AprendizajeAdaptativo() {
       setRutaModalAbierta(true);
       setDetalleAbierto(false);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'No se pudo iniciar la ruta.');
+      setError(
+        err instanceof Error ? err.message : 'No se pudo iniciar la ruta.',
+      );
     } finally {
       setProcesando('');
     }
@@ -868,7 +927,9 @@ export function AprendizajeAdaptativo() {
 
       setPasoRutaActivo(siguientePaso);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'No se pudo avanzar el paso.');
+      setError(
+        err instanceof Error ? err.message : 'No se pudo avanzar el paso.',
+      );
     } finally {
       setProcesando('');
     }
@@ -893,7 +954,9 @@ export function AprendizajeAdaptativo() {
       setPasoRutaActivo(nuevoPaso);
     } catch (err) {
       setError(
-        err instanceof Error ? err.message : 'No se pudo actualizar el progreso.',
+        err instanceof Error
+          ? err.message
+          : 'No se pudo actualizar el progreso.',
       );
     }
   }
@@ -909,8 +972,8 @@ export function AprendizajeAdaptativo() {
 
       setCatalogos(catalogosData);
       setAsignaciones(asignacionesData);
-      setAsignacionSeleccionadaId((actual) =>
-        actual || asignacionesData[0]?.id || null,
+      setAsignacionSeleccionadaId(
+        (actual) => actual || asignacionesData[0]?.id || null,
       );
     } catch (err) {
       setError(
@@ -924,7 +987,9 @@ export function AprendizajeAdaptativo() {
   }
 
   function actualizarFormulario(
-    event: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
+    event: ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >,
   ) {
     const { name, value } = event.target;
     setFormulario((prev) => ({ ...prev, [name]: value }));
@@ -939,7 +1004,9 @@ export function AprendizajeAdaptativo() {
         return [asignacion, ...prev];
       }
 
-      return prev.map((item) => (item.id === asignacion.id ? asignacion : item));
+      return prev.map((item) =>
+        item.id === asignacion.id ? asignacion : item,
+      );
     });
     setAsignacionSeleccionadaId(asignacion.id);
   }
@@ -963,7 +1030,9 @@ export function AprendizajeAdaptativo() {
       setProcesando('crear-asignacion');
       const asignacion = await crearAsignacionAprendizajeAdaptativo({
         estudianteId: Number(formulario.estudianteId),
-        docenteId: formulario.docenteId ? Number(formulario.docenteId) : undefined,
+        docenteId: formulario.docenteId
+          ? Number(formulario.docenteId)
+          : undefined,
         tema: formulario.tema.trim(),
         objetivo: formulario.objetivo.trim() || undefined,
         nivelSolicitado: formulario.nivelSolicitado || undefined,
@@ -974,7 +1043,9 @@ export function AprendizajeAdaptativo() {
       setFormulario(formularioInicial);
       setMensaje('Ruta asignada correctamente.');
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'No se pudo crear la ruta.');
+      setError(
+        err instanceof Error ? err.message : 'No se pudo crear la ruta.',
+      );
     } finally {
       setProcesando('');
     }
@@ -1027,7 +1098,9 @@ export function AprendizajeAdaptativo() {
       setMensaje('Entrevista registrada. La ruta adaptativa quedó generada.');
     } catch (err) {
       setError(
-        err instanceof Error ? err.message : 'No se pudo registrar la entrevista.',
+        err instanceof Error
+          ? err.message
+          : 'No se pudo registrar la entrevista.',
       );
     } finally {
       setProcesando('');
@@ -1051,7 +1124,9 @@ export function AprendizajeAdaptativo() {
       setMensaje('Evaluación iniciada. Dispones de 30 minutos.');
     } catch (err) {
       setError(
-        err instanceof Error ? err.message : 'No se pudo iniciar la evaluación.',
+        err instanceof Error
+          ? err.message
+          : 'No se pudo iniciar la evaluación.',
       );
     } finally {
       setProcesando('');
@@ -1134,7 +1209,9 @@ export function AprendizajeAdaptativo() {
       registrarAsignacionActualizada(asignacion);
       setMensaje('Revisión registrada correctamente.');
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'No se pudo revisar la ruta.');
+      setError(
+        err instanceof Error ? err.message : 'No se pudo revisar la ruta.',
+      );
     } finally {
       setProcesando('');
     }
@@ -1143,7 +1220,9 @@ export function AprendizajeAdaptativo() {
   async function enviarCalificacionEstudiante(event: FormEvent) {
     event.preventDefault();
     if (!asignacionSeleccionada || valoracionEstudianteIA < 1) {
-      setError('Selecciona una calificación para la ruta generada antes de guardar.');
+      setError(
+        'Selecciona una calificación para la ruta generada antes de guardar.',
+      );
       return;
     }
 
@@ -1161,7 +1240,9 @@ export function AprendizajeAdaptativo() {
       setMensaje('Tu valoración de la ruta generada quedó registrada.');
     } catch (err) {
       setError(
-        err instanceof Error ? err.message : 'No se pudo guardar la calificación.',
+        err instanceof Error
+          ? err.message
+          : 'No se pudo guardar la calificación.',
       );
     } finally {
       setProcesando('');
@@ -1171,7 +1252,9 @@ export function AprendizajeAdaptativo() {
   async function enviarCalificacionDocente(event: FormEvent) {
     event.preventDefault();
     if (!asignacionSeleccionada || valoracionDocenteIA < 1) {
-      setError('Selecciona una calificación para el resultado generado antes de guardar.');
+      setError(
+        'Selecciona una calificación para el resultado generado antes de guardar.',
+      );
       return;
     }
 
@@ -1186,10 +1269,14 @@ export function AprendizajeAdaptativo() {
         },
       );
       registrarAsignacionActualizada(asignacion);
-      setMensaje('La valoración docente del resultado generado quedó registrada.');
+      setMensaje(
+        'La valoración docente del resultado generado quedó registrada.',
+      );
     } catch (err) {
       setError(
-        err instanceof Error ? err.message : 'No se pudo guardar la calificación.',
+        err instanceof Error
+          ? err.message
+          : 'No se pudo guardar la calificación.',
       );
     } finally {
       setProcesando('');
@@ -1208,28 +1295,30 @@ export function AprendizajeAdaptativo() {
           <p>{asignacionSeleccionada.resultadoEvaluacion.veredicto}</p>
         </div>
         <div className="adaptativo-score">
-          <strong>{asignacionSeleccionada.resultadoEvaluacion.puntaje || 0}</strong>
+          <strong>
+            {asignacionSeleccionada.resultadoEvaluacion.puntaje || 0}
+          </strong>
           <span>/100</span>
         </div>
         <div className="adaptativo-two-columns">
           <div>
             <h4>Fortalezas</h4>
             <ul>
-              {(asignacionSeleccionada.resultadoEvaluacion.fortalezas || []).map(
-                (item: string) => (
-                  <li key={item}>{item}</li>
-                ),
-              )}
+              {(
+                asignacionSeleccionada.resultadoEvaluacion.fortalezas || []
+              ).map((item: string) => (
+                <li key={item}>{item}</li>
+              ))}
             </ul>
           </div>
           <div>
             <h4>Oportunidades</h4>
             <ul>
-              {(asignacionSeleccionada.resultadoEvaluacion.oportunidades || []).map(
-                (item: string) => (
-                  <li key={item}>{item}</li>
-                ),
-              )}
+              {(
+                asignacionSeleccionada.resultadoEvaluacion.oportunidades || []
+              ).map((item: string) => (
+                <li key={item}>{item}</li>
+              ))}
             </ul>
           </div>
         </div>
@@ -1247,23 +1336,25 @@ export function AprendizajeAdaptativo() {
           </a>
         )}
         {esEstudiante &&
-          Number(asignacionSeleccionada.estudianteId) === Number(usuario?.id) && (
+          Number(asignacionSeleccionada.estudianteId) ===
+            Number(usuario?.id) && (
             <form
               className="adaptativo-section adaptativo-rating-panel"
               onSubmit={enviarCalificacionEstudiante}
             >
               <div className="adaptativo-section-title">
                 <h3>Calificar la ruta generada con AI</h3>
-                <p>Valora si el diagnóstico, los pasos y la evaluación te ayudaron a aprender el tema.</p>
+                <p>
+                  Valora si el diagnóstico, los pasos y la evaluación te
+                  ayudaron a aprender el tema.
+                </p>
               </div>
               <div className="adaptativo-rating-stars">
                 {[1, 2, 3, 4, 5].map((valor) => (
                   <button
                     key={valor}
                     type="button"
-                    className={
-                      valoracionEstudianteIA >= valor ? 'active' : ''
-                    }
+                    className={valoracionEstudianteIA >= valor ? 'active' : ''}
                     onClick={() => setValoracionEstudianteIA(valor)}
                   >
                     {valor}
@@ -1272,7 +1363,8 @@ export function AprendizajeAdaptativo() {
               </div>
               {asignacionSeleccionada.calificacionEstudianteIA ? (
                 <p className="adaptativo-rating-note">
-                  Calificación registrada: {asignacionSeleccionada.calificacionEstudianteIA}/5
+                  Calificación registrada:{' '}
+                  {asignacionSeleccionada.calificacionEstudianteIA}/5
                 </p>
               ) : null}
               <label className="adaptativo-field full">
@@ -1280,7 +1372,9 @@ export function AprendizajeAdaptativo() {
                 <textarea
                   rows={3}
                   value={comentarioEstudianteIA}
-                  onChange={(event) => setComentarioEstudianteIA(event.target.value)}
+                  onChange={(event) =>
+                    setComentarioEstudianteIA(event.target.value)
+                  }
                   maxLength={1000}
                 />
               </label>
@@ -1303,7 +1397,8 @@ export function AprendizajeAdaptativo() {
     }
 
     const puedeRevisar =
-      puedeGestionar && ['evaluada', 'revisada'].includes(asignacionSeleccionada.estado);
+      puedeGestionar &&
+      ['evaluada', 'revisada'].includes(asignacionSeleccionada.estado);
 
     if (!puedeRevisar) {
       return null;
@@ -1359,9 +1454,12 @@ export function AprendizajeAdaptativo() {
           className="adaptativo-section adaptativo-rating-panel"
           onSubmit={enviarCalificacionDocente}
         >
-         <div className="adaptativo-section-title">
+          <div className="adaptativo-section-title">
             <h3>Calificar el resultado generado con AI</h3>
-            <p>Valora la calidad del diagnóstico, la ruta y la evaluación entregada al estudiante.</p>
+            <p>
+              Valora la calidad del diagnóstico, la ruta y la evaluación
+              entregada al estudiante.
+            </p>
           </div>
           <div className="adaptativo-rating-stars">
             {[1, 2, 3, 4, 5].map((valor) => (
@@ -1377,7 +1475,8 @@ export function AprendizajeAdaptativo() {
           </div>
           {asignacionSeleccionada.calificacionDocenteIA ? (
             <p className="adaptativo-rating-note">
-              Calificación registrada: {asignacionSeleccionada.calificacionDocenteIA}/5
+              Calificación registrada:{' '}
+              {asignacionSeleccionada.calificacionDocenteIA}/5
             </p>
           ) : null}
           <label className="adaptativo-field full">
@@ -1406,10 +1505,13 @@ export function AprendizajeAdaptativo() {
       return null;
     }
 
-    const preguntasEntrevista = obtenerPreguntasEntrevista(asignacionSeleccionada);
+    const preguntasEntrevista = obtenerPreguntasEntrevista(
+      asignacionSeleccionada,
+    );
     const porcentajes = obtenerPorcentajes(asignacionSeleccionada);
     const puedeResponder =
-      esEstudiante && Number(asignacionSeleccionada.estudianteId) === Number(usuario?.id);
+      esEstudiante &&
+      Number(asignacionSeleccionada.estudianteId) === Number(usuario?.id);
     const avance = calcularAvance(asignacionSeleccionada);
     const faseActual = indiceFase(asignacionSeleccionada.estado);
     const estadoEvaluacion = estadoEvaluacionSeleccionada;
@@ -1423,11 +1525,16 @@ export function AprendizajeAdaptativo() {
       <>
         <div className="adaptativo-modal-head adaptativo-detail-modal-head">
           <div>
-            <span className={`adaptativo-status status-${asignacionSeleccionada.estado}`}>
+            <span
+              className={`adaptativo-status status-${asignacionSeleccionada.estado}`}
+            >
               {normalizarEstado(asignacionSeleccionada.estado)}
             </span>
             <h3>{asignacionSeleccionada.tema}</h3>
-            <p>{asignacionSeleccionada.objetivo || 'Ruta personalizada de aprendizaje.'}</p>
+            <p>
+              {asignacionSeleccionada.objetivo ||
+                'Ruta personalizada de aprendizaje.'}
+            </p>
           </div>
           <button
             type="button"
@@ -1449,7 +1556,9 @@ export function AprendizajeAdaptativo() {
             <div className="adaptativo-meta-grid">
               <div>
                 <span>Estudiante</span>
-                <strong>{nombreUsuario(asignacionSeleccionada.estudiante)}</strong>
+                <strong>
+                  {nombreUsuario(asignacionSeleccionada.estudiante)}
+                </strong>
               </div>
               <div>
                 <span>Docente</span>
@@ -1457,11 +1566,15 @@ export function AprendizajeAdaptativo() {
               </div>
               <div>
                 <span>Grado</span>
-                <strong>{asignacionSeleccionada.gradoEscolar?.nombre || 'Sin grado'}</strong>
+                <strong>
+                  {asignacionSeleccionada.gradoEscolar?.nombre || 'Sin grado'}
+                </strong>
               </div>
               <div>
                 <span>Fecha límite</span>
-                <strong>{formatearFecha(asignacionSeleccionada.fechaLimite)}</strong>
+                <strong>
+                  {formatearFecha(asignacionSeleccionada.fechaLimite)}
+                </strong>
               </div>
             </div>
           </div>
@@ -1470,7 +1583,9 @@ export function AprendizajeAdaptativo() {
               <div
                 key={fase.estado}
                 className={
-                  indice <= faseActual ? 'adaptativo-phase active' : 'adaptativo-phase'
+                  indice <= faseActual
+                    ? 'adaptativo-phase active'
+                    : 'adaptativo-phase'
                 }
               >
                 <span>{indice + 1}</span>
@@ -1486,14 +1601,21 @@ export function AprendizajeAdaptativo() {
               <section className="adaptativo-section">
                 <div className="adaptativo-section-title">
                   <h3>Perfil de aprendizaje</h3>
-                  <p>{asignacionSeleccionada.perfilAprendizaje?.principal || 'Perfil mixto'}</p>
+                  <p>
+                    {asignacionSeleccionada.perfilAprendizaje?.principal ||
+                      'Perfil mixto'}
+                  </p>
                 </div>
                 <div className="adaptativo-profile-bars">
                   {porcentajes.map((perfil: any) => (
                     <div key={perfil.tipo} className="adaptativo-profile-row">
                       <span>{perfil.tipo}</span>
                       <div>
-                        <i style={{ width: `${Number(perfil.porcentaje || 0)}%` }} />
+                        <i
+                          style={{
+                            width: `${Number(perfil.porcentaje || 0)}%`,
+                          }}
+                        />
                       </div>
                       <strong>{perfil.porcentaje}%</strong>
                     </div>
@@ -1511,7 +1633,9 @@ export function AprendizajeAdaptativo() {
                   {asignacionSeleccionada.diagnostico.justificacion}
                 </p>
                 <div className="adaptativo-tags">
-                  <span>{asignacionSeleccionada.diagnostico.nivelDificultad}</span>
+                  <span>
+                    {asignacionSeleccionada.diagnostico.nivelDificultad}
+                  </span>
                   <span>{descripcionPlazo(asignacionSeleccionada)}</span>
                 </div>
               </section>
@@ -1520,10 +1644,15 @@ export function AprendizajeAdaptativo() {
         )}
 
         {puedeResponder &&
-          ['asignada', 'reasignada'].includes(asignacionSeleccionada.estado) && (
+          ['asignada', 'reasignada'].includes(
+            asignacionSeleccionada.estado,
+          ) && (
             <section className="adaptativo-action-panel">
               <h3>Aprobar asignación</h3>
-              <p>Al aprobar, se abrirá la entrevista para construir la ruta personalizada.</p>
+              <p>
+                Al aprobar, se abrirá la entrevista para construir la ruta
+                personalizada.
+              </p>
               <button
                 className="primary-button"
                 onClick={aprobarAsignacion}
@@ -1592,7 +1721,9 @@ export function AprendizajeAdaptativo() {
           <section className="adaptativo-section">
             <div className="adaptativo-section-title">
               <div>
-                <h3>{asignacionSeleccionada.ruta?.titulo || 'Ruta adaptativa'}</h3>
+                <h3>
+                  {asignacionSeleccionada.ruta?.titulo || 'Ruta adaptativa'}
+                </h3>
                 <p>
                   {asignacionSeleccionada.ruta?.duracionEstimada}
                   {asignacionSeleccionada.estado === 'en_curso' &&
@@ -1639,7 +1770,11 @@ export function AprendizajeAdaptativo() {
                       </div>
                     </div>
                     <div className="adaptativo-tags">
-                      <span>{esPasoActividad(paso, indice) ? 'Actividad' : 'Recurso'}</span>
+                      <span>
+                        {esPasoActividad(paso, indice)
+                          ? 'Actividad'
+                          : 'Recurso'}
+                      </span>
                       <span>{paso.tipoActividad || 'Bloque guiado'}</span>
                     </div>
                     <p className="adaptativo-text">{paso.descripcion}</p>
@@ -1670,7 +1805,8 @@ export function AprendizajeAdaptativo() {
                   <span>30 minutos</span>
                 </div>
                 <p className="adaptativo-text">
-                  Este paso se habilita cuando el estudiante completa los cinco bloques de la ruta.
+                  Este paso se habilita cuando el estudiante completa los cinco
+                  bloques de la ruta.
                 </p>
               </article>
             </div>
@@ -1681,8 +1817,8 @@ export function AprendizajeAdaptativo() {
           <section className="adaptativo-action-panel">
             <h3>Evaluación final disponible</h3>
             <p>
-              Ya completaste todos los pasos. La evaluación se abrirá en una vista
-              dedicada con 30 minutos para responder.
+              Ya completaste todos los pasos. La evaluación se abrirá en una
+              vista dedicada con 30 minutos para responder.
             </p>
             <button
               className="primary-button"
@@ -1703,7 +1839,8 @@ export function AprendizajeAdaptativo() {
             <h3>Evaluación en curso</h3>
             <p>
               La evaluación ya fue iniciada. Tienes{' '}
-              {formatearCuentaRegresiva(segundosRestantes || 0)} para completarla.
+              {formatearCuentaRegresiva(segundosRestantes || 0)} para
+              completarla.
             </p>
             <button
               className="primary-button"
@@ -1724,7 +1861,9 @@ export function AprendizajeAdaptativo() {
           !evaluacionEnCurso && (
             <section className="adaptativo-action-panel">
               <h3>Evaluación cerrada</h3>
-              <p>La evaluación ya fue cerrada y enviada para revisión docente.</p>
+              <p>
+                La evaluación ya fue cerrada y enviada para revisión docente.
+              </p>
             </section>
           )}
 
@@ -1735,7 +1874,12 @@ export function AprendizajeAdaptativo() {
   }
 
   if (cargando) {
-    return <p className="state-message">Cargando aprendizaje adaptativo...</p>;
+    return (
+      <PantallaCarga
+        mensaje="Cargando aprendizaje adaptativo"
+        detalle="Estamos preparando rutas, perfiles y asignaciones."
+      />
+    );
   }
 
   return (
@@ -1804,12 +1948,16 @@ export function AprendizajeAdaptativo() {
               <div className="adaptativo-student-picker-tools">
                 <input
                   value={busquedaEstudiante}
-                  onChange={(event) => setBusquedaEstudiante(event.target.value)}
+                  onChange={(event) =>
+                    setBusquedaEstudiante(event.target.value)
+                  }
                   placeholder="Buscar por nombre o correo"
                 />
                 <select
                   value={filtroGradoEstudiante}
-                  onChange={(event) => setFiltroGradoEstudiante(event.target.value)}
+                  onChange={(event) =>
+                    setFiltroGradoEstudiante(event.target.value)
+                  }
                 >
                   <option value="">Todos los grados</option>
                   {gradosEstudiantesDisponibles.map((grado) => (
@@ -1845,9 +1993,13 @@ export function AprendizajeAdaptativo() {
                         return (
                           <tr
                             key={estudiante.id}
-                            className={seleccionado ? 'selected-resource-row' : ''}
+                            className={
+                              seleccionado ? 'selected-resource-row' : ''
+                            }
                           >
-                            <td data-label="Estudiante">{estudiante.nombreCompleto}</td>
+                            <td data-label="Estudiante">
+                              {estudiante.nombreCompleto}
+                            </td>
                             <td data-label="Grado">
                               {estudiante.gradoEscolar?.nombre || 'Sin grado'}
                             </td>
@@ -1883,7 +2035,9 @@ export function AprendizajeAdaptativo() {
                 onChange={actualizarFormulario}
               >
                 <option value="">
-                  {esDocente ? 'Yo como docente responsable' : 'Seleccionar docente'}
+                  {esDocente
+                    ? 'Yo como docente responsable'
+                    : 'Seleccionar docente'}
                 </option>
                 {catalogos?.docentes.map((docente) => (
                   <option key={docente.id} value={docente.id}>
@@ -1958,9 +2112,12 @@ export function AprendizajeAdaptativo() {
         <section className="adaptativo-panel">
           <div className="adaptativo-list-tools adaptativo-list-tools-wide">
             <div>
-              <h2>{esEstudiante ? 'Mis rutas asignadas' : 'Rutas asignadas'}</h2>
+              <h2>
+                {esEstudiante ? 'Mis rutas asignadas' : 'Rutas asignadas'}
+              </h2>
               <p className="adaptativo-muted">
-                Consulta el estado de cada ruta y abre su detalle en una vista dedicada.
+                Consulta el estado de cada ruta y abre su detalle en una vista
+                dedicada.
               </p>
             </div>
             <input
@@ -1975,7 +2132,8 @@ export function AprendizajeAdaptativo() {
               <span>AI</span>
               <h2>No hay rutas para mostrar</h2>
               <p>
-                Cuando exista una asignación de aprendizaje adaptativo, aparecerá aquí con su progreso y estado.
+                Cuando exista una asignación de aprendizaje adaptativo,
+                aparecerá aquí con su progreso y estado.
               </p>
             </div>
           ) : (
@@ -1992,24 +2150,35 @@ export function AprendizajeAdaptativo() {
                     <th>Acción</th>
                   </tr>
                 </thead>
-                  <tbody>
+                <tbody>
                   {asignacionesFiltradas.map((asignacion) => (
                     <tr key={asignacion.id}>
                       <td data-label="Tema">
                         <strong>{asignacion.tema}</strong>
                         <small>
-                          {asignacion.objetivo || 'Ruta personalizada de aprendizaje'}
+                          {asignacion.objetivo ||
+                            'Ruta personalizada de aprendizaje'}
                         </small>
                       </td>
-                      <td data-label="Estudiante">{nombreUsuario(asignacion.estudiante)}</td>
-                      <td data-label="Docente">{nombreUsuario(asignacion.docente)}</td>
+                      <td data-label="Estudiante">
+                        {nombreUsuario(asignacion.estudiante)}
+                      </td>
+                      <td data-label="Docente">
+                        {nombreUsuario(asignacion.docente)}
+                      </td>
                       <td data-label="Estado">
-                        <span className={`adaptativo-status status-${asignacion.estado}`}>
+                        <span
+                          className={`adaptativo-status status-${asignacion.estado}`}
+                        >
                           {normalizarEstado(asignacion.estado)}
                         </span>
                       </td>
-                      <td data-label="Progreso">{calcularAvance(asignacion)}%</td>
-                      <td data-label="Fecha límite">{formatearFecha(asignacion.fechaLimite)}</td>
+                      <td data-label="Progreso">
+                        {calcularAvance(asignacion)}%
+                      </td>
+                      <td data-label="Fecha límite">
+                        {formatearFecha(asignacion.fechaLimite)}
+                      </td>
                       <td data-label="Acción">
                         <button
                           type="button"
@@ -2087,11 +2256,22 @@ export function AprendizajeAdaptativo() {
                     </div>
                   </div>
                   <div className="adaptativo-tags">
-                    <span>{esPasoActividad(pasoRutaActual, pasoRutaActivo) ? 'Actividad' : 'Recurso'}</span>
-                    <span>{pasoRutaActual.tipoActividad || 'Bloque guiado'}</span>
-                    <span>{pasoRutaActual.estrategia || 'Acompañamiento personalizado'}</span>
+                    <span>
+                      {esPasoActividad(pasoRutaActual, pasoRutaActivo)
+                        ? 'Actividad'
+                        : 'Recurso'}
+                    </span>
+                    <span>
+                      {pasoRutaActual.tipoActividad || 'Bloque guiado'}
+                    </span>
+                    <span>
+                      {pasoRutaActual.estrategia ||
+                        'Acompañamiento personalizado'}
+                    </span>
                   </div>
-                  <p className="adaptativo-text">{pasoRutaActual.descripcion}</p>
+                  <p className="adaptativo-text">
+                    {pasoRutaActual.descripcion}
+                  </p>
                   <div className="adaptativo-route-emphasis">
                     <strong>Actividad del paso</strong>
                     <p>{pasoRutaActual.actividad}</p>
@@ -2105,42 +2285,49 @@ export function AprendizajeAdaptativo() {
                 <section className="adaptativo-route-resource">
                   <div className="adaptativo-section-title adaptativo-route-resource-head">
                     <div className="adaptativo-route-resource-copy">
-                      <h3>{recursoPasoActual?.titulo || 'Material del paso'}</h3>
+                      <h3>
+                        {recursoPasoActual?.titulo || 'Material del paso'}
+                      </h3>
                       <p>{etiquetaTipoRecurso(recursoPasoActual)}</p>
                     </div>
                   </div>
 
                   {recursoPasoActual?.descripcion && (
-                    <p className="adaptativo-text">{recursoPasoActual.descripcion}</p>
+                    <p className="adaptativo-text">
+                      {recursoPasoActual.descripcion}
+                    </p>
                   )}
 
-                  {recursoPasoActual?.tipo === 'youtube' && recursoPasoActual.embedUrl && (
-                    <iframe
-                      src={recursoPasoActual.embedUrl}
-                      title={recursoPasoActual.titulo || 'Video sugerido'}
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                    />
-                  )}
+                  {recursoPasoActual?.tipo === 'youtube' &&
+                    recursoPasoActual.embedUrl && (
+                      <iframe
+                        src={recursoPasoActual.embedUrl}
+                        title={recursoPasoActual.titulo || 'Video sugerido'}
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                      />
+                    )}
 
-                  {recursoPasoActual?.url && recursoPasoActual?.tipo !== 'youtube' && (
-                    <div className="adaptativo-link-card">
-                      <div>
-                        <strong>Recurso listo para consultar</strong>
-                        <p>
-                          Ábrelo en una pestaña aparte para revisar la lectura o referencia completa.
-                        </p>
+                  {recursoPasoActual?.url &&
+                    recursoPasoActual?.tipo !== 'youtube' && (
+                      <div className="adaptativo-link-card">
+                        <div>
+                          <strong>Recurso listo para consultar</strong>
+                          <p>
+                            Ábrelo en una pestaña aparte para revisar la lectura
+                            o referencia completa.
+                          </p>
+                        </div>
+                        <a
+                          className="secondary-button adaptativo-resource-link adaptativo-inline-action"
+                          href={recursoPasoActual.url}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          {etiquetaAccionRecurso(recursoPasoActual)}
+                        </a>
                       </div>
-                      <a
-                        className="secondary-button adaptativo-resource-link adaptativo-inline-action"
-                        href={recursoPasoActual.url}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        {etiquetaAccionRecurso(recursoPasoActual)}
-                      </a>
-                    </div>
-                  )}
+                    )}
 
                   {recursoPasoActual?.contenido && (
                     <div
@@ -2188,14 +2375,18 @@ export function AprendizajeAdaptativo() {
                         Evaluación final
                       </span>
                       <h4>Evaluación final</h4>
-                      <p>Es el cierre formal de la ruta para verificar comprensión.</p>
+                      <p>
+                        Es el cierre formal de la ruta para verificar
+                        comprensión.
+                      </p>
                     </div>
                     <div className="adaptativo-route-final-grid">
                       <article>
                         <strong>Recorrido completado</strong>
                         <p>
-                          Finalizaste los cinco bloques de estudio. El siguiente paso
-                          valida comprensión, aplicación y claridad conceptual.
+                          Finalizaste los cinco bloques de estudio. El siguiente
+                          paso valida comprensión, aplicación y claridad
+                          conceptual.
                         </p>
                       </article>
                       <article>
@@ -2208,8 +2399,8 @@ export function AprendizajeAdaptativo() {
                       <article>
                         <strong>Regla de cierre</strong>
                         <p>
-                          Si sales de la plataforma, se guardará lo respondido y la
-                          evaluación quedará cerrada.
+                          Si sales de la plataforma, se guardará lo respondido y
+                          la evaluación quedará cerrada.
                         </p>
                       </article>
                     </div>
@@ -2219,7 +2410,11 @@ export function AprendizajeAdaptativo() {
                   <button
                     type="button"
                     className="secondary-button"
-                    onClick={() => setPasoRutaActivo(Math.max(0, pasosSeleccionados.length - 1))}
+                    onClick={() =>
+                      setPasoRutaActivo(
+                        Math.max(0, pasosSeleccionados.length - 1),
+                      )
+                    }
                   >
                     Volver al paso anterior
                   </button>
@@ -2259,7 +2454,8 @@ export function AprendizajeAdaptativo() {
               </p>
               <p>
                 Si cierras la página, cambias de módulo o sales de la sesión, se
-                guardará lo que lleves respondido y no podrás seguir contestando.
+                guardará lo que lleves respondido y no podrás seguir
+                contestando.
               </p>
             </div>
             <div className="adaptativo-modal-actions">
@@ -2283,66 +2479,75 @@ export function AprendizajeAdaptativo() {
         </div>
       )}
 
-      {evaluacionModalAbierta && evaluacionEnCurso && asignacionSeleccionada && (
-        <div className="adaptativo-modal-backdrop adaptativo-evaluacion-backdrop">
-          <div
-            className="adaptativo-modal adaptativo-evaluacion-modal"
-            onClick={(event) => event.stopPropagation()}
-          >
-            <form className="adaptativo-evaluacion-shell" onSubmit={enviarEvaluacion}>
-              <div className="adaptativo-evaluacion-head">
-                <div>
-                  <span className="adaptativo-status status-evaluacion">
-                    Evaluación en curso
-                  </span>
-                  <h3>{asignacionSeleccionada.tema}</h3>
-                  <p>{estadoEvaluacionSeleccionada.instrucciones}</p>
+      {evaluacionModalAbierta &&
+        evaluacionEnCurso &&
+        asignacionSeleccionada && (
+          <div className="adaptativo-modal-backdrop adaptativo-evaluacion-backdrop">
+            <div
+              className="adaptativo-modal adaptativo-evaluacion-modal"
+              onClick={(event) => event.stopPropagation()}
+            >
+              <form
+                className="adaptativo-evaluacion-shell"
+                onSubmit={enviarEvaluacion}
+              >
+                <div className="adaptativo-evaluacion-head">
+                  <div>
+                    <span className="adaptativo-status status-evaluacion">
+                      Evaluación en curso
+                    </span>
+                    <h3>{asignacionSeleccionada.tema}</h3>
+                    <p>{estadoEvaluacionSeleccionada.instrucciones}</p>
+                  </div>
+                  <div className="adaptativo-timer-panel">
+                    <strong>
+                      Tiempo restante:{' '}
+                      {formatearCuentaRegresiva(segundosRestantes || 0)}
+                    </strong>
+                    <span>
+                      Si sales de esta vista, se conservará lo respondido y la
+                      evaluación quedará cerrada.
+                    </span>
+                  </div>
                 </div>
-                <div className="adaptativo-timer-panel">
-                  <strong>
-                    Tiempo restante: {formatearCuentaRegresiva(segundosRestantes || 0)}
-                  </strong>
-                  <span>
-                    Si sales de esta vista, se conservará lo respondido y la
-                    evaluación quedará cerrada.
-                  </span>
+
+                <div className="adaptativo-question-list adaptativo-question-list-modal">
+                  {obtenerPreguntasEvaluacion(asignacionSeleccionada).map(
+                    (pregunta) => (
+                      <label key={pregunta.id} className="adaptativo-field">
+                        <span>{pregunta.pregunta}</span>
+                        {pregunta.criterio && (
+                          <small>Criterio: {pregunta.criterio}</small>
+                        )}
+                        <textarea
+                          value={respuestasEvaluacion[pregunta.id] || ''}
+                          onChange={(event) =>
+                            setRespuestasEvaluacion((prev) => ({
+                              ...prev,
+                              [pregunta.id]: event.target.value,
+                            }))
+                          }
+                          rows={5}
+                          maxLength={1600}
+                        />
+                      </label>
+                    ),
+                  )}
                 </div>
-              </div>
 
-              <div className="adaptativo-question-list adaptativo-question-list-modal">
-                {obtenerPreguntasEvaluacion(asignacionSeleccionada).map((pregunta) => (
-                  <label key={pregunta.id} className="adaptativo-field">
-                    <span>{pregunta.pregunta}</span>
-                    {pregunta.criterio && <small>Criterio: {pregunta.criterio}</small>}
-                    <textarea
-                      value={respuestasEvaluacion[pregunta.id] || ''}
-                      onChange={(event) =>
-                        setRespuestasEvaluacion((prev) => ({
-                          ...prev,
-                          [pregunta.id]: event.target.value,
-                        }))
-                      }
-                      rows={5}
-                      maxLength={1600}
-                    />
-                  </label>
-                ))}
-              </div>
-
-              <div className="adaptativo-modal-actions">
-                <button
-                  type="submit"
-                  className="primary-button adaptativo-evaluacion-submit"
-                  disabled={Boolean(procesando)}
-                >
-                  Enviar evaluación
-                </button>
-              </div>
-            </form>
+                <div className="adaptativo-modal-actions">
+                  <button
+                    type="submit"
+                    className="primary-button adaptativo-evaluacion-submit"
+                    disabled={Boolean(procesando)}
+                  >
+                    Enviar evaluación
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
-        </div>
-      )}
-
+        )}
     </div>
   );
 }

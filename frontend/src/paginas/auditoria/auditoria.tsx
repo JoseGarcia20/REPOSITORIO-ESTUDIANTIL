@@ -6,6 +6,7 @@ import {
   descargarExcelAuditoria,
   obtenerUsuarioAutenticado,
 } from '../../api/adminApi';
+import { PantallaCarga } from '../../componentes/carga/pantallaCarga';
 import type {
   AuditoriaLogItem,
   ConsultaPaginada,
@@ -73,7 +74,10 @@ function extraerDetalle(detalles: Record<string, unknown> | null): string {
   if (detalles.correo) partes.push(String(detalles.correo));
   if (detalles.codigo) partes.push(String(detalles.codigo));
 
-  if (detalles.camposActualizados && Array.isArray(detalles.camposActualizados)) {
+  if (
+    detalles.camposActualizados &&
+    Array.isArray(detalles.camposActualizados)
+  ) {
     const campos = (detalles.camposActualizados as string[])
       .filter((c: string) => !['updatedAt', 'id'].includes(c))
       .map((c: string) => {
@@ -118,14 +122,24 @@ function extraerDetalle(detalles: Record<string, unknown> | null): string {
   }
 
   if (detalles.cambiosSensibles) {
-    const cambios = detalles.cambiosSensibles as Record<string, { anterior: unknown; nuevo: unknown }>;
+    const cambios = detalles.cambiosSensibles as Record<
+      string,
+      { anterior: unknown; nuevo: unknown }
+    >;
     for (const [campo, cambio] of Object.entries(cambios)) {
-      if (campo === 'rolId') partes.push(`Rol: ${String(cambio.anterior)} → ${String(cambio.nuevo)}`);
-      else if (campo === 'institucionId') partes.push(`Institución ID: ${String(cambio.anterior)} → ${String(cambio.nuevo)}`);
+      if (campo === 'rolId')
+        partes.push(
+          `Rol: ${String(cambio.anterior)} → ${String(cambio.nuevo)}`,
+        );
+      else if (campo === 'institucionId')
+        partes.push(
+          `Institución ID: ${String(cambio.anterior)} → ${String(cambio.nuevo)}`,
+        );
     }
   }
 
-  if (detalles.tipoMaterial) partes.push(`Tipo: ${String(detalles.tipoMaterial)}`);
+  if (detalles.tipoMaterial)
+    partes.push(`Tipo: ${String(detalles.tipoMaterial)}`);
   if (detalles.calificacion !== undefined && detalles.calificacion !== null) {
     partes.push(`Calificación: ${String(detalles.calificacion)}`);
   }
@@ -152,10 +166,11 @@ export function Auditoria() {
     try {
       setCargando(true);
       setError('');
-      const query: ConsultaPaginada & { entidad?: string; entidadId?: string } = {
-        pagina,
-        limite: 20,
-      };
+      const query: ConsultaPaginada & { entidad?: string; entidadId?: string } =
+        {
+          pagina,
+          limite: 20,
+        };
       if (entidadFiltro) query.entidad = entidadFiltro;
       if (entidadIdFiltro) query.entidadId = entidadIdFiltro;
       const respuesta = await obtenerAuditoriaLogs(query);
@@ -163,13 +178,17 @@ export function Auditoria() {
       setTotal(respuesta.total);
       setTotalPaginas(respuesta.totalPaginas);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Error al cargar auditoría');
+      setError(
+        err instanceof Error ? err.message : 'Error al cargar auditoría',
+      );
     } finally {
       setCargando(false);
     }
   }
 
-  function manejarFiltro(event: ChangeEvent<HTMLSelectElement | HTMLInputElement>) {
+  function manejarFiltro(
+    event: ChangeEvent<HTMLSelectElement | HTMLInputElement>,
+  ) {
     const { name, value } = event.target;
     if (name === 'entidad') setEntidadFiltro(value as EntidadAuditoria);
     if (name === 'entidadId') setEntidadIdFiltro(value);
@@ -239,7 +258,13 @@ export function Auditoria() {
           </button>
         </form>
 
-        {cargando && <p className="state-message">Cargando registros...</p>}
+        {cargando && (
+          <PantallaCarga
+            modo="panel"
+            mensaje="Cargando auditoría"
+            detalle="Estamos preparando los registros recientes."
+          />
+        )}
         {error && <p className="state-message error">{error}</p>}
 
         {!cargando && !error && (
@@ -261,24 +286,33 @@ export function Auditoria() {
                 {logs.length === 0 ? (
                   <tr>
                     <td colSpan={8} className="empty-table">
-                      No hay registros de auditoría para los filtros seleccionados.
+                      No hay registros de auditoría para los filtros
+                      seleccionados.
                     </td>
                   </tr>
                 ) : (
                   logs.map((log) => (
                     <tr key={log.id}>
                       <td data-label="ID">{log.id}</td>
-                      <td data-label="Entidad">{etiquetarEntidad(log.entidad)}</td>
+                      <td data-label="Entidad">
+                        {etiquetarEntidad(log.entidad)}
+                      </td>
                       <td data-label="Acción">{etiquetarAccion(log.accion)}</td>
                       <td data-label="Usuario">
                         {log.usuario.nombres} {log.usuario.apellidos}
                         <br />
                         <small>{log.usuario.correo}</small>
                       </td>
-                      <td data-label="Institución">{log.institucion?.nombre || '-'}</td>
-                      <td data-label="Detalle">{extraerDetalle(log.detalles)}</td>
+                      <td data-label="Institución">
+                        {log.institucion?.nombre || '-'}
+                      </td>
+                      <td data-label="Detalle">
+                        {extraerDetalle(log.detalles)}
+                      </td>
                       <td data-label="IP">{log.direccionIp || '-'}</td>
-                      <td data-label="Fecha">{formatearFecha(log.createdAt)}</td>
+                      <td data-label="Fecha">
+                        {formatearFecha(log.createdAt)}
+                      </td>
                     </tr>
                   ))
                 )}
@@ -300,7 +334,9 @@ export function Auditoria() {
                   </button>
                   <button
                     className="secondary-button"
-                    onClick={() => setPagina((prev) => Math.min(prev + 1, totalPaginas))}
+                    onClick={() =>
+                      setPagina((prev) => Math.min(prev + 1, totalPaginas))
+                    }
                     disabled={pagina >= totalPaginas}
                   >
                     Siguiente
@@ -337,7 +373,10 @@ export function Auditoria() {
             <span>{usuario?.institucion?.nombre || 'NEXORA AI'}</span>
             <h2>Auditoría del Sistema</h2>
             <p>
-              Registro de acciones realizadas en la plataforma · {entidadFiltro ? etiquetarEntidad(entidadFiltro) : 'Todas las entidades'}
+              Registro de acciones realizadas en la plataforma ·{' '}
+              {entidadFiltro
+                ? etiquetarEntidad(entidadFiltro)
+                : 'Todas las entidades'}
               {entidadIdFiltro ? ` · ID: ${entidadIdFiltro}` : ''}
             </p>
           </div>
@@ -348,7 +387,9 @@ export function Auditoria() {
             </div>
             <div>
               <dt>Responsable</dt>
-              <dd>{usuario?.nombres} {usuario?.apellidos}</dd>
+              <dd>
+                {usuario?.nombres} {usuario?.apellidos}
+              </dd>
             </div>
             <div>
               <dt>Registros</dt>

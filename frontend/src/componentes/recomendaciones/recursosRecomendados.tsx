@@ -6,6 +6,7 @@ import {
   usuarioTienePermiso,
 } from '../../api/adminApi';
 import type { RecursoAsistente } from '../../api/adminApi';
+import { PantallaCarga } from '../carga/pantallaCarga';
 import './recursosRecomendados.css';
 
 type RecursosRecomendadosProps = {
@@ -109,7 +110,11 @@ export function RecursosRecomendados({
       </div>
 
       {cargando && (
-        <p className="recommended-state">Buscando recursos relacionados...</p>
+        <PantallaCarga
+          modo="compacto"
+          mensaje="Buscando recursos"
+          detalle="Estamos encontrando sugerencias relacionadas."
+        />
       )}
 
       {!cargando && error && <p className="recommended-state error">{error}</p>}

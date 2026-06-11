@@ -11,6 +11,7 @@ import {
   obtenerUsuarioAutenticado,
 } from '../../api/adminApi';
 import { CalificacionIa } from '../../componentes/ia/calificacionIa';
+import { PantallaCarga } from '../../componentes/carga/pantallaCarga';
 import type {
   CatalogosPreparadorIa,
   ExtensionMaterialIa,
@@ -898,9 +899,11 @@ export function PreparadorIa() {
               )}
 
               {cargandoRecursos ? (
-                <p className="state-message">
-                  Cargando recursos del repositorio...
-                </p>
+                <PantallaCarga
+                  modo="compacto"
+                  mensaje="Cargando recursos"
+                  detalle="Estamos consultando el repositorio disponible."
+                />
               ) : (
                 <div className="table-responsive">
                   <table className="data-table ai-resource-table">

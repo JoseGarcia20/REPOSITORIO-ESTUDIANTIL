@@ -6,6 +6,7 @@ import {
   obtenerCatalogosAprendizajeAdaptativo,
 } from '../../api/adminApi';
 import type { CatalogosAprendizajeAdaptativo } from '../../api/adminApi';
+import { PantallaCarga } from '../../componentes/carga/pantallaCarga';
 import '../aprendizajeAdaptativo/aprendizajeAdaptativo.css';
 
 type FormularioTipo = {
@@ -209,7 +210,13 @@ export function RutasAprendizajeAdmin() {
               onChange={(event) => setBusqueda(event.target.value)}
               placeholder="Buscar perfil o estrategia"
             />
-            {cargando && <p className="state-message">Cargando tipos...</p>}
+            {cargando && (
+              <PantallaCarga
+                modo="panel"
+                mensaje="Cargando perfiles"
+                detalle="Estamos preparando los tipos de aprendizaje."
+              />
+            )}
             {!cargando && (
               <div className="adaptativo-type-list">
                 {tiposFiltrados.map((tipo) => (

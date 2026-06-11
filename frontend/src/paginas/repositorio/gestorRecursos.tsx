@@ -13,6 +13,7 @@ import {
   usuarioTienePermiso,
 } from '../../api/adminApi';
 import { CalificacionIa } from '../../componentes/ia/calificacionIa';
+import { PantallaCarga } from '../../componentes/carga/pantallaCarga';
 import type {
   GradoEscolar,
   Recurso,
@@ -670,7 +671,13 @@ export function GestorRecursos() {
         </button>
       </div>
 
-      {cargando && <p className="state-message">Cargando recursos...</p>}
+      {cargando && (
+        <PantallaCarga
+          modo="panel"
+          mensaje="Cargando repositorio"
+          detalle="Estamos preparando los recursos disponibles."
+        />
+      )}
       {error && <p className="state-message error">{error}</p>}
 
       {!cargando && !error && recursos.length === 0 && (
@@ -966,13 +973,11 @@ export function GestorRecursos() {
                         entidadId={recursoResumenIa.id}
                         metadata={{
                           titulo: recursoResumenIa.titulo,
-                          proveedor:
-                            resumenesIa[recursoResumenIa.id].proveedor,
+                          proveedor: resumenesIa[recursoResumenIa.id].proveedor,
                           modelo: resumenesIa[recursoResumenIa.id].modelo,
                           desdeCache:
                             resumenesIa[recursoResumenIa.id].desdeCache,
-                          extension:
-                            resumenesIa[recursoResumenIa.id].extension,
+                          extension: resumenesIa[recursoResumenIa.id].extension,
                         }}
                       />
                     )}

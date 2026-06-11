@@ -25,6 +25,7 @@ import type {
   RecursoAsistente,
 } from '../../api/adminApi';
 import { RecursosRecomendados } from '../../componentes/recomendaciones/recursosRecomendados';
+import { PantallaCarga } from '../../componentes/carga/pantallaCarga';
 import './foros.css';
 
 type FormularioForo = {
@@ -763,7 +764,11 @@ export function Foros() {
         </div>
 
         {(cargando || cargandoCatalogos) && (
-          <p className="state-message">Cargando foros...</p>
+          <PantallaCarga
+            modo="panel"
+            mensaje="Cargando foros"
+            detalle="Estamos consultando la conversación académica."
+          />
         )}
         {error && <p className="state-message error">{error}</p>}
 

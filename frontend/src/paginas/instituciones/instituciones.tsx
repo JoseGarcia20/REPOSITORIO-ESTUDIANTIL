@@ -1,6 +1,15 @@
 import { useEffect, useState } from 'react';
-import { crearInstitucion, obtenerTodasInstituciones, actualizarInstitucion, inactivarInstitucion, reactivarInstitucion, subirLogoInstitucion, construirUrlArchivoProtegido } from '../../api/api';
-import { departamentosColombia } from '../../data/colombia'
+import {
+  crearInstitucion,
+  obtenerTodasInstituciones,
+  actualizarInstitucion,
+  inactivarInstitucion,
+  reactivarInstitucion,
+  subirLogoInstitucion,
+  construirUrlArchivoProtegido,
+} from '../../api/api';
+import { departamentosColombia } from '../../data/colombia';
+import { PantallaCarga } from '../../componentes/carga/pantallaCarga';
 import './instituciones.css';
 
 type Institucion = {
@@ -50,16 +59,18 @@ export function Instituciones() {
   const [error, setError] = useState('');
   const [modalAbierto, setModalAbierto] = useState(false);
   const [guardando, setGuardando] = useState(false);
-  const [formulario, setFormulario] = useState<FormularioInstitucion>(formularioInicial);
+  const [formulario, setFormulario] =
+    useState<FormularioInstitucion>(formularioInicial);
   const [ciudadesDisponibles, setCiudadesDisponibles] = useState<string[]>([]);
   const [modoEdicion, setModoEdicion] = useState(false);
-  const [institucionEditandoId, setInstitucionEditandoId] = useState<number | null>(null);
+  const [institucionEditandoId, setInstitucionEditandoId] = useState<
+    number | null
+  >(null);
   const [subiendoLogo, setSubiendoLogo] = useState(false);
 
   useEffect(() => {
     cargarInstituciones();
   }, []);
-
 
   async function cargarInstituciones() {
     try {
@@ -87,7 +98,7 @@ export function Instituciones() {
     }
   }
 
-    function editarInstitucion(institucion: Institucion) {
+  function editarInstitucion(institucion: Institucion) {
     const departamentoSeleccionado = departamentosColombia.find(
       (item) => item.nombre === institucion.departamento,
     );
@@ -108,9 +119,7 @@ export function Instituciones() {
       logo: institucion.logo || '',
     });
 
-    setCiudadesDisponibles(
-      departamentoSeleccionado?.municipios || [],
-    );
+    setCiudadesDisponibles(departamentoSeleccionado?.municipios || []);
 
     setModalAbierto(true);
   }
@@ -125,9 +134,7 @@ export function Instituciones() {
         (item) => item.nombre === value,
       );
 
-      setCiudadesDisponibles(
-        departamentoSeleccionado?.municipios || [],
-      );
+      setCiudadesDisponibles(departamentoSeleccionado?.municipios || []);
 
       setFormulario((prev) => ({
         ...prev,
@@ -144,26 +151,17 @@ export function Instituciones() {
     }));
   }
 
-  async function manejarLogo(
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) {
-    
+  async function manejarLogo(event: React.ChangeEvent<HTMLInputElement>) {
     const archivo = event.target.files?.[0];
 
     if (!archivo) {
       return;
     }
 
-    const extensionesPermitidas = [
-      'image/png',
-      'image/jpeg',
-      'image/webp',
-    ];
+    const extensionesPermitidas = ['image/png', 'image/jpeg', 'image/webp'];
 
     if (!extensionesPermitidas.includes(archivo.type)) {
-      alert(
-        'Solo se permiten imágenes PNG, JPG, JPEG o WEBP.',
-      );
+      alert('Solo se permiten imágenes PNG, JPG, JPEG o WEBP.');
       return;
     }
 
@@ -174,9 +172,7 @@ export function Instituciones() {
     try {
       setSubiendoLogo(true);
 
-      const respuesta = await subirLogoInstitucion(
-        archivo,
-      );
+      const respuesta = await subirLogoInstitucion(archivo);
 
       setFormulario((prev) => ({
         ...prev,
@@ -189,9 +185,7 @@ export function Instituciones() {
     }
   }
 
-  async function guardarInstitucion(
-    event: React.FormEvent<HTMLFormElement>,
-  ) {
+  async function guardarInstitucion(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     try {
@@ -204,10 +198,7 @@ export function Instituciones() {
       };
 
       if (modoEdicion && institucionEditandoId) {
-        await actualizarInstitucion(
-          institucionEditandoId,
-          payload,
-        );
+        await actualizarInstitucion(institucionEditandoId, payload);
       } else {
         await crearInstitucion(payload);
       }
@@ -225,9 +216,7 @@ export function Instituciones() {
     }
   }
 
-  async function cambiarEstadoInstitucion(
-    institucion: Institucion,
-  ) {
+  async function cambiarEstadoInstitucion(institucion: Institucion) {
     const mensaje = institucion.estado
       ? '¿Deseas inactivar esta institución?'
       : '¿Deseas reactivar esta institución?';
@@ -251,9 +240,6 @@ export function Instituciones() {
     }
   }
 
-
-
-
   return (
     <section className="instituciones-page">
       <div className="instituciones-header">
@@ -269,7 +255,13 @@ export function Instituciones() {
       </div>
 
       <div className="instituciones-card">
-        {cargando && <p className="state-message">Cargando instituciones...</p>}
+        {cargando && (
+          <PantallaCarga
+            modo="panel"
+            mensaje="Cargando instituciones"
+            detalle="Estamos consultando las instituciones registradas."
+          />
+        )}
         {error && <p className="state-message error">{error}</p>}
 
         {!cargando && !error && (
@@ -292,7 +284,9 @@ export function Instituciones() {
                 {instituciones.map((institucion) => (
                   <tr key={institucion.id}>
                     <td data-label="Nombre">
-                      <span className="institution-name">{institucion.nombre}</span>
+                      <span className="institution-name">
+                        {institucion.nombre}
+                      </span>
                     </td>
                     <td data-label="Código">{institucion.codigo}</td>
                     <td data-label="NIT">{institucion.nit}</td>
@@ -311,7 +305,6 @@ export function Instituciones() {
                     </td>
                     <td data-label="Acciones">
                       <div className="actions">
-
                         <button
                           title="Editar"
                           aria-label="Editar"
@@ -323,12 +316,13 @@ export function Instituciones() {
                         <button
                           className={institucion.estado ? 'danger' : 'success'}
                           title={institucion.estado ? 'Inactivar' : 'Reactivar'}
-                          aria-label={institucion.estado ? 'Inactivar' : 'Reactivar'}
+                          aria-label={
+                            institucion.estado ? 'Inactivar' : 'Reactivar'
+                          }
                           onClick={() => cambiarEstadoInstitucion(institucion)}
                         >
                           {institucion.estado ? '⊘' : '↻'}
                         </button>
-
                       </div>
                     </td>
                   </tr>
@@ -363,7 +357,6 @@ export function Instituciones() {
                     ? 'Actualiza la información del colegio.'
                     : 'Registra la información básica del colegio.'}
                 </p>
-
               </div>
 
               <button className="modal-close" onClick={cerrarModal}>
@@ -375,33 +368,63 @@ export function Instituciones() {
               <div className="form-grid">
                 <div className="form-group">
                   <label>Nombre</label>
-                  <input name="nombre" value={formulario.nombre} onChange={manejarCambio} required />
+                  <input
+                    name="nombre"
+                    value={formulario.nombre}
+                    onChange={manejarCambio}
+                    required
+                  />
                 </div>
-             
 
                 <div className="form-group">
                   <label>Código</label>
-                  <input name="codigo" value={formulario.codigo} onChange={manejarCambio} required />
+                  <input
+                    name="codigo"
+                    value={formulario.codigo}
+                    onChange={manejarCambio}
+                    required
+                  />
                 </div>
 
                 <div className="form-group">
                   <label>NIT</label>
-                  <input name="nit" value={formulario.nit} onChange={manejarCambio} required />
+                  <input
+                    name="nit"
+                    value={formulario.nit}
+                    onChange={manejarCambio}
+                    required
+                  />
                 </div>
 
                 <div className="form-group">
                   <label>Correo</label>
-                  <input type="email" name="correo" value={formulario.correo} onChange={manejarCambio} required />
+                  <input
+                    type="email"
+                    name="correo"
+                    value={formulario.correo}
+                    onChange={manejarCambio}
+                    required
+                  />
                 </div>
 
                 <div className="form-group">
                   <label>Teléfono</label>
-                  <input name="telefono" value={formulario.telefono} onChange={manejarCambio} required />
+                  <input
+                    name="telefono"
+                    value={formulario.telefono}
+                    onChange={manejarCambio}
+                    required
+                  />
                 </div>
 
                 <div className="form-group">
                   <label>Dirección</label>
-                  <input name="direccion" value={formulario.direccion} onChange={manejarCambio} required />
+                  <input
+                    name="direccion"
+                    value={formulario.direccion}
+                    onChange={manejarCambio}
+                    required
+                  />
                 </div>
 
                 <div className="form-group">
@@ -452,7 +475,11 @@ export function Instituciones() {
 
                 <div className="form-group">
                   <label>Sitio web</label>
-                  <input name="sitioWeb" value={formulario.sitioWeb} onChange={manejarCambio} />
+                  <input
+                    name="sitioWeb"
+                    value={formulario.sitioWeb}
+                    onChange={manejarCambio}
+                  />
                 </div>
 
                 <div className="form-group form-group-full">
@@ -465,9 +492,7 @@ export function Instituciones() {
                   />
 
                   {subiendoLogo && (
-                    <small className="upload-state">
-                      Subiendo logo...
-                    </small>
+                    <small className="upload-state">Subiendo logo...</small>
                   )}
 
                   {formulario.logo && (
@@ -482,18 +507,25 @@ export function Instituciones() {
               </div>
 
               <div className="modal-actions">
-                <button type="button" className="secondary-button" onClick={cerrarModal}>
+                <button
+                  type="button"
+                  className="secondary-button"
+                  onClick={cerrarModal}
+                >
                   Cancelar
                 </button>
 
-                <button type="submit" className="primary-button" disabled={guardando}>
+                <button
+                  type="submit"
+                  className="primary-button"
+                  disabled={guardando}
+                >
                   {guardando
                     ? 'Guardando...'
                     : modoEdicion
-                    ? 'Guardar cambios'
-                    : 'Guardar institución'}
+                      ? 'Guardar cambios'
+                      : 'Guardar institución'}
                 </button>
-
               </div>
             </form>
           </div>

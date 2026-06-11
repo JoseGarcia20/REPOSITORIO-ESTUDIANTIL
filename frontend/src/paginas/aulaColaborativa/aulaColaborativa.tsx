@@ -24,6 +24,7 @@ import type {
   RolProyectoAula,
 } from '../../api/adminApi';
 import { RecursosRecomendados } from '../../componentes/recomendaciones/recursosRecomendados';
+import { PantallaCarga } from '../../componentes/carga/pantallaCarga';
 import './aulaColaborativa.css';
 
 type FormularioProyecto = {
@@ -771,7 +772,13 @@ export function AulaColaborativa() {
 
       <div className="aula-shell">
         <aside className="aula-project-list">
-          {cargando && <p className="state-message">Cargando proyectos...</p>}
+          {cargando && (
+            <PantallaCarga
+              modo="panel"
+              mensaje="Cargando proyectos"
+              detalle="Estamos preparando el aula colaborativa."
+            />
+          )}
 
           {!cargando &&
             proyectos.map((proyecto) => (
@@ -844,7 +851,11 @@ export function AulaColaborativa() {
 
         <section className="aula-detail">
           {cargandoDetalle && (
-            <p className="state-message">Cargando detalle del proyecto...</p>
+            <PantallaCarga
+              modo="panel"
+              mensaje="Cargando proyecto"
+              detalle="Estamos preparando el detalle colaborativo."
+            />
           )}
 
           {!cargandoDetalle && proyectoSeleccionado && (
@@ -1182,7 +1193,11 @@ export function AulaColaborativa() {
             className={`modal-container aula-view-modal aula-view-modal-${vistaProyecto}`}
           >
             {cargandoDetalle && (
-              <p className="state-message">Cargando detalle del proyecto...</p>
+              <PantallaCarga
+                modo="panel"
+                mensaje="Cargando proyecto"
+                detalle="Estamos preparando el detalle colaborativo."
+              />
             )}
 
             {!cargandoDetalle && proyectoSeleccionado && (

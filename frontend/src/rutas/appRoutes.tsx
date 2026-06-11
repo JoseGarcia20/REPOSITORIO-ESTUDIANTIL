@@ -6,6 +6,7 @@ import {
   PERMISOS,
   usuarioTienePermiso,
 } from '../api/adminApi';
+import { PantallaCarga } from '../componentes/carga/pantallaCarga';
 
 const Login = lazy(() =>
   import('../paginas/login/login').then((modulo) => ({
@@ -102,24 +103,6 @@ const Auditoria = lazy(() =>
   })),
 );
 
-function CargandoRuta() {
-  return (
-    <div
-      style={{
-        alignItems: 'center',
-        background: '#f5f6fb',
-        color: '#070738',
-        display: 'flex',
-        fontWeight: 900,
-        justifyContent: 'center',
-        minHeight: '100vh',
-      }}
-    >
-      Cargando...
-    </div>
-  );
-}
-
 function RutaProtegidaPorPermiso({
   permiso,
   permisos,
@@ -149,7 +132,14 @@ export function AppRoutes() {
   if (!token)
     return (
       <BrowserRouter>
-        <Suspense fallback={<CargandoRuta />}>
+        <Suspense
+          fallback={
+            <PantallaCarga
+              mensaje="Cargando acceso"
+              detalle="Estamos preparando el ingreso a NEXORA AI."
+            />
+          }
+        >
           <Routes>
             <Route path="/" element={<Navigate to="/login" replace />} />
             <Route path="/login" element={<Login />} />
@@ -166,7 +156,14 @@ export function AppRoutes() {
 
   return (
     <BrowserRouter>
-      <Suspense fallback={<CargandoRuta />}>
+      <Suspense
+        fallback={
+          <PantallaCarga
+            mensaje="Cargando módulo"
+            detalle="Estamos preparando la información solicitada."
+          />
+        }
+      >
         <Routes>
           <Route path="/login" element={<Navigate to="/inicio" replace />} />
           <Route

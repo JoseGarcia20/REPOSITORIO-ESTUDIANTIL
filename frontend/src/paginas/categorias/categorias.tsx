@@ -11,6 +11,7 @@ import {
   reactivarCategoria,
 } from '../../api/adminApi';
 import type { Categoria, InstitucionCatalogo } from '../../api/adminApi';
+import { PantallaCarga } from '../../componentes/carga/pantallaCarga';
 import './categorias.css';
 
 type FormularioCategoria = {
@@ -54,7 +55,10 @@ export function Categorias() {
   const institucionesPorId = useMemo(
     () =>
       new Map(
-        instituciones.map((institucion) => [institucion.id, institucion.nombre]),
+        instituciones.map((institucion) => [
+          institucion.id,
+          institucion.nombre,
+        ]),
       ),
     [instituciones],
   );
@@ -108,7 +112,9 @@ export function Categorias() {
   }
 
   function manejarCambio(
-    event: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
+    event: ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >,
   ) {
     const { name, value } = event.target;
     setFormulario((prev) => ({ ...prev, [name]: value }));
@@ -124,9 +130,7 @@ export function Categorias() {
         nombre: formulario.nombre,
         descripcion: formulario.descripcion,
         color: formulario.color,
-        ...(esSuper
-          ? { institucionId: Number(formulario.institucionId) }
-          : {}),
+        ...(esSuper ? { institucionId: Number(formulario.institucionId) } : {}),
       };
 
       if (modoEdicion && categoriaEditandoId) {
@@ -187,7 +191,13 @@ export function Categorias() {
       </div>
 
       <div className="instituciones-card">
-        {cargando && <p className="state-message">Cargando categorías...</p>}
+        {cargando && (
+          <PantallaCarga
+            modo="panel"
+            mensaje="Cargando categorías"
+            detalle="Estamos organizando el catálogo académico."
+          />
+        )}
         {error && <p className="state-message error">{error}</p>}
 
         {!cargando && !error && (
@@ -208,14 +218,18 @@ export function Categorias() {
                 {categorias.map((categoria) => (
                   <tr key={categoria.id}>
                     <td data-label="Nombre">
-                      <span className="institution-name">{categoria.nombre}</span>
+                      <span className="institution-name">
+                        {categoria.nombre}
+                      </span>
                     </td>
                     <td data-label="Descripción">{categoria.descripcion}</td>
                     <td data-label="Color">
                       <span className="color-cell">
                         <span
                           className="color-swatch"
-                          style={{ backgroundColor: categoria.color || '#e4e7f3' }}
+                          style={{
+                            backgroundColor: categoria.color || '#e4e7f3',
+                          }}
                         />
                         {categoria.color || 'Sin color'}
                       </span>
@@ -247,7 +261,9 @@ export function Categorias() {
                         <button
                           className={categoria.estado ? 'danger' : 'success'}
                           title={categoria.estado ? 'Inactivar' : 'Reactivar'}
-                          aria-label={categoria.estado ? 'Inactivar' : 'Reactivar'}
+                          aria-label={
+                            categoria.estado ? 'Inactivar' : 'Reactivar'
+                          }
                           onClick={() => cambiarEstadoCategoria(categoria)}
                         >
                           {categoria.estado ? '⊘' : '↻'}
