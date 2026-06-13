@@ -81,7 +81,9 @@ export const ModelName = {
   AsignacionRutaAprendizaje: 'AsignacionRutaAprendizaje',
   DiagnosticoAprendizaje: 'DiagnosticoAprendizaje',
   DetalleDiagnosticoAprendizaje: 'DetalleDiagnosticoAprendizaje',
-  AsignacionAprendizajeAdaptativo: 'AsignacionAprendizajeAdaptativo'
+  AsignacionAprendizajeAdaptativo: 'AsignacionAprendizajeAdaptativo',
+  ConversacionChat: 'ConversacionChat',
+  InteresUsuario: 'InteresUsuario'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -584,6 +586,32 @@ export const AsignacionAprendizajeAdaptativoScalarFieldEnum = {
 } as const
 
 export type AsignacionAprendizajeAdaptativoScalarFieldEnum = (typeof AsignacionAprendizajeAdaptativoScalarFieldEnum)[keyof typeof AsignacionAprendizajeAdaptativoScalarFieldEnum]
+
+
+export const ConversacionChatScalarFieldEnum = {
+  id: 'id',
+  usuarioId: 'usuarioId',
+  institucionId: 'institucionId',
+  titulo: 'titulo',
+  resumen: 'resumen',
+  temas: 'temas',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ConversacionChatScalarFieldEnum = (typeof ConversacionChatScalarFieldEnum)[keyof typeof ConversacionChatScalarFieldEnum]
+
+
+export const InteresUsuarioScalarFieldEnum = {
+  id: 'id',
+  usuarioId: 'usuarioId',
+  tema: 'tema',
+  peso: 'peso',
+  ultimaConsulta: 'ultimaConsulta',
+  createdAt: 'createdAt'
+} as const
+
+export type InteresUsuarioScalarFieldEnum = (typeof InteresUsuarioScalarFieldEnum)[keyof typeof InteresUsuarioScalarFieldEnum]
 
 
 export const SortOrder = {

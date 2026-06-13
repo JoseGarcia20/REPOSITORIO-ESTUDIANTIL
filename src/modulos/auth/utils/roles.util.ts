@@ -57,6 +57,7 @@ export const PERMISOS = {
 export type CodigoPermiso = (typeof PERMISOS)[keyof typeof PERMISOS];
 
 export type UsuarioAuthConPermisos = {
+  id?: number;
   sub?: number;
   rolId?: number;
   rol?: string;

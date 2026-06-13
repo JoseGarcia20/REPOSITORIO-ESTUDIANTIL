@@ -471,10 +471,36 @@ export type RecursoAsistente = {
   rutaRepositorio: string;
 };
 
+export type FuenteWebAsistente = {
+  titulo: string;
+  enlace: string;
+  resumen: string;
+  fuente: string | null;
+};
+
 export type RespuestaAsistente = {
   mensaje: string;
   busquedaSugerida: string;
   recursos: RecursoAsistente[];
+  fuentesWeb?: FuenteWebAsistente[];
+  conversacionId: number | null;
+  temas: string[];
+};
+
+export type ConversacionChatDTO = {
+  id: number;
+  titulo: string | null;
+  resumen: string | null;
+  temas: string[] | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type InteresUsuarioDTO = {
+  id: number;
+  tema: string;
+  peso: number;
+  ultimaConsulta: string;
 };
 
 export type RespuestaRecomendacionesRecursos = {
@@ -1154,6 +1180,15 @@ async function patchJson<T>(
   return procesarRespuesta<T>(respuesta, mensajeError);
 }
 
+async function del<T>(path: string, mensajeError: string): Promise<T> {
+  const respuesta = await fetch(`${API_URL}${path}`, {
+    method: 'DELETE',
+    headers: construirHeadersAutorizados(false),
+  });
+
+  return procesarRespuesta<T>(respuesta, mensajeError);
+}
+
 function cambiarEstado<T>(
   path: string,
   id: number,
@@ -1522,11 +1557,43 @@ export async function generarResumenIaRecursoStream(
   }
 }
 
-export function consultarAsistente(pregunta: string) {
+export function consultarAsistente(
+  pregunta: string,
+  conversacionId?: number | null,
+  historial?: { rol: 'usuario' | 'asistente'; contenido: string }[],
+) {
   return post<RespuestaAsistente>(
     '/asistente/chat',
-    { pregunta },
+    { pregunta, conversacionId, historial },
     'Error al consultar el asistente',
+  );
+}
+
+export function listarConversaciones() {
+  return get<ConversacionChatDTO[]>(
+    '/asistente/conversaciones',
+    'Error al listar conversaciones',
+  );
+}
+
+export function obtenerConversacion(id: number) {
+  return get<ConversacionChatDTO>(
+    `/asistente/conversaciones/${id}`,
+    'Error al obtener la conversación',
+  );
+}
+
+export function eliminarConversacion(id: number) {
+  return del<void>(
+    `/asistente/conversaciones/${id}`,
+    'Error al eliminar la conversación',
+  );
+}
+
+export function listarInteresesUsuario() {
+  return get<InteresUsuarioDTO[]>(
+    '/asistente/intereses',
+    'Error al obtener intereses',
   );
 }
 

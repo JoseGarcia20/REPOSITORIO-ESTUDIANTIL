@@ -414,7 +414,9 @@ export const ModelName = {
   AsignacionRutaAprendizaje: 'AsignacionRutaAprendizaje',
   DiagnosticoAprendizaje: 'DiagnosticoAprendizaje',
   DetalleDiagnosticoAprendizaje: 'DetalleDiagnosticoAprendizaje',
-  AsignacionAprendizajeAdaptativo: 'AsignacionAprendizajeAdaptativo'
+  AsignacionAprendizajeAdaptativo: 'AsignacionAprendizajeAdaptativo',
+  ConversacionChat: 'ConversacionChat',
+  InteresUsuario: 'InteresUsuario'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -430,7 +432,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "institucion" | "rol" | "permiso" | "rolPermiso" | "usuario" | "gradoEscolar" | "categoria" | "foro" | "foroCategoria" | "comentarioForo" | "tipoRecurso" | "recurso" | "resumenIaRecurso" | "calificacionUsoIa" | "comentarioForoRecurso" | "proyectoColaborativo" | "proyectoColaborativoIntegrante" | "proyectoColaborativoActividad" | "proyectoColaborativoEvidencia" | "proyectoColaborativoEntrega" | "auditoriaLog" | "calificacionRecurso" | "tipoAprendizaje" | "estrategiaAprendizaje" | "tipoAprendizajeEstrategia" | "rutaAprendizaje" | "detalleRutaAprendizaje" | "asignacionRutaAprendizaje" | "diagnosticoAprendizaje" | "detalleDiagnosticoAprendizaje" | "asignacionAprendizajeAdaptativo"
+    modelProps: "institucion" | "rol" | "permiso" | "rolPermiso" | "usuario" | "gradoEscolar" | "categoria" | "foro" | "foroCategoria" | "comentarioForo" | "tipoRecurso" | "recurso" | "resumenIaRecurso" | "calificacionUsoIa" | "comentarioForoRecurso" | "proyectoColaborativo" | "proyectoColaborativoIntegrante" | "proyectoColaborativoActividad" | "proyectoColaborativoEvidencia" | "proyectoColaborativoEntrega" | "auditoriaLog" | "calificacionRecurso" | "tipoAprendizaje" | "estrategiaAprendizaje" | "tipoAprendizajeEstrategia" | "rutaAprendizaje" | "detalleRutaAprendizaje" | "asignacionRutaAprendizaje" | "diagnosticoAprendizaje" | "detalleDiagnosticoAprendizaje" | "asignacionAprendizajeAdaptativo" | "conversacionChat" | "interesUsuario"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2728,6 +2730,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    ConversacionChat: {
+      payload: Prisma.$ConversacionChatPayload<ExtArgs>
+      fields: Prisma.ConversacionChatFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ConversacionChatFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConversacionChatPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ConversacionChatFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConversacionChatPayload>
+        }
+        findFirst: {
+          args: Prisma.ConversacionChatFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConversacionChatPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ConversacionChatFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConversacionChatPayload>
+        }
+        findMany: {
+          args: Prisma.ConversacionChatFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConversacionChatPayload>[]
+        }
+        create: {
+          args: Prisma.ConversacionChatCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConversacionChatPayload>
+        }
+        createMany: {
+          args: Prisma.ConversacionChatCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ConversacionChatCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConversacionChatPayload>[]
+        }
+        delete: {
+          args: Prisma.ConversacionChatDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConversacionChatPayload>
+        }
+        update: {
+          args: Prisma.ConversacionChatUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConversacionChatPayload>
+        }
+        deleteMany: {
+          args: Prisma.ConversacionChatDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ConversacionChatUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ConversacionChatUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConversacionChatPayload>[]
+        }
+        upsert: {
+          args: Prisma.ConversacionChatUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ConversacionChatPayload>
+        }
+        aggregate: {
+          args: Prisma.ConversacionChatAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateConversacionChat>
+        }
+        groupBy: {
+          args: Prisma.ConversacionChatGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ConversacionChatGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ConversacionChatCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ConversacionChatCountAggregateOutputType> | number
+        }
+      }
+    }
+    InteresUsuario: {
+      payload: Prisma.$InteresUsuarioPayload<ExtArgs>
+      fields: Prisma.InteresUsuarioFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.InteresUsuarioFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InteresUsuarioPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.InteresUsuarioFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InteresUsuarioPayload>
+        }
+        findFirst: {
+          args: Prisma.InteresUsuarioFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InteresUsuarioPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.InteresUsuarioFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InteresUsuarioPayload>
+        }
+        findMany: {
+          args: Prisma.InteresUsuarioFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InteresUsuarioPayload>[]
+        }
+        create: {
+          args: Prisma.InteresUsuarioCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InteresUsuarioPayload>
+        }
+        createMany: {
+          args: Prisma.InteresUsuarioCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.InteresUsuarioCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InteresUsuarioPayload>[]
+        }
+        delete: {
+          args: Prisma.InteresUsuarioDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InteresUsuarioPayload>
+        }
+        update: {
+          args: Prisma.InteresUsuarioUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InteresUsuarioPayload>
+        }
+        deleteMany: {
+          args: Prisma.InteresUsuarioDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.InteresUsuarioUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.InteresUsuarioUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InteresUsuarioPayload>[]
+        }
+        upsert: {
+          args: Prisma.InteresUsuarioUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InteresUsuarioPayload>
+        }
+        aggregate: {
+          args: Prisma.InteresUsuarioAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateInteresUsuario>
+        }
+        groupBy: {
+          args: Prisma.InteresUsuarioGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.InteresUsuarioGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.InteresUsuarioCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.InteresUsuarioCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -3253,6 +3403,32 @@ export const AsignacionAprendizajeAdaptativoScalarFieldEnum = {
 export type AsignacionAprendizajeAdaptativoScalarFieldEnum = (typeof AsignacionAprendizajeAdaptativoScalarFieldEnum)[keyof typeof AsignacionAprendizajeAdaptativoScalarFieldEnum]
 
 
+export const ConversacionChatScalarFieldEnum = {
+  id: 'id',
+  usuarioId: 'usuarioId',
+  institucionId: 'institucionId',
+  titulo: 'titulo',
+  resumen: 'resumen',
+  temas: 'temas',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ConversacionChatScalarFieldEnum = (typeof ConversacionChatScalarFieldEnum)[keyof typeof ConversacionChatScalarFieldEnum]
+
+
+export const InteresUsuarioScalarFieldEnum = {
+  id: 'id',
+  usuarioId: 'usuarioId',
+  tema: 'tema',
+  peso: 'peso',
+  ultimaConsulta: 'ultimaConsulta',
+  createdAt: 'createdAt'
+} as const
+
+export type InteresUsuarioScalarFieldEnum = (typeof InteresUsuarioScalarFieldEnum)[keyof typeof InteresUsuarioScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -3531,6 +3707,8 @@ export type GlobalOmitConfig = {
   diagnosticoAprendizaje?: Prisma.DiagnosticoAprendizajeOmit
   detalleDiagnosticoAprendizaje?: Prisma.DetalleDiagnosticoAprendizajeOmit
   asignacionAprendizajeAdaptativo?: Prisma.AsignacionAprendizajeAdaptativoOmit
+  conversacionChat?: Prisma.ConversacionChatOmit
+  interesUsuario?: Prisma.InteresUsuarioOmit
 }
 
 /* Types for Logging */

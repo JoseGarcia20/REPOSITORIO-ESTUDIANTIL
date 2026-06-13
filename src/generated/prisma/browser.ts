@@ -172,3 +172,13 @@ export type DetalleDiagnosticoAprendizaje = Prisma.DetalleDiagnosticoAprendizaje
  * 
  */
 export type AsignacionAprendizajeAdaptativo = Prisma.AsignacionAprendizajeAdaptativoModel
+/**
+ * Model ConversacionChat
+ * 
+ */
+export type ConversacionChat = Prisma.ConversacionChatModel
+/**
+ * Model InteresUsuario
+ * 
+ */
+export type InteresUsuario = Prisma.InteresUsuarioModel

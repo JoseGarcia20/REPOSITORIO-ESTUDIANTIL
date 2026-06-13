@@ -330,6 +330,8 @@ export type UsuarioWhereInput = {
   auditoriaLogs?: Prisma.AuditoriaLogListRelationFilter
   calificacionesRecurso?: Prisma.CalificacionRecursoListRelationFilter
   calificacionesUsoIa?: Prisma.CalificacionUsoIaListRelationFilter
+  conversacionesChat?: Prisma.ConversacionChatListRelationFilter
+  interesesUsuario?: Prisma.InteresUsuarioListRelationFilter
   comentariosForo?: Prisma.ComentarioForoListRelationFilter
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeListRelationFilter
   foros?: Prisma.ForoListRelationFilter
@@ -369,6 +371,8 @@ export type UsuarioOrderByWithRelationInput = {
   auditoriaLogs?: Prisma.AuditoriaLogOrderByRelationAggregateInput
   calificacionesRecurso?: Prisma.CalificacionRecursoOrderByRelationAggregateInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaOrderByRelationAggregateInput
+  conversacionesChat?: Prisma.ConversacionChatOrderByRelationAggregateInput
+  interesesUsuario?: Prisma.InteresUsuarioOrderByRelationAggregateInput
   comentariosForo?: Prisma.ComentarioForoOrderByRelationAggregateInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeOrderByRelationAggregateInput
   foros?: Prisma.ForoOrderByRelationAggregateInput
@@ -411,6 +415,8 @@ export type UsuarioWhereUniqueInput = Prisma.AtLeast<{
   auditoriaLogs?: Prisma.AuditoriaLogListRelationFilter
   calificacionesRecurso?: Prisma.CalificacionRecursoListRelationFilter
   calificacionesUsoIa?: Prisma.CalificacionUsoIaListRelationFilter
+  conversacionesChat?: Prisma.ConversacionChatListRelationFilter
+  interesesUsuario?: Prisma.InteresUsuarioListRelationFilter
   comentariosForo?: Prisma.ComentarioForoListRelationFilter
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeListRelationFilter
   foros?: Prisma.ForoListRelationFilter
@@ -494,6 +500,8 @@ export type UsuarioCreateInput = {
   auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
   calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
+  conversacionesChat?: Prisma.ConversacionChatCreateNestedManyWithoutUsuarioInput
+  interesesUsuario?: Prisma.InteresUsuarioCreateNestedManyWithoutUsuarioInput
   comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
   foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
@@ -533,6 +541,8 @@ export type UsuarioUncheckedCreateInput = {
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutUsuarioInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutUsuarioInput
+  conversacionesChat?: Prisma.ConversacionChatUncheckedCreateNestedManyWithoutUsuarioInput
+  interesesUsuario?: Prisma.InteresUsuarioUncheckedCreateNestedManyWithoutUsuarioInput
   comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
   foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
@@ -565,6 +575,8 @@ export type UsuarioUpdateInput = {
   auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
+  conversacionesChat?: Prisma.ConversacionChatUpdateManyWithoutUsuarioNestedInput
+  interesesUsuario?: Prisma.InteresUsuarioUpdateManyWithoutUsuarioNestedInput
   comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
   foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
@@ -604,6 +616,8 @@ export type UsuarioUncheckedUpdateInput = {
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutUsuarioNestedInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutUsuarioNestedInput
+  conversacionesChat?: Prisma.ConversacionChatUncheckedUpdateManyWithoutUsuarioNestedInput
+  interesesUsuario?: Prisma.InteresUsuarioUncheckedUpdateManyWithoutUsuarioNestedInput
   comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
   foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
@@ -1130,6 +1144,34 @@ export type UsuarioUpdateOneRequiredWithoutAprendizajeAdaptativoAlumnoNestedInpu
   update?: Prisma.XOR<Prisma.XOR<Prisma.UsuarioUpdateToOneWithWhereWithoutAprendizajeAdaptativoAlumnoInput, Prisma.UsuarioUpdateWithoutAprendizajeAdaptativoAlumnoInput>, Prisma.UsuarioUncheckedUpdateWithoutAprendizajeAdaptativoAlumnoInput>
 }
 
+export type UsuarioCreateNestedOneWithoutConversacionesChatInput = {
+  create?: Prisma.XOR<Prisma.UsuarioCreateWithoutConversacionesChatInput, Prisma.UsuarioUncheckedCreateWithoutConversacionesChatInput>
+  connectOrCreate?: Prisma.UsuarioCreateOrConnectWithoutConversacionesChatInput
+  connect?: Prisma.UsuarioWhereUniqueInput
+}
+
+export type UsuarioUpdateOneRequiredWithoutConversacionesChatNestedInput = {
+  create?: Prisma.XOR<Prisma.UsuarioCreateWithoutConversacionesChatInput, Prisma.UsuarioUncheckedCreateWithoutConversacionesChatInput>
+  connectOrCreate?: Prisma.UsuarioCreateOrConnectWithoutConversacionesChatInput
+  upsert?: Prisma.UsuarioUpsertWithoutConversacionesChatInput
+  connect?: Prisma.UsuarioWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UsuarioUpdateToOneWithWhereWithoutConversacionesChatInput, Prisma.UsuarioUpdateWithoutConversacionesChatInput>, Prisma.UsuarioUncheckedUpdateWithoutConversacionesChatInput>
+}
+
+export type UsuarioCreateNestedOneWithoutInteresesUsuarioInput = {
+  create?: Prisma.XOR<Prisma.UsuarioCreateWithoutInteresesUsuarioInput, Prisma.UsuarioUncheckedCreateWithoutInteresesUsuarioInput>
+  connectOrCreate?: Prisma.UsuarioCreateOrConnectWithoutInteresesUsuarioInput
+  connect?: Prisma.UsuarioWhereUniqueInput
+}
+
+export type UsuarioUpdateOneRequiredWithoutInteresesUsuarioNestedInput = {
+  create?: Prisma.XOR<Prisma.UsuarioCreateWithoutInteresesUsuarioInput, Prisma.UsuarioUncheckedCreateWithoutInteresesUsuarioInput>
+  connectOrCreate?: Prisma.UsuarioCreateOrConnectWithoutInteresesUsuarioInput
+  upsert?: Prisma.UsuarioUpsertWithoutInteresesUsuarioInput
+  connect?: Prisma.UsuarioWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UsuarioUpdateToOneWithWhereWithoutInteresesUsuarioInput, Prisma.UsuarioUpdateWithoutInteresesUsuarioInput>, Prisma.UsuarioUncheckedUpdateWithoutInteresesUsuarioInput>
+}
+
 export type UsuarioCreateWithoutInstitucionInput = {
   nombres: string
   apellidos: string
@@ -1150,6 +1192,8 @@ export type UsuarioCreateWithoutInstitucionInput = {
   auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
   calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
+  conversacionesChat?: Prisma.ConversacionChatCreateNestedManyWithoutUsuarioInput
+  interesesUsuario?: Prisma.InteresUsuarioCreateNestedManyWithoutUsuarioInput
   comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
   foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
@@ -1187,6 +1231,8 @@ export type UsuarioUncheckedCreateWithoutInstitucionInput = {
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutUsuarioInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutUsuarioInput
+  conversacionesChat?: Prisma.ConversacionChatUncheckedCreateNestedManyWithoutUsuarioInput
+  interesesUsuario?: Prisma.InteresUsuarioUncheckedCreateNestedManyWithoutUsuarioInput
   comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
   foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
@@ -1268,6 +1314,8 @@ export type UsuarioCreateWithoutRolInput = {
   auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
   calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
+  conversacionesChat?: Prisma.ConversacionChatCreateNestedManyWithoutUsuarioInput
+  interesesUsuario?: Prisma.InteresUsuarioCreateNestedManyWithoutUsuarioInput
   comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
   foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
@@ -1305,6 +1353,8 @@ export type UsuarioUncheckedCreateWithoutRolInput = {
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutUsuarioInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutUsuarioInput
+  conversacionesChat?: Prisma.ConversacionChatUncheckedCreateNestedManyWithoutUsuarioInput
+  interesesUsuario?: Prisma.InteresUsuarioUncheckedCreateNestedManyWithoutUsuarioInput
   comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
   foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
@@ -1363,6 +1413,8 @@ export type UsuarioCreateWithoutGradoEscolarInput = {
   auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
   calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
+  conversacionesChat?: Prisma.ConversacionChatCreateNestedManyWithoutUsuarioInput
+  interesesUsuario?: Prisma.InteresUsuarioCreateNestedManyWithoutUsuarioInput
   comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
   foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
@@ -1400,6 +1452,8 @@ export type UsuarioUncheckedCreateWithoutGradoEscolarInput = {
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutUsuarioInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutUsuarioInput
+  conversacionesChat?: Prisma.ConversacionChatUncheckedCreateNestedManyWithoutUsuarioInput
+  interesesUsuario?: Prisma.InteresUsuarioUncheckedCreateNestedManyWithoutUsuarioInput
   comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
   foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
@@ -1458,6 +1512,8 @@ export type UsuarioCreateWithoutForosInput = {
   auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
   calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
+  conversacionesChat?: Prisma.ConversacionChatCreateNestedManyWithoutUsuarioInput
+  interesesUsuario?: Prisma.InteresUsuarioCreateNestedManyWithoutUsuarioInput
   comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
   actividadesCreadas?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutCreadorInput
@@ -1496,6 +1552,8 @@ export type UsuarioUncheckedCreateWithoutForosInput = {
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutUsuarioInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutUsuarioInput
+  conversacionesChat?: Prisma.ConversacionChatUncheckedCreateNestedManyWithoutUsuarioInput
+  interesesUsuario?: Prisma.InteresUsuarioUncheckedCreateNestedManyWithoutUsuarioInput
   comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
   actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutCreadorInput
@@ -1543,6 +1601,8 @@ export type UsuarioUpdateWithoutForosInput = {
   auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
+  conversacionesChat?: Prisma.ConversacionChatUpdateManyWithoutUsuarioNestedInput
+  interesesUsuario?: Prisma.InteresUsuarioUpdateManyWithoutUsuarioNestedInput
   comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
   actividadesCreadas?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutCreadorNestedInput
@@ -1581,6 +1641,8 @@ export type UsuarioUncheckedUpdateWithoutForosInput = {
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutUsuarioNestedInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutUsuarioNestedInput
+  conversacionesChat?: Prisma.ConversacionChatUncheckedUpdateManyWithoutUsuarioNestedInput
+  interesesUsuario?: Prisma.InteresUsuarioUncheckedUpdateManyWithoutUsuarioNestedInput
   comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
   actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutCreadorNestedInput
@@ -1612,6 +1674,8 @@ export type UsuarioCreateWithoutComentariosForoInput = {
   auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
   calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
+  conversacionesChat?: Prisma.ConversacionChatCreateNestedManyWithoutUsuarioInput
+  interesesUsuario?: Prisma.InteresUsuarioCreateNestedManyWithoutUsuarioInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
   foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
   actividadesCreadas?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutCreadorInput
@@ -1650,6 +1714,8 @@ export type UsuarioUncheckedCreateWithoutComentariosForoInput = {
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutUsuarioInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutUsuarioInput
+  conversacionesChat?: Prisma.ConversacionChatUncheckedCreateNestedManyWithoutUsuarioInput
+  interesesUsuario?: Prisma.InteresUsuarioUncheckedCreateNestedManyWithoutUsuarioInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
   foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
   actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutCreadorInput
@@ -1697,6 +1763,8 @@ export type UsuarioUpdateWithoutComentariosForoInput = {
   auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
+  conversacionesChat?: Prisma.ConversacionChatUpdateManyWithoutUsuarioNestedInput
+  interesesUsuario?: Prisma.InteresUsuarioUpdateManyWithoutUsuarioNestedInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
   foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
   actividadesCreadas?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutCreadorNestedInput
@@ -1735,6 +1803,8 @@ export type UsuarioUncheckedUpdateWithoutComentariosForoInput = {
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutUsuarioNestedInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutUsuarioNestedInput
+  conversacionesChat?: Prisma.ConversacionChatUncheckedUpdateManyWithoutUsuarioNestedInput
+  interesesUsuario?: Prisma.InteresUsuarioUncheckedUpdateManyWithoutUsuarioNestedInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
   foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
   actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutCreadorNestedInput
@@ -1766,6 +1836,8 @@ export type UsuarioCreateWithoutRecursosInput = {
   auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
   calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
+  conversacionesChat?: Prisma.ConversacionChatCreateNestedManyWithoutUsuarioInput
+  interesesUsuario?: Prisma.InteresUsuarioCreateNestedManyWithoutUsuarioInput
   comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
   foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
@@ -1804,6 +1876,8 @@ export type UsuarioUncheckedCreateWithoutRecursosInput = {
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutUsuarioInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutUsuarioInput
+  conversacionesChat?: Prisma.ConversacionChatUncheckedCreateNestedManyWithoutUsuarioInput
+  interesesUsuario?: Prisma.InteresUsuarioUncheckedCreateNestedManyWithoutUsuarioInput
   comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
   foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
@@ -1851,6 +1925,8 @@ export type UsuarioUpdateWithoutRecursosInput = {
   auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
+  conversacionesChat?: Prisma.ConversacionChatUpdateManyWithoutUsuarioNestedInput
+  interesesUsuario?: Prisma.InteresUsuarioUpdateManyWithoutUsuarioNestedInput
   comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
   foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
@@ -1889,6 +1965,8 @@ export type UsuarioUncheckedUpdateWithoutRecursosInput = {
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutUsuarioNestedInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutUsuarioNestedInput
+  conversacionesChat?: Prisma.ConversacionChatUncheckedUpdateManyWithoutUsuarioNestedInput
+  interesesUsuario?: Prisma.InteresUsuarioUncheckedUpdateManyWithoutUsuarioNestedInput
   comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
   foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
@@ -1919,6 +1997,8 @@ export type UsuarioCreateWithoutCalificacionesUsoIaInput = {
   asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeCreateNestedManyWithoutUsuarioInput
   auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
   calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
+  conversacionesChat?: Prisma.ConversacionChatCreateNestedManyWithoutUsuarioInput
+  interesesUsuario?: Prisma.InteresUsuarioCreateNestedManyWithoutUsuarioInput
   comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
   foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
@@ -1957,6 +2037,8 @@ export type UsuarioUncheckedCreateWithoutCalificacionesUsoIaInput = {
   asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutUsuarioInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
+  conversacionesChat?: Prisma.ConversacionChatUncheckedCreateNestedManyWithoutUsuarioInput
+  interesesUsuario?: Prisma.InteresUsuarioUncheckedCreateNestedManyWithoutUsuarioInput
   comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
   foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
@@ -2004,6 +2086,8 @@ export type UsuarioUpdateWithoutCalificacionesUsoIaInput = {
   asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUpdateManyWithoutUsuarioNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
+  conversacionesChat?: Prisma.ConversacionChatUpdateManyWithoutUsuarioNestedInput
+  interesesUsuario?: Prisma.InteresUsuarioUpdateManyWithoutUsuarioNestedInput
   comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
   foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
@@ -2042,6 +2126,8 @@ export type UsuarioUncheckedUpdateWithoutCalificacionesUsoIaInput = {
   asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutUsuarioNestedInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
+  conversacionesChat?: Prisma.ConversacionChatUncheckedUpdateManyWithoutUsuarioNestedInput
+  interesesUsuario?: Prisma.InteresUsuarioUncheckedUpdateManyWithoutUsuarioNestedInput
   comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
   foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
@@ -2074,6 +2160,8 @@ export type UsuarioCreateWithoutProyectosDocenteInput = {
   auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
   calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
+  conversacionesChat?: Prisma.ConversacionChatCreateNestedManyWithoutUsuarioInput
+  interesesUsuario?: Prisma.InteresUsuarioCreateNestedManyWithoutUsuarioInput
   comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
   foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
@@ -2112,6 +2200,8 @@ export type UsuarioUncheckedCreateWithoutProyectosDocenteInput = {
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutUsuarioInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutUsuarioInput
+  conversacionesChat?: Prisma.ConversacionChatUncheckedCreateNestedManyWithoutUsuarioInput
+  interesesUsuario?: Prisma.InteresUsuarioUncheckedCreateNestedManyWithoutUsuarioInput
   comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
   foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
@@ -2159,6 +2249,8 @@ export type UsuarioUpdateWithoutProyectosDocenteInput = {
   auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
+  conversacionesChat?: Prisma.ConversacionChatUpdateManyWithoutUsuarioNestedInput
+  interesesUsuario?: Prisma.InteresUsuarioUpdateManyWithoutUsuarioNestedInput
   comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
   foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
@@ -2197,6 +2289,8 @@ export type UsuarioUncheckedUpdateWithoutProyectosDocenteInput = {
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutUsuarioNestedInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutUsuarioNestedInput
+  conversacionesChat?: Prisma.ConversacionChatUncheckedUpdateManyWithoutUsuarioNestedInput
+  interesesUsuario?: Prisma.InteresUsuarioUncheckedUpdateManyWithoutUsuarioNestedInput
   comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
   foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
@@ -2228,6 +2322,8 @@ export type UsuarioCreateWithoutProyectosIntegranteInput = {
   auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
   calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
+  conversacionesChat?: Prisma.ConversacionChatCreateNestedManyWithoutUsuarioInput
+  interesesUsuario?: Prisma.InteresUsuarioCreateNestedManyWithoutUsuarioInput
   comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
   foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
@@ -2266,6 +2362,8 @@ export type UsuarioUncheckedCreateWithoutProyectosIntegranteInput = {
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutUsuarioInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutUsuarioInput
+  conversacionesChat?: Prisma.ConversacionChatUncheckedCreateNestedManyWithoutUsuarioInput
+  interesesUsuario?: Prisma.InteresUsuarioUncheckedCreateNestedManyWithoutUsuarioInput
   comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
   foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
@@ -2313,6 +2411,8 @@ export type UsuarioUpdateWithoutProyectosIntegranteInput = {
   auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
+  conversacionesChat?: Prisma.ConversacionChatUpdateManyWithoutUsuarioNestedInput
+  interesesUsuario?: Prisma.InteresUsuarioUpdateManyWithoutUsuarioNestedInput
   comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
   foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
@@ -2351,6 +2451,8 @@ export type UsuarioUncheckedUpdateWithoutProyectosIntegranteInput = {
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutUsuarioNestedInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutUsuarioNestedInput
+  conversacionesChat?: Prisma.ConversacionChatUncheckedUpdateManyWithoutUsuarioNestedInput
+  interesesUsuario?: Prisma.InteresUsuarioUncheckedUpdateManyWithoutUsuarioNestedInput
   comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
   foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
@@ -2382,6 +2484,8 @@ export type UsuarioCreateWithoutActividadesCreadasInput = {
   auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
   calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
+  conversacionesChat?: Prisma.ConversacionChatCreateNestedManyWithoutUsuarioInput
+  interesesUsuario?: Prisma.InteresUsuarioCreateNestedManyWithoutUsuarioInput
   comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
   foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
@@ -2420,6 +2524,8 @@ export type UsuarioUncheckedCreateWithoutActividadesCreadasInput = {
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutUsuarioInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutUsuarioInput
+  conversacionesChat?: Prisma.ConversacionChatUncheckedCreateNestedManyWithoutUsuarioInput
+  interesesUsuario?: Prisma.InteresUsuarioUncheckedCreateNestedManyWithoutUsuarioInput
   comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
   foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
@@ -2456,6 +2562,8 @@ export type UsuarioCreateWithoutActividadesResponsableInput = {
   auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
   calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
+  conversacionesChat?: Prisma.ConversacionChatCreateNestedManyWithoutUsuarioInput
+  interesesUsuario?: Prisma.InteresUsuarioCreateNestedManyWithoutUsuarioInput
   comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
   foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
@@ -2494,6 +2602,8 @@ export type UsuarioUncheckedCreateWithoutActividadesResponsableInput = {
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutUsuarioInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutUsuarioInput
+  conversacionesChat?: Prisma.ConversacionChatUncheckedCreateNestedManyWithoutUsuarioInput
+  interesesUsuario?: Prisma.InteresUsuarioUncheckedCreateNestedManyWithoutUsuarioInput
   comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
   foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
@@ -2541,6 +2651,8 @@ export type UsuarioUpdateWithoutActividadesCreadasInput = {
   auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
+  conversacionesChat?: Prisma.ConversacionChatUpdateManyWithoutUsuarioNestedInput
+  interesesUsuario?: Prisma.InteresUsuarioUpdateManyWithoutUsuarioNestedInput
   comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
   foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
@@ -2579,6 +2691,8 @@ export type UsuarioUncheckedUpdateWithoutActividadesCreadasInput = {
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutUsuarioNestedInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutUsuarioNestedInput
+  conversacionesChat?: Prisma.ConversacionChatUncheckedUpdateManyWithoutUsuarioNestedInput
+  interesesUsuario?: Prisma.InteresUsuarioUncheckedUpdateManyWithoutUsuarioNestedInput
   comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
   foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
@@ -2621,6 +2735,8 @@ export type UsuarioUpdateWithoutActividadesResponsableInput = {
   auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
+  conversacionesChat?: Prisma.ConversacionChatUpdateManyWithoutUsuarioNestedInput
+  interesesUsuario?: Prisma.InteresUsuarioUpdateManyWithoutUsuarioNestedInput
   comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
   foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
@@ -2659,6 +2775,8 @@ export type UsuarioUncheckedUpdateWithoutActividadesResponsableInput = {
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutUsuarioNestedInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutUsuarioNestedInput
+  conversacionesChat?: Prisma.ConversacionChatUncheckedUpdateManyWithoutUsuarioNestedInput
+  interesesUsuario?: Prisma.InteresUsuarioUncheckedUpdateManyWithoutUsuarioNestedInput
   comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
   foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
@@ -2690,6 +2808,8 @@ export type UsuarioCreateWithoutEvidenciasAulaInput = {
   auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
   calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
+  conversacionesChat?: Prisma.ConversacionChatCreateNestedManyWithoutUsuarioInput
+  interesesUsuario?: Prisma.InteresUsuarioCreateNestedManyWithoutUsuarioInput
   comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
   foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
@@ -2728,6 +2848,8 @@ export type UsuarioUncheckedCreateWithoutEvidenciasAulaInput = {
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutUsuarioInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutUsuarioInput
+  conversacionesChat?: Prisma.ConversacionChatUncheckedCreateNestedManyWithoutUsuarioInput
+  interesesUsuario?: Prisma.InteresUsuarioUncheckedCreateNestedManyWithoutUsuarioInput
   comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
   foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
@@ -2775,6 +2897,8 @@ export type UsuarioUpdateWithoutEvidenciasAulaInput = {
   auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
+  conversacionesChat?: Prisma.ConversacionChatUpdateManyWithoutUsuarioNestedInput
+  interesesUsuario?: Prisma.InteresUsuarioUpdateManyWithoutUsuarioNestedInput
   comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
   foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
@@ -2813,6 +2937,8 @@ export type UsuarioUncheckedUpdateWithoutEvidenciasAulaInput = {
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutUsuarioNestedInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutUsuarioNestedInput
+  conversacionesChat?: Prisma.ConversacionChatUncheckedUpdateManyWithoutUsuarioNestedInput
+  interesesUsuario?: Prisma.InteresUsuarioUncheckedUpdateManyWithoutUsuarioNestedInput
   comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
   foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
@@ -2844,6 +2970,8 @@ export type UsuarioCreateWithoutEntregasAulaInput = {
   auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
   calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
+  conversacionesChat?: Prisma.ConversacionChatCreateNestedManyWithoutUsuarioInput
+  interesesUsuario?: Prisma.InteresUsuarioCreateNestedManyWithoutUsuarioInput
   comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
   foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
@@ -2882,6 +3010,8 @@ export type UsuarioUncheckedCreateWithoutEntregasAulaInput = {
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutUsuarioInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutUsuarioInput
+  conversacionesChat?: Prisma.ConversacionChatUncheckedCreateNestedManyWithoutUsuarioInput
+  interesesUsuario?: Prisma.InteresUsuarioUncheckedCreateNestedManyWithoutUsuarioInput
   comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
   foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
@@ -2929,6 +3059,8 @@ export type UsuarioUpdateWithoutEntregasAulaInput = {
   auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
+  conversacionesChat?: Prisma.ConversacionChatUpdateManyWithoutUsuarioNestedInput
+  interesesUsuario?: Prisma.InteresUsuarioUpdateManyWithoutUsuarioNestedInput
   comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
   foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
@@ -2967,6 +3099,8 @@ export type UsuarioUncheckedUpdateWithoutEntregasAulaInput = {
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutUsuarioNestedInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutUsuarioNestedInput
+  conversacionesChat?: Prisma.ConversacionChatUncheckedUpdateManyWithoutUsuarioNestedInput
+  interesesUsuario?: Prisma.InteresUsuarioUncheckedUpdateManyWithoutUsuarioNestedInput
   comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
   foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
@@ -2997,6 +3131,8 @@ export type UsuarioCreateWithoutAuditoriaLogsInput = {
   asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeCreateNestedManyWithoutUsuarioInput
   calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
+  conversacionesChat?: Prisma.ConversacionChatCreateNestedManyWithoutUsuarioInput
+  interesesUsuario?: Prisma.InteresUsuarioCreateNestedManyWithoutUsuarioInput
   comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
   foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
@@ -3035,6 +3171,8 @@ export type UsuarioUncheckedCreateWithoutAuditoriaLogsInput = {
   asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutUsuarioInput
+  conversacionesChat?: Prisma.ConversacionChatUncheckedCreateNestedManyWithoutUsuarioInput
+  interesesUsuario?: Prisma.InteresUsuarioUncheckedCreateNestedManyWithoutUsuarioInput
   comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
   foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
@@ -3082,6 +3220,8 @@ export type UsuarioUpdateWithoutAuditoriaLogsInput = {
   asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUpdateManyWithoutUsuarioNestedInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
+  conversacionesChat?: Prisma.ConversacionChatUpdateManyWithoutUsuarioNestedInput
+  interesesUsuario?: Prisma.InteresUsuarioUpdateManyWithoutUsuarioNestedInput
   comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
   foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
@@ -3120,6 +3260,8 @@ export type UsuarioUncheckedUpdateWithoutAuditoriaLogsInput = {
   asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutUsuarioNestedInput
+  conversacionesChat?: Prisma.ConversacionChatUncheckedUpdateManyWithoutUsuarioNestedInput
+  interesesUsuario?: Prisma.InteresUsuarioUncheckedUpdateManyWithoutUsuarioNestedInput
   comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
   foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
@@ -3151,6 +3293,8 @@ export type UsuarioCreateWithoutCalificacionesRecursoInput = {
   asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeCreateNestedManyWithoutUsuarioInput
   auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
+  conversacionesChat?: Prisma.ConversacionChatCreateNestedManyWithoutUsuarioInput
+  interesesUsuario?: Prisma.InteresUsuarioCreateNestedManyWithoutUsuarioInput
   comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
   foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
@@ -3189,6 +3333,8 @@ export type UsuarioUncheckedCreateWithoutCalificacionesRecursoInput = {
   asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutUsuarioInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutUsuarioInput
+  conversacionesChat?: Prisma.ConversacionChatUncheckedCreateNestedManyWithoutUsuarioInput
+  interesesUsuario?: Prisma.InteresUsuarioUncheckedCreateNestedManyWithoutUsuarioInput
   comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
   foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
@@ -3236,6 +3382,8 @@ export type UsuarioUpdateWithoutCalificacionesRecursoInput = {
   asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUpdateManyWithoutUsuarioNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
+  conversacionesChat?: Prisma.ConversacionChatUpdateManyWithoutUsuarioNestedInput
+  interesesUsuario?: Prisma.InteresUsuarioUpdateManyWithoutUsuarioNestedInput
   comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
   foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
@@ -3274,6 +3422,8 @@ export type UsuarioUncheckedUpdateWithoutCalificacionesRecursoInput = {
   asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutUsuarioNestedInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutUsuarioNestedInput
+  conversacionesChat?: Prisma.ConversacionChatUncheckedUpdateManyWithoutUsuarioNestedInput
+  interesesUsuario?: Prisma.InteresUsuarioUncheckedUpdateManyWithoutUsuarioNestedInput
   comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
   foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
@@ -3305,6 +3455,8 @@ export type UsuarioCreateWithoutAsignacionesRutaAprendizajeInput = {
   auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
   calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
+  conversacionesChat?: Prisma.ConversacionChatCreateNestedManyWithoutUsuarioInput
+  interesesUsuario?: Prisma.InteresUsuarioCreateNestedManyWithoutUsuarioInput
   comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
   foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
@@ -3343,6 +3495,8 @@ export type UsuarioUncheckedCreateWithoutAsignacionesRutaAprendizajeInput = {
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutUsuarioInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutUsuarioInput
+  conversacionesChat?: Prisma.ConversacionChatUncheckedCreateNestedManyWithoutUsuarioInput
+  interesesUsuario?: Prisma.InteresUsuarioUncheckedCreateNestedManyWithoutUsuarioInput
   comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
   foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
@@ -3390,6 +3544,8 @@ export type UsuarioUpdateWithoutAsignacionesRutaAprendizajeInput = {
   auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
+  conversacionesChat?: Prisma.ConversacionChatUpdateManyWithoutUsuarioNestedInput
+  interesesUsuario?: Prisma.InteresUsuarioUpdateManyWithoutUsuarioNestedInput
   comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
   foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
@@ -3428,6 +3584,8 @@ export type UsuarioUncheckedUpdateWithoutAsignacionesRutaAprendizajeInput = {
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutUsuarioNestedInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutUsuarioNestedInput
+  conversacionesChat?: Prisma.ConversacionChatUncheckedUpdateManyWithoutUsuarioNestedInput
+  interesesUsuario?: Prisma.InteresUsuarioUncheckedUpdateManyWithoutUsuarioNestedInput
   comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
   foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
@@ -3460,6 +3618,8 @@ export type UsuarioCreateWithoutDiagnosticosAprendizajeInput = {
   auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
   calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
+  conversacionesChat?: Prisma.ConversacionChatCreateNestedManyWithoutUsuarioInput
+  interesesUsuario?: Prisma.InteresUsuarioCreateNestedManyWithoutUsuarioInput
   comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
   foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
   actividadesCreadas?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutCreadorInput
@@ -3498,6 +3658,8 @@ export type UsuarioUncheckedCreateWithoutDiagnosticosAprendizajeInput = {
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutUsuarioInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutUsuarioInput
+  conversacionesChat?: Prisma.ConversacionChatUncheckedCreateNestedManyWithoutUsuarioInput
+  interesesUsuario?: Prisma.InteresUsuarioUncheckedCreateNestedManyWithoutUsuarioInput
   comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
   foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
   actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutCreadorInput
@@ -3545,6 +3707,8 @@ export type UsuarioUpdateWithoutDiagnosticosAprendizajeInput = {
   auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
+  conversacionesChat?: Prisma.ConversacionChatUpdateManyWithoutUsuarioNestedInput
+  interesesUsuario?: Prisma.InteresUsuarioUpdateManyWithoutUsuarioNestedInput
   comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
   foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
   actividadesCreadas?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutCreadorNestedInput
@@ -3583,6 +3747,8 @@ export type UsuarioUncheckedUpdateWithoutDiagnosticosAprendizajeInput = {
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutUsuarioNestedInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutUsuarioNestedInput
+  conversacionesChat?: Prisma.ConversacionChatUncheckedUpdateManyWithoutUsuarioNestedInput
+  interesesUsuario?: Prisma.InteresUsuarioUncheckedUpdateManyWithoutUsuarioNestedInput
   comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
   foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
   actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutCreadorNestedInput
@@ -3613,6 +3779,8 @@ export type UsuarioCreateWithoutAprendizajeAdaptativoDocenteInput = {
   auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
   calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
+  conversacionesChat?: Prisma.ConversacionChatCreateNestedManyWithoutUsuarioInput
+  interesesUsuario?: Prisma.InteresUsuarioCreateNestedManyWithoutUsuarioInput
   comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
   foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
@@ -3651,6 +3819,8 @@ export type UsuarioUncheckedCreateWithoutAprendizajeAdaptativoDocenteInput = {
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutUsuarioInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutUsuarioInput
+  conversacionesChat?: Prisma.ConversacionChatUncheckedCreateNestedManyWithoutUsuarioInput
+  interesesUsuario?: Prisma.InteresUsuarioUncheckedCreateNestedManyWithoutUsuarioInput
   comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
   foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
@@ -3687,6 +3857,8 @@ export type UsuarioCreateWithoutAprendizajeAdaptativoAlumnoInput = {
   auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
   calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
+  conversacionesChat?: Prisma.ConversacionChatCreateNestedManyWithoutUsuarioInput
+  interesesUsuario?: Prisma.InteresUsuarioCreateNestedManyWithoutUsuarioInput
   comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
   foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
@@ -3725,6 +3897,8 @@ export type UsuarioUncheckedCreateWithoutAprendizajeAdaptativoAlumnoInput = {
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutUsuarioInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutUsuarioInput
+  conversacionesChat?: Prisma.ConversacionChatUncheckedCreateNestedManyWithoutUsuarioInput
+  interesesUsuario?: Prisma.InteresUsuarioUncheckedCreateNestedManyWithoutUsuarioInput
   comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
   foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
@@ -3772,6 +3946,8 @@ export type UsuarioUpdateWithoutAprendizajeAdaptativoDocenteInput = {
   auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
+  conversacionesChat?: Prisma.ConversacionChatUpdateManyWithoutUsuarioNestedInput
+  interesesUsuario?: Prisma.InteresUsuarioUpdateManyWithoutUsuarioNestedInput
   comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
   foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
@@ -3810,6 +3986,8 @@ export type UsuarioUncheckedUpdateWithoutAprendizajeAdaptativoDocenteInput = {
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutUsuarioNestedInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutUsuarioNestedInput
+  conversacionesChat?: Prisma.ConversacionChatUncheckedUpdateManyWithoutUsuarioNestedInput
+  interesesUsuario?: Prisma.InteresUsuarioUncheckedUpdateManyWithoutUsuarioNestedInput
   comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
   foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
@@ -3852,6 +4030,8 @@ export type UsuarioUpdateWithoutAprendizajeAdaptativoAlumnoInput = {
   auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
+  conversacionesChat?: Prisma.ConversacionChatUpdateManyWithoutUsuarioNestedInput
+  interesesUsuario?: Prisma.InteresUsuarioUpdateManyWithoutUsuarioNestedInput
   comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
   foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
@@ -3890,6 +4070,332 @@ export type UsuarioUncheckedUpdateWithoutAprendizajeAdaptativoAlumnoInput = {
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutUsuarioNestedInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutUsuarioNestedInput
+  conversacionesChat?: Prisma.ConversacionChatUncheckedUpdateManyWithoutUsuarioNestedInput
+  interesesUsuario?: Prisma.InteresUsuarioUncheckedUpdateManyWithoutUsuarioNestedInput
+  comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
+  foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutCreadorNestedInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutResponsableNestedInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedUpdateManyWithoutUsuarioNestedInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedUpdateManyWithoutUsuarioNestedInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedUpdateManyWithoutUsuarioNestedInput
+  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedUpdateManyWithoutDocenteNestedInput
+  recursos?: Prisma.RecursoUncheckedUpdateManyWithoutUsuarioCreadorNestedInput
+}
+
+export type UsuarioCreateWithoutConversacionesChatInput = {
+  nombres: string
+  apellidos: string
+  correo: string
+  tipoDocumento: string
+  documento: string
+  fechaNacimiento: Date | string
+  genero: string
+  foto?: string | null
+  contrasena: string
+  activo?: boolean
+  ultimoAcceso?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutDocenteInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutEstudianteInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeCreateNestedManyWithoutUsuarioInput
+  auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
+  interesesUsuario?: Prisma.InteresUsuarioCreateNestedManyWithoutUsuarioInput
+  comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
+  foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutCreadorInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutResponsableInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaCreateNestedManyWithoutUsuarioInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaCreateNestedManyWithoutUsuarioInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteCreateNestedManyWithoutUsuarioInput
+  proyectosDocente?: Prisma.ProyectoColaborativoCreateNestedManyWithoutDocenteInput
+  recursos?: Prisma.RecursoCreateNestedManyWithoutUsuarioCreadorInput
+  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutUsuariosInput
+  institucion: Prisma.InstitucionCreateNestedOneWithoutUsuariosInput
+  rol: Prisma.RolCreateNestedOneWithoutUsuariosInput
+}
+
+export type UsuarioUncheckedCreateWithoutConversacionesChatInput = {
+  id?: number
+  nombres: string
+  apellidos: string
+  correo: string
+  tipoDocumento: string
+  documento: string
+  fechaNacimiento: Date | string
+  genero: string
+  foto?: string | null
+  contrasena: string
+  activo?: boolean
+  ultimoAcceso?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  institucionId: number
+  rolId: number
+  gradoEscolarId?: number | null
+  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutDocenteInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutEstudianteInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
+  auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutUsuarioInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutUsuarioInput
+  interesesUsuario?: Prisma.InteresUsuarioUncheckedCreateNestedManyWithoutUsuarioInput
+  comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
+  foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutCreadorInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutResponsableInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedCreateNestedManyWithoutUsuarioInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedCreateNestedManyWithoutUsuarioInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedCreateNestedManyWithoutUsuarioInput
+  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedCreateNestedManyWithoutDocenteInput
+  recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutUsuarioCreadorInput
+}
+
+export type UsuarioCreateOrConnectWithoutConversacionesChatInput = {
+  where: Prisma.UsuarioWhereUniqueInput
+  create: Prisma.XOR<Prisma.UsuarioCreateWithoutConversacionesChatInput, Prisma.UsuarioUncheckedCreateWithoutConversacionesChatInput>
+}
+
+export type UsuarioUpsertWithoutConversacionesChatInput = {
+  update: Prisma.XOR<Prisma.UsuarioUpdateWithoutConversacionesChatInput, Prisma.UsuarioUncheckedUpdateWithoutConversacionesChatInput>
+  create: Prisma.XOR<Prisma.UsuarioCreateWithoutConversacionesChatInput, Prisma.UsuarioUncheckedCreateWithoutConversacionesChatInput>
+  where?: Prisma.UsuarioWhereInput
+}
+
+export type UsuarioUpdateToOneWithWhereWithoutConversacionesChatInput = {
+  where?: Prisma.UsuarioWhereInput
+  data: Prisma.XOR<Prisma.UsuarioUpdateWithoutConversacionesChatInput, Prisma.UsuarioUncheckedUpdateWithoutConversacionesChatInput>
+}
+
+export type UsuarioUpdateWithoutConversacionesChatInput = {
+  nombres?: Prisma.StringFieldUpdateOperationsInput | string
+  apellidos?: Prisma.StringFieldUpdateOperationsInput | string
+  correo?: Prisma.StringFieldUpdateOperationsInput | string
+  tipoDocumento?: Prisma.StringFieldUpdateOperationsInput | string
+  documento?: Prisma.StringFieldUpdateOperationsInput | string
+  fechaNacimiento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  genero?: Prisma.StringFieldUpdateOperationsInput | string
+  foto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contrasena?: Prisma.StringFieldUpdateOperationsInput | string
+  activo?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ultimoAcceso?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutDocenteNestedInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutEstudianteNestedInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUpdateManyWithoutUsuarioNestedInput
+  auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
+  interesesUsuario?: Prisma.InteresUsuarioUpdateManyWithoutUsuarioNestedInput
+  comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
+  foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutCreadorNestedInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutResponsableNestedInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaUpdateManyWithoutUsuarioNestedInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUpdateManyWithoutUsuarioNestedInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUpdateManyWithoutUsuarioNestedInput
+  proyectosDocente?: Prisma.ProyectoColaborativoUpdateManyWithoutDocenteNestedInput
+  recursos?: Prisma.RecursoUpdateManyWithoutUsuarioCreadorNestedInput
+  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutUsuariosNestedInput
+  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutUsuariosNestedInput
+  rol?: Prisma.RolUpdateOneRequiredWithoutUsuariosNestedInput
+}
+
+export type UsuarioUncheckedUpdateWithoutConversacionesChatInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  nombres?: Prisma.StringFieldUpdateOperationsInput | string
+  apellidos?: Prisma.StringFieldUpdateOperationsInput | string
+  correo?: Prisma.StringFieldUpdateOperationsInput | string
+  tipoDocumento?: Prisma.StringFieldUpdateOperationsInput | string
+  documento?: Prisma.StringFieldUpdateOperationsInput | string
+  fechaNacimiento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  genero?: Prisma.StringFieldUpdateOperationsInput | string
+  foto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contrasena?: Prisma.StringFieldUpdateOperationsInput | string
+  activo?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ultimoAcceso?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  institucionId?: Prisma.IntFieldUpdateOperationsInput | number
+  rolId?: Prisma.IntFieldUpdateOperationsInput | number
+  gradoEscolarId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutDocenteNestedInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutEstudianteNestedInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
+  auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutUsuarioNestedInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutUsuarioNestedInput
+  interesesUsuario?: Prisma.InteresUsuarioUncheckedUpdateManyWithoutUsuarioNestedInput
+  comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
+  foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutCreadorNestedInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedUpdateManyWithoutResponsableNestedInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedUpdateManyWithoutUsuarioNestedInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedUpdateManyWithoutUsuarioNestedInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedUpdateManyWithoutUsuarioNestedInput
+  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedUpdateManyWithoutDocenteNestedInput
+  recursos?: Prisma.RecursoUncheckedUpdateManyWithoutUsuarioCreadorNestedInput
+}
+
+export type UsuarioCreateWithoutInteresesUsuarioInput = {
+  nombres: string
+  apellidos: string
+  correo: string
+  tipoDocumento: string
+  documento: string
+  fechaNacimiento: Date | string
+  genero: string
+  foto?: string | null
+  contrasena: string
+  activo?: boolean
+  ultimoAcceso?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutDocenteInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoCreateNestedManyWithoutEstudianteInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeCreateNestedManyWithoutUsuarioInput
+  auditoriaLogs?: Prisma.AuditoriaLogCreateNestedManyWithoutUsuarioInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoCreateNestedManyWithoutUsuarioInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaCreateNestedManyWithoutUsuarioInput
+  conversacionesChat?: Prisma.ConversacionChatCreateNestedManyWithoutUsuarioInput
+  comentariosForo?: Prisma.ComentarioForoCreateNestedManyWithoutUsuarioInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeCreateNestedManyWithoutUsuarioInput
+  foros?: Prisma.ForoCreateNestedManyWithoutUsuarioInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutCreadorInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadCreateNestedManyWithoutResponsableInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaCreateNestedManyWithoutUsuarioInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaCreateNestedManyWithoutUsuarioInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteCreateNestedManyWithoutUsuarioInput
+  proyectosDocente?: Prisma.ProyectoColaborativoCreateNestedManyWithoutDocenteInput
+  recursos?: Prisma.RecursoCreateNestedManyWithoutUsuarioCreadorInput
+  gradoEscolar?: Prisma.GradoEscolarCreateNestedOneWithoutUsuariosInput
+  institucion: Prisma.InstitucionCreateNestedOneWithoutUsuariosInput
+  rol: Prisma.RolCreateNestedOneWithoutUsuariosInput
+}
+
+export type UsuarioUncheckedCreateWithoutInteresesUsuarioInput = {
+  id?: number
+  nombres: string
+  apellidos: string
+  correo: string
+  tipoDocumento: string
+  documento: string
+  fechaNacimiento: Date | string
+  genero: string
+  foto?: string | null
+  contrasena: string
+  activo?: boolean
+  ultimoAcceso?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  institucionId: number
+  rolId: number
+  gradoEscolarId?: number | null
+  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutDocenteInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedCreateNestedManyWithoutEstudianteInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
+  auditoriaLogs?: Prisma.AuditoriaLogUncheckedCreateNestedManyWithoutUsuarioInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedCreateNestedManyWithoutUsuarioInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedCreateNestedManyWithoutUsuarioInput
+  conversacionesChat?: Prisma.ConversacionChatUncheckedCreateNestedManyWithoutUsuarioInput
+  comentariosForo?: Prisma.ComentarioForoUncheckedCreateNestedManyWithoutUsuarioInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedCreateNestedManyWithoutUsuarioInput
+  foros?: Prisma.ForoUncheckedCreateNestedManyWithoutUsuarioInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutCreadorInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUncheckedCreateNestedManyWithoutResponsableInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaUncheckedCreateNestedManyWithoutUsuarioInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUncheckedCreateNestedManyWithoutUsuarioInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUncheckedCreateNestedManyWithoutUsuarioInput
+  proyectosDocente?: Prisma.ProyectoColaborativoUncheckedCreateNestedManyWithoutDocenteInput
+  recursos?: Prisma.RecursoUncheckedCreateNestedManyWithoutUsuarioCreadorInput
+}
+
+export type UsuarioCreateOrConnectWithoutInteresesUsuarioInput = {
+  where: Prisma.UsuarioWhereUniqueInput
+  create: Prisma.XOR<Prisma.UsuarioCreateWithoutInteresesUsuarioInput, Prisma.UsuarioUncheckedCreateWithoutInteresesUsuarioInput>
+}
+
+export type UsuarioUpsertWithoutInteresesUsuarioInput = {
+  update: Prisma.XOR<Prisma.UsuarioUpdateWithoutInteresesUsuarioInput, Prisma.UsuarioUncheckedUpdateWithoutInteresesUsuarioInput>
+  create: Prisma.XOR<Prisma.UsuarioCreateWithoutInteresesUsuarioInput, Prisma.UsuarioUncheckedCreateWithoutInteresesUsuarioInput>
+  where?: Prisma.UsuarioWhereInput
+}
+
+export type UsuarioUpdateToOneWithWhereWithoutInteresesUsuarioInput = {
+  where?: Prisma.UsuarioWhereInput
+  data: Prisma.XOR<Prisma.UsuarioUpdateWithoutInteresesUsuarioInput, Prisma.UsuarioUncheckedUpdateWithoutInteresesUsuarioInput>
+}
+
+export type UsuarioUpdateWithoutInteresesUsuarioInput = {
+  nombres?: Prisma.StringFieldUpdateOperationsInput | string
+  apellidos?: Prisma.StringFieldUpdateOperationsInput | string
+  correo?: Prisma.StringFieldUpdateOperationsInput | string
+  tipoDocumento?: Prisma.StringFieldUpdateOperationsInput | string
+  documento?: Prisma.StringFieldUpdateOperationsInput | string
+  fechaNacimiento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  genero?: Prisma.StringFieldUpdateOperationsInput | string
+  foto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contrasena?: Prisma.StringFieldUpdateOperationsInput | string
+  activo?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ultimoAcceso?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutDocenteNestedInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUpdateManyWithoutEstudianteNestedInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUpdateManyWithoutUsuarioNestedInput
+  auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
+  conversacionesChat?: Prisma.ConversacionChatUpdateManyWithoutUsuarioNestedInput
+  comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
+  diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
+  foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
+  actividadesCreadas?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutCreadorNestedInput
+  actividadesResponsable?: Prisma.ProyectoColaborativoActividadUpdateManyWithoutResponsableNestedInput
+  entregasAula?: Prisma.ProyectoColaborativoEntregaUpdateManyWithoutUsuarioNestedInput
+  evidenciasAula?: Prisma.ProyectoColaborativoEvidenciaUpdateManyWithoutUsuarioNestedInput
+  proyectosIntegrante?: Prisma.ProyectoColaborativoIntegranteUpdateManyWithoutUsuarioNestedInput
+  proyectosDocente?: Prisma.ProyectoColaborativoUpdateManyWithoutDocenteNestedInput
+  recursos?: Prisma.RecursoUpdateManyWithoutUsuarioCreadorNestedInput
+  gradoEscolar?: Prisma.GradoEscolarUpdateOneWithoutUsuariosNestedInput
+  institucion?: Prisma.InstitucionUpdateOneRequiredWithoutUsuariosNestedInput
+  rol?: Prisma.RolUpdateOneRequiredWithoutUsuariosNestedInput
+}
+
+export type UsuarioUncheckedUpdateWithoutInteresesUsuarioInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  nombres?: Prisma.StringFieldUpdateOperationsInput | string
+  apellidos?: Prisma.StringFieldUpdateOperationsInput | string
+  correo?: Prisma.StringFieldUpdateOperationsInput | string
+  tipoDocumento?: Prisma.StringFieldUpdateOperationsInput | string
+  documento?: Prisma.StringFieldUpdateOperationsInput | string
+  fechaNacimiento?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  genero?: Prisma.StringFieldUpdateOperationsInput | string
+  foto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contrasena?: Prisma.StringFieldUpdateOperationsInput | string
+  activo?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ultimoAcceso?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  institucionId?: Prisma.IntFieldUpdateOperationsInput | number
+  rolId?: Prisma.IntFieldUpdateOperationsInput | number
+  gradoEscolarId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  aprendizajeAdaptativoDocente?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutDocenteNestedInput
+  aprendizajeAdaptativoAlumno?: Prisma.AsignacionAprendizajeAdaptativoUncheckedUpdateManyWithoutEstudianteNestedInput
+  asignacionesRutaAprendizaje?: Prisma.AsignacionRutaAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
+  auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutUsuarioNestedInput
+  calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
+  calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutUsuarioNestedInput
+  conversacionesChat?: Prisma.ConversacionChatUncheckedUpdateManyWithoutUsuarioNestedInput
   comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
   foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
@@ -3941,6 +4447,8 @@ export type UsuarioUpdateWithoutInstitucionInput = {
   auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
+  conversacionesChat?: Prisma.ConversacionChatUpdateManyWithoutUsuarioNestedInput
+  interesesUsuario?: Prisma.InteresUsuarioUpdateManyWithoutUsuarioNestedInput
   comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
   foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
@@ -3978,6 +4486,8 @@ export type UsuarioUncheckedUpdateWithoutInstitucionInput = {
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutUsuarioNestedInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutUsuarioNestedInput
+  conversacionesChat?: Prisma.ConversacionChatUncheckedUpdateManyWithoutUsuarioNestedInput
+  interesesUsuario?: Prisma.InteresUsuarioUncheckedUpdateManyWithoutUsuarioNestedInput
   comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
   foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
@@ -4048,6 +4558,8 @@ export type UsuarioUpdateWithoutRolInput = {
   auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
+  conversacionesChat?: Prisma.ConversacionChatUpdateManyWithoutUsuarioNestedInput
+  interesesUsuario?: Prisma.InteresUsuarioUpdateManyWithoutUsuarioNestedInput
   comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
   foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
@@ -4085,6 +4597,8 @@ export type UsuarioUncheckedUpdateWithoutRolInput = {
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutUsuarioNestedInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutUsuarioNestedInput
+  conversacionesChat?: Prisma.ConversacionChatUncheckedUpdateManyWithoutUsuarioNestedInput
+  interesesUsuario?: Prisma.InteresUsuarioUncheckedUpdateManyWithoutUsuarioNestedInput
   comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
   foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
@@ -4155,6 +4669,8 @@ export type UsuarioUpdateWithoutGradoEscolarInput = {
   auditoriaLogs?: Prisma.AuditoriaLogUpdateManyWithoutUsuarioNestedInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUpdateManyWithoutUsuarioNestedInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUpdateManyWithoutUsuarioNestedInput
+  conversacionesChat?: Prisma.ConversacionChatUpdateManyWithoutUsuarioNestedInput
+  interesesUsuario?: Prisma.InteresUsuarioUpdateManyWithoutUsuarioNestedInput
   comentariosForo?: Prisma.ComentarioForoUpdateManyWithoutUsuarioNestedInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUpdateManyWithoutUsuarioNestedInput
   foros?: Prisma.ForoUpdateManyWithoutUsuarioNestedInput
@@ -4192,6 +4708,8 @@ export type UsuarioUncheckedUpdateWithoutGradoEscolarInput = {
   auditoriaLogs?: Prisma.AuditoriaLogUncheckedUpdateManyWithoutUsuarioNestedInput
   calificacionesRecurso?: Prisma.CalificacionRecursoUncheckedUpdateManyWithoutUsuarioNestedInput
   calificacionesUsoIa?: Prisma.CalificacionUsoIaUncheckedUpdateManyWithoutUsuarioNestedInput
+  conversacionesChat?: Prisma.ConversacionChatUncheckedUpdateManyWithoutUsuarioNestedInput
+  interesesUsuario?: Prisma.InteresUsuarioUncheckedUpdateManyWithoutUsuarioNestedInput
   comentariosForo?: Prisma.ComentarioForoUncheckedUpdateManyWithoutUsuarioNestedInput
   diagnosticosAprendizaje?: Prisma.DiagnosticoAprendizajeUncheckedUpdateManyWithoutUsuarioNestedInput
   foros?: Prisma.ForoUncheckedUpdateManyWithoutUsuarioNestedInput
@@ -4235,6 +4753,8 @@ export type UsuarioCountOutputType = {
   auditoriaLogs: number
   calificacionesRecurso: number
   calificacionesUsoIa: number
+  conversacionesChat: number
+  interesesUsuario: number
   comentariosForo: number
   diagnosticosAprendizaje: number
   foros: number
@@ -4254,6 +4774,8 @@ export type UsuarioCountOutputTypeSelect<ExtArgs extends runtime.Types.Extension
   auditoriaLogs?: boolean | UsuarioCountOutputTypeCountAuditoriaLogsArgs
   calificacionesRecurso?: boolean | UsuarioCountOutputTypeCountCalificacionesRecursoArgs
   calificacionesUsoIa?: boolean | UsuarioCountOutputTypeCountCalificacionesUsoIaArgs
+  conversacionesChat?: boolean | UsuarioCountOutputTypeCountConversacionesChatArgs
+  interesesUsuario?: boolean | UsuarioCountOutputTypeCountInteresesUsuarioArgs
   comentariosForo?: boolean | UsuarioCountOutputTypeCountComentariosForoArgs
   diagnosticosAprendizaje?: boolean | UsuarioCountOutputTypeCountDiagnosticosAprendizajeArgs
   foros?: boolean | UsuarioCountOutputTypeCountForosArgs
@@ -4316,6 +4838,20 @@ export type UsuarioCountOutputTypeCountCalificacionesRecursoArgs<ExtArgs extends
  */
 export type UsuarioCountOutputTypeCountCalificacionesUsoIaArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.CalificacionUsoIaWhereInput
+}
+
+/**
+ * UsuarioCountOutputType without action
+ */
+export type UsuarioCountOutputTypeCountConversacionesChatArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ConversacionChatWhereInput
+}
+
+/**
+ * UsuarioCountOutputType without action
+ */
+export type UsuarioCountOutputTypeCountInteresesUsuarioArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.InteresUsuarioWhereInput
 }
 
 /**
@@ -4413,6 +4949,8 @@ export type UsuarioSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   auditoriaLogs?: boolean | Prisma.Usuario$auditoriaLogsArgs<ExtArgs>
   calificacionesRecurso?: boolean | Prisma.Usuario$calificacionesRecursoArgs<ExtArgs>
   calificacionesUsoIa?: boolean | Prisma.Usuario$calificacionesUsoIaArgs<ExtArgs>
+  conversacionesChat?: boolean | Prisma.Usuario$conversacionesChatArgs<ExtArgs>
+  interesesUsuario?: boolean | Prisma.Usuario$interesesUsuarioArgs<ExtArgs>
   comentariosForo?: boolean | Prisma.Usuario$comentariosForoArgs<ExtArgs>
   diagnosticosAprendizaje?: boolean | Prisma.Usuario$diagnosticosAprendizajeArgs<ExtArgs>
   foros?: boolean | Prisma.Usuario$forosArgs<ExtArgs>
@@ -4503,6 +5041,8 @@ export type UsuarioInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   auditoriaLogs?: boolean | Prisma.Usuario$auditoriaLogsArgs<ExtArgs>
   calificacionesRecurso?: boolean | Prisma.Usuario$calificacionesRecursoArgs<ExtArgs>
   calificacionesUsoIa?: boolean | Prisma.Usuario$calificacionesUsoIaArgs<ExtArgs>
+  conversacionesChat?: boolean | Prisma.Usuario$conversacionesChatArgs<ExtArgs>
+  interesesUsuario?: boolean | Prisma.Usuario$interesesUsuarioArgs<ExtArgs>
   comentariosForo?: boolean | Prisma.Usuario$comentariosForoArgs<ExtArgs>
   diagnosticosAprendizaje?: boolean | Prisma.Usuario$diagnosticosAprendizajeArgs<ExtArgs>
   foros?: boolean | Prisma.Usuario$forosArgs<ExtArgs>
@@ -4538,6 +5078,8 @@ export type $UsuarioPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     auditoriaLogs: Prisma.$AuditoriaLogPayload<ExtArgs>[]
     calificacionesRecurso: Prisma.$CalificacionRecursoPayload<ExtArgs>[]
     calificacionesUsoIa: Prisma.$CalificacionUsoIaPayload<ExtArgs>[]
+    conversacionesChat: Prisma.$ConversacionChatPayload<ExtArgs>[]
+    interesesUsuario: Prisma.$InteresUsuarioPayload<ExtArgs>[]
     comentariosForo: Prisma.$ComentarioForoPayload<ExtArgs>[]
     diagnosticosAprendizaje: Prisma.$DiagnosticoAprendizajePayload<ExtArgs>[]
     foros: Prisma.$ForoPayload<ExtArgs>[]
@@ -4970,6 +5512,8 @@ export interface Prisma__UsuarioClient<T, Null = never, ExtArgs extends runtime.
   auditoriaLogs<T extends Prisma.Usuario$auditoriaLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$auditoriaLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AuditoriaLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   calificacionesRecurso<T extends Prisma.Usuario$calificacionesRecursoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$calificacionesRecursoArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CalificacionRecursoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   calificacionesUsoIa<T extends Prisma.Usuario$calificacionesUsoIaArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$calificacionesUsoIaArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CalificacionUsoIaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  conversacionesChat<T extends Prisma.Usuario$conversacionesChatArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$conversacionesChatArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ConversacionChatPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  interesesUsuario<T extends Prisma.Usuario$interesesUsuarioArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$interesesUsuarioArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InteresUsuarioPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   comentariosForo<T extends Prisma.Usuario$comentariosForoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$comentariosForoArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ComentarioForoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   diagnosticosAprendizaje<T extends Prisma.Usuario$diagnosticosAprendizajeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$diagnosticosAprendizajeArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DiagnosticoAprendizajePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   foros<T extends Prisma.Usuario$forosArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Usuario$forosArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ForoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -5571,6 +6115,54 @@ export type Usuario$calificacionesUsoIaArgs<ExtArgs extends runtime.Types.Extens
   take?: number
   skip?: number
   distinct?: Prisma.CalificacionUsoIaScalarFieldEnum | Prisma.CalificacionUsoIaScalarFieldEnum[]
+}
+
+/**
+ * Usuario.conversacionesChat
+ */
+export type Usuario$conversacionesChatArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ConversacionChat
+   */
+  select?: Prisma.ConversacionChatSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ConversacionChat
+   */
+  omit?: Prisma.ConversacionChatOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ConversacionChatInclude<ExtArgs> | null
+  where?: Prisma.ConversacionChatWhereInput
+  orderBy?: Prisma.ConversacionChatOrderByWithRelationInput | Prisma.ConversacionChatOrderByWithRelationInput[]
+  cursor?: Prisma.ConversacionChatWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ConversacionChatScalarFieldEnum | Prisma.ConversacionChatScalarFieldEnum[]
+}
+
+/**
+ * Usuario.interesesUsuario
+ */
+export type Usuario$interesesUsuarioArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the InteresUsuario
+   */
+  select?: Prisma.InteresUsuarioSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the InteresUsuario
+   */
+  omit?: Prisma.InteresUsuarioOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.InteresUsuarioInclude<ExtArgs> | null
+  where?: Prisma.InteresUsuarioWhereInput
+  orderBy?: Prisma.InteresUsuarioOrderByWithRelationInput | Prisma.InteresUsuarioOrderByWithRelationInput[]
+  cursor?: Prisma.InteresUsuarioWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.InteresUsuarioScalarFieldEnum | Prisma.InteresUsuarioScalarFieldEnum[]
 }
 
 /**

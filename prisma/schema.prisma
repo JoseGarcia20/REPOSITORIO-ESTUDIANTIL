@@ -26,6 +26,7 @@ model Institucion {
   updatedAt              DateTime                          @updatedAt
   aprendizajeAdaptativo  AsignacionAprendizajeAdaptativo[]
   auditoriaLogs          AuditoriaLog[]
+  conversacionesChat     ConversacionChat[]
   calificacionesUsoIa    CalificacionUsoIa[]
   categorias             Categoria[]
   foros                  Foro[]
@@ -95,6 +96,8 @@ model Usuario {
   auditoriaLogs                AuditoriaLog[]
   calificacionesRecurso        CalificacionRecurso[]
   calificacionesUsoIa          CalificacionUsoIa[]
+  conversacionesChat           ConversacionChat[]
+  interesesUsuario             InteresUsuario[]
   comentariosForo              ComentarioForo[]
   diagnosticosAprendizaje      DiagnosticoAprendizaje[]
   foros                        Foro[]
@@ -617,4 +620,35 @@ model AsignacionAprendizajeAdaptativo {
   @@index([fechaLimite])
   @@index([createdAt])
   @@map("asignaciones_aprendizaje_adaptativo")
+}
+
+model ConversacionChat {
+  id            Int         @id @default(autoincrement())
+  usuarioId     Int
+  institucionId Int
+  titulo        String?
+  resumen       String?
+  temas         Json?
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  usuario       Usuario     @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+  institucion   Institucion @relation(fields: [institucionId], references: [id], onDelete: Cascade)
+
+  @@index([usuarioId, updatedAt])
+  @@index([institucionId, createdAt])
+  @@map("conversaciones_chat")
+}
+
+model InteresUsuario {
+  id             Int      @id @default(autoincrement())
+  usuarioId      Int
+  tema           String
+  peso           Int      @default(1)
+  ultimaConsulta DateTime @default(now())
+  createdAt      DateTime @default(now())
+  usuario        Usuario  @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+
+  @@unique([usuarioId, tema])
+  @@index([usuarioId, peso])
+  @@map("intereses_usuarios")
 }
