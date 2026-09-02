@@ -38,8 +38,8 @@ async function bootstrap() {
 
   app.useGlobalFilters(new FiltroExcepcionesGlobal());
 
-  const puerto = Number(process.env.PORT || 3000);
-  await app.listen(puerto); //Confiigura el puerto en el que deseas que la aplicación escuche
+  const puerto = Number(process.env.PORT || 3000);    
+  await app.listen(puerto, '0.0.0.0'); //Configuracion del puerto en el que desee que la aplicación escuche
 }
 bootstrap();
 
